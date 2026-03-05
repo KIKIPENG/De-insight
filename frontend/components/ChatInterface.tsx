@@ -64,11 +64,16 @@ export default function ChatInterface() {
               const parsed = JSON.parse(data);
               if (parsed.content) {
                 assistantContent += parsed.content;
+                // 過濾 <think>...</think> 區塊
+                const display = assistantContent
+                  .replace(/<think>[\s\S]*?<\/think>/g, "")
+                  .replace(/<think>[\s\S]*/g, "")
+                  .trim();
                 setMessages((prev) => {
                   const updated = [...prev];
                   updated[updated.length - 1] = {
                     role: "assistant",
-                    content: assistantContent,
+                    content: display,
                   };
                   return updated;
                 });
