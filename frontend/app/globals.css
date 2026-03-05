@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg: #E8E8E4;
+  --color-text: #1A1A1A;
+  --color-accent: #0000FF;
+  --color-border: rgba(0, 0, 0, 0.15);
+  --color-border-strong: rgba(0, 0, 0, 0.75);
+  --color-muted: rgba(0, 0, 0, 0.4);
+  --font-mono: var(--font-ibm-plex-mono), var(--font-noto-sans-tc), monospace;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  line-height: 1.8;
+}
+
+::selection {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
