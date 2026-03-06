@@ -1,4 +1,4 @@
-"""Chat API 端點：SSE streaming"""
+"""Chat API 端點：Vercel AI SDK Data Stream Protocol"""
 
 import json
 
@@ -40,14 +40,21 @@ async def chat(request: ChatRequest):
     async def generate():
         try:
             async for chunk in chat_completion(messages):
-                data = json.dumps(
-                    {"content": chunk, "role": "assistant"},
-                    ensure_ascii=False,
-                )
-                yield f"data: {data}\n\n"
-            yield "data: [DONE]\n\n"
+                # Vercel AI SDK Data Stream Protocol: text part
+                yield f"0:{json.dumps(chunk, ensure_ascii=False)}\n"
+            # Finish signal
+            yield "d:{}\n"
         except Exception as e:
-            error_data = json.dumps({"error": str(e)}, ensure_ascii=False)
-            yield f"data: {error_data}\n\n"
+            error_data = json.dumps(
+                {"error": str(e)}, ensure_ascii=False
+            )
+            yield f"3:{error_data}\n"
 
-    return StreamingResponse(generate(), media_type="text/event-stream")
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={
+            "X-Vercel-AI-Data-Stream": "v1",
+            "Cache-Control": "no-cache",
+        },
+    )

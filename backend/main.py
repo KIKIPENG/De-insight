@@ -40,3 +40,15 @@ async def health():
     from services.llm import get_available_models
 
     return {"status": "ok", "models": get_available_models()}
+
+
+@app.post("/api/reload-env")
+async def reload_env():
+    """重新載入 .env，讓設定變更立即生效。"""
+    import os
+
+    import services.llm as llm_mod
+
+    load_dotenv(dotenv_path=env_path, override=True)
+    llm_mod.DEFAULT_MODEL = os.getenv("LLM_MODEL", "ollama/llama3.2")
+    return {"status": "ok", "model": llm_mod.DEFAULT_MODEL}
