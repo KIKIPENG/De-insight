@@ -8,7 +8,16 @@ from collections.abc import AsyncGenerator
 import httpx
 import litellm
 
-DEFAULT_MODEL = os.getenv("LLM_MODEL", "ollama/llama3.2")
+def _get_default_model() -> str:
+    """每次重新讀取 .env，避免快取舊值。"""
+    from pathlib import Path
+    env_path = Path(__file__).resolve().parent.parent.parent / ".env"
+    if env_path.exists():
+        for line in env_path.read_text().splitlines():
+            line = line.strip()
+            if line.startswith("LLM_MODEL="):
+                return line.split("=", 1)[1].strip()
+    return os.getenv("LLM_MODEL", "ollama/llama3.2")
 
 
 def _is_codex_model(model: str) -> bool:
@@ -97,7 +106,7 @@ async def chat_completion(
     model: str | None = None,
 ) -> AsyncGenerator[str, None]:
     """串流 LLM 回應，自動過濾 <think> 標籤。支援 Codex。"""
-    target_model = model or DEFAULT_MODEL
+    target_model = model or _get_default_model()
 
     # Codex 走獨立路徑
     if _is_codex_model(target_model):
@@ -110,10 +119,16 @@ async def chat_completion(
     inside_think = False
 
     try:
+        # 若有自訂 API base，傳給 LiteLLM
+        kwargs = {}
+        api_base = os.getenv("OPENAI_API_BASE", "")
+        if api_base and target_model.startswith("openai/"):
+            kwargs["api_base"] = api_base
         response = await litellm.acompletion(
             model=target_model,
             messages=messages,
             stream=True,
+            **kwargs,
         )
         async for chunk in response:
             delta = chunk.choices[0].delta

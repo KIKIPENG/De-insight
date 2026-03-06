@@ -20,6 +20,9 @@ out/
 .DS_Store
 Thumbs.db
 
+# Data (LightRAG + SQLite)
+data/
+
 # Planning files
 task_plan.md
 findings.md
