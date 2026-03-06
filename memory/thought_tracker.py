@@ -45,18 +45,21 @@ EXTRACT_PROMPT = """\
 2. question（問題）：使用者提出的深度問題，不是閒聊
 3. reaction（反應）：對作品、藝術家、風格的感性反應或身體感受
 
-每條記錄必須附帶一個 topic（主題分類），從以下選擇最接近的：
-藝術史、設計史、批判理論、美學、媒材技法、個人創作、當代藝術、
-建築、攝影、數位藝術、身體感知、資本主義、個人主義、後殖民、
-女性主義、機構批判、策展、教育
+每條記錄必須附帶：
+- topic（主題分類），從以下選擇最接近的：
+  藝術史、設計史、批判理論、美學、媒材技法、個人創作、當代藝術、
+  建築、攝影、數位藝術、身體感知、資本主義、個人主義、後殖民、
+  女性主義、機構批判、策展、教育
+  如果都不適合，用最精簡的詞自訂（2-4 字）。
 
-如果都不適合，用最精簡的詞自訂（2-4 字）。
+- category（理解面向），從以下四個選一個：
+  思考方式、美學偏好、創作問題、理論連結
 
 使用者的話：
 {user_text}
 
 回傳 JSON 陣列，格式：
-[{{"type": "insight"|"question"|"reaction", "content": "精簡摘要", "topic": "主題"}}]
+[{{"type": "insight"|"question"|"reaction", "content": "精簡摘要", "topic": "主題", "category": "思考方式"|"美學偏好"|"創作問題"|"理論連結"}}]
 
 如果沒有值得記錄的內容，回傳：[]
 只回傳 JSON，不要加任何解釋。
@@ -114,6 +117,7 @@ async def extract_memories(
                     "type": item["type"],
                     "content": item["content"],
                     "topic": item.get("topic", ""),
+                    "category": item.get("category", ""),
                 })
         return valid
     except (json.JSONDecodeError, KeyError):

@@ -102,6 +102,7 @@ KNOWLEDGE_INJECTION = """
 {knowledge_content}
 
 用這些內容時，找概念邏輯的相似性，不只是主題相關。
+引用知識庫概念時，用 [[概念名稱]] 標記（例如 [[班雅明的靈光]]）。
 """.strip()
 
 
@@ -126,6 +127,19 @@ INTERACTIVE_PROMPTS_GUIDE = """
 - 感性模式少用，一次最多一個標記
 """.strip()
 
+CONCEPT_MARKING_GUIDE = """
+# 知識庫概念標記
+
+當你引用了知識庫裡的概念或理論，用雙方括號標記：
+
+[[班雅明的靈光]]、[[布迪厄的慣習]]、[[規訓與懲罰]]
+
+規則：
+- 只標記確實來自知識庫的概念，不要標記一般知識
+- 標記的是概念名稱，不是整句話
+- 一個回應裡最多標記 5 個概念
+""".strip()
+
 CALLOUT_GUIDE = """
 # 回應格式（選用）
 
@@ -144,6 +158,7 @@ def get_system_prompt(mode: str = "emotional", memory_summary: str = "", knowled
     """組合完整系統提示詞。"""
     mode_block = EMOTIONAL_MODE if mode == "emotional" else RATIONAL_MODE
     prompt = (CURATOR_BASE + "\n\n" + INTERACTIVE_PROMPTS_GUIDE
+              + "\n\n" + CONCEPT_MARKING_GUIDE
               + "\n\n" + CALLOUT_GUIDE + "\n\n" + mode_block)
 
     if memory_summary:

@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS memories (
 
 _MIGRATE_TOPIC = "ALTER TABLE memories ADD COLUMN topic TEXT DEFAULT ''"
 _MIGRATE_PROJECT_ID = "ALTER TABLE memories ADD COLUMN project_id TEXT DEFAULT NULL"
+_MIGRATE_CATEGORY = "ALTER TABLE memories ADD COLUMN category TEXT DEFAULT ''"
 
 
 async def _get_db() -> aiosqlite.Connection:
@@ -38,6 +39,11 @@ async def _get_db() -> aiosqlite.Connection:
         await db.execute(_MIGRATE_PROJECT_ID)
     except Exception:
         pass  # already exists
+    # Migrate: add category column if missing
+    try:
+        await db.execute(_MIGRATE_CATEGORY)
+    except Exception:
+        pass  # already exists
     await db.commit()
     return db
 
@@ -50,14 +56,15 @@ def _row_to_dict(row: aiosqlite.Row) -> dict:
 
 async def add_memory(
     type: str, content: str, source: str = "", topic: str = "",
+    category: str = "",
     tags: list[str] | None = None, project_id: str | None = None,
 ) -> int:
     tags_json = json.dumps(tags or [], ensure_ascii=False)
     db = await _get_db()
     try:
         cursor = await db.execute(
-            "INSERT INTO memories (type, content, source, topic, tags, project_id) VALUES (?, ?, ?, ?, ?, ?)",
-            (type, content, source, topic, tags_json, project_id),
+            "INSERT INTO memories (type, content, source, topic, category, tags, project_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (type, content, source, topic, category, tags_json, project_id),
         )
         await db.commit()
         mem_id = cursor.lastrowid
@@ -77,7 +84,7 @@ async def add_memory(
         await db.close()
 
 
-async def get_memories(type: str | None = None, limit: int = 20, project_id: str | None = None) -> list[dict]:
+async def get_memories(type: str | None = None, limit: int = 20, project_id: str | None = None, category: str | None = None) -> list[dict]:
     db = await _get_db()
     try:
         conditions = []
@@ -88,6 +95,9 @@ async def get_memories(type: str | None = None, limit: int = 20, project_id: str
         if project_id:
             conditions.append("project_id = ?")
             params.append(project_id)
+        if category:
+            conditions.append("category = ?")
+            params.append(category)
         where = (" WHERE " + " AND ".join(conditions)) if conditions else ""
         params.append(limit)
         cursor = await db.execute(

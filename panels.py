@@ -6,7 +6,7 @@ from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.screen import ModalScreen
 from textual.widgets import Button, Input, Static, TextArea
 
-from memory.store import get_memories, delete_memory, get_topics, get_memories_by_topic, get_memory_stats
+from memory.store import get_memories, delete_memory, get_memory_stats
 
 
 # ── Right Panel Widgets ──────────────────────────────────────────────
@@ -36,6 +36,9 @@ class MemoryItem(Static):
             if result and result.startswith("discuss:"):
                 content = result.removeprefix("discuss:")
                 self.app._start_discussion_from_memory(content)
+            elif result and result.startswith("__insert__:"):
+                content = result[len("__insert__:"):]
+                self.app.fill_input(content)
 
         self.app.push_screen(MemoryDetailModal(self.mem), callback=on_result)
 
@@ -200,6 +203,8 @@ class MemoryDetailModal(ModalScreen[str | None]):
         with box:
             yield Static(mem["content"], id="mem-detail-content")
             meta_parts = []
+            if mem.get("category"):
+                meta_parts.append(f"分類: {mem['category']}")
             if topic:
                 meta_parts.append(f"主題: {topic}")
             if mem.get("source"):
@@ -217,6 +222,10 @@ class MemoryDetailModal(ModalScreen[str | None]):
                     classes="detail-action-btn",
                 )
                 yield Button(
+                    "插入對話", id="detail-insert",
+                    classes="detail-action-btn",
+                )
+                yield Button(
                     "[刪除]", id="btn-detail-del",
                     classes="detail-action-btn",
                 )
@@ -230,6 +239,9 @@ class MemoryDetailModal(ModalScreen[str | None]):
         if bid == "btn-discuss":
             # 回傳記憶內容，讓 TUI 開啟討論
             self.dismiss(f"discuss:{self._mem['content']}")
+        elif bid == "detail-insert":
+            content = self._mem.get("content", "")
+            self.dismiss(f"__insert__:{content}")
         elif bid == "btn-detail-del":
             self._do_delete()
 
@@ -271,17 +283,17 @@ class MemoryManageModal(ModalScreen[str | None]):
     }
     .filter-btn:hover { color: #fafafa; }
     .filter-btn.-active { color: #fafafa; background: #1a1a1a; }
-    /* topic pills */
-    #mem-topic-row {
-        height: auto; margin: 0 0 1 0;
+    /* category filter row */
+    #mem-category-row {
+        height: 1; margin: 0 0 1 0;
     }
-    .topic-pill {
+    .cat-btn {
         background: transparent; color: #484f58;
         border: none; height: 1; min-width: 0;
-        margin: 0 1 0 0; padding: 0;
+        margin: 0 1 0 0; padding: 0 1;
     }
-    .topic-pill:hover { color: #fafafa; }
-    .topic-pill.-active { color: #c9d1d9; }
+    .cat-btn:hover { color: #fafafa; }
+    .cat-btn.-active { color: #c9d1d9; background: #1a1a1a; }
     /* separator */
     .mm-sep {
         height: 1; margin: 0; color: #2a2a2a;
@@ -325,7 +337,7 @@ class MemoryManageModal(ModalScreen[str | None]):
     def __init__(self) -> None:
         super().__init__()
         self._filter_type: str = ""  # "" = all
-        self._filter_topic: str = ""  # "" = all
+        self._filter_category: str = ""  # "" = all
         self._all_mems: list[dict] = []
 
     def compose(self) -> ComposeResult:
@@ -338,7 +350,12 @@ class MemoryManageModal(ModalScreen[str | None]):
                 yield Button("💡洞見", id="flt-insight", classes="filter-btn", name="insight")
                 yield Button("❓問題", id="flt-question", classes="filter-btn", name="question")
                 yield Button("💭反應", id="flt-reaction", classes="filter-btn", name="reaction")
-            yield Horizontal(id="mem-topic-row")
+            with Horizontal(id="mem-category-row"):
+                yield Button("#全部", id="cat-all", classes="cat-btn -active", name="")
+                yield Button("#思考方式", id="cat-thinking", classes="cat-btn", name="思考方式")
+                yield Button("#美學偏好", id="cat-aesthetic", classes="cat-btn", name="美學偏好")
+                yield Button("#創作問題", id="cat-creation", classes="cat-btn", name="創作問題")
+                yield Button("#理論連結", id="cat-theory", classes="cat-btn", name="理論連結")
             yield Static("[dim #2a2a2a]" + "─" * 66 + "[/]", classes="mm-sep")
             yield VerticalScroll(id="mem-scroll")
             yield Button("← 回到對話", classes="back-btn")
@@ -362,23 +379,6 @@ class MemoryManageModal(ModalScreen[str | None]):
         except Exception:
             pass
 
-        # Topic pills
-        topics = await get_topics()
-        try:
-            topic_row = self.query_one("#mem-topic-row", Horizontal)
-            await topic_row.remove_children()
-            if topics:
-                await topic_row.mount(
-                    Button("#全部", id="topic-all", classes="topic-pill -active", name="")
-                )
-                for t in topics[:12]:
-                    cnt = by_topic.get(t, 0)
-                    await topic_row.mount(
-                        Button(f"#{t}({cnt})", classes="topic-pill", name=t)
-                    )
-        except Exception:
-            pass
-
         # Load memories
         self._all_mems = await get_memories(limit=100)
         await self._render_list()
@@ -394,8 +394,8 @@ class MemoryManageModal(ModalScreen[str | None]):
         # Apply filters
         if self._filter_type:
             mems = [m for m in mems if m["type"] == self._filter_type]
-        if self._filter_topic:
-            mems = [m for m in mems if m.get("topic") == self._filter_topic]
+        if self._filter_category:
+            mems = [m for m in mems if m.get("category") == self._filter_category]
 
         if not mems:
             await scroll.mount(Static("[dim #484f58]沒有符合的記憶[/]"))
@@ -440,10 +440,10 @@ class MemoryManageModal(ModalScreen[str | None]):
             self._apply_filter()
             return
 
-        # Topic filters
-        if event.button.has_class("topic-pill"):
-            self._filter_topic = name
-            for btn in self.query(".topic-pill"):
+        # Category filters
+        if event.button.has_class("cat-btn"):
+            self._filter_category = name
+            for btn in self.query(".cat-btn"):
                 btn.remove_class("-active")
             event.button.add_class("-active")
             self._apply_filter()
@@ -479,7 +479,7 @@ class _MemEntry(Horizontal):
 
     def on_click(self) -> None:
         def on_result(result: str | None) -> None:
-            if result and result.startswith("discuss:"):
+            if result and (result.startswith("discuss:") or result.startswith("__insert__:")):
                 # Bubble up to MemoryManageModal → TUI
                 modal = self.screen
                 if isinstance(modal, MemoryManageModal):

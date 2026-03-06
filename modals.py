@@ -1,4 +1,4 @@
-"""v0.3 Modals — ProjectModal, MemoryConfirmModal (style matches panels.py)."""
+"""v0.4a Modals — ProjectModal, MemoryConfirmModal, SourceModal."""
 
 from textual import work
 from textual.app import ComposeResult
@@ -218,6 +218,65 @@ class MemoryConfirmModal(ModalScreen):
         elif event.button.id == "memconf-skip":
             self.dismiss(None)
         elif event.button.has_class("back-btn"):
+            self.dismiss(None)
+
+    def action_close(self) -> None:
+        self.dismiss(None)
+
+
+# ── SourceModal ───────────────────────────────────────────────────
+
+class SourceModal(ModalScreen):
+    """知識庫來源檢視。"""
+
+    BINDINGS = [("escape", "close", "關閉")]
+
+    CSS = """
+    SourceModal { align: center middle; }
+    #source-box {
+        width: 72; height: auto; max-height: 85%; padding: 1 2;
+        border: round #3a3a3a; background: #0a0a0a;
+        border-title-color: #7dd3fc;
+    }
+    .source-item { height: auto; margin: 1 0; }
+    .source-title { color: #7dd3fc; }
+    .source-snippet {
+        color: #8b949e; padding: 0 0 0 2;
+        height: auto;
+        border-left: solid #2a2a2a;
+    }
+    .source-meta { color: #484f58; }
+    .src-sep { height: 1; color: #2a2a2a; }
+    """
+
+    def __init__(self, sources: list[dict]) -> None:
+        super().__init__()
+        self._sources = sources
+
+    def compose(self) -> ComposeResult:
+        box = Vertical(id="source-box")
+        box.border_title = "◇ 知識庫出處"
+        with box:
+            yield Static(f"[#6e7681]{len(self._sources)} 個來源[/]")
+            yield Static("[dim #2a2a2a]" + "─" * 66 + "[/]", classes="src-sep")
+            with VerticalScroll():
+                for i, s in enumerate(self._sources):
+                    with Vertical(classes="source-item"):
+                        yield Static(
+                            f"[{i+1}] {s.get('title', '未知來源')}",
+                            classes="source-title",
+                        )
+                        if s.get("snippet"):
+                            yield Static(s["snippet"], classes="source-snippet")
+                        if s.get("file"):
+                            yield Static(f"來源：{s['file']}", classes="source-meta")
+                    if i < len(self._sources) - 1:
+                        yield Static("[dim #2a2a2a]" + "─" * 66 + "[/]", classes="src-sep")
+            yield Static("[dim #2a2a2a]" + "─" * 66 + "[/]", classes="src-sep")
+            yield Button("← 回到對話", classes="back-btn")
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.has_class("back-btn"):
             self.dismiss(None)
 
     def action_close(self) -> None:

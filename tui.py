@@ -44,6 +44,7 @@ class AppState:
     current_conversation_id: str | None = None
     cached_memory_count: int = 0
     current_interactive_block: object = None  # InteractiveBlock | None
+    last_rag_sources: list[dict] = field(default_factory=list)
 
 LANCEDB_DIR = Path(__file__).parent / "data" / "lancedb"
 
@@ -458,20 +459,25 @@ class ActionLink(Static):
             self.app.action_save_memory_from_chat(node)
         elif self._action_name == "copy":
             self.app.action_copy_chatbox(node)
+        elif self._action_name == "view_sources":
+            self.app.action_view_sources()
 
 
 class ChatboxActions(Horizontal):
     """訊息下方的操作列。"""
 
-    def __init__(self, show_insight: bool = True, **kwargs) -> None:
+    def __init__(self, show_insight: bool = True, has_sources: bool = False, **kwargs) -> None:
         super().__init__(**kwargs)
         self._show_insight = show_insight
+        self._has_sources = has_sources
 
     def compose(self) -> ComposeResult:
         yield ActionLink("複製", "copy", classes="action-link")
         if self._show_insight:
             yield ActionLink("save insight", "save_insight", classes="action-link")
         yield ActionLink("記憶", "save_memory", classes="action-link")
+        if self._has_sources:
+            yield ActionLink("查看出處", "view_sources", classes="action-link source-link")
 
 
 class Chatbox(Vertical):
@@ -495,6 +501,8 @@ class Chatbox(Vertical):
         self._system = system
         self._streaming = streaming
         self._content = content
+        self._concepts: list[str] = []
+        self._has_sources: bool = False
         self.add_class(f"chatbox-{role}")
         self._breath_timer: Timer | None = None
         self._breath_frame = 0
@@ -514,14 +522,40 @@ class Chatbox(Vertical):
         text = re.sub(r'<<(SELECT|CONFIRM|INPUT|MULTI)[:：].*?>>', '', text, flags=re.DOTALL)
         return text
 
+    @staticmethod
+    def _parse_concept_marks(text: str) -> tuple[str, list[str], bool]:
+        """解析 [[概念]] 標記。回傳 (rendered_text, concepts_list, has_concepts)。
+        有概念時用 Rich markup（天藍色底線），無概念時原文不動。
+        """
+        import re
+        concepts = []
+        has = bool(re.search(r'\[\[.+?\]\]', text))
+        def replace(m):
+            concept = m.group(1)
+            concepts.append(concept)
+            return f"[underline #7dd3fc]{concept}[/underline #7dd3fc]"
+        rendered = re.sub(r'\[\[(.+?)\]\]', replace, text)
+        return rendered, concepts, has
+
     def compose(self) -> ComposeResult:
         if self._streaming:
             yield Static("", classes="chatbox-body stream-body", id="stream-text")
         else:
-            yield Markdown(self._clean_callouts(self._content), classes="chatbox-body")
+            cleaned = self._clean_callouts(self._content)
+            rendered, self._concepts, has_concepts = self._parse_concept_marks(cleaned)
+            if has_concepts:
+                yield Static(rendered, classes="chatbox-body")
+            else:
+                yield Markdown(rendered, classes="chatbox-body")
         if not self._system:
             if self.role == "assistant":
-                yield ChatboxActions(show_insight=True, classes="chatbox-actions")
+                self._has_sources = bool(
+                    getattr(self.app, 'state', None) and self.app.state.last_rag_sources
+                )
+                yield ChatboxActions(
+                    show_insight=True, has_sources=self._has_sources,
+                    classes="chatbox-actions",
+                )
             elif self.role == "user":
                 yield ChatboxActions(show_insight=False, classes="chatbox-actions")
 
@@ -538,9 +572,27 @@ class Chatbox(Vertical):
         self._streaming = False
         try:
             stream_el = self.query_one("#stream-text", Static)
-            md = Markdown(self._clean_callouts(self._content), classes="chatbox-body")
-            await self.mount(md, before=stream_el)
+            cleaned = self._clean_callouts(self._content)
+            rendered, self._concepts, has_concepts = self._parse_concept_marks(cleaned)
+            if has_concepts:
+                body = Static(rendered, classes="chatbox-body")
+            else:
+                body = Markdown(rendered, classes="chatbox-body")
+            await self.mount(body, before=stream_el)
             await stream_el.remove()
+            # Add source button if sources available
+            if self.role == "assistant" and not self._has_sources:
+                self._has_sources = bool(
+                    getattr(self.app, 'state', None) and self.app.state.last_rag_sources
+                )
+                if self._has_sources:
+                    try:
+                        actions = self.query_one(ChatboxActions)
+                        await actions.mount(
+                            ActionLink("查看出處", "view_sources", classes="action-link source-link")
+                        )
+                    except NoMatches:
+                        pass
         except NoMatches:
             pass
 
@@ -740,6 +792,14 @@ class DeInsightApp(App):
 
     Markdown MarkdownHorizontalRule {
         color: #30363d;
+    }
+
+    /* ── knowledge concept link ── */
+    ActionLink.source-link {
+        color: #7dd3fc;
+    }
+    ActionLink.source-link:hover {
+        color: #bae6fd;
     }
 
     /* ── thinking indicator ── */
@@ -1081,7 +1141,9 @@ class DeInsightApp(App):
             if not has_knowledge(project_id=_pid):
                 self.notify("知識庫為空，請先匯入文件 (ctrl+f)")
                 return
-            result = await query_knowledge(query)
+            result, sources = await query_knowledge(query)
+            if sources:
+                self.state.last_rag_sources = sources
             await self._update_research_panel(result)
         except Exception as e:
             self.notify(f"搜尋失敗: {e}")
@@ -1092,8 +1154,36 @@ class DeInsightApp(App):
             if result and result.startswith("discuss:"):
                 content = result.removeprefix("discuss:")
                 self._start_discussion_from_memory(content)
+            elif result and result.startswith("__insert__:"):
+                content = result[len("__insert__:"):]
+                self.action_close_modals()
+                self.fill_input(content)
 
         self.push_screen(MemoryManageModal(), callback=on_dismiss)
+
+    def action_close_modals(self) -> None:
+        """關閉所有開啟的 modal，回到對話。"""
+        while len(self.screen_stack) > 1:
+            self.pop_screen()
+
+    def action_view_sources(self) -> None:
+        """顯示知識庫來源 Modal。"""
+        sources = self.state.last_rag_sources
+        if sources:
+            from modals import SourceModal
+            self.push_screen(SourceModal(sources))
+        else:
+            self.notify("這則回應沒有知識庫來源", timeout=2)
+
+    def fill_input(self, text: str) -> None:
+        """把文字填入 ChatInput，保持游標在最後，不送出。"""
+        try:
+            chat_input = self.query_one("#chat-input", ChatInput)
+            chat_input.clear()
+            chat_input.insert(text)
+            chat_input.focus()
+        except Exception:
+            pass
 
     def _start_discussion_from_memory(self, memory_content: str) -> None:
         """用一條記憶開啟新的討論。"""
@@ -1605,6 +1695,7 @@ class DeInsightApp(App):
     @work(exclusive=True)
     async def _stream_response(self) -> None:
         self.is_loading = True
+        self.state.last_rag_sources = []  # Clear stale sources
         container = self.query_one("#messages", Vertical)
 
         # 立即建立 AI 回覆框（streaming 模式），呼吸燈開始
@@ -1647,7 +1738,7 @@ class DeInsightApp(App):
                     from rag.knowledge_graph import query_knowledge, has_knowledge
                     if has_knowledge(project_id=_pid):
                         is_deep = self.rag_mode == "deep"
-                        result = await query_knowledge(
+                        result, sources = await query_knowledge(
                             user_msg,
                             mode="hybrid" if is_deep else "naive",
                             context_only=not is_deep,
@@ -1655,6 +1746,8 @@ class DeInsightApp(App):
                         if result and len(result.strip()) > 10:
                             rag_context = f"\n\n[知識庫參考]\n{result[:2000]}"
                             await self._update_research_panel(result)
+                            if sources:
+                                self.state.last_rag_sources = sources
                 except Exception:
                     pass
 
@@ -1709,7 +1802,7 @@ class DeInsightApp(App):
                     from rag.knowledge_graph import query_knowledge, has_knowledge
                     if has_knowledge(project_id=_pid):
                         is_deep = self.rag_mode == "deep"
-                        result = await query_knowledge(
+                        result, sources = await query_knowledge(
                             user_msg,
                             mode="hybrid" if is_deep else "naive",
                             context_only=not is_deep,
@@ -1717,6 +1810,8 @@ class DeInsightApp(App):
                         if result and len(result.strip()) > 10:
                             ctx_parts.append(f"[知識庫參考]\n{result[:2000]}")
                             await self._update_research_panel(result)
+                            if sources:
+                                self.state.last_rag_sources = sources
                 except Exception:
                     pass
                 if ctx_parts:
@@ -1925,6 +2020,7 @@ class DeInsightApp(App):
                     content=item["content"],
                     source=item.get("source", ""),
                     topic=item.get("topic", ""),
+                    category=item.get("category", ""),
                     project_id=project_id,
                 )
         self.state.pending_memories.clear()
@@ -1972,6 +2068,7 @@ class DeInsightApp(App):
 
     @work(exclusive=False, thread=False)
     async def _send_as_user(self, text: str) -> None:
+        from textual.worker import WorkerCancelled
         if not text.strip():
             return
         self.state.interactive_depth += 1
@@ -1985,7 +2082,10 @@ class DeInsightApp(App):
                 await self._conv_store.add_message(
                     self.state.current_conversation_id, "user", text)
             worker = self._stream_response()
-            await worker.wait()
+            try:
+                await worker.wait()
+            except WorkerCancelled:
+                pass
         finally:
             self.state.interactive_depth -= 1
 
@@ -2066,13 +2166,15 @@ class DeInsightApp(App):
             from rag.knowledge_graph import query_knowledge, has_knowledge
             if has_knowledge(project_id=_pid):
                 is_deep = self.rag_mode == "deep"
-                result = await query_knowledge(
+                result, sources = await query_knowledge(
                     user_msg,
                     mode="hybrid" if is_deep else "naive",
                     context_only=not is_deep,
                 )
                 if result and len(result.strip()) > 10:
                     await self._update_research_panel(result)
+                    if sources:
+                        self.state.last_rag_sources = sources
                     augmented.insert(insert_idx, {
                         "role": "system",
                         "content": f"知識庫相關資訊：\n{result[:2000]}\n\n（以上為參考資料，請務必用繁體中文回覆使用者。）",

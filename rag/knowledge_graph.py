@@ -320,20 +320,101 @@ async def insert_url(url: str) -> None:
     await insert_text(text, source=source)
 
 
-async def query_knowledge(question: str, mode: str = "naive", context_only: bool = True) -> str:
+async def query_knowledge(question: str, mode: str = "naive", context_only: bool = True) -> tuple[str, list[dict]]:
     """查詢知識庫。
 
     預設 naive + context_only：純向量搜尋，不呼叫 LLM，<1秒回應。
     若需要完整圖譜推理，可傳 mode="hybrid", context_only=False。
+
+    回傳 (result_text, sources)。
+    sources 格式：[{"title": str, "snippet": str, "file": str}]
+    若無來源資訊則回傳空 list。
     """
     rag = await _ensure_initialized()
     if context_only:
         param = QueryParam(mode=mode, only_need_context=True)
         result = await rag.aquery(question, param=param)
-        return result
+        sources = _extract_sources(result)
+        return result, sources
     param = QueryParam(mode=mode, user_prompt="請用繁體中文回答。\n\n" + question)
     result = await rag.aquery(question, param=param)
-    return result
+    sources = _extract_sources(result)
+    return result, sources
+
+
+def _clean_rag_chunk(text: str) -> str:
+    """清理 LightRAG 原始 chunk，移除 JSON 包裝、轉義字元、metadata。"""
+    import re
+    # Remove LightRAG header lines
+    text = re.sub(r'Document Chunks.*?Reference Document List[`\'\s)]*:', '', text, flags=re.DOTALL)
+    text = re.sub(r'Reference Document List.*', '', text, flags=re.DOTALL)
+    # Extract content from JSON format: {"reference_id": "", "content": "..."}
+    json_contents = re.findall(r'"content"\s*:\s*"((?:[^"\\]|\\.)*)"', text)
+    if json_contents:
+        text = "\n\n".join(json_contents)
+    # Remove remaining JSON/code block wrappers
+    text = re.sub(r'```json\s*', '', text)
+    text = re.sub(r'```\s*', '', text)
+    text = re.sub(r'\{"reference_id".*?\}', '', text, flags=re.DOTALL)
+    # Unescape \n to real newlines
+    text = text.replace('\\n', '\n')
+    # Clean up whitespace
+    text = re.sub(r'\n{3,}', '\n\n', text).strip()
+    return text
+
+
+def _extract_sources(raw_result: str) -> list[dict]:
+    """Extract source information from LightRAG query result.
+
+    每個 source 的 snippet 至少保留 200 字上下文。
+    """
+    import re
+    sources = []
+    if not raw_result or not raw_result.strip():
+        return sources
+
+    cleaned = _clean_rag_chunk(raw_result)
+    if not cleaned:
+        return sources
+
+    # Split by [來源: ...] or [filename p.N] markers into sections
+    # Each section is a source
+    parts = re.split(r'(?=\[來源[:：]|\[[^\[\]]+?\s+p\.\d+\])', cleaned)
+    parts = [p.strip() for p in parts if p.strip() and len(p.strip()) > 10]
+
+    if not parts:
+        parts = [cleaned]
+
+    seen_titles = set()
+    for part in parts:
+        title = ""
+        file_name = ""
+        source_match = re.search(r'\[來源[:：]\s*(.+?)\]', part)
+        pdf_match = re.search(r'\[([^\[\]]+?)\s+p\.(\d+)\]', part)
+        if source_match:
+            title = source_match.group(1).strip()
+            file_name = title
+            # Remove the marker from snippet
+            part = part.replace(source_match.group(0), '').strip()
+        elif pdf_match:
+            title = f"{pdf_match.group(1)} p.{pdf_match.group(2)}"
+            file_name = pdf_match.group(1)
+            part = part.replace(pdf_match.group(0), '').strip()
+
+        if not title:
+            first_line = part.split('\n')[0][:40]
+            title = first_line if first_line else "知識庫內容"
+
+        if title in seen_titles:
+            continue
+        seen_titles.add(title)
+
+        # Keep snippet — at least 200 chars, up to 600
+        snippet = part[:600] if len(part) > 600 else part
+        if snippet:
+            sources.append({"title": title, "snippet": snippet, "file": file_name})
+
+    return sources
 
 
 def has_knowledge(project_id: str = "default") -> bool:
