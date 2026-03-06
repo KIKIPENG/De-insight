@@ -105,10 +105,46 @@ KNOWLEDGE_INJECTION = """
 """.strip()
 
 
+INTERACTIVE_PROMPTS_GUIDE = """
+# 互動提問格式
+
+需要使用者選擇或輸入時，把標記放在回應最末尾：
+
+單選：<<SELECT: 問題>>
+- 選項
+<</SELECT>>
+多選：<<MULTI: 問題>>
+- 項目
+<</MULTI>>
+輸入：<<INPUT: 提示>><</INPUT>>
+確認：<<CONFIRM: 確認句>><</CONFIRM>>
+
+使用時機：
+- 「我想寫論述了」三步驟 → 每步用 CONFIRM 確認
+- 使用者方向不明確 → 用 SELECT 給選項
+- 需要使用者說出某個想法 → 用 INPUT
+- 感性模式少用，一次最多一個標記
+""".strip()
+
+CALLOUT_GUIDE = """
+# 回應格式（選用）
+
+強調洞見：> [!INSIGHT]
+> 內容
+深度問題：> [!QUESTION]
+> 內容
+引用理論：> [!THEORY]
+> 內容
+
+不要濫用，有意義時才用。
+""".strip()
+
+
 def get_system_prompt(mode: str = "emotional", memory_summary: str = "", knowledge_content: str = "") -> str:
     """組合完整系統提示詞。"""
     mode_block = EMOTIONAL_MODE if mode == "emotional" else RATIONAL_MODE
-    prompt = CURATOR_BASE + "\n\n" + mode_block
+    prompt = (CURATOR_BASE + "\n\n" + INTERACTIVE_PROMPTS_GUIDE
+              + "\n\n" + CALLOUT_GUIDE + "\n\n" + mode_block)
 
     if memory_summary:
         prompt += "\n\n" + MEMORY_INJECTION.format(memory_summary=memory_summary)

@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS memories (
 """
 
 _MIGRATE_TOPIC = "ALTER TABLE memories ADD COLUMN topic TEXT DEFAULT ''"
+_MIGRATE_PROJECT_ID = "ALTER TABLE memories ADD COLUMN project_id TEXT DEFAULT NULL"
 
 
 async def _get_db() -> aiosqlite.Connection:
@@ -30,6 +31,11 @@ async def _get_db() -> aiosqlite.Connection:
     # Migrate: add topic column if missing
     try:
         await db.execute(_MIGRATE_TOPIC)
+    except Exception:
+        pass  # already exists
+    # Migrate: add project_id column if missing
+    try:
+        await db.execute(_MIGRATE_PROJECT_ID)
     except Exception:
         pass  # already exists
     await db.commit()
@@ -44,14 +50,14 @@ def _row_to_dict(row: aiosqlite.Row) -> dict:
 
 async def add_memory(
     type: str, content: str, source: str = "", topic: str = "",
-    tags: list[str] | None = None,
+    tags: list[str] | None = None, project_id: str | None = None,
 ) -> int:
     tags_json = json.dumps(tags or [], ensure_ascii=False)
     db = await _get_db()
     try:
         cursor = await db.execute(
-            "INSERT INTO memories (type, content, source, topic, tags) VALUES (?, ?, ?, ?, ?)",
-            (type, content, source, topic, tags_json),
+            "INSERT INTO memories (type, content, source, topic, tags, project_id) VALUES (?, ?, ?, ?, ?, ?)",
+            (type, content, source, topic, tags_json, project_id),
         )
         await db.commit()
         mem_id = cursor.lastrowid
@@ -71,18 +77,23 @@ async def add_memory(
         await db.close()
 
 
-async def get_memories(type: str | None = None, limit: int = 20) -> list[dict]:
+async def get_memories(type: str | None = None, limit: int = 20, project_id: str | None = None) -> list[dict]:
     db = await _get_db()
     try:
+        conditions = []
+        params = []
         if type:
-            cursor = await db.execute(
-                "SELECT * FROM memories WHERE type = ? ORDER BY created_at DESC LIMIT ?",
-                (type, limit),
-            )
-        else:
-            cursor = await db.execute(
-                "SELECT * FROM memories ORDER BY created_at DESC LIMIT ?", (limit,)
-            )
+            conditions.append("type = ?")
+            params.append(type)
+        if project_id:
+            conditions.append("project_id = ?")
+            params.append(project_id)
+        where = (" WHERE " + " AND ".join(conditions)) if conditions else ""
+        params.append(limit)
+        cursor = await db.execute(
+            f"SELECT * FROM memories{where} ORDER BY created_at DESC LIMIT ?",
+            tuple(params),
+        )
         rows = await cursor.fetchall()
         return [_row_to_dict(r) for r in rows]
     finally:

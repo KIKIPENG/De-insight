@@ -11,8 +11,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from settings import load_env
 
-WORKING_DIR = Path(__file__).parent.parent / "data" / "lightrag"
-WORKING_DIR.mkdir(parents=True, exist_ok=True)
+DEFAULT_WORKING_DIR = Path(__file__).parent.parent / "data" / "lightrag"
 
 ART_ENTITY_TYPES = [
     "藝術家", "設計師", "建築師", "理論家", "批評家",
@@ -24,6 +23,7 @@ ART_ENTITY_TYPES = [
 ]
 
 _rag_instance: LightRAG | None = None
+_rag_project_id: str | None = None
 
 
 def _get_llm_config() -> tuple[str, str, str]:
@@ -117,10 +117,12 @@ def _apply_env() -> None:
             os.environ[key] = val
 
 
-def get_rag() -> LightRAG:
-    global _rag_instance
-    if _rag_instance is not None:
+def get_rag(project_id: str = "default") -> LightRAG:
+    global _rag_instance, _rag_project_id
+    if _rag_instance is not None and _rag_project_id == project_id:
         return _rag_instance
+    # Different project or first call — create new instance
+    _rag_instance = None
 
     _apply_env()
     llm_model, llm_key, llm_base = _get_llm_config()
@@ -185,8 +187,15 @@ def get_rag() -> LightRAG:
             sorted_data = sorted(data["data"], key=lambda x: x["index"])
             return np.array([item["embedding"] for item in sorted_data], dtype=np.float32)
 
+    if project_id == "default":
+        working_dir = DEFAULT_WORKING_DIR
+    else:
+        working_dir = Path(f"data/projects/{project_id}/lightrag")
+    working_dir.mkdir(parents=True, exist_ok=True)
+
+    _rag_project_id = project_id
     _rag_instance = LightRAG(
-        working_dir=str(WORKING_DIR),
+        working_dir=str(working_dir),
         llm_model_func=llm_func,
         llm_model_name=llm_model,
         embedding_func=EmbeddingFunc(
@@ -206,17 +215,19 @@ def get_rag() -> LightRAG:
     return _rag_instance
 
 
-async def _ensure_initialized() -> LightRAG:
+async def _ensure_initialized(project_id: str | None = None) -> LightRAG:
     """取得 RAG 並確保 storages 已初始化。"""
-    rag = get_rag()
+    pid = project_id or _rag_project_id or "default"
+    rag = get_rag(project_id=pid)
     await rag.initialize_storages()
     return rag
 
 
 def reset_rag() -> None:
     """Force re-initialization (e.g. after model change)."""
-    global _rag_instance
+    global _rag_instance, _rag_project_id
     _rag_instance = None
+    _rag_project_id = None
 
 
 async def insert_text(text: str, source: str = "") -> None:
@@ -325,10 +336,16 @@ async def query_knowledge(question: str, mode: str = "naive", context_only: bool
     return result
 
 
-def has_knowledge() -> bool:
+def has_knowledge(project_id: str = "default") -> bool:
     """Check if the knowledge base has any data."""
+    if project_id == "default":
+        working_dir = DEFAULT_WORKING_DIR
+    else:
+        working_dir = Path(f"data/projects/{project_id}/lightrag")
+    if not working_dir.exists():
+        return False
     for pattern in ["*.graphml", "kv_store_*.json"]:
-        for f in WORKING_DIR.glob(pattern):
+        for f in working_dir.glob(pattern):
             if f.stat().st_size > 200:
                 return True
     return False

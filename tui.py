@@ -3,6 +3,7 @@
 import json
 import sys
 import time
+from dataclasses import dataclass, field
 from pathlib import Path
 
 # Allow importing from backend/
@@ -23,13 +24,26 @@ from textual.widgets.option_list import Option
 
 from codex_client import codex_stream, is_codex_available
 from memory.store import add_memory, get_memories
+from modals import MemoryConfirmModal, ProjectModal
 from panels import (
     ImportModal, InsightConfirmModal, MemoryDetailModal, MemoryManageModal,
     MemoryItem, MemoryPanel, MemorySaveModal, ResearchPanel, SearchModal,
 )
+from conversation.store import ConversationStore
+from projects.manager import ProjectManager
 from settings import SettingsScreen, load_env
 
 SPINNER_FRAMES = ["|", "/", "—", "\\"]
+
+
+@dataclass
+class AppState:
+    current_project: dict | None = None
+    pending_memories: list[dict] = field(default_factory=list)
+    interactive_depth: int = 0
+    current_conversation_id: str | None = None
+    cached_memory_count: int = 0
+    current_interactive_block: object = None  # InteractiveBlock | None
 
 LANCEDB_DIR = Path(__file__).parent / "data" / "lancedb"
 
@@ -62,30 +76,100 @@ def _get_reindex_age() -> str:
 
 
 class ChatInput(TextArea):
-    """Enter 送出，Shift+Enter 換行，Escape 清空。"""
+    """Enter 送出，Shift+Enter 換行，Tab 選擇提示，Escape 清空。"""
 
     BINDINGS = [
         Binding("enter", "submit", "送出", show=False, priority=True),
         Binding("escape", "clear_input", "清空", show=False),
     ]
 
+    # 互動選項模式：choices 列表 + 當前高亮 index
+    _choices: list[str] = []
+    _choice_idx: int = 0
+
     class Submitted(TextArea.Changed):
         """使用者按下 Enter 送出。"""
 
+    @property
+    def in_choice_mode(self) -> bool:
+        return bool(self._choices)
+
+    def set_choices(self, choices: list[str]) -> None:
+        """進入選擇模式，將選項寫入輸入框。"""
+        self._choices = list(choices)
+        self._choice_idx = 0
+        self.read_only = True
+        self._render_choices()
+
+    def clear_choices(self) -> None:
+        """退出選擇模式。"""
+        self._choices = []
+        self._choice_idx = 0
+        self.read_only = False
+        self.text = ""
+
+    def _render_choices(self) -> None:
+        """根據 _choice_idx 渲染選項文字到輸入框。"""
+        lines = []
+        for i, c in enumerate(self._choices):
+            prefix = ">" if i == self._choice_idx else " "
+            lines.append(f"{prefix} {c}")
+        self.text = "\n".join(lines)
+
     async def _on_key(self, event) -> None:
+        if event.key == "tab":
+            event.prevent_default()
+            event.stop()
+            if self._choices:
+                # 選擇模式：Tab 循環選項
+                self._choice_idx = (self._choice_idx + 1) % len(self._choices)
+                self._render_choices()
+            else:
+                self._cycle_slash_hints()
+            return
         if event.key == "enter":
+            if not self.text.strip():
+                event.prevent_default()
+                event.stop()
+                return
             event.prevent_default()
             event.stop()
             self.post_message(self.Submitted(self))
             return
+        if self._choices:
+            # 選擇模式下攔截所有其他按鍵（不允許編輯）
+            event.prevent_default()
+            event.stop()
+            return
         # 不攔截其他按鍵（讓 Ctrl+C 等正常運作）
         await super()._on_key(event)
+
+    def _cycle_slash_hints(self) -> None:
+        """Tab 循環選擇 slash-hints 中的選項，填入輸入框。"""
+        try:
+            hints = self.app.query_one("#slash-hints", OptionList)
+        except Exception:
+            return
+        if not hints.has_class("-visible"):
+            return
+        count = hints.option_count
+        if count == 0:
+            return
+        current = hints.highlighted
+        next_idx = 0 if current is None else (current + 1) % count
+        hints.highlighted = next_idx
+        option = hints.get_option_at_index(next_idx)
+        if option and option.id:
+            self.text = option.id
 
     def action_submit(self) -> None:
         self.post_message(self.Submitted(self))
 
     def action_clear_input(self) -> None:
-        self.text = ""
+        if self._choices:
+            self.clear_choices()
+        else:
+            self.text = ""
 
 
 class MenuBar(Static):
@@ -94,6 +178,7 @@ class MenuBar(Static):
     # Each item: (label, action, start_col, end_col) — populated on render
     _ITEMS = [
         ("New", "new_chat"),
+        ("Project", "open_project_modal"),
         ("Import", "import_document"),
         ("Search", "search_knowledge"),
         ("Memory", "manage_memories"),
@@ -106,6 +191,8 @@ class MenuBar(Static):
     _has_kg: bool = False
     _rag_mode: str = "fast"
     _last_reindex: str = ""
+    _project_name: str | None = None
+    _pending_count: int = 0
 
     def __init__(self, **kwargs) -> None:
         super().__init__("", **kwargs)
@@ -119,6 +206,8 @@ class MenuBar(Static):
         has_kg: bool = False,
         rag_mode: str = "fast",
         last_reindex: str = "",
+        project_name: str | None = None,
+        pending_count: int = 0,
     ) -> None:
         """Update mode/model/status and trigger re-render."""
         self._mode = mode
@@ -127,6 +216,8 @@ class MenuBar(Static):
         self._has_kg = has_kg
         self._rag_mode = rag_mode
         self._last_reindex = last_reindex
+        self._project_name = project_name
+        self._pending_count = pending_count
         self._regions.clear()
         self.refresh()
 
@@ -212,10 +303,27 @@ class MenuBar(Static):
             text.append(idx_label, style="#484f58")
             col += sum(2 if ord(c) > 0x7F else 1 for c in idx_label)
 
-        # Model name (dimmed, at the end)
-        if self._model:
+        # Project name
+        if self._project_name:
             text.append("  ")
-            text.append(self._model, style="#484f58")
+            col += 2
+            text.append("│", style="#2a2a2a")
+            col += 1
+            text.append(" ", style="")
+            col += 1
+            proj_label = f"● {self._project_name}"
+            text.append(proj_label, style="bold #7dd3fc")
+            col += sum(2 if ord(c) > 0x7F else 1 for c in proj_label)
+
+        # Pending memories count
+        if self._pending_count > 0:
+            text.append("  ")
+            col += 2
+            pending_label = f"💡 {self._pending_count} 待確認"
+            pending_start = col
+            text.append(pending_label, style="bold #f0c674")
+            col += sum(2 if ord(c) > 0x7F else 1 for c in pending_label)
+            self._regions.append((pending_start, col, "confirm_pending_memories"))
 
         return text
 
@@ -227,29 +335,86 @@ class MenuBar(Static):
                     self.app.mode = "emotional"
                 elif action == "_mode_rational":
                     self.app.mode = "rational"
+                elif action == "confirm_pending_memories":
+                    self.app.action_confirm_pending_memories()
                 else:
                     self.app.action_from_menu(action)
                 return
 
 
 class WelcomeBlock(Vertical):
-    """初始歡迎畫面。"""
+    """初始歡迎畫面，含最近對話歷史。"""
 
     def compose(self) -> ComposeResult:
         yield Static(
-            "[bold #fafafa]◈ De-insight[/]  [dim]批判性對話者[/]",
+            "[bold #fafafa]◆ De-insight[/]  [dim]你的思想策展人[/]",
         )
         yield Static(
-            "[dim #6e7681]────────────────────────────[/]",
+            "[#8b949e]  把還說不清楚的東西說清楚。\n"
+            "  想法來自你，它幫你找到骨架。[/]",
         )
         yield Static(
-            "[#8b949e]△ 我不是助手。我是挑戰者。\n"
-            "△ 質疑你的視覺決策背後的權力結構。\n"
-            "△ 基於 Foucault 規訓理論框架。[/]",
+            "[dim #6e7681]────────────────────────────────[/]",
         )
         yield Static(
-            "[dim #484f58]輸入 /help 查看所有指令[/]",
+            "[dim #fafafa]◇ 功能[/]\n\n"
+            "[#8b949e]  △ 策展人對話　感性／理性模式切換（ctrl+e）\n"
+            "  △ 知識庫　　　匯入文獻，對話時自動引用\n"
+            "  △ 記憶系統　　留下洞見、問題、感性反應\n"
+            "  △ 專案管理　　不同創作脈絡分開（ctrl+p）[/]",
         )
+        yield Static(
+            "[dim #6e7681]────────────────────────────────[/]",
+        )
+        yield Static(
+            "[dim #fafafa]◇ 一個創作者的工作路徑[/]\n\n"
+            "[#8b949e]  累積文獻與閱讀　→　和策展人反覆對話\n"
+            "        ↓\n"
+            "  沉澱洞見與問題　→　知識庫建立連結\n"
+            "        ↓\n"
+            "      準備好了　→　寫出一份論述[/]",
+        )
+        yield Static(
+            "[dim #6e7681]────────────────────────────────[/]",
+        )
+        yield Static("[dim #fafafa]◇ 最近的對話[/]")
+        yield Vertical(id="welcome-history")
+        yield Static(
+            "[dim #6e7681]────────────────────────────────[/]",
+        )
+        yield Static(
+            "[dim #484f58]  made by KIKI PENG with love[/]",
+        )
+
+    async def on_mount(self) -> None:
+        await self._load_recent_conversations()
+
+    async def _load_recent_conversations(self) -> None:
+        store = ConversationStore()
+        conversations = await store.list_conversations()
+        conversations = conversations[:10]
+        container = self.query_one("#welcome-history")
+        if not conversations:
+            await container.mount(
+                Static("[dim #484f58]  尚無對話記錄[/]")
+            )
+            return
+        for c in conversations:
+            updated = c.get("updated_at", "")[:16]
+            title = c.get("title", "未命名對話")
+            entry = Static(
+                f"  [#484f58]{updated}[/]  [#8b949e]{title}[/]",
+                classes="history-entry",
+                name=c["id"],
+            )
+            await container.mount(entry)
+
+    def on_click(self, event) -> None:
+        widget = event.widget if hasattr(event, 'widget') else None
+        if widget and isinstance(widget, Static) and widget.has_class("history-entry"):
+            conv_id = widget.name
+            if conv_id:
+                self.app._load_conversation(conv_id)
 
 
 class ThinkingIndicator(Static):
@@ -340,11 +505,20 @@ class Chatbox(Vertical):
         else:
             self.border_title = "◆ De-insight"
 
+    @staticmethod
+    def _clean_callouts(text: str) -> str:
+        import re
+        # 移除 callout 標記
+        text = re.sub(r'^>?\s*\[!(INSIGHT|THEORY|QUESTION|QUOTE|CONFIRM)\]\s*\n?', '', text, flags=re.MULTILINE)
+        # 移除互動標記 <<SELECT: ...>>, <<CONFIRM: ...>>, <<INPUT: ...>>, <<MULTI: ...>>
+        text = re.sub(r'<<(SELECT|CONFIRM|INPUT|MULTI)[:：].*?>>', '', text, flags=re.DOTALL)
+        return text
+
     def compose(self) -> ComposeResult:
         if self._streaming:
             yield Static("", classes="chatbox-body stream-body", id="stream-text")
         else:
-            yield Markdown(self._content, classes="chatbox-body")
+            yield Markdown(self._clean_callouts(self._content), classes="chatbox-body")
         if not self._system:
             if self.role == "assistant":
                 yield ChatboxActions(show_insight=True, classes="chatbox-actions")
@@ -364,7 +538,7 @@ class Chatbox(Vertical):
         self._streaming = False
         try:
             stream_el = self.query_one("#stream-text", Static)
-            md = Markdown(self._content, classes="chatbox-body")
+            md = Markdown(self._clean_callouts(self._content), classes="chatbox-body")
             await self.mount(md, before=stream_el)
             await stream_el.remove()
         except NoMatches:
@@ -510,28 +684,46 @@ class DeInsightApp(App):
     /* ── markdown overrides ── */
     Markdown {
         margin: 0;
+        padding: 0 1;
+        background: transparent;
+    }
+
+    Markdown MarkdownH1 {
+        color: #f0f6fc;
+        text-style: bold;
+        border-bottom: solid #30363d;
+        margin-bottom: 1;
         padding: 0;
         background: transparent;
     }
 
-    MarkdownH1, MarkdownH2, MarkdownH3 {
-        margin: 0;
+    Markdown MarkdownH2 {
+        color: #c9d1d9;
+        text-style: bold;
+        margin-top: 1;
         padding: 0;
         background: transparent;
-        color: #fafafa;
+    }
+
+    Markdown MarkdownH3 {
+        color: #8b949e;
+        text-style: bold italic;
+        padding: 0;
+        background: transparent;
     }
 
     MarkdownFence {
         margin: 1 0;
-        padding: 1 2;
-        background: #111111;
+        padding: 0 1;
+        background: #161b22;
+        border-left: thick #30363d;
         color: #e6edf3;
     }
 
     MarkdownBlockQuote {
         margin: 0;
-        padding: 0 0 0 2;
-        border-left: tall #fafafa;
+        padding: 0 1;
+        border-left: thick #30363d;
         background: transparent;
         color: #8b949e;
     }
@@ -539,6 +731,15 @@ class DeInsightApp(App):
     MarkdownBulletList, MarkdownOrderedList {
         margin: 0;
         padding: 0 0 0 2;
+    }
+
+    Markdown .inline-code {
+        color: #7dd3fc;
+        background: #1e2d3d;
+    }
+
+    Markdown MarkdownHorizontalRule {
+        color: #30363d;
     }
 
     /* ── thinking indicator ── */
@@ -554,8 +755,8 @@ class DeInsightApp(App):
     #input-box {
         dock: bottom;
         height: auto;
-        max-height: 8;
-        padding: 0 2 0 2;
+        max-height: 16;
+        padding: 0 1;
         margin: 0;
         background: #0a0a0a;
     }
@@ -581,8 +782,8 @@ class DeInsightApp(App):
         padding: 0;
         margin: 0;
         height: auto;
-        min-height: 1;
-        max-height: 8;
+        min-height: 3;
+        max-height: 14;
     }
 
     /* ── status bar ── */
@@ -638,6 +839,17 @@ class DeInsightApp(App):
         background: #111111;
     }
 
+    /* ── history entries (WelcomeBlock) ── */
+    .history-entry {
+        height: 1;
+        padding: 0 1;
+        color: #8b949e;
+    }
+    .history-entry:hover {
+        color: #fafafa;
+        background: #111111;
+    }
+
     /* ── slash hint popup ── */
     #slash-hints {
         display: none;
@@ -684,6 +896,7 @@ class DeInsightApp(App):
         Binding("ctrl+k", "search_knowledge", "搜尋知識庫", show=False, priority=True),
         Binding("ctrl+f", "import_document", "匯入文件", show=False, priority=True),
         Binding("ctrl+m", "manage_memories", "記憶管理", show=False, priority=True),
+        Binding("ctrl+p", "open_project_modal", "專案管理", show=False, priority=True),
         Binding("ctrl+c", "quit", "退出", show=False),
     ]
 
@@ -695,6 +908,9 @@ class DeInsightApp(App):
         super().__init__()
         self.messages: list[dict] = []
         self.api_base = "http://localhost:8000"
+        self.state = AppState()
+        self._project_manager = ProjectManager()
+        self._conv_store = ConversationStore()
 
     def compose(self) -> ComposeResult:
         yield MenuBar(id="menu-bar")
@@ -704,6 +920,12 @@ class DeInsightApp(App):
                     Vertical(id="messages"),
                     id="chat-scroll",
                 )
+                yield OptionList(id="slash-hints")
+                ta = ChatInput(id="chat-input")
+                ta.show_line_numbers = False
+                input_frame = Vertical(ta, id="input-frame")
+                input_frame.border_title = "⌨ Message"
+                yield Vertical(input_frame, id="input-box")
             with Vertical(id="right-panel"):
                 rp = ResearchPanel(id="research-panel")
                 rp.border_title = "◇ Knowledge"
@@ -712,19 +934,18 @@ class DeInsightApp(App):
                 mp.border_title = "◇ Memories"
                 yield mp
         yield StatusBar(id="status-bar")
-        yield OptionList(id="slash-hints")
-        ta = ChatInput(id="chat-input")
-        ta.show_line_numbers = False
-        input_frame = Vertical(ta, id="input-frame")
-        input_frame.border_title = "⌨ Message"
-        yield Vertical(input_frame, id="input-box")
 
     async def on_mount(self) -> None:
+        # v0.2 舊資料偵測
+        if Path("data/lightrag").exists() and not Path("data/projects").exists():
+            self.notify(
+                "偵測到 v0.2 知識庫（data/lightrag/），請手動搬移或重新匯入。",
+                severity="warning", timeout=10)
         self._update_menu_bar()
         self._update_status()
         container = self.query_one("#messages", Vertical)
         welcome = WelcomeBlock()
-        welcome.border_title = "◈ De-insight v0.2"
+        welcome.border_title = "◈ De-insight v0.3"
         await container.mount(welcome)
         self.query_one("#chat-input", ChatInput).focus()
         self._refresh_memory_panel()
@@ -748,11 +969,14 @@ class DeInsightApp(App):
             # Get memory count (sync-safe: read cached value)
             mem_count = getattr(self, "_cached_memory_count", 0)
             # Knowledge base status
+            project_id = self.state.current_project["id"] if self.state.current_project else "default"
             try:
                 from rag.knowledge_graph import has_knowledge
-                has_kg = has_knowledge()
+                has_kg = has_knowledge(project_id=project_id)
             except Exception:
                 has_kg = False
+            project_name = self.state.current_project["name"] if self.state.current_project else None
+            pending_count = len(self.state.pending_memories)
             menu.set_state(
                 mode=self.mode,
                 model=model,
@@ -760,6 +984,8 @@ class DeInsightApp(App):
                 has_kg=has_kg,
                 rag_mode=self.rag_mode,
                 last_reindex=_get_reindex_age(),
+                project_name=project_name,
+                pending_count=pending_count,
             )
         except NoMatches:
             pass
@@ -827,8 +1053,10 @@ class DeInsightApp(App):
         label = "網頁" if is_url else "檔案"
         self.notify(f"匯入{label}中…")
         try:
-            from rag.knowledge_graph import insert_pdf, insert_url, reset_rag
+            from rag.knowledge_graph import insert_pdf, insert_url, reset_rag, get_rag
+            _pid = self.state.current_project["id"] if self.state.current_project else "default"
             reset_rag()
+            get_rag(project_id=_pid)  # prime cache for correct project
             if is_url:
                 await insert_url(source)
             else:
@@ -849,7 +1077,8 @@ class DeInsightApp(App):
     async def _do_search(self, query: str) -> None:
         try:
             from rag.knowledge_graph import query_knowledge, has_knowledge
-            if not has_knowledge():
+            _pid = self.state.current_project["id"] if self.state.current_project else "default"
+            if not has_knowledge(project_id=_pid):
                 self.notify("知識庫為空，請先匯入文件 (ctrl+f)")
                 return
             result = await query_knowledge(query)
@@ -932,9 +1161,9 @@ class DeInsightApp(App):
         try:
             from memory.store import get_memory_stats
             stats = await get_memory_stats()
-            self._cached_memory_count = stats.get("total", 0)
+            self.state.cached_memory_count = stats.get("total", 0)
         except Exception:
-            self._cached_memory_count = len(mems) if mems else 0
+            self.state.cached_memory_count = len(mems) if mems else 0
         self._update_menu_bar()
         if not mems:
             await panel.mount(
@@ -946,6 +1175,7 @@ class DeInsightApp(App):
 
     def action_new_chat(self) -> None:
         self.messages.clear()
+        self.state.current_conversation_id = None
         container = self.query_one("#messages", Vertical)
         container.remove_children()
         self.call_after_refresh(self._mount_welcome)
@@ -954,7 +1184,7 @@ class DeInsightApp(App):
     async def _mount_welcome(self) -> None:
         container = self.query_one("#messages", Vertical)
         welcome = WelcomeBlock()
-        welcome.border_title = "◈ De-insight v0.2"
+        welcome.border_title = "◈ De-insight v0.3"
         await container.mount(welcome)
 
     # ── slash commands ──
@@ -970,6 +1200,8 @@ class DeInsightApp(App):
         "/save": "save_insight_manual",
         "/reindex": "reindex_memories",
         "/ragmode": "toggle_rag_mode",
+        "/project": "open_project_modal",
+        "/pending": "confirm_pending_memories",
     }
 
     SLASH_HINTS: list[tuple[str, str]] = [
@@ -983,6 +1215,8 @@ class DeInsightApp(App):
         ("/save", "儲存當前對話的洞見"),
         ("/reindex", "重建記憶向量索引"),
         ("/ragmode", "切換知識檢索：快速 / 深度"),
+        ("/project", "切換專案"),
+        ("/pending", "記憶待確認"),
     ]
 
     def _handle_slash_command(self, text: str) -> bool:
@@ -1013,6 +1247,8 @@ class DeInsightApp(App):
             "| `/settings` | 開啟設定 |\n"
             "| `/mode` | 切換感性/理性 |\n"
             "| `/ragmode` | 切換知識檢索：快速/深度 |\n"
+            "| `/project` | 切換專案 |\n"
+            "| `/pending` | 記憶待確認 |\n"
             "| `/help` | 顯示此說明 |\n"
         )
         self.call_after_refresh(lambda: self._show_system_message(help_text))
@@ -1108,7 +1344,7 @@ class DeInsightApp(App):
         try:
             from memory.store import add_memory
             await add_memory(
-                mem_type=data["type"],
+                type=data["type"],
                 content=data["content"],
                 topic=data.get("topic", ""),
                 source="manual",
@@ -1160,33 +1396,21 @@ class DeInsightApp(App):
 
     @work(exclusive=False)
     async def _auto_extract_memories(self, user_text: str) -> None:
-        """對話結束後，背景自動從使用者發言抽取記憶。"""
+        """對話結束後，背景自動從使用者發言抽取記憶候選。"""
         try:
             from memory.thought_tracker import extract_memories
             items = await extract_memories(user_text, self._quick_llm_call)
             if not items:
                 return
-            from memory.store import add_memory as _add_memory
             for item in items:
-                await _add_memory(
-                    type=item["type"],
-                    content=item["content"],
-                    source=user_text[:80],
-                    topic=item.get("topic", ""),
-                )
-            self._refresh_memory_panel()
-            # 若有新洞見，檢查思維演變
-            insights = [i for i in items if i["type"] == "insight"]
-            if insights:
-                from memory.thought_tracker import check_for_evolution
-                evolution = await check_for_evolution(
-                    insights[0]["content"], self._quick_llm_call
-                )
-                if evolution and evolution.get("type") in ("evolution", "contradiction"):
-                    etype = "演變" if evolution["type"] == "evolution" else "矛盾"
-                    self.notify(f"偵測到思維{etype}", timeout=6)
+                item["source"] = user_text[:80]
+            self.state.pending_memories.extend(items)
+            self._update_menu_bar()
         except Exception:
             pass  # 記憶抽取失敗不影響主流程
+
+    def _update_menubar_pending_count(self) -> None:
+        self._update_menu_bar()
 
     # ── drag-to-import ──
 
@@ -1262,13 +1486,16 @@ class DeInsightApp(App):
 
     def on_text_area_changed(self, event: TextArea.Changed) -> None:
         if event.text_area.id == "chat-input":
-            self._update_slash_hints()
+            ta = self.query_one("#chat-input", ChatInput)
+            if not ta.in_choice_mode:
+                self._update_slash_hints()
 
     def on_option_list_option_selected(self, event: OptionList.OptionSelected) -> None:
         if event.option_list.id == "slash-hints":
-            cmd = event.option.id
+            opt_id = event.option.id
+            # Normal slash command
             ta = self.query_one("#chat-input", ChatInput)
-            ta.text = cmd
+            ta.text = opt_id
             event.option_list.remove_class("-visible")
             ta.focus()
             self._submit_chat()
@@ -1277,9 +1504,14 @@ class DeInsightApp(App):
 
     def on_chat_input_submitted(self, event: ChatInput.Submitted) -> None:
         """ChatInput 按 Enter 送出。"""
+        ta = self.query_one("#chat-input", ChatInput)
+        # 選擇模式：Enter 確認當前選項
+        if ta.in_choice_mode:
+            self._resolve_inline_choice()
+            return
         self._submit_chat()
 
-    @work(exclusive=False, thread=False)
+    @work(exclusive=True, group="submit_chat", thread=False)
     async def _submit_chat(self) -> None:
         ta = self.query_one("#chat-input", ChatInput)
         text = ta.text.strip()
@@ -1293,6 +1525,13 @@ class DeInsightApp(App):
             self.query_one("#slash-hints", OptionList).remove_class("-visible")
         except NoMatches:
             pass
+
+        # 如果有活躍的互動提問，把輸入當作回應送出
+        if self.state.current_interactive_block:
+            self.state.current_interactive_block = None
+            self.query_one("#input-frame", Vertical).border_title = "⌨ Message"
+            self._send_as_user(text)
+            return
 
         # 先偵測檔案路徑或 URL（優先於 slash command，因為路徑也以 / 開頭）
         path = self._clean_dropped_path(text)
@@ -1312,6 +1551,14 @@ class DeInsightApp(App):
             return
 
         self.messages.append({"role": "user", "content": text})
+
+        # 對話持久化：第一條訊息時建立對話記錄
+        if self.state.current_conversation_id is None:
+            project_id = self.state.current_project["id"] if self.state.current_project else None
+            self.state.current_conversation_id = await self._conv_store.create_conversation(project_id)
+            title = text[:30].strip().replace("\n", " ")
+            await self._conv_store.set_title(self.state.current_conversation_id, title)
+        await self._conv_store.add_message(self.state.current_conversation_id, "user", text)
 
         container = self.query_one("#messages", Vertical)
 
@@ -1395,9 +1642,10 @@ class DeInsightApp(App):
 
                 # 注入知識庫上下文
                 rag_context = ""
+                _pid = self.state.current_project["id"] if self.state.current_project else "default"
                 try:
                     from rag.knowledge_graph import query_knowledge, has_knowledge
-                    if has_knowledge():
+                    if has_knowledge(project_id=_pid):
                         is_deep = self.rag_mode == "deep"
                         result = await query_knowledge(
                             user_msg,
@@ -1456,9 +1704,10 @@ class DeInsightApp(App):
                             ctx_parts.append(f"[使用者過去的想法]\n{mem_lines}")
                 except Exception:
                     pass
+                _pid = self.state.current_project["id"] if self.state.current_project else "default"
                 try:
                     from rag.knowledge_graph import query_knowledge, has_knowledge
-                    if has_knowledge():
+                    if has_knowledge(project_id=_pid):
                         is_deep = self.rag_mode == "deep"
                         result = await query_knowledge(
                             user_msg,
@@ -1542,10 +1791,36 @@ class DeInsightApp(App):
 
             # 過濾 reasoning model 的思考過程（英文 chain-of-thought）
             full_content = self._strip_reasoning(full_content)
-            bubble.set_responding(False)
-            bubble.stream_update(full_content)
-            await bubble.finalize_stream()
-            self.messages.append({"role": "assistant", "content": full_content})
+
+            # 解析互動提問標記
+            import re as _re_interactive
+            from interaction.prompt_parser import parse_interactive_blocks
+            clean_content, interactive_blocks = parse_interactive_blocks(full_content)
+
+            if _re_interactive.search(r'<<\w+', clean_content):
+                self.notify("策展人格式未完整解析", severity="warning", timeout=4)
+
+            if interactive_blocks:
+                bubble.set_responding(False)
+                bubble.stream_update(clean_content)
+                await bubble.finalize_stream()
+                self.messages.append({"role": "assistant", "content": clean_content})
+                if self.state.current_conversation_id:
+                    await self._conv_store.add_message(
+                        self.state.current_conversation_id, "assistant", clean_content)
+                if self.state.interactive_depth < 3:
+                    self._handle_interactive_blocks(interactive_blocks)
+                else:
+                    self.state.interactive_depth = 0
+                    self.notify("互動提問深度上限，請直接輸入", timeout=3)
+            else:
+                bubble.set_responding(False)
+                bubble.stream_update(full_content)
+                await bubble.finalize_stream()
+                self.messages.append({"role": "assistant", "content": full_content})
+                if self.state.current_conversation_id:
+                    await self._conv_store.add_message(
+                        self.state.current_conversation_id, "assistant", full_content)
 
             # 背景：自動抽取記憶（不阻塞 UI）
             user_content = self.messages[-2]["content"] if len(self.messages) >= 2 else ""
@@ -1568,8 +1843,168 @@ class DeInsightApp(App):
             self._update_status()
             self.query_one("#chat-input", ChatInput).focus()
 
+    # ── project management ──
+
+    def action_open_project_modal(self) -> None:
+        self._load_and_show_project_modal()
+
+    @work(exclusive=True)
+    async def _load_and_show_project_modal(self) -> None:
+        projects = await self._project_manager.list_projects()
+        current_id = self.state.current_project["id"] if self.state.current_project else None
+
+        def on_dismiss(result) -> None:
+            if result is None:
+                return
+            action, data = result
+            if action == 'create':
+                self._create_and_switch_project(data)
+            elif action == 'switch':
+                self._switch_project(data)
+
+        self.app.push_screen(ProjectModal(projects, current_id=current_id), callback=on_dismiss)
+
+    @work(exclusive=True)
+    async def _create_and_switch_project(self, name: str) -> None:
+        project = await self._project_manager.create_project(name)
+        await self._do_switch_project(project)
+
+    @work(exclusive=True)
+    async def _switch_project(self, project: dict) -> None:
+        await self._do_switch_project(project)
+
+    async def _do_switch_project(self, project: dict) -> None:
+        import gc
+        self.state.current_project = project
+        self.state.current_conversation_id = None
+        await self._project_manager.touch_project(project["id"])
+        from rag.knowledge_graph import reset_rag
+        reset_rag()
+        gc.collect()
+        self.messages = []
+        container = self.query_one("#messages", Vertical)
+        await container.remove_children()
+        welcome = WelcomeBlock()
+        welcome.border_title = "◈ De-insight v0.3"
+        await container.mount(welcome)
+        self._refresh_memory_panel()
+        self._update_menu_bar()
+        self.notify(f"已切換到：{project['name']}", timeout=2)
+
+    @work(exclusive=True)
+    async def _delete_project(self, project: dict) -> None:
+        await self._project_manager.delete_project(project["id"])
+        if self.state.current_project and self.state.current_project["id"] == project["id"]:
+            self.state.current_project = None
+            self._update_menu_bar()
+        self.notify(f"已刪除專案：{project['name']}", timeout=2)
+
+    # ── pending memory confirmation ──
+
+    def action_confirm_pending_memories(self) -> None:
+        if not self.state.pending_memories:
+            self.notify("目前沒有待確認的記憶")
+            return
+
+        def on_dismiss(result) -> None:
+            if result is None:
+                self.state.pending_memories.clear()
+                self._update_menu_bar()
+                return
+            self._save_confirmed_memories(result)
+
+        self.push_screen(MemoryConfirmModal(self.state.pending_memories), callback=on_dismiss)
+
+    @work(exclusive=True)
+    async def _save_confirmed_memories(self, items: list) -> None:
+        project_id = self.state.current_project["id"] if self.state.current_project else None
+        for item in items:
+            if isinstance(item, dict):
+                await add_memory(
+                    type=item["type"],
+                    content=item["content"],
+                    source=item.get("source", ""),
+                    topic=item.get("topic", ""),
+                    project_id=project_id,
+                )
+        self.state.pending_memories.clear()
+        self._refresh_memory_panel()
+        self._update_menu_bar()
+        self.notify(f"已儲存 {len(items)} 條記憶")
+
+    # ── interactive prompt handling ──
+
+    def _handle_interactive_blocks(self, blocks: list) -> None:
+        """把互動選項直接顯示在輸入框內，Tab 切換，Enter 選擇。"""
+        if not blocks:
+            return
+        block = blocks[0]  # 一次處理一個
+        self.state.current_interactive_block = block
+
+        ta = self.query_one("#chat-input", ChatInput)
+        frame = self.query_one("#input-frame", Vertical)
+        frame.border_title = f"◇ {block.prompt}"
+
+        if block.type == 'confirm':
+            ta.set_choices(["是，繼續", "不，我還想調整"])
+        elif block.type == 'select':
+            ta.set_choices(block.choices)
+        elif block.type == 'multi':
+            ta.set_choices(block.choices)
+        elif block.type == 'input':
+            pass  # 自由輸入，不需要選項
+
+        ta.focus()
+
+    def _resolve_inline_choice(self) -> None:
+        """從輸入框的選擇模式中取得選中項目並送出。"""
+        ta = self.query_one("#chat-input", ChatInput)
+        if not ta.in_choice_mode:
+            return
+        idx = ta._choice_idx
+        choices = ta._choices
+        text = choices[idx] if idx < len(choices) else ""
+        ta.clear_choices()
+        self.state.current_interactive_block = None
+        self.query_one("#input-frame", Vertical).border_title = "⌨ Message"
+        if text:
+            self._send_as_user(text)
+
+    @work(exclusive=False, thread=False)
+    async def _send_as_user(self, text: str) -> None:
+        if not text.strip():
+            return
+        self.state.interactive_depth += 1
+        try:
+            container = self.query_one("#messages", Vertical)
+            await container.mount(Chatbox("user", text))
+            self._scroll_to_bottom()
+            self.messages.append({'role': 'user', 'content': text})
+            # 對話持久化：互動回應也要存入
+            if self.state.current_conversation_id:
+                await self._conv_store.add_message(
+                    self.state.current_conversation_id, "user", text)
+            worker = self._stream_response()
+            await worker.wait()
+        finally:
+            self.state.interactive_depth -= 1
+
     def _scroll_to_bottom(self) -> None:
         self.query_one("#chat-scroll", VerticalScroll).scroll_end(animate=False)
+
+    @work(exclusive=True, thread=False)
+    async def _load_conversation(self, conversation_id: str) -> None:
+        """從 ConversationStore 載入對話歷史。"""
+        messages = await self._conv_store.get_messages(conversation_id)
+        if not messages:
+            return
+        self.state.current_conversation_id = conversation_id
+        self.messages = list(messages)
+        container = self.query_one("#messages", Vertical)
+        await container.remove_children()
+        for m in messages:
+            await container.mount(Chatbox(m["role"], m["content"]))
+        self._scroll_to_bottom()
 
     async def _quick_llm_call(self, prompt: str, max_tokens: int = 500) -> str:
         """共用的快速 LLM 呼叫，用於記憶抽取、洞見整理等。"""
@@ -1626,9 +2061,10 @@ class DeInsightApp(App):
             pass
 
         # 2. 知識庫 RAG
+        _pid = self.state.current_project["id"] if self.state.current_project else "default"
         try:
             from rag.knowledge_graph import query_knowledge, has_knowledge
-            if has_knowledge():
+            if has_knowledge(project_id=_pid):
                 is_deep = self.rag_mode == "deep"
                 result = await query_knowledge(
                     user_msg,
