@@ -354,7 +354,8 @@ class DocumentManageModal(ModalScreen):
     @work(exclusive=True)
     async def _load_docs(self) -> None:
         from conversation.store import ConversationStore
-        store = ConversationStore()
+        from paths import project_root
+        store = ConversationStore(db_path=project_root(self._project_id) / "conversations.db")
         self._docs = await store.list_documents(self._project_id)
         try:
             self.query_one("#doc-count", Static).update(
@@ -398,7 +399,8 @@ class DocumentManageModal(ModalScreen):
     @work(exclusive=True)
     async def _delete_doc(self, doc_id: str) -> None:
         from conversation.store import ConversationStore
-        store = ConversationStore()
+        from paths import project_root
+        store = ConversationStore(db_path=project_root(self._project_id) / "conversations.db")
         await store.delete_document(doc_id)
         self._docs = [d for d in self._docs if d["id"] != doc_id]
         try:
@@ -1413,7 +1415,8 @@ class KnowledgeModal(ModalScreen):
     async def _render_docs(self, container: VerticalScroll) -> None:
         await container.mount(Static("[dim #484f58]載入中…[/]"))
         from conversation.store import ConversationStore
-        store = ConversationStore()
+        from paths import project_root
+        store = ConversationStore(db_path=project_root(self._project_id) / "conversations.db")
         self._docs = await store.list_documents(self._project_id)
         await container.remove_children()
         await container.mount(Static(f"[#6e7681]{len(self._docs)} 份文獻[/]"))
@@ -1635,7 +1638,8 @@ class KnowledgeModal(ModalScreen):
                 doc_id = meta.get("doc_id")
                 if doc_id and any(k in item for k in ("title", "tags", "note")):
                     from conversation.store import ConversationStore
-                    store = ConversationStore()
+                    from paths import project_root
+                    store = ConversationStore(db_path=project_root(self._project_id) / "conversations.db")
                     await store.update_document_meta(
                         doc_id,
                         title=item.get("title"),
@@ -1677,7 +1681,8 @@ class KnowledgeModal(ModalScreen):
     @work(exclusive=True)
     async def _delete_doc(self, doc_id: str) -> None:
         from conversation.store import ConversationStore
-        store = ConversationStore()
+        from paths import project_root
+        store = ConversationStore(db_path=project_root(self._project_id) / "conversations.db")
         await store.delete_document(doc_id)
         self._docs = [d for d in self._docs if d["id"] != doc_id]
         self.notify("已刪除文獻記錄")
