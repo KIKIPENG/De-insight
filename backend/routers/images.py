@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 from typing import List
 
-from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
@@ -46,19 +46,20 @@ async def list_images(project_id: str | None = None):
 
 @router.post("/images/upload")
 async def upload_image(
-    file: UploadFile | None = File(default=None),
-    files: list[UploadFile] | None = File(default=None),
-    caption: str = Form(""),
-    tags: str = Form(""),
-    project_id: str = Form(""),
+    request: Request,
 ):
     """上傳圖片並建立向量索引（支援單檔與多檔）。"""
+    form = await request.form()
+    caption = str(form.get("caption", "") or "")
+    tags = str(form.get("tags", "") or "")
+    project_id = str(form.get("project_id", "") or "")
     pid = await _get_project_id(project_id or None)
+
     upload_files: list[UploadFile] = []
-    if files:
-        upload_files.extend(files)
-    if file:
-        upload_files.append(file)
+    upload_files.extend([f for f in form.getlist("files") if isinstance(f, UploadFile)])
+    legacy_file = form.get("file")
+    if isinstance(legacy_file, UploadFile):
+        upload_files.append(legacy_file)
     if not upload_files:
         raise HTTPException(status_code=400, detail="No file uploaded")
 
