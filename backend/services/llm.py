@@ -25,6 +25,10 @@ def _is_codex_model(model: str) -> bool:
     return model.startswith("codex/")
 
 
+# Backward compatibility: some endpoints still reference this symbol.
+DEFAULT_MODEL = _get_default_model()
+
+
 async def _codex_stream(
     messages: list[dict],
     model: str,
@@ -182,7 +186,7 @@ async def chat_completion(
 
 def get_available_models() -> list[str]:
     """回傳已設定的可用模型列表。"""
-    models = [DEFAULT_MODEL]
+    models = [_get_default_model()]
     if os.getenv("OPENAI_API_KEY"):
         models.append("gpt-4o")
         models.append("codex/codex-mini-latest")

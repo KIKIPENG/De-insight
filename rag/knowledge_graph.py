@@ -11,7 +11,8 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from settings import load_env
 
-DEFAULT_WORKING_DIR = Path(__file__).parent.parent / "data" / "lightrag"
+from paths import project_root, ensure_project_dirs, DATA_ROOT
+_DEFAULT_LIGHTRAG_DIR = DATA_ROOT / "projects" / "default" / "lightrag"
 
 ART_ENTITY_TYPES = [
     "藝術家", "設計師", "建築師", "理論家", "批評家",
@@ -41,6 +42,9 @@ def _get_llm_config() -> tuple[str, str, str]:
         rag_base = env.get("RAG_API_BASE", "https://api.openai.com/v1")
         if rag_model.startswith("ollama/"):
             return rag_model.removeprefix("ollama/"), "ollama", "http://localhost:11434/v1"
+        # Strip openai/ prefix — API endpoint expects bare model name
+        if rag_model.startswith("openai/"):
+            rag_model = rag_model.removeprefix("openai/")
         return rag_model, rag_key, rag_base
 
     model = env.get("LLM_MODEL", "ollama/llama3.2")
@@ -188,10 +192,10 @@ def get_rag(project_id: str = "default") -> LightRAG:
             return np.array([item["embedding"] for item in sorted_data], dtype=np.float32)
 
     if project_id == "default":
-        working_dir = DEFAULT_WORKING_DIR
+        working_dir = _DEFAULT_LIGHTRAG_DIR
+        working_dir.mkdir(parents=True, exist_ok=True)
     else:
-        working_dir = Path(f"data/projects/{project_id}/lightrag")
-    working_dir.mkdir(parents=True, exist_ok=True)
+        working_dir = ensure_project_dirs(project_id) / "lightrag"
 
     _rag_project_id = project_id
     _rag_instance = LightRAG(
@@ -230,41 +234,68 @@ def reset_rag() -> None:
     _rag_project_id = None
 
 
-async def insert_text(text: str, source: str = "") -> None:
-    rag = await _ensure_initialized()
+async def insert_text(text: str, source: str = "", project_id: str = "default") -> None:
+    rag = await _ensure_initialized(project_id=project_id)
     doc = text
     if source:
         doc = f"[來源: {source}]\n\n{text}"
     await rag.ainsert(doc)
 
 
-async def insert_pdf(path: str) -> None:
+async def insert_pdf(path: str, project_id: str = "default", title: str = "") -> dict:
+    """匯入 PDF，回傳 {"title": str, "page_count": int, "file_size": int, "saved_path": str}。"""
+    import re as _re
     try:
         from pypdf import PdfReader
     except ImportError:
         raise RuntimeError("需要安裝 pypdf: pip install pypdf")
 
+    file_size = Path(path).stat().st_size if Path(path).exists() else 0
     reader = PdfReader(path)
-    filename = Path(path).stem
+    page_count = len(reader.pages)
+
+    # Determine display name: explicit title > PDF metadata > filename
+    display_name = title.strip() if title else ""
+    if not display_name:
+        pdf_meta = reader.metadata
+        if pdf_meta and pdf_meta.title and len(pdf_meta.title.strip()) >= 3:
+            display_name = pdf_meta.title.strip()
+    if not display_name:
+        display_name = Path(path).stem
+
+    # Sanitize for filesystem use
+    safe_name = _re.sub(r'[/<>:"|?*\\]+', '_', display_name).strip('_. ')
+    if not safe_name:
+        safe_name = Path(path).stem
+
     chunks = []
     for i, page in enumerate(reader.pages):
         text = page.extract_text()
         if text and text.strip():
-            chunks.append(f"[{filename} p.{i+1}]\n{text.strip()}")
+            chunks.append(f"[{display_name} p.{i+1}]\n{text.strip()}")
 
-    rag = await _ensure_initialized()
+    rag = await _ensure_initialized(project_id=project_id)
     full_text = "\n\n---\n\n".join(chunks)
     await rag.ainsert(full_text)
 
+    # 保留原始檔案到專案目錄
+    doc_dir = ensure_project_dirs(project_id) / "documents"
+    import shutil
+    saved = doc_dir / f"{safe_name}.pdf"
+    if Path(path).resolve() != saved.resolve():
+        shutil.copy2(path, saved)
 
-async def insert_url(url: str) -> None:
-    """Fetch a URL and insert its content into the knowledge base."""
+    return {"title": display_name, "page_count": page_count, "file_size": file_size, "saved_path": str(saved)}
+
+
+async def insert_url(url: str, project_id: str = "default", title: str = "") -> dict:
+    """Fetch a URL and insert its content. 回傳 {"title": str, "page_count": 0, "file_size": int}。"""
     import httpx
     import re
     import tempfile
     from html.parser import HTMLParser
 
-    async with httpx.AsyncClient(timeout=30.0, follow_redirects=True) as client:
+    async with httpx.AsyncClient(timeout=60.0, follow_redirects=True) as client:
         resp = await client.get(url, headers={
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
         })
@@ -272,15 +303,22 @@ async def insert_url(url: str) -> None:
     content_type = resp.headers.get("content-type", "")
 
     if "pdf" in content_type or url.lower().endswith(".pdf"):
-        # PDF URL — download to temp file, reuse insert_pdf
-        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
-            tmp.write(resp.content)
-            tmp_path = tmp.name
+        # Extract readable filename from URL
+        from urllib.parse import urlparse, unquote
+        url_path = urlparse(url).path
+        url_filename = unquote(Path(url_path).stem) if url_path else ""
+        # Sanitize: keep only safe chars
+        url_filename = re.sub(r'[^\w\-\.\(\)\[\]\u4e00-\u9fff]+', '_', url_filename).strip('_')
+        if not url_filename or len(url_filename) < 3:
+            url_filename = "downloaded_pdf"
+
+        tmp_dir = Path(tempfile.gettempdir())
+        tmp_path = str(tmp_dir / f"{url_filename}.pdf")
+        Path(tmp_path).write_bytes(resp.content)
         try:
-            await insert_pdf(tmp_path)
+            return await insert_pdf(tmp_path, project_id=project_id, title=title)
         finally:
             Path(tmp_path).unlink(missing_ok=True)
-        return
 
     # HTML — extract text
     html = resp.text
@@ -307,20 +345,47 @@ async def insert_url(url: str) -> None:
     extractor = _TextExtractor()
     extractor.feed(html)
     text = "".join(extractor.parts)
-    # Clean up whitespace
     text = re.sub(r"\n{3,}", "\n\n", text).strip()
 
     if len(text) < 50:
         raise RuntimeError("頁面內容太少，無法匯入")
 
-    # Extract title from HTML
-    title_match = re.search(r"<title[^>]*>(.*?)</title>", html, re.IGNORECASE | re.DOTALL)
-    source = title_match.group(1).strip() if title_match else url
+    if title.strip():
+        source = title.strip()
+    else:
+        title_match = re.search(r"<title[^>]*>(.*?)</title>", html, re.IGNORECASE | re.DOTALL)
+        source = title_match.group(1).strip() if title_match else url
 
-    await insert_text(text, source=source)
+    await insert_text(text, source=source, project_id=project_id)
+    return {"title": source, "page_count": 0, "file_size": len(resp.content)}
 
 
-async def query_knowledge(question: str, mode: str = "naive", context_only: bool = True) -> tuple[str, list[dict]]:
+async def resolve_doi(doi: str) -> str:
+    """輸入 DOI，回傳 open access PDF URL。找不到時回傳空字串。"""
+    import httpx, re
+    doi = doi.strip()
+    if doi.startswith("http"):
+        m = re.search(r'10\.\d{4,}/\S+', doi)
+        doi = m.group(0) if m else doi
+    url = f"https://api.unpaywall.org/v2/{doi}?email=app@de-insight.local"
+    async with httpx.AsyncClient(timeout=15.0) as client:
+        resp = await client.get(url)
+        if resp.status_code != 200:
+            return ""
+        data = resp.json()
+        best = data.get("best_oa_location") or {}
+        return best.get("url_for_pdf", "") or best.get("url", "") or ""
+
+
+async def insert_doi(doi: str, project_id: str = "default", title: str = "") -> dict:
+    """解析 DOI → 取得 PDF URL → insert_url()。找不到 open access 時 raise。"""
+    pdf_url = await resolve_doi(doi)
+    if not pdf_url:
+        raise RuntimeError(f"找不到 open access 版本：{doi}")
+    return await insert_url(pdf_url, project_id=project_id, title=title)
+
+
+async def query_knowledge(question: str, mode: str = "naive", context_only: bool = True, project_id: str | None = None) -> tuple[str, list[dict]]:
     """查詢知識庫。
 
     預設 naive + context_only：純向量搜尋，不呼叫 LLM，<1秒回應。
@@ -330,7 +395,7 @@ async def query_knowledge(question: str, mode: str = "naive", context_only: bool
     sources 格式：[{"title": str, "snippet": str, "file": str}]
     若無來源資訊則回傳空 list。
     """
-    rag = await _ensure_initialized()
+    rag = await _ensure_initialized(project_id=project_id)
     if context_only:
         param = QueryParam(mode=mode, only_need_context=True)
         result = await rag.aquery(question, param=param)
@@ -420,9 +485,9 @@ def _extract_sources(raw_result: str) -> list[dict]:
 def has_knowledge(project_id: str = "default") -> bool:
     """Check if the knowledge base has any data."""
     if project_id == "default":
-        working_dir = DEFAULT_WORKING_DIR
+        working_dir = _DEFAULT_LIGHTRAG_DIR
     else:
-        working_dir = Path(f"data/projects/{project_id}/lightrag")
+        working_dir = project_root(project_id) / "lightrag"
     if not working_dir.exists():
         return False
     for pattern in ["*.graphml", "kv_store_*.json"]:
