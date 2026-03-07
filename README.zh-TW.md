@@ -32,7 +32,7 @@
 ## 快速開始
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/KIKIPENG/De-insight.git
 cd De-insight
 ./scripts/install.sh
 deinsight
