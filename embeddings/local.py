@@ -21,6 +21,28 @@ _processor = None
 _tokenizer = None
 
 
+def _has_meta_tensors(model) -> bool:
+    try:
+        return any(getattr(p, "is_meta", False) for p in model.parameters())
+    except Exception:
+        return False
+
+
+def _reload_model_cpu():
+    global _model
+    from transformers import AutoModel
+    import torch
+
+    _model = AutoModel.from_pretrained(
+        _MODEL_NAME,
+        trust_remote_code=True,
+        low_cpu_mem_usage=False,
+        device_map="cpu",
+        torch_dtype=torch.float32,
+    )
+    _model.eval()
+
+
 def _ensure_model():
     """懶載入 jina-clip-v1 模型（首次呼叫約 1-2 秒）。"""
     global _model, _processor, _tokenizer
@@ -36,6 +58,8 @@ def _ensure_model():
         device_map=None,
     )
     _model.eval()
+    if _has_meta_tensors(_model):
+        _reload_model_cpu()
     _processor = AutoProcessor.from_pretrained(_MODEL_NAME, trust_remote_code=True)
     _tokenizer = AutoTokenizer.from_pretrained(_MODEL_NAME, trust_remote_code=True)
 
@@ -76,8 +100,15 @@ def _embed_text_sync(text: str) -> list[float]:
 
     _ensure_model()
     inputs = _tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=512)
-    with torch.no_grad():
-        text_embed = _model.get_text_features(**inputs)
+    try:
+        with torch.no_grad():
+            text_embed = _model.get_text_features(**inputs)
+    except RuntimeError as e:
+        if "meta tensor" not in str(e):
+            raise
+        _reload_model_cpu()
+        with torch.no_grad():
+            text_embed = _model.get_text_features(**inputs)
     return _truncate_and_normalize(text_embed[0].cpu().numpy())
 
 
@@ -94,6 +125,13 @@ def _embed_image_sync(source: Union[str, Path, bytes]) -> list[float]:
         img = Image.open(str(source)).convert("RGB")
 
     inputs = _processor(images=img, return_tensors="pt")
-    with torch.no_grad():
-        img_embed = _model.get_image_features(**inputs)
+    try:
+        with torch.no_grad():
+            img_embed = _model.get_image_features(**inputs)
+    except RuntimeError as e:
+        if "meta tensor" not in str(e):
+            raise
+        _reload_model_cpu()
+        with torch.no_grad():
+            img_embed = _model.get_image_features(**inputs)
     return _truncate_and_normalize(img_embed[0].cpu().numpy())
