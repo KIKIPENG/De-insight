@@ -17,17 +17,25 @@ mkdir -p "$LOG_DIR"
 
 is_backend_ready() {
   if command -v curl >/dev/null 2>&1; then
-    curl -sS "$HEALTH_URL" >/dev/null 2>&1
-  else
-    return 1
+    curl -sS --max-time 1 "$HEALTH_URL" >/dev/null 2>&1
+    return $?
   fi
+  "$BACKEND_PY" - <<'PY' >/dev/null 2>&1
+import sys, urllib.request
+try:
+    urllib.request.urlopen("http://127.0.0.1:8000/api/health", timeout=1)
+except Exception:
+    sys.exit(1)
+PY
 }
 
 start_backend() {
   if is_backend_ready; then
+    echo "[deinsight] backend already running on 127.0.0.1:8000"
     return 0
   fi
 
+  echo "[deinsight] starting backend..."
   (
     cd "$ROOT_DIR/backend"
     nohup "$BACKEND_PY" -m uvicorn main:app --host 127.0.0.1 --port 8000 >>"$BACKEND_LOG" 2>&1 &
@@ -35,15 +43,18 @@ start_backend() {
 
   for _ in $(seq 1 30); do
     if is_backend_ready; then
+      echo "[deinsight] backend ready"
       return 0
     fi
     sleep 0.2
   done
 
-  echo "Backend failed to start. See log: $BACKEND_LOG"
+  echo "[deinsight] backend failed to start."
+  echo "See log: $BACKEND_LOG"
   exit 1
 }
 
 start_backend
 cd "$ROOT_DIR"
+echo "[deinsight] starting TUI..."
 exec "$BACKEND_PY" tui.py

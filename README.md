@@ -108,6 +108,12 @@ If `deinsight` is not found, add this to your shell profile:
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
+Or run directly:
+
+```bash
+~/.local/bin/deinsight
+```
+
 On first launch with no existing projects, the onboarding wizard will guide setup.
 
 ---
