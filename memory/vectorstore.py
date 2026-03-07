@@ -75,13 +75,22 @@ def _detect_vector_dim(table) -> int | None:
 
 
 def _is_local_mode() -> bool:
-    """判斷是否使用本地 embedding。"""
+    """判斷是否使用本地 embedding。
+
+    以 EMBED_PROVIDER 為主判斷，EMBED_MODE 做 backward compat。
+    缺省（env 未設）時回落 local。
+    """
     import sys
     sys.path.insert(0, str(Path(__file__).parent.parent))
     from settings import load_env
     env = load_env()
-    return env.get("EMBED_MODE", "").lower() == "local" or \
-           env.get("EMBED_PROVIDER", "").lower() == "local"
+    provider = env.get("EMBED_PROVIDER", "").lower()
+    mode = env.get("EMBED_MODE", "").lower()
+    if provider == "local" or mode == "local":
+        return True
+    if provider and provider != "local":
+        return False
+    return True
 
 
 async def _get_embedding_fn():

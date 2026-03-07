@@ -73,51 +73,59 @@ def _get_llm_config() -> tuple[str, str, str]:
 
 
 def _is_local_embed() -> bool:
-    """Check if EMBED_MODE=local is set."""
+    """判斷是否使用本地 embedding。
+
+    以 EMBED_PROVIDER 為主判斷來源，EMBED_MODE 做 backward compat。
+    缺省（env 未設）時回落 local。
+    """
     env = load_env()
-    return env.get("EMBED_MODE", "").lower() == "local" or \
-           env.get("EMBED_PROVIDER", "").lower() == "local"
+    provider = env.get("EMBED_PROVIDER", "").lower()
+    mode = env.get("EMBED_MODE", "").lower()
+
+    # 明確設為 local
+    if provider == "local" or mode == "local":
+        return True
+    # 明確設為其他 API provider
+    if provider and provider != "local":
+        return False
+    # 缺省：回落 local
+    return True
 
 
 def _get_embed_config() -> tuple[str, str, str, int]:
     """Return (model, api_key, api_base, dim) for embeddings.
 
-    讀取順序：
-    0. EMBED_MODE=local → 本地 jina-clip-v1（dim=512）
-    1. EMBED_MODEL / EMBED_API_KEY / EMBED_API_BASE / EMBED_DIM（Settings 寫入）
-    2. JINA_API_KEY（向下相容）
-    3. 根據 LLM_MODEL 推斷
+    以 EMBED_PROVIDER 為單一真值：
+    - "local" 或缺省 → jina-clip-v1 (512)
+    - 其他 → 按 provider 設定走 API
     """
     env = load_env()
 
-    # 0. Local embedding mode
+    # Local embedding (預設)
     if _is_local_embed():
         return "jina-clip-v1", "", "", 512
 
-    # 1. Settings 統一格式
+    # API embedding — 由 EMBED_PROVIDER 決定
+    provider = env.get("EMBED_PROVIDER", "").lower()
+
+    if provider.startswith("ollama"):
+        embed_model = env.get("EMBED_MODEL", "nomic-embed-text")
+        return embed_model, "ollama", "http://localhost:11434/v1", int(env.get("EMBED_DIM", "768"))
+
     embed_model = env.get("EMBED_MODEL", "")
     if embed_model:
         embed_key = env.get("EMBED_API_KEY", "") or env.get("JINA_API_KEY", "") or env.get("OPENAI_API_KEY", "")
         embed_base = env.get("EMBED_API_BASE", "https://api.openai.com/v1")
         embed_dim = int(env.get("EMBED_DIM", "1024"))
-        # Ollama embed
-        if env.get("EMBED_PROVIDER", "").startswith("ollama"):
-            embed_key = "ollama"
-            embed_base = "http://localhost:11434/v1"
         return embed_model, embed_key, embed_base, embed_dim
 
-    # 2. Jina 向下相容
+    # Backward compat: bare JINA_API_KEY
     jina_key = env.get("JINA_API_KEY", "")
     if jina_key:
         return "jina-embeddings-v3", jina_key, "https://api.jina.ai/v1", 1024
 
-    # 3. 根據 LLM_MODEL 推斷
-    llm_model = env.get("LLM_MODEL", "")
-    if llm_model.startswith("ollama/"):
-        return "nomic-embed-text", "ollama", "http://localhost:11434/v1", 768
-
-    api_key = env.get("OPENAI_API_KEY", "") or env.get("CODEX_API_KEY", "")
-    return "text-embedding-3-small", api_key, "https://api.openai.com/v1", 1536
+    # Fallback: local (should not reach here due to _is_local_embed)
+    return "jina-clip-v1", "", "", 512
 
 
 def _apply_env() -> None:
@@ -270,12 +278,16 @@ def reset_rag() -> None:
 
 
 async def _clear_failed(rag: LightRAG) -> None:
-    """清除所有 FAILED 狀態的文件記錄，讓使用者可以重新匯入。"""
+    """清除所有 FAILED / 卡住的 PROCESSING 文件記錄，讓使用者可以重新匯入。"""
     try:
         from lightrag.base import DocStatus
-        failed = await rag.doc_status.get_docs_by_status(DocStatus.FAILED)
-        if failed:
-            await rag.doc_status.delete(list(failed.keys()))
+        to_delete = []
+        for status in (DocStatus.FAILED, DocStatus.PROCESSING):
+            docs = await rag.doc_status.get_docs_by_status(status)
+            if docs:
+                to_delete.extend(docs.keys())
+        if to_delete:
+            await rag.doc_status.delete(to_delete)
     except Exception:
         pass
 
@@ -491,10 +503,14 @@ async def query_knowledge(question: str, mode: str = "naive", context_only: bool
     if context_only:
         param = QueryParam(mode=mode, only_need_context=True)
         result = await rag.aquery(question, param=param)
+        if _is_no_context_result(result):
+            return "", []
         sources = _extract_sources(result)
         return result, sources
     param = QueryParam(mode=mode, user_prompt="請用繁體中文回答。\n\n" + question)
     result = await rag.aquery(question, param=param)
+    if _is_no_context_result(result):
+        return "", []
     sources = _extract_sources(result)
     return result, sources
 
@@ -520,6 +536,18 @@ def _clean_rag_chunk(text: str) -> str:
     return text
 
 
+def _is_no_context_result(text: str) -> bool:
+    """判斷 LightRAG 是否回傳「無可用上下文」訊息。"""
+    if not text:
+        return True
+    t = text.strip().lower()
+    return (
+        "[no-context]" in t
+        or "not able to provide an answer" in t
+        or "no relevant document chunks found" in t
+    )
+
+
 def _extract_sources(raw_result: str) -> list[dict]:
     """Extract source information from LightRAG query result.
 
@@ -527,7 +555,7 @@ def _extract_sources(raw_result: str) -> list[dict]:
     """
     import re
     sources = []
-    if not raw_result or not raw_result.strip():
+    if not raw_result or not raw_result.strip() or _is_no_context_result(raw_result):
         return sources
 
     cleaned = _clean_rag_chunk(raw_result)
@@ -575,15 +603,25 @@ def _extract_sources(raw_result: str) -> list[dict]:
 
 
 def has_knowledge(project_id: str = "default") -> bool:
-    """Check if the knowledge base has any data."""
+    """Check if the knowledge base has retrievable vector data.
+
+    唯一真值：vdb_chunks.json 的 data 陣列非空。
+    不再以檔案大小作為判斷依據。
+    """
     if project_id == "default":
         working_dir = _DEFAULT_LIGHTRAG_DIR
     else:
         working_dir = project_root(project_id) / "lightrag"
     if not working_dir.exists():
         return False
-    for pattern in ["*.graphml", "graph_*.graphml", "kv_store_*.json", "vdb_*.json"]:
-        for f in working_dir.glob(pattern):
-            if f.stat().st_size > 200:
-                return True
+    vdb_chunks = working_dir / "vdb_chunks.json"
+    if not vdb_chunks.exists():
+        return False
+    try:
+        import json
+        payload = json.loads(vdb_chunks.read_text(encoding="utf-8"))
+        if isinstance(payload, dict):
+            return len(payload.get("data", [])) > 0
+    except Exception:
+        pass
     return False

@@ -616,7 +616,12 @@ class ChatMixin:
         # 3. 知識庫 RAG
         _pid = self.state.current_project["id"] if self.state.current_project else "default"
         try:
-            from rag.knowledge_graph import query_knowledge, has_knowledge
+            from rag.knowledge_graph import (
+                query_knowledge,
+                has_knowledge,
+                _clean_rag_chunk,
+                _is_no_context_result,
+            )
             if has_knowledge(project_id=_pid):
                 is_deep = self.rag_mode == "deep"
                 result, sources = await query_knowledge(
@@ -625,15 +630,19 @@ class ChatMixin:
                     context_only=not is_deep,
                     project_id=_pid,
                 )
-                if result and len(result.strip()) > 10:
-                    await self._update_research_panel(result)
-                    if sources:
-                        self.state.last_rag_sources = sources
-                    context_text = f"知識庫相關資訊：\n{result[:2000]}\n\n（以上為參考資料，請務必用繁體中文回覆使用者。）"
-                    if return_sys_addon:
-                        sys_addon_parts.append(context_text)
-                    else:
-                        augmented.insert(insert_idx, {"role": "system", "content": context_text})
+                # Guard: only inject if we got real content (not no-context)
+                if result and len(result.strip()) > 10 and not _is_no_context_result(result):
+                    cleaned_result = _clean_rag_chunk(result)
+                    # Only inject cleaned content — never raw JSON/Document Chunks wrappers
+                    if cleaned_result and len(cleaned_result.strip()) > 10:
+                        await self._update_research_panel(result)
+                        if sources:
+                            self.state.last_rag_sources = sources
+                        context_text = f"知識庫相關資訊：\n{cleaned_result[:2000]}\n\n（以上為參考資料，請務必用繁體中文回覆使用者。）"
+                        if return_sys_addon:
+                            sys_addon_parts.append(context_text)
+                        else:
+                            augmented.insert(insert_idx, {"role": "system", "content": context_text})
         except Exception as e:
             self.log.warning(f"RAG inject knowledge failed: {e}")
 

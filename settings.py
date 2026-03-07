@@ -585,6 +585,25 @@ class SettingsScreen(ModalScreen[str | None]):
             self._env.pop("OPENAI_API_KEY", None)
 
     def _save_embed_model(self, pid, model_name, pinfo):
+        # Guard: 如果有圖片資料，禁止從 local 切到 API
+        old_provider = self._env.get("EMBED_PROVIDER", "").lower()
+        old_is_local = old_provider in ("local", "") or self._env.get("EMBED_MODE", "").lower() == "local"
+        new_is_local = pid == "local"
+        if old_is_local and not new_is_local:
+            try:
+                from rag.repair import any_project_has_images
+                if any_project_has_images():
+                    self.notify(
+                        "目前有專案含有圖片資料（使用 local 512 維 embedding），"
+                        "切換到 API embedding 會導致圖片檢索失敗。"
+                        "請先清除所有圖片資料再切換。",
+                        severity="error",
+                        timeout=8,
+                    )
+                    return
+            except Exception:
+                pass
+
         self._env["EMBED_PROVIDER"] = pid
         self._env["EMBED_MODEL"] = model_name
         dims = pinfo.get("dims", {})
@@ -594,6 +613,11 @@ class SettingsScreen(ModalScreen[str | None]):
             if key_val:
                 self._env["EMBED_API_KEY"] = key_val
         self._env["EMBED_API_BASE"] = pinfo.get("default_base", "")
+        # Local mode: also set EMBED_MODE for backward compat
+        if pid == "local":
+            self._env["EMBED_MODE"] = "local"
+        else:
+            self._env.pop("EMBED_MODE", None)
         # Backward compat for Jina
         if pid == "jina" and pinfo.get("key_env"):
             self._env["JINA_API_KEY"] = self._env.get(pinfo["key_env"], "")

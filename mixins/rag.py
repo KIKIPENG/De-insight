@@ -21,6 +21,16 @@ class RAGMixin:
         except NoMatches:
             return
         project_id = self.state.current_project["id"] if self.state.current_project else "default"
+
+        # Health check: auto-repair if needed
+        try:
+            from rag.repair import diagnose, auto_repair
+            diag = diagnose(project_id)
+            if not diag["healthy"]:
+                await auto_repair(project_id, notify=lambda msg: self.notify(msg))
+        except Exception:
+            pass
+
         try:
             from rag.knowledge_graph import has_knowledge
             has_kg = has_knowledge(project_id=project_id)
@@ -125,6 +135,10 @@ class RAGMixin:
                 self.notify("知識庫為空，請先匯入文件 (ctrl+f)")
                 return
             result, sources = await query_knowledge(query, project_id=_pid)
+            if not result:
+                self.notify("搜尋完成，但未找到相關內容")
+                await self._update_research_panel("")
+                return
             if sources:
                 self.state.last_rag_sources = sources
             await self._update_research_panel(result)
