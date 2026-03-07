@@ -259,6 +259,13 @@ class ChatMixin:
             return text[cn_start:]
         return text
 
+    def _has_multimodal_content(self) -> bool:
+        """Check if current messages contain image/multimodal content."""
+        for m in self.messages:
+            if isinstance(m.get("content"), list):
+                return True
+        return False
+
     @work(exclusive=True, group="stream_response")
     async def _stream_response(self) -> None:
         from widgets import Chatbox, ChatInput
@@ -305,12 +312,12 @@ class ChatMixin:
                     full_content += chunk
                     bubble.stream_update(full_content)
                     self._scroll_to_bottom()
-            elif self._is_direct_api_mode():
-                # ── 直接 API 路徑（MiniMax 等 OpenAI-compatible）──
+            elif self._is_direct_api_mode() or self._has_multimodal_content():
+                # ── 直接 API 路徑（MiniMax / OpenRouter / multimodal）──
                 import re as _re
                 from prompts.foucault import get_system_prompt as _get_sp
                 env = load_env()
-                api_base = env.get("OPENAI_API_BASE", "")
+                api_base = env.get("OPENAI_API_BASE", "") or "https://api.openai.com/v1"
                 api_key = self._resolve_api_key(env)
                 model = env.get("LLM_MODEL", "").removeprefix("openai/")
 
@@ -333,6 +340,12 @@ class ChatMixin:
                         },
                         json={"model": model, "messages": send_messages, "stream": True},
                     ) as response:
+                        if response.status_code >= 400:
+                            body = await response.aread()
+                            err_text = body.decode("utf-8", errors="replace")[:300]
+                            if "vision" in err_text.lower() or "image" in err_text.lower() or "multimodal" in err_text.lower():
+                                raise RuntimeError(f"此模型不支援圖片輸入。請切換到支援 vision 的模型（如 gpt-4o、gemini）。")
+                            raise RuntimeError(f"API 錯誤 {response.status_code}: {err_text}")
                         async for line in response.aiter_lines():
                             if not line.startswith("data: "):
                                 continue
