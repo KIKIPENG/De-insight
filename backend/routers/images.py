@@ -55,11 +55,15 @@ async def upload_image(
     project_id = str(form.get("project_id", "") or "")
     pid = await _get_project_id(project_id or None)
 
+    def _is_upload(v: object) -> bool:
+        return hasattr(v, "filename") and hasattr(v, "read")
+
     upload_files: list[UploadFile] = []
-    upload_files.extend([f for f in form.getlist("files") if isinstance(f, UploadFile)])
+    upload_files.extend([f for f in form.getlist("files") if _is_upload(f)])
+    upload_files.extend([f for f in form.getlist("files[]") if _is_upload(f)])
     legacy_file = form.get("file")
-    if isinstance(legacy_file, UploadFile):
-        upload_files.append(legacy_file)
+    if _is_upload(legacy_file):
+        upload_files.append(legacy_file)  # type: ignore[arg-type]
     if not upload_files:
         raise HTTPException(status_code=400, detail="No file uploaded")
 
