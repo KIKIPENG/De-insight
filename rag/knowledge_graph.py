@@ -39,7 +39,7 @@ def _get_llm_config() -> tuple[str, str, str]:
     rag_model = env.get("RAG_LLM_MODEL", "")
     if rag_model:
         rag_key = env.get("RAG_API_KEY", "") or env.get("OPENAI_API_KEY", "")
-        rag_base = env.get("RAG_API_BASE", "https://api.openai.com/v1")
+        rag_base = env.get("RAG_API_BASE", "") or env.get("OPENAI_API_BASE", "https://api.openai.com/v1")
         if rag_model.startswith("ollama/"):
             return rag_model.removeprefix("ollama/"), "ollama", "http://localhost:11434/v1"
         # Strip openai/ prefix — API endpoint expects bare model name
@@ -166,6 +166,11 @@ def get_rag(project_id: str = "default") -> LightRAG:
                     },
                     json={"model": llm_model, "messages": messages},
                 )
+                if resp.status_code >= 400:
+                    import logging as _log
+                    _log.getLogger("rag.llm").error(
+                        f"RAG LLM {resp.status_code} ({llm_model}): {resp.text[:500]}"
+                    )
                 resp.raise_for_status()
                 result = resp.json()["choices"][0]["message"]["content"]
             # Strip <think>...</think> from reasoning models
@@ -234,10 +239,21 @@ def reset_rag() -> None:
     _rag_project_id = None
 
 
+async def _clear_failed(rag: LightRAG) -> None:
+    """清除所有 FAILED 狀態的文件記錄，讓使用者可以重新匯入。"""
+    try:
+        from lightrag.base import DocStatus
+        failed = await rag.doc_status.get_docs_by_status(DocStatus.FAILED)
+        if failed:
+            await rag.doc_status.delete(list(failed.keys()))
+    except Exception:
+        pass
+
+
 async def _count_failed(rag: LightRAG) -> int:
     """回傳目前 FAILED 狀態的文件數。"""
     try:
-        from lightrag.types import DocStatus
+        from lightrag.base import DocStatus
         failed = await rag.doc_status.get_docs_by_status(DocStatus.FAILED)
         return len(failed)
     except Exception:
@@ -250,30 +266,31 @@ async def _flush_and_check(rag: LightRAG, prev_failed: int, context: str = "") -
     await rag._insert_done()
 
     # Check if new failures appeared
-    try:
-        from lightrag.types import DocStatus
-        failed = await rag.doc_status.get_docs_by_status(DocStatus.FAILED)
-        new_failures = len(failed) - prev_failed
-        if new_failures > 0:
-            errors = []
-            for doc_id, status in list(failed.items())[-new_failures:]:
-                err = getattr(status, "error_msg", "") or "unknown"
-                errors.append(err)
-            msg = "; ".join(errors[:3])
-            raise RuntimeError(f"知識庫處理失敗{' (' + context + ')' if context else ''}: {msg}")
-    except (ImportError, RuntimeError) as e:
-        if isinstance(e, RuntimeError):
-            raise
+    from lightrag.base import DocStatus
+    failed = await rag.doc_status.get_docs_by_status(DocStatus.FAILED)
+    new_failures = len(failed) - prev_failed
+    if new_failures > 0:
+        errors = []
+        for doc_id, status in list(failed.items())[-new_failures:]:
+            err = getattr(status, "error_msg", "") or "unknown"
+            # Simplify long HTTP error messages
+            if "HTTPStatusError" in err:
+                import re as _re_err
+                m = _re_err.search(r"(\d{3}\s+\w[\w\s]*?) for url", err)
+                err = m.group(1) if m else err[:120]
+            errors.append(err)
+        msg = "; ".join(errors[:3])
+        raise RuntimeError(f"知識庫處理失敗{' (' + context + ')' if context else ''}: {msg}")
 
 
 async def insert_text(text: str, source: str = "", project_id: str = "default") -> None:
     rag = await _ensure_initialized(project_id=project_id)
-    prev_failed = await _count_failed(rag)
+    await _clear_failed(rag)
     doc = text
     if source:
         doc = f"[來源: {source}]\n\n{text}"
     await rag.ainsert(doc)
-    await _flush_and_check(rag, prev_failed, context=source or "text")
+    await _flush_and_check(rag, 0, context=source or "text")
 
 
 async def insert_pdf(path: str, project_id: str = "default", title: str = "") -> dict:
@@ -309,10 +326,10 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "") ->
             chunks.append(f"[{display_name} p.{i+1}]\n{text.strip()}")
 
     rag = await _ensure_initialized(project_id=project_id)
-    prev_failed = await _count_failed(rag)
+    await _clear_failed(rag)
     full_text = "\n\n---\n\n".join(chunks)
     await rag.ainsert(full_text)
-    await _flush_and_check(rag, prev_failed, context=display_name)
+    await _flush_and_check(rag, 0, context=display_name)
 
     # 保留原始檔案到專案目錄
     doc_dir = ensure_project_dirs(project_id) / "documents"
