@@ -96,31 +96,19 @@ project-root/
 ## Quick Start
 
 ```bash
-# 1. Clone and enter the repo
 git clone <repo-url>
 cd De-insight
-
-# 2. Set up backend virtual environment
-cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cd ..
-
-# 3. Create .env with your API key
-echo 'LLM_MODEL=anthropic/claude-sonnet-4-20250514' > .env
-echo 'ANTHROPIC_API_KEY=sk-ant-...' >> .env
-
-# 4. Start the backend
-source backend/.venv/bin/activate
-cd backend && uvicorn main:app --reload &
-cd ..
-
-# 5. Start the TUI
-python3 tui.py
+./scripts/install.sh
+deinsight
 ```
 
-On first launch with no existing projects, the **Onboarding wizard** will guide you through provider and embedding setup.
+If `deinsight` is not found, add this to your shell profile:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+On first launch with no existing projects, the onboarding wizard will guide setup.
 
 ---
 
@@ -168,24 +156,21 @@ No key needed for **Ollama** (local) or **Codex CLI** (OAuth).
 
 ## Run
 
-### Backend
+Daily use:
 
 ```bash
-cd backend
-source .venv/bin/activate
-uvicorn main:app --reload
+deinsight
 ```
 
-The backend serves:
-- `http://localhost:8000/api/health` — health check
-- `http://localhost:8000/api/images` — image gallery API
-- `http://localhost:8000/gallery` — web gallery UI
+This command auto-starts backend if needed, then opens the TUI.
 
-### TUI
+Manual mode (advanced):
 
 ```bash
 source backend/.venv/bin/activate
-python3 tui.py
+cd backend && uvicorn main:app --reload
+# new terminal:
+cd .. && python3 tui.py
 ```
 
 ### Keyboard Shortcuts

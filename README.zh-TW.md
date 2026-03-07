@@ -34,21 +34,14 @@
 ```bash
 git clone <repo-url>
 cd De-insight
+./scripts/install.sh
+deinsight
+```
 
-cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cd ..
+如果找不到 `deinsight` 指令，先把 `~/.local/bin` 加到 PATH：
 
-echo 'LLM_MODEL=anthropic/claude-sonnet-4-20250514' > .env
-echo 'ANTHROPIC_API_KEY=sk-ant-...' >> .env
-
-source backend/.venv/bin/activate
-cd backend && uvicorn main:app --reload &
-cd ..
-
-python3 tui.py
+```bash
+export PATH="$HOME/.local/bin:$PATH"
 ```
 
 ---
@@ -71,19 +64,21 @@ python3 tui.py
 
 ## 執行
 
-後端：
+日常使用：
 
 ```bash
-cd backend
-source .venv/bin/activate
-uvicorn main:app --reload
+deinsight
 ```
 
-TUI：
+此指令會自動檢查並啟動 backend，接著打開 TUI。
+
+手動模式（進階）：
 
 ```bash
 source backend/.venv/bin/activate
-python3 tui.py
+cd backend && uvicorn main:app --reload
+# 新 terminal:
+cd .. && python3 tui.py
 ```
 
 Gallery：
@@ -124,4 +119,3 @@ python3 -m unittest tests/test_rag_switch.py -v
 ## License
 
 TODO（尚未定義）
-

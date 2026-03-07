@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+BACKEND_PY="$ROOT_DIR/backend/.venv/bin/python"
+HEALTH_URL="http://127.0.0.1:8000/api/health"
+LOG_DIR="$HOME/.deinsight/logs"
+BACKEND_LOG="$LOG_DIR/backend.log"
+
+if [ ! -x "$BACKEND_PY" ]; then
+  echo "Backend environment not found."
+  echo "Run: $ROOT_DIR/scripts/install.sh"
+  exit 1
+fi
+
+mkdir -p "$LOG_DIR"
+
+is_backend_ready() {
+  if command -v curl >/dev/null 2>&1; then
+    curl -sS "$HEALTH_URL" >/dev/null 2>&1
+  else
+    return 1
+  fi
+}
+
+start_backend() {
+  if is_backend_ready; then
+    return 0
+  fi
+
+  (
+    cd "$ROOT_DIR/backend"
+    nohup "$BACKEND_PY" -m uvicorn main:app --host 127.0.0.1 --port 8000 >>"$BACKEND_LOG" 2>&1 &
+  )
+
+  for _ in $(seq 1 30); do
+    if is_backend_ready; then
+      return 0
+    fi
+    sleep 0.2
+  done
+
+  echo "Backend failed to start. See log: $BACKEND_LOG"
+  exit 1
+}
+
+start_backend
+cd "$ROOT_DIR"
+exec "$BACKEND_PY" tui.py
