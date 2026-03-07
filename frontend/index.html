@@ -607,7 +607,16 @@ async function uploadImage() {
     const r = await fetch(`${API}/images/upload`, { method: 'POST', body: form });
     const data = await r.json().catch(() => ({}));
     if (!r.ok) {
-      const detail = data?.detail?.message || data?.detail || data?.message || 'upload failed';
+      const firstError = data?.detail?.errors?.[0];
+      const firstErrorText = firstError
+        ? `${firstError.filename || 'file'}: ${firstError.error || 'unknown error'}`
+        : '';
+      const detail =
+        data?.detail?.message ||
+        firstErrorText ||
+        data?.detail ||
+        data?.message ||
+        'upload failed';
       throw new Error(typeof detail === 'string' ? detail : JSON.stringify(detail));
     }
     const uploaded = data.uploaded ?? files.length;
