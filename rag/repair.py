@@ -21,6 +21,9 @@ from pathlib import Path
 
 log = logging.getLogger(__name__)
 
+# Prevent repair loops: track projects currently being repaired
+_repairing: set[str] = set()
+
 
 def _lightrag_dir(project_id: str) -> Path:
     from paths import project_root
@@ -176,12 +179,17 @@ async def auto_repair(project_id: str, notify=None) -> dict:
 
     回傳 {"status": "ok"|"repaired"|"failed", "diagnosis": {...}, "repair": {...}, ...}
     """
+    # Prevent concurrent/looping repairs
+    if project_id in _repairing:
+        return {"status": "skip", "reason": "already repairing"}
+
     diag = diagnose(project_id)
     report = {"status": "ok", "diagnosis": diag}
 
     if diag["healthy"]:
         return report
 
+    _repairing.add(project_id)
     log.info("Knowledge base unhealthy for project %s: %s", project_id, diag["issues"])
     if notify:
         notify(f"偵測到知識庫問題：{'; '.join(diag['issues'][:2])}")
@@ -210,8 +218,11 @@ async def auto_repair(project_id: str, notify=None) -> dict:
         report["status"] = "failed"
         log.error("Repair failed for project %s: %s", project_id, rebuild_result)
         if notify:
-            notify(f"知識庫修復失敗（{rebuild_result['failed']} 份失敗）")
+            errors = rebuild_result.get("errors", [])
+            hint = errors[0][:60] if errors else "未知原因"
+            notify(f"知識庫修復失敗：{hint}。請手動重新匯入文件。")
 
+    _repairing.discard(project_id)
     return report
 
 
