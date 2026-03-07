@@ -35,6 +35,7 @@ class ChatMixin:
         "/ragmode": "toggle_rag_mode",
         "/project": "open_project_modal",
         "/pending": "confirm_pending_memories",
+        "/caption": "backfill_captions",
     }
 
     SLASH_HINTS: list[tuple[str, str]] = [
@@ -50,6 +51,7 @@ class ChatMixin:
         ("/ragmode", "切換知識檢索：快速 / 深度"),
         ("/project", "切換專案"),
         ("/pending", "記憶待確認"),
+        ("/caption", "為圖片庫自動生成描述"),
     ]
 
     def on_chat_input_submitted(self, event) -> None:
@@ -78,28 +80,18 @@ class ChatMixin:
             self._submit_chat()
 
     def on_paste(self, event) -> None:
+        """貼上/拖入處理：檔案路徑填入輸入框，不自動匯入。"""
         text = event.text.strip()
         if not text:
-            return
-        clean = text.strip("'\"")
-        is_url = clean.startswith("http://") or clean.startswith("https://")
-        if is_url:
-            event.prevent_default()
-            self.notify("偵測到網址，開始匯入…")
-            self._do_import(clean)
             return
         path = self._clean_dropped_path(text)
         if path:
             event.prevent_default()
-            if path.lower().endswith(".pdf"):
-                self.notify(f"偵測到 PDF，開始匯入…")
-                self._do_import(path)
-            else:
-                from widgets import ChatInput
-                inp = self.query_one("#chat-input", ChatInput)
-                inp.text = path
-                inp.focus()
-                self.notify(f"檔案路徑已填入輸入框")
+            from widgets import ChatInput
+            inp = self.query_one("#chat-input", ChatInput)
+            inp.text = path
+            inp.focus()
+            self.notify("檔案路徑已填入輸入框，如需匯入請用 ctrl+f")
 
     def _update_slash_hints(self) -> None:
         from widgets import ChatInput
@@ -180,17 +172,6 @@ class ChatMixin:
             self._send_as_user(text)
             return
 
-        path = self._clean_dropped_path(text)
-        if path and path.lower().endswith(".pdf"):
-            self.notify("偵測到 PDF，開始匯入…")
-            self._do_import(path)
-            return
-        clean_text = text.strip("'\"")
-        if (clean_text.startswith("http://") or clean_text.startswith("https://")) and " " not in clean_text:
-            self.notify("偵測到網址，開始匯入…")
-            self._do_import(clean_text)
-            return
-
         if text.startswith("/"):
             self._handle_slash_command(text)
             return
@@ -260,7 +241,9 @@ class ChatMixin:
         return text
 
     def _has_multimodal_content(self) -> bool:
-        """Check if current messages contain image/multimodal content."""
+        """Check if current messages contain image/multimodal content.
+        Note: 圖片現在走 CLIP 語意檢索，不再送 base64，此方法保留向後相容。
+        """
         for m in self.messages:
             if isinstance(m.get("content"), list):
                 return True
@@ -312,7 +295,7 @@ class ChatMixin:
                     full_content += chunk
                     bubble.stream_update(full_content)
                     self._scroll_to_bottom()
-            elif self._is_direct_api_mode() or self._has_multimodal_content():
+            elif self._is_direct_api_mode():
                 # ── 直接 API 路徑（MiniMax / OpenRouter / multimodal）──
                 import re as _re
                 from prompts.foucault import get_system_prompt as _get_sp
@@ -525,30 +508,27 @@ class ChatMixin:
         return resp.choices[0].message.content or ""
 
     def _build_user_content(self, text: str):
-        """組合使用者文字 + pending_images 為 multimodal content。
-        若無圖片，回傳純文字字串；有圖片則回傳 OpenAI vision 格式 list。
+        """組合使用者文字。
+        圖片走 CLIP 語意檢索（_inject_rag_context step 2），不需要 base64 傳送。
+        pending_images 選取的圖片 metadata 會附加為文字提示。
         """
         pending = getattr(self.state, "pending_images", None) or []
         if not pending:
             return text
 
-        parts = [{"type": "text", "text": text}]
+        # 附加選取圖片的檔名作為文字提示，讓 RAG 知道使用者關注的圖片
+        img_hints = []
         for img in pending:
-            import base64
             img_path = Path(img) if isinstance(img, str) else Path(img.get("path", ""))
             if img_path.exists():
-                data = base64.b64encode(img_path.read_bytes()).decode()
-                suffix = img_path.suffix.lower().lstrip(".")
-                mime = {"jpg": "image/jpeg", "jpeg": "image/jpeg", "png": "image/png",
-                        "gif": "image/gif", "webp": "image/webp"}.get(suffix, "image/jpeg")
-                parts.append({
-                    "type": "image_url",
-                    "image_url": {"url": f"data:{mime};base64,{data}"},
-                })
-        # clear pending
+                img_hints.append(img_path.name)
+
         self.state.pending_images = []
         self._update_menu_bar()
-        return parts
+
+        if img_hints:
+            return f"{text}\n\n（使用者附加了圖片：{', '.join(img_hints)}）"
+        return text
 
     @staticmethod
     def _extract_text(content) -> str:
@@ -614,7 +594,8 @@ class ChatMixin:
                     img_lines = "\n".join(
                         f"- [圖片] {r['filename']}: {r['caption']}" + (f" (tags: {r['tags']})" if r.get('tags') else "")
                         for r in img_results
-                        if r.get("score", 0) > 0.3
+                        # 使用者明確提及的圖片（檔名出現在訊息中）降低門檻
+                        if r.get("score", 0) > 0.3 or r.get("filename", "") in user_msg
                     )
                     if img_lines:
                         context_text = f"相關圖片（可引用路徑或描述）：\n{img_lines}"
@@ -632,7 +613,6 @@ class ChatMixin:
             from rag.knowledge_graph import (
                 query_knowledge,
                 has_knowledge,
-                _clean_rag_chunk,
                 _is_no_context_result,
             )
             if has_knowledge(project_id=_pid):
@@ -643,19 +623,23 @@ class ChatMixin:
                     context_only=not is_deep,
                     project_id=_pid,
                 )
-                # Guard: only inject if we got real content (not no-context)
                 if result and len(result.strip()) > 10 and not _is_no_context_result(result):
-                    cleaned_result = _clean_rag_chunk(result)
-                    # Only inject cleaned content — never raw JSON/Document Chunks wrappers
-                    if cleaned_result and len(cleaned_result.strip()) > 10:
-                        await self._update_research_panel(result)
-                        if sources:
-                            self.state.last_rag_sources = sources
-                        context_text = f"知識庫相關資訊：\n{cleaned_result[:2000]}\n\n（以上為參考資料，請務必用繁體中文回覆使用者。）"
-                        if return_sys_addon:
-                            sys_addon_parts.append(context_text)
-                        else:
-                            augmented.insert(insert_idx, {"role": "system", "content": context_text})
+                    await self._update_research_panel(result)
+                    if sources:
+                        self.state.last_rag_sources = sources
+                        # 只注入前 3 個來源的 snippet（已按相關度排序）
+                        inject_parts = []
+                        for s in sources[:3]:
+                            label = s.get("title", "")
+                            snippet = s.get("snippet", "")
+                            if snippet:
+                                inject_parts.append(f"[{label}]\n{snippet}")
+                        if inject_parts:
+                            context_text = "知識庫相關資訊：\n\n" + "\n\n---\n\n".join(inject_parts) + "\n\n（以上為參考資料，請務必用繁體中文回覆使用者。）"
+                            if return_sys_addon:
+                                sys_addon_parts.append(context_text)
+                            else:
+                                augmented.insert(insert_idx, {"role": "system", "content": context_text})
         except Exception as e:
             self.log.warning(f"RAG inject knowledge failed: {e}")
 

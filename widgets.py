@@ -459,8 +459,12 @@ class WelcomeBlock(Vertical):
         await self._load_recent_conversations()
 
     async def _load_recent_conversations(self) -> None:
-        store = ConversationStore()
+        from paths import project_root
         project_id = self.app.state.current_project["id"] if self.app.state.current_project else None
+        if project_id:
+            store = ConversationStore(db_path=project_root(project_id) / "conversations.db")
+        else:
+            store = ConversationStore()
         conversations = await store.list_conversations(project_id=project_id)
         conversations = conversations[:10]
         container = self.query_one("#welcome-history")

@@ -253,6 +253,7 @@ def get_rag(project_id: str = "default") -> LightRAG:
         entity_extract_max_gleaning=0,
         default_llm_timeout=600,
         llm_model_max_async=1,
+        cosine_better_than_threshold=0.4,
         addon_params={
             "entity_types": ART_ENTITY_TYPES,
             "example_number": 3,
@@ -424,28 +425,45 @@ async def insert_url(url: str, project_id: str = "default", title: str = "") -> 
     # HTML — extract text
     html = resp.text
 
-    class _TextExtractor(HTMLParser):
-        def __init__(self):
-            super().__init__()
-            self.parts: list[str] = []
-            self._skip = False
+    # 優先用 trafilatura 提取文章主體
+    text = None
+    try:
+        import trafilatura
+        text = trafilatura.extract(
+            html,
+            include_comments=False,    # 去除留言區
+            include_tables=True,       # 保留表格（學術文章常有）
+            no_fallback=False,         # 啟用內建 fallback 策略
+            favor_precision=True,      # 精確優先，寧漏勿雜
+        )
+    except Exception:
+        pass
 
-        def handle_starttag(self, tag, attrs):
-            self._skip = tag in ("script", "style", "nav", "footer", "header")
-
-        def handle_endtag(self, tag):
-            if tag in ("script", "style", "nav", "footer", "header"):
+    # Fallback：原有 HTMLParser 提取（trafilatura 失敗時）
+    if not text:
+        class _TextExtractor(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.parts: list[str] = []
                 self._skip = False
-            if tag in ("p", "div", "br", "h1", "h2", "h3", "h4", "li", "tr"):
-                self.parts.append("\n")
 
-        def handle_data(self, data):
-            if not self._skip:
-                self.parts.append(data)
+            def handle_starttag(self, tag, attrs):
+                self._skip = tag in ("script", "style", "nav", "footer", "header")
 
-    extractor = _TextExtractor()
-    extractor.feed(html)
-    text = "".join(extractor.parts)
+            def handle_endtag(self, tag):
+                if tag in ("script", "style", "nav", "footer", "header"):
+                    self._skip = False
+                if tag in ("p", "div", "br", "h1", "h2", "h3", "h4", "li", "tr"):
+                    self.parts.append("\n")
+
+            def handle_data(self, data):
+                if not self._skip:
+                    self.parts.append(data)
+
+        extractor = _TextExtractor()
+        extractor.feed(html)
+        text = "".join(extractor.parts)
+
     text = re.sub(r"\n{3,}", "\n\n", text).strip()
 
     if len(text) < 50:
@@ -501,13 +519,13 @@ async def query_knowledge(question: str, mode: str = "naive", context_only: bool
     """
     rag = await _ensure_initialized(project_id=project_id)
     if context_only:
-        param = QueryParam(mode=mode, only_need_context=True)
+        param = QueryParam(mode=mode, only_need_context=True, chunk_top_k=5)
         result = await rag.aquery(question, param=param)
         if _is_no_context_result(result):
             return "", []
         sources = _extract_sources(result)
         return result, sources
-    param = QueryParam(mode=mode, user_prompt="請用繁體中文回答。\n\n" + question)
+    param = QueryParam(mode=mode, chunk_top_k=5, user_prompt="請用繁體中文回答。\n\n" + question)
     result = await rag.aquery(question, param=param)
     if _is_no_context_result(result):
         return "", []
@@ -549,55 +567,88 @@ def _is_no_context_result(text: str) -> bool:
 
 
 def _extract_sources(raw_result: str) -> list[dict]:
-    """Extract source information from LightRAG query result.
+    """從 LightRAG 查詢結果解析來源。
 
-    每個 source 的 snippet 至少保留 200 字上下文。
+    直接解析 JSON 結構取得 reference_id → file_path 對應，
+    並從 content 中提取 ~100 字前後文作為 snippet。
     """
     import re
+    import json as _json
     sources = []
     if not raw_result or not raw_result.strip() or _is_no_context_result(raw_result):
         return sources
 
-    cleaned = _clean_rag_chunk(raw_result)
-    if not cleaned:
+    # 1. 建立 reference_id → file_path 對應表
+    ref_map: dict[str, str] = {}
+    for m in re.finditer(r'\[(\d+)\]\s*(.+)', raw_result):
+        ref_map[m.group(1)] = m.group(2).strip()
+
+    # 2. 解析每個 JSON chunk
+    chunks: list[dict] = []
+    for line in raw_result.splitlines():
+        line = line.strip()
+        if not line.startswith("{"):
+            continue
+        try:
+            obj = _json.loads(line)
+            if "content" in obj:
+                chunks.append(obj)
+        except (ValueError, _json.JSONDecodeError):
+            pass
+
+    # 3. 如果 JSON 解析失敗，fallback 用 regex
+    if not chunks:
+        for m in re.finditer(
+            r'\{\s*"reference_id"\s*:\s*"([^"]*)"\s*,\s*"content"\s*:\s*"((?:[^"\\]|\\.)*)"',
+            raw_result,
+        ):
+            chunks.append({"reference_id": m.group(1), "content": m.group(2)})
+
+    if not chunks:
         return sources
 
-    # Split by [來源: ...] or [filename p.N] markers into sections
-    # Each section is a source
-    parts = re.split(r'(?=\[來源[:：]|\[[^\[\]]+?\s+p\.\d+\])', cleaned)
-    parts = [p.strip() for p in parts if p.strip() and len(p.strip()) > 10]
-
-    if not parts:
-        parts = [cleaned]
-
     seen_titles = set()
-    for part in parts:
+    for chunk in chunks:
+        content = chunk.get("content", "")
+        # Unescape JSON string
+        content = content.replace("\\n", "\n").replace("\\t", " ").strip()
+        if len(content) < 10:
+            continue
+
+        ref_id = str(chunk.get("reference_id", ""))
+        file_path = ref_map.get(ref_id, "")
+
+        # 從 content 中提取來源標記
         title = ""
-        file_name = ""
-        source_match = re.search(r'\[來源[:：]\s*(.+?)\]', part)
-        pdf_match = re.search(r'\[([^\[\]]+?)\s+p\.(\d+)\]', part)
+        source_match = re.search(r'\[來源[:：]\s*(.+?)\]', content)
+        pdf_match = re.search(r'\[([^\[\]]+?)\s+p\.(\d+)\]', content)
         if source_match:
             title = source_match.group(1).strip()
-            file_name = title
-            # Remove the marker from snippet
-            part = part.replace(source_match.group(0), '').strip()
         elif pdf_match:
             title = f"{pdf_match.group(1)} p.{pdf_match.group(2)}"
-            file_name = pdf_match.group(1)
-            part = part.replace(pdf_match.group(0), '').strip()
-
-        if not title:
-            first_line = part.split('\n')[0][:40]
+        elif file_path:
+            title = file_path
+        else:
+            first_line = content.split('\n')[0][:40]
             title = first_line if first_line else "知識庫內容"
 
         if title in seen_titles:
             continue
         seen_titles.add(title)
 
-        # Keep snippet — at least 200 chars, up to 600
-        snippet = part[:600] if len(part) > 600 else part
-        if snippet:
-            sources.append({"title": title, "snippet": snippet, "file": file_name})
+        # 移除來源標記後，取前後各 ~100 字作為 snippet
+        snippet_text = re.sub(r'\[來源[:：][^\]]*\]\s*', '', content)
+        snippet_text = re.sub(r'\[[^\[\]]+?\s+p\.\d+\]\s*', '', snippet_text).strip()
+        # 保留約 200 字（前後各 100）
+        if len(snippet_text) > 200:
+            snippet_text = snippet_text[:200] + "…"
+
+        if snippet_text:
+            sources.append({
+                "title": title,
+                "snippet": snippet_text,
+                "file": file_path or title,
+            })
 
     return sources
 
