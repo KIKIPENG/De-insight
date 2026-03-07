@@ -64,6 +64,12 @@ async def upload_image(
     legacy_file = form.get("file")
     if _is_upload(legacy_file):
         upload_files.append(legacy_file)  # type: ignore[arg-type]
+
+    # Fallback: accept any multipart field carrying an upload object, regardless of key name.
+    if not upload_files:
+        for _, v in form.multi_items():
+            if _is_upload(v):
+                upload_files.append(v)  # type: ignore[arg-type]
     if not upload_files:
         raise HTTPException(status_code=400, detail="No file uploaded")
 
