@@ -29,7 +29,12 @@ def _ensure_model():
 
     from transformers import AutoModel, AutoProcessor, AutoTokenizer
 
-    _model = AutoModel.from_pretrained(_MODEL_NAME, trust_remote_code=True)
+    _model = AutoModel.from_pretrained(
+        _MODEL_NAME,
+        trust_remote_code=True,
+        low_cpu_mem_usage=False,
+        device_map=None,
+    )
     _model.eval()
     _processor = AutoProcessor.from_pretrained(_MODEL_NAME, trust_remote_code=True)
     _tokenizer = AutoTokenizer.from_pretrained(_MODEL_NAME, trust_remote_code=True)
