@@ -8,8 +8,11 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 from pathlib import Path
 from typing import Union
+
+log = logging.getLogger(__name__)
 
 EMBED_DIM = 512
 _MODEL_NAME = "jinaai/jina-clip-v1"
@@ -22,46 +25,61 @@ _tokenizer = None
 
 
 def _has_meta_tensors(model) -> bool:
+    """檢查模型參數或 buffer 是否包含 meta tensor。"""
     try:
-        return any(getattr(p, "is_meta", False) for p in model.parameters())
+        for p in model.parameters():
+            if getattr(p, "is_meta", False):
+                return True
+        for b in model.buffers():
+            if getattr(b, "is_meta", False):
+                return True
     except Exception:
-        return False
+        pass
+    return False
 
 
-def _reload_model_cpu():
-    global _model
-    from transformers import AutoModel
+def _load_model():
+    """載入模型，強制 CPU 實體權重。"""
     import torch
+    from transformers import AutoModel
 
-    _model = AutoModel.from_pretrained(
+    model = AutoModel.from_pretrained(
         _MODEL_NAME,
         trust_remote_code=True,
         low_cpu_mem_usage=False,
         device_map="cpu",
         torch_dtype=torch.float32,
     )
-    _model.eval()
+    model.eval()
+
+    if _has_meta_tensors(model):
+        raise RuntimeError(
+            f"jina-clip-v1 loaded with meta tensors despite device_map='cpu'. "
+            f"Check transformers/accelerate versions."
+        )
+    return model
+
+
+def _reset_and_reload():
+    """清掉 singleton 並重新載入模型（只應被 retry 呼叫一次）。"""
+    global _model
+    log.warning("Meta tensor detected at inference, reloading model...")
+    _model = _load_model()
 
 
 def _ensure_model():
-    """懶載入 jina-clip-v1 模型（首次呼叫約 1-2 秒）。"""
+    """懶載入 jina-clip-v1 模型（首次呼叫約 5-15 秒）。"""
     global _model, _processor, _tokenizer
     if _model is not None:
         return
 
-    from transformers import AutoModel, AutoProcessor, AutoTokenizer
+    from transformers import AutoProcessor, AutoTokenizer
 
-    _model = AutoModel.from_pretrained(
-        _MODEL_NAME,
-        trust_remote_code=True,
-        low_cpu_mem_usage=False,
-        device_map=None,
-    )
-    _model.eval()
-    if _has_meta_tensors(_model):
-        _reload_model_cpu()
+    log.info("Loading jina-clip-v1 model (first call, may take a few seconds)...")
+    _model = _load_model()
     _processor = AutoProcessor.from_pretrained(_MODEL_NAME, trust_remote_code=True)
     _tokenizer = AutoTokenizer.from_pretrained(_MODEL_NAME, trust_remote_code=True)
+    log.info("jina-clip-v1 model loaded successfully.")
 
 
 def ensure_model_downloaded() -> None:
@@ -104,9 +122,9 @@ def _embed_text_sync(text: str) -> list[float]:
         with torch.no_grad():
             text_embed = _model.get_text_features(**inputs)
     except RuntimeError as e:
-        if "meta tensor" not in str(e):
+        if "meta tensor" not in str(e).lower():
             raise
-        _reload_model_cpu()
+        _reset_and_reload()
         with torch.no_grad():
             text_embed = _model.get_text_features(**inputs)
     return _truncate_and_normalize(text_embed[0].cpu().numpy())
@@ -129,9 +147,9 @@ def _embed_image_sync(source: Union[str, Path, bytes]) -> list[float]:
         with torch.no_grad():
             img_embed = _model.get_image_features(**inputs)
     except RuntimeError as e:
-        if "meta tensor" not in str(e):
+        if "meta tensor" not in str(e).lower():
             raise
-        _reload_model_cpu()
+        _reset_and_reload()
         with torch.no_grad():
             img_embed = _model.get_image_features(**inputs)
     return _truncate_and_normalize(img_embed[0].cpu().numpy())
