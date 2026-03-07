@@ -1820,11 +1820,11 @@ class OnboardingScreen(ModalScreen[str | None]):
                 Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
                 Static("  選擇模型", classes="ob-hint"),
             )
-            for model in models:
+            for idx, model in enumerate(models):
                 await container.mount(
                     Button(
                         f"  {model}",
-                        id=f"ob-model-{model}",
+                        id=f"ob-model-{idx}",
                         classes="ob-prov-btn",
                         name=model,
                     )
