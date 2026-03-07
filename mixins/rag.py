@@ -101,9 +101,13 @@ class RAGMixin:
         _pid = self.state.current_project["id"] if self.state.current_project else "default"
         self.notify("匯入中…")
         try:
-            await self._import_one(source, _pid)
+            meta = await self._import_one(source, _pid)
             self.state.last_imported_source = source
-            self.notify("匯入完成　ctrl+u 可重新匯入")
+            warning = meta.get("warning", "")
+            if warning:
+                self.notify(f"匯入完成（圖譜建構部分失敗: {warning[:60]}）")
+            else:
+                self.notify("匯入完成　ctrl+u 可重新匯入")
             self._refresh_knowledge_panel()
             await self._update_research_panel("匯入完成，知識庫已更新")
         except Exception as e:

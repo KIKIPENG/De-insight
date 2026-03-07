@@ -260,37 +260,40 @@ async def _count_failed(rag: LightRAG) -> int:
         return 0
 
 
-async def _flush_and_check(rag: LightRAG, prev_failed: int, context: str = "") -> None:
-    """確保資料寫入磁碟，並檢查是否有新增的處理失敗文件。"""
+async def _flush_and_check(rag: LightRAG, prev_failed: int, context: str = "") -> str:
+    """確保資料寫入磁碟，回傳警告訊息（空字串表示成功）。"""
     # Force persist all in-memory data to disk
     await rag._insert_done()
 
     # Check if new failures appeared
-    from lightrag.base import DocStatus
-    failed = await rag.doc_status.get_docs_by_status(DocStatus.FAILED)
-    new_failures = len(failed) - prev_failed
-    if new_failures > 0:
-        errors = []
-        for doc_id, status in list(failed.items())[-new_failures:]:
-            err = getattr(status, "error_msg", "") or "unknown"
-            # Simplify long HTTP error messages
-            if "HTTPStatusError" in err:
-                import re as _re_err
-                m = _re_err.search(r"(\d{3}\s+\w[\w\s]*?) for url", err)
-                err = m.group(1) if m else err[:120]
-            errors.append(err)
-        msg = "; ".join(errors[:3])
-        raise RuntimeError(f"知識庫處理失敗{' (' + context + ')' if context else ''}: {msg}")
+    try:
+        from lightrag.base import DocStatus
+        failed = await rag.doc_status.get_docs_by_status(DocStatus.FAILED)
+        new_failures = len(failed) - prev_failed
+        if new_failures > 0:
+            errors = []
+            for doc_id, status in list(failed.items())[-new_failures:]:
+                err = getattr(status, "error_msg", "") or "unknown"
+                if "HTTPStatusError" in err:
+                    import re as _re_err
+                    m = _re_err.search(r"(\d{3}\s+\w[\w\s]*?) for url", err)
+                    err = m.group(1) if m else err[:120]
+                errors.append(err)
+            return "; ".join(errors[:3])
+    except Exception:
+        pass
+    return ""
 
 
-async def insert_text(text: str, source: str = "", project_id: str = "default") -> None:
+async def insert_text(text: str, source: str = "", project_id: str = "default") -> str:
+    """插入文字到知識庫。回傳警告訊息（空字串表示完全成功）。"""
     rag = await _ensure_initialized(project_id=project_id)
     await _clear_failed(rag)
     doc = text
     if source:
         doc = f"[來源: {source}]\n\n{text}"
     await rag.ainsert(doc)
-    await _flush_and_check(rag, 0, context=source or "text")
+    return await _flush_and_check(rag, 0, context=source or "text")
 
 
 async def insert_pdf(path: str, project_id: str = "default", title: str = "") -> dict:
@@ -329,7 +332,7 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "") ->
     await _clear_failed(rag)
     full_text = "\n\n---\n\n".join(chunks)
     await rag.ainsert(full_text)
-    await _flush_and_check(rag, 0, context=display_name)
+    warning = await _flush_and_check(rag, 0, context=display_name)
 
     # 保留原始檔案到專案目錄
     doc_dir = ensure_project_dirs(project_id) / "documents"
@@ -338,7 +341,10 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "") ->
     if Path(path).resolve() != saved.resolve():
         shutil.copy2(path, saved)
 
-    return {"title": display_name, "page_count": page_count, "file_size": file_size, "saved_path": str(saved)}
+    result = {"title": display_name, "page_count": page_count, "file_size": file_size, "saved_path": str(saved)}
+    if warning:
+        result["warning"] = warning
+    return result
 
 
 async def insert_url(url: str, project_id: str = "default", title: str = "") -> dict:
@@ -409,8 +415,11 @@ async def insert_url(url: str, project_id: str = "default", title: str = "") -> 
         title_match = re.search(r"<title[^>]*>(.*?)</title>", html, re.IGNORECASE | re.DOTALL)
         source = title_match.group(1).strip() if title_match else url
 
-    await insert_text(text, source=source, project_id=project_id)
-    return {"title": source, "page_count": 0, "file_size": len(resp.content)}
+    warning = await insert_text(text, source=source, project_id=project_id)
+    result = {"title": source, "page_count": 0, "file_size": len(resp.content)}
+    if warning:
+        result["warning"] = warning
+    return result
 
 
 async def resolve_doi(doi: str) -> str:
