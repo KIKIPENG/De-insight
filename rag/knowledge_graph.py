@@ -234,12 +234,46 @@ def reset_rag() -> None:
     _rag_project_id = None
 
 
+async def _count_failed(rag: LightRAG) -> int:
+    """回傳目前 FAILED 狀態的文件數。"""
+    try:
+        from lightrag.types import DocStatus
+        failed = await rag.doc_status.get_docs_by_status(DocStatus.FAILED)
+        return len(failed)
+    except Exception:
+        return 0
+
+
+async def _flush_and_check(rag: LightRAG, prev_failed: int, context: str = "") -> None:
+    """確保資料寫入磁碟，並檢查是否有新增的處理失敗文件。"""
+    # Force persist all in-memory data to disk
+    await rag._insert_done()
+
+    # Check if new failures appeared
+    try:
+        from lightrag.types import DocStatus
+        failed = await rag.doc_status.get_docs_by_status(DocStatus.FAILED)
+        new_failures = len(failed) - prev_failed
+        if new_failures > 0:
+            errors = []
+            for doc_id, status in list(failed.items())[-new_failures:]:
+                err = getattr(status, "error_msg", "") or "unknown"
+                errors.append(err)
+            msg = "; ".join(errors[:3])
+            raise RuntimeError(f"知識庫處理失敗{' (' + context + ')' if context else ''}: {msg}")
+    except (ImportError, RuntimeError) as e:
+        if isinstance(e, RuntimeError):
+            raise
+
+
 async def insert_text(text: str, source: str = "", project_id: str = "default") -> None:
     rag = await _ensure_initialized(project_id=project_id)
+    prev_failed = await _count_failed(rag)
     doc = text
     if source:
         doc = f"[來源: {source}]\n\n{text}"
     await rag.ainsert(doc)
+    await _flush_and_check(rag, prev_failed, context=source or "text")
 
 
 async def insert_pdf(path: str, project_id: str = "default", title: str = "") -> dict:
@@ -275,8 +309,10 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "") ->
             chunks.append(f"[{display_name} p.{i+1}]\n{text.strip()}")
 
     rag = await _ensure_initialized(project_id=project_id)
+    prev_failed = await _count_failed(rag)
     full_text = "\n\n---\n\n".join(chunks)
     await rag.ainsert(full_text)
+    await _flush_and_check(rag, prev_failed, context=display_name)
 
     # 保留原始檔案到專案目錄
     doc_dir = ensure_project_dirs(project_id) / "documents"
@@ -490,7 +526,7 @@ def has_knowledge(project_id: str = "default") -> bool:
         working_dir = project_root(project_id) / "lightrag"
     if not working_dir.exists():
         return False
-    for pattern in ["*.graphml", "kv_store_*.json"]:
+    for pattern in ["*.graphml", "graph_*.graphml", "kv_store_*.json", "vdb_*.json"]:
         for f in working_dir.glob(pattern):
             if f.stat().st_size > 200:
                 return True

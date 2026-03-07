@@ -63,14 +63,10 @@ class RAGMixin:
     async def _import_one(self, source: str, project_id: str, title: str = "") -> dict:
         """執行單筆匯入，回傳 meta dict。DOI/arXiv/URL/PDF 判斷都在這裡。"""
         import re as _re
-        from rag.knowledge_graph import reset_rag, get_rag
         source = source.strip()
         is_doi = bool(_re.match(r'^10\.\d{4,}/', source))
         is_arxiv = "arxiv.org/abs/" in source
         is_url = source.startswith("http://") or source.startswith("https://")
-
-        reset_rag()
-        get_rag(project_id=project_id)
 
         if is_doi:
             from rag.knowledge_graph import insert_doi
