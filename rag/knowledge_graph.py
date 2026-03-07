@@ -72,15 +72,27 @@ def _get_llm_config() -> tuple[str, str, str]:
     return model, api_key, api_base or "https://api.openai.com/v1"
 
 
+def _is_local_embed() -> bool:
+    """Check if EMBED_MODE=local is set."""
+    env = load_env()
+    return env.get("EMBED_MODE", "").lower() == "local" or \
+           env.get("EMBED_PROVIDER", "").lower() == "local"
+
+
 def _get_embed_config() -> tuple[str, str, str, int]:
     """Return (model, api_key, api_base, dim) for embeddings.
 
     讀取順序：
+    0. EMBED_MODE=local → 本地 jina-clip-v1（dim=512）
     1. EMBED_MODEL / EMBED_API_KEY / EMBED_API_BASE / EMBED_DIM（Settings 寫入）
     2. JINA_API_KEY（向下相容）
     3. 根據 LLM_MODEL 推斷
     """
     env = load_env()
+
+    # 0. Local embedding mode
+    if _is_local_embed():
+        return "jina-clip-v1", "", "", 512
 
     # 1. Settings 統一格式
     embed_model = env.get("EMBED_MODEL", "")
@@ -178,30 +190,41 @@ def get_rag(project_id: str = "default") -> LightRAG:
                 result = _re.sub(r"<think>[\s\S]*?</think>\s*", "", result)
             return result
 
-    async def embed_func(texts):
-        import httpx
-        import numpy as np
-        sanitized = [t if t and t.strip() else " " for t in texts]
-        n = len(sanitized)
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            resp = await client.post(
-                f"{embed_base}/embeddings",
-                headers={"Authorization": f"Bearer {embed_key}"},
-                json={"model": embed_model, "input": sanitized},
-            )
-            resp.raise_for_status()
-            data = resp.json()
-            sorted_data = sorted(data["data"], key=lambda x: x["index"])
-            embeddings = [item["embedding"] for item in sorted_data]
-            # Ensure exactly N vectors for N inputs (some APIs return extras via late chunking)
-            if len(embeddings) > n:
-                embeddings = embeddings[:n]
-            elif len(embeddings) < n:
-                # Pad missing with zeros
-                dim = len(embeddings[0]) if embeddings else embed_dim
-                while len(embeddings) < n:
-                    embeddings.append([0.0] * dim)
-            return np.array(embeddings, dtype=np.float32)
+    if _is_local_embed():
+        async def embed_func(texts):
+            import numpy as np
+            from embeddings.local import embed_text
+            results = []
+            for t in texts:
+                t = t if t and t.strip() else " "
+                vec = await embed_text(t)
+                results.append(vec)
+            return np.array(results, dtype=np.float32)
+    else:
+        async def embed_func(texts):
+            import httpx
+            import numpy as np
+            sanitized = [t if t and t.strip() else " " for t in texts]
+            n = len(sanitized)
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                resp = await client.post(
+                    f"{embed_base}/embeddings",
+                    headers={"Authorization": f"Bearer {embed_key}"},
+                    json={"model": embed_model, "input": sanitized},
+                )
+                resp.raise_for_status()
+                data = resp.json()
+                sorted_data = sorted(data["data"], key=lambda x: x["index"])
+                embeddings = [item["embedding"] for item in sorted_data]
+                # Ensure exactly N vectors for N inputs (some APIs return extras via late chunking)
+                if len(embeddings) > n:
+                    embeddings = embeddings[:n]
+                elif len(embeddings) < n:
+                    # Pad missing with zeros
+                    dim = len(embeddings[0]) if embeddings else embed_dim
+                    while len(embeddings) < n:
+                        embeddings.append([0.0] * dim)
+                return np.array(embeddings, dtype=np.float32)
 
     if project_id == "default":
         working_dir = _DEFAULT_LIGHTRAG_DIR
