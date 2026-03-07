@@ -102,7 +102,11 @@ async def upload_image(
             errors.append({"filename": safe_name, "error": str(e)})
 
     if not results:
-        raise HTTPException(status_code=500, detail={"message": "All uploads failed", "errors": errors})
+        first_err = errors[0]["error"] if errors else "unknown"
+        raise HTTPException(
+            status_code=500,
+            detail={"message": f"All uploads failed: {first_err}", "errors": errors},
+        )
 
     return {
         "project_id": pid,
