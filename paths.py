@@ -1,0 +1,28 @@
+"""De-insight 路徑管理。所有資料路徑的唯一來源。"""
+
+import os
+from pathlib import Path
+
+APP_HOME = Path(os.environ.get("DEINSIGHT_HOME", Path.home() / ".deinsight"))
+DATA_VERSION = os.environ.get("DEINSIGHT_DATA_VERSION", "v0.6")
+
+DATA_ROOT = APP_HOME / DATA_VERSION
+APP_DB = DATA_ROOT / "app.db"
+PROJECTS_DIR = DATA_ROOT / "projects"
+
+
+def project_root(project_id: str) -> Path:
+    return PROJECTS_DIR / project_id
+
+
+def ensure_project_dirs(project_id: str) -> Path:
+    root = project_root(project_id)
+    (root / "lancedb").mkdir(parents=True, exist_ok=True)
+    (root / "lightrag").mkdir(parents=True, exist_ok=True)
+    (root / "documents").mkdir(parents=True, exist_ok=True)
+    return root
+
+
+def app_db_path() -> Path:
+    APP_DB.parent.mkdir(parents=True, exist_ok=True)
+    return APP_DB

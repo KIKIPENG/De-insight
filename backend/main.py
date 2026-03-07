@@ -31,8 +31,17 @@ app.add_middleware(
 )
 
 from routers.chat import router as chat_router  # noqa: E402
+from routers.images import router as images_router  # noqa: E402
 
 app.include_router(chat_router, prefix="/api")
+app.include_router(images_router, prefix="/api")
+
+# /gallery static — serve frontend/index.html
+from fastapi.staticfiles import StaticFiles  # noqa: E402
+
+_frontend_dir = Path(__file__).resolve().parent.parent / "frontend"
+if _frontend_dir.is_dir():
+    app.mount("/gallery", StaticFiles(directory=str(_frontend_dir), html=True), name="gallery")
 
 
 @app.get("/api/health")

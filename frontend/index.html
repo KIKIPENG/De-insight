@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De-insight Gallery</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --border: #1e1e1e;
+  --border-hi: #2a2a2a;
+  --dim: #484f58;
+  --muted: #6e7681;
+  --text: #8b949e;
+  --bright: #c9d1d9;
+  --white: #fafafa;
+  --accent: #d4a27a;
+  --accent-dim: #3d2a1a;
+  --danger: #da3633;
+  --danger-dim: #3d1a1a;
+  --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+}
+
+html { font-size: 13px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* scanline texture */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── header ── */
+.header {
+  border-bottom: 1px solid var(--border);
+  padding: 1.2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 100;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.logo span { color: var(--dim); font-weight: 300; }
+
+.image-count {
+  color: var(--dim);
+  font-size: 0.85rem;
+}
+
+/* ── search bar ── */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.35rem 0.75rem;
+  transition: border-color 0.2s;
+  max-width: 280px;
+  width: 100%;
+}
+
+.search-bar:focus-within { border-color: var(--accent); }
+
+.search-bar input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--bright);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+.search-bar input::placeholder { color: var(--dim); }
+
+.search-icon { color: var(--dim); font-size: 0.85rem; flex-shrink: 0; }
+
+/* ── toolbar ── */
+.toolbar {
+  padding: 0.8rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.toolbar-actions { display: flex; gap: 0.5rem; }
+
+.btn {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--border-hi);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn:hover { color: var(--white); border-color: var(--dim); }
+
+.btn-accent {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-accent:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.btn-danger { border-color: transparent; color: var(--dim); }
+.btn-danger:hover { color: var(--danger); border-color: var(--danger-dim); }
+
+/* ── upload panel ── */
+.upload-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  border-bottom: 1px solid transparent;
+  padding: 0 2rem;
+}
+
+.upload-panel.open {
+  max-height: 300px;
+  padding: 1.2rem 2rem;
+  border-bottom-color: var(--border);
+}
+
+.upload-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.field label {
+  display: block;
+  color: var(--dim);
+  font-size: 0.75rem;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.field input[type="text"],
+.field input[type="file"] {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-hi);
+  color: var(--bright);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 2px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.field input:focus { border-color: var(--accent); }
+
+.field input[type="file"] {
+  color: var(--dim);
+  cursor: pointer;
+}
+
+.field input[type="file"]::file-selector-button {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  background: var(--border-hi);
+  color: var(--text);
+  border: none;
+  padding: 0.2rem 0.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+/* ── gallery grid ── */
+.gallery {
+  padding: 1.5rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+  animation: cardIn 0.4s ease both;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card:hover {
+  border-color: var(--border-hi);
+  transform: translateY(-2px);
+}
+
+.card-img-wrap {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.card:hover .card-img-wrap img { transform: scale(1.03); }
+
+.card-body {
+  padding: 0.6rem 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.card-caption {
+  color: var(--bright);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin-bottom: 0.3rem;
+  word-break: break-word;
+  min-height: 1.1em;
+}
+
+.card-caption:empty::before {
+  content: '(no caption)';
+  color: var(--dim);
+  font-style: italic;
+}
+
+.card-tags {
+  color: var(--dim);
+  font-size: 0.7rem;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--border);
+}
+
+.card-date {
+  color: var(--dim);
+  font-size: 0.7rem;
+}
+
+.card-actions { display: flex; gap: 0.3rem; }
+
+.card-btn {
+  background: transparent;
+  border: none;
+  color: var(--dim);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  padding: 0.15rem 0.3rem;
+  border-radius: 2px;
+  transition: color 0.15s;
+}
+
+.card-btn:hover { color: var(--white); }
+.card-btn.del:hover { color: var(--danger); }
+
+/* select mode */
+.card.selectable { cursor: pointer; }
+.card.selectable.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.card.selectable.selected::after {
+  content: '\2713';
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: var(--accent);
+  color: var(--bg);
+  width: 1.4rem;
+  height: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 2;
+}
+
+/* ── empty state ── */
+.empty {
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--dim);
+}
+
+.empty-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  opacity: 0.4;
+}
+
+.empty p { font-size: 0.85rem; }
+
+/* ── lightbox ── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border: 1px solid var(--border-hi);
+}
+
+/* ── toast ── */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border-hi);
+  color: var(--bright);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2px;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s;
+  z-index: 2000;
+}
+
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── select bar ── */
+.select-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--accent);
+  padding: 0.75rem 2rem;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 200;
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.select-bar.open { display: flex; }
+
+.select-info { color: var(--accent); font-size: 0.85rem; }
+
+/* ── loading spinner ── */
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--border-hi);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,10,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.loading-overlay.show { display: flex; }
+
+@media (max-width: 640px) {
+  .upload-inner { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); padding: 1rem; }
+  .header, .toolbar { padding-left: 1rem; padding-right: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo">de-insight <span>/ gallery</span></div>
+    <div class="image-count" id="imageCount"></div>
+  </div>
+  <div class="search-bar">
+    <span class="search-icon">/</span>
+    <input type="text" id="searchInput" placeholder="semantic search..." />
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="toolbar-actions">
+    <button class="btn btn-accent" onclick="toggleUpload()">+ upload</button>
+    <button class="btn" id="selectBtn" onclick="toggleSelectMode()">select</button>
+  </div>
+</div>
+
+<div class="upload-panel" id="uploadPanel">
+  <div class="upload-inner">
+    <div class="field">
+      <label>file</label>
+      <input type="file" id="fileInput" accept="image/*" />
+    </div>
+    <div class="field">
+      <label>caption</label>
+      <input type="text" id="captionInput" placeholder="describe this image..." />
+    </div>
+    <div class="field">
+      <label>tags</label>
+      <input type="text" id="tagsInput" placeholder="comma separated..." />
+    </div>
+    <button class="btn btn-accent" onclick="uploadImage()" id="uploadBtn">upload</button>
+  </div>
+</div>
+
+<div class="gallery" id="gallery"></div>
+<div class="empty" id="emptyState" style="display:none">
+  <div class="empty-icon">[]</div>
+  <p>no images yet &mdash; upload to begin</p>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="" />
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="select-bar" id="selectBar">
+  <span class="select-info" id="selectInfo">0 selected</span>
+  <div style="display:flex;gap:0.5rem">
+    <button class="btn btn-accent" onclick="confirmSelection()">confirm selection</button>
+    <button class="btn" onclick="copySelectedPaths()">copy paths</button>
+    <button class="btn btn-danger" onclick="deleteSelected()">delete</button>
+    <button class="btn" onclick="toggleSelectMode()">cancel</button>
+  </div>
+</div>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <span>processing...</span>
+</div>
+
+<script>
+const API = window.location.origin + '/api';
+let images = [];
+let selectMode = false;
+let selected = new Set();
+let searchTimeout = null;
+
+async function loadImages() {
+  try {
+    const r = await fetch(`${API}/images`);
+    const data = await r.json();
+    images = data.images || [];
+    render(images);
+  } catch (e) {
+    toast('failed to load images');
+  }
+}
+
+function render(list) {
+  const g = document.getElementById('gallery');
+  const empty = document.getElementById('emptyState');
+  const count = document.getElementById('imageCount');
+  count.textContent = `${list.length} image${list.length !== 1 ? 's' : ''}`;
+
+  if (!list.length) {
+    g.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  g.innerHTML = list.map((img, i) => `
+    <div class="card ${selectMode ? 'selectable' : ''} ${selected.has(img.id) ? 'selected' : ''}"
+         data-id="${img.id}"
+         style="animation-delay: ${i * 0.03}s"
+         onclick="${selectMode ? `toggleSelect('${img.id}')` : ''}">
+      <div class="card-img-wrap" ${!selectMode ? `onclick="openLightbox('${img.filename}')"` : ''}>
+        <img src="${API}/images/file/${encodeURIComponent(img.filename)}" alt="${esc(img.caption)}" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <div class="card-caption">${esc(img.caption)}</div>
+        ${img.tags ? `<div class="card-tags">${esc(img.tags)}</div>` : ''}
+        <div class="card-meta">
+          <span class="card-date">${img.created_at || ''}</span>
+          <div class="card-actions">
+            <button class="card-btn del" onclick="event.stopPropagation();deleteImage('${img.id}')" title="delete">&times;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function esc(s) {
+  if (!s) return '';
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function toggleUpload() {
+  document.getElementById('uploadPanel').classList.toggle('open');
+}
+
+async function uploadImage() {
+  const fileInput = document.getElementById('fileInput');
+  const file = fileInput.files[0];
+  if (!file) { toast('select a file first'); return; }
+
+  const form = new FormData();
+  form.append('file', file);
+  form.append('caption', document.getElementById('captionInput').value);
+  form.append('tags', document.getElementById('tagsInput').value);
+
+  showLoading(true);
+  try {
+    const r = await fetch(`${API}/images/upload`, { method: 'POST', body: form });
+    if (!r.ok) throw new Error(await r.text());
+    toast('uploaded');
+    fileInput.value = '';
+    document.getElementById('captionInput').value = '';
+    document.getElementById('tagsInput').value = '';
+    await loadImages();
+  } catch (e) {
+    toast('upload failed: ' + e.message);
+  }
+  showLoading(false);
+}
+
+async function deleteImage(id) {
+  if (!confirm('delete this image?')) return;
+  try {
+    await fetch(`${API}/images/${id}`, { method: 'DELETE' });
+    toast('deleted');
+    await loadImages();
+  } catch (e) {
+    toast('delete failed');
+  }
+}
+
+function openLightbox(filename) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightboxImg').src = `${API}/images/file/${encodeURIComponent(filename)}`;
+  lb.classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+function toggleSelectMode() {
+  selectMode = !selectMode;
+  selected.clear();
+  document.getElementById('selectBtn').textContent = selectMode ? 'cancel' : 'select';
+  document.getElementById('selectBar').classList.toggle('open', selectMode);
+  updateSelectInfo();
+  render(images);
+}
+
+function toggleSelect(id) {
+  if (selected.has(id)) selected.delete(id);
+  else selected.add(id);
+  updateSelectInfo();
+  render(images);
+}
+
+function updateSelectInfo() {
+  document.getElementById('selectInfo').textContent = `${selected.size} selected`;
+}
+
+async function confirmSelection() {
+  if (!selected.size) { toast('select images first'); return; }
+  try {
+    const r = await fetch(`${API}/images/select`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ image_ids: [...selected] }),
+    });
+    if (!r.ok) throw new Error(await r.text());
+    const data = await r.json();
+    toast(`${data.count} image(s) ready for @mention`);
+    toggleSelectMode();
+  } catch (e) {
+    toast('selection failed: ' + e.message);
+  }
+}
+
+function copySelectedPaths() {
+  const paths = images
+    .filter(img => selected.has(img.id))
+    .map(img => img.path);
+  navigator.clipboard.writeText(paths.join('\n')).then(() => toast('paths copied'));
+}
+
+async function deleteSelected() {
+  if (!selected.size) return;
+  if (!confirm(`delete ${selected.size} image(s)?`)) return;
+  for (const id of selected) {
+    await fetch(`${API}/images/${id}`, { method: 'DELETE' });
+  }
+  selected.clear();
+  toggleSelectMode();
+  toast('deleted');
+  await loadImages();
+}
+
+// semantic search
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  clearTimeout(searchTimeout);
+  const q = e.target.value.trim();
+  if (!q) { render(images); return; }
+  searchTimeout = setTimeout(async () => {
+    try {
+      const r = await fetch(`${API}/images/search?q=${encodeURIComponent(q)}&limit=20`);
+      const data = await r.json();
+      render(data.results || []);
+    } catch (e) {
+      toast('search failed');
+    }
+  }, 400);
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeLightbox();
+    if (selectMode) toggleSelectMode();
+  }
+});
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function showLoading(on) {
+  document.getElementById('loadingOverlay').classList.toggle('show', on);
+}
+
+loadImages();
+</script>
+</body>
+</html>
