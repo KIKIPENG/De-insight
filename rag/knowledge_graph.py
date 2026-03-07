@@ -179,11 +179,10 @@ def get_rag(project_id: str = "default") -> LightRAG:
             return result
 
     async def embed_func(texts):
-        # Bypass LightRAG's openai_embed (which has decorator validation issues
-        # with Jina API). Use httpx directly for reliable 1:1 text→vector mapping.
         import httpx
         import numpy as np
         sanitized = [t if t and t.strip() else " " for t in texts]
+        n = len(sanitized)
         async with httpx.AsyncClient(timeout=30.0) as client:
             resp = await client.post(
                 f"{embed_base}/embeddings",
@@ -192,9 +191,17 @@ def get_rag(project_id: str = "default") -> LightRAG:
             )
             resp.raise_for_status()
             data = resp.json()
-            # Sort by index to ensure correct order
             sorted_data = sorted(data["data"], key=lambda x: x["index"])
-            return np.array([item["embedding"] for item in sorted_data], dtype=np.float32)
+            embeddings = [item["embedding"] for item in sorted_data]
+            # Ensure exactly N vectors for N inputs (some APIs return extras via late chunking)
+            if len(embeddings) > n:
+                embeddings = embeddings[:n]
+            elif len(embeddings) < n:
+                # Pad missing with zeros
+                dim = len(embeddings[0]) if embeddings else embed_dim
+                while len(embeddings) < n:
+                    embeddings.append([0.0] * dim)
+            return np.array(embeddings, dtype=np.float32)
 
     if project_id == "default":
         working_dir = _DEFAULT_LIGHTRAG_DIR
