@@ -46,34 +46,60 @@ async def list_images(project_id: str | None = None):
 
 @router.post("/images/upload")
 async def upload_image(
-    file: UploadFile = File(...),
+    file: UploadFile | None = File(default=None),
+    files: list[UploadFile] | None = File(default=None),
     caption: str = Form(""),
     tags: str = Form(""),
     project_id: str = Form(""),
 ):
-    """上傳圖片並建立向量索引。"""
+    """上傳圖片並建立向量索引（支援單檔與多檔）。"""
     pid = await _get_project_id(project_id or None)
-    if not file.filename:
-        raise HTTPException(status_code=400, detail="No filename")
-
-    # sanitize filename
-    safe_name = Path(file.filename).name
-    if not safe_name:
-        raise HTTPException(status_code=400, detail="Invalid filename")
-
-    content = await file.read()
-    if not content:
-        raise HTTPException(status_code=400, detail="Empty file")
+    upload_files: list[UploadFile] = []
+    if files:
+        upload_files.extend(files)
+    if file:
+        upload_files.append(file)
+    if not upload_files:
+        raise HTTPException(status_code=400, detail="No file uploaded")
 
     from rag.image_store import add_image
-    result = await add_image(
-        project_id=pid,
-        filename=safe_name,
-        image_bytes=content,
-        caption=caption,
-        tags=tags,
-    )
-    return result
+    results: list[dict] = []
+    errors: list[dict] = []
+
+    for f in upload_files:
+        raw_name = f.filename or ""
+        safe_name = Path(raw_name).name
+        if not safe_name:
+            errors.append({"filename": raw_name, "error": "Invalid filename"})
+            continue
+
+        content = await f.read()
+        if not content:
+            errors.append({"filename": safe_name, "error": "Empty file"})
+            continue
+
+        try:
+            result = await add_image(
+                project_id=pid,
+                filename=safe_name,
+                image_bytes=content,
+                caption=caption,
+                tags=tags,
+            )
+            results.append(result)
+        except Exception as e:
+            errors.append({"filename": safe_name, "error": str(e)})
+
+    if not results:
+        raise HTTPException(status_code=500, detail={"message": "All uploads failed", "errors": errors})
+
+    return {
+        "project_id": pid,
+        "uploaded": len(results),
+        "failed": len(errors),
+        "items": results,
+        "errors": errors,
+    }
 
 
 @router.get("/images/search")

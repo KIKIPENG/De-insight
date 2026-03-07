@@ -487,7 +487,7 @@ body::after {
   <div class="upload-inner">
     <div class="field">
       <label>file</label>
-      <input type="file" id="fileInput" accept="image/*" />
+      <input type="file" id="fileInput" accept="image/*" multiple />
     </div>
     <div class="field">
       <label>caption</label>
@@ -594,19 +594,25 @@ function toggleUpload() {
 
 async function uploadImage() {
   const fileInput = document.getElementById('fileInput');
-  const file = fileInput.files[0];
-  if (!file) { toast('select a file first'); return; }
+  const files = Array.from(fileInput.files || []);
+  if (!files.length) { toast('select file(s) first'); return; }
 
   const form = new FormData();
-  form.append('file', file);
+  files.forEach((f) => form.append('files', f));
   form.append('caption', document.getElementById('captionInput').value);
   form.append('tags', document.getElementById('tagsInput').value);
 
   showLoading(true);
   try {
     const r = await fetch(`${API}/images/upload`, { method: 'POST', body: form });
-    if (!r.ok) throw new Error(await r.text());
-    toast('uploaded');
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      const detail = data?.detail?.message || data?.detail || data?.message || 'upload failed';
+      throw new Error(typeof detail === 'string' ? detail : JSON.stringify(detail));
+    }
+    const uploaded = data.uploaded ?? files.length;
+    const failed = data.failed ?? 0;
+    toast(failed ? `uploaded ${uploaded}, failed ${failed}` : `uploaded ${uploaded}`);
     fileInput.value = '';
     document.getElementById('captionInput').value = '';
     document.getElementById('tagsInput').value = '';

@@ -60,6 +60,18 @@ def _lancedb_dir(project_id: str) -> Path:
     return project_root(project_id) / "lancedb"
 
 
+def _dedup_filename(img_dir: Path, filename: str) -> str:
+    """若檔名已存在，自動加上遞增尾碼避免覆蓋。"""
+    base = Path(filename).stem
+    ext = Path(filename).suffix
+    candidate = filename
+    idx = 1
+    while (img_dir / candidate).exists():
+        candidate = f"{base}_{idx}{ext}"
+        idx += 1
+    return candidate
+
+
 async def add_image(
     project_id: str,
     filename: str,
@@ -72,6 +84,7 @@ async def add_image(
     from embeddings.local import embed_image, embed_text
 
     img_dir = _images_dir(project_id)
+    filename = _dedup_filename(img_dir, filename)
     img_path = img_dir / filename
     img_path.write_bytes(image_bytes)
 
