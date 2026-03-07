@@ -41,11 +41,20 @@ chmod +x "$LAUNCHER"
 
 chmod +x "$ROOT_DIR/scripts/deinsight" "$ROOT_DIR/De-insight.command"
 
+# Best effort: install launcher to common global bin dirs if writable.
+for d in /usr/local/bin /opt/homebrew/bin; do
+  if [ -d "$d" ] && [ -w "$d" ]; then
+    cp "$LAUNCHER" "$d/deinsight"
+    chmod +x "$d/deinsight"
+  fi
+done
+
 echo
 echo "Install complete."
 echo "Next:"
 echo "  1) Add key to: $ENV_FILE"
 echo "  2) Start app: deinsight"
+echo "  3) Or run directly: $ROOT_DIR/scripts/deinsight"
 echo
 echo "If 'deinsight' is not found, add this to your shell config:"
 echo "  export PATH=\"\$HOME/.local/bin:\$PATH\""

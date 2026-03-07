@@ -44,6 +44,12 @@ deinsight
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
+或直接執行：
+
+```bash
+~/.local/bin/deinsight
+```
+
 ---
 
 ## 設定
@@ -71,6 +77,15 @@ deinsight
 ```
 
 此指令會自動檢查並啟動 backend，接著打開 TUI。
+
+若執行後沒有進入 TUI，先檢查：
+
+```bash
+curl -m 3 -sS http://127.0.0.1:8000/api/health
+```
+
+- 有回傳 JSON：backend 正常，請再執行一次 `deinsight`
+- 無回應：可能是 8000 被占用，先釋放埠後重試
 
 手動模式（進階）：
 

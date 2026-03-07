@@ -437,13 +437,16 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         yield StatusBar(id="status-bar")
 
     async def on_mount(self) -> None:
+        from settings import load_env
         projects = []
         try:
             projects = await self._project_manager.list_projects()
         except Exception:
             pass
 
-        needs_onboarding = not projects
+        env = load_env()
+        llm_model = env.get("LLM_MODEL", "").strip()
+        needs_onboarding = (not projects) or (not llm_model)
         if needs_onboarding:
             from modals import OnboardingScreen
             await self.push_screen(OnboardingScreen(), callback=self._on_onboarding_done)

@@ -13,6 +13,7 @@ from rich.markdown import Markdown as RichMarkdown
 from rich.style import Style
 from rich.text import Text
 from rich.theme import Theme
+from textual import work
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical, VerticalScroll
@@ -165,48 +166,64 @@ class ChatInput(TextArea):
             self._load_gallery_selected()
         await super()._on_key(event)
 
+    @work(thread=True)
     def _load_gallery_selected(self) -> None:
-        """讀取 selected.json，把選取的圖片載入 pending_images。"""
+        """背景讀取 selected.json，避免按 @ 時卡 UI。"""
         try:
-            from paths import DATA_ROOT
+            from paths import DATA_ROOT, project_root
             import json as _json
+            import lancedb
+
             sel_path = DATA_ROOT / "selected.json"
             if not sel_path.exists():
                 return
             ids = _json.loads(sel_path.read_text())
             if not ids:
                 return
+
             state = getattr(self.app, "state", None)
             if not state or not state.current_project:
                 return
             pid = state.current_project["id"]
-            from paths import project_root
             img_dir = project_root(pid) / "images"
-            # Read image metadata from selected.json ids
-            # For simplicity, just add paths for images that exist
-            pending = []
-            import lancedb
             lance_dir = project_root(pid) / "lancedb"
             if not lance_dir.exists():
                 return
+
             db = lancedb.connect(str(lance_dir))
             if "images" not in db.table_names():
                 return
             tbl = db.open_table("images")
             df = tbl.to_pandas().drop(columns=["vector"], errors="ignore")
             selected = df[df["id"].isin(ids)]
+
+            pending: list[str] = []
             for _, row in selected.iterrows():
                 fpath = img_dir / row.get("filename", "")
                 if fpath.exists():
                     pending.append(str(fpath))
+
             if pending:
-                state.pending_images = pending
-                self.app._update_menu_bar()
-                self.app.notify(f"{len(pending)} 張圖片已帶入")
-                # Clear selected.json
-                sel_path.write_text("[]")
+                self.app.call_from_thread(
+                    self._apply_gallery_selected,
+                    pending,
+                    str(sel_path),
+                )
         except Exception:
             pass
+
+    def _apply_gallery_selected(self, pending: list[str], sel_path: str) -> None:
+        state = getattr(self.app, "state", None)
+        if not state:
+            return
+        state.pending_images = pending
+        self.app._update_menu_bar()
+        self.app.notify(f"{len(pending)} 張圖片已帶入")
+        try:
+            Path(sel_path).write_text("[]")
+        except Exception:
+            pass
+        
 
     def _cycle_slash_hints(self) -> None:
         try:
