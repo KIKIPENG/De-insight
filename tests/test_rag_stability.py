@@ -16,56 +16,21 @@ os.environ.setdefault("DEINSIGHT_HOME", tempfile.mkdtemp())
 os.environ.setdefault("DEINSIGHT_DATA_VERSION", "test_v0.6")
 
 
-def test_embed_default_is_local():
-    """缺省（env 未設）時 embedding 回落 local/512。"""
-    with patch("settings.load_env", return_value={}):
-        from rag.knowledge_graph import _is_local_embed, _get_embed_config
+def test_embed_config_always_v4():
+    """v0.8: _get_embed_config 統一回傳本地 jina-embeddings-v4 / 1024。"""
+    from rag.knowledge_graph import _get_embed_config
 
-        assert _is_local_embed() is True, "缺省應為 local"
-        model, key, base, dim = _get_embed_config()
-        assert dim == 512, f"預設維度應為 512，實際 {dim}"
-        assert model == "jina-clip-v1"
-
-
-def test_embed_explicit_local():
-    """EMBED_PROVIDER=local 時應為 local。"""
-    env = {"EMBED_PROVIDER": "local", "EMBED_MODE": "local"}
-    with patch("settings.load_env", return_value=env):
-        from rag.knowledge_graph import _is_local_embed, _get_embed_config
-
-        assert _is_local_embed() is True
-        _, _, _, dim = _get_embed_config()
-        assert dim == 512
+    model, key, base, dim = _get_embed_config()
+    assert dim == 1024, f"預設維度應為 1024，實際 {dim}"
+    assert model == "jina-embeddings-v4-gguf"
+    assert key == "local"
+    assert base == ""
 
 
-def test_embed_api_provider():
-    """EMBED_PROVIDER=jina 時應走 API。"""
-    env = {
-        "EMBED_PROVIDER": "jina",
-        "EMBED_MODEL": "jina-embeddings-v3",
-        "EMBED_DIM": "1024",
-        "EMBED_API_KEY": "test-key",
-        "EMBED_API_BASE": "https://api.jina.ai/v1",
-    }
-    import rag.knowledge_graph as kg
-    orig = kg.load_env
-    kg.load_env = lambda: env
-    try:
-        assert kg._is_local_embed() is False
-        model, key, base, dim = kg._get_embed_config()
-        assert dim == 1024
-        assert model == "jina-embeddings-v3"
-    finally:
-        kg.load_env = orig
-
-
-def test_embed_backward_compat_mode():
-    """EMBED_MODE=local (without PROVIDER) 仍應為 local。"""
-    env = {"EMBED_MODE": "local"}
-    with patch("settings.load_env", return_value=env):
-        from rag.knowledge_graph import _is_local_embed
-
-        assert _is_local_embed() is True
+def test_embed_dim_fixed_1024():
+    """v0.8: 無論 env 如何設定，embed dim 始終為 1024。"""
+    from embeddings.local import EMBED_DIM
+    assert EMBED_DIM == 1024
 
 
 def test_no_context_detection():
@@ -98,12 +63,12 @@ def test_has_knowledge_empty():
 
         # Empty vdb
         vdb = wd / "vdb_chunks.json"
-        vdb.write_text(json.dumps({"data": [], "embedding_dim": 512}))
+        vdb.write_text(json.dumps({"data": [], "embedding_dim": 1024}))
         with patch("rag.knowledge_graph.project_root", return_value=Path(td)):
             assert has_knowledge(project_id="test") is False
 
         # Non-empty vdb
-        vdb.write_text(json.dumps({"data": [{"__vector__": [0.1] * 512}], "embedding_dim": 512}))
+        vdb.write_text(json.dumps({"data": [{"__vector__": [0.1] * 1024}], "embedding_dim": 1024}))
         with patch("rag.knowledge_graph.project_root", return_value=Path(td)):
             assert has_knowledge(project_id="test") is True
 
@@ -129,6 +94,34 @@ def test_extract_sources_no_context():
 
     sources = _extract_sources("")
     assert sources == []
+
+
+def test_extract_sources_requires_verifiable_reference():
+    """沒有來源標記與 reference list 時，不應產生 citation。"""
+    from rag.knowledge_graph import _extract_sources
+
+    raw = (
+        '-----Document Chunks-----\n'
+        '{"reference_id":"1","content":"這段文字只有內容，沒有來源標記。"}\n'
+        "Reference Document List:\n"
+    )
+    assert _extract_sources(raw) == []
+
+
+def test_extract_sources_uses_reference_section_only():
+    """reference id 應從 Reference Document List 區段解析，避免誤抓正文。"""
+    from rag.knowledge_graph import _extract_sources
+
+    raw = (
+        '-----Document Chunks-----\n'
+        '{"reference_id":"1","content":"[來源: 測試文件A] 內容A"}\n'
+        "正文中可能也有 [1] 但不是來源列表\n"
+        "Reference Document List:\n"
+        "[1] /tmp/test_a.pdf\n"
+    )
+    sources = _extract_sources(raw)
+    assert len(sources) == 1
+    assert sources[0]["file"] == "/tmp/test_a.pdf"
 
 
 def test_diagnose_healthy():
@@ -175,11 +168,22 @@ def test_image_guard():
             assert any_project_has_images() is False
 
 
-def test_vectorstore_local_mode_default():
-    """vectorstore._is_local_mode 缺省應為 True。"""
-    with patch("settings.load_env", return_value={}):
-        from memory.vectorstore import _is_local_mode
-        assert _is_local_mode() is True
+def test_vectorstore_uses_jina_v4():
+    """v0.8: vectorstore embedding 統一使用 embeddings.local。"""
+    import memory.vectorstore as vs
+    # Reset cached fn
+    vs._embed_fn = None
+    vs._embed_dim = None
+
+    import asyncio
+    from unittest.mock import AsyncMock
+    with patch("embeddings.local.embed_texts", new_callable=AsyncMock) as mock_embed:
+        mock_embed.return_value = [[0.1] * 1024]
+        fn, dim = asyncio.run(vs._get_embedding_fn())
+        assert dim == 1024
+    # Reset again for other tests
+    vs._embed_fn = None
+    vs._embed_dim = None
 
 
 if __name__ == "__main__":

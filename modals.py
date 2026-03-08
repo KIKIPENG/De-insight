@@ -4,7 +4,7 @@ from textual import work
 from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.screen import ModalScreen
-from textual.widgets import Button, Input, Label, Static, TextArea
+from textual.widgets import Button, Input, Label, ProgressBar, Static, TextArea
 
 from memory.store import delete_memory, get_memories, get_memory_stats
 
@@ -261,6 +261,11 @@ class SourceModal(ModalScreen):
     }
     .source-meta { color: #484f58; }
     .src-sep { height: 1; color: #2a2a2a; }
+    .src-cite-btn {
+        background: transparent; color: #484f58;
+        border: none; height: 1; min-width: 0; padding: 0;
+    }
+    .src-cite-btn:hover { color: #7dd3fc; }
     """
 
     def __init__(self, sources: list[dict]) -> None:
@@ -284,6 +289,7 @@ class SourceModal(ModalScreen):
                             yield Static(s["snippet"], classes="source-snippet")
                         if s.get("file"):
                             yield Static(f"來源：{s['file']}", classes="source-meta")
+                        yield Button("▸ 引用到對話", classes="src-cite-btn", name=str(i))
                     if i < len(self._sources) - 1:
                         yield Static("[dim #2a2a2a]" + "─" * 66 + "[/]", classes="src-sep")
             yield Static("[dim #2a2a2a]" + "─" * 66 + "[/]", classes="src-sep")
@@ -292,6 +298,130 @@ class SourceModal(ModalScreen):
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.has_class("back-btn"):
             self.dismiss(None)
+            return
+        if event.button.has_class("src-cite-btn"):
+            idx = int(event.button.name)
+            s = self._sources[idx]
+            snippet = s.get("snippet", "")[:300]
+            title = s.get("title", "未知來源")
+            formatted = f"\u300c{snippet}\u300d\u2014 {title}"
+            self.dismiss(f"__cite__:{formatted}")
+
+    def action_close(self) -> None:
+        self.dismiss(None)
+
+
+# ── DocReaderModal ───────────────────────────────────────────────
+
+class DocReaderModal(ModalScreen):
+    """文獻全文閱讀。"""
+
+    BINDINGS = [("escape", "close", "關閉")]
+
+    CSS = """
+    DocReaderModal { align: center middle; }
+    #doc-reader-box {
+        width: 80; height: auto; max-height: 90%; padding: 1 2;
+        border: round #3a3a3a; background: #0a0a0a;
+        border-title-color: #7dd3fc;
+    }
+    #doc-reader-scroll { max-height: 70%; }
+    #doc-reader-text { color: #c9d1d9; padding: 1; }
+    .doc-reader-actions { height: auto; margin: 1 0 0 0; }
+    """
+
+    def __init__(self, doc: dict, project_id: str = "default") -> None:
+        super().__init__()
+        self._doc = doc
+        self._project_id = project_id
+        self._full_text = ""
+
+    def compose(self) -> ComposeResult:
+        title = self._doc.get("title", "未知文獻")
+        box = Vertical(id="doc-reader-box")
+        box.border_title = f"\u25c7 {title}"
+        with box:
+            with VerticalScroll(id="doc-reader-scroll"):
+                yield Static("載入中…", id="doc-reader-text")
+            yield Static("[dim #2a2a2a]" + "─" * 74 + "[/]")
+            with Horizontal(classes="doc-reader-actions"):
+                yield Button("▸ 引用到對話", classes="src-cite-btn", name="cite")
+                yield Button("← 關閉", classes="back-btn")
+
+    def on_mount(self) -> None:
+        self._load_content()
+
+    @work(exclusive=True)
+    async def _load_content(self) -> None:
+        text = await self._extract_text()
+        if len(text) > 8000:
+            text = text[:8000] + "\n\n[dim #484f58]…（內容過長，僅顯示前 8000 字）[/]"
+        self._full_text = text
+        try:
+            self.query_one("#doc-reader-text", Static).update(text or "[dim #484f58]無法讀取內容[/]")
+        except Exception:
+            pass
+
+    async def _extract_text(self) -> str:
+        """Try to extract full text from PDF or LightRAG kv store."""
+        import json as _json
+        from pathlib import Path
+        title = self._doc.get("title", "")
+        source_path = self._doc.get("source_path", "")
+
+        # Try PDF extraction
+        if source_path and Path(source_path).exists() and source_path.lower().endswith(".pdf"):
+            try:
+                import fitz  # PyMuPDF
+                doc = fitz.open(source_path)
+                pages = []
+                for page in doc:
+                    pages.append(page.get_text())
+                doc.close()
+                return "\n\n".join(pages)
+            except ImportError:
+                pass
+            except Exception:
+                pass
+
+        # Try LightRAG kv_store_full_docs
+        try:
+            from paths import project_root
+            kv_path = project_root(self._project_id) / "lightrag" / "kv_store_full_docs.json"
+            if kv_path.exists():
+                data = _json.loads(kv_path.read_text(encoding="utf-8"))
+                # Search for matching title
+                for key, val in data.items():
+                    content = ""
+                    if isinstance(val, dict):
+                        content = val.get("content", "") or val.get("original_content", "")
+                    elif isinstance(val, str):
+                        content = val
+                    if content and title and title.lower() in content[:200].lower():
+                        return content
+                # If no title match, try source_path match
+                for key, val in data.items():
+                    if source_path and source_path in key:
+                        if isinstance(val, dict):
+                            return val.get("content", "") or val.get("original_content", "")
+                        elif isinstance(val, str):
+                            return val
+        except Exception:
+            pass
+
+        return ""
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.has_class("back-btn"):
+            self.dismiss(None)
+            return
+        if event.button.name == "cite":
+            title = self._doc.get("title", "未知文獻")
+            excerpt = self._full_text[:500] if self._full_text else ""
+            if excerpt:
+                self.dismiss(f"__cite__:[{title}]\n{excerpt}")
+            else:
+                self.notify("無內容可引用", timeout=2)
 
     def action_close(self) -> None:
         self.dismiss(None)
@@ -1294,6 +1424,12 @@ class KnowledgeModal(ModalScreen):
         border: tall #3a3a3a;
     }
     #kb-bulk-input:focus { border: tall #666666; }
+    #kb-paste-content {
+        height: 10; margin: 1 0;
+        background: #111111; color: #fafafa;
+        border: tall #3a3a3a;
+    }
+    #kb-paste-content:focus { border: tall #666666; }
     .kb-doc-entry { height: auto; padding: 0 1; color: #8b949e; }
     .kb-doc-entry:hover { color: #fafafa; background: #111111; }
     .kb-del-btn {
@@ -1302,6 +1438,12 @@ class KnowledgeModal(ModalScreen):
         margin: 0; padding: 0;
     }
     .kb-del-btn:hover { color: #ff6b6b; }
+    .kb-read-btn {
+        background: transparent; color: #484f58;
+        border: none; height: 1; min-width: 3;
+        margin: 0; padding: 0;
+    }
+    .kb-read-btn:hover { color: #7dd3fc; }
     .kb-sep { height: 1; color: #2a2a2a; }
     .kb-progress { height: auto; max-height: 50%; }
     .kb-bulk-item { height: 1; padding: 0 1; color: #8b949e; }
@@ -1316,8 +1458,8 @@ class KnowledgeModal(ModalScreen):
     .kb-action-btn:hover { color: #fafafa; }
     """
 
-    _TAB_NAMES = ["匯入", "搜尋", "批量", "文獻"]
-    _TAB_IDS = ["import", "search", "bulk", "docs"]
+    _TAB_NAMES = ["匯入", "貼上", "搜尋", "批量", "文獻"]
+    _TAB_IDS = ["import", "paste", "search", "bulk", "docs"]
 
     def __init__(self, project_id: str = "default", initial_tab: str = "import") -> None:
         super().__init__()
@@ -1368,6 +1510,8 @@ class KnowledgeModal(ModalScreen):
 
         if self._current_tab == "import":
             await self._render_import(content)
+        elif self._current_tab == "paste":
+            await self._render_paste(content)
         elif self._current_tab == "search":
             await self._render_search(content)
         elif self._current_tab == "bulk":
@@ -1393,6 +1537,17 @@ class KnowledgeModal(ModalScreen):
         await container.mount(Input(placeholder="搜尋知識庫…", id="kb-input"))
         try:
             self.query_one("#kb-input", Input).focus()
+        except Exception:
+            pass
+
+    async def _render_paste(self, container: VerticalScroll) -> None:
+        await container.mount(Static("[#8b949e]手動貼上文章標題與內文[/]"))
+        await container.mount(Input(placeholder="文章標題（必填）", id="kb-paste-title"))
+        await container.mount(TextArea("", id="kb-paste-content"))
+        await container.mount(Static("[dim #484f58]貼上完整內文後按 Enter（在標題欄）或按下匯入按鈕[/]"))
+        await container.mount(Button("匯入貼上內容", id="kb-paste-submit", classes="kb-action-btn"))
+        try:
+            self.query_one("#kb-paste-title", Input).focus()
         except Exception:
             pass
 
@@ -1432,6 +1587,7 @@ class KnowledgeModal(ModalScreen):
                 row = Horizontal(classes="kb-doc-entry")
                 await container.mount(row)
                 await row.mount(Static(f"[#484f58]{time_str}[/]  {title}"))
+                await row.mount(Button("◇", classes="kb-read-btn", name=doc["id"]))
                 await row.mount(Button("✗", classes="kb-del-btn", name=doc["id"]))
         await container.mount(Static("[dim #484f58]刪除僅移除記錄，知識庫內容保留[/]"))
 
@@ -1465,6 +1621,29 @@ class KnowledgeModal(ModalScreen):
         if event.button.id == "kb-bulk-reset":
             self._show_tab("bulk")
             return
+        if event.button.id == "kb-paste-submit":
+            try:
+                title = self.query_one("#kb-paste-title", Input).value.strip()
+                content = self.query_one("#kb-paste-content", TextArea).text.strip()
+            except Exception:
+                return
+            if not title:
+                self.notify("請輸入標題", severity="warning")
+                return
+            if not content:
+                self.notify("請貼上內文", severity="warning")
+                return
+            self.dismiss(("import_text", {"title": title, "content": content}))
+            return
+        if event.button.has_class("kb-read-btn"):
+            doc_id = event.button.name
+            doc = next((d for d in self._docs if d.get("id") == doc_id), None)
+            if doc:
+                def _on_reader_result(result):
+                    if result and isinstance(result, str) and result.startswith("__cite__:"):
+                        self.dismiss(f"__fill__:{result[len('__cite__:'):]}")
+                self.app.push_screen(DocReaderModal(doc, self._project_id), callback=_on_reader_result)
+            return
         if event.button.has_class("kb-del-btn"):
             doc_id = event.button.name
             if doc_id:
@@ -1476,6 +1655,19 @@ class KnowledgeModal(ModalScreen):
             return
         if self._current_tab == "import":
             self.dismiss(("import", value))
+        elif self._current_tab == "paste":
+            try:
+                title = self.query_one("#kb-paste-title", Input).value.strip()
+                content = self.query_one("#kb-paste-content", TextArea).text.strip()
+            except Exception:
+                return
+            if not title:
+                self.notify("請輸入標題", severity="warning")
+                return
+            if not content:
+                self.notify("請貼上內文", severity="warning")
+                return
+            self.dismiss(("import_text", {"title": title, "content": content}))
         elif self._current_tab == "search":
             self.dismiss(("search", value))
 
@@ -1741,6 +1933,8 @@ class OnboardingScreen(ModalScreen[str | None]):
         margin: 0; min-width: 12;
     }
     #ob-download-status { height: auto; margin: 0; padding: 0 1; color: #6e7681; }
+    #ob-progress-bar { margin: 0 2; height: 1; }
+    #ob-progress-bar Bar { color: #d4a27a; }
     """
 
     def __init__(self) -> None:
@@ -1844,62 +2038,89 @@ class OnboardingScreen(ModalScreen[str | None]):
             )
 
     async def _render_embed(self, container: Vertical) -> None:
-        from providers import EMBED_PROVIDERS
         await container.mount(
-            Static("  Step 2/3: Embedding", classes="ob-title"),
+            Static("  Step 2/3: Embedding Model (GGUF 本地)", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
-            Static("  選擇向量化方式（記憶 & 圖片檢索）", classes="ob-hint"),
-        )
-        for pid, pinfo in EMBED_PROVIDERS.items():
-            await container.mount(
-                Button(
-                    f"  {pinfo['label']}",
-                    id=f"ob-embed-{pid}",
-                    classes="ob-prov-btn",
-                    name=pid,
-                )
-            )
-        await container.mount(
+            Static("  使用 jina-embeddings-v4 GGUF 模型（Q4_K_M, 1024d，文字+圖片共用）", classes="ob-hint"),
+            Static("  首次需編譯 llama-server + 下載模型（約 3GB），之後離線可用", classes="ob-hint"),
+            Static("", id="ob-embed-status"),
             Horizontal(
                 Button("<- 返回", id="btn-ob-back"),
+                Button("安裝 GGUF 環境", id="ob-embed-download"),
+                Button("已安裝，跳過 ->", id="ob-embed-skip"),
                 classes="ob-btn-row",
             ),
         )
 
-    async def _render_embed_download(self, container: Vertical) -> None:
-        await container.mount(
-            Static("  Step 2/3: 下載本地模型", classes="ob-title"),
-            Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
-            Static("  正在下載 jina-clip-v1 模型...", id="ob-download-status"),
-        )
-        self._download_model()
+    _DL_PHASES = [
+        "正在檢查環境...",
+        "正在編譯 llama-server（Metal ON）...",
+        "正在下載 GGUF 模型（Q4_K_M）...",
+        "正在下載 mmproj-f16...",
+        "即將完成，請稍候...",
+    ]
 
-    @work(thread=True)
-    def _download_model(self) -> None:
+    async def _render_embed_download(self, container: Vertical) -> None:
+        self._dl_phase_idx = 0
+        await container.mount(
+            Static("  Step 2/3: 安裝 GGUF Embedding 環境", classes="ob-title"),
+            Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
+            ProgressBar(total=None, id="ob-progress-bar"),
+            Static(f"  {self._DL_PHASES[0]}", id="ob-download-status"),
+        )
+        self._dl_timer = self.set_interval(15.0, self._tick_dl_phase)
+        self._run_model_download()
+
+    def _tick_dl_phase(self) -> None:
+        self._dl_phase_idx = min(
+            self._dl_phase_idx + 1, len(self._DL_PHASES) - 1
+        )
+        try:
+            status = self.query_one("#ob-download-status", Static)
+            status.update(f"  {self._DL_PHASES[self._dl_phase_idx]}")
+        except Exception:
+            pass
+
+    @work(exclusive=True, thread=True)
+    def _run_model_download(self) -> None:
+        import traceback
         from embeddings.local import ensure_model_downloaded
         try:
-            ensure_model_downloaded()
-            self.app.call_from_thread(self._on_download_done, True)
-        except Exception as e:
-            self.app.call_from_thread(self._on_download_done, False, str(e))
+            def _progress(desc: str, pct: float) -> None:
+                try:
+                    # 更新 phase 文字
+                    idx = min(int(pct * len(self._DL_PHASES)), len(self._DL_PHASES) - 1)
+                    self._dl_phase_idx = idx
+                except Exception:
+                    pass
 
-    def _on_download_done(self, success: bool, error: str = "") -> None:
-        if success:
-            self._step = "done"
-        else:
-            try:
-                status = self.query_one("#ob-download-status", Static)
-                status.update(f"  下載失敗: {error}\n  可稍後在設定中重試")
-            except Exception:
-                pass
-            self._step = "done"
-        self.call_later(self._render_step)
+            ensure_model_downloaded(download_if_missing=True, progress_callback=_progress)
+            self.app.call_from_thread(self._on_download_complete)
+        except Exception as exc:
+            self.app.log.error("GGUF install failed:\n%s", traceback.format_exc())
+            msg = str(exc)
+            self.app.call_from_thread(self._on_download_error, msg)
+
+    def _on_download_complete(self) -> None:
+        if hasattr(self, "_dl_timer"):
+            self._dl_timer.stop()
+        self._step = "done"
+        self.run_worker(self._render_step(), exclusive=True)
+
+    def _on_download_error(self, msg: str) -> None:
+        if hasattr(self, "_dl_timer"):
+            self._dl_timer.stop()
+        try:
+            status = self.query_one("#ob-download-status", Static)
+            status.update(f"  [red]下載失敗：{msg}[/]")
+        except Exception:
+            pass
 
     async def _render_done(self, container: Vertical) -> None:
         from settings import load_env
         env = load_env()
         model = env.get("LLM_MODEL", "(未設定)")
-        embed = env.get("EMBED_MODE", env.get("EMBED_PROVIDER", "(未設定)"))
+        embed = "jina-embeddings-v4 GGUF (Q4_K_M, 1024d)"
 
         await container.mount(
             Static("  Step 3/3: 設定完成!", classes="ob-title"),
@@ -1948,14 +2169,24 @@ class OnboardingScreen(ModalScreen[str | None]):
             await self._render_step()
             return
 
-        # Step 2: embed provider selection
-        if btn_id.startswith("ob-embed-"):
-            self._selected_embed_pid = btn_name
-            await self._save_embed_config(btn_name)
-            if btn_name == "local":
-                self._step = "embed_download"
-            else:
-                self._step = "done"
+        # Step 2: embed — download or skip
+        if btn_id == "ob-embed-download":
+            from settings import save_env_key
+            save_env_key("EMBED_PROVIDER", "gguf")
+            save_env_key("EMBED_MODEL", "jina-embeddings-v4-gguf")
+            save_env_key("EMBED_DIM", "1024")
+            save_env_key("GGUF_AUTO_INSTALL", "1")
+            self._step = "embed_download"
+            await self._render_step()
+            return
+
+        if btn_id == "ob-embed-skip":
+            from settings import save_env_key
+            save_env_key("EMBED_PROVIDER", "gguf")
+            save_env_key("EMBED_MODEL", "jina-embeddings-v4-gguf")
+            save_env_key("EMBED_DIM", "1024")
+            save_env_key("GGUF_AUTO_INSTALL", "1")
+            self._step = "done"
             await self._render_step()
             return
 
@@ -2001,23 +2232,8 @@ class OnboardingScreen(ModalScreen[str | None]):
             save_env_key("LLM_MODEL", prefix + default)
 
     async def _save_embed_config(self, embed_pid: str) -> None:
-        from providers import EMBED_PROVIDERS
+        # v0.7: 統一 jina-embeddings-v4，此方法僅作向後相容
         from settings import save_env_key
-
-        pinfo = EMBED_PROVIDERS.get(embed_pid, {})
-
-        if embed_pid == "local":
-            save_env_key("EMBED_MODE", "local")
-            save_env_key("EMBED_PROVIDER", "local")
-            save_env_key("EMBED_DIM", "512")
-            return
-
-        save_env_key("EMBED_PROVIDER", embed_pid)
-        models = pinfo.get("models", [])
-        if models:
-            save_env_key("EMBED_MODEL", models[0])
-        dims = pinfo.get("dims", {})
-        if models and models[0] in dims:
-            save_env_key("EMBED_DIM", str(dims[models[0]]))
-        if pinfo.get("default_base"):
-            save_env_key("EMBED_API_BASE", pinfo["default_base"])
+        save_env_key("EMBED_PROVIDER", "jina")
+        save_env_key("EMBED_MODEL", "jina-embeddings-v4")
+        save_env_key("EMBED_DIM", "1024")

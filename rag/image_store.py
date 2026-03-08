@@ -1,4 +1,4 @@
-"""圖片知識庫 — LanceDB 圖片語意索引（dim=512）。
+"""圖片知識庫 — LanceDB 圖片語意索引（dim=1024）。
 
 每個專案有獨立的 images table，存放圖片 metadata + embedding。
 支援文字語意搜圖（text-to-image retrieval）。
@@ -6,7 +6,9 @@
 
 from __future__ import annotations
 
+import base64
 import logging
+import math
 import os
 import time
 from pathlib import Path
@@ -15,11 +17,38 @@ import lancedb
 import pyarrow as pa
 
 from paths import DATA_ROOT, project_root
+from embeddings.service import get_embedding_service as _get_svc
+
+
+async def _embed_image(source):
+    return await _get_svc().embed_image(source)
+
+
+async def _embed_text(text):
+    return await _get_svc().embed_text(text)
+
+
+def _truncate(vec: list[float], dim: int | None = None) -> list[float]:
+    if dim is None:
+        dim = IMAGE_DIM
+    out = list(vec[:dim]) if vec else []
+    if len(out) < dim:
+        out.extend([0.0] * (dim - len(out)))
+    return out
+
+
+def _truncate_and_normalize(vec: list[float], dim: int | None = None) -> list[float]:
+    out = _truncate(vec, dim)
+    norm = math.sqrt(sum(x * x for x in out))
+    if norm > 0:
+        out = [x / norm for x in out]
+    return out
 
 log = logging.getLogger(__name__)
 
+
 TABLE_NAME = "images"
-IMAGE_DIM = 512
+IMAGE_DIM = 1024
 
 _db_cache: dict[str, "lancedb.DBConnection"] = {}
 
@@ -43,9 +72,32 @@ def _get_db(lancedb_dir: Path) -> "lancedb.DBConnection":
     return _db_cache[key]
 
 
+def _detect_table_dim(table) -> int | None:
+    """偵測既有 LanceDB table 的向量維度。"""
+    try:
+        schema = table.schema
+        for field in schema:
+            if field.name == "vector":
+                list_type = field.type
+                if hasattr(list_type, "list_size"):
+                    return list_type.list_size
+    except Exception:
+        pass
+    return None
+
+
 def _get_or_create_table(db):
     if TABLE_NAME in db.table_names():
-        return db.open_table(TABLE_NAME)
+        tbl = db.open_table(TABLE_NAME)
+        existing_dim = _detect_table_dim(tbl)
+        if existing_dim and existing_dim != IMAGE_DIM:
+            log.warning(
+                "Image table dim=%d != expected dim=%d, rebuilding table",
+                existing_dim, IMAGE_DIM,
+            )
+            db.drop_table(TABLE_NAME)
+            return db.create_table(TABLE_NAME, schema=_make_schema())
+        return tbl
     return db.create_table(TABLE_NAME, schema=_make_schema())
 
 
@@ -72,33 +124,240 @@ def _dedup_filename(img_dir: Path, filename: str) -> str:
     return candidate
 
 
-async def add_image(
+AESTHETIC_ANALYSIS_PROMPT = """
+你是一位策展人，正在為一位創作者建立視覺檔案。
+
+第一步：辨識這張圖裡的物件或場域。
+從以下選擇最接近的類型（可複選）：
+印刷品、字體排印、書籍、海報、包裝
+繪畫、素描、版畫、攝影
+裝置、雕塑、物件、模型
+建築、空間、室內、展場
+介面、螢幕、數位影像
+身體、服裝、布料
+自然、地景、材料本身
+
+第二步：用藝術和設計的語彙描述它怎麼運作。
+選有感覺的維度說，不用全說：
+
+- 排版與版面：字距、行距、網格、留白的處理
+- 材質與表面：紙張、塗層、印刷方式、觸感的視覺暗示
+- 色彩系統：幾個顏色、怎麼配、冷暖和張力
+- 構圖邏輯：重量分佈、視線動線、密度
+- 尺度感：這個東西在空間裡是什麼感覺，壓迫還是謙遜
+- 時代與脈絡：讓你想到哪個年代、哪個地方、哪個運動
+- 製作的態度：精緻還是粗糙、控制還是放任、手工還是工業
+
+格式：
+[物件類型]
+[藝術設計描述，3-5 句]
+
+繁體中文，不超過 100 字。
+"""
+
+
+async def _auto_caption(image_bytes: bytes, filename: str = "") -> str:
+    """用 vision LLM 自動生成圖片美學描述。失敗時回傳空字串。"""
+    try:
+        import httpx
+        from settings import load_env
+        env = load_env()
+
+        model = env.get("RAG_LLM_MODEL", "") or env.get("LLM_MODEL", "")
+        if not model:
+            return ""
+        # Strip openai/ prefix — API endpoint expects bare model name
+        if model.startswith("openai/"):
+            model = model.removeprefix("openai/")
+
+        api_key = (
+            env.get("RAG_API_KEY", "")
+            or env.get("OPENAI_API_KEY", "")
+            or env.get("OPENROUTER_API_KEY", "")
+        )
+        api_base = (
+            env.get("RAG_API_BASE", "")
+            or env.get("OPENAI_API_BASE", "")
+            or "https://api.openai.com/v1"
+        )
+
+        # 圖片轉 base64
+        b64 = base64.b64encode(image_bytes).decode()
+        suffix = Path(filename).suffix.lower().lstrip(".")
+        mime = {
+            "jpg": "image/jpeg", "jpeg": "image/jpeg",
+            "png": "image/png", "gif": "image/gif",
+            "webp": "image/webp",
+        }.get(suffix, "image/jpeg")
+
+        from rag.rate_guard import get_rate_guard
+
+        async def _call_caption():
+            async with httpx.AsyncClient(timeout=60.0) as client:
+                resp = await client.post(
+                    f"{api_base}/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": model,
+                        "messages": [{
+                            "role": "user",
+                            "content": [
+                                {"type": "text", "text": AESTHETIC_ANALYSIS_PROMPT},
+                                {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}"}},
+                            ],
+                        }],
+                        "temperature": 0.3,
+                        "max_tokens": 300,
+                    },
+                )
+                if resp.status_code != 200:
+                    log.warning("Auto-caption API error %d: %s", resp.status_code, resp.text[:200])
+                    return ""
+                data = resp.json()
+                return (data["choices"][0]["message"]["content"] or "").strip()
+
+        guard = get_rate_guard()
+        caption = await guard.call_with_retry(
+            "image/auto_caption", _call_caption, max_retries=2,
+        )
+        log.info("Auto-caption generated: %s", caption[:80])
+        return caption
+    except Exception as e:
+        log.warning("Auto-caption failed for %s: %s", filename, e)
+        return ""
+
+
+CHAT_DESCRIBE_PROMPT = """你是一位策展人的視覺助手。使用者正在對話中引用這張圖片，請提供詳細的視覺描述。
+
+請描述：
+1. 這張圖是什麼（物件類型、媒材）
+2. 視覺特徵：色彩、構圖、排版、材質、字體等
+3. 設計語言：風格、時代感、情緒、態度
+4. 值得注意的細節
+
+繁體中文，200-300 字。重點放在使用者的問題可能關心的面向。"""
+
+
+async def describe_image_for_chat(
+    image_path: str | Path,
+    user_question: str = "",
+) -> str:
+    """聊天時即時看圖描述。用 RAG LLM（需支援 vision）。失敗時回傳空字串。"""
+    try:
+        import httpx
+        from settings import load_env
+        env = load_env()
+
+        model = env.get("RAG_LLM_MODEL", "") or env.get("LLM_MODEL", "")
+        if not model:
+            return ""
+        if model.startswith("openai/"):
+            model = model.removeprefix("openai/")
+
+        api_key = (
+            env.get("RAG_API_KEY", "")
+            or env.get("OPENAI_API_KEY", "")
+            or env.get("OPENROUTER_API_KEY", "")
+        )
+        api_base = (
+            env.get("RAG_API_BASE", "")
+            or env.get("OPENAI_API_BASE", "")
+            or "https://api.openai.com/v1"
+        )
+
+        img_path = Path(image_path)
+        image_bytes = img_path.read_bytes()
+        b64 = base64.b64encode(image_bytes).decode()
+        suffix = img_path.suffix.lower().lstrip(".")
+        mime = {
+            "jpg": "image/jpeg", "jpeg": "image/jpeg",
+            "png": "image/png", "gif": "image/gif",
+            "webp": "image/webp",
+        }.get(suffix, "image/jpeg")
+
+        prompt = CHAT_DESCRIBE_PROMPT
+        if user_question:
+            prompt += f"\n\n使用者的問題：{user_question}"
+
+        from rag.rate_guard import get_rate_guard
+
+        async def _call_describe():
+            async with httpx.AsyncClient(timeout=60.0) as client:
+                resp = await client.post(
+                    f"{api_base}/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": model,
+                        "messages": [{
+                            "role": "user",
+                            "content": [
+                                {"type": "text", "text": prompt},
+                                {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}"}},
+                            ],
+                        }],
+                        "temperature": 0.3,
+                        "max_tokens": 500,
+                    },
+                )
+                if resp.status_code != 200:
+                    log.warning("Chat describe API error %d: %s", resp.status_code, resp.text[:200])
+                    return ""
+                data = resp.json()
+                return (data["choices"][0]["message"]["content"] or "").strip()
+
+        guard = get_rate_guard()
+        desc = await guard.call_with_retry(
+            "image/chat_describe", _call_describe, max_retries=2,
+        )
+        log.info("Chat image description generated: %s", desc[:80])
+        return desc
+    except Exception as e:
+        log.warning("Chat image description failed for %s: %s", image_path, e)
+        return ""
+
+
+async def save_image_file(
     project_id: str,
     filename: str,
     image_bytes: bytes,
-    caption: str = "",
-    tags: str = "",
 ) -> dict:
-    """儲存圖片檔案並建立向量索引。回傳 image metadata dict。"""
-    import uuid
-    from embeddings.local import embed_image, embed_text
-
+    """只存檔，不做 API 呼叫（毫秒級完成）。"""
     img_dir = _images_dir(project_id)
     filename = _dedup_filename(img_dir, filename)
     img_path = img_dir / filename
     img_path.write_bytes(image_bytes)
+    return {"filename": filename, "path": str(img_path)}
 
-    # 混合向量：圖片 embedding + caption text embedding（如有）
-    img_vec = await embed_image(image_bytes)
+
+async def index_image(
+    project_id: str,
+    filename: str,
+    caption: str = "",
+    tags: str = "",
+) -> dict:
+    """為已存檔的圖片建立 auto_caption + embedding + LanceDB 索引。"""
+    import uuid
+    img_path = _images_dir(project_id) / filename
+    image_bytes = img_path.read_bytes()
+
+    if not caption.strip():
+        caption = await _auto_caption(image_bytes, filename)
+
+    img_vec = _truncate(await _embed_image(image_bytes))
+    final_vec = _truncate_and_normalize(img_vec)
     if caption.strip():
-        txt_vec = await embed_text(caption)
-        # 50/50 混合後 L2 normalize
-        import torch
-        mixed = torch.tensor(img_vec) * 0.5 + torch.tensor(txt_vec) * 0.5
-        mixed = torch.nn.functional.normalize(mixed, p=2, dim=0)
-        final_vec = mixed.tolist()
-    else:
-        final_vec = img_vec
+        try:
+            txt_vec = _truncate(await _embed_text(caption))
+            mixed = [(a * 0.5) + (b * 0.5) for a, b in zip(img_vec, txt_vec)]
+            final_vec = _truncate_and_normalize(mixed)
+        except Exception as e:
+            log.warning("Caption embedding failed for %s, use image vector only: %s", filename, e)
 
     image_id = str(uuid.uuid4())[:8]
     created_at = time.strftime("%Y-%m-%d %H:%M:%S")
@@ -115,6 +374,7 @@ async def add_image(
     }
     table.add([row])
 
+    log.info("Indexed image %s: %s", filename, caption[:40])
     return {
         "id": image_id,
         "filename": filename,
@@ -125,14 +385,24 @@ async def add_image(
     }
 
 
+async def add_image(
+    project_id: str,
+    filename: str,
+    image_bytes: bytes,
+    caption: str = "",
+    tags: str = "",
+) -> dict:
+    """儲存圖片檔案並建立向量索引（向後相容）。"""
+    saved = await save_image_file(project_id, filename, image_bytes)
+    return await index_image(project_id, saved["filename"], caption=caption, tags=tags)
+
+
 async def search_images(
     project_id: str,
     query: str,
     limit: int = 5,
 ) -> list[dict]:
     """用文字語意搜尋圖片。回傳最相關的圖片 metadata。"""
-    from embeddings.local import embed_text
-
     db = _get_db(_lancedb_dir(project_id))
     if TABLE_NAME not in db.table_names():
         return []
@@ -141,8 +411,13 @@ async def search_images(
     if table.count_rows() == 0:
         return []
 
-    query_vec = await embed_text(query)
-    results = table.search(query_vec, vector_column_name="vector").limit(limit).to_list()
+    query_vec = await _embed_text(query)
+    results = (
+        table.search(query_vec, vector_column_name="vector")
+        .metric("cosine")
+        .limit(limit)
+        .to_list()
+    )
 
     img_dir = _images_dir(project_id)
     return [
@@ -209,7 +484,10 @@ async def delete_image(project_id: str, image_id: str) -> bool:
 
 
 async def update_image(project_id: str, image_id: str, caption: str = "", tags: str = "") -> bool:
-    """更新圖片的 caption/tags（delete + re-add 保留 vector）。"""
+    """更新圖片的 caption/tags。
+
+    v0.7: 不再因 caption 變更重算向量（避免阻塞與重複重型推論）。
+    """
     db = _get_db(_lancedb_dir(project_id))
     if TABLE_NAME not in db.table_names():
         return False
@@ -225,8 +503,60 @@ async def update_image(project_id: str, image_id: str, caption: str = "", tags: 
     table.delete(f"id = '{safe_id}'")
     row["caption"] = caption
     row["tags"] = tags
+
     table.add([row])
     return True
+
+
+async def backfill_captions(project_id: str, notify=None) -> dict:
+    """批次為沒有 caption 的圖片自動生成描述並更新向量。
+
+    回傳 {"updated": int, "failed": int, "total": int}
+    """
+    db = _get_db(_lancedb_dir(project_id))
+    if TABLE_NAME not in db.table_names():
+        return {"updated": 0, "failed": 0, "total": 0}
+
+    table = db.open_table(TABLE_NAME)
+    if table.count_rows() == 0:
+        return {"updated": 0, "failed": 0, "total": 0}
+
+    df = table.to_pandas()
+    no_caption = df[df["caption"].fillna("").str.strip() == ""]
+    total = len(no_caption)
+    if total == 0:
+        return {"updated": 0, "failed": 0, "total": 0}
+
+    img_dir = _images_dir(project_id)
+    updated = 0
+    failed = 0
+
+    for _, row in no_caption.iterrows():
+        filename = row.get("filename", "")
+        image_id = row.get("id", "")
+        img_path = img_dir / filename
+
+        if notify:
+            notify(f"生成描述中：{filename}（{updated + failed + 1}/{total}）")
+
+        if not img_path.exists():
+            log.warning("Image file not found for backfill: %s", img_path)
+            failed += 1
+            continue
+
+        caption = await _auto_caption(img_path.read_bytes(), filename)
+        if not caption:
+            failed += 1
+            continue
+
+        ok = await update_image(project_id, image_id, caption=caption, tags=row.get("tags", ""))
+        if ok:
+            updated += 1
+            log.info("Backfilled caption for %s: %s", filename, caption[:60])
+        else:
+            failed += 1
+
+    return {"updated": updated, "failed": failed, "total": total}
 
 
 def get_selected_path(project_id: str) -> Path:

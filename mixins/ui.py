@@ -194,10 +194,14 @@ class UIMixin:
         import webbrowser
         gallery_url = f"{self.api_base}/gallery"
         try:
+            health_url = f"{self.api_base}/api/health"
+            r = httpx.get(health_url, timeout=1.5)
+            if r.status_code >= 400:
+                raise RuntimeError(f"health check failed: {r.status_code}")
             webbrowser.open(gallery_url)
             self.notify("圖片庫已在瀏覽器開啟")
         except Exception:
-            self.notify(f"請手動開啟: {gallery_url}")
+            self.notify("後端未啟動：cd backend && .venv/bin/python -m uvicorn main:app --reload")
 
     def _scroll_to_bottom(self) -> None:
         self.query_one("#chat-scroll", VerticalScroll).scroll_end(animate=False)

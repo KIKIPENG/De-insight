@@ -22,27 +22,34 @@ class RAGMixin:
             return
         project_id = self.state.current_project["id"] if self.state.current_project else "default"
 
-        # Health check: auto-repair if needed
+        # Use IngestionReadinessService — no destructive repair here
         try:
-            from rag.repair import diagnose, auto_repair
-            diag = diagnose(project_id)
-            if not diag["healthy"]:
-                await auto_repair(project_id, notify=lambda msg: self.notify(msg))
+            from rag.readiness import get_readiness_service
+            svc = get_readiness_service()
+            snapshot = await svc.get_snapshot(project_id)
         except Exception:
-            pass
+            from rag.readiness import ReadinessSnapshot
+            snapshot = ReadinessSnapshot()
 
-        try:
-            from rag.knowledge_graph import has_knowledge
-            has_kg = has_knowledge(project_id=project_id)
-        except Exception:
-            has_kg = False
-        kg_icon = "✓" if has_kg else "—"
+        # Status display
+        STATUS_ICONS = {
+            "ready": "✓",
+            "building": "⏳",
+            "degraded": "⚠",
+            "empty": "—",
+        }
+        kg_icon = STATUS_ICONS.get(snapshot.status_label, "—")
         rag_label = "快速" if self.rag_mode == "fast" else "深度"
         reindex_age = _get_reindex_age()
         idx_info = f"  索引:{reindex_age}" if reindex_age else ""
+        status_extra = ""
+        if snapshot.status_label == "building":
+            status_extra = "  [建圖中]"
+        elif snapshot.status_label == "degraded" and snapshot.last_error:
+            status_extra = f"  [部分失敗]"
         try:
             self.query_one("#kb-status-line", Static).update(
-                f"[#484f58]知識庫:{kg_icon}  RAG:{rag_label}{idx_info}[/]"
+                f"[#484f58]知識庫:{kg_icon}  RAG:{rag_label}{idx_info}{status_extra}[/]"
             )
         except NoMatches:
             pass
@@ -71,7 +78,11 @@ class RAGMixin:
         self._open_knowledge_modal("import")
 
     async def _import_one(self, source: str, project_id: str, title: str = "") -> dict:
-        """執行單筆匯入，回傳 meta dict。DOI/arXiv/URL/PDF 判斷都在這裡。"""
+        """Submit a single import job and wait for completion.
+
+        All actual insert_* work runs in the worker process.
+        Returns meta dict compatible with previous API (title, doc_id, warning, etc.).
+        """
         import re as _re
         source = source.strip()
         is_doi = bool(_re.match(r'^10\.\d{4,}/', source))
@@ -79,49 +90,85 @@ class RAGMixin:
         is_url = source.startswith("http://") or source.startswith("https://")
 
         if is_doi:
-            from rag.knowledge_graph import insert_doi
-            meta = await insert_doi(source, project_id=project_id, title=title)
             source_type = "doi"
         elif is_arxiv:
-            from rag.knowledge_graph import insert_url
-            meta = await insert_url(source.replace("/abs/", "/pdf/"), project_id=project_id, title=title)
             source_type = "url"
+            source = source.replace("/abs/", "/pdf/")
         elif is_url:
-            from rag.knowledge_graph import insert_url
-            meta = await insert_url(source, project_id=project_id, title=title)
             source_type = "url"
         else:
-            from rag.knowledge_graph import insert_pdf
-            meta = await insert_pdf(source, project_id=project_id, title=title)
             source_type = "pdf"
 
-        doc_id = await self._conv_store.add_document(
-            title=meta["title"],
-            source_path=source,
-            source_type=source_type,
-            file_size=meta.get("file_size", 0),
-            page_count=meta.get("page_count", 0),
-            project_id=project_id,
-        )
-        meta["doc_id"] = doc_id
-        return meta
+        svc = self._get_ingestion_service()
+        job = await svc.submit_and_wait(project_id, source, source_type, title=title)
+        result = job.get("_result", {})
+        return {
+            "title": result.get("title", title or source),
+            "doc_id": result.get("doc_id", ""),
+            "file_size": result.get("file_size", 0),
+            "page_count": result.get("page_count", 0),
+            "warning": result.get("warning", ""),
+        }
+
+    def _set_import_status(self, status: str) -> None:
+        from widgets import MenuBar
+        try:
+            self.query_one("#menu-bar", MenuBar).set_import_status(status)
+        except Exception:
+            pass
 
     @work(exclusive=True)
     async def _do_import(self, source: str) -> None:
+        import re as _re
         _pid = self.state.current_project["id"] if self.state.current_project else "default"
-        self.notify("匯入中…")
+        source = source.strip()
+
+        # Determine source_type
+        is_doi = bool(_re.match(r'^10\.\d{4,}/', source))
+        is_arxiv = "arxiv.org/abs/" in source
+        is_url = source.startswith("http://") or source.startswith("https://")
+
+        if is_doi:
+            source_type = "doi"
+        elif is_arxiv:
+            source_type = "url"
+            source = source.replace("/abs/", "/pdf/")
+        elif is_url:
+            source_type = "url"
+        else:
+            source_type = "pdf"
+
         try:
-            meta = await self._import_one(source, _pid)
+            svc = self._get_ingestion_service()
+            await svc.submit(_pid, source, source_type)
             self.state.last_imported_source = source
-            warning = meta.get("warning", "")
-            if warning:
-                self.notify(f"匯入完成（圖譜建構部分失敗: {warning[:60]}）")
-            else:
-                self.notify("匯入完成　ctrl+u 可重新匯入")
-            self._refresh_knowledge_panel()
-            await self._update_research_panel("匯入完成，知識庫已更新")
+            self.notify("已排入建圖佇列")
         except Exception as e:
-            self.notify(f"匯入失敗: {e}")
+            self.notify(f"排入佇列失敗: {e}")
+
+    @work(exclusive=True)
+    async def _do_import_text(self, payload: dict) -> None:
+        """手動貼上標題＋內文匯入知識庫。"""
+        _pid = self.state.current_project["id"] if self.state.current_project else "default"
+        title = (payload or {}).get("title", "").strip()
+        content = (payload or {}).get("content", "").strip()
+        if not content:
+            self.notify("內文不能為空")
+            return
+        if not title:
+            title = "手動貼上文獻"
+
+        try:
+            svc = self._get_ingestion_service()
+            await svc.submit(
+                _pid, f"manual:{title}", "text",
+                title=title,
+                payload={"content": content},
+            )
+            self.state.last_imported_source = f"manual:{title}"
+            self.notify("已排入建圖佇列（手動貼上）")
+        except Exception as e:
+            self.notify(f"排入佇列失敗: {e}")
 
     def action_search_knowledge(self) -> None:
         self._open_knowledge_modal("search")
@@ -129,19 +176,41 @@ class RAGMixin:
     @work(exclusive=True)
     async def _do_search(self, query: str) -> None:
         try:
-            from rag.knowledge_graph import query_knowledge, has_knowledge
             _pid = self.state.current_project["id"] if self.state.current_project else "default"
-            if not has_knowledge(project_id=_pid):
+            # Prevent stale source carryover between searches.
+            self.state.last_rag_sources = []
+
+            # Use readiness gate — same rules as chat RAG
+            from rag.readiness import get_readiness_service
+            snapshot = await get_readiness_service().get_snapshot(_pid)
+
+            if snapshot.status_label == "empty":
                 self.notify("知識庫為空，請先匯入文件 (ctrl+f)")
                 return
+            if snapshot.status_label == "degraded" and not snapshot.has_ready_chunks:
+                msg = "匯入曾失敗，知識庫尚無可檢索內容；請重新匯入文件"
+                if snapshot.last_error:
+                    msg += f"（{snapshot.last_error[:60]}）"
+                self.notify(msg, severity="warning")
+                return
+            if snapshot.status_label == "building" and not snapshot.has_ready_chunks:
+                self.notify("知識庫建構中，完成後即可搜尋")
+                return
+
+            from rag.knowledge_graph import query_knowledge
             result, sources = await query_knowledge(query, project_id=_pid)
             if not result:
                 self.notify("搜尋完成，但未找到相關內容")
                 await self._update_research_panel("")
                 return
-            if sources:
-                self.state.last_rag_sources = sources
+            self.state.last_rag_sources = sources or []
             await self._update_research_panel(result)
+
+            # Show readiness hint if degraded/building
+            if snapshot.status_label == "building":
+                self.notify("建圖中，結果可能不完整", timeout=3)
+            elif snapshot.status_label == "degraded":
+                self.notify("部分文獻匯入失敗，搜尋結果可能不完整", timeout=3)
         except Exception as e:
             self.notify(f"搜尋失敗: {e}")
 
@@ -150,10 +219,15 @@ class RAGMixin:
         def on_dismiss(result) -> None:
             self._refresh_knowledge_panel()
             self._update_menu_bar()
+            if isinstance(result, str) and result.startswith("__fill__:"):
+                self.fill_input(result[len("__fill__:"):])
+                return
             if isinstance(result, tuple):
                 action, value = result
                 if action == "import":
                     self._do_import(value)
+                elif action == "import_text":
+                    self._do_import_text(value)
                 elif action == "search":
                     self._do_search(value)
         from modals import KnowledgeModal
@@ -180,9 +254,45 @@ class RAGMixin:
         sources = self.state.last_rag_sources
         if sources:
             from modals import SourceModal
-            self.push_screen(SourceModal(sources))
+            def _on_source_result(result):
+                if result and isinstance(result, str) and result.startswith("__cite__:"):
+                    self.fill_input(result[len("__cite__:"):])
+            self.push_screen(SourceModal(sources), callback=_on_source_result)
         else:
             self.notify("這則回應沒有知識庫來源", timeout=2)
+
+    @work(exclusive=True, group="backfill_captions")
+    async def action_backfill_captions(self) -> None:
+        """批次為圖片庫中沒有描述的圖片自動生成 caption。"""
+        project_id = self.state.current_project["id"] if self.state.current_project else "default"
+        self.notify("開始為圖片生成描述…")
+        try:
+            from rag.image_store import backfill_captions
+            result = await backfill_captions(
+                project_id,
+                notify=lambda msg: self.notify(msg),
+            )
+            total = result["total"]
+            updated = result["updated"]
+            failed = result["failed"]
+            if total == 0:
+                self.notify("所有圖片都已有描述")
+            else:
+                self.notify(f"描述生成完成：{updated}/{total} 成功" + (f"，{failed} 失敗" if failed else ""))
+        except Exception as e:
+            self.notify(f"描述生成失敗: {e}")
+
+    def action_cite_research(self) -> None:
+        display = getattr(self, '_last_research_display', '')
+        if display:
+            self.fill_input(f"[知識庫參考]\n{display}")
+        else:
+            self.notify("目前無知識庫內容可引用", timeout=2)
+
+    def _get_ingestion_service(self):
+        """Get or create global IngestionService singleton."""
+        from rag.ingestion_service import get_ingestion_service
+        return get_ingestion_service()
 
     def action_toggle_rag_mode(self) -> None:
         if self.rag_mode == "fast":
@@ -197,10 +307,14 @@ class RAGMixin:
     def _clean_rag_display(raw: str) -> str:
         """清理 LightRAG 原始輸出，提取可讀的中文內容。"""
         import re
-        text = re.sub(r"Document Chunks.*?Reference Document List[`'\s)]*:", "", raw, flags=re.DOTALL)
-        text = re.sub(r"```json\s*", "", text)
-        text = re.sub(r"```\s*", "", text)
-        contents = re.findall(r'"content"\s*:\s*"((?:[^"\\]|\\.)*)"', text)
+        # 先從原始文字提取 JSON content（在移除 header/footer 之前）
+        contents = re.findall(r'"content"\s*:\s*"((?:[^"\\]|\\.)*)"', raw)
+        if not contents:
+            text = re.sub(r"Document Chunks.*?Reference Document List[`'\s)]*:", "", raw, flags=re.DOTALL)
+            text = re.sub(r"```json\s*", "", text)
+            text = re.sub(r"```\s*", "", text)
+        else:
+            text = raw
         if contents:
             parts = []
             for c in contents:
@@ -227,8 +341,19 @@ class RAGMixin:
                 if not display:
                     display = content
                 display = display[:800] + ("…" if len(display) > 800 else "")
+                self._last_research_display = display
                 panel.update(f"[#c9d1d9]{escape(display)}[/]")
             else:
+                self._last_research_display = ""
                 panel.update("[dim #484f58]無結果[/]")
+        except NoMatches:
+            pass
+        # Update cite link visibility
+        try:
+            cite_link = self.query_one("#research-cite", Static)
+            if content:
+                cite_link.update("[#484f58]▸ 引用到對話[/]")
+            else:
+                cite_link.update("")
         except NoMatches:
             pass

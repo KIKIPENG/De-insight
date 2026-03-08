@@ -15,19 +15,21 @@ def _choices(raw: str) -> list[str]:
             if l.strip().startswith('-') and len(l.strip()) > 1]
 
 # ── 有 closing tag 的格式 ──
-SELECT_CLOSED  = re.compile(r'<<SELECT[:：]\s*(.+?)>>(.*?)<</SELECT>>', re.DOTALL)
-MULTI_CLOSED   = re.compile(r'<<MULTI[:：]\s*(.+?)>>(.*?)<</MULTI>>', re.DOTALL)
-INPUT_CLOSED   = re.compile(r'<<INPUT[:：]\s*(.+?)>>\s*<</INPUT>>', re.DOTALL)
-CONFIRM_CLOSED = re.compile(r'<<CONFIRM[:：]\s*(.+?)>>\s*<</CONFIRM>>', re.DOTALL)
+_FLAGS = re.DOTALL | re.IGNORECASE
+
+SELECT_CLOSED  = re.compile(r'<<SELECT[:：]\s*(.+?)>>(.*?)<</SELECT>>', _FLAGS)
+MULTI_CLOSED   = re.compile(r'<<MULTI[:：]\s*(.+?)>>(.*?)<</MULTI>>', _FLAGS)
+INPUT_CLOSED   = re.compile(r'<<INPUT[:：]\s*(.+?)>>\s*<</INPUT>>', _FLAGS)
+CONFIRM_CLOSED = re.compile(r'<<CONFIRM[:：]\s*(.+?)>>\s*<</CONFIRM>>', _FLAGS)
 
 # ── 無 closing tag 的單行格式（fallback）──
 # <<SELECT: prompt\n- a\n- b\n- c>>
-SELECT_INLINE  = re.compile(r'<<SELECT[:：]\s*(.+?)(?:\n((?:\s*-\s*.+\n?)+))\s*>>', re.DOTALL)
-MULTI_INLINE   = re.compile(r'<<MULTI[:：]\s*(.+?)(?:\n((?:\s*-\s*.+\n?)+))\s*>>', re.DOTALL)
+SELECT_INLINE  = re.compile(r'<<SELECT[:：]\s*(.+?)(?:\n((?:\s*-\s*.+\n?)+))\s*>>', _FLAGS)
+MULTI_INLINE   = re.compile(r'<<MULTI[:：]\s*(.+?)(?:\n((?:\s*-\s*.+\n?)+))\s*>>', _FLAGS)
 # <<INPUT: prompt>>
-INPUT_INLINE   = re.compile(r'<<INPUT[:：]\s*(.+?)>>', re.DOTALL)
+INPUT_INLINE   = re.compile(r'<<INPUT[:：]\s*(.+?)>>', _FLAGS)
 # <<CONFIRM: prompt>>
-CONFIRM_INLINE = re.compile(r'<<CONFIRM[:：]\s*(.+?)>>', re.DOTALL)
+CONFIRM_INLINE = re.compile(r'<<CONFIRM[:：]\s*(.+?)>>', _FLAGS)
 
 
 def parse_interactive_blocks(text: str) -> tuple[str, list[InteractiveBlock]]:

@@ -1,155 +1,139 @@
-"""本地 jina-clip-v1 embedding（文字 + 圖片語意向量）。
+"""Embedding 公開 API — 委派給 EmbeddingService（GGUF 後端）。
 
-- dim = 512（Matryoshka 截斷 + L2 normalize）
-- torch / transformers 懶載入，首次呼叫時才 import
-- 支援 embed_text(str) 和 embed_image(path|bytes)
+此模組保留原始 API 簽名以確保向後相容。
+所有實際 embedding 邏輯已移至 embeddings.service + embeddings.gguf_backend。
+
+舊 API 函數仍可用：embed_texts, embed_text, embed_image, get_embed_config, etc.
 """
 
 from __future__ import annotations
 
 import asyncio
 import logging
+import math
+import os
+import threading
 from pathlib import Path
-from typing import Union
+from typing import Callable, Union
 
 log = logging.getLogger(__name__)
 
-EMBED_DIM = 512
-_MODEL_NAME = "jinaai/jina-clip-v1"
+# Hard overwrite env guards (do not use setdefault).
+os.environ["HF_HUB_DISABLE_XET"] = "1"
+os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-# ── lazy singleton ───────────────────────────────────────────────────
+# ── 公開常數（向後相容）────────────────────────────────────────
+
+EMBED_DIM = 1024
+EMBED_MODEL = "jina-embeddings-v4"
+
+
+# ── 舊版 model 載入介面（供相容測試）───────────────────────────
 
 _model = None
-_processor = None
-_tokenizer = None
-
-
-def _has_meta_tensors(model) -> bool:
-    """檢查模型參數或 buffer 是否包含 meta tensor。"""
-    try:
-        for p in model.parameters():
-            if getattr(p, "is_meta", False):
-                return True
-        for b in model.buffers():
-            if getattr(b, "is_meta", False):
-                return True
-    except Exception:
-        pass
-    return False
+_model_lock = threading.Lock()
 
 
 def _load_model():
-    """載入模型，強制 CPU 實體權重。"""
-    import torch
-    from transformers import AutoModel
-
-    model = AutoModel.from_pretrained(
-        _MODEL_NAME,
-        trust_remote_code=True,
-        low_cpu_mem_usage=False,
-        device_map="cpu",
-        torch_dtype=torch.float32,
-    )
-    model.eval()
-
-    if _has_meta_tensors(model):
-        raise RuntimeError(
-            f"jina-clip-v1 loaded with meta tensors despite device_map='cpu'. "
-            f"Check transformers/accelerate versions."
-        )
-    return model
-
-
-def _reset_and_reload():
-    """清掉 singleton 並重新載入模型（只應被 retry 呼叫一次）。"""
-    global _model
-    log.warning("Meta tensor detected at inference, reloading model...")
-    _model = _load_model()
+    """Legacy shim: real embedding now lives in EmbeddingService."""
+    return object()
 
 
 def _ensure_model():
-    """懶載入 jina-clip-v1 模型（首次呼叫約 5-15 秒）。"""
-    global _model, _processor, _tokenizer
+    global _model
     if _model is not None:
-        return
-
-    from transformers import AutoProcessor, AutoTokenizer
-
-    log.info("Loading jina-clip-v1 model (first call, may take a few seconds)...")
-    _model = _load_model()
-    _processor = AutoProcessor.from_pretrained(_MODEL_NAME, trust_remote_code=True)
-    _tokenizer = AutoTokenizer.from_pretrained(_MODEL_NAME, trust_remote_code=True)
-    log.info("jina-clip-v1 model loaded successfully.")
+        return _model
+    with _model_lock:
+        if _model is None:
+            _model = _load_model()
+    return _model
 
 
-def ensure_model_downloaded() -> None:
-    """確認模型已下載（Onboarding 時呼叫，同步阻塞）。"""
-    _ensure_model()
+def _truncate_and_normalize(vec: list[float], dim: int = EMBED_DIM) -> list[float]:
+    """Legacy helper kept for backward compatibility tests."""
+    out = list(vec[:dim]) if vec else []
+    if len(out) < dim:
+        out.extend([0.0] * (dim - len(out)))
+    norm = math.sqrt(sum(x * x for x in out))
+    if norm > 0:
+        out = [x / norm for x in out]
+    return out
 
 
-def _truncate_and_normalize(vec, dim: int = EMBED_DIM) -> list[float]:
-    """Matryoshka 截斷到指定維度後做 L2 normalize。"""
-    import torch
-    t = torch.tensor(vec[:dim], dtype=torch.float32)
-    t = torch.nn.functional.normalize(t, p=2, dim=0)
-    return t.tolist()
+# ── 公開 API（委派給 EmbeddingService）─────────────────────────
 
 
-# ── public API ───────────────────────────────────────────────────────
+def get_embed_config() -> tuple[str, str, str, int]:
+    """回傳 (model, key, base, dim)。"""
+    return EMBED_MODEL, "local", "", EMBED_DIM
+
+
+async def embed_texts(texts: list[str]) -> list[list[float]]:
+    """批次文字 embedding（passage encoding，用於索引文件/記憶）。"""
+    from embeddings.service import get_embedding_service
+    vecs = await get_embedding_service().embed_texts(texts)
+    return [_truncate_and_normalize(v, EMBED_DIM) for v in vecs]
 
 
 async def embed_text(text: str) -> list[float]:
-    """將文字轉為 512 維 L2-normalized 向量。"""
-    loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(None, _embed_text_sync, text)
+    """單筆文字 embedding（query encoding，用於搜尋查詢）。"""
+    from embeddings.service import get_embedding_service
+    vec = await get_embedding_service().embed_text(text)
+    return _truncate_and_normalize(vec, EMBED_DIM)
 
 
 async def embed_image(source: Union[str, Path, bytes]) -> list[float]:
-    """將圖片轉為 512 維 L2-normalized 向量。source 可為檔案路徑或 bytes。"""
-    loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(None, _embed_image_sync, source)
-
-
-# ── sync internals ───────────────────────────────────────────────────
+    """將圖片轉為 1024 維 L2-normalized 向量。"""
+    from embeddings.service import get_embedding_service
+    vec = await get_embedding_service().embed_image(source)
+    return _truncate_and_normalize(vec, EMBED_DIM)
 
 
 def _embed_text_sync(text: str) -> list[float]:
-    import torch
-
-    _ensure_model()
-    inputs = _tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=512)
-    try:
-        with torch.no_grad():
-            text_embed = _model.get_text_features(**inputs)
-    except RuntimeError as e:
-        if "meta tensor" not in str(e).lower():
-            raise
-        _reset_and_reload()
-        with torch.no_grad():
-            text_embed = _model.get_text_features(**inputs)
-    return _truncate_and_normalize(text_embed[0].cpu().numpy())
+    return asyncio.run(embed_text(text))
 
 
-def _embed_image_sync(source: Union[str, Path, bytes]) -> list[float]:
-    import torch
-    from PIL import Image
-    import io
+def _embed_texts_sync(texts: list[str]) -> list[list[float]]:
+    return asyncio.run(embed_texts(texts))
 
-    _ensure_model()
 
-    if isinstance(source, bytes):
-        img = Image.open(io.BytesIO(source)).convert("RGB")
-    else:
-        img = Image.open(str(source)).convert("RGB")
+# ── 診斷 / 安裝（向後相容）────────────────────────────────────
 
-    inputs = _processor(images=img, return_tensors="pt")
-    try:
-        with torch.no_grad():
-            img_embed = _model.get_image_features(**inputs)
-    except RuntimeError as e:
-        if "meta tensor" not in str(e).lower():
-            raise
-        _reset_and_reload()
-        with torch.no_grad():
-            img_embed = _model.get_image_features(**inputs)
-    return _truncate_and_normalize(img_embed[0].cpu().numpy())
+
+def get_device_diagnostics() -> dict[str, object]:
+    """回傳 embedding 環境診斷。"""
+    from embeddings.service import get_embedding_service
+    return get_embedding_service().get_device_diagnostics()
+
+
+def get_runtime_device() -> str:
+    """回傳目前 embedding 後端類型。"""
+    return "gguf-server"
+
+
+def ensure_model_downloaded(
+    *,
+    download_if_missing: bool = True,
+    progress_callback: Callable[[str, float], None] | None = None,
+) -> None:
+    """確保 GGUF 環境已安裝（模型下載 + llama-server 編譯）。
+
+    取代舊的 sentence-transformers 模型下載。
+    """
+    from embeddings.gguf_installer import GGUFInstaller
+    installer = GGUFInstaller()
+
+    if installer.is_fully_installed():
+        log.info("GGUF environment already installed.")
+        return
+
+    if not download_if_missing:
+        raise RuntimeError(
+            "GGUF 環境未安裝。需要下載模型並編譯 llama-server。"
+            " 請以 download_if_missing=True 呼叫或執行 Onboarding。"
+        )
+
+    log.info("Installing GGUF environment (model + llama-server)...")
+    installer.install(progress_callback=progress_callback)
+    log.info("GGUF environment installed successfully.")

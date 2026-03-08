@@ -176,7 +176,7 @@ class ChatMixin:
             self._handle_slash_command(text)
             return
 
-        user_content = self._build_user_content(text)
+        user_content = await self._build_user_content(text)
         self.messages.append({"role": "user", "content": user_content})
 
         if self.state.current_conversation_id is None:
@@ -419,7 +419,7 @@ class ChatMixin:
             bubble.set_responding(False)
             bubble.stream_update(
                 "**連線錯誤** — 後端未啟動\n\n"
-                "cd backend && .venv/bin/python3 -m uvicorn main:app --reload"
+                "cd backend && .venv/bin/python -m uvicorn main:app --reload"
             )
             await bubble.finalize_stream()
         except Exception as e:
@@ -507,27 +507,48 @@ class ChatMixin:
         )
         return resp.choices[0].message.content or ""
 
-    def _build_user_content(self, text: str):
+    async def _build_user_content(self, text: str):
         """組合使用者文字。
-        圖片走 CLIP 語意檢索（_inject_rag_context step 2），不需要 base64 傳送。
-        pending_images 選取的圖片 metadata 會附加為文字提示。
+        有 pending_images 時，呼叫 Vision LLM 即時生成詳細描述附加到文字中。
         """
         pending = getattr(self.state, "pending_images", None) or []
         if not pending:
             return text
 
-        # 附加選取圖片的檔名作為文字提示，讓 RAG 知道使用者關注的圖片
-        img_hints = []
+        from rag.image_store import describe_image_for_chat
+
+        descriptions = []
         for img in pending:
             img_path = Path(img) if isinstance(img, str) else Path(img.get("path", ""))
-            if img_path.exists():
-                img_hints.append(img_path.name)
+            if not img_path.exists():
+                continue
+            desc = await describe_image_for_chat(img_path, user_question=text)
+            if desc:
+                descriptions.append(f"── 圖片分析（{img_path.name}）──\n{desc}")
+            else:
+                # Fallback: 嘗試用 LanceDB 既有 caption
+                fallback_caption = ""
+                if self.state.current_project:
+                    try:
+                        from rag.image_store import search_images
+                        results = await search_images(
+                            self.state.current_project["id"],
+                            img_path.name, limit=1,
+                        )
+                        if results and results[0].get("filename") == img_path.name:
+                            fallback_caption = results[0].get("caption", "")
+                    except Exception:
+                        pass
+                if fallback_caption:
+                    descriptions.append(f"── 圖片分析（{img_path.name}）──\n{fallback_caption}")
+                else:
+                    descriptions.append(f"（附加圖片：{img_path.name}，描述生成失敗）")
 
         self.state.pending_images = []
         self._update_menu_bar()
 
-        if img_hints:
-            return f"{text}\n\n（使用者附加了圖片：{', '.join(img_hints)}）"
+        if descriptions:
+            return text + "\n\n" + "\n\n".join(descriptions)
         return text
 
     @staticmethod
@@ -547,6 +568,16 @@ class ChatMixin:
         return_sys_addon: bool = False,
     ) -> list[dict] | tuple[list[dict], str]:
         """
+        統一 RAG 注入入口。使用 rag.pipeline 統一處理知識庫檢索。
+
+        Readiness gate 放在最前面，決定要跑哪些增強路徑：
+        - empty / building(no chunks)：全部跳過，快速返回
+        - building(has chunks) + fast：只跑 pipeline，跳過 memory/image
+        - building(has chunks) + deep：完整流程
+        - degraded + fast：跳過 memory/image，跑 pipeline + 不完整提示
+        - degraded + deep：完整流程
+        - ready：完整流程
+
         return_sys_addon=False（預設）：回傳注入後的 messages（Direct API / FastAPI 用）
         return_sys_addon=True：回傳 (messages, sys_addon_str)（Codex CLI 用）
         """
@@ -556,97 +587,171 @@ class ChatMixin:
             return (messages, "") if return_sys_addon else messages
 
         augmented = list(messages)
-        insert_idx = 1 if (augmented and augmented[0]["role"] == "system") else 0
+        # Insert RAG context right before the last user message
+        # so the LLM sees it adjacent to the question (not buried at start)
+        insert_idx = max(len(augmented) - 1, 0)
         sys_addon_parts = []
 
-        # 1. 記憶向量搜尋
-        _lancedb_dir = None
-        if self.state.current_project:
-            from paths import project_root
-            _lancedb_dir = project_root(self.state.current_project["id"]) / "lancedb"
+        # ── Readiness gate (前移到所有增強路徑之前) ──
+        _pid = self.state.current_project["id"] if self.state.current_project else "default"
         try:
-            from memory.vectorstore import search_similar, has_index
-            if has_index(lancedb_dir=_lancedb_dir):
-                mem_results = await search_similar(user_msg, limit=3, lancedb_dir=_lancedb_dir)
-                if mem_results:
-                    mem_lines = "\n".join(
-                        f"- [{m['type']}] {m['content']}" + (f" (#{m['topic']})" if m.get('topic') else "")
-                        for m in mem_results
-                    )
-                    context_text = f"使用者過去的想法（語意相關）：\n{mem_lines}"
-                    if return_sys_addon:
-                        sys_addon_parts.append(context_text)
-                    else:
-                        augmented.insert(insert_idx, {"role": "system", "content": context_text})
-                        insert_idx += 1
-        except Exception as e:
-            self.log.warning(f"RAG inject memory failed: {e}")
+            from rag.readiness import get_readiness_service
+            _readiness = await get_readiness_service().get_snapshot(_pid)
+        except Exception:
+            from rag.readiness import ReadinessSnapshot
+            _readiness = ReadinessSnapshot()
 
-        # 2. 圖片知識庫檢索（EMBED_MODE=local 時）
-        try:
-            from memory.vectorstore import _is_local_mode
-            if _is_local_mode() and self.state.current_project:
-                from rag.image_store import search_images
-                img_results = await search_images(
-                    self.state.current_project["id"], user_msg, limit=3,
-                )
-                if img_results:
-                    img_lines = "\n".join(
-                        f"- [圖片] {r['filename']}: {r['caption']}" + (f" (tags: {r['tags']})" if r.get('tags') else "")
-                        for r in img_results
-                        # 使用者明確提及的圖片（檔名出現在訊息中）降低門檻
-                        if r.get("score", 0) > 0.3 or r.get("filename", "") in user_msg
-                    )
-                    if img_lines:
-                        context_text = f"相關圖片（可引用路徑或描述）：\n{img_lines}"
+        _is_fast = (getattr(self, "rag_mode", "fast") != "deep")
+
+        # Determine what to skip based on readiness + mode
+        _skip_all = False       # Skip memory, image, and pipeline
+        _skip_augment = False   # Skip memory & image only (still run pipeline)
+        _rag_hint = ""
+
+        if _readiness.status_label == "empty":
+            _skip_all = True
+        elif _readiness.status_label == "building" and not _readiness.has_ready_chunks:
+            _skip_all = True
+            _rag_hint = "知識庫建構中，先不使用知識庫回答。"
+        elif _readiness.status_label == "building":
+            _rag_hint = "知識庫建構中，以下為部分可用資料。"
+            if _is_fast:
+                _skip_augment = True   # fast: skip memory/image for speed
+        elif _readiness.status_label == "degraded":
+            _rag_hint = "部分文獻匯入失敗，資料可能不完整。"
+            if _is_fast:
+                _skip_augment = True   # fast: skip memory/image for speed
+
+        # Early return for empty / building-no-chunks
+        if _skip_all:
+            # B3: Clear stale sources
+            self.state.last_rag_sources = []
+            await self._update_research_panel("")
+            if _rag_hint and return_sys_addon:
+                return augmented, _rag_hint + "\n\n請用繁體中文回覆。"
+            return (augmented, "") if return_sys_addon else augmented
+
+        # ── 1. 記憶向量搜尋（skip in fast+building/degraded）──
+        if not _skip_augment:
+            _lancedb_dir = None
+            if self.state.current_project:
+                from paths import project_root
+                _lancedb_dir = project_root(self.state.current_project["id"]) / "lancedb"
+            try:
+                from memory.vectorstore import search_similar, has_index
+                if has_index(lancedb_dir=_lancedb_dir):
+                    mem_results = await search_similar(user_msg, limit=3, lancedb_dir=_lancedb_dir)
+                    if mem_results:
+                        mem_lines = "\n".join(
+                            f"- [{m['type']}] {m['content']}" + (f" (#{m['topic']})" if m.get('topic') else "")
+                            for m in mem_results
+                        )
+                        context_text = f"使用者過去的想法（語意相關）：\n{mem_lines}"
                         if return_sys_addon:
                             sys_addon_parts.append(context_text)
                         else:
                             augmented.insert(insert_idx, {"role": "system", "content": context_text})
                             insert_idx += 1
-        except Exception as e:
-            self.log.warning(f"RAG inject images failed: {e}")
+            except Exception as e:
+                self.log.warning(f"RAG inject memory failed: {e}")
 
-        # 3. 知識庫 RAG
-        _pid = self.state.current_project["id"] if self.state.current_project else "default"
-        try:
-            from rag.knowledge_graph import (
-                query_knowledge,
-                has_knowledge,
-                _is_no_context_result,
-            )
-            if has_knowledge(project_id=_pid):
-                is_deep = self.rag_mode == "deep"
-                result, sources = await query_knowledge(
-                    user_msg,
-                    mode="hybrid" if is_deep else "naive",
-                    context_only=not is_deep,
-                    project_id=_pid,
-                )
-                if result and len(result.strip()) > 10 and not _is_no_context_result(result):
-                    await self._update_research_panel(result)
-                    if sources:
-                        self.state.last_rag_sources = sources
-                        # 只注入前 3 個來源的 snippet（已按相關度排序）
-                        inject_parts = []
-                        for s in sources[:3]:
-                            label = s.get("title", "")
-                            snippet = s.get("snippet", "")
-                            if snippet:
-                                inject_parts.append(f"[{label}]\n{snippet}")
-                        if inject_parts:
-                            context_text = "知識庫相關資訊：\n\n" + "\n\n---\n\n".join(inject_parts) + "\n\n（以上為參考資料，請務必用繁體中文回覆使用者。）"
+        # ── 2. 圖片知識庫檢索（skip in fast+building/degraded）──
+        if not _skip_augment:
+            try:
+                if self.state.current_project:
+                    from rag.image_store import search_images
+                    img_results = await search_images(
+                        self.state.current_project["id"], user_msg, limit=3,
+                    )
+                    if img_results:
+                        img_lines = "\n".join(
+                            f"- [圖片] {r['filename']}: {r['caption']}" + (f" (tags: {r['tags']})" if r.get('tags') else "")
+                            for r in img_results
+                            if r.get("score", 0) > 0.3 or r.get("filename", "") in user_msg
+                        )
+                        if img_lines:
+                            context_text = f"相關圖片（可引用路徑或描述）：\n{img_lines}"
                             if return_sys_addon:
                                 sys_addon_parts.append(context_text)
                             else:
                                 augmented.insert(insert_idx, {"role": "system", "content": context_text})
+                                insert_idx += 1
+            except Exception as e:
+                self.log.warning(f"RAG inject images failed: {e}")
+
+        # B3: Clear stale sources before each query to prevent carryover
+        self.state.last_rag_sources = []
+        await self._update_research_panel("")
+
+        # ── 3. 知識庫 RAG — pipeline ──
+        try:
+            from rag.pipeline import run_thinking_pipeline
+            _db_path = None
+            if self.state.current_project:
+                from paths import project_root as _pr
+                _db_path = _pr(self.state.current_project["id"]) / "memories.db"
+            pipeline_result = await run_thinking_pipeline(
+                user_input=user_msg,
+                project_id=_pid,
+                mode="deep" if not _is_fast else "fast",
+                db_path=_db_path,
+            )
+            # Store diagnostics for debugging
+            self._last_pipeline_diagnostics = pipeline_result.get("diagnostics", {})
+
+            context_text = pipeline_result.get("context_text", "")
+            raw_result = pipeline_result.get("raw_result", "")
+            sources = pipeline_result.get("sources", [])
+
+            self.log.info(
+                "RAG pipeline: strategy=%s context_len=%d raw_len=%d sources=%d readiness=%s augment_skipped=%s",
+                pipeline_result.get("strategy_used"),
+                len(context_text), len(raw_result), len(sources),
+                _readiness.status_label, _skip_augment,
+            )
+
+            # Update research panel with raw result (for display cleaning)
+            if raw_result and len(raw_result.strip()) > 10:
+                await self._update_research_panel(raw_result)
+            else:
+                await self._update_research_panel("")
+            self.state.last_rag_sources = sources or []
+
+            # Log fallback events
+            diag = pipeline_result.get("diagnostics", {})
+            if diag.get("deep_error_code"):
+                self.log.warning(
+                    "RAG deep fallback: %s (strategy=%s)",
+                    diag["deep_error_code"], pipeline_result["strategy_used"],
+                )
+
+            if context_text and len(context_text.strip()) > 10:
+                hint_prefix = f"（{_rag_hint}）\n\n" if _rag_hint else ""
+                injection = (
+                    "# 知識庫參考內容\n\n"
+                    f"{hint_prefix}"
+                    "以下是從使用者的知識庫中檢索到的相關資料，請優先根據這些內容回答。\n\n"
+                    f"{context_text}\n\n"
+                    "使用規則：\n"
+                    "- 回答應基於上述知識庫內容，不可自行補入未出現的人名、理論或引文\n"
+                    "- 引用知識庫概念時用 [[概念名稱]] 標記\n"
+                    "- 若知識庫資訊不足，明確說明後可提供一般性思考方向\n"
+                    "請用繁體中文回覆。"
+                )
+                if return_sys_addon:
+                    sys_addon_parts.append(injection)
+                else:
+                    augmented.insert(insert_idx, {"role": "system", "content": injection})
         except Exception as e:
-            self.log.warning(f"RAG inject knowledge failed: {e}")
+            self.log.warning(f"RAG pipeline failed: {e}")
+            # B3: Also clear panel on failure to prevent stale display
+            self.state.last_rag_sources = []
+            await self._update_research_panel("")
 
         if return_sys_addon:
             addon = "\n\n".join(sys_addon_parts)
             if addon:
-                addon += "\n\n（以上為參考資料，請務必用繁體中文回覆使用者。）"
+                addon += "\n\n請用繁體中文回覆。"
             return augmented, addon
 
         return augmented

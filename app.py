@@ -1,10 +1,21 @@
 """De-insight TUI — App 主體"""
 
+import asyncio
 import sys
 from pathlib import Path
 
 # Allow importing from backend/
 sys.path.insert(0, str(Path(__file__).parent / "backend"))
+
+# Auto-discover backend venv site-packages so TUI works regardless of
+# which Python interpreter is used to launch it.
+_venv_dir = Path(__file__).parent / "backend" / ".venv"
+if _venv_dir.is_dir():
+    import glob as _glob
+    _sp = _glob.glob(str(_venv_dir / "lib" / "python*" / "site-packages"))
+    for _p in _sp:
+        if _p not in sys.path:
+            sys.path.insert(1, _p)
 
 from widgets import (
     AppState, ChatInput, MenuBar, WelcomeBlock, StatusBar,
@@ -473,6 +484,19 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
             self._conv_store = ConversationStore(
                 db_path=project_root(pid) / "conversations.db"
             )
+        # A3: Startup health check — validate RAG config + probe endpoint
+        try:
+            from rag.pipeline import startup_health_check, is_degraded, get_degraded_reason
+            hc = await startup_health_check(probe_llm=True)
+            if not hc["healthy"]:
+                self.notify(
+                    f"知識庫降級模式：{get_degraded_reason()[:80]}",
+                    severity="warning",
+                    timeout=8,
+                )
+        except Exception as e:
+            self.log.warning(f"Startup health check failed: {e}")
+
         self._update_menu_bar()
         self._update_status()
         container = self.query_one("#messages", Vertical)
@@ -483,3 +507,87 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         self._refresh_memory_panel()
         self._refresh_knowledge_panel()
         self._reindex_pending_memories()
+        self.run_worker(self._check_embedding_model_ready(), exclusive=False, group="startup_embed")
+
+        # Start ingestion worker + polling timer
+        try:
+            from rag.ingestion_service import get_ingestion_service
+            svc = get_ingestion_service()
+            await svc.ensure_table()
+            svc.ensure_worker_running()
+            self._ingestion_poll_timer = self.set_interval(5.0, self._poll_ingestion_jobs)
+        except Exception as e:
+            self.log.warning(f"Failed to start ingestion worker: {e}")
+
+    def _set_import_status(self, status: str) -> None:
+        try:
+            self.query_one("#menu-bar", MenuBar).set_import_status(status)
+        except Exception:
+            pass
+
+    async def _poll_ingestion_jobs(self) -> None:
+        """Poll for completed ingestion jobs and notify user."""
+        try:
+            from rag.ingestion_service import get_ingestion_service
+            svc = get_ingestion_service()
+
+            # Check completed jobs
+            completed = await svc.poll_completed()
+            for job in completed:
+                title = job.get("title") or job.get("source", "")[:40]
+                status = job.get("status", "done")
+                if status == "done_with_warning":
+                    warning = job.get("last_error", "")[:60]
+                    self.notify(f"匯入完成（部分警告: {warning}）：{title}")
+                else:
+                    self.notify(f"匯入完成：{title}")
+                self._refresh_knowledge_panel()
+
+            # Check terminal failures (only report each once)
+            if not hasattr(self, "_reported_failed_jobs"):
+                self._reported_failed_jobs: set[str] = set()
+            failed = await svc.poll_failed_terminal()
+            for job in failed:
+                jid = job["id"]
+                if jid in self._reported_failed_jobs:
+                    continue
+                self._reported_failed_jobs.add(jid)
+                title = job.get("title") or job.get("source", "")[:40]
+                error = job.get("last_error", "")[:60]
+                self.notify(f"匯入失敗：{title}（{error}）", severity="error")
+        except Exception:
+            pass
+
+    def action_quit(self) -> None:
+        """Override quit to stop ingestion worker before exit."""
+        try:
+            from rag.ingestion_service import get_ingestion_service
+            svc = get_ingestion_service()
+            svc.stop_worker()
+        except Exception:
+            pass
+        if hasattr(self, "_ingestion_poll_timer"):
+            self._ingestion_poll_timer.stop()
+        self.exit()
+
+    async def _check_embedding_model_ready(self) -> None:
+        """Background check: GGUF 環境診斷（不啟動 server）。
+
+        Only checks installation status. The llama-server is started lazily
+        on first embedding call.
+        """
+        self._set_import_status("檢查Embedding環境…")
+        try:
+            from embeddings.service import get_embedding_service
+            svc = get_embedding_service()
+            diag = await asyncio.to_thread(svc.get_device_diagnostics)
+            installed = diag.get("installed", False)
+            if installed:
+                self._set_import_status("Embedding環境就緒 (GGUF)")
+            else:
+                self._set_import_status("Embedding環境未安裝")
+            self.set_timer(2.0, lambda: self._set_import_status(""))
+        except Exception as e:
+            self._set_import_status("Embedding環境異常")
+            self.log.warning(f"Embedding diagnostics failed: {e}")
+            self.set_timer(4.0, lambda: self._set_import_status(""))

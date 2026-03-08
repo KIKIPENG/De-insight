@@ -74,94 +74,19 @@ def _detect_vector_dim(table) -> int | None:
         return None
 
 
-def _is_local_mode() -> bool:
-    """判斷是否使用本地 embedding。
-
-    以 EMBED_PROVIDER 為主判斷，EMBED_MODE 做 backward compat。
-    缺省（env 未設）時回落 local。
-    """
-    import sys
-    sys.path.insert(0, str(Path(__file__).parent.parent))
-    from settings import load_env
-    env = load_env()
-    provider = env.get("EMBED_PROVIDER", "").lower()
-    mode = env.get("EMBED_MODE", "").lower()
-    if provider == "local" or mode == "local":
-        return True
-    if provider and provider != "local":
-        return False
-    return True
-
-
 async def _get_embedding_fn():
-    """取得 embedding 函數，使用 Settings 設定的 provider。"""
+    """取得 embedding 函數 — 透過 EmbeddingService（GGUF 後端）。"""
     global _embed_fn, _embed_dim
     if _embed_fn is not None:
         return _embed_fn, _embed_dim
 
     import sys
     sys.path.insert(0, str(Path(__file__).parent.parent))
-    sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
-    from settings import load_env
+    from embeddings.service import get_embedding_service
 
-    env = load_env()
-
-    # EMBED_MODE=local 短路：使用本地 jina-clip-v1
-    embed_mode = env.get("EMBED_MODE", "").lower()
-    embed_provider = env.get("EMBED_PROVIDER", "").lower()
-    if embed_mode == "local" or embed_provider == "local":
-        from embeddings.local import embed_text, EMBED_DIM
-
-        async def local_embed(texts: list[str]) -> list[list[float]]:
-            results = []
-            for t in texts:
-                vec = await embed_text(t)
-                results.append(vec)
-            return results
-
-        _embed_fn = local_embed
-        _embed_dim = EMBED_DIM
-        return _embed_fn, _embed_dim
-
-    # 遠端 API embedding（原有邏輯）
-    embed_model = env.get("EMBED_MODEL", "")
-    if embed_model:
-        embed_key = env.get("EMBED_API_KEY", "") or env.get("JINA_API_KEY", "") or env.get("OPENAI_API_KEY", "")
-        embed_base = env.get("EMBED_API_BASE", "https://api.openai.com/v1")
-        _embed_dim = int(env.get("EMBED_DIM", "1024"))
-        if embed_provider.startswith("ollama"):
-            embed_key = "ollama"
-            embed_base = "http://localhost:11434/v1"
-    elif env.get("JINA_API_KEY"):
-        embed_model = "jina-embeddings-v3"
-        embed_key = env.get("JINA_API_KEY")
-        embed_base = "https://api.jina.ai/v1"
-        _embed_dim = 1024
-    elif env.get("LLM_MODEL", "").startswith("ollama/"):
-        embed_model = "nomic-embed-text"
-        embed_key = "ollama"
-        embed_base = "http://localhost:11434/v1"
-        _embed_dim = 768
-    else:
-        embed_model = "text-embedding-3-small"
-        embed_key = env.get("OPENAI_API_KEY", "")
-        embed_base = "https://api.openai.com/v1"
-        _embed_dim = 1536
-
-    import httpx
-
-    async def embed(texts: list[str]) -> list[list[float]]:
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            resp = await client.post(
-                f"{embed_base}/embeddings",
-                headers={"Authorization": f"Bearer {embed_key}"},
-                json={"model": embed_model, "input": texts},
-            )
-            resp.raise_for_status()
-            data = resp.json()
-            return [item["embedding"] for item in data["data"]]
-
-    _embed_fn = embed
+    svc = get_embedding_service()
+    _embed_fn = svc.embed_texts
+    _embed_dim = svc.dimension()
     return _embed_fn, _embed_dim
 
 

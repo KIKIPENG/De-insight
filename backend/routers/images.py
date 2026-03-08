@@ -1,5 +1,7 @@
 """圖片知識庫 API — 上傳、列表、搜尋、刪除、選取、檔案存取。"""
 
+import asyncio
+import logging
 import sys
 from pathlib import Path
 from typing import List
@@ -7,6 +9,8 @@ from typing import List
 from fastapi import APIRouter, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
+
+log = logging.getLogger(__name__)
 
 # Allow imports from project root
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
@@ -48,7 +52,7 @@ async def list_images(project_id: str | None = None):
 async def upload_image(
     request: Request,
 ):
-    """上傳圖片並建立向量索引（支援單檔與多檔）。"""
+    """上傳圖片：階段一存檔（秒回），階段二背景建索引。"""
     form = await request.form()
     caption = str(form.get("caption", "") or "")
     tags = str(form.get("tags", "") or "")
@@ -73,10 +77,11 @@ async def upload_image(
     if not upload_files:
         raise HTTPException(status_code=400, detail="No file uploaded")
 
-    from rag.image_store import add_image
-    results: list[dict] = []
-    errors: list[dict] = []
+    from rag.image_store import save_image_file
 
+    # 階段一：快速存檔（毫秒級）
+    saved: list[dict] = []
+    errors: list[dict] = []
     for f in upload_files:
         raw_name = f.filename or ""
         safe_name = Path(raw_name).name
@@ -90,31 +95,85 @@ async def upload_image(
             continue
 
         try:
-            result = await add_image(
-                project_id=pid,
-                filename=safe_name,
-                image_bytes=content,
-                caption=caption,
-                tags=tags,
-            )
-            results.append(result)
+            result = await save_image_file(pid, safe_name, content)
+            saved.append(result)
         except Exception as e:
             errors.append({"filename": safe_name, "error": str(e)})
 
-    if not results:
+    if not saved:
         first_err = errors[0]["error"] if errors else "unknown"
         raise HTTPException(
             status_code=500,
             detail={"message": f"All uploads failed: {first_err}", "errors": errors},
         )
 
+    # 階段二：背景逐張建索引
+    asyncio.create_task(_process_batch(pid, saved, caption, tags))
+
     return {
         "project_id": pid,
-        "uploaded": len(results),
-        "failed": len(errors),
-        "items": results,
+        "saved": len(saved),
+        "processing": True,
+        "pending": [s["filename"] for s in saved],
         "errors": errors,
     }
+
+
+async def _process_batch(
+    pid: str, saved_files: list[dict], caption: str, tags: str
+) -> None:
+    """背景逐張建立圖片索引，每張之間加 2 秒延遲避免速率限制。"""
+    from rag.image_store import index_image
+
+    for i, item in enumerate(saved_files):
+        if i > 0:
+            await asyncio.sleep(5)  # 避免 Jina API 429（free tier 速率限制嚴格）
+        try:
+            await index_image(pid, item["filename"], caption=caption, tags=tags)
+            log.info("Indexed image: %s", item["filename"])
+        except Exception as e:
+            log.error("Index failed for %s: %s", item["filename"], e)
+
+
+@router.get("/images/processing-status")
+async def processing_status(project_id: str | None = None):
+    """回傳圖片處理進度：已索引數、待處理數。"""
+    pid = await _get_project_id(project_id)
+    img_dir = _images_dir(pid)
+    files_on_disk = {
+        f.name for f in img_dir.iterdir()
+        if f.is_file() and not f.name.startswith(".")
+    }
+    from rag.image_store import list_images as _list
+    indexed_imgs = await _list(pid)
+    indexed_names = {img["filename"] for img in indexed_imgs}
+    orphans = files_on_disk - indexed_names
+    return {
+        "total_files": len(files_on_disk),
+        "indexed": len(indexed_names),
+        "pending": len(orphans),
+        "orphan_files": sorted(orphans),
+    }
+
+
+@router.post("/images/process-orphans")
+async def process_orphans(project_id: str | None = None):
+    """重新處理所有有檔案但無索引的圖片。"""
+    pid = await _get_project_id(project_id)
+    img_dir = _images_dir(pid)
+    files_on_disk = {
+        f.name for f in img_dir.iterdir()
+        if f.is_file() and not f.name.startswith(".")
+    }
+    from rag.image_store import list_images as _list
+    indexed_imgs = await _list(pid)
+    indexed_names = {img["filename"] for img in indexed_imgs}
+    orphans = files_on_disk - indexed_names
+    if not orphans:
+        return {"processing": False, "count": 0, "message": "no orphans"}
+    saved = [{"filename": fn} for fn in orphans]
+    asyncio.create_task(_process_batch(pid, saved, caption="", tags=""))
+    return {"processing": True, "count": len(orphans)}
 
 
 @router.get("/images/search")
@@ -187,6 +246,15 @@ async def select_images(req: SelectRequest):
     from rag.image_store import set_selected
     selected = await set_selected(pid, req.image_ids)
     return {"selected": selected, "count": len(selected)}
+
+
+@router.post("/images/backfill-captions")
+async def backfill_captions_endpoint(project_id: str | None = None):
+    """批次為沒有 caption 的圖片自動生成描述。"""
+    pid = await _get_project_id(project_id)
+    from rag.image_store import backfill_captions
+    result = await backfill_captions(pid)
+    return {"project_id": pid, **result}
 
 
 @router.get("/images/selected")

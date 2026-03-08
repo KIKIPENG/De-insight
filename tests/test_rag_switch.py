@@ -1,10 +1,13 @@
+"""LightRAG hot-switch integration test — run standalone: python tests/test_rag_switch.py"""
+
 import asyncio, gc, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+# Not a pytest test — requires live LightRAG + embedding server.
 from rag.knowledge_graph import get_rag
 
-async def test():
+async def _run_switch_test():
     rag_a = get_rag(project_id="test_proj_a")
     await rag_a.initialize_storages()
     await rag_a.ainsert("包豪斯預設了功能的穩定性")
@@ -25,4 +28,5 @@ async def test():
 
     print("LightRAG 熱切換測試通過")
 
-asyncio.run(test())
+if __name__ == "__main__":
+    asyncio.run(_run_switch_test())

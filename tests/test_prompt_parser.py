@@ -3,6 +3,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from interaction.prompt_parser import parse_interactive_blocks
+from backend.prompts.curator import get_system_prompt
+from widgets import Chatbox
 
 def test_select():
     text = "正文\n<<SELECT: 問題>>\n- 選A\n- 選B\n<</SELECT>>"
@@ -35,10 +37,40 @@ def test_input():
     assert "你提到了背面" in clean
     assert blocks[0].type == "input"
 
+
+def test_select_lowercase_tag():
+    text = "正文\n<<select: 問題>>\n- 選A\n- 選B\n<</select>>"
+    clean, blocks = parse_interactive_blocks(text)
+    assert clean == "正文"
+    assert blocks[0].type == "select"
+    assert blocks[0].choices == ["選A", "選B"]
+
+
+def test_curator_prompt_includes_callout_and_insight_rules():
+    prompt = get_system_prompt("emotional", "m", "k")
+    assert "知識整合優先規則（最高優先）" in prompt
+    assert "只有在使用者明確要求「整理」「重點」「總結」時" in prompt
+    assert "[!INSIGHT] 使用條件（四條都要成立）" in prompt
+
+
+def test_clean_callouts_removes_closing_tags():
+    text = "先確認\n<<CONFIRM: 這是你的命題嗎？>><</CONFIRM>>"
+    cleaned = Chatbox._clean_callouts(text)
+    assert "<</CONFIRM>>" not in cleaned
+    assert "這是你的命題嗎？" not in cleaned
+    assert "先確認" in cleaned
+
+    text2 = ">> [!QUESTION]\n你想先整理重點嗎？\n<</SELECT>>"
+    cleaned2 = Chatbox._clean_callouts(text2)
+    assert "<</SELECT>>" not in cleaned2
+
 if __name__ == "__main__":
     test_select()
     test_no_blocks()
     test_confirm()
     test_multi()
     test_input()
+    test_select_lowercase_tag()
+    test_curator_prompt_includes_callout_and_insight_rules()
+    test_clean_callouts_removes_closing_tags()
     print("All parser tests passed!")

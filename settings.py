@@ -80,15 +80,8 @@ def _get_service_status(env: dict) -> dict[str, str]:
     # Chat
     chat_model = env.get("LLM_MODEL", "")
     status["chat"] = chat_model if chat_model else "(未設定)"
-    # Embedding
-    embed_provider = env.get("EMBED_PROVIDER", "")
-    embed_model = env.get("EMBED_MODEL", "")
-    if embed_provider and embed_model:
-        status["embedding"] = f"{embed_provider}/{embed_model}"
-    elif env.get("JINA_API_KEY"):
-        status["embedding"] = "jina/jina-embeddings-v3"
-    else:
-        status["embedding"] = "(未設定)"
+    # Embedding — 統一使用 jina-embeddings-v4 本地模型 (1024d)
+    status["embedding"] = "jina-embeddings-v4 (本地, 1024d)"
     # RAG LLM
     rag_model = env.get("RAG_LLM_MODEL", "")
     status["rag_llm"] = rag_model if rag_model else "(跟聊天模型相同)"
@@ -585,44 +578,33 @@ class SettingsScreen(ModalScreen[str | None]):
             self._env.pop("OPENAI_API_KEY", None)
 
     def _save_embed_model(self, pid, model_name, pinfo):
-        # Guard: 如果有圖片資料，禁止從 local 切到 API
-        old_provider = self._env.get("EMBED_PROVIDER", "").lower()
-        old_is_local = old_provider in ("local", "") or self._env.get("EMBED_MODE", "").lower() == "local"
-        new_is_local = pid == "local"
-        if old_is_local and not new_is_local:
-            try:
-                from rag.repair import any_project_has_images
-                if any_project_has_images():
-                    self.notify(
-                        "目前有專案含有圖片資料（使用 local 512 維 embedding），"
-                        "切換到 API embedding 會導致圖片檢索失敗。"
-                        "請先清除所有圖片資料再切換。",
-                        severity="error",
-                        timeout=8,
-                    )
-                    return
-            except Exception:
-                pass
-
-        self._env["EMBED_PROVIDER"] = pid
-        self._env["EMBED_MODEL"] = model_name
-        dims = pinfo.get("dims", {})
-        self._env["EMBED_DIM"] = str(dims.get(model_name, 1024))
-        if pinfo.get("key_env"):
-            key_val = self._env.get(pinfo["key_env"], "")
-            if key_val:
-                self._env["EMBED_API_KEY"] = key_val
-        self._env["EMBED_API_BASE"] = pinfo.get("default_base", "")
-        # Local mode: also set EMBED_MODE for backward compat
-        if pid == "local":
-            self._env["EMBED_MODE"] = "local"
-        else:
-            self._env.pop("EMBED_MODE", None)
-        # Backward compat for Jina
-        if pid == "jina" and pinfo.get("key_env"):
-            self._env["JINA_API_KEY"] = self._env.get(pinfo["key_env"], "")
+        # v0.8: 統一使用 jina-embeddings-v4 本地模型，固定 1024d
+        self._env["EMBED_PROVIDER"] = "local"
+        self._env["EMBED_MODEL"] = "jina-embeddings-v4"
+        self._env["EMBED_DIM"] = "1024"
+        # 清理舊的 API 設定
+        for k in ("EMBED_MODE", "EMBED_API_KEY", "JINA_API_KEY", "EMBED_API_BASE"):
+            self._env.pop(k, None)
 
     def _save_rag_model(self, pid, model_name, full_id, pinfo):
+        # Validate: ensure model is in provider's model list (or is same-as-chat)
+        if pid != "same-as-chat":
+            valid_models = pinfo.get("models", [])
+            if valid_models and model_name not in valid_models:
+                self.app.notify(
+                    f"警告：{model_name} 不在 {pinfo.get('label', pid)} 的已知模型清單中。"
+                    "可能造成知識庫功能異常。",
+                    severity="warning",
+                    timeout=5,
+                )
+            # Validate: ensure API key is present if required
+            key_env = pinfo.get("key_env", "")
+            if pinfo.get("auth_type") == "api_key" and key_env and not self._env.get(key_env):
+                self.app.notify(
+                    f"警告：{pinfo.get('label', pid)} 需要 {key_env}，但尚未設定。",
+                    severity="warning",
+                    timeout=5,
+                )
         self._env["RAG_LLM_MODEL"] = full_id
         if pinfo.get("key_env"):
             self._env["RAG_API_KEY"] = self._env.get(pinfo["key_env"], "")
@@ -631,6 +613,12 @@ class SettingsScreen(ModalScreen[str | None]):
             self._env["RAG_API_BASE"] = base
         else:
             self._env.pop("RAG_API_BASE", None)
+        # Reset RAG instance to pick up new model
+        try:
+            from rag.knowledge_graph import reset_rag
+            reset_rag()
+        except Exception:
+            pass
 
     # ── OAuth ──
 

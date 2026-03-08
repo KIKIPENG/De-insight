@@ -1,10 +1,11 @@
 """LightRAG 知識圖譜封裝。"""
 
+import json as _json
+import logging
 import os
 from pathlib import Path
 
 from lightrag import LightRAG, QueryParam
-from lightrag.llm.openai import openai_complete_if_cache, openai_embed
 from lightrag.utils import EmbeddingFunc
 
 import sys
@@ -12,6 +13,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from settings import load_env
 
 from paths import project_root, ensure_project_dirs, DATA_ROOT
+
+log = logging.getLogger(__name__)
 _DEFAULT_LIGHTRAG_DIR = DATA_ROOT / "projects" / "default" / "lightrag"
 
 ART_ENTITY_TYPES = [
@@ -72,60 +75,46 @@ def _get_llm_config() -> tuple[str, str, str]:
     return model, api_key, api_base or "https://api.openai.com/v1"
 
 
-def _is_local_embed() -> bool:
-    """判斷是否使用本地 embedding。
-
-    以 EMBED_PROVIDER 為主判斷來源，EMBED_MODE 做 backward compat。
-    缺省（env 未設）時回落 local。
-    """
-    env = load_env()
-    provider = env.get("EMBED_PROVIDER", "").lower()
-    mode = env.get("EMBED_MODE", "").lower()
-
-    # 明確設為 local
-    if provider == "local" or mode == "local":
-        return True
-    # 明確設為其他 API provider
-    if provider and provider != "local":
-        return False
-    # 缺省：回落 local
-    return True
-
-
 def _get_embed_config() -> tuple[str, str, str, int]:
     """Return (model, api_key, api_base, dim) for embeddings.
 
-    以 EMBED_PROVIDER 為單一真值：
-    - "local" 或缺省 → jina-clip-v1 (512)
-    - 其他 → 按 provider 設定走 API
+    v0.8: 透過 EmbeddingService 取得（GGUF 後端）。
     """
-    env = load_env()
+    from embeddings.service import get_embedding_service
+    return get_embedding_service().get_embed_config()
 
-    # Local embedding (預設)
-    if _is_local_embed():
-        return "jina-clip-v1", "", "", 512
 
-    # API embedding — 由 EMBED_PROVIDER 決定
-    provider = env.get("EMBED_PROVIDER", "").lower()
+def _detect_vdb_dim(working_dir: Path) -> int | None:
+    """讀取 vdb_chunks.json 中的 embedding_dim。不存在或無法解析時回傳 None。"""
+    vdb_path = working_dir / "vdb_chunks.json"
+    if not vdb_path.exists():
+        return None
+    try:
+        data = _json.loads(vdb_path.read_text(encoding="utf-8"))
+        dim = data.get("embedding_dim")
+        return int(dim) if dim is not None else None
+    except Exception:
+        return None
 
-    if provider.startswith("ollama"):
-        embed_model = env.get("EMBED_MODEL", "nomic-embed-text")
-        return embed_model, "ollama", "http://localhost:11434/v1", int(env.get("EMBED_DIM", "768"))
 
-    embed_model = env.get("EMBED_MODEL", "")
-    if embed_model:
-        embed_key = env.get("EMBED_API_KEY", "") or env.get("JINA_API_KEY", "") or env.get("OPENAI_API_KEY", "")
-        embed_base = env.get("EMBED_API_BASE", "https://api.openai.com/v1")
-        embed_dim = int(env.get("EMBED_DIM", "1024"))
-        return embed_model, embed_key, embed_base, embed_dim
-
-    # Backward compat: bare JINA_API_KEY
-    jina_key = env.get("JINA_API_KEY", "")
-    if jina_key:
-        return "jina-embeddings-v3", jina_key, "https://api.jina.ai/v1", 1024
-
-    # Fallback: local (should not reach here due to _is_local_embed)
-    return "jina-clip-v1", "", "", 512
+def _clear_stale_vdb(working_dir: Path, old_dim: int, new_dim: int) -> None:
+    """Embedding 維度變更時，清除舊的向量索引檔，保留文件記錄。"""
+    log.warning(
+        "Embedding 維度變更: %d → %d，清除舊向量索引 (%s)",
+        old_dim, new_dim, working_dir,
+    )
+    # 清除所有向量索引（含 embedding_dim 斷言的檔案）
+    for name in (
+        "vdb_chunks.json", "vdb_entities.json",
+        "vdb_relationships.json", "vdb_text_chunks.json",
+    ):
+        p = working_dir / name
+        if p.exists():
+            p.unlink()
+    # 清除 doc_status，讓 LightRAG 視文件為新（可重新處理）
+    status_path = working_dir / "kv_store_doc_status.json"
+    if status_path.exists():
+        status_path.unlink()
 
 
 def _apply_env() -> None:
@@ -167,6 +156,7 @@ def get_rag(project_id: str = "default") -> LightRAG:
         async def llm_func(prompt, system_prompt=None, history_messages=None, **kwargs):
             import re as _re
             import httpx as _httpx
+            from rag.rate_guard import get_rate_guard
             # Drop response_format — reasoning models (MiniMax-M2.5) return
             # <think> tags that break structured output validation.
             kwargs.pop("response_format", None)
@@ -176,69 +166,63 @@ def get_rag(project_id: str = "default") -> LightRAG:
             for m in (history_messages or []):
                 messages.append(m)
             messages.append({"role": "user", "content": prompt})
-            async with _httpx.AsyncClient(timeout=120.0) as client:
-                resp = await client.post(
-                    f"{llm_base}/chat/completions",
-                    headers={
-                        "Authorization": f"Bearer {llm_key}",
-                        "HTTP-Referer": "https://github.com/De-insight",
-                        "X-Title": "De-insight",
-                    },
-                    json={"model": llm_model, "messages": messages},
-                )
-                if resp.status_code >= 400:
-                    import logging as _log
-                    _log.getLogger("rag.llm").error(
-                        f"RAG LLM {resp.status_code} ({llm_model}): {resp.text[:500]}"
+
+            async def _call_llm():
+                async with _httpx.AsyncClient(timeout=120.0) as client:
+                    resp = await client.post(
+                        f"{llm_base}/chat/completions",
+                        headers={
+                            "Authorization": f"Bearer {llm_key}",
+                            "HTTP-Referer": "https://github.com/De-insight",
+                            "X-Title": "De-insight",
+                        },
+                        json={"model": llm_model, "messages": messages},
                     )
-                resp.raise_for_status()
-                result = resp.json()["choices"][0]["message"]["content"]
+                    if resp.status_code >= 400:
+                        import logging as _log
+                        _log.getLogger("rag.llm").error(
+                            f"RAG LLM {resp.status_code} ({llm_model}): {resp.text[:500]}"
+                        )
+                    resp.raise_for_status()
+                    return resp.json()["choices"][0]["message"]["content"]
+
+            guard = get_rate_guard()
+            result = await guard.call_with_retry(
+                "rag/chat/completions", _call_llm, max_retries=3,
+            )
             # Strip <think>...</think> from reasoning models
             if result and "<think>" in result:
                 result = _re.sub(r"<think>[\s\S]*?</think>\s*", "", result)
             return result
 
-    if _is_local_embed():
-        async def embed_func(texts):
-            import numpy as np
-            from embeddings.local import embed_text
-            results = []
-            for t in texts:
-                t = t if t and t.strip() else " "
-                vec = await embed_text(t)
-                results.append(vec)
-            return np.array(results, dtype=np.float32)
-    else:
-        async def embed_func(texts):
-            import httpx
-            import numpy as np
-            sanitized = [t if t and t.strip() else " " for t in texts]
-            n = len(sanitized)
-            async with httpx.AsyncClient(timeout=30.0) as client:
-                resp = await client.post(
-                    f"{embed_base}/embeddings",
-                    headers={"Authorization": f"Bearer {embed_key}"},
-                    json={"model": embed_model, "input": sanitized},
-                )
-                resp.raise_for_status()
-                data = resp.json()
-                sorted_data = sorted(data["data"], key=lambda x: x["index"])
-                embeddings = [item["embedding"] for item in sorted_data]
-                # Ensure exactly N vectors for N inputs (some APIs return extras via late chunking)
-                if len(embeddings) > n:
-                    embeddings = embeddings[:n]
-                elif len(embeddings) < n:
-                    # Pad missing with zeros
-                    dim = len(embeddings[0]) if embeddings else embed_dim
-                    while len(embeddings) < n:
-                        embeddings.append([0.0] * dim)
-                return np.array(embeddings, dtype=np.float32)
+    async def embed_func(texts):
+        import numpy as np
+        from embeddings.service import get_embedding_service
+        svc = get_embedding_service()
+        sanitized = [t if t and t.strip() else " " for t in texts]
+        vecs = await svc.embed_texts(sanitized)
+        return np.array(vecs, dtype=np.float32)
 
     if project_id == "default":
         working_dir = _DEFAULT_LIGHTRAG_DIR
         working_dir.mkdir(parents=True, exist_ok=True)
     else:
         working_dir = ensure_project_dirs(project_id) / "lightrag"
+
+    # Pre-flight: 偵測向量索引的維度是否與目前設定一致
+    existing_dim = _detect_vdb_dim(working_dir)
+    if existing_dim is not None and existing_dim != embed_dim:
+        _clear_stale_vdb(working_dir, existing_dim, embed_dim)
+
+    # Provider 簽章遷移：簽章變更時清除舊索引
+    from embeddings.service import get_embedding_service
+    _esvc = get_embedding_service()
+    if _esvc.check_signature_migration(working_dir):
+        _clear_stale_vdb(working_dir, embed_dim, embed_dim)
+        log.warning("Provider 簽章變更，已清除舊索引 (%s)", working_dir)
+
+    # Configurable embedding timeout (default 180s, overridable via env)
+    _embed_timeout = int(os.environ.get("LIGHTRAG_EMBEDDING_TIMEOUT", "180"))
 
     _rag_project_id = project_id
     _rag_instance = LightRAG(
@@ -252,7 +236,9 @@ def get_rag(project_id: str = "default") -> LightRAG:
         ),
         entity_extract_max_gleaning=0,
         default_llm_timeout=600,
-        llm_model_max_async=1,
+        default_embedding_timeout=_embed_timeout,
+        llm_model_max_async=4,
+        embedding_func_max_async=1,
         cosine_better_than_threshold=0.4,
         addon_params={
             "entity_types": ART_ENTITY_TYPES,
@@ -328,6 +314,123 @@ async def _flush_and_check(rag: LightRAG, prev_failed: int, context: str = "") -
     return ""
 
 
+async def _llm_clean_web_content(raw_text: str, source: str, project_id: str = "default", on_progress=None) -> str:
+    """用 RAG LLM 清理網頁抓取的原始文字，移除導航、廣告等垃圾，只保留文章主體。
+
+    若 LLM 呼叫失敗則原文回傳（graceful fallback）。
+    """
+    import logging
+    log = logging.getLogger("rag.clean")
+
+    import re as _clean_re
+    # 移除 script/style 標籤及內容
+    stripped = _clean_re.sub(r'<(script|style)[^>]*>[\s\S]*?</\1>', '', raw_text, flags=_clean_re.IGNORECASE)
+    # 移除所有 HTML 標籤，只留純文字（大幅減少 token 數）
+    stripped = _clean_re.sub(r'<[^>]+>', ' ', stripped)
+    # 解碼常見 HTML entities
+    stripped = stripped.replace('&nbsp;', ' ').replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>')
+    # 壓縮連續空白
+    stripped = _clean_re.sub(r'[ \t]+', ' ', stripped)
+    stripped = _clean_re.sub(r'\n{3,}', '\n\n', stripped).strip()
+    # 截取前 8000 字送 LLM
+    truncated = stripped[:8000]
+
+    llm_model, llm_key, llm_base = _get_llm_config()
+    if llm_model.startswith("codex-cli/"):
+        # Codex CLI 不適合做清理，直接回傳原文
+        return raw_text
+
+    prompt = (
+        "以下是從網頁抓取的原始文字，包含大量導航選單、頁尾、廣告、cookie 提示等雜訊。\n"
+        "請只保留文章的正文內容（標題、段落、引言、訪談對話等有意義的文字）。\n"
+        "移除所有網站導航、側邊欄、頁首頁尾、版權聲明、社群連結等非正文內容。\n"
+        "直接輸出清理後的純文字，不要加任何說明或標記。\n\n"
+        f"來源：{source}\n\n"
+        f"--- 原始文字 ---\n{truncated}"
+    )
+
+    try:
+        if on_progress:
+            on_progress("正在用 LLM 清理網頁內容…")
+        import httpx
+        import re as _re
+        from rag.rate_guard import get_rate_guard
+
+        async def _call_clean():
+            async with httpx.AsyncClient(timeout=120.0) as client:
+                resp = await client.post(
+                    f"{llm_base}/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {llm_key}",
+                        "HTTP-Referer": "https://github.com/De-insight",
+                        "X-Title": "De-insight",
+                    },
+                    json={
+                        "model": llm_model,
+                        "messages": [{"role": "user", "content": prompt}],
+                    },
+                )
+                if resp.status_code >= 400:
+                    log.warning(f"LLM clean failed {resp.status_code}: {resp.text[:200]}")
+                    return None
+                return resp.json()["choices"][0]["message"]["content"]
+
+        guard = get_rate_guard()
+        result = await guard.call_with_retry(
+            "clean/chat/completions", _call_clean, max_retries=2,
+        )
+        if result and "<think>" in result:
+            result = _re.sub(r"<think>[\s\S]*?</think>\s*", "", result)
+        if result and len(result.strip()) > 50:
+            log.info(f"LLM cleaned: {len(raw_text)} → {len(result)} chars")
+            return result.strip()
+    except Exception as e:
+        log.warning(f"LLM clean error: {e}")
+
+    return raw_text
+
+
+async def _post_verify_insert(project_id: str) -> str:
+    """C1: Post-insert verification — confirm vdb has chunks AND query can retrieve.
+
+    Two checks:
+    1. vdb_chunks.json has data[] > 0
+    2. A test query returns non-empty result (actual retrievability)
+    """
+    import json
+
+    if project_id == "default":
+        wd = _DEFAULT_LIGHTRAG_DIR
+    else:
+        wd = project_root(project_id) / "lightrag"
+    vdb_path = wd / "vdb_chunks.json"
+    if not vdb_path.exists():
+        return "post_verify: vdb_chunks.json 不存在"
+    try:
+        payload = json.loads(vdb_path.read_text(encoding="utf-8"))
+        count = len(payload.get("data", []))
+        if count == 0:
+            return "post_verify: vdb_chunks 為空（匯入可能失敗）"
+    except Exception as e:
+        return f"post_verify: 無法讀取 vdb_chunks: {e}"
+
+    # Check 2: query-back — verify retrieval actually works
+    try:
+        result, sources = await query_knowledge(
+            "test", mode="naive", context_only=True,
+            project_id=project_id, chunk_top_k=1,
+        )
+        if _is_no_context_result(result) and not result:
+            return "post_verify: vdb 有資料但查詢回傳空（索引可能損壞）"
+    except Exception as e:
+        import logging as _pv_log
+        _pv_log.getLogger("rag.post_verify").debug("query-back failed: %s", e)
+        # Don't fail on query-back error (might be LLM issue, not index issue)
+        pass
+
+    return ""
+
+
 async def insert_text(text: str, source: str = "", project_id: str = "default") -> str:
     """插入文字到知識庫。回傳警告訊息（空字串表示完全成功）。"""
     rag = await _ensure_initialized(project_id=project_id)
@@ -336,10 +439,15 @@ async def insert_text(text: str, source: str = "", project_id: str = "default") 
     if source:
         doc = f"[來源: {source}]\n\n{text}"
     await rag.ainsert(doc)
-    return await _flush_and_check(rag, 0, context=source or "text")
+    warning = await _flush_and_check(rag, 0, context=source or "text")
+    # C1: Post-verify
+    pv_warning = await _post_verify_insert(project_id)
+    if pv_warning:
+        warning = f"{warning}; {pv_warning}" if warning else pv_warning
+    return warning
 
 
-async def insert_pdf(path: str, project_id: str = "default", title: str = "") -> dict:
+async def insert_pdf(path: str, project_id: str = "default", title: str = "", on_progress=None) -> dict:
     """匯入 PDF，回傳 {"title": str, "page_count": int, "file_size": int, "saved_path": str}。"""
     import re as _re
     try:
@@ -371,11 +479,17 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "") ->
         if text and text.strip():
             chunks.append(f"[{display_name} p.{i+1}]\n{text.strip()}")
 
+    if on_progress:
+        on_progress(f"正在建構知識圖譜（{page_count} 頁）…")
     rag = await _ensure_initialized(project_id=project_id)
     await _clear_failed(rag)
     full_text = "\n\n---\n\n".join(chunks)
     await rag.ainsert(full_text)
     warning = await _flush_and_check(rag, 0, context=display_name)
+    # C1: Post-verify
+    pv_warning = await _post_verify_insert(project_id)
+    if pv_warning:
+        warning = f"{warning}; {pv_warning}" if warning else pv_warning
 
     # 保留原始檔案到專案目錄
     doc_dir = ensure_project_dirs(project_id) / "documents"
@@ -390,13 +504,63 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "") ->
     return result
 
 
-async def insert_url(url: str, project_id: str = "default", title: str = "") -> dict:
-    """Fetch a URL and insert its content. 回傳 {"title": str, "page_count": 0, "file_size": int}。"""
+async def _fetch_with_jina_reader(url: str, timeout: float = 30.0, reader_base: str = "https://r.jina.ai/") -> tuple[str, dict]:
+    """用 Jina Reader 抓取網頁正文。
+
+    回傳 (text, meta)。meta 至少含 status_code, latency_ms, reader_url。
+    失敗時拋出 RuntimeError，供上層記錄。
+    """
+    import httpx
+    import time
+
+    reader_url = f"{reader_base.rstrip('/')}/{url}"
+    meta = {"reader_url": reader_url, "status_code": 0, "latency_ms": 0}
+
+    t0 = time.monotonic()
+    try:
+        async with httpx.AsyncClient(timeout=timeout, follow_redirects=True) as client:
+            resp = await client.get(reader_url, headers={
+                "Accept": "text/plain",
+                "User-Agent": "De-insight/1.0",
+            })
+            meta["status_code"] = resp.status_code
+            meta["latency_ms"] = int((time.monotonic() - t0) * 1000)
+
+            if resp.status_code >= 400:
+                raise RuntimeError(
+                    f"Jina Reader HTTP {resp.status_code} for {url}"
+                )
+
+            text = resp.text.strip()
+            if len(text) < 50:
+                raise RuntimeError(
+                    f"Jina Reader 回傳內容太短（{len(text)} 字）for {url}"
+                )
+            return text, meta
+
+    except httpx.HTTPError as e:
+        meta["latency_ms"] = int((time.monotonic() - t0) * 1000)
+        raise RuntimeError(f"Jina Reader 連線失敗: {e}") from e
+
+
+async def insert_url(url: str, project_id: str = "default", title: str = "", on_progress=None) -> dict:
+    """Fetch a URL and insert its content. 回傳 {"title": str, "page_count": 0, "file_size": int, "fetch_method": str}。"""
     import httpx
     import re
     import tempfile
-    from html.parser import HTMLParser
+    import logging
 
+    log = logging.getLogger("rag.insert_url")
+
+    # 讀取 web fetch 設定
+    env = load_env()
+    fetch_provider = env.get("WEB_FETCH_PROVIDER", "auto").lower()  # auto|reader|legacy
+    fetch_timeout = float(env.get("WEB_FETCH_TIMEOUT_SECS", "30"))
+    reader_base = env.get("WEB_FETCH_READER_BASE", "https://r.jina.ai/")
+
+    # 先下載一次判斷是否為 PDF
+    if on_progress:
+        on_progress("正在下載網頁…")
     async with httpx.AsyncClient(timeout=60.0, follow_redirects=True) as client:
         resp = await client.get(url, headers={
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
@@ -405,11 +569,10 @@ async def insert_url(url: str, project_id: str = "default", title: str = "") -> 
     content_type = resp.headers.get("content-type", "")
 
     if "pdf" in content_type or url.lower().endswith(".pdf"):
-        # Extract readable filename from URL
+        # PDF 分支維持原樣
         from urllib.parse import urlparse, unquote
         url_path = urlparse(url).path
         url_filename = unquote(Path(url_path).stem) if url_path else ""
-        # Sanitize: keep only safe chars
         url_filename = re.sub(r'[^\w\-\.\(\)\[\]\u4e00-\u9fff]+', '_', url_filename).strip('_')
         if not url_filename or len(url_filename) < 3:
             url_filename = "downloaded_pdf"
@@ -418,67 +581,68 @@ async def insert_url(url: str, project_id: str = "default", title: str = "") -> 
         tmp_path = str(tmp_dir / f"{url_filename}.pdf")
         Path(tmp_path).write_bytes(resp.content)
         try:
-            return await insert_pdf(tmp_path, project_id=project_id, title=title)
+            result = await insert_pdf(tmp_path, project_id=project_id, title=title, on_progress=on_progress)
+            result["fetch_method"] = "pdf"
+            return result
         finally:
             Path(tmp_path).unlink(missing_ok=True)
 
-    # HTML — extract text
+    # ── HTML 分支：Jina Reader 優先，legacy 回退 ──
     html = resp.text
+    file_size = len(resp.content)
 
-    # 優先用 trafilatura 提取文章主體
-    text = None
-    try:
-        import trafilatura
-        text = trafilatura.extract(
-            html,
-            include_comments=False,    # 去除留言區
-            include_tables=True,       # 保留表格（學術文章常有）
-            no_fallback=False,         # 啟用內建 fallback 策略
-            favor_precision=True,      # 精確優先，寧漏勿雜
-        )
-    except Exception:
-        pass
-
-    # Fallback：原有 HTMLParser 提取（trafilatura 失敗時）
-    if not text:
-        class _TextExtractor(HTMLParser):
-            def __init__(self):
-                super().__init__()
-                self.parts: list[str] = []
-                self._skip = False
-
-            def handle_starttag(self, tag, attrs):
-                self._skip = tag in ("script", "style", "nav", "footer", "header")
-
-            def handle_endtag(self, tag):
-                if tag in ("script", "style", "nav", "footer", "header"):
-                    self._skip = False
-                if tag in ("p", "div", "br", "h1", "h2", "h3", "h4", "li", "tr"):
-                    self.parts.append("\n")
-
-            def handle_data(self, data):
-                if not self._skip:
-                    self.parts.append(data)
-
-        extractor = _TextExtractor()
-        extractor.feed(html)
-        text = "".join(extractor.parts)
-
-    text = re.sub(r"\n{3,}", "\n\n", text).strip()
-
-    if len(text) < 50:
-        raise RuntimeError("頁面內容太少，無法匯入")
-
+    # 解析 title
     if title.strip():
         source = title.strip()
     else:
         title_match = re.search(r"<title[^>]*>(.*?)</title>", html, re.IGNORECASE | re.DOTALL)
         source = title_match.group(1).strip() if title_match else url
 
+    text = None
+    fetch_method = None
+    fallback_reason = None
+
+    # ── 嘗試 Jina Reader ──
+    if fetch_provider in ("auto", "reader"):
+        try:
+            if on_progress:
+                on_progress("正在透過 Jina Reader 抓取正文…")
+            reader_text, reader_meta = await _fetch_with_jina_reader(
+                url, timeout=fetch_timeout, reader_base=reader_base,
+            )
+            log.info(
+                "Jina Reader 成功: url=%s status=%s latency=%dms len=%d",
+                url, reader_meta.get("status_code"), reader_meta.get("latency_ms", 0), len(reader_text),
+            )
+            text = reader_text
+            fetch_method = "jina_reader"
+        except RuntimeError as e:
+            fallback_reason = str(e)
+            log.warning("Jina Reader 失敗: %s", fallback_reason)
+            if fetch_provider == "reader":
+                # reader-only 模式：不回退，直接報錯
+                raise RuntimeError(f"Jina Reader 失敗且 WEB_FETCH_PROVIDER=reader，不回退: {fallback_reason}")
+
+    # ── Legacy 回退 ──
+    if text is None and fetch_provider in ("auto", "legacy"):
+        if on_progress:
+            on_progress("正在用 LLM 清理網頁內容…")
+        if fallback_reason:
+            log.info("回退 legacy 流程: %s", fallback_reason)
+        text = await _llm_clean_web_content(html, source, project_id=project_id, on_progress=on_progress)
+        fetch_method = "legacy_html_clean"
+
+    if text is None or len(text.strip()) < 50:
+        raise RuntimeError("頁面內容太少，無法匯入")
+
+    if on_progress:
+        on_progress("正在建構知識圖譜…")
     warning = await insert_text(text, source=source, project_id=project_id)
-    result = {"title": source, "page_count": 0, "file_size": len(resp.content)}
+    result = {"title": source, "page_count": 0, "file_size": file_size, "fetch_method": fetch_method}
     if warning:
         result["warning"] = warning
+    if fallback_reason:
+        result["fallback_reason"] = fallback_reason
     return result
 
 
@@ -507,7 +671,7 @@ async def insert_doi(doi: str, project_id: str = "default", title: str = "") -> 
     return await insert_url(pdf_url, project_id=project_id, title=title)
 
 
-async def query_knowledge(question: str, mode: str = "naive", context_only: bool = True, project_id: str | None = None) -> tuple[str, list[dict]]:
+async def query_knowledge(question: str, mode: str = "naive", context_only: bool = True, project_id: str | None = None, chunk_top_k: int = 5) -> tuple[str, list[dict]]:
     """查詢知識庫。
 
     預設 naive + context_only：純向量搜尋，不呼叫 LLM，<1秒回應。
@@ -519,13 +683,13 @@ async def query_knowledge(question: str, mode: str = "naive", context_only: bool
     """
     rag = await _ensure_initialized(project_id=project_id)
     if context_only:
-        param = QueryParam(mode=mode, only_need_context=True, chunk_top_k=5)
+        param = QueryParam(mode=mode, only_need_context=True, chunk_top_k=chunk_top_k)
         result = await rag.aquery(question, param=param)
         if _is_no_context_result(result):
             return "", []
         sources = _extract_sources(result)
         return result, sources
-    param = QueryParam(mode=mode, chunk_top_k=5, user_prompt="請用繁體中文回答。\n\n" + question)
+    param = QueryParam(mode=mode, chunk_top_k=chunk_top_k, user_prompt="請用繁體中文回答。\n\n" + question)
     result = await rag.aquery(question, param=param)
     if _is_no_context_result(result):
         return "", []
@@ -534,22 +698,43 @@ async def query_knowledge(question: str, mode: str = "naive", context_only: bool
 
 
 def _clean_rag_chunk(text: str) -> str:
-    """清理 LightRAG 原始 chunk，移除 JSON 包裝、轉義字元、metadata。"""
+    """清理 LightRAG 原始 chunk，移除 JSON 包裝、轉義字元、導航垃圾。"""
     import re
-    # Remove LightRAG header lines
-    text = re.sub(r'Document Chunks.*?Reference Document List[`\'\s)]*:', '', text, flags=re.DOTALL)
-    text = re.sub(r'Reference Document List.*', '', text, flags=re.DOTALL)
-    # Extract content from JSON format: {"reference_id": "", "content": "..."}
+    # 先從完整文字中提取 JSON content（在移除 header/footer 之前）
     json_contents = re.findall(r'"content"\s*:\s*"((?:[^"\\]|\\.)*)"', text)
     if json_contents:
         text = "\n\n".join(json_contents)
+    else:
+        # 沒有 JSON 結構時，移除 LightRAG header/footer
+        text = re.sub(r'Document Chunks.*?Reference Document List[`\'\s)]*:', '', text, flags=re.DOTALL)
+        text = re.sub(r'Reference Document List.*', '', text, flags=re.DOTALL)
     # Remove remaining JSON/code block wrappers
     text = re.sub(r'```json\s*', '', text)
     text = re.sub(r'```\s*', '', text)
     text = re.sub(r'\{"reference_id".*?\}', '', text, flags=re.DOTALL)
-    # Unescape \n to real newlines
-    text = text.replace('\\n', '\n')
-    # Clean up whitespace
+    # Unescape JSON escape sequences
+    text = text.replace('\\n', '\n').replace('\\t', ' ').replace('\\r', '')
+    # 移除來源標記
+    text = re.sub(r'\[來源[:：][^\]]*\]\s*', '', text)
+    # 壓縮空白
+    text = re.sub(r'\r\n?', '\n', text)
+    text = re.sub(r'[ \t]+', ' ', text)
+    # 過濾導航垃圾：移除連續短行區塊（>=3 行每行 <20 字且不含中文句號）
+    lines = text.split('\n')
+    filtered = []
+    buf = []
+    for line in lines:
+        s = line.strip()
+        if len(s) < 20 and not re.search(r'[。！？；]', s):
+            buf.append(s)
+        else:
+            if len(buf) < 3:
+                filtered.extend(buf)
+            buf = []
+            filtered.append(s)
+    if len(buf) < 3:
+        filtered.extend(buf)
+    text = '\n'.join(filtered)
     text = re.sub(r'\n{3,}', '\n\n', text).strip()
     return text
 
@@ -578,9 +763,13 @@ def _extract_sources(raw_result: str) -> list[dict]:
     if not raw_result or not raw_result.strip() or _is_no_context_result(raw_result):
         return sources
 
-    # 1. 建立 reference_id → file_path 對應表
+    # 1. 建立 reference_id → file_path 對應表（只從 Reference Document List 區段解析）
     ref_map: dict[str, str] = {}
-    for m in re.finditer(r'\[(\d+)\]\s*(.+)', raw_result):
+    ref_section = raw_result
+    m_ref = re.search(r'Reference Document List[`\'\s)]*:?(.*)$', raw_result, flags=re.DOTALL | re.IGNORECASE)
+    if m_ref:
+        ref_section = m_ref.group(1)
+    for m in re.finditer(r'^\s*\[(\d+)\]\s*(.+)\s*$', ref_section, flags=re.MULTILINE):
         ref_map[m.group(1)] = m.group(2).strip()
 
     # 2. 解析每個 JSON chunk
@@ -629,8 +818,8 @@ def _extract_sources(raw_result: str) -> list[dict]:
         elif file_path:
             title = file_path
         else:
-            first_line = content.split('\n')[0][:40]
-            title = first_line if first_line else "知識庫內容"
+            # 無法驗證來源時，不生成 citation，避免「亂引用」。
+            continue
 
         if title in seen_titles:
             continue

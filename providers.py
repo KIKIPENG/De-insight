@@ -91,12 +91,13 @@ CHAT_PROVIDERS = {
             "deepseek/deepseek-chat-v3-0324",
             "deepseek/deepseek-r1",
             "google/gemini-2.5-pro-preview",
-            "google/gemini-2.5-flash-preview",
+            "google/gemini-2.5-flash",
             "anthropic/claude-sonnet-4-20250514",
             "anthropic/claude-3.5-haiku",
             "openai/gpt-4o",
             "openai/gpt-4.1-mini",
             "meta-llama/llama-4-maverick",
+            "qwen/qwen2.5-vl-72b-instruct",
         ],
         "key_env": "OPENROUTER_API_KEY",
         "base_env": "",
@@ -118,41 +119,18 @@ CHAT_PROVIDERS = {
 # ── Embedding providers ──
 
 EMBED_PROVIDERS = {
-    "local": {
-        "label": "本地 jina-clip-v1 (免費)",
-        "models": ["jina-clip-v1"],
+    "gguf": {
+        "label": "jina-embeddings-v4 GGUF (本地 llama-server)",
+        "models": ["jina-embeddings-v4-gguf"],
         "key_env": "",
-        "base_env": "",
-        "default_base": "",
+        "base_env": "GGUF_SERVER_HOST",
+        "default_base": "127.0.0.1",
         "auth_type": "none",
-        "dims": {"jina-clip-v1": 512},
-    },
-    "jina": {
-        "label": "Jina AI",
-        "models": ["jina-embeddings-v3", "jina-embeddings-v2-base-en"],
-        "key_env": "JINA_API_KEY",
-        "base_env": "",
-        "default_base": "https://api.jina.ai/v1",
-        "auth_type": "api_key",
-        "dims": {"jina-embeddings-v3": 1024, "jina-embeddings-v2-base-en": 768},
-    },
-    "openai-embed": {
-        "label": "OpenAI",
-        "models": ["text-embedding-3-small", "text-embedding-3-large"],
-        "key_env": "OPENAI_API_KEY",
-        "base_env": "",
-        "default_base": "https://api.openai.com/v1",
-        "auth_type": "api_key",
-        "dims": {"text-embedding-3-small": 1536, "text-embedding-3-large": 3072},
-    },
-    "ollama-embed": {
-        "label": "Ollama (本地)",
-        "models": ["nomic-embed-text", "mxbai-embed-large"],
-        "key_env": "",
-        "base_env": "",
-        "default_base": "http://localhost:11434/v1",
-        "auth_type": "none",
-        "dims": {"nomic-embed-text": 768, "mxbai-embed-large": 1024},
+        "dims": {"jina-embeddings-v4-gguf": 1024},
+        "env_extras": {
+            "GGUF_SERVER_PORT": "8999",
+            "GGUF_AUTO_INSTALL": "1",
+        },
     },
 }
 
@@ -198,11 +176,12 @@ RAG_LLM_PROVIDERS = {
     "openrouter-rag": {
         "label": "OpenRouter",
         "models": [
-            "google/gemini-2.5-flash-preview",
+            "google/gemini-2.5-flash",
             "openai/gpt-4.1-mini",
             "openai/gpt-4o-mini",
             "deepseek/deepseek-r1",
             "meta-llama/llama-4-maverick",
+            "qwen/qwen2.5-vl-72b-instruct",
         ],
         "key_env": "OPENROUTER_API_KEY",
         "base_env": "",

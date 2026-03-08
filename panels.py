@@ -88,6 +88,16 @@ class ResearchPanel(VerticalScroll):
         yield Static("[dim #484f58]─[/]" * 30, classes="kb-divider")
         yield Vertical(id="kb-doc-list")
         yield Static("", id="research-content")
+        yield ResearchCiteLink("", id="research-cite")
+
+
+class ResearchCiteLink(Static):
+    """知識庫引用連結，點擊後將 RAG 摘要注入聊天。"""
+
+    def on_click(self) -> None:
+        method = getattr(self.app, "action_cite_research", None)
+        if method:
+            method()
 
 
 class MemoryPanel(VerticalScroll):

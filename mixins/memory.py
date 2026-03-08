@@ -190,6 +190,13 @@ class MemoryMixin:
             source=source,
             db_path=db_path,
         )
+        # Invalidate insight profile cache so future queries reflect new insights
+        try:
+            from rag.insight_profile import invalidate_cache
+            _pid = self.state.current_project["id"] if self.state.current_project else "default"
+            invalidate_cache(_pid)
+        except Exception:
+            pass
         self.notify(f"已儲存 [{data['type']}]")
         self._refresh_memory_panel()
 

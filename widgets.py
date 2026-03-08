@@ -272,10 +272,14 @@ class MenuBar(Static):
     _project_name: str | None = None
     _pending_count: int = 0
     _gallery_selected: int = 0
+    _import_status: str = ""
+    _spinner_frame: int = 0
+    _SPINNER = ["|", "/", "—", "\\"]
 
     def __init__(self, **kwargs) -> None:
         super().__init__("", **kwargs)
         self._regions: list[tuple[int, int, str]] = []
+        self._spinner_timer = None
 
     def set_state(
         self,
@@ -287,6 +291,7 @@ class MenuBar(Static):
         project_name: str | None = None,
         pending_count: int = 0,
         gallery_selected: int = 0,
+        import_status: str = "",
     ) -> None:
         self._mode = mode
         self._model = model
@@ -296,6 +301,23 @@ class MenuBar(Static):
         self._project_name = project_name
         self._pending_count = pending_count
         self._gallery_selected = gallery_selected
+        self._import_status = import_status
+        self._regions.clear()
+        self.refresh()
+
+    def set_import_status(self, status: str) -> None:
+        self._import_status = status
+        if status and not self._spinner_timer:
+            self._spinner_frame = 0
+            self._spinner_timer = self.set_interval(0.15, self._tick_spinner)
+        elif not status and self._spinner_timer:
+            self._spinner_timer.stop()
+            self._spinner_timer = None
+        self._regions.clear()
+        self.refresh()
+
+    def _tick_spinner(self) -> None:
+        self._spinner_frame = (self._spinner_frame + 1) % len(self._SPINNER)
         self._regions.clear()
         self.refresh()
 
@@ -375,6 +397,19 @@ class MenuBar(Static):
             proj_label = f"● {self._project_name}"
             text.append(proj_label, style="bold #7dd3fc")
             col += sum(2 if ord(c) > 0x7F else 1 for c in proj_label)
+
+        if self._import_status:
+            text.append("  ")
+            col += 2
+            text.append("│", style="#2a2a2a")
+            col += 1
+            text.append(" ")
+            col += 1
+            spinner = self._SPINNER[self._spinner_frame]
+            text.append(spinner, style="bold #f0c674")
+            col += 1
+            text.append(f" {self._import_status}", style="italic #f0c674")
+            col += 1 + sum(2 if ord(c) > 0x7F else 1 for c in self._import_status)
 
         if self._pending_count > 0:
             text.append("  ")
@@ -591,6 +626,7 @@ class Chatbox(Vertical):
         text = re.sub(r'\n```\s*$', '', text)
         text = re.sub(r'^>?\s*\[!(INSIGHT|THEORY|QUESTION|QUOTE|CONFIRM)\]\s*\n?', '', text, flags=re.MULTILINE)
         text = re.sub(r'<<(SELECT|CONFIRM|INPUT|MULTI)[:：].*?>>', '', text, flags=re.DOTALL)
+        text = re.sub(r'<</(SELECT|CONFIRM|INPUT|MULTI)>>', '', text, flags=re.IGNORECASE)
         return text
 
     @staticmethod

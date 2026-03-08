@@ -1,4 +1,8 @@
-"""De-insight TUI stability test — 20 rounds of automated testing."""
+"""De-insight TUI stability test — 20 rounds of automated testing.
+
+Run standalone: python tests/test_stability.py
+Not a pytest test — requires live Textual app environment.
+"""
 
 import asyncio
 import sys
@@ -7,8 +11,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
 
-from textual.css.query import NoMatches
-from tui import ChatInput
+# Defer heavy TUI imports to runtime to avoid pytest collection errors.
+# from textual.css.query import NoMatches
+# from widgets import ChatInput
 
 PASS = 0
 FAIL = 0
@@ -27,7 +32,9 @@ def report(name: str, ok: bool, detail: str = ""):
         ERRORS.append(msg)
 
 
-async def run_tests():
+async def _run_stability_tests():
+    from textual.css.query import NoMatches
+    from widgets import ChatInput
     from tui import DeInsightApp
 
     for round_num in range(1, 21):
@@ -326,5 +333,5 @@ async def run_tests():
 
 
 if __name__ == "__main__":
-    ok = asyncio.run(run_tests())
+    ok = asyncio.run(_run_stability_tests())
     sys.exit(0 if ok else 1)

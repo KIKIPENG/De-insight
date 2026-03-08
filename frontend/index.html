@@ -480,6 +480,7 @@ body::after {
   <div class="toolbar-actions">
     <button class="btn btn-accent" onclick="toggleUpload()">+ upload</button>
     <button class="btn" id="selectBtn" onclick="toggleSelectMode()">select</button>
+    <button class="btn" id="orphanBtn" onclick="processOrphans()" style="display:none">fix missing</button>
   </div>
 </div>
 
@@ -619,17 +620,84 @@ async function uploadImage() {
         'upload failed';
       throw new Error(typeof detail === 'string' ? detail : JSON.stringify(detail));
     }
-    const uploaded = data.uploaded ?? files.length;
-    const failed = data.failed ?? 0;
-    toast(failed ? `uploaded ${uploaded}, failed ${failed}` : `uploaded ${uploaded}`);
+    toast(`${data.saved} file(s) saved, indexing in background...`);
     fileInput.value = '';
     document.getElementById('captionInput').value = '';
     document.getElementById('tagsInput').value = '';
-    await loadImages();
+    pollProcessing();
   } catch (e) {
     toast('upload failed: ' + e.message);
+    showLoading(false);
   }
-  showLoading(false);
+}
+
+async function pollProcessing() {
+  let lastIndexed = 0;
+  let staleCount = 0;          // 連續無進度次數
+  const MAX_STALE = 20;        // 60s 無進度即停止（20 × 3s）
+  const loadingText = document.querySelector('#loadingOverlay span');
+  const poll = setInterval(async () => {
+    try {
+      const r = await fetch(`${API}/images/processing-status`);
+      const data = await r.json();
+      if (loadingText) {
+        loadingText.textContent = `indexing ${data.indexed}/${data.total_files} (${data.pending} remaining)`;
+      }
+      if (data.indexed > lastIndexed) {
+        lastIndexed = data.indexed;
+        staleCount = 0;
+        await loadImages();
+      } else {
+        staleCount++;
+      }
+      if (data.pending === 0 || staleCount >= MAX_STALE) {
+        clearInterval(poll);
+        showLoading(false);
+        if (data.pending > 0) {
+          toast(`indexing stopped: ${data.pending} images failed`);
+        } else {
+          toast(`done: ${data.indexed} images indexed`);
+        }
+        await loadImages();
+        checkOrphans();
+      }
+    } catch (e) {
+      clearInterval(poll);
+      showLoading(false);
+    }
+  }, 3000);
+}
+
+async function checkOrphans() {
+  try {
+    const r = await fetch(`${API}/images/processing-status`);
+    const data = await r.json();
+    const btn = document.getElementById('orphanBtn');
+    if (data.pending > 0) {
+      btn.style.display = 'inline-flex';
+      btn.textContent = `fix missing (${data.pending})`;
+    } else {
+      btn.style.display = 'none';
+    }
+  } catch (e) {}
+}
+
+async function processOrphans() {
+  showLoading(true);
+  try {
+    const r = await fetch(`${API}/images/process-orphans`, { method: 'POST' });
+    const data = await r.json();
+    if (data.count > 0) {
+      toast(`indexing ${data.count} orphaned image(s)...`);
+      pollProcessing();
+    } else {
+      toast('no orphans found');
+      showLoading(false);
+    }
+  } catch (e) {
+    toast('repair failed: ' + e.message);
+    showLoading(false);
+  }
 }
 
 async function deleteImage(id) {
@@ -743,7 +811,7 @@ function showLoading(on) {
   document.getElementById('loadingOverlay').classList.toggle('show', on);
 }
 
-loadImages();
+loadImages().then(() => checkOrphans());
 </script>
 </body>
 </html>

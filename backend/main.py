@@ -1,7 +1,17 @@
 """De-insight 後端入口"""
 
+import glob as _glob
 import json
+import sys
 from pathlib import Path
+
+# Auto-discover venv site-packages so backend works regardless of
+# which Python interpreter is used to launch uvicorn.
+_venv_dir = Path(__file__).resolve().parent / ".venv"
+if _venv_dir.is_dir():
+    for _p in _glob.glob(str(_venv_dir / "lib" / "python*" / "site-packages")):
+        if _p not in sys.path:
+            sys.path.insert(0, _p)
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
