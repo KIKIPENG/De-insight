@@ -15,7 +15,7 @@ LOG_DIR = Path.home() / ".deinsight" / "logs"
 
 def _is_backend_ready() -> bool:
     try:
-        urllib.request.urlopen(HEALTH_URL, timeout=1)
+        urllib.request.urlopen(HEALTH_URL, timeout=2)
         return True
     except Exception:
         return False
@@ -39,8 +39,10 @@ def _ensure_backend() -> subprocess.Popen | None:
         env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
     )
 
-    # Wait up to 6 seconds for the backend to become ready
-    for _ in range(30):
+    print("[de-insight] starting backend...", file=sys.stderr)
+
+    # Wait up to 30 seconds — first cold start may need time to import heavy deps
+    for i in range(60):
         if proc.poll() is not None:
             print(
                 f"Backend process exited unexpectedly. See log: {LOG_DIR / 'backend.log'}",
@@ -48,8 +50,9 @@ def _ensure_backend() -> subprocess.Popen | None:
             )
             sys.exit(1)
         if _is_backend_ready():
+            print("[de-insight] backend ready", file=sys.stderr)
             return proc
-        time.sleep(0.2)
+        time.sleep(0.5)
 
     print(
         f"Backend failed to start within timeout. See log: {LOG_DIR / 'backend.log'}",
