@@ -12,13 +12,20 @@ venv/
 .next/
 out/
 
-# IDE
+# IDE / AI tools
 .vscode/
 .idea/
+.claude/
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Local shortcuts
+De-insight.command
+
+# Old docs
+docs/
 
 # Data (LightRAG + SQLite)
 data/
