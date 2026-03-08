@@ -60,7 +60,7 @@ class ProjectMixin:
         container = self.query_one("#messages", Vertical)
         await container.remove_children()
         welcome = WelcomeBlock()
-        welcome.border_title = "[#d4a27a]◈[/] De-insight v0.5"
+        welcome.border_title = "[#d4a27a]◈[/] De-insight v0.8"
         await container.mount(welcome)
         self._refresh_memory_panel()
         self._refresh_knowledge_panel()

@@ -256,6 +256,20 @@ class JobRepository:
                 ) as cur:
                     return [dict(r) for r in await cur.fetchall()]
 
+    async def count_active(self) -> dict:
+        """Return counts of queued and running jobs."""
+        async with aiosqlite.connect(self._db_path, timeout=15) as db:
+            async with db.execute(
+                """SELECT status, COUNT(*) FROM ingest_jobs
+                   WHERE status IN ('queued', 'running')
+                   GROUP BY status"""
+            ) as cur:
+                rows = await cur.fetchall()
+        counts = {"queued": 0, "running": 0}
+        for status, cnt in rows:
+            counts[status] = cnt
+        return counts
+
     async def list_failed_terminal(self) -> list[dict]:
         """Return permanently failed jobs (no next_retry_at)."""
         async with aiosqlite.connect(self._db_path, timeout=15) as db:

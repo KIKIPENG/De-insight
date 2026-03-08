@@ -3,365 +3,404 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>De-insight Gallery</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+<title>De-insight — Image Library</title>
 
+<!--
+  De-insight — Image Library
+  ──────────────────────────
+  FastAPI backend endpoints expected (all prefixed /api/images):
+
+    GET    /images                    → { images: [{id, filename, caption, tags, path, created_at}] }
+    POST   /images/upload             → multipart: files[], caption?, tags?
+                                        → { saved: int }
+    GET    /images/file/:filename     → raw image binary
+    DELETE /images/:id                → 204
+    GET    /images/search?q=&limit=   → { results: [...same as images...] }
+    POST   /images/select             → body: { image_ids: string[] }
+                                        → { count: int }
+    GET    /images/processing-status  → { indexed: int, total_files: int, pending: int }
+    POST   /images/process-orphans    → { count: int }
+
+  @mention flow:
+    User selects images → confirm selection → backend writes selected image IDs
+    → TUI reads on next @ keypress → multipart message sent to LLM
+
+  Fonts:
+    Hero title  → Helvetica Neue (system)
+    Everything  → IBM Plex Mono (Google Fonts)
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* ── Design tokens ── */
 :root {
-  --bg: #0a0a0a;
-  --surface: #111111;
-  --border: #1e1e1e;
-  --border-hi: #2a2a2a;
-  --dim: #484f58;
-  --muted: #6e7681;
-  --text: #8b949e;
-  --bright: #c9d1d9;
-  --white: #fafafa;
-  --accent: #d4a27a;
-  --accent-dim: #3d2a1a;
-  --danger: #da3633;
-  --danger-dim: #3d1a1a;
-  --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --sans:    'Helvetica Neue', HelveticaNeue, Helvetica, Arial, sans-serif;
+  --mono:    'IBM Plex Mono', monospace;
+  --bg:      #0a0a0a;
+  --text:    #ffffff;
+  --gray:    #666666;
+  --rule:    #222222;   /* subtle inner rules */
+  --rule-hi: #ffffff;   /* strong outer rules (nav border, hero border) */
+  --accent:  #d4a27a;
+  --danger:  #da3633;
 }
 
-html { font-size: 13px; }
-
-body {
+html, body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* scanline texture */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0,0,0,0.03) 2px,
-    rgba(0,0,0,0.03) 4px
-  );
-  pointer-events: none;
-  z-index: 9999;
+/* ── NAV ── */
+/* 4-column grid: brand | section | project name | image count */
+nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border-bottom: 1px solid var(--rule-hi);
+  padding: 0.55rem 1.5rem;
+  font-size: 11px;
+  color: var(--gray);
+  letter-spacing: 0.01em;
+}
+nav span:last-child { text-align: right; }
+
+/* ── HERO ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  padding: 2.5rem 1.5rem 1.4rem;
+  border-bottom: 1px solid var(--rule-hi);
+  gap: 1.5rem;
+}
+/* Hero title uses Helvetica Neue — the only non-mono element */
+.hero-title {
+  font-family: var(--sans);
+  font-size: 84px;
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  color: var(--text);
+}
+.hero-meta {
+  text-align: right;
+  font-size: 11px;
+  color: var(--gray);
+  line-height: 1.9;
+  font-weight: 400;
 }
 
-/* ── header ── */
-.header {
-  border-bottom: 1px solid var(--border);
-  padding: 1.2rem 2rem;
+/* ── TOOLBAR STRIP ── */
+/* label col | action buttons | search */
+.toolbar-strip {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  border-bottom: 1px solid var(--rule);
+  align-items: stretch;
+  min-height: 40px;
+}
+.strip-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+  padding: 0 1.5rem;
+  border-right: 1px solid var(--rule);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  background: var(--bg);
-  z-index: 100;
 }
-
-.header-left {
+.toolbar-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
 }
-
-.logo {
-  color: var(--accent);
-  font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: -0.02em;
+/* Borderless strip buttons — each separated by right rule */
+.strip-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0 1.2rem;
+  height: 100%;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--rule);
+  color: var(--gray);
+  cursor: pointer;
+  transition: color 0.1s;
+  white-space: nowrap;
 }
+.strip-btn:hover        { color: var(--text); }
+.strip-btn.accent       { color: var(--accent); }
+.strip-btn.accent:hover { color: var(--text); }
+.strip-btn.danger:hover { color: var(--danger); }
 
-.logo span { color: var(--dim); font-weight: 300; }
-
-.image-count {
-  color: var(--dim);
-  font-size: 0.85rem;
-}
-
-/* ── search bar ── */
-.search-bar {
+/* Search — right-aligned in toolbar */
+.search-wrap {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  padding: 0.35rem 0.75rem;
-  transition: border-color 0.2s;
-  max-width: 280px;
-  width: 100%;
+  border-left: 1px solid var(--rule);
+  padding: 0 1rem;
+  gap: 0.4rem;
 }
-
-.search-bar:focus-within { border-color: var(--accent); }
-
-.search-bar input {
+.search-wrap input {
   background: transparent;
   border: none;
   outline: none;
-  color: var(--bright);
-  font-family: var(--mono);
-  font-size: 0.85rem;
-  width: 100%;
-}
-
-.search-bar input::placeholder { color: var(--dim); }
-
-.search-icon { color: var(--dim); font-size: 0.85rem; flex-shrink: 0; }
-
-/* ── toolbar ── */
-.toolbar {
-  padding: 0.8rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-}
-
-.toolbar-actions { display: flex; gap: 0.5rem; }
-
-.btn {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  padding: 0.35rem 0.85rem;
-  border: 1px solid var(--border-hi);
-  background: transparent;
   color: var(--text);
-  cursor: pointer;
-  border-radius: 2px;
-  transition: all 0.15s;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 11px;
+  width: 200px;
 }
+.search-wrap input::placeholder { color: var(--gray); }
+.search-icon { color: var(--gray); font-size: 12px; }
 
-.btn:hover { color: var(--white); border-color: var(--dim); }
-
-.btn-accent {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.btn-accent:hover {
-  background: var(--accent);
-  color: var(--bg);
-}
-
-.btn-danger { border-color: transparent; color: var(--dim); }
-.btn-danger:hover { color: var(--danger); border-color: var(--danger-dim); }
-
-/* ── upload panel ── */
+/* ── UPLOAD PANEL ── */
+/* Collapses/expands as strip rows; height animates via max-height */
 .upload-panel {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
+  transition: max-height 0.25s ease;
   border-bottom: 1px solid transparent;
-  padding: 0 2rem;
 }
-
 .upload-panel.open {
-  max-height: 300px;
-  padding: 1.2rem 2rem;
-  border-bottom-color: var(--border);
+  max-height: 200px;
+  border-bottom-color: var(--rule);
 }
-
+/* 5-col strip: label | file | caption | tags | submit */
 .upload-inner {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
-  gap: 0.75rem;
-  align-items: end;
+  grid-template-columns: 100px 1fr 1fr 1fr auto;
+  border-top: 1px solid var(--rule);
 }
-
-.field label {
-  display: block;
-  color: var(--dim);
-  font-size: 0.75rem;
-  margin-bottom: 0.3rem;
+.upload-cell {
+  border-right: 1px solid var(--rule);
+  padding: 0.7rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.upload-cell:last-child {
+  border-right: none;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.upload-cell label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--gray);
 }
-
-.field input[type="text"],
-.field input[type="file"] {
-  width: 100%;
-  background: var(--surface);
-  border: 1px solid var(--border-hi);
-  color: var(--bright);
-  font-family: var(--mono);
-  font-size: 0.85rem;
-  padding: 0.4rem 0.6rem;
-  border-radius: 2px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.field input:focus { border-color: var(--accent); }
-
-.field input[type="file"] {
-  color: var(--dim);
-  cursor: pointer;
-}
-
-.field input[type="file"]::file-selector-button {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  background: var(--border-hi);
-  color: var(--text);
+.upload-cell input[type="text"],
+.upload-cell input[type="file"] {
+  background: transparent;
   border: none;
-  padding: 0.2rem 0.5rem;
-  margin-right: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 11px;
+  outline: none;
+  padding: 0.2rem 0;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+.upload-cell input:focus         { border-bottom-color: var(--accent); }
+.upload-cell input[type="file"]  { color: var(--gray); cursor: pointer; font-size: 10px; }
+.upload-cell input[type="file"]::file-selector-button {
+  font-family: var(--mono);
+  font-size: 10px;
+  background: var(--rule);
+  color: var(--gray);
+  border: none;
+  padding: 0.15rem 0.4rem;
+  margin-right: 0.4rem;
   cursor: pointer;
-  border-radius: 2px;
 }
+.upload-submit {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+}
+.upload-submit:hover { background: var(--accent); color: var(--bg); }
 
-/* ── gallery grid ── */
-.gallery {
-  padding: 1.5rem 2rem;
+/* ── GRID HEADER ── */
+.grid-header {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: 100px 1fr;
+  border-bottom: 1px solid var(--rule);
 }
-
-.card {
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-  transition: border-color 0.2s, transform 0.2s;
-  position: relative;
-  animation: cardIn 0.4s ease both;
-}
-
-@keyframes cardIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.card:hover {
-  border-color: var(--border-hi);
-  transform: translateY(-2px);
-}
-
-.card-img-wrap {
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  background: var(--surface);
+.grid-header-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+  padding: 0.5rem 1.5rem;
+  border-right: 1px solid var(--rule);
   display: flex;
   align-items: center;
-  justify-content: center;
+}
+.grid-header-cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.grid-header-cols span {
+  padding: 0.5rem 0.8rem;
+  border-right: 1px solid var(--rule);
+}
+.grid-header-cols span:last-child { border-right: none; }
+
+/* ── GRID BODY ── */
+.grid-body {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 4rem;
+}
+.grid-sidebar {
+  border-right: 1px solid var(--rule);
+  padding: 1.2rem 1.5rem;
+  font-size: 11px;
+  color: var(--gray);
+  line-height: 2;
+}
+
+/* ── GALLERY ── */
+#gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Image card */
+.img-item {
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
   cursor: pointer;
+  position: relative;
 }
+.img-item:nth-child(4n) { border-right: none; }
 
-.card-img-wrap img {
+.img-item img {
+  display: block;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
-  transition: transform 0.3s;
+  filter: grayscale(10%);
+  transition: filter 0.15s;
+}
+.img-item:hover img    { filter: grayscale(0%); }
+.img-item.selected img { filter: grayscale(0%); }
+
+/* Selected state: white inset border */
+.img-item.selected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 3px solid var(--text);
+  pointer-events: none;
 }
 
-.card:hover .card-img-wrap img { transform: scale(1.03); }
-
-.card-body {
-  padding: 0.6rem 0.75rem;
-  border-top: 1px solid var(--border);
+/* Selection order badge (top-left) */
+.badge {
+  display: none;
+  position: absolute;
+  top: 0; left: 0;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  width: 22px; height: 22px;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 }
+.img-item.selected .badge { display: flex; }
 
-.card-caption {
-  color: var(--bright);
-  font-size: 0.8rem;
-  line-height: 1.4;
-  margin-bottom: 0.3rem;
-  word-break: break-word;
-  min-height: 1.1em;
+/* Caption area below image */
+.img-caption {
+  padding: 0.55rem 0.8rem 0.7rem;
+  border-top: 1px solid var(--rule);
 }
-
-.card-caption:empty::before {
+.img-caption .filename {
+  font-size: 10px;
+  color: var(--gray);
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.01em;
+}
+.img-caption .desc {
+  font-size: 11px;
+  color: var(--text);
+  line-height: 1.45;
+}
+/* LLM auto-generated caption — blank = auto */
+.img-caption .desc:empty::before {
   content: '(no caption)';
-  color: var(--dim);
+  color: var(--gray);
   font-style: italic;
 }
-
-.card-tags {
-  color: var(--dim);
-  font-size: 0.7rem;
+.img-caption .tags {
+  font-size: 10px;
+  color: var(--gray);
+  margin-top: 0.2rem;
 }
-
-.card-meta {
+.img-caption .meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.4rem;
-  padding-top: 0.4rem;
-  border-top: 1px solid var(--border);
+  margin-top: 0.3rem;
+  padding-top: 0.3rem;
+  border-top: 1px solid var(--rule);
 }
-
-.card-date {
-  color: var(--dim);
-  font-size: 0.7rem;
-}
-
-.card-actions { display: flex; gap: 0.3rem; }
-
-.card-btn {
+.img-caption .date { font-size: 10px; color: var(--gray); }
+.del-btn {
   background: transparent;
   border: none;
-  color: var(--dim);
+  color: var(--gray);
   cursor: pointer;
   font-family: var(--mono);
-  font-size: 0.7rem;
-  padding: 0.15rem 0.3rem;
-  border-radius: 2px;
-  transition: color 0.15s;
+  font-size: 12px;
+  padding: 0.1rem 0.2rem;
+  transition: color 0.1s;
+  line-height: 1;
 }
+.del-btn:hover { color: var(--danger); }
 
-.card-btn:hover { color: var(--white); }
-.card-btn.del:hover { color: var(--danger); }
-
-/* select mode */
-.card.selectable { cursor: pointer; }
-.card.selectable.selected {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent);
-}
-
-.card.selectable.selected::after {
-  content: '\2713';
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background: var(--accent);
-  color: var(--bg);
-  width: 1.4rem;
-  height: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  z-index: 2;
-}
-
-/* ── empty state ── */
-.empty {
-  padding: 4rem 2rem;
+/* ── EMPTY STATE ── */
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 5rem 1.5rem;
   text-align: center;
-  color: var(--dim);
+  color: var(--gray);
+  font-size: 12px;
+  line-height: 2.5;
 }
 
-.empty-icon {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-  opacity: 0.4;
-}
-
-.empty p { font-size: 0.85rem; }
-
-/* ── lightbox ── */
+/* ── LIGHTBOX ── */
 .lightbox {
   display: none;
   position: fixed;
@@ -370,175 +409,240 @@ body::after {
   z-index: 1000;
   align-items: center;
   justify-content: center;
-  cursor: zoom-out;
 }
-
 .lightbox.open { display: flex; }
+.lightbox img  { max-width: 90vw; max-height: 90vh; object-fit: contain; }
 
-.lightbox img {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  border: 1px solid var(--border-hi);
-}
-
-/* ── toast ── */
+/* ── TOAST ── */
 .toast {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  background: var(--surface);
-  border: 1px solid var(--border-hi);
-  color: var(--bright);
+  bottom: 5rem; left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: var(--bg);
   font-family: var(--mono);
-  font-size: 0.8rem;
-  padding: 0.5rem 1rem;
-  border-radius: 2px;
-  transform: translateY(100px);
-  opacity: 0;
-  transition: all 0.3s;
-  z-index: 2000;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.45rem 1.1rem;
+  display: none;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 500;
 }
+.toast.show { display: block; }
 
-.toast.show { transform: translateY(0); opacity: 1; }
-
-/* ── select bar ── */
+/* ── SELECT BAR (fixed bottom, select mode only) ── */
 .select-bar {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--surface);
-  border-top: 1px solid var(--accent);
-  padding: 0.75rem 2rem;
+  bottom: 0; left: 0; right: 0;
+  background: var(--bg);
+  border-top: 1px solid var(--rule-hi);
   display: none;
+  grid-template-columns: 100px 1fr auto auto auto auto;
   align-items: center;
-  justify-content: space-between;
+  height: 44px;
   z-index: 200;
-  animation: slideUp 0.2s ease;
 }
-
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+.select-bar.open { display: grid; }
+.select-bar .bar-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+  padding: 0 1.5rem;
+  border-right: 1px solid var(--rule);
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
-
-.select-bar.open { display: flex; }
-
-.select-info { color: var(--accent); font-size: 0.85rem; }
-
-/* ── loading spinner ── */
-.spinner {
-  display: inline-block;
-  width: 1rem;
-  height: 1rem;
-  border: 2px solid var(--border-hi);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.6s linear infinite;
+.select-bar .bar-count {
+  font-size: 11px;
+  color: var(--gray);
+  padding: 0 1.5rem;
 }
+.select-bar .bar-count strong { color: var(--text); font-weight: 600; }
+/* Bar action buttons */
+.bar-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0 1.2rem;
+  height: 100%;
+  background: transparent;
+  border: none;
+  border-left: 1px solid var(--rule);
+  color: var(--gray);
+  cursor: pointer;
+  transition: color 0.1s, background 0.1s;
+  white-space: nowrap;
+}
+.bar-btn:hover            { color: var(--text); }
+.bar-btn.confirm          { color: var(--text); font-weight: 700; }
+.bar-btn.confirm:hover    { background: var(--text); color: var(--bg); }
+.bar-btn.danger:hover     { color: var(--danger); }
 
-@keyframes spin { to { transform: rotate(360deg); } }
-
+/* ── LOADING OVERLAY ── */
+/* Shown during upload + background indexing */
 .loading-overlay {
+  display: none;
   position: fixed;
   inset: 0;
-  background: rgba(10,10,10,0.7);
-  display: none;
+  background: rgba(0,0,0,0.75);
+  z-index: 900;
   align-items: center;
   justify-content: center;
-  z-index: 3000;
-  flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
   color: var(--text);
-  font-size: 0.85rem;
+  font-size: 11px;
+  letter-spacing: 0.04em;
 }
-
 .loading-overlay.show { display: flex; }
-
-@media (max-width: 640px) {
-  .upload-inner { grid-template-columns: 1fr; }
-  .gallery { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); padding: 1rem; }
-  .header, .toolbar { padding-left: 1rem; padding-right: 1rem; }
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid var(--rule);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
 }
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 
-<header class="header">
-  <div class="header-left">
-    <div class="logo">de-insight <span>/ gallery</span></div>
-    <div class="image-count" id="imageCount"></div>
-  </div>
-  <div class="search-bar">
-    <span class="search-icon">/</span>
-    <input type="text" id="searchInput" placeholder="semantic search..." />
-  </div>
-</header>
+<!-- ── NAV ── -->
+<nav>
+  <span>de-insight</span>
+  <span>image library</span>
+  <span id="navProject">—</span>
+  <span id="navCount">—</span>
+</nav>
 
-<div class="toolbar">
-  <div class="toolbar-actions">
-    <button class="btn btn-accent" onclick="toggleUpload()">+ upload</button>
-    <button class="btn" id="selectBtn" onclick="toggleSelectMode()">select</button>
-    <button class="btn" id="orphanBtn" onclick="processOrphans()" style="display:none">fix missing</button>
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-title">Image<br>Library</div>
+  <div class="hero-meta">
+    de-insight<br>
+    image library<br>
+    <span id="heroDate"></span>
   </div>
 </div>
 
+<!-- ── TOOLBAR STRIP ── -->
+<div class="toolbar-strip">
+  <div class="strip-label">Actions</div>
+  <div class="toolbar-actions">
+    <!-- Toggles upload panel open/closed -->
+    <button class="strip-btn accent" onclick="toggleUpload()">+ Upload</button>
+    <!-- Enters select mode for @mention workflow -->
+    <button class="strip-btn" id="selectBtn" onclick="toggleSelectMode()">Select</button>
+    <!-- Shown only when unindexed images exist (pending > 0) -->
+    <button class="strip-btn danger" id="orphanBtn" style="display:none" onclick="processOrphans()">Fix Missing</button>
+  </div>
+  <!-- Semantic search — debounced 400ms, cross-modal via jina-clip-v1 -->
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="searchInput" placeholder="semantic search..." autocomplete="off" />
+  </div>
+</div>
+
+<!-- ── UPLOAD PANEL ── -->
+<!-- Collapsed by default. Caption blank → backend auto-generates via LLM Vision. -->
 <div class="upload-panel" id="uploadPanel">
   <div class="upload-inner">
-    <div class="field">
-      <label>file</label>
+    <div class="upload-cell">
+      <label>Upload</label>
+    </div>
+    <div class="upload-cell">
+      <label>File(s)</label>
       <input type="file" id="fileInput" accept="image/*" multiple />
     </div>
-    <div class="field">
-      <label>caption</label>
-      <input type="text" id="captionInput" placeholder="describe this image..." />
+    <div class="upload-cell">
+      <label>Caption (optional)</label>
+      <input type="text" id="captionInput" placeholder="auto-generated if blank" />
     </div>
-    <div class="field">
-      <label>tags</label>
-      <input type="text" id="tagsInput" placeholder="comma separated..." />
+    <div class="upload-cell">
+      <label>Tags</label>
+      <input type="text" id="tagsInput" placeholder="comma separated" />
     </div>
-    <button class="btn btn-accent" onclick="uploadImage()" id="uploadBtn">upload</button>
+    <div class="upload-cell">
+      <button class="upload-submit" onclick="uploadImage()" id="uploadBtn">Upload →</button>
+    </div>
   </div>
 </div>
 
-<div class="gallery" id="gallery"></div>
-<div class="empty" id="emptyState" style="display:none">
-  <div class="empty-icon">[]</div>
-  <p>no images yet &mdash; upload to begin</p>
+<!-- ── GRID HEADER ── -->
+<div class="grid-header">
+  <div class="grid-header-label">Index</div>
+  <div class="grid-header-cols">
+    <span>01</span><span>02</span><span>03</span><span>04</span>
+  </div>
 </div>
 
+<!-- ── GRID BODY ── -->
+<div class="grid-body">
+  <div class="grid-sidebar">
+    Click to<br>select<br>images<br><br>
+    Use @<br>in TUI to<br>attach
+  </div>
+  <!-- Populated by render() -->
+  <div id="gallery"></div>
+</div>
+
+<!-- ── LIGHTBOX ── -->
+<!-- Click anywhere to close -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <img id="lightboxImg" src="" alt="" />
 </div>
 
+<!-- ── TOAST ── -->
 <div class="toast" id="toast"></div>
 
+<!-- ── SELECT BAR (fixed bottom, select mode only) ── -->
+<!-- Confirm → writes image IDs to backend; TUI reads on next @ keypress -->
 <div class="select-bar" id="selectBar">
-  <span class="select-info" id="selectInfo">0 selected</span>
-  <div style="display:flex;gap:0.5rem">
-    <button class="btn btn-accent" onclick="confirmSelection()">confirm selection</button>
-    <button class="btn" onclick="copySelectedPaths()">copy paths</button>
-    <button class="btn btn-danger" onclick="deleteSelected()">delete</button>
-    <button class="btn" onclick="toggleSelectMode()">cancel</button>
-  </div>
+  <div class="bar-label">Sel</div>
+  <div class="bar-count">Selected: <strong id="selectInfo">0</strong></div>
+  <button class="bar-btn confirm" onclick="confirmSelection()">Confirm →</button>
+  <button class="bar-btn" onclick="copySelectedPaths()">Copy Paths</button>
+  <button class="bar-btn danger" onclick="deleteSelected()">Delete</button>
+  <button class="bar-btn" onclick="toggleSelectMode()">Cancel</button>
 </div>
 
+<!-- ── LOADING OVERLAY ── -->
+<!-- Shown during upload + background indexing via pollProcessing() -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="spinner"></div>
-  <span>processing...</span>
+  <span id="loadingText">processing...</span>
 </div>
 
 <script>
+// Base API path — backend at same origin (FastAPI :8000)
 const API = window.location.origin + '/api';
-let images = [];
-let selectMode = false;
-let selected = new Set();
-let searchTimeout = null;
 
+// ── State ──
+let images        = [];         // full image list from last /images fetch
+let selectMode    = false;      // whether selection mode is active
+let selected      = new Set();  // IDs of currently selected images
+let searchTimeout = null;       // debounce handle for search input
+
+// Set today's date in hero meta
+document.getElementById('heroDate').textContent =
+  new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+
+// ── Data loading ──
+
+/**
+ * Fetch all images from backend and re-render the gallery.
+ */
 async function loadImages() {
   try {
-    const r = await fetch(`${API}/images`);
+    const r    = await fetch(`${API}/images`);
     const data = await r.json();
     images = data.images || [];
     render(images);
@@ -547,41 +651,61 @@ async function loadImages() {
   }
 }
 
+/**
+ * Render a list of image objects into the gallery grid.
+ * - Normal mode: clicking image opens lightbox
+ * - Select mode: clicking card toggles selection; badge shows order index
+ * @param {Array} list - image objects from API
+ */
 function render(list) {
   const g = document.getElementById('gallery');
-  const empty = document.getElementById('emptyState');
-  const count = document.getElementById('imageCount');
-  count.textContent = `${list.length} image${list.length !== 1 ? 's' : ''}`;
+  const n = list.length;
 
-  if (!list.length) {
-    g.innerHTML = '';
-    empty.style.display = 'block';
+  // Update nav count
+  document.getElementById('navCount').textContent = `${n} image${n !== 1 ? 's' : ''}`;
+
+  if (!n) {
+    g.innerHTML = `
+      <div class="empty-state">
+        no images yet<br>
+        <span style="font-size:11px;opacity:0.3">upload to begin</span>
+      </div>`;
     return;
   }
-  empty.style.display = 'none';
 
-  g.innerHTML = list.map((img, i) => `
-    <div class="card ${selectMode ? 'selectable' : ''} ${selected.has(img.id) ? 'selected' : ''}"
+  // Inline onclick strings are intentional — avoids closure-per-card overhead
+  g.innerHTML = list.map((img, i) => {
+    const selIdx = [...selected].indexOf(img.id);
+    const isSel  = selected.has(img.id);
+    return `
+    <div class="img-item ${isSel ? 'selected' : ''}"
          data-id="${img.id}"
-         style="animation-delay: ${i * 0.03}s"
          onclick="${selectMode ? `toggleSelect('${img.id}')` : ''}">
-      <div class="card-img-wrap" ${!selectMode ? `onclick="openLightbox('${img.filename}')"` : ''}>
-        <img src="${API}/images/file/${encodeURIComponent(img.filename)}" alt="${esc(img.caption)}" loading="lazy" />
-      </div>
-      <div class="card-body">
-        <div class="card-caption">${esc(img.caption)}</div>
-        ${img.tags ? `<div class="card-tags">${esc(img.tags)}</div>` : ''}
-        <div class="card-meta">
-          <span class="card-date">${img.created_at || ''}</span>
-          <div class="card-actions">
-            <button class="card-btn del" onclick="event.stopPropagation();deleteImage('${img.id}')" title="delete">&times;</button>
-          </div>
+      <div class="badge">${isSel ? selIdx + 1 : ''}</div>
+      <img
+        src="${API}/images/file/${encodeURIComponent(img.filename)}"
+        alt="${esc(img.caption)}"
+        loading="lazy"
+        ${!selectMode ? `onclick="event.stopPropagation();openLightbox('${img.filename}')"` : ''}
+      />
+      <div class="img-caption">
+        <div class="filename">${String(i + 1).padStart(2, '0')} &ensp; ${esc(img.filename)}</div>
+        <div class="desc">${esc(img.caption)}</div>
+        ${img.tags ? `<div class="tags">${esc(img.tags)}</div>` : ''}
+        <div class="meta">
+          <span class="date">${img.created_at || ''}</span>
+          <button class="del-btn"
+            onclick="event.stopPropagation();deleteImage('${img.id}')"
+            title="delete">&times;</button>
         </div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
+/**
+ * HTML-escape a string to prevent XSS in template literals.
+ */
 function esc(s) {
   if (!s) return '';
   const d = document.createElement('div');
@@ -589,41 +713,47 @@ function esc(s) {
   return d.innerHTML;
 }
 
+
+// ── Upload ──
+
+/** Toggle the upload form panel open/closed. */
 function toggleUpload() {
   document.getElementById('uploadPanel').classList.toggle('open');
 }
 
+/**
+ * Submit selected files + optional caption/tags to POST /images/upload.
+ * If caption is blank, backend auto-generates via LLM Vision.
+ * On success, starts pollProcessing() to track background embedding indexing.
+ */
 async function uploadImage() {
   const fileInput = document.getElementById('fileInput');
-  const files = Array.from(fileInput.files || []);
+  const files     = Array.from(fileInput.files || []);
   if (!files.length) { toast('select file(s) first'); return; }
 
   const form = new FormData();
   files.forEach((f) => form.append('files', f));
   form.append('caption', document.getElementById('captionInput').value);
-  form.append('tags', document.getElementById('tagsInput').value);
+  form.append('tags',    document.getElementById('tagsInput').value);
 
   showLoading(true);
   try {
-    const r = await fetch(`${API}/images/upload`, { method: 'POST', body: form });
+    const r    = await fetch(`${API}/images/upload`, { method: 'POST', body: form });
     const data = await r.json().catch(() => ({}));
     if (!r.ok) {
-      const firstError = data?.detail?.errors?.[0];
+      // Surface the most specific error message available
+      const firstError     = data?.detail?.errors?.[0];
       const firstErrorText = firstError
-        ? `${firstError.filename || 'file'}: ${firstError.error || 'unknown error'}`
-        : '';
+        ? `${firstError.filename || 'file'}: ${firstError.error || 'unknown error'}` : '';
       const detail =
-        data?.detail?.message ||
-        firstErrorText ||
-        data?.detail ||
-        data?.message ||
-        'upload failed';
+        data?.detail?.message || firstErrorText ||
+        data?.detail || data?.message || 'upload failed';
       throw new Error(typeof detail === 'string' ? detail : JSON.stringify(detail));
     }
-    toast(`${data.saved} file(s) saved, indexing in background...`);
+    toast(`${data.saved} file(s) saved, indexing...`);
     fileInput.value = '';
     document.getElementById('captionInput').value = '';
-    document.getElementById('tagsInput').value = '';
+    document.getElementById('tagsInput').value    = '';
     pollProcessing();
   } catch (e) {
     toast('upload failed: ' + e.message);
@@ -631,33 +761,41 @@ async function uploadImage() {
   }
 }
 
+
+// ── Background indexing ──
+
+/**
+ * Poll GET /images/processing-status every 3s after upload.
+ * Refreshes gallery as images become indexed by jina-clip-v1.
+ * Stops when pending === 0, or after 60s of no progress (stale guard).
+ */
 async function pollProcessing() {
   let lastIndexed = 0;
-  let staleCount = 0;          // 連續無進度次數
-  const MAX_STALE = 20;        // 60s 無進度即停止（20 × 3s）
-  const loadingText = document.querySelector('#loadingOverlay span');
+  let staleCount  = 0;
+  const MAX_STALE   = 20;   // 20 × 3s = 60s max wait with no progress
+  const loadingText = document.getElementById('loadingText');
+
   const poll = setInterval(async () => {
     try {
-      const r = await fetch(`${API}/images/processing-status`);
+      const r    = await fetch(`${API}/images/processing-status`);
       const data = await r.json();
       if (loadingText) {
-        loadingText.textContent = `indexing ${data.indexed}/${data.total_files} (${data.pending} remaining)`;
+        loadingText.textContent =
+          `indexing ${data.indexed}/${data.total_files} (${data.pending} remaining)`;
       }
       if (data.indexed > lastIndexed) {
         lastIndexed = data.indexed;
-        staleCount = 0;
-        await loadImages();
+        staleCount  = 0;
+        await loadImages(); // refresh as images become available
       } else {
         staleCount++;
       }
       if (data.pending === 0 || staleCount >= MAX_STALE) {
         clearInterval(poll);
         showLoading(false);
-        if (data.pending > 0) {
-          toast(`indexing stopped: ${data.pending} images failed`);
-        } else {
-          toast(`done: ${data.indexed} images indexed`);
-        }
+        toast(data.pending > 0
+          ? `indexing stopped: ${data.pending} failed`
+          : `done: ${data.indexed} indexed`);
         await loadImages();
         checkOrphans();
       }
@@ -668,24 +806,31 @@ async function pollProcessing() {
   }, 3000);
 }
 
+/**
+ * Check if any images remain unindexed (pending > 0).
+ * Shows/hides the "Fix Missing" button accordingly.
+ */
 async function checkOrphans() {
   try {
-    const r = await fetch(`${API}/images/processing-status`);
+    const r    = await fetch(`${API}/images/processing-status`);
     const data = await r.json();
-    const btn = document.getElementById('orphanBtn');
+    const btn  = document.getElementById('orphanBtn');
     if (data.pending > 0) {
       btn.style.display = 'inline-flex';
-      btn.textContent = `fix missing (${data.pending})`;
+      btn.textContent   = `Fix Missing (${data.pending})`;
     } else {
       btn.style.display = 'none';
     }
   } catch (e) {}
 }
 
+/**
+ * Manually trigger indexing of orphaned (saved but not yet embedded) images.
+ */
 async function processOrphans() {
   showLoading(true);
   try {
-    const r = await fetch(`${API}/images/process-orphans`, { method: 'POST' });
+    const r    = await fetch(`${API}/images/process-orphans`, { method: 'POST' });
     const data = await r.json();
     if (data.count > 0) {
       toast(`indexing ${data.count} orphaned image(s)...`);
@@ -700,6 +845,10 @@ async function processOrphans() {
   }
 }
 
+
+// ── Delete ──
+
+/** Delete a single image by ID after confirmation. */
 async function deleteImage(id) {
   if (!confirm('delete this image?')) return;
   try {
@@ -711,25 +860,36 @@ async function deleteImage(id) {
   }
 }
 
+
+// ── Lightbox ──
+
 function openLightbox(filename) {
-  const lb = document.getElementById('lightbox');
-  document.getElementById('lightboxImg').src = `${API}/images/file/${encodeURIComponent(filename)}`;
-  lb.classList.add('open');
+  document.getElementById('lightboxImg').src =
+    `${API}/images/file/${encodeURIComponent(filename)}`;
+  document.getElementById('lightbox').classList.add('open');
 }
 
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
 }
 
+
+// ── Select mode ──
+
+/**
+ * Toggle select mode on/off.
+ * Clears any existing selection when toggling off.
+ */
 function toggleSelectMode() {
   selectMode = !selectMode;
   selected.clear();
-  document.getElementById('selectBtn').textContent = selectMode ? 'cancel' : 'select';
+  document.getElementById('selectBtn').textContent = selectMode ? 'Cancel' : 'Select';
   document.getElementById('selectBar').classList.toggle('open', selectMode);
   updateSelectInfo();
   render(images);
 }
 
+/** Toggle selection state of a single image card. */
 function toggleSelect(id) {
   if (selected.has(id)) selected.delete(id);
   else selected.add(id);
@@ -738,16 +898,21 @@ function toggleSelect(id) {
 }
 
 function updateSelectInfo() {
-  document.getElementById('selectInfo').textContent = `${selected.size} selected`;
+  document.getElementById('selectInfo').textContent = selected.size;
 }
 
+/**
+ * POST selected image IDs to /images/select.
+ * Backend stores the selection; TUI reads it on the next @ keypress
+ * and attaches images as a multipart message to the LLM.
+ */
 async function confirmSelection() {
   if (!selected.size) { toast('select images first'); return; }
   try {
     const r = await fetch(`${API}/images/select`, {
-      method: 'POST',
+      method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ image_ids: [...selected] }),
+      body:    JSON.stringify({ image_ids: [...selected] }),
     });
     if (!r.ok) throw new Error(await r.text());
     const data = await r.json();
@@ -758,6 +923,7 @@ async function confirmSelection() {
   }
 }
 
+/** Copy file paths of selected images to clipboard. */
 function copySelectedPaths() {
   const paths = images
     .filter(img => selected.has(img.id))
@@ -765,6 +931,7 @@ function copySelectedPaths() {
   navigator.clipboard.writeText(paths.join('\n')).then(() => toast('paths copied'));
 }
 
+/** Delete all selected images sequentially after confirmation. */
 async function deleteSelected() {
   if (!selected.size) return;
   if (!confirm(`delete ${selected.size} image(s)?`)) return;
@@ -777,14 +944,21 @@ async function deleteSelected() {
   await loadImages();
 }
 
-// semantic search
+
+// ── Semantic search ──
+
+/**
+ * Debounced 400ms search.
+ * Calls GET /images/search for cross-modal nearest-neighbour via jina-clip-v1.
+ * Clears query → reverts to full image list without a network call.
+ */
 document.getElementById('searchInput').addEventListener('input', (e) => {
   clearTimeout(searchTimeout);
   const q = e.target.value.trim();
   if (!q) { render(images); return; }
   searchTimeout = setTimeout(async () => {
     try {
-      const r = await fetch(`${API}/images/search?q=${encodeURIComponent(q)}&limit=20`);
+      const r    = await fetch(`${API}/images/search?q=${encodeURIComponent(q)}&limit=20`);
       const data = await r.json();
       render(data.results || []);
     } catch (e) {
@@ -793,6 +967,8 @@ document.getElementById('searchInput').addEventListener('input', (e) => {
   }, 400);
 });
 
+
+// ── Keyboard shortcuts ──
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeLightbox();
@@ -800,17 +976,23 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+
+// ── Utilities ──
+
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
+  setTimeout(() => { t.classList.remove('show'); }, 2200);
 }
 
 function showLoading(on) {
   document.getElementById('loadingOverlay').classList.toggle('show', on);
+  if (!on) document.getElementById('loadingText').textContent = 'processing...';
 }
 
+
+// ── Init ──
 loadImages().then(() => checkOrphans());
 </script>
 </body>

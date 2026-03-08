@@ -253,7 +253,7 @@ class ChatInput(TextArea):
 
 
 class MenuBar(Static):
-    """Mac 風格頂部功能列，單行可點擊。"""
+    """Mac 風格頂部功能列，單行可點擊。左側功能區 + 右側狀態 / 通知 / 進度。"""
 
     _ITEMS = [
         ("New", "new_chat"),
@@ -264,6 +264,9 @@ class MenuBar(Static):
         ("Settings", "open_settings"),
     ]
 
+    _NOTIFY_SPINNER = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
+    _BAR_WIDTH = 12
+
     _mode: str = "emotional"
     _model: str = ""
     _memory_count: int = 0
@@ -272,14 +275,25 @@ class MenuBar(Static):
     _project_name: str | None = None
     _pending_count: int = 0
     _gallery_selected: int = 0
-    _import_status: str = ""
-    _spinner_frame: int = 0
-    _SPINNER = ["|", "/", "—", "\\"]
 
     def __init__(self, **kwargs) -> None:
         super().__init__("", **kwargs)
         self._regions: list[tuple[int, int, str]] = []
-        self._spinner_timer = None
+        # ── 系統狀態 ──
+        self._llm_model: str = ""
+        self._llm_ok: bool = False
+        self._embed_label: str = ""
+        self._embed_ok: bool = False
+        # ── 通知 / 進度 ──
+        self._notify_msg: str = ""
+        self._notify_severity: str = "info"
+        self._notify_progress: float = -1.0  # -1=無, 0~1=百分比
+        self._spinner_active: bool = False
+        self._spinner_frame: int = 0
+        self._spinner_timer: Timer | None = None
+        self._clear_timer: Timer | None = None
+
+    # ── 功能區 set_state（左側）──────────────────────────
 
     def set_state(
         self,
@@ -291,7 +305,6 @@ class MenuBar(Static):
         project_name: str | None = None,
         pending_count: int = 0,
         gallery_selected: int = 0,
-        import_status: str = "",
     ) -> None:
         self._mode = mode
         self._model = model
@@ -301,31 +314,88 @@ class MenuBar(Static):
         self._project_name = project_name
         self._pending_count = pending_count
         self._gallery_selected = gallery_selected
-        self._import_status = import_status
-        self._regions.clear()
-        self.refresh()
+        self._rebuild()
 
-    def set_import_status(self, status: str) -> None:
-        self._import_status = status
-        if status and not self._spinner_timer:
+    # ── 狀態 / 通知 API（右側）───────────────────────────
+
+    def set_system_status(
+        self,
+        llm_model: str = "",
+        llm_ok: bool = False,
+        embed_label: str = "",
+        embed_ok: bool = False,
+    ) -> None:
+        self._llm_model = llm_model
+        self._llm_ok = llm_ok
+        self._embed_label = embed_label
+        self._embed_ok = embed_ok
+        self._rebuild()
+
+    def show_message(
+        self,
+        message: str,
+        severity: str = "info",
+        timeout: float = 5.0,
+    ) -> None:
+        self._notify_msg = message
+        self._notify_severity = severity
+        self._notify_progress = -1.0
+        self._stop_spinner()
+        if self._clear_timer:
+            self._clear_timer.stop()
+        if timeout > 0:
+            self._clear_timer = self.set_timer(timeout, self._clear_notification)
+        self._rebuild()
+
+    def show_progress(
+        self,
+        message: str,
+        progress: float = -1.0,
+    ) -> None:
+        self._notify_msg = message
+        self._notify_severity = "info"
+        self._notify_progress = progress
+        self._start_spinner()
+        if self._clear_timer:
+            self._clear_timer.stop()
+            self._clear_timer = None
+        self._rebuild()
+
+    def clear_notification(self) -> None:
+        self._clear_notification()
+
+    # ── 內部 ─────────────────────────────────────────────
+
+    def _clear_notification(self) -> None:
+        self._notify_msg = ""
+        self._notify_progress = -1.0
+        self._stop_spinner()
+        self._rebuild()
+
+    def _start_spinner(self) -> None:
+        if not self._spinner_active:
+            self._spinner_active = True
             self._spinner_frame = 0
-            self._spinner_timer = self.set_interval(0.15, self._tick_spinner)
-        elif not status and self._spinner_timer:
-            self._spinner_timer.stop()
-            self._spinner_timer = None
-        self._regions.clear()
-        self.refresh()
+            self._spinner_timer = self.set_interval(0.08, self._tick_spinner)
+
+    def _stop_spinner(self) -> None:
+        if self._spinner_active:
+            self._spinner_active = False
+            if self._spinner_timer:
+                self._spinner_timer.stop()
+                self._spinner_timer = None
 
     def _tick_spinner(self) -> None:
-        self._spinner_frame = (self._spinner_frame + 1) % len(self._SPINNER)
-        self._regions.clear()
-        self.refresh()
+        self._spinner_frame = (self._spinner_frame + 1) % len(self._NOTIFY_SPINNER)
+        self._rebuild()
 
-    def render(self) -> Text:
+    def _rebuild(self) -> None:
+        """Build full content and push via update()."""
         text = Text()
         col = 1
         self._regions.clear()
 
+        # ── 左側：功能按鈕 ──
         for i, (label, action) in enumerate(self._ITEMS):
             display = f"[{label}]"
             start = col
@@ -398,19 +468,6 @@ class MenuBar(Static):
             text.append(proj_label, style="bold #7dd3fc")
             col += sum(2 if ord(c) > 0x7F else 1 for c in proj_label)
 
-        if self._import_status:
-            text.append("  ")
-            col += 2
-            text.append("│", style="#2a2a2a")
-            col += 1
-            text.append(" ")
-            col += 1
-            spinner = self._SPINNER[self._spinner_frame]
-            text.append(spinner, style="bold #f0c674")
-            col += 1
-            text.append(f" {self._import_status}", style="italic #f0c674")
-            col += 1 + sum(2 if ord(c) > 0x7F else 1 for c in self._import_status)
-
         if self._pending_count > 0:
             text.append("  ")
             col += 2
@@ -429,7 +486,95 @@ class MenuBar(Static):
             col += sum(2 if ord(c) > 0x7F else 1 for c in gal_label)
             self._regions.append((gal_start, col, "open_gallery"))
 
-        return text
+        # ── 右側：系統狀態 + 通知 / 進度 ──
+        text.append("  ")
+        col += 2
+        text.append("│", style="#2a2a2a")
+        col += 1
+        text.append(" ", style="")
+        col += 1
+
+        # 系統狀態：LLM 模型
+        if self._llm_model:
+            mark = "✓" if self._llm_ok else "…"
+            mark_style = "#8b949e" if self._llm_ok else "#f0c674"
+            model_short = self._llm_model.split("/")[-1] if "/" in self._llm_model else self._llm_model
+            if len(model_short) > 18:
+                model_short = model_short[:16] + "…"
+            text.append("◆ ", style="#d4a27a")
+            text.append(model_short, style="#8b949e")
+            text.append(f" {mark}", style=mark_style)
+            col += 2 + len(model_short) + 1 + len(mark)
+
+        # 系統狀態：Embedding 模型
+        if self._embed_label:
+            mark = "✓" if self._embed_ok else "…"
+            mark_style = "#8b949e" if self._embed_ok else "#f0c674"
+            embed_short = self._embed_label.split("/")[-1] if "/" in self._embed_label else self._embed_label
+            if len(embed_short) > 18:
+                embed_short = embed_short[:16] + "…"
+            text.append("  ◇ ", style="#d4a27a")
+            text.append(embed_short, style="#8b949e")
+            text.append(f" {mark}", style=mark_style)
+            col += 4 + len(embed_short) + 1 + len(mark)
+
+        # 通知 / 進度
+        if self._notify_msg:
+            text.append("  │ ", style="#2a2a2a")
+            col += 4
+
+            sev_styles = {
+                "info":    ("#8b949e", ""),
+                "warning": ("#f0c674", ""),
+                "error":   ("#e06c75", "✗ "),
+                "success": ("#8b949e", "✓ "),
+            }
+            color, prefix = sev_styles.get(self._notify_severity, ("#8b949e", ""))
+
+            if self._spinner_active:
+                spinner = self._NOTIFY_SPINNER[self._spinner_frame]
+                text.append(f"{spinner} ", style=f"bold {color}")
+            elif prefix:
+                text.append(prefix, style=f"bold {color}")
+
+            msg = self._notify_msg
+            if len(msg) > 40:
+                msg = msg[:38] + "…"
+            text.append(msg, style=color)
+
+            if 0 <= self._notify_progress <= 1:
+                # Determinate: [████░░░░░░░░] 33%
+                text.append(" ", style="")
+                filled = int(self._notify_progress * self._BAR_WIDTH)
+                empty = self._BAR_WIDTH - filled
+                pct = int(self._notify_progress * 100)
+                text.append("[", style="#484f58")
+                text.append("█" * filled, style="#d4a27a")
+                text.append("░" * empty, style="#2a2a2a")
+                text.append("]", style="#484f58")
+                text.append(f" {pct}%", style="#8b949e")
+            elif self._spinner_active:
+                # Indeterminate: bouncing block [░░░██░░░░░░░]
+                text.append(" ", style="")
+                w = self._BAR_WIDTH
+                block = 3
+                travel = w - block
+                pos = self._spinner_frame % (travel * 2)
+                if pos >= travel:
+                    pos = travel * 2 - pos
+                bar_chars = list("░" * w)
+                for i in range(block):
+                    if pos + i < w:
+                        bar_chars[pos + i] = "█"
+                text.append("[", style="#484f58")
+                for i, ch in enumerate(bar_chars):
+                    if ch == "█":
+                        text.append(ch, style="#d4a27a")
+                    else:
+                        text.append(ch, style="#2a2a2a")
+                text.append("]", style="#484f58")
+
+        self.update(text)
 
     def on_click(self, event) -> None:
         x = event.x
@@ -637,7 +782,7 @@ class Chatbox(Vertical):
         def replace(m):
             concept = m.group(1)
             concepts.append(concept)
-            return f"[underline #7dd3fc]{concept}[/underline #7dd3fc]"
+            return f"[underline]{concept}[/underline]"
         rendered = re.sub(r'\[\[(.+?)\]\]', replace, text)
         return rendered, concepts, has
 
@@ -722,7 +867,5 @@ class Chatbox(Vertical):
             self.styles.border_title_color = "#d4a27a"
 
 
-class StatusBar(Static):
-    """底部狀態列。"""
 
-    pass
+# StatusBar removed — functionality merged into MenuBar right side

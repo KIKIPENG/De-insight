@@ -22,8 +22,10 @@ from embeddings.backend import EmbeddingBackend
 
 log = logging.getLogger(__name__)
 
+import os as _os
+
 _EMBED_DIM = 1024
-_BATCH_SIZE = 32  # llama-server 單次批量上限
+_BATCH_SIZE = int(_os.environ.get("GGUF_EMBED_BATCH_SIZE", "32"))
 
 
 class GGUFMultimodalBackend(EmbeddingBackend):
@@ -144,28 +146,31 @@ class GGUFMultimodalBackend(EmbeddingBackend):
     async def _call_prompt_format(
         self, client: httpx.AsyncClient, texts: list[str],
     ) -> list[list[float]]:
-        """llama.cpp 原生 prompt 格式：逐筆送 {"prompt": text}。"""
-        out: list[list[float]] = []
-        for t in texts:
-            try:
-                resp = await client.post("/v1/embeddings", json={"prompt": t})
-                resp.raise_for_status()
-            except httpx.HTTPStatusError as exc:
-                body = (exc.response.text or "")[:500]
-                if "too large" in body:
-                    raise RuntimeError(
-                        "llama-server: 文字太長無法 embedding。"
-                        " 請重啟 llama-server 或增大 -ub 參數。"
-                    ) from exc
-                log.error("llama-server prompt embedding failed (%d): %s", exc.response.status_code, body)
-                raise RuntimeError(f"llama-server embedding 失敗: HTTP {exc.response.status_code}") from exc
-            data = resp.json()
-            if "embedding" in data and not isinstance(data.get("data"), list):
-                out.append(self._truncate_and_normalize(data["embedding"]))
-            else:
+        """llama.cpp 原生 prompt 格式：並行送 {"prompt": text}，上限 4 併發。"""
+        sem = asyncio.Semaphore(4)
+
+        async def _single(t: str) -> list[float]:
+            async with sem:
+                try:
+                    resp = await client.post("/v1/embeddings", json={"prompt": t})
+                    resp.raise_for_status()
+                except httpx.HTTPStatusError as exc:
+                    body = (exc.response.text or "")[:500]
+                    if "too large" in body:
+                        raise RuntimeError(
+                            "llama-server: 文字太長無法 embedding。"
+                            " 請重啟 llama-server 或增大 -ub 參數。"
+                        ) from exc
+                    log.error("llama-server prompt embedding failed (%d): %s", exc.response.status_code, body)
+                    raise RuntimeError(f"llama-server embedding 失敗: HTTP {exc.response.status_code}") from exc
+                data = resp.json()
+                if "embedding" in data and not isinstance(data.get("data"), list):
+                    return self._truncate_and_normalize(data["embedding"])
                 emb2 = sorted(data["data"], key=lambda d: d.get("index", 0))
-                out.extend(self._truncate_and_normalize(e["embedding"]) for e in emb2)
-        return out
+                return self._truncate_and_normalize(emb2[0]["embedding"])
+
+        results = await asyncio.gather(*[_single(t) for t in texts])
+        return list(results)
 
     async def _embed_image_b64(self, b64_data: str) -> list[float]:
         """透過 llama-server 的 multimodal endpoint 取得圖片 embedding。"""

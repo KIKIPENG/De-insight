@@ -93,12 +93,12 @@ async def _run_stability_tests():
                 except NoMatches:
                     report("Memory panel exists", False, "NoMatches")
 
-                # T8: StatusBar
+                # T8: MenuBar has system status
                 try:
-                    sb = app.query_one("#status-bar")
-                    report("StatusBar exists", sb is not None)
+                    mb = app.query_one("#menu-bar")
+                    report("MenuBar exists", mb is not None)
                 except NoMatches:
-                    report("StatusBar exists", False, "NoMatches")
+                    report("MenuBar exists", False, "NoMatches")
 
                 # T9: Open ImportModal via ctrl+f, check back button, then dismiss
                 try:

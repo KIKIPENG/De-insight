@@ -54,13 +54,16 @@ class UIMixin:
             pass
 
     def _update_status(self) -> None:
-        from widgets import StatusBar
-        loading = "  [italic #fafafa]⟳ thinking…[/]" if self.is_loading else ""
-        msg_count = len(self.messages)
+        from widgets import MenuBar
         try:
-            self.query_one("#status-bar", StatusBar).update(
-                f"[#484f58]{msg_count} msgs[/]"
-                f"{loading}"
+            env = load_env()
+            llm_model = env.get("LLM_MODEL", "")
+            menu = self.query_one("#menu-bar", MenuBar)
+            menu.set_system_status(
+                llm_model=llm_model,
+                llm_ok=bool(llm_model),
+                embed_label=getattr(self, "_embed_label", "jina-embeddings-v4"),
+                embed_ok=getattr(self, "_embed_ok", False),
             )
         except NoMatches:
             pass
@@ -116,7 +119,7 @@ class UIMixin:
         from widgets import WelcomeBlock
         container = self.query_one("#messages", Vertical)
         welcome = WelcomeBlock()
-        welcome.border_title = "[#d4a27a]◈[/] De-insight v0.5"
+        welcome.border_title = "[#d4a27a]◈[/] De-insight v0.8"
         await container.mount(welcome)
 
     def action_show_help(self) -> None:

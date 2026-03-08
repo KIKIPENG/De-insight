@@ -85,6 +85,15 @@ CHAT_PROVIDERS = {
         "default_base": "https://api.minimaxi.chat/v1",
         "auth_type": "api_key",
     },
+    "google": {
+        "label": "Google AI Studio",
+        "models": ["gemini-2.5-flash", "gemini-2.5-pro"],
+        "key_env": "GOOGLE_API_KEY",
+        "base_env": "",
+        "model_prefix": "openai/",
+        "default_base": "https://generativelanguage.googleapis.com/v1beta/openai",
+        "auth_type": "api_key",
+    },
     "openrouter": {
         "label": "OpenRouter",
         "models": [
@@ -171,6 +180,15 @@ RAG_LLM_PROVIDERS = {
         "base_env": "MINIMAX_API_BASE",
         "model_prefix": "",
         "default_base": "https://api.minimaxi.chat/v1",
+        "auth_type": "api_key",
+    },
+    "google-rag": {
+        "label": "Google AI Studio",
+        "models": ["gemini-2.5-flash", "gemini-2.5-pro"],
+        "key_env": "GOOGLE_API_KEY",
+        "base_env": "",
+        "model_prefix": "",
+        "default_base": "https://generativelanguage.googleapis.com/v1beta/openai",
         "auth_type": "api_key",
     },
     "openrouter-rag": {

@@ -335,8 +335,8 @@ def get_rate_guard() -> RateGuard:
     global _guard
     if _guard is None:
         import os
-        rpm = int(os.environ.get("RATE_GUARD_RPM", "20"))
-        concurrency = int(os.environ.get("RATE_GUARD_CONCURRENCY", "1"))
+        rpm = int(os.environ.get("RATE_GUARD_RPM", "40"))
+        concurrency = int(os.environ.get("RATE_GUARD_CONCURRENCY", "4"))
         _guard = RateGuard(rpm=rpm, max_concurrency=concurrency)
     return _guard
 

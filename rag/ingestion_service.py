@@ -141,6 +141,10 @@ class IngestionService:
         """Return permanently failed jobs."""
         return await self._repo.list_failed_terminal()
 
+    async def count_active(self) -> dict:
+        """Return {'queued': N, 'running': N} for active jobs."""
+        return await self._repo.count_active()
+
     async def get_job(self, job_id: str) -> dict | None:
         return await self._repo.get_job(job_id)
 

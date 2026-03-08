@@ -80,9 +80,15 @@ class ChatMixin:
             self._submit_chat()
 
     def on_paste(self, event) -> None:
-        """貼上/拖入處理：檔案路徑填入輸入框，不自動匯入。"""
+        """貼上/拖入處理：URL 直接匯入，PDF 路徑填入輸入框。"""
         text = event.text.strip()
         if not text:
+            return
+        # URL — auto-import
+        t = text.strip().strip("'\"")
+        if t.startswith("http://") or t.startswith("https://"):
+            event.prevent_default()
+            self._do_import(t)
             return
         path = self._clean_dropped_path(text)
         if path:
@@ -124,9 +130,12 @@ class ChatMixin:
         if "%20" in t:
             t = unquote(t)
         t = t.replace("\\ ", " ")
-        if Path(t).exists() and Path(t).is_file():
-            return t
-        return None
+        if not Path(t).exists() or not Path(t).is_file():
+            return None
+        if not t.lower().endswith(".pdf"):
+            self.notify("僅支援 PDF 檔案", severity="warning", timeout=3)
+            return None
+        return t
 
     def fill_input(self, text: str) -> None:
         from widgets import ChatInput
@@ -216,6 +225,7 @@ class ChatMixin:
             "deepseek.com":     "DEEPSEEK_API_KEY",
             "minimaxi.chat":    "MINIMAX_API_KEY",
             "api.minimax.chat": "MINIMAX_API_KEY",
+            "generativelanguage.googleapis.com": "GOOGLE_API_KEY",
         }
         for domain, key_env in BASE_TO_KEY.items():
             if domain in base:

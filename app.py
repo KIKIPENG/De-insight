@@ -18,7 +18,7 @@ if _venv_dir.is_dir():
             sys.path.insert(1, _p)
 
 from widgets import (
-    AppState, ChatInput, MenuBar, WelcomeBlock, StatusBar,
+    AppState, ChatInput, MenuBar, WelcomeBlock,
 )
 from textual.app import App, ComposeResult
 from textual.binding import Binding
@@ -256,15 +256,6 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         max-height: 14;
     }
 
-    /* ── status bar ── */
-    StatusBar {
-        dock: bottom;
-        height: 1;
-        padding: 0 2;
-        background: #111111;
-        color: #6e7681;
-    }
-
     /* ── layout ── */
     #main-horizontal {
         height: 1fr;
@@ -423,6 +414,27 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         self.state = AppState()
         self._project_manager = ProjectManager()
         self._conv_store = ConversationStore()
+        # StatusBar system status tracking
+        self._embed_ok: bool = False
+        self._embed_label: str = "GGUF"
+
+    def notify(
+        self,
+        message,
+        *,
+        title: str = "",
+        severity: str = "information",
+        timeout: float = 5,
+        **kwargs,
+    ) -> None:
+        """Route all notifications to the MenuBar right side instead of toast popups."""
+        sev_map = {"information": "info", "warning": "warning", "error": "error"}
+        sev = sev_map.get(severity, "info")
+        try:
+            menu = self.query_one("#menu-bar", MenuBar)
+            menu.show_message(str(message), severity=sev, timeout=timeout)
+        except Exception:
+            super().notify(message, title=title, severity=severity, timeout=timeout, **kwargs)
 
     def compose(self) -> ComposeResult:
         yield MenuBar(id="menu-bar")
@@ -445,7 +457,6 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
                 mp = MemoryPanel(id="memory-panel")
                 mp.border_title = "◇ Memory 記憶面板"
                 yield mp
-        yield StatusBar(id="status-bar")
 
     async def on_mount(self) -> None:
         from settings import load_env
@@ -501,7 +512,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         self._update_status()
         container = self.query_one("#messages", Vertical)
         welcome = WelcomeBlock()
-        welcome.border_title = "[#d4a27a]◈[/] De-insight v0.7"
+        welcome.border_title = "[#d4a27a]◈[/] De-insight v0.8"
         await container.mount(welcome)
         self.query_one("#chat-input", ChatInput).focus()
         self._refresh_memory_panel()
@@ -520,13 +531,18 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
             self.log.warning(f"Failed to start ingestion worker: {e}")
 
     def _set_import_status(self, status: str) -> None:
+        """Show/clear import progress on the MenuBar right side."""
         try:
-            self.query_one("#menu-bar", MenuBar).set_import_status(status)
+            menu = self.query_one("#menu-bar", MenuBar)
+            if status:
+                menu.show_progress(status)
+            else:
+                menu.clear_notification()
         except Exception:
             pass
 
     async def _poll_ingestion_jobs(self) -> None:
-        """Poll for completed ingestion jobs and notify user."""
+        """Poll for completed/failed/active ingestion jobs and update MenuBar."""
         try:
             from rag.ingestion_service import get_ingestion_service
             svc = get_ingestion_service()
@@ -553,10 +569,38 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
                     continue
                 self._reported_failed_jobs.add(jid)
                 title = job.get("title") or job.get("source", "")[:40]
-                error = job.get("last_error", "")[:60]
-                self.notify(f"匯入失敗：{title}（{error}）", severity="error")
-        except Exception:
-            pass
+                error = job.get("last_error", "")[:80]
+                self.notify(
+                    f"匯入失敗：{title}（{error}）",
+                    severity="error",
+                    timeout=15,
+                )
+
+            # Show progress spinner for active (queued/running) jobs
+            counts = await svc.count_active()
+            running = counts.get("running", 0)
+            queued = counts.get("queued", 0)
+            if running > 0 or queued > 0:
+                parts = []
+                if running:
+                    parts.append(f"建圖中 {running}")
+                if queued:
+                    parts.append(f"等候 {queued}")
+                try:
+                    menu = self.query_one("#menu-bar", MenuBar)
+                    menu.show_progress("  ".join(parts))
+                except Exception:
+                    pass
+            elif not completed and not failed:
+                # No active jobs and no new events — clear progress if showing
+                try:
+                    menu = self.query_one("#menu-bar", MenuBar)
+                    if menu._spinner_active:
+                        menu.clear_notification()
+                except Exception:
+                    pass
+        except Exception as e:
+            self.log.warning(f"Ingestion poll error: {e}")
 
     def action_quit(self) -> None:
         """Override quit to stop ingestion worker before exit."""
@@ -576,18 +620,23 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         Only checks installation status. The llama-server is started lazily
         on first embedding call.
         """
-        self._set_import_status("檢查Embedding環境…")
+        self._set_import_status("檢查 Embedding 環境…")
         try:
             from embeddings.service import get_embedding_service
             svc = get_embedding_service()
             diag = await asyncio.to_thread(svc.get_device_diagnostics)
+            from embeddings.service import EMBED_MODEL
             installed = diag.get("installed", False)
+            self._embed_ok = installed
+            self._embed_label = EMBED_MODEL if installed else "未安裝"
+            self._update_status()
             if installed:
-                self._set_import_status("Embedding環境就緒 (GGUF)")
+                self.notify("Embedding 環境就緒", severity="information", timeout=3)
             else:
-                self._set_import_status("Embedding環境未安裝")
-            self.set_timer(2.0, lambda: self._set_import_status(""))
+                self.notify("Embedding 環境未安裝", severity="warning", timeout=5)
         except Exception as e:
-            self._set_import_status("Embedding環境異常")
+            self._embed_ok = False
+            self._embed_label = "異常"
+            self._update_status()
             self.log.warning(f"Embedding diagnostics failed: {e}")
-            self.set_timer(4.0, lambda: self._set_import_status(""))
+            self.notify("Embedding 環境異常", severity="error", timeout=5)

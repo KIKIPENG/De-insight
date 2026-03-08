@@ -48,6 +48,11 @@ def _get_llm_config() -> tuple[str, str, str]:
         # Strip openai/ prefix — API endpoint expects bare model name
         if rag_model.startswith("openai/"):
             rag_model = rag_model.removeprefix("openai/")
+        # Google AI Studio: route to Google endpoint with GOOGLE_API_KEY
+        if rag_model.startswith("google/"):
+            rag_model = rag_model.removeprefix("google/")
+            rag_base = rag_base or "https://generativelanguage.googleapis.com/v1beta/openai"
+            rag_key = env.get("RAG_API_KEY", "") or env.get("GOOGLE_API_KEY", "")
         return rag_model, rag_key, rag_base
 
     model = env.get("LLM_MODEL", "ollama/llama3.2")
@@ -124,6 +129,7 @@ def _apply_env() -> None:
         "OPENAI_API_KEY", "OPENAI_API_BASE",
         "ANTHROPIC_API_KEY", "CODEX_API_KEY",
         "MINIMAX_API_KEY", "MINIMAX_API_BASE",
+        "GOOGLE_API_KEY",
     ):
         val = env.get(key, "")
         if val:
@@ -223,6 +229,7 @@ def get_rag(project_id: str = "default") -> LightRAG:
 
     # Configurable embedding timeout (default 180s, overridable via env)
     _embed_timeout = int(os.environ.get("LIGHTRAG_EMBEDDING_TIMEOUT", "180"))
+    _embed_max_async = int(os.environ.get("LIGHTRAG_EMBED_MAX_ASYNC", "2"))
 
     _rag_project_id = project_id
     _rag_instance = LightRAG(
@@ -238,7 +245,7 @@ def get_rag(project_id: str = "default") -> LightRAG:
         default_llm_timeout=600,
         default_embedding_timeout=_embed_timeout,
         llm_model_max_async=4,
-        embedding_func_max_async=1,
+        embedding_func_max_async=_embed_max_async,
         cosine_better_than_threshold=0.4,
         addon_params={
             "entity_types": ART_ENTITY_TYPES,

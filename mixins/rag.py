@@ -113,12 +113,28 @@ class RAGMixin:
     def _set_import_status(self, status: str) -> None:
         from widgets import MenuBar
         try:
-            self.query_one("#menu-bar", MenuBar).set_import_status(status)
+            menu = self.query_one("#menu-bar", MenuBar)
+            if status:
+                menu.show_progress(status)
+            else:
+                menu.clear_notification()
         except Exception:
             pass
 
+    @staticmethod
+    def _clean_file_path(path: str) -> str:
+        """Clean shell-escaped / URL-encoded file paths (spaces, quotes, file://)."""
+        from urllib.parse import unquote, urlparse
+        t = path.strip().strip("'\"")
+        if t.startswith("file://"):
+            t = unquote(urlparse(t).path)
+        if "%20" in t:
+            t = unquote(t)
+        t = t.replace("\\ ", " ")
+        return t
+
     @work(exclusive=True)
-    async def _do_import(self, source: str) -> None:
+    async def _do_import(self, source: str, title: str = "") -> None:
         import re as _re
         _pid = self.state.current_project["id"] if self.state.current_project else "default"
         source = source.strip()
@@ -137,10 +153,14 @@ class RAGMixin:
             source_type = "url"
         else:
             source_type = "pdf"
+            source = self._clean_file_path(source)
+            if not source.lower().endswith(".pdf"):
+                self.notify("僅支援 PDF 檔案", severity="warning", timeout=3)
+                return
 
         try:
             svc = self._get_ingestion_service()
-            await svc.submit(_pid, source, source_type)
+            await svc.submit(_pid, source, source_type, title=title)
             self.state.last_imported_source = source
             self.notify("已排入建圖佇列")
         except Exception as e:
@@ -225,7 +245,10 @@ class RAGMixin:
             if isinstance(result, tuple):
                 action, value = result
                 if action == "import":
-                    self._do_import(value)
+                    if isinstance(value, dict):
+                        self._do_import(value["source"], title=value.get("title", ""))
+                    else:
+                        self._do_import(value)
                 elif action == "import_text":
                     self._do_import_text(value)
                 elif action == "search":
