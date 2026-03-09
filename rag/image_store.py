@@ -156,30 +156,76 @@ AESTHETIC_ANALYSIS_PROMPT = """
 """
 
 
+def _resolve_vision_config() -> tuple[str, str, str]:
+    """解析 vision model 設定。回傳 (model, api_key, api_base)。
+
+    優先順序：
+    1. VISION_MODEL / VISION_API_KEY / VISION_API_BASE（獨立 vision 設定）
+    2. 非本地的 RAG_LLM_MODEL（跳過 ollama/ 等無 vision 的本地模型）
+    3. LLM_MODEL（主聊天模型）
+    4. 預設 gemini-2.5-flash（免費且支援 vision）
+    """
+    from settings import load_env
+    env = load_env()
+
+    # 1. 獨立 vision 設定
+    model = env.get("VISION_MODEL", "")
+    if model:
+        api_key = env.get("VISION_API_KEY", "") or env.get("GOOGLE_API_KEY", "")
+        api_base = env.get("VISION_API_BASE", "")
+    else:
+        # 2. RAG_LLM_MODEL（跳過本地模型，無 vision）
+        rag_model = env.get("RAG_LLM_MODEL", "")
+        if rag_model and not rag_model.startswith("ollama/"):
+            model = rag_model
+        else:
+            # 3. 主聊天模型
+            model = env.get("LLM_MODEL", "")
+        api_key = ""
+        api_base = ""
+
+    if not model:
+        return "", "", ""
+
+    # 解析 prefix → 正確的 api_base / api_key
+    if model.startswith("gemini/"):
+        model = model.removeprefix("gemini/")
+        api_base = api_base or "https://generativelanguage.googleapis.com/v1beta/openai"
+        api_key = api_key or env.get("GOOGLE_API_KEY", "")
+    elif model.startswith("google/"):
+        model = model.removeprefix("google/")
+        api_base = api_base or "https://generativelanguage.googleapis.com/v1beta/openai"
+        api_key = api_key or env.get("GOOGLE_API_KEY", "")
+    elif model.startswith("openai/"):
+        model = model.removeprefix("openai/")
+        api_base = api_base or env.get("OPENAI_API_BASE", "") or "https://api.openai.com/v1"
+        api_key = api_key or env.get("OPENAI_API_KEY", "") or env.get("OPENROUTER_API_KEY", "")
+    else:
+        api_base = (
+            api_base
+            or env.get("RAG_API_BASE", "")
+            or env.get("OPENAI_API_BASE", "")
+            or "https://api.openai.com/v1"
+        )
+        api_key = (
+            api_key
+            or env.get("RAG_API_KEY", "")
+            or env.get("OPENAI_API_KEY", "")
+            or env.get("OPENROUTER_API_KEY", "")
+        )
+
+    return model, api_key, api_base
+
+
 async def _auto_caption(image_bytes: bytes, filename: str = "") -> str:
     """用 vision LLM 自動生成圖片美學描述。失敗時回傳空字串。"""
     try:
         import httpx
-        from settings import load_env
-        env = load_env()
 
-        model = env.get("RAG_LLM_MODEL", "") or env.get("LLM_MODEL", "")
+        model, api_key, api_base = _resolve_vision_config()
         if not model:
+            log.warning("Auto-caption skipped: no vision model configured")
             return ""
-        # Strip openai/ prefix — API endpoint expects bare model name
-        if model.startswith("openai/"):
-            model = model.removeprefix("openai/")
-
-        api_key = (
-            env.get("RAG_API_KEY", "")
-            or env.get("OPENAI_API_KEY", "")
-            or env.get("OPENROUTER_API_KEY", "")
-        )
-        api_base = (
-            env.get("RAG_API_BASE", "")
-            or env.get("OPENAI_API_BASE", "")
-            or "https://api.openai.com/v1"
-        )
 
         # 圖片轉 base64
         b64 = base64.b64encode(image_bytes).decode()
@@ -245,28 +291,13 @@ async def describe_image_for_chat(
     image_path: str | Path,
     user_question: str = "",
 ) -> str:
-    """聊天時即時看圖描述。用 RAG LLM（需支援 vision）。失敗時回傳空字串。"""
+    """聊天時即時看圖描述。用 vision model。失敗時回傳空字串。"""
     try:
         import httpx
-        from settings import load_env
-        env = load_env()
 
-        model = env.get("RAG_LLM_MODEL", "") or env.get("LLM_MODEL", "")
+        model, api_key, api_base = _resolve_vision_config()
         if not model:
             return ""
-        if model.startswith("openai/"):
-            model = model.removeprefix("openai/")
-
-        api_key = (
-            env.get("RAG_API_KEY", "")
-            or env.get("OPENAI_API_KEY", "")
-            or env.get("OPENROUTER_API_KEY", "")
-        )
-        api_base = (
-            env.get("RAG_API_BASE", "")
-            or env.get("OPENAI_API_BASE", "")
-            or "https://api.openai.com/v1"
-        )
 
         img_path = Path(image_path)
         image_bytes = img_path.read_bytes()

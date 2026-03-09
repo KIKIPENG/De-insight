@@ -1,7 +1,7 @@
 """De-insight — Provider / Service 定義（從 settings.py 抽出）"""
 
 # ── Service definitions ──────────────────────────────────────────────
-# 三種服務：Chat LLM、Embedding、RAG LLM（知識庫抽取用）
+# 四種服務：Chat LLM、Embedding、RAG LLM、Vision LLM
 
 SERVICES = {
     "chat": {
