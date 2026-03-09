@@ -187,23 +187,35 @@ def _resolve_vision_config() -> tuple[str, str, str]:
     if not model:
         return "", "", ""
 
-    # 解析 prefix → 正確的 api_base / api_key
+    # If VISION_API_BASE is explicitly set (e.g. OpenRouter), the user chose a
+    # specific endpoint — keep the model ID as-is (OpenRouter needs the full
+    # "google/gemini-2.5-flash" identifier) and just fill in missing key.
+    if api_base:
+        if not api_key:
+            api_key = (
+                env.get("OPENROUTER_API_KEY", "")
+                or env.get("OPENAI_API_KEY", "")
+                or env.get("GOOGLE_API_KEY", "")
+            )
+        return model, api_key, api_base
+
+    # No explicit base — infer from model prefix
     if model.startswith("gemini/"):
         model = model.removeprefix("gemini/")
-        api_base = api_base or "https://generativelanguage.googleapis.com/v1beta/openai"
+        api_base = "https://generativelanguage.googleapis.com/v1beta/openai"
         api_key = api_key or env.get("GOOGLE_API_KEY", "")
     elif model.startswith("google/"):
+        # google/ prefix without explicit base → Google AI Studio
         model = model.removeprefix("google/")
-        api_base = api_base or "https://generativelanguage.googleapis.com/v1beta/openai"
+        api_base = "https://generativelanguage.googleapis.com/v1beta/openai"
         api_key = api_key or env.get("GOOGLE_API_KEY", "")
     elif model.startswith("openai/"):
         model = model.removeprefix("openai/")
-        api_base = api_base or env.get("OPENAI_API_BASE", "") or "https://api.openai.com/v1"
+        api_base = env.get("OPENAI_API_BASE", "") or "https://api.openai.com/v1"
         api_key = api_key or env.get("OPENAI_API_KEY", "") or env.get("OPENROUTER_API_KEY", "")
     else:
         api_base = (
-            api_base
-            or env.get("RAG_API_BASE", "")
+            env.get("RAG_API_BASE", "")
             or env.get("OPENAI_API_BASE", "")
             or "https://api.openai.com/v1"
         )
