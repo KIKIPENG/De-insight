@@ -2103,6 +2103,8 @@ class OnboardingScreen(ModalScreen[str | None]):
             await self._render_chat_setup(container)
         elif self._step == "embed":
             await self._render_embed(container)
+        elif self._step == "embed_setup":
+            await self._render_embed_setup(container)
         elif self._step == "embed_download":
             await self._render_embed_download(container)
         elif self._step == "rag_llm":
@@ -2186,16 +2188,46 @@ class OnboardingScreen(ModalScreen[str | None]):
             )
 
     async def _render_embed(self, container: Vertical) -> None:
+        from providers import EMBED_PROVIDERS
         await container.mount(
-            Static("  Step 2/5: Embedding Model (GGUF 本地)", classes="ob-title"),
+            Static("  Step 2/5: Embedding Model", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
-            Static("  使用 jina-embeddings-v4 GGUF 模型（Q4_K_M, 1024d，文字+圖片共用）", classes="ob-hint"),
-            Static("  首次需編譯 llama-server + 下載模型（約 3GB），之後離線可用", classes="ob-hint"),
-            Static("", id="ob-embed-status"),
+            Static("  選擇文字向量化的方式", classes="ob-hint"),
+            Static("", classes="ob-sep"),
+        )
+        for pid, pinfo in EMBED_PROVIDERS.items():
+            await container.mount(
+                Button(
+                    f"  {pinfo['label']}",
+                    id=f"ob-embed-provider-{pid}",
+                    classes="ob-prov-btn",
+                    name=pid,
+                )
+            )
+        await container.mount(
+            Horizontal(Button("<- 返回", id="btn-ob-back"), classes="ob-btn-row"),
+        )
+
+    async def _render_embed_setup(self, container: Vertical) -> None:
+        """Jina API Key 輸入步驟。"""
+        from settings import load_env
+        existing_key = load_env().get("JINA_API_KEY", "")
+        hint = "  已有 JINA_API_KEY（可直接下一步，或輸入新的）" if existing_key else "  請輸入 Jina API Key（到 https://jina.ai/ 免費取得）"
+        await container.mount(
+            Static("  Step 2/5: Jina Embedding API", classes="ob-title"),
+            Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
+            Static(hint, classes="ob-hint"),
+            Vertical(
+                Input(
+                    placeholder="jina_xxxx（留空則沿用現有）" if existing_key else "jina_xxxx",
+                    id="ob-key-input",
+                    password=True,
+                ),
+                id="ob-key-section",
+            ),
             Horizontal(
                 Button("<- 返回", id="btn-ob-back"),
-                Button("安裝 GGUF 環境", id="ob-embed-download"),
-                Button("已安裝，跳過 ->", id="ob-embed-skip"),
+                Button("儲存並繼續 ->", id="btn-ob-jina-save"),
                 classes="ob-btn-row",
             ),
         )
@@ -2530,6 +2562,8 @@ class OnboardingScreen(ModalScreen[str | None]):
                 self._step = "chat_provider"
             elif self._step == "embed":
                 self._step = "chat_provider"
+            elif self._step == "embed_setup":
+                self._step = "embed"
             elif self._step == "rag_llm":
                 self._step = "embed"
             elif self._step == "rag_setup":
@@ -2541,7 +2575,32 @@ class OnboardingScreen(ModalScreen[str | None]):
             await self._render_step()
             return
 
-        # Step 2: embed — download or skip
+        # Step 2: embed provider selection
+        if btn_id.startswith("ob-embed-provider-"):
+            embed_pid = btn_name
+            if embed_pid == "jina-api":
+                self._selected_embed_pid = "jina-api"
+                self._step = "embed_setup"
+                await self._render_step()
+                return
+            elif embed_pid == "gguf":
+                from settings import save_env_key
+                save_env_key("EMBED_PROVIDER", "gguf")
+                save_env_key("EMBED_MODEL", "jina-embeddings-v4-gguf")
+                save_env_key("EMBED_DIM", "1024")
+                save_env_key("GGUF_AUTO_INSTALL", "1")
+                self._step = "embed_download"
+                await self._render_step()
+                return
+
+        # Step 2: Jina API key save
+        if btn_id == "btn-ob-jina-save":
+            await self._save_jina_config()
+            self._step = "rag_llm"
+            await self._render_step()
+            return
+
+        # Step 2: embed — download or skip (GGUF path)
         if btn_id == "ob-embed-download":
             from settings import save_env_key
             save_env_key("EMBED_PROVIDER", "gguf")
@@ -2635,5 +2694,19 @@ class OnboardingScreen(ModalScreen[str | None]):
         # v0.7: 統一 jina-embeddings-v4，此方法僅作向後相容
         from settings import save_env_key
         save_env_key("EMBED_PROVIDER", "jina")
-        save_env_key("EMBED_MODEL", "jina-embeddings-v4")
+        save_env_key("EMBED_MODEL", "jina-embeddings-v3")
+        save_env_key("EMBED_DIM", "1024")
+
+    async def _save_jina_config(self) -> None:
+        """儲存 Jina API 設定。"""
+        from settings import save_env_key
+        try:
+            key_input = self.query_one("#ob-key-input", Input)
+            key_val = key_input.value.strip()
+            if key_val:
+                save_env_key("JINA_API_KEY", key_val)
+        except Exception:
+            pass
+        save_env_key("EMBED_PROVIDER", "jina")
+        save_env_key("EMBED_MODEL", "jina-embeddings-v3")
         save_env_key("EMBED_DIM", "1024")

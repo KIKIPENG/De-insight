@@ -72,6 +72,16 @@ CHAT_PROVIDERS = {
 # ── Embedding providers ──
 
 EMBED_PROVIDERS = {
+    "jina-api": {
+        "label": "Jina Embedding API（推薦，免安裝）",
+        "models": ["jina-embeddings-v3"],
+        "key_env": "JINA_API_KEY",
+        "base_env": "",
+        "default_base": "",
+        "auth_type": "api_key",
+        "dims": {"jina-embeddings-v3": 1024},
+        "env_extras": {},
+    },
     "gguf": {
         "label": "jina-embeddings-v4 GGUF (本地 llama-server)",
         "models": ["jina-embeddings-v4-gguf"],

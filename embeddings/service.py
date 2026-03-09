@@ -34,19 +34,14 @@ EMBED_MODEL = "jina-embeddings-v4-gguf"
 _SIGNATURE_FILE = "embed_provider_signature.json"
 
 
-def _enforce_local_only() -> None:
-    """Phase A: 強制 GGUF 本地 embedding，禁止任何雲端 fallback。
+def _default_provider() -> str:
+    """決定預設 embedding provider。
 
-    偵測 remote embedding 設定即啟動失敗。
+    有 JINA_API_KEY 就用 jina（輕量、免安裝），否則用 gguf（本地）。
     """
-    if os.environ.get("EMBEDDING_LOCAL_ONLY", "1") != "1":
-        return
-    provider = os.environ.get("EMBED_PROVIDER", "gguf").lower()
-    if provider not in ("gguf", "local", ""):
-        raise RuntimeError(
-            f"EMBEDDING_LOCAL_ONLY=1 但偵測到 remote embedding provider: '{provider}'。"
-            " Phase A 只允許 GGUF 本地 embedding。"
-        )
+    if os.environ.get("JINA_API_KEY", ""):
+        return "jina"
+    return "gguf"
 
 
 def get_embedding_service() -> EmbeddingService:
@@ -86,22 +81,35 @@ class EmbeddingService:
         return self._backend
 
     def _init_backend(self) -> None:
-        """初始化 GGUF 後端（lazy, thread-safe）。"""
-        _enforce_local_only()
+        """初始化 embedding 後端（lazy, thread-safe）。"""
         with self._init_lock:
             if self._backend is not None:
                 return
-            from embeddings.gguf_backend import GGUFMultimodalBackend
-            from embeddings.llama_server import LlamaServerManager
-
-            mgr = LlamaServerManager()
-            self._backend = GGUFMultimodalBackend(
-                base_url=mgr.base_url,
-                dim=int(os.environ.get("GGUF_EMBED_DIM", str(EMBED_DIM))),
-            )
+            provider = os.environ.get("EMBED_PROVIDER", _default_provider()).lower()
+            if provider in ("jina", "jina-api"):
+                from embeddings.jina_backend import JinaAPIBackend
+                self._backend = JinaAPIBackend(
+                    dim=int(os.environ.get("GGUF_EMBED_DIM", str(EMBED_DIM))),
+                )
+                self._provider_type = "jina"
+                log.info("Using Jina API embedding backend")
+            else:
+                from embeddings.gguf_backend import GGUFMultimodalBackend
+                from embeddings.llama_server import LlamaServerManager
+                mgr = LlamaServerManager()
+                self._backend = GGUFMultimodalBackend(
+                    base_url=mgr.base_url,
+                    dim=int(os.environ.get("GGUF_EMBED_DIM", str(EMBED_DIM))),
+                )
+                self._provider_type = "gguf"
+                log.info("Using GGUF local embedding backend")
 
     def ensure_server_running(self) -> None:
-        """確保 llama-server 在跑。Fail-fast，不回退。"""
+        """確保 embedding 後端就緒。
+
+        Jina API: 只需確認 backend 已初始化。
+        GGUF: 確保 llama-server 在跑。
+        """
         if self._server_started:
             return
 
@@ -109,18 +117,28 @@ class EmbeddingService:
             if self._server_started:
                 return
 
+            # 確保 backend 已初始化
+            if self._backend is None:
+                self._init_backend()
+
+            # Jina API 不需要本地 server
+            provider_type = getattr(self, "_provider_type", "gguf")
+            if provider_type == "jina":
+                self._server_started = True
+                log.info("Jina API backend ready (no local server needed)")
+                return
+
+            # GGUF: 啟動 llama-server
             from embeddings.llama_server import LlamaServerManager
             from embeddings.gguf_installer import GGUFInstaller
 
             mgr = LlamaServerManager()
 
-            # 如果已經在跑（可能是上次的），檢查健康
             if mgr.is_running and mgr.health_check():
                 self._server_started = True
                 log.info("llama-server already healthy")
                 return
 
-            # 確保已安裝
             installer = GGUFInstaller()
             if not installer.is_fully_installed():
                 auto_install = os.environ.get("GGUF_AUTO_INSTALL", "1") == "1"
@@ -132,7 +150,6 @@ class EmbeddingService:
                 log.info("Auto-installing GGUF environment...")
                 installer.install()
 
-            # 啟動 server
             mgr.start(
                 model_path=installer.model_path,
                 mmproj_path=installer.mmproj_path,
