@@ -153,6 +153,7 @@ chmod +x "$LAUNCHER"
 ok "啟動器已安裝到 $LAUNCHER"
 
 # ── 檢查 PATH ───────────────────────────────────────────
+NEED_SOURCE=false
 if [[ ":$PATH:" != *":$BIN_DIR:"* ]]; then
     # 偵測 shell
     SHELL_NAME=$(basename "${SHELL:-/bin/bash}")
@@ -168,13 +169,23 @@ if [[ ":$PATH:" != *":$BIN_DIR:"* ]]; then
         PATH_LINE='set -gx PATH $HOME/.local/bin $PATH'
     fi
 
-    if ! grep -qF '.local/bin' "$RC_FILE" 2>/dev/null; then
+    # 用更精確的 pattern 檢查，避免被註解或不相關的行誤判
+    if [ "$SHELL_NAME" = "fish" ]; then
+        GREP_PATTERN='set.*PATH.*\.local/bin'
+    else
+        GREP_PATTERN='export PATH=.*\.local/bin'
+    fi
+
+    if ! grep -qE "$GREP_PATTERN" "$RC_FILE" 2>/dev/null; then
         echo "" >> "$RC_FILE"
         echo "# De-insight" >> "$RC_FILE"
         echo "$PATH_LINE" >> "$RC_FILE"
-        warn "已將 ~/.local/bin 加入 $RC_FILE，請重新開啟終端或執行："
-        echo "  source $RC_FILE"
+        ok "已將 ~/.local/bin 加入 $RC_FILE"
     fi
+
+    # 立即在當前 session 生效
+    export PATH="$BIN_DIR:$PATH"
+    NEED_SOURCE=true
 fi
 
 # ── 建立 .env（如果不存在）──────────────────────────────
@@ -193,8 +204,13 @@ fi
 echo ""
 printf "${BOLD}${GREEN}De-insight 安裝完成！${NC}\n"
 echo ""
+if [ "$NEED_SOURCE" = true ]; then
+    warn "首次安裝需要重新開啟終端，或執行："
+    echo "  source ~/${RC_FILE##*/}"
+    echo ""
+fi
 echo "  啟動：      de-insight"
 echo "  設定 API：  \$EDITOR ~/.deinsight/app/.env"
-echo "  更新：      curl -fsSL https://raw.githubusercontent.com/KIKIPENG/De-insight/main/install.sh | bash"
-echo "  解除安裝：  rm -rf ~/.deinsight ~/.local/bin/de-insight"
+echo "  更新：      de-insight --update"
+echo "  解除安裝：  de-insight --uninstall"
 echo ""
