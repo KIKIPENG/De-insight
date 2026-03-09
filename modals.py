@@ -120,17 +120,6 @@ class ProjectModal(ModalScreen):
         elif event.button.has_class("back-btn"):
             self.dismiss(None)
 
-    def on_static_click(self, event: Static.Click) -> None:
-        """Click on a project entry to switch."""
-        widget = event.widget if hasattr(event, 'widget') else event.static
-        if not hasattr(widget, 'name') or not widget.name:
-            return
-        pid = widget.name
-        for p in self._projects:
-            if p["id"] == pid:
-                self.dismiss(("switch", p))
-                return
-
     def on_click(self, event) -> None:
         # Find if clicked on a proj-entry Static
         widget = event.widget if hasattr(event, 'widget') else None
