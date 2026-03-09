@@ -450,14 +450,90 @@ async def _post_verify_insert(project_id: str) -> str:
     return ""
 
 
-async def insert_text(text: str, source: str = "", project_id: str = "default") -> str:
+# ── Progress Tracker ─────────────────────────────────────────────────
+
+class _ProgressTracker:
+    """Wraps LightRAG's llm_model_func to count LLM calls and update job progress in DB."""
+
+    def __init__(self, rag: LightRAG, estimated_chunks: int, job_id: str, db_path: Path):
+        self._rag = rag
+        self._job_id = job_id
+        self._db_path = db_path
+        self._estimated_chunks = max(estimated_chunks, 1)
+        self._calls = 0
+        self._original_func = rag.llm_model_func
+        self._started_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Wrap the LLM function
+        original = self._original_func
+        tracker = self
+
+        async def _counting_llm(*args, **kwargs):
+            result = await original(*args, **kwargs)
+            tracker._calls += 1
+            # Update DB every few calls (avoid excessive writes)
+            if tracker._calls % 2 == 0 or tracker._calls >= tracker._estimated_chunks:
+                await tracker._write_progress()
+            return result
+
+        rag.llm_model_func = _counting_llm
+
+    async def _write_progress(self):
+        try:
+            from rag.job_repository import JobRepository
+            repo = JobRepository(self._db_path)
+            await repo.update_progress(
+                self._job_id,
+                chunks_done=min(self._calls, self._estimated_chunks),
+                chunks_total=self._estimated_chunks,
+                started_at=self._started_at,
+            )
+        except Exception:
+            pass
+
+    async def finish(self):
+        """Restore original func and write 100% progress."""
+        self._rag.llm_model_func = self._original_func
+        self._calls = self._estimated_chunks
+        await self._write_progress()
+
+
+def _estimate_chunks(text: str) -> int:
+    """Estimate how many chunks LightRAG will create from the text."""
+    chunk_token_size = int(os.environ.get("LIGHTRAG_CHUNK_TOKEN_SIZE", "2400"))
+    # Rough estimate: 1 token ≈ 2 chars for Chinese, 4 chars for English
+    # Use 3 as average
+    chars_per_chunk = chunk_token_size * 3
+    return max(1, len(text) // chars_per_chunk)
+
+
+def _install_progress_tracker(rag: LightRAG, text: str, job_id: str | None) -> _ProgressTracker | None:
+    """Install a progress tracker on the RAG instance if job_id is provided."""
+    if not job_id:
+        return None
+    estimated = _estimate_chunks(text)
+    return _ProgressTracker(rag, estimated, job_id, _get_jobs_db_path())
+
+
+def _get_jobs_db_path() -> Path:
+    from paths import DATA_ROOT
+    return DATA_ROOT / "ingest_jobs.db"
+
+
+from datetime import datetime
+
+async def insert_text(text: str, source: str = "", project_id: str = "default", job_id: str | None = None) -> str:
     """插入文字到知識庫。回傳警告訊息（空字串表示完全成功）。"""
     rag = await _ensure_initialized(project_id=project_id)
     await _clear_failed(rag)
     doc = text
     if source:
         doc = f"[來源: {source}]\n\n{text}"
+
+    tracker = _install_progress_tracker(rag, doc, job_id) if job_id else None
     await rag.ainsert(doc)
+    if tracker:
+        await tracker.finish()
     warning = await _flush_and_check(rag, 0, context=source or "text")
     # C1: Post-verify
     pv_warning = await _post_verify_insert(project_id)
@@ -466,7 +542,7 @@ async def insert_text(text: str, source: str = "", project_id: str = "default") 
     return warning
 
 
-async def insert_pdf(path: str, project_id: str = "default", title: str = "", on_progress=None) -> dict:
+async def insert_pdf(path: str, project_id: str = "default", title: str = "", on_progress=None, job_id: str | None = None) -> dict:
     """匯入 PDF，回傳 {"title": str, "page_count": int, "file_size": int, "saved_path": str}。"""
     import re as _re
     try:
@@ -503,7 +579,10 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
     rag = await _ensure_initialized(project_id=project_id)
     await _clear_failed(rag)
     full_text = "\n\n---\n\n".join(chunks)
+    tracker = _install_progress_tracker(rag, full_text, job_id) if job_id else None
     await rag.ainsert(full_text)
+    if tracker:
+        await tracker.finish()
     warning = await _flush_and_check(rag, 0, context=display_name)
     # C1: Post-verify
     pv_warning = await _post_verify_insert(project_id)

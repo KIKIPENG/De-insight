@@ -34,6 +34,7 @@ class PdfIngestHandler(SourceHandler):
             job["source"],
             project_id=job["project_id"],
             title=job.get("title", ""),
+            job_id=job.get("id"),
         )
         return IngestResult(
             title=meta["title"],
@@ -71,7 +72,7 @@ class TextIngestHandler(SourceHandler):
         payload = json.loads(job.get("payload_json", "{}"))
         content = payload.get("content", "")
         title = job.get("title", "") or "手動貼上文獻"
-        warning = await insert_text(content, source=title, project_id=job["project_id"])
+        warning = await insert_text(content, source=title, project_id=job["project_id"], job_id=job.get("id"))
         return IngestResult(
             title=title,
             warning=warning or "",
@@ -113,7 +114,7 @@ class TxtFileIngestHandler(SourceHandler):
             content = f.read()
         if not content.strip():
             raise ValueError(f"檔案內容為空: {path}")
-        warning = await insert_text(content, source=title, project_id=job["project_id"])
+        warning = await insert_text(content, source=title, project_id=job["project_id"], job_id=job.get("id"))
         return IngestResult(
             title=title,
             warning=warning or "",

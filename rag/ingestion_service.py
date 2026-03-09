@@ -145,6 +145,10 @@ class IngestionService:
         """Return {'queued': N, 'running': N} for active jobs."""
         return await self._repo.count_active()
 
+    async def get_active_progress(self) -> list[dict]:
+        """Return all active jobs with progress info for UI display."""
+        return await self._repo.get_active_jobs()
+
     async def get_job(self, job_id: str) -> dict | None:
         return await self._repo.get_job(job_id)
 

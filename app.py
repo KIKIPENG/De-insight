@@ -521,7 +521,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
             svc = get_ingestion_service()
             await svc.ensure_table()
             svc.ensure_worker_running()
-            self._ingestion_poll_timer = self.set_interval(5.0, self._poll_ingestion_jobs)
+            self._ingestion_poll_timer = self.set_interval(3.0, self._poll_ingestion_jobs)
         except Exception as e:
             self.log.warning(f"Failed to start ingestion worker: {e}")
 
@@ -571,19 +571,52 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
                     timeout=15,
                 )
 
-            # Show progress spinner for active (queued/running) jobs
-            counts = await svc.count_active()
-            running = counts.get("running", 0)
-            queued = counts.get("queued", 0)
-            if running > 0 or queued > 0:
-                parts = []
-                if running:
-                    parts.append(f"建圖中 {running}")
-                if queued:
-                    parts.append(f"等候 {queued}")
+            # Show real progress for active jobs
+            active_jobs = await svc.get_active_progress()
+            running_jobs = [j for j in active_jobs if j.get("status") == "running"]
+            queued_jobs = [j for j in active_jobs if j.get("status") == "queued"]
+            if running_jobs:
+                job = running_jobs[0]  # Show first running job
+                pct = job.get("progress_pct", 0) or 0
+                chunks_done = job.get("chunks_done", 0) or 0
+                chunks_total = job.get("chunks_total", 0) or 0
+                title = (job.get("title") or job.get("source", ""))[:20]
+
+                # Calculate ETA from started_at
+                eta_str = ""
+                started_at = job.get("started_at")
+                if started_at and pct > 2:
+                    try:
+                        from datetime import datetime
+                        start = datetime.strptime(started_at, "%Y-%m-%d %H:%M:%S")
+                        elapsed = (datetime.now() - start).total_seconds()
+                        if elapsed > 0 and pct < 100:
+                            remaining = elapsed * (100 - pct) / pct
+                            if remaining > 60:
+                                eta_str = f"  ~{int(remaining // 60)}m{int(remaining % 60):02d}s"
+                            else:
+                                eta_str = f"  ~{int(remaining)}s"
+                    except Exception:
+                        pass
+
+                if chunks_total > 0:
+                    msg = f"建圖 {title} {chunks_done}/{chunks_total}{eta_str}"
+                else:
+                    msg = f"建圖 {title}…"
+
+                progress_float = pct / 100.0 if chunks_total > 0 else -1.0
+                if len(queued_jobs) > 0:
+                    msg += f"  +{len(queued_jobs)}等候"
+
                 try:
                     menu = self.query_one("#menu-bar", MenuBar)
-                    menu.show_progress("  ".join(parts))
+                    menu.show_progress(msg, progress_float)
+                except Exception:
+                    pass
+            elif queued_jobs:
+                try:
+                    menu = self.query_one("#menu-bar", MenuBar)
+                    menu.show_progress(f"等候建圖 {len(queued_jobs)} 件")
                 except Exception:
                     pass
             elif not completed and not failed:

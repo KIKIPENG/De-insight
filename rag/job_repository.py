@@ -55,6 +55,10 @@ class JobRepository:
                 ("title", "TEXT DEFAULT ''"),
                 ("payload_json", "TEXT DEFAULT '{}'"),
                 ("result_json", "TEXT DEFAULT '{}'"),
+                ("progress_pct", "REAL DEFAULT 0"),
+                ("chunks_total", "INTEGER DEFAULT 0"),
+                ("chunks_done", "INTEGER DEFAULT 0"),
+                ("started_at", "TEXT DEFAULT NULL"),
             ]
             for col_name, col_sql in add_columns:
                 if col_name in columns:
@@ -172,6 +176,46 @@ class JobRepository:
                 (status, last_error, next_retry_at, job_id),
             )
             await db.commit()
+
+    async def update_progress(
+        self,
+        job_id: str,
+        chunks_done: int,
+        chunks_total: int,
+        started_at: str | None = None,
+    ) -> None:
+        """Update real-time progress for a running job."""
+        pct = (chunks_done / chunks_total * 100) if chunks_total > 0 else 0
+        async with aiosqlite.connect(self._db_path, timeout=15) as db:
+            if started_at:
+                await db.execute(
+                    """UPDATE ingest_jobs
+                       SET progress_pct = ?, chunks_done = ?, chunks_total = ?,
+                           started_at = ?,
+                           updated_at = datetime('now','localtime')
+                       WHERE id = ?""",
+                    (pct, chunks_done, chunks_total, started_at, job_id),
+                )
+            else:
+                await db.execute(
+                    """UPDATE ingest_jobs
+                       SET progress_pct = ?, chunks_done = ?, chunks_total = ?,
+                           updated_at = datetime('now','localtime')
+                       WHERE id = ?""",
+                    (pct, chunks_done, chunks_total, job_id),
+                )
+            await db.commit()
+
+    async def get_active_jobs(self) -> list[dict]:
+        """Return all running jobs with progress info."""
+        async with aiosqlite.connect(self._db_path, timeout=15) as db:
+            db.row_factory = aiosqlite.Row
+            async with db.execute(
+                """SELECT * FROM ingest_jobs
+                   WHERE status IN ('queued', 'running')
+                   ORDER BY created_at ASC"""
+            ) as cur:
+                return [dict(r) for r in await cur.fetchall()]
 
     async def update_result(self, job_id: str, result_json: str) -> None:
         """Store structured result data on the job row."""
