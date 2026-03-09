@@ -390,6 +390,27 @@ nav span:last-child { text-align: right; }
 }
 .del-btn:hover { color: var(--danger); }
 
+/* ── DROP ZONE ── */
+.drop-zone {
+  border-bottom: 1px solid var(--rule);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: var(--gray);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  cursor: pointer;
+}
+.drop-zone:hover {
+  color: var(--text);
+  background: #111111;
+}
+.drop-zone.dragover {
+  background: #1a1a1a;
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
 /* ── EMPTY STATE ── */
 .empty-state {
   grid-column: 1 / -1;
@@ -574,6 +595,14 @@ nav span:last-child { text-align: right; }
     </div>
   </div>
 </div>
+
+<!-- ── DROP ZONE ── -->
+<div class="drop-zone" id="dropZone"
+     onclick="document.getElementById('dropFileInput').click()">
+  drop images here — or click to browse
+</div>
+<input type="file" id="dropFileInput" accept="image/*" multiple
+       style="display:none" onchange="handleDropFiles(this.files)" />
 
 <!-- ── GRID HEADER ── -->
 <div class="grid-header">
@@ -848,9 +877,8 @@ async function processOrphans() {
 
 // ── Delete ──
 
-/** Delete a single image by ID after confirmation. */
+/** Delete a single image by ID. */
 async function deleteImage(id) {
-  if (!confirm('delete this image?')) return;
   try {
     await fetch(`${API}/images/${id}`, { method: 'DELETE' });
     toast('deleted');
@@ -989,6 +1017,50 @@ function toast(msg) {
 function showLoading(on) {
   document.getElementById('loadingOverlay').classList.toggle('show', on);
   if (!on) document.getElementById('loadingText').textContent = 'processing...';
+}
+
+
+// ── Drag & drop ──
+
+const dropZone = document.getElementById('dropZone');
+
+dropZone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropZone.classList.add('dragover');
+});
+dropZone.addEventListener('dragleave', () => {
+  dropZone.classList.remove('dragover');
+});
+dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  const files = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/'));
+  if (files.length) handleDropFiles(files);
+  else toast('no image files detected');
+});
+
+/** Upload files dropped or selected via the drop zone. */
+async function handleDropFiles(fileList) {
+  const files = Array.from(fileList).filter(f => f.type.startsWith('image/'));
+  if (!files.length) return;
+
+  const form = new FormData();
+  files.forEach(f => form.append('files', f));
+
+  showLoading(true);
+  try {
+    const r    = await fetch(`${API}/images/upload`, { method: 'POST', body: form });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      const detail = data?.detail?.message || data?.detail || 'upload failed';
+      throw new Error(typeof detail === 'string' ? detail : JSON.stringify(detail));
+    }
+    toast(`${data.saved} file(s) saved, indexing...`);
+    pollProcessing();
+  } catch (e) {
+    toast('upload failed: ' + e.message);
+    showLoading(false);
+  }
 }
 
 
