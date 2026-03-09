@@ -504,7 +504,7 @@ class _ProgressTracker:
         """Derive chunks_done from module-level LLM call counter."""
         llm_delta = _progress_llm_calls - self._llm_base
         # Each chunk triggers ≈1 LLM call for entity extraction
-        return min(llm_delta, self._estimated_chunks)
+        return max(0, min(llm_delta, self._estimated_chunks))
 
     async def _write_to_db(self, chunks_done: int):
         try:
@@ -565,9 +565,11 @@ async def insert_text(text: str, source: str = "", project_id: str = "default", 
         doc = f"[來源: {source}]\n\n{text}"
 
     tracker = await _install_progress_tracker(doc, job_id)
-    await rag.ainsert(doc)
-    if tracker:
-        await tracker.finish()
+    try:
+        await rag.ainsert(doc)
+    finally:
+        if tracker:
+            await tracker.finish()
     warning = await _flush_and_check(rag, 0, context=source or "text")
     # C1: Post-verify
     pv_warning = await _post_verify_insert(project_id)
@@ -614,9 +616,11 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
     await _clear_failed(rag)
     full_text = "\n\n---\n\n".join(chunks)
     tracker = await _install_progress_tracker(full_text, job_id)
-    await rag.ainsert(full_text)
-    if tracker:
-        await tracker.finish()
+    try:
+        await rag.ainsert(full_text)
+    finally:
+        if tracker:
+            await tracker.finish()
     warning = await _flush_and_check(rag, 0, context=display_name)
     # C1: Post-verify
     pv_warning = await _post_verify_insert(project_id)

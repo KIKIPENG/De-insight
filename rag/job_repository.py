@@ -185,7 +185,7 @@ class JobRepository:
         started_at: str | None = None,
     ) -> None:
         """Update real-time progress for a running job."""
-        pct = (chunks_done / chunks_total * 100) if chunks_total > 0 else 0
+        pct = min(chunks_done / chunks_total * 100, 100.0) if chunks_total > 0 else 0
         async with aiosqlite.connect(self._db_path, timeout=15) as db:
             if started_at:
                 await db.execute(

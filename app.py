@@ -615,7 +615,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
                 else:
                     msg = f"建圖 {title} 準備中…"
 
-                progress_float = pct / 100.0 if chunks_total > 0 else -1.0
+                progress_float = min(pct / 100.0, 1.0) if chunks_total > 0 else -1.0
                 if len(queued_jobs) > 0:
                     msg += f"  +{len(queued_jobs)}等候"
 

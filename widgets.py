@@ -545,9 +545,10 @@ class MenuBar(Static):
             if 0 <= self._notify_progress <= 1:
                 # Determinate: [████░░░░░░░░] 33%
                 text.append(" ", style="")
-                filled = int(self._notify_progress * self._BAR_WIDTH)
+                clamped = max(0.0, min(self._notify_progress, 1.0))
+                filled = int(clamped * self._BAR_WIDTH)
                 empty = self._BAR_WIDTH - filled
-                pct = int(self._notify_progress * 100)
+                pct = int(clamped * 100)
                 text.append("[", style="#484f58")
                 text.append("█" * filled, style="#d4a27a")
                 text.append("░" * empty, style="#2a2a2a")
