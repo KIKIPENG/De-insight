@@ -19,6 +19,11 @@ SERVICES = {
         "desc": "知識圖譜實體抽取用",
         "env_model": "RAG_LLM_MODEL",
     },
+    "vision": {
+        "label": "Vision 模型",
+        "desc": "圖片描述 / Caption 用",
+        "env_model": "VISION_MODEL",
+    },
 }
 
 # ── Chat LLM providers ──

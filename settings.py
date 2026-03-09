@@ -10,7 +10,8 @@ from textual.screen import ModalScreen
 from textual.widgets import Button, Input, Label, Static
 
 from providers import (
-    SERVICES, CHAT_PROVIDERS, EMBED_PROVIDERS, RAG_LLM_PROVIDERS, PROVIDERS,
+    SERVICES, CHAT_PROVIDERS, EMBED_PROVIDERS, RAG_LLM_PROVIDERS,
+    VISION_PROVIDERS, PROVIDERS,
 )
 
 ENV_PATH = Path(__file__).resolve().parent / ".env"
@@ -85,6 +86,9 @@ def _get_service_status(env: dict) -> dict[str, str]:
     # RAG LLM
     rag_model = env.get("RAG_LLM_MODEL", "")
     status["rag_llm"] = rag_model if rag_model else "(跟聊天模型相同)"
+    # Vision
+    vision_model = env.get("VISION_MODEL", "")
+    status["vision"] = vision_model if vision_model else "(未設定)"
     return status
 
 
@@ -190,6 +194,8 @@ class SettingsScreen(ModalScreen[str | None]):
             return EMBED_PROVIDERS
         elif self._active_service == "rag_llm":
             return RAG_LLM_PROVIDERS
+        elif self._active_service == "vision":
+            return VISION_PROVIDERS
         return CHAT_PROVIDERS
 
     def compose(self) -> ComposeResult:
@@ -393,6 +399,16 @@ class SettingsScreen(ModalScreen[str | None]):
         providers = self._get_providers()
         pinfo = providers[pid]
 
+        # Special: "skip-vision"
+        if pid == "skip-vision":
+            self._env.pop("VISION_MODEL", None)
+            self._env.pop("VISION_API_KEY", None)
+            self._env.pop("VISION_API_BASE", None)
+            save_env(self._env)
+            self.notify("Vision 模型已跳過")
+            self._goto_services()
+            return
+
         # Special: "same-as-chat"
         if pid == "same-as-chat":
             self._env.pop("RAG_LLM_MODEL", None)
@@ -432,6 +448,8 @@ class SettingsScreen(ModalScreen[str | None]):
             current = self._env.get("EMBED_MODEL", "")
         elif self._active_service == "rag_llm":
             current = self._env.get("RAG_LLM_MODEL", "")
+        elif self._active_service == "vision":
+            current = self._env.get("VISION_MODEL", "")
         else:
             current = ""
 
@@ -551,6 +569,8 @@ class SettingsScreen(ModalScreen[str | None]):
             self._save_embed_model(pid, model_name, pinfo)
         elif self._active_service == "rag_llm":
             self._save_rag_model(pid, model_name, full_id, pinfo)
+        elif self._active_service == "vision":
+            self._save_vision_model(pid, model_name, full_id, pinfo)
 
         save_env(self._env)
         self.notify(f"已設定: {model_name}")
@@ -622,6 +642,16 @@ class SettingsScreen(ModalScreen[str | None]):
             reset_rag()
         except Exception:
             pass
+
+    def _save_vision_model(self, pid, model_name, full_id, pinfo):
+        self._env["VISION_MODEL"] = full_id
+        if pinfo.get("key_env"):
+            self._env["VISION_API_KEY"] = self._env.get(pinfo["key_env"], "")
+        base = pinfo.get("default_base", "")
+        if base:
+            self._env["VISION_API_BASE"] = base
+        else:
+            self._env.pop("VISION_API_BASE", None)
 
     # ── OAuth ──
 
