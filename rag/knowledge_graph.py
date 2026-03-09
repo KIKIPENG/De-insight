@@ -647,7 +647,7 @@ async def _fetch_with_jina_reader(url: str, timeout: float = 30.0, reader_base: 
         raise RuntimeError(f"Jina Reader 連線失敗: {e}") from e
 
 
-async def insert_url(url: str, project_id: str = "default", title: str = "", on_progress=None) -> dict:
+async def insert_url(url: str, project_id: str = "default", title: str = "", on_progress=None, job_id: str | None = None) -> dict:
     """Fetch a URL and insert its content. 回傳 {"title": str, "page_count": 0, "file_size": int, "fetch_method": str}。"""
     import httpx
     import re
@@ -685,7 +685,7 @@ async def insert_url(url: str, project_id: str = "default", title: str = "", on_
         tmp_path = str(tmp_dir / f"{url_filename}.pdf")
         Path(tmp_path).write_bytes(resp.content)
         try:
-            result = await insert_pdf(tmp_path, project_id=project_id, title=title, on_progress=on_progress)
+            result = await insert_pdf(tmp_path, project_id=project_id, title=title, on_progress=on_progress, job_id=job_id)
             result["fetch_method"] = "pdf"
             return result
         finally:
@@ -741,7 +741,7 @@ async def insert_url(url: str, project_id: str = "default", title: str = "", on_
 
     if on_progress:
         on_progress("正在建構知識圖譜…")
-    warning = await insert_text(text, source=source, project_id=project_id)
+    warning = await insert_text(text, source=source, project_id=project_id, job_id=job_id)
     result = {"title": source, "page_count": 0, "file_size": file_size, "fetch_method": fetch_method}
     if warning:
         result["warning"] = warning
@@ -767,12 +767,12 @@ async def resolve_doi(doi: str) -> str:
         return best.get("url_for_pdf", "") or best.get("url", "") or ""
 
 
-async def insert_doi(doi: str, project_id: str = "default", title: str = "") -> dict:
+async def insert_doi(doi: str, project_id: str = "default", title: str = "", job_id: str | None = None) -> dict:
     """解析 DOI → 取得 PDF URL → insert_url()。找不到 open access 時 raise。"""
     pdf_url = await resolve_doi(doi)
     if not pdf_url:
         raise RuntimeError(f"找不到 open access 版本：{doi}")
-    return await insert_url(pdf_url, project_id=project_id, title=title)
+    return await insert_url(pdf_url, project_id=project_id, title=title, job_id=job_id)
 
 
 async def query_knowledge(question: str, mode: str = "naive", context_only: bool = True, project_id: str | None = None, chunk_top_k: int = 5) -> tuple[str, list[dict]]:

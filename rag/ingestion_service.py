@@ -61,6 +61,9 @@ class IngestionService:
         if self._worker is not None and self._worker.poll() is None:
             return  # still alive
 
+        # Kill orphan workers from previous sessions
+        self._kill_orphan_workers()
+
         project_root = Path(__file__).resolve().parent.parent
         env = {**os.environ, "PYTHONPATH": str(project_root)}
 
@@ -70,6 +73,24 @@ class IngestionService:
             cwd=str(project_root),
         )
         log.info("Started ingestion worker (pid=%d)", self._worker.pid)
+
+    def _kill_orphan_workers(self) -> None:
+        """Kill any leftover ingestion_worker processes from previous sessions."""
+        import signal
+        try:
+            result = subprocess.run(
+                ["pgrep", "-f", "rag.ingestion_worker"],
+                capture_output=True, text=True, timeout=5,
+            )
+            for line in result.stdout.strip().splitlines():
+                pid = int(line.strip())
+                try:
+                    os.kill(pid, signal.SIGTERM)
+                    log.info("Killed orphan ingestion worker (pid=%d)", pid)
+                except ProcessLookupError:
+                    pass
+        except Exception:
+            pass
 
     def stop_worker(self) -> None:
         """Terminate worker subprocess."""

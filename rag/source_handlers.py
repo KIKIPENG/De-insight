@@ -53,6 +53,7 @@ class UrlIngestHandler(SourceHandler):
             job["source"],
             project_id=job["project_id"],
             title=job.get("title", ""),
+            job_id=job.get("id"),
         )
         return IngestResult(
             title=meta["title"],
@@ -90,6 +91,7 @@ class DoiIngestHandler(SourceHandler):
             job["source"],
             project_id=job["project_id"],
             title=job.get("title", ""),
+            job_id=job.get("id"),
         )
         return IngestResult(
             title=meta["title"],
