@@ -405,7 +405,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
 
     mode: reactive[str] = reactive("emotional")
     is_loading: reactive[bool] = reactive(False)
-    rag_mode: str = "fast"
+    rag_mode: str = "deep"
 
     def __init__(self) -> None:
         super().__init__()

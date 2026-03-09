@@ -2092,6 +2092,7 @@ class OnboardingScreen(ModalScreen[str | None]):
         self._selected_chat_pid: str | None = None
         self._selected_embed_pid: str | None = None
         self._selected_ollama_model: str | None = None
+        self._selected_vision_pid: str | None = None
 
     def compose(self) -> ComposeResult:
         box = Vertical(id="ob-box")
@@ -2121,13 +2122,17 @@ class OnboardingScreen(ModalScreen[str | None]):
             await self._render_ollama_model(container)
         elif self._step == "ollama_install":
             await self._render_ollama_install(container)
+        elif self._step == "vision_provider":
+            await self._render_vision_provider(container)
+        elif self._step == "vision_setup":
+            await self._render_vision_setup(container)
         elif self._step == "done":
             await self._render_done(container)
 
     async def _render_chat_provider(self, container: Vertical) -> None:
         from providers import CHAT_PROVIDERS
         await container.mount(
-            Static("  Step 1/4: Chat Provider", classes="ob-title"),
+            Static("  Step 1/5: Chat Provider", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             Static("  選擇聊天用的 LLM 服務", classes="ob-hint"),
         )
@@ -2147,7 +2152,7 @@ class OnboardingScreen(ModalScreen[str | None]):
         auth_type = pinfo.get("auth_type", "api_key")
 
         await container.mount(
-            Static(f"  Step 1/4: {pinfo.get('label', '')} Setup", classes="ob-title"),
+            Static(f"  Step 1/5: {pinfo.get('label', '')} Setup", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
         )
 
@@ -2195,7 +2200,7 @@ class OnboardingScreen(ModalScreen[str | None]):
 
     async def _render_embed(self, container: Vertical) -> None:
         await container.mount(
-            Static("  Step 2/4: Embedding Model (GGUF 本地)", classes="ob-title"),
+            Static("  Step 2/5: Embedding Model (GGUF 本地)", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             Static("  使用 jina-embeddings-v4 GGUF 模型（Q4_K_M, 1024d，文字+圖片共用）", classes="ob-hint"),
             Static("  首次需編譯 llama-server + 下載模型（約 3GB），之後離線可用", classes="ob-hint"),
@@ -2219,7 +2224,7 @@ class OnboardingScreen(ModalScreen[str | None]):
     async def _render_embed_download(self, container: Vertical) -> None:
         self._dl_phase_idx = 0
         await container.mount(
-            Static("  Step 2/4: 安裝 GGUF Embedding 環境", classes="ob-title"),
+            Static("  Step 2/5: 安裝 GGUF Embedding 環境", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             ProgressBar(total=None, id="ob-progress-bar"),
             Static(f"  {self._DL_PHASES[0]}", id="ob-download-status"),
@@ -2276,7 +2281,7 @@ class OnboardingScreen(ModalScreen[str | None]):
 
     async def _render_rag_llm(self, container: Vertical) -> None:
         await container.mount(
-            Static("  Step 3/4: 知識庫建圖 LLM", classes="ob-title"),
+            Static("  Step 3/5: 知識庫建圖 LLM", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             Static("  匯入文件時需要 LLM 抽取知識圖譜", classes="ob-hint"),
             Static("  本地模型不吃 API 額度，可全速並行", classes="ob-hint"),
@@ -2295,7 +2300,7 @@ class OnboardingScreen(ModalScreen[str | None]):
 
     async def _render_ollama_model(self, container: Vertical) -> None:
         await container.mount(
-            Static("  Step 3/4: 選擇本地模型", classes="ob-title"),
+            Static("  Step 3/5: 選擇本地模型", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             Static("  選擇知識庫抽取用的本地模型", classes="ob-hint"),
         )
@@ -2332,7 +2337,7 @@ class OnboardingScreen(ModalScreen[str | None]):
     async def _render_ollama_install(self, container: Vertical) -> None:
         self._ollama_dl_phase_idx = 0
         await container.mount(
-            Static("  Step 3/4: 安裝本地 Ollama 環境", classes="ob-title"),
+            Static("  Step 3/5: 安裝本地 Ollama 環境", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             ProgressBar(total=None, id="ob-progress-bar"),
             Static(f"  {self._OLLAMA_DL_PHASES[0]}", id="ob-download-status"),
@@ -2375,7 +2380,7 @@ class OnboardingScreen(ModalScreen[str | None]):
     def _on_ollama_complete(self) -> None:
         if hasattr(self, "_ollama_dl_timer"):
             self._ollama_dl_timer.stop()
-        self._step = "done"
+        self._step = "vision_provider"
         self.run_worker(self._render_step(), exclusive=True)
 
     def _on_ollama_error(self, msg: str) -> None:
@@ -2387,6 +2392,77 @@ class OnboardingScreen(ModalScreen[str | None]):
         except Exception:
             pass
 
+    # ── Step 4: Vision Model ──
+
+    async def _render_vision_provider(self, container: Vertical) -> None:
+        from providers import VISION_PROVIDERS
+        await container.mount(
+            Static("  Step 4/5: 圖片描述模型 (Vision)", classes="ob-title"),
+            Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
+            Static("  圖片匯入時自動生成描述，需要支援 Vision 的模型", classes="ob-hint"),
+            Static("", classes="ob-sep"),
+        )
+        for pid, pinfo in VISION_PROVIDERS.items():
+            await container.mount(
+                Button(
+                    f"  {pinfo['label']}",
+                    id=f"ob-vision-{pid}",
+                    classes="ob-prov-btn",
+                    name=pid,
+                ),
+            )
+
+    async def _render_vision_setup(self, container: Vertical) -> None:
+        from providers import VISION_PROVIDERS
+        pinfo = VISION_PROVIDERS.get(self._selected_vision_pid, {})
+        auth_type = pinfo.get("auth_type", "api_key")
+
+        await container.mount(
+            Static(f"  Step 4/5: {pinfo.get('label', '')} Vision Setup", classes="ob-title"),
+            Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
+        )
+
+        # Check if key already exists from chat provider setup
+        key_env = pinfo.get("key_env", "")
+        if auth_type == "api_key" and key_env:
+            from settings import load_env
+            existing_key = load_env().get(key_env, "")
+            if existing_key:
+                await container.mount(
+                    Static(f"  已有 {key_env}（沿用聊天設定的 Key）", classes="ob-hint"),
+                )
+            else:
+                await container.mount(
+                    Static(f"  請輸入 {key_env}", classes="ob-hint"),
+                    Vertical(
+                        Input(placeholder="API Key", id="ob-key-input", password=True),
+                        id="ob-key-section",
+                    ),
+                )
+
+        # Model selection
+        models = pinfo.get("models", [])
+        if models:
+            await container.mount(
+                Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
+                Static("  選擇 Vision 模型", classes="ob-hint"),
+            )
+            for idx, model in enumerate(models):
+                await container.mount(
+                    Button(
+                        f"  {model}",
+                        id=f"ob-vmodel-{idx}",
+                        classes="ob-prov-btn",
+                        name=model,
+                    ),
+                )
+        await container.mount(
+            Horizontal(
+                Button("<- 返回", id="btn-ob-back"),
+                classes="ob-btn-row",
+            ),
+        )
+
     async def _render_done(self, container: Vertical) -> None:
         from settings import load_env
         env = load_env()
@@ -2394,13 +2470,16 @@ class OnboardingScreen(ModalScreen[str | None]):
         embed = "jina-embeddings-v4 GGUF (Q4_K_M, 1024d)"
         rag_llm = env.get("RAG_LLM_MODEL", "")
         rag_display = rag_llm if rag_llm else "跟聊天模型相同"
+        vision = env.get("VISION_MODEL", "")
+        vision_display = vision if vision else "(未設定)"
 
         await container.mount(
-            Static("  Step 4/4: 設定完成!", classes="ob-title"),
+            Static("  Step 5/5: 設定完成!", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             Static(f"  Chat: {model}", classes="ob-hint"),
             Static(f"  Embedding: {embed}", classes="ob-hint"),
             Static(f"  知識庫 LLM: {rag_display}", classes="ob-hint"),
+            Static(f"  Vision: {vision_display}", classes="ob-hint"),
             Static("", classes="ob-sep"),
             Static("  可隨時用 Ctrl+S 開啟設定修改", classes="ob-hint"),
             Horizontal(
@@ -2444,6 +2523,25 @@ class OnboardingScreen(ModalScreen[str | None]):
             from settings import save_env_key
             # Clear RAG_LLM_MODEL to fall back to chat model
             save_env_key("RAG_LLM_MODEL", "")
+            self._step = "vision_provider"
+            await self._render_step()
+            return
+
+        # Step 4: Vision provider selection
+        if btn_id.startswith("ob-vision-"):
+            pid = btn_name
+            if pid == "skip-vision":
+                self._step = "done"
+                await self._render_step()
+                return
+            self._selected_vision_pid = pid
+            self._step = "vision_setup"
+            await self._render_step()
+            return
+
+        # Step 4: Vision model selection
+        if btn_id.startswith("ob-vmodel-"):
+            await self._save_vision_config(btn_name)
             self._step = "done"
             await self._render_step()
             return
@@ -2468,6 +2566,10 @@ class OnboardingScreen(ModalScreen[str | None]):
                 self._step = "embed"
             elif self._step == "ollama_model":
                 self._step = "rag_llm"
+            elif self._step == "vision_provider":
+                self._step = "rag_llm"
+            elif self._step == "vision_setup":
+                self._step = "vision_provider"
             await self._render_step()
             return
 
@@ -2532,6 +2634,37 @@ class OnboardingScreen(ModalScreen[str | None]):
             # No model list (e.g. codex-cli/) — use prefix + default
             default = "codex-mini-latest" if "codex-cli" in pid else "default"
             save_env_key("LLM_MODEL", prefix + default)
+
+    async def _save_vision_config(self, model_name: str) -> None:
+        from providers import VISION_PROVIDERS
+        from settings import save_env_key
+
+        pid = self._selected_vision_pid
+        if not pid:
+            return
+        pinfo = VISION_PROVIDERS.get(pid, {})
+
+        # Save API key if provided (and not already set)
+        key_env = pinfo.get("key_env", "")
+        if pinfo.get("auth_type") == "api_key" and key_env:
+            from settings import load_env
+            existing = load_env().get(key_env, "")
+            if not existing:
+                try:
+                    key_input = self.query_one("#ob-key-input", Input)
+                    key_val = key_input.value.strip()
+                    if key_val:
+                        save_env_key(key_env, key_val)
+                except Exception:
+                    pass
+
+        # Save VISION_MODEL with prefix
+        prefix = pinfo.get("model_prefix", "")
+        save_env_key("VISION_MODEL", prefix + model_name)
+
+        # Save VISION_API_BASE if provider has a default
+        if pinfo.get("default_base"):
+            save_env_key("VISION_API_BASE", pinfo["default_base"])
 
     async def _save_embed_config(self, embed_pid: str) -> None:
         # v0.7: 統一 jina-embeddings-v4，此方法僅作向後相容

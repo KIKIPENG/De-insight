@@ -139,5 +139,51 @@ RAG_LLM_PROVIDERS = {
     },
 }
 
+# ── Vision LLM providers (圖片描述用，需支援 vision) ──
+
+VISION_PROVIDERS = {
+    "google-vision": {
+        "label": "Google AI Studio（推薦，免費額度高）",
+        "models": ["gemini-2.5-flash", "gemini-2.5-pro"],
+        "key_env": "GOOGLE_API_KEY",
+        "base_env": "",
+        "model_prefix": "gemini/",
+        "default_base": "",
+        "auth_type": "api_key",
+    },
+    "openrouter-vision": {
+        "label": "OpenRouter",
+        "models": [
+            "google/gemini-2.5-flash",
+            "openai/gpt-4o-mini",
+            "openai/gpt-4o",
+            "qwen/qwen2.5-vl-72b-instruct",
+        ],
+        "key_env": "OPENROUTER_API_KEY",
+        "base_env": "",
+        "model_prefix": "",
+        "default_base": "https://openrouter.ai/api/v1",
+        "auth_type": "api_key",
+    },
+    "openai-vision": {
+        "label": "OpenAI",
+        "models": ["gpt-4o-mini", "gpt-4o"],
+        "key_env": "OPENAI_API_KEY",
+        "base_env": "",
+        "model_prefix": "",
+        "default_base": "https://api.openai.com/v1",
+        "auth_type": "api_key",
+    },
+    "skip-vision": {
+        "label": "暫時跳過（之後在設定中配置）",
+        "models": [],
+        "key_env": "",
+        "base_env": "",
+        "model_prefix": "",
+        "default_base": "",
+        "auth_type": "none",
+    },
+}
+
 # Keep backward compat
 PROVIDERS = CHAT_PROVIDERS
