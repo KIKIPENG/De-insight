@@ -538,8 +538,8 @@ class MenuBar(Static):
                 text.append(prefix, style=f"bold {color}")
 
             msg = self._notify_msg
-            if len(msg) > 40:
-                msg = msg[:38] + "…"
+            if len(msg) > 55:
+                msg = msg[:53] + "…"
             text.append(msg, style=color)
 
             if 0 <= self._notify_progress <= 1:

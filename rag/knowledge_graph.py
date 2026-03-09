@@ -471,12 +471,16 @@ class _ProgressTracker:
         async def _counting_llm(*args, **kwargs):
             result = await original(*args, **kwargs)
             tracker._calls += 1
-            # Update DB every few calls (avoid excessive writes)
-            if tracker._calls % 2 == 0 or tracker._calls >= tracker._estimated_chunks:
+            # Write on first call and then every 2 calls
+            if tracker._calls <= 1 or tracker._calls % 2 == 0 or tracker._calls >= tracker._estimated_chunks:
                 await tracker._write_progress()
             return result
 
         rag.llm_model_func = _counting_llm
+
+    async def write_initial_progress(self):
+        """Write initial progress to DB so TUI can show chunks_total immediately."""
+        await self._write_progress()
 
     async def _write_progress(self):
         try:
@@ -488,8 +492,8 @@ class _ProgressTracker:
                 chunks_total=self._estimated_chunks,
                 started_at=self._started_at,
             )
-        except Exception:
-            pass
+        except Exception as e:
+            log.warning("Progress write failed for job %s: %s", self._job_id, e)
 
     async def finish(self):
         """Restore original func and write 100% progress."""
@@ -507,12 +511,14 @@ def _estimate_chunks(text: str) -> int:
     return max(1, len(text) // chars_per_chunk)
 
 
-def _install_progress_tracker(rag: LightRAG, text: str, job_id: str | None) -> _ProgressTracker | None:
+async def _install_progress_tracker(rag: LightRAG, text: str, job_id: str | None) -> _ProgressTracker | None:
     """Install a progress tracker on the RAG instance if job_id is provided."""
     if not job_id:
         return None
     estimated = _estimate_chunks(text)
-    return _ProgressTracker(rag, estimated, job_id, _get_jobs_db_path())
+    tracker = _ProgressTracker(rag, estimated, job_id, _get_jobs_db_path())
+    await tracker.write_initial_progress()
+    return tracker
 
 
 def _get_jobs_db_path() -> Path:
@@ -530,7 +536,7 @@ async def insert_text(text: str, source: str = "", project_id: str = "default", 
     if source:
         doc = f"[來源: {source}]\n\n{text}"
 
-    tracker = _install_progress_tracker(rag, doc, job_id) if job_id else None
+    tracker = (await _install_progress_tracker(rag, doc, job_id)) if job_id else None
     await rag.ainsert(doc)
     if tracker:
         await tracker.finish()
@@ -579,7 +585,7 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
     rag = await _ensure_initialized(project_id=project_id)
     await _clear_failed(rag)
     full_text = "\n\n---\n\n".join(chunks)
-    tracker = _install_progress_tracker(rag, full_text, job_id) if job_id else None
+    tracker = (await _install_progress_tracker(rag, full_text, job_id)) if job_id else None
     await rag.ainsert(full_text)
     if tracker:
         await tracker.finish()

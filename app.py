@@ -590,7 +590,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
                 chunks_total = job.get("chunks_total", 0) or 0
                 import os.path as _osp
                 _raw_title = job.get("title") or _osp.basename(job.get("source", ""))
-                title = _raw_title[:20]
+                title = _raw_title[:15] + "…" if len(_raw_title) > 15 else _raw_title
 
                 # Calculate ETA from started_at
                 eta_str = ""
