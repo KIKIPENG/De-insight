@@ -90,15 +90,6 @@ EMBED_PROVIDERS = {
 # ── RAG LLM providers (reuse chat providers but store separately) ──
 
 RAG_LLM_PROVIDERS = {
-    "ollama-local": {
-        "label": "本地 Ollama（推薦，免 API 額度）",
-        "models": ["phi4-mini", "llama3.1:8b", "gemma3:4b", "qwen2.5:7b"],
-        "key_env": "",
-        "base_env": "",
-        "model_prefix": "ollama/",
-        "default_base": "http://localhost:11434/v1",
-        "auth_type": "none",
-    },
     "same-as-chat": {
         "label": "跟聊天模型相同",
         "models": [],

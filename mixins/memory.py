@@ -250,3 +250,57 @@ class MemoryMixin:
         self._refresh_memory_panel()
         self._update_menu_bar()
         self.notify(f"已儲存 {len(items)} 條記憶")
+
+        # 只對 insight 進行演變偵測
+        insights = [i for i in items if isinstance(i, dict) and i.get("type") == "insight"]
+        print(f"[DEBUG] _save_confirmed_memories: found {len(insights)} insights in {len(items)} items")
+        if insights:
+            print(f"[DEBUG] Triggering evolution check for: {insights[0]['content'][:50]}")
+            self._check_insight_evolution(insights[0]["content"])
+
+    @work(exclusive=False)
+    async def _check_insight_evolution(self, new_insight: str) -> None:
+        """背景任務：檢查洞見的思維演變，結果寫入記憶面板。"""
+        print(f"[DEBUG] _check_insight_evolution called with: {new_insight[:50]}")
+        try:
+            from memory.thought_tracker import check_for_evolution
+
+            db_path = self._memory_db_path()
+            print(f"[DEBUG] db_path={db_path}")
+            print(f"[DEBUG] Calling check_for_evolution...")
+            result = await check_for_evolution(
+                new_insight, self._quick_llm_call, db_path=db_path
+            )
+            print(f"[DEBUG] check_for_evolution result: {result}")
+
+            if result is None or result.get("type") is None:
+                print("[DEBUG] No evolution detected (result is None or type is None)")
+                return
+
+            if result["type"] == "evolution":
+                type_label = "evolution"
+            else:
+                type_label = "contradiction"
+
+            content = result["summary"]
+            source_detail = f"舊：{result.get('old', '')}\n新：{result.get('new', '')}"
+
+            print(f"[DEBUG] Saving evolution record: type={type_label}, content={content[:50]}")
+
+            await add_memory(
+                type=type_label,
+                content=content,
+                source=source_detail,
+                topic="思維演變",
+                category="思考方式",
+                db_path=db_path,
+            )
+
+            print("[DEBUG] Evolution record saved, refreshing panel...")
+            self._refresh_memory_panel()
+            print("[DEBUG] Panel refreshed successfully")
+
+        except Exception as e:
+            print(f"[DEBUG] Exception in _check_insight_evolution: {e}")
+            import traceback
+            traceback.print_exc()

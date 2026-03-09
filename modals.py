@@ -2091,7 +2091,7 @@ class OnboardingScreen(ModalScreen[str | None]):
         self._step = "chat_provider"
         self._selected_chat_pid: str | None = None
         self._selected_embed_pid: str | None = None
-        self._selected_ollama_model: str | None = None
+        self._selected_rag_pid: str | None = None
         self._selected_vision_pid: str | None = None
 
     def compose(self) -> ComposeResult:
@@ -2118,10 +2118,8 @@ class OnboardingScreen(ModalScreen[str | None]):
             await self._render_embed_download(container)
         elif self._step == "rag_llm":
             await self._render_rag_llm(container)
-        elif self._step == "ollama_model":
-            await self._render_ollama_model(container)
-        elif self._step == "ollama_install":
-            await self._render_ollama_install(container)
+        elif self._step == "rag_setup":
+            await self._render_rag_setup(container)
         elif self._step == "vision_provider":
             await self._render_vision_provider(container)
         elif self._step == "vision_setup":
@@ -2280,117 +2278,101 @@ class OnboardingScreen(ModalScreen[str | None]):
     # ── Step 3: RAG LLM ──
 
     async def _render_rag_llm(self, container: Vertical) -> None:
+        from providers import RAG_LLM_PROVIDERS
         await container.mount(
             Static("  Step 3/5: 知識庫建圖 LLM", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             Static("  匯入文件時需要 LLM 抽取知識圖譜", classes="ob-hint"),
-            Static("  本地模型不吃 API 額度，可全速並行", classes="ob-hint"),
+            Static("  建議選低成本 API（如 Google AI Studio 免費額度充足）", classes="ob-hint"),
             Static("", classes="ob-sep"),
-            Button(
-                "  本地 Ollama（推薦，免 API 額度）",
-                id="ob-rag-ollama",
-                classes="ob-prov-btn",
-            ),
-            Button(
-                "  跟聊天模型相同（使用 API 額度）",
-                id="ob-rag-same",
-                classes="ob-prov-btn",
-            ),
         )
-
-    async def _render_ollama_model(self, container: Vertical) -> None:
-        await container.mount(
-            Static("  Step 3/5: 選擇本地模型", classes="ob-title"),
-            Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
-            Static("  選擇知識庫抽取用的本地模型", classes="ob-hint"),
-        )
-        models_info = [
-            ("phi4-mini", "3.8B · 2.3GB · 快速精準（推薦）"),
-            ("gemma3:4b", "4B · 2.5GB · Google 出品"),
-            ("llama3.1:8b", "8B · 4.7GB · 品質最佳（需更多 RAM）"),
-            ("qwen2.5:7b", "7B · 4.4GB · 中文表現好"),
-        ]
-        for model_name, desc in models_info:
+        for pid, pinfo in RAG_LLM_PROVIDERS.items():
+            if pid == "ollama" or pid == "ollama-local":
+                continue
             await container.mount(
                 Button(
-                    f"  {model_name}  [dim]{desc}[/]",
-                    id=f"ob-ollama-{model_name.replace(':', '-').replace('.', '_')}",
+                    f"  {pinfo['label']}",
+                    id=f"ob-rag-{pid}",
                     classes="ob-prov-btn",
-                    name=model_name,
+                    name=pid,
                 ),
             )
-        await container.mount(
-            Horizontal(
-                Button("<- 返回", id="btn-ob-back"),
-                classes="ob-btn-row",
-            ),
-        )
 
-    _OLLAMA_DL_PHASES = [
-        "正在檢查 Ollama...",
-        "正在安裝 Ollama...",
-        "正在啟動 Ollama 服務...",
-        "正在下載模型（首次約 2-3GB）...",
-        "即將完成...",
-    ]
+    async def _render_rag_setup(self, container: Vertical) -> None:
+        from providers import RAG_LLM_PROVIDERS
+        pinfo = RAG_LLM_PROVIDERS.get(self._selected_rag_pid, {})
+        auth_type = pinfo.get("auth_type", "api_key")
 
-    async def _render_ollama_install(self, container: Vertical) -> None:
-        self._ollama_dl_phase_idx = 0
         await container.mount(
-            Static("  Step 3/5: 安裝本地 Ollama 環境", classes="ob-title"),
+            Static(f"  Step 3/5: {pinfo.get('label', '')} RAG Setup", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
-            ProgressBar(total=None, id="ob-progress-bar"),
-            Static(f"  {self._OLLAMA_DL_PHASES[0]}", id="ob-download-status"),
         )
-        self._ollama_dl_timer = self.set_interval(10.0, self._tick_ollama_phase)
-        self._run_ollama_install()
 
-    def _tick_ollama_phase(self) -> None:
-        self._ollama_dl_phase_idx = min(
-            self._ollama_dl_phase_idx + 1, len(self._OLLAMA_DL_PHASES) - 1
-        )
-        try:
-            status = self.query_one("#ob-download-status", Static)
-            status.update(f"  {self._OLLAMA_DL_PHASES[self._ollama_dl_phase_idx]}")
-        except Exception:
-            pass
-
-    @work(exclusive=True, thread=True)
-    def _run_ollama_install(self) -> None:
-        import traceback
-        from ollama.installer import ensure_ollama_ready
-        try:
-            def _progress(desc: str, pct: float) -> None:
-                try:
-                    idx = min(int(pct * len(self._OLLAMA_DL_PHASES)), len(self._OLLAMA_DL_PHASES) - 1)
-                    self._ollama_dl_phase_idx = idx
-                except Exception:
-                    pass
-
-            ensure_ollama_ready(
-                model=self._selected_ollama_model,
-                progress_callback=_progress,
+        key_env = pinfo.get("key_env", "")
+        if auth_type == "api_key" and key_env:
+            from settings import load_env
+            existing_key = load_env().get(key_env, "")
+            hint = f"  已有 {key_env}（可直接選模型，或輸入新的 Key）" if existing_key else f"  請輸入 {key_env}"
+            await container.mount(
+                Static(hint, classes="ob-hint"),
+                Vertical(
+                    Input(
+                        placeholder="API Key（留空則沿用現有）" if existing_key else "API Key",
+                        id="ob-key-input",
+                        password=True,
+                    ),
+                    id="ob-key-section",
+                ),
             )
-            self.app.call_from_thread(self._on_ollama_complete)
-        except Exception as exc:
-            self.app.log.error("Ollama install failed:\n%s", traceback.format_exc())
-            msg = str(exc)
-            self.app.call_from_thread(self._on_ollama_error, msg)
 
-    def _on_ollama_complete(self) -> None:
-        if hasattr(self, "_ollama_dl_timer"):
-            self._ollama_dl_timer.stop()
-        self._step = "vision_provider"
-        self.run_worker(self._render_step(), exclusive=True)
+        models = pinfo.get("models", [])
+        if models:
+            await container.mount(Static("  選擇模型：", classes="ob-hint"))
+            for m in models:
+                await container.mount(
+                    Button(
+                        f"  {m}",
+                        id=f"ob-ragmodel-{m.replace('/', '_').replace(':', '-').replace('.', '_')}",
+                        classes="ob-prov-btn",
+                        name=m,
+                    ),
+                )
+        await container.mount(
+            Horizontal(Button("<- 返回", id="btn-ob-back"), classes="ob-btn-row"),
+        )
 
-    def _on_ollama_error(self, msg: str) -> None:
-        if hasattr(self, "_ollama_dl_timer"):
-            self._ollama_dl_timer.stop()
-        try:
-            status = self.query_one("#ob-download-status", Static)
-            status.update(f"  [red]安裝失敗：{msg}[/]")
-        except Exception:
-            pass
+    async def _save_rag_config(self, model_name: str) -> None:
+        from providers import RAG_LLM_PROVIDERS
+        from settings import save_env_key
+
+        pid = self._selected_rag_pid
+        if not pid:
+            return
+        pinfo = RAG_LLM_PROVIDERS.get(pid, {})
+
+        key_env = pinfo.get("key_env", "")
+        if pinfo.get("auth_type") == "api_key" and key_env:
+            # Always try to read the input field; use new value if provided
+            try:
+                key_input = self.query_one("#ob-key-input", Input)
+                key_val = key_input.value.strip()
+                if key_val:
+                    save_env_key(key_env, key_val)
+            except Exception:
+                pass
+
+        prefix = pinfo.get("model_prefix", "")
+        save_env_key("RAG_LLM_MODEL", prefix + model_name)
+
+        if pinfo.get("default_base"):
+            save_env_key("RAG_API_BASE", pinfo["default_base"])
+
+        # Save RAG_API_KEY = same key as the provider key
+        if key_env:
+            from settings import load_env
+            key_val = load_env().get(key_env, "")
+            if key_val:
+                save_env_key("RAG_API_KEY", key_val)
 
     # ── Step 4: Vision Model ──
 
@@ -2427,18 +2409,18 @@ class OnboardingScreen(ModalScreen[str | None]):
         if auth_type == "api_key" and key_env:
             from settings import load_env
             existing_key = load_env().get(key_env, "")
-            if existing_key:
-                await container.mount(
-                    Static(f"  已有 {key_env}（沿用聊天設定的 Key）", classes="ob-hint"),
-                )
-            else:
-                await container.mount(
-                    Static(f"  請輸入 {key_env}", classes="ob-hint"),
-                    Vertical(
-                        Input(placeholder="API Key", id="ob-key-input", password=True),
-                        id="ob-key-section",
+            hint = f"  已有 {key_env}（可直接選模型，或輸入新的 Key）" if existing_key else f"  請輸入 {key_env}"
+            await container.mount(
+                Static(hint, classes="ob-hint"),
+                Vertical(
+                    Input(
+                        placeholder="API Key（留空則沿用現有）" if existing_key else "API Key",
+                        id="ob-key-input",
+                        password=True,
                     ),
-                )
+                    id="ob-key-section",
+                ),
+            )
 
         # Model selection
         models = pinfo.get("models", [])
@@ -2513,17 +2495,17 @@ class OnboardingScreen(ModalScreen[str | None]):
             await self._render_step()
             return
 
-        # Step 3: RAG LLM — ollama or same-as-chat
-        if btn_id == "ob-rag-ollama":
-            self._step = "ollama_model"
-            await self._render_step()
-            return
-
-        if btn_id == "ob-rag-same":
-            from settings import save_env_key
-            # Clear RAG_LLM_MODEL to fall back to chat model
-            save_env_key("RAG_LLM_MODEL", "")
-            self._step = "vision_provider"
+        # Step 3: RAG LLM provider selection
+        if btn_id.startswith("ob-rag-"):
+            pid = btn_name
+            if pid == "same-as-chat":
+                from settings import save_env_key
+                save_env_key("RAG_LLM_MODEL", "")
+                self._step = "vision_provider"
+                await self._render_step()
+                return
+            self._selected_rag_pid = pid
+            self._step = "rag_setup"
             await self._render_step()
             return
 
@@ -2546,13 +2528,10 @@ class OnboardingScreen(ModalScreen[str | None]):
             await self._render_step()
             return
 
-        # Step 3: Ollama model selection
-        if btn_id.startswith("ob-ollama-"):
-            from settings import save_env_key
-            model_name = btn_name
-            self._selected_ollama_model = model_name
-            save_env_key("RAG_LLM_MODEL", f"ollama/{model_name}")
-            self._step = "ollama_install"
+        # Step 3: RAG model selection
+        if btn_id.startswith("ob-ragmodel-"):
+            await self._save_rag_config(btn_name)
+            self._step = "vision_provider"
             await self._render_step()
             return
 
@@ -2564,7 +2543,7 @@ class OnboardingScreen(ModalScreen[str | None]):
                 self._step = "chat_provider"
             elif self._step == "rag_llm":
                 self._step = "embed"
-            elif self._step == "ollama_model":
+            elif self._step == "rag_setup":
                 self._step = "rag_llm"
             elif self._step == "vision_provider":
                 self._step = "rag_llm"
@@ -2644,19 +2623,16 @@ class OnboardingScreen(ModalScreen[str | None]):
             return
         pinfo = VISION_PROVIDERS.get(pid, {})
 
-        # Save API key if provided (and not already set)
+        # Save API key if provided (new value overrides existing)
         key_env = pinfo.get("key_env", "")
         if pinfo.get("auth_type") == "api_key" and key_env:
-            from settings import load_env
-            existing = load_env().get(key_env, "")
-            if not existing:
-                try:
-                    key_input = self.query_one("#ob-key-input", Input)
-                    key_val = key_input.value.strip()
-                    if key_val:
-                        save_env_key(key_env, key_val)
-                except Exception:
-                    pass
+            try:
+                key_input = self.query_one("#ob-key-input", Input)
+                key_val = key_input.value.strip()
+                if key_val:
+                    save_env_key(key_env, key_val)
+            except Exception:
+                pass
 
         # Save VISION_MODEL with prefix
         prefix = pinfo.get("model_prefix", "")

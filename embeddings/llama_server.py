@@ -115,6 +115,32 @@ class LlamaServerManager:
             return Path(sys_bin)
         return None
 
+    def _kill_orphan_servers(self) -> None:
+        """清除殘留的 llama-server 進程，避免多個實例同時佔 GPU。"""
+        import shutil
+        if not shutil.which("pgrep"):
+            return
+        try:
+            result = subprocess.run(
+                ["pgrep", "-f", "llama-server.*--embedding"],
+                capture_output=True, text=True, timeout=5,
+            )
+            if result.returncode != 0:
+                return
+            pids = [int(p) for p in result.stdout.strip().split("\n") if p.strip()]
+            # 排除自己管理的進程
+            my_pid = self._process.pid if self._process and self._process.poll() is None else None
+            for pid in pids:
+                if pid == my_pid:
+                    continue
+                try:
+                    os.kill(pid, signal.SIGTERM)
+                    log.warning("已清除殘留 llama-server (pid=%d)", pid)
+                except OSError:
+                    pass
+        except Exception as exc:
+            log.debug("orphan cleanup failed: %s", exc)
+
     def start(
         self,
         model_path: str | Path,
@@ -128,6 +154,9 @@ class LlamaServerManager:
         if self.is_running:
             log.info("llama-server already running (pid check)")
             return
+
+        # 清除可能殘留的殭屍 llama-server，避免多個實例搶 GPU
+        self._kill_orphan_servers()
 
         binary = self.find_binary()
         if binary is None:

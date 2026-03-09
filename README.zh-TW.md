@@ -38,7 +38,7 @@ de-insight --uninstall
 - **本地 GGUF Embedding**：jina-embeddings-v4（Q4_K_M, 1024 維）透過 llama-server，首次啟動自動安裝
 - **圖片庫**：Web 上傳 / 搜尋 / 選取，多模態 embedding，TUI 可用 `@mention` 帶圖
 - **匯入管線**：背景 job queue，含速率限制、重試、匯入後驗證
-- **多模型支援**：OpenAI、Anthropic、DeepSeek、OpenRouter、MiniMax、Ollama、Codex CLI
+- **多模型支援**：OpenAI、Anthropic、DeepSeek、OpenRouter、Google AI Studio、MiniMax
 
 已知限制：
 - TUI 目前不支援 inline image rendering。
@@ -58,7 +58,7 @@ de-insight --uninstall
 | `DEINSIGHT_HOME` | 自訂資料根目錄（預設 `~/.deinsight`） | |
 | `GGUF_AUTO_INSTALL` | 首次啟動自動安裝 GGUF（預設 `1`） | |
 
-Ollama（本地）和 Codex CLI（OAuth）不需要 API key。
+所有 LLM 均走雲端 API，Embedding 為本地 GGUF。
 
 ---
 

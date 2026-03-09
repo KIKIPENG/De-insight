@@ -26,6 +26,26 @@ import os as _os
 
 _EMBED_DIM = 1024
 _BATCH_SIZE = int(_os.environ.get("GGUF_EMBED_BATCH_SIZE", "8"))
+_BATCH_SLEEP = float(_os.environ.get("GGUF_EMBED_BATCH_SLEEP", "0.2"))
+# 記憶體壓力門檻（可用記憶體低於此 MB 時暫停 embedding）
+_MEM_PRESSURE_MB = int(_os.environ.get("GGUF_MEM_PRESSURE_MB", "512"))
+_MEM_PRESSURE_SLEEP = 2.0  # 記憶體不足時等待秒數
+
+
+def _check_memory_pressure() -> bool:
+    """檢查系統可用記憶體是否低於安全門檻。"""
+    try:
+        import psutil
+        avail_mb = psutil.virtual_memory().available / (1024 * 1024)
+        if avail_mb < _MEM_PRESSURE_MB:
+            log.warning(
+                "記憶體壓力：可用 %.0f MB < 門檻 %d MB，暫停 embedding %.1fs",
+                avail_mb, _MEM_PRESSURE_MB, _MEM_PRESSURE_SLEEP,
+            )
+            return True
+        return False
+    except ImportError:
+        return False  # psutil 不存在時跳過檢查
 
 
 class GGUFMultimodalBackend(EmbeddingBackend):
@@ -96,7 +116,10 @@ class GGUFMultimodalBackend(EmbeddingBackend):
 
         for i in range(0, len(texts), _BATCH_SIZE):
             if i > 0:
-                await asyncio.sleep(0.05)  # 讓 GPU 喘口氣
+                await asyncio.sleep(_BATCH_SLEEP)  # 讓 GPU 喘口氣，預設 0.2s
+            # 記憶體壓力時多等一會兒，防止系統凍結
+            if _check_memory_pressure():
+                await asyncio.sleep(_MEM_PRESSURE_SLEEP)
             batch = texts[i:i + _BATCH_SIZE]
             vecs = await self._call_embedding(batch)
             all_vecs.extend(vecs)

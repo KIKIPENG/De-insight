@@ -368,6 +368,17 @@ nav span:last-child { text-align: right; }
   color: var(--gray);
   margin-top: 0.2rem;
 }
+.img-caption .content-title {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.img-caption .style-tags {
+  margin-top: 0.3rem;
+  font-size: 0.65rem;
+  color: var(--gray);
+  opacity: 0.7;
+}
 .img-caption .meta {
   display: flex;
   justify-content: space-between;
@@ -506,6 +517,98 @@ nav span:last-child { text-align: right; }
 .bar-btn.confirm          { color: var(--text); font-weight: 700; }
 .bar-btn.confirm:hover    { background: var(--text); color: var(--bg); }
 .bar-btn.danger:hover     { color: var(--danger); }
+
+/* ── DETAIL MODAL ── */
+#detail-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 2rem;
+}
+#detail-modal.show { display: block; }
+#detail-content {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #111;
+  border: 1px solid var(--rule);
+  padding: 2rem;
+  position: relative;
+}
+#detail-close {
+  position: fixed;
+  top: 2rem; right: 2rem;
+  font-size: 2rem;
+  color: var(--gray);
+  cursor: pointer;
+  background: none;
+  border: none;
+  z-index: 1001;
+}
+#detail-close:hover { color: var(--accent); }
+#detail-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 2rem;
+  display: block;
+}
+.meta-section {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 1.5rem;
+}
+.meta-section:last-child { border-bottom: none; }
+.meta-section h3 {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+  font-weight: normal;
+  letter-spacing: 0.04em;
+}
+.meta-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+}
+.meta-label {
+  color: var(--gray);
+  min-width: 80px;
+}
+.meta-value {
+  color: var(--text);
+  flex: 1;
+}
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.tag-item {
+  padding: 0.2rem 0.6rem;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  font-size: 0.65rem;
+  color: var(--gray);
+}
+#edit-btn {
+  margin-top: 1.5rem;
+  padding: 0.5rem 1.2rem;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+#edit-btn:hover {
+  background: var(--accent);
+  color: #000;
+}
 
 /* ── LOADING OVERLAY ── */
 /* Shown during upload + background indexing */
@@ -649,6 +752,12 @@ nav span:last-child { text-align: right; }
   <span id="loadingText">processing...</span>
 </div>
 
+<!-- ── DETAIL MODAL ── -->
+<div id="detail-modal">
+  <button id="detail-close" onclick="closeDetail()">&times;</button>
+  <div id="detail-content"></div>
+</div>
+
 <script>
 // Base API path — backend at same origin (FastAPI :8000)
 const API = window.location.origin + '/api';
@@ -706,20 +815,39 @@ function render(list) {
   g.innerHTML = list.map((img, i) => {
     const selIdx = [...selected].indexOf(img.id);
     const isSel  = selected.has(img.id);
+
+    // 三段式 caption（dict）或向下相容（str）
+    const caption = (typeof img.caption === 'object' && img.caption) ? img.caption : { description: img.caption || '' };
+    const content = caption.content || {};
+    const title = content.title || '';
+    const description = caption.description || '';
+    const styleTags = caption.style_tags || [];
+    const altText = description || img.filename;
+
+    // Caption HTML: title（如果有）+ description + style_tags
+    let captionHtml = '';
+    if (title) captionHtml += `<div class="content-title">${esc(title)}</div>`;
+    captionHtml += `<div class="desc">${esc(description)}</div>`;
+    if (styleTags.length > 0) {
+      let tagText = styleTags.slice(0, 3).join(' · ');
+      if (styleTags.length > 3) tagText += ` +${styleTags.length - 3}`;
+      captionHtml += `<div class="style-tags">${esc(tagText)}</div>`;
+    }
+
     return `
     <div class="img-item ${isSel ? 'selected' : ''}"
          data-id="${img.id}"
-         onclick="${selectMode ? `toggleSelect('${img.id}')` : ''}">
+         data-idx="${i}"
+         onclick="${selectMode ? `toggleSelect('${img.id}')` : `showDetail(${i})`}">
       <div class="badge">${isSel ? selIdx + 1 : ''}</div>
       <img
         src="${API}/images/file/${encodeURIComponent(img.filename)}"
-        alt="${esc(img.caption)}"
+        alt="${esc(altText)}"
         loading="lazy"
-        ${!selectMode ? `onclick="event.stopPropagation();openLightbox('${img.filename}')"` : ''}
       />
       <div class="img-caption">
         <div class="filename">${String(i + 1).padStart(2, '0')} &ensp; ${esc(img.filename)}</div>
-        <div class="desc">${esc(img.caption)}</div>
+        ${captionHtml}
         ${img.tags ? `<div class="tags">${esc(img.tags)}</div>` : ''}
         <div class="meta">
           <span class="date">${img.created_at || ''}</span>
@@ -996,9 +1124,152 @@ document.getElementById('searchInput').addEventListener('input', (e) => {
 });
 
 
+// ── Detail modal ──
+
+function showDetail(idx) {
+  const img = images[idx];
+  if (!img) return;
+  const modal = document.getElementById('detail-modal');
+  const caption = (typeof img.caption === 'object' && img.caption) ? img.caption : { description: img.caption || '' };
+  const content = caption.content || {};
+  const tags = caption.style_tags || [];
+  const desc = caption.description || '';
+
+  let tagsHtml = '';
+  if (tags.length > 0) {
+    tagsHtml = tags.map(t => `<span class="tag-item">${esc(t)}</span>`).join('');
+  } else {
+    tagsHtml = '<span style="color: var(--gray);">—</span>';
+  }
+
+  document.getElementById('detail-content').innerHTML = `
+    <img id="detail-image" src="${API}/images/file/${encodeURIComponent(img.filename)}" alt="">
+    <div class="meta-section">
+      <h3>基本資訊</h3>
+      <div class="meta-row"><span class="meta-label">檔名</span><span class="meta-value">${esc(img.filename)}</span></div>
+      <div class="meta-row"><span class="meta-label">上傳時間</span><span class="meta-value">${img.created_at ? new Date(img.created_at).toLocaleString('zh-TW') : '—'}</span></div>
+    </div>
+    <div class="meta-section">
+      <h3>內容辨識 (CONTENT)</h3>
+      <div class="meta-row"><span class="meta-label">類型</span><span class="meta-value">${esc(content.type || '—')}</span></div>
+      <div class="meta-row"><span class="meta-label">標題</span><span class="meta-value">${esc(content.title || '—')}</span></div>
+      <div class="meta-row"><span class="meta-label">創作者</span><span class="meta-value">${esc(content.creator || '—')}</span></div>
+      <div class="meta-row"><span class="meta-label">設計關係</span><span class="meta-value">${esc(content.content_design_link || '—')}</span></div>
+    </div>
+    <div class="meta-section">
+      <h3>風格標籤 (STYLE_TAGS)</h3>
+      <div class="tag-list">${tagsHtml}</div>
+    </div>
+    <div class="meta-section">
+      <h3>描述 (DESCRIPTION)</h3>
+      <div class="meta-value">${esc(desc) || '—'}</div>
+    </div>
+    <button id="edit-btn" onclick="editCaption(${idx})">編輯 Caption</button>
+  `;
+  modal.classList.add('show');
+}
+
+function closeDetail() {
+  document.getElementById('detail-modal').classList.remove('show');
+}
+
+function editCaption(idx) {
+  const img = images[idx];
+  if (!img) return;
+  const caption = (typeof img.caption === 'object' && img.caption) ? img.caption : { description: img.caption || '' };
+  const content = caption.content || {};
+  const tags = caption.style_tags || [];
+
+  document.getElementById('detail-content').innerHTML = `
+    <h3 style="font-family: var(--mono); color: var(--accent); margin-bottom: 1.5rem; font-size: 0.9rem;">
+      編輯 Caption — ${esc(img.filename)}
+    </h3>
+    <form id="edit-form">
+      <div style="margin-bottom: 1.2rem;">
+        <label style="display:block; color:var(--gray); font-size:0.7rem; margin-bottom:0.3rem;">類型 (type)</label>
+        <input type="text" id="edit-type" value="${esc(content.type || '')}"
+          style="width:100%; padding:0.5rem; background:var(--bg); border:1px solid var(--rule); color:var(--text); font-family:var(--mono); font-size:0.75rem;">
+      </div>
+      <div style="margin-bottom: 1.2rem;">
+        <label style="display:block; color:var(--gray); font-size:0.7rem; margin-bottom:0.3rem;">標題 (title)</label>
+        <input type="text" id="edit-title" value="${esc(content.title || '')}"
+          style="width:100%; padding:0.5rem; background:var(--bg); border:1px solid var(--rule); color:var(--text); font-family:var(--mono); font-size:0.75rem;">
+      </div>
+      <div style="margin-bottom: 1.2rem;">
+        <label style="display:block; color:var(--gray); font-size:0.7rem; margin-bottom:0.3rem;">創作者 (creator)</label>
+        <input type="text" id="edit-creator" value="${esc(content.creator || '')}"
+          style="width:100%; padding:0.5rem; background:var(--bg); border:1px solid var(--rule); color:var(--text); font-family:var(--mono); font-size:0.75rem;">
+      </div>
+      <div style="margin-bottom: 1.2rem;">
+        <label style="display:block; color:var(--gray); font-size:0.7rem; margin-bottom:0.3rem;">設計關係 (content_design_link)</label>
+        <textarea id="edit-link" rows="2"
+          style="width:100%; padding:0.5rem; background:var(--bg); border:1px solid var(--rule); color:var(--text); font-family:var(--mono); font-size:0.75rem;">${esc(content.content_design_link || '')}</textarea>
+      </div>
+      <div style="margin-bottom: 1.2rem;">
+        <label style="display:block; color:var(--gray); font-size:0.7rem; margin-bottom:0.3rem;">風格標籤 (style_tags，逗號分隔)</label>
+        <input type="text" id="edit-tags" value="${esc(tags.join(', '))}"
+          style="width:100%; padding:0.5rem; background:var(--bg); border:1px solid var(--rule); color:var(--text); font-family:var(--mono); font-size:0.75rem;">
+      </div>
+      <div style="margin-bottom: 1.2rem;">
+        <label style="display:block; color:var(--gray); font-size:0.7rem; margin-bottom:0.3rem;">描述 (description)</label>
+        <textarea id="edit-description" rows="4"
+          style="width:100%; padding:0.5rem; background:var(--bg); border:1px solid var(--rule); color:var(--text); font-family:var(--mono); font-size:0.75rem;">${esc(caption.description || '')}</textarea>
+      </div>
+      <div style="display:flex; gap:1rem;">
+        <button type="submit"
+          style="flex:1; padding:0.6rem; background:var(--accent); color:#000; border:none; font-family:var(--mono); font-size:0.75rem; cursor:pointer;">
+          儲存
+        </button>
+        <button type="button" onclick="closeDetail()"
+          style="flex:1; padding:0.6rem; background:transparent; color:var(--text); border:1px solid var(--rule); font-family:var(--mono); font-size:0.75rem; cursor:pointer;">
+          取消
+        </button>
+      </div>
+    </form>
+  `;
+
+  document.getElementById('edit-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    await saveCaption(img);
+  });
+}
+
+async function saveCaption(img) {
+  const newCaption = {
+    content: {
+      type: document.getElementById('edit-type').value,
+      title: document.getElementById('edit-title').value,
+      creator: document.getElementById('edit-creator').value,
+      content_design_link: document.getElementById('edit-link').value,
+    },
+    style_tags: document.getElementById('edit-tags').value
+      .split(',').map(t => t.trim()).filter(t => t.length > 0),
+    description: document.getElementById('edit-description').value,
+  };
+
+  try {
+    const resp = await fetch(`${API}/images/${img.id}/caption`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newCaption),
+    });
+    if (!resp.ok) {
+      toast('儲存失敗');
+      return;
+    }
+    toast('Caption 已更新並重新索引');
+    closeDetail();
+    await loadImages();
+  } catch (e) {
+    toast('連線失敗');
+  }
+}
+
+
 // ── Keyboard shortcuts ──
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
+    closeDetail();
     closeLightbox();
     if (selectMode) toggleSelectMode();
   }

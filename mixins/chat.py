@@ -425,7 +425,7 @@ class ChatMixin:
 
             raw_content = self.messages[-2]["content"] if len(self.messages) >= 2 else ""
             user_text = self._extract_text(raw_content)
-            if user_text and len(user_text.strip()) >= 15:
+            if user_text and len(user_text.strip()) >= 40:
                 self._auto_extract_memories(user_text)
 
         except httpx.ConnectError:
@@ -497,9 +497,19 @@ class ChatMixin:
                 self.state.current_conversation_id, "user", text)
         self._stream_response()
 
-    async def _quick_llm_call(self, prompt: str, max_tokens: int = 500) -> str:
+    @staticmethod
+    def _extract_retry_after(exc: Exception) -> float | None:
+        """從 RateLimitError 訊息中提取 retry-after 秒數。"""
+        import re
+        text = str(exc)
+        m = re.search(r'retry[\s_-]*after[\s:=]*(\d+(?:\.\d+)?)', text, re.IGNORECASE)
+        if m:
+            return float(m.group(1))
+        return None
+
+    async def _quick_llm_call(self, prompt: str, max_tokens: int = 500, max_retries: int = 3) -> str:
         env = load_env()
-        model = env.get("LLM_MODEL", "ollama/llama3.2")
+        model = env.get("RAG_LLM_MODEL", "") or env.get("LLM_MODEL", "ollama/llama3.2")
 
         if model.startswith("codex-cli/"):
             codex_model = model.removeprefix("codex-cli/")
@@ -511,14 +521,64 @@ class ChatMixin:
         if model.startswith("codex/"):
             model = "openai/" + model.removeprefix("codex/")
 
+        import asyncio as _asyncio
+        import os
         import litellm
-        resp = await litellm.acompletion(
-            model=model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.3,
-            max_tokens=max_tokens,
-        )
-        return resp.choices[0].message.content or ""
+        from rag.rate_guard import RateLimitError
+
+        # litellm 從 os.environ 讀 API key，load_env() 只回傳 dict
+        for key in ("GOOGLE_API_KEY", "GEMINI_API_KEY", "OPENAI_API_KEY",
+                     "OPENROUTER_API_KEY", "ANTHROPIC_API_KEY", "OPENAI_API_BASE"):
+            val = env.get(key, "")
+            if val:
+                os.environ[key] = val
+        # litellm gemini/ prefix 需要 GEMINI_API_KEY，若只有 GOOGLE_API_KEY 則複製過去
+        if not os.environ.get("GEMINI_API_KEY") and os.environ.get("GOOGLE_API_KEY"):
+            os.environ["GEMINI_API_KEY"] = os.environ["GOOGLE_API_KEY"]
+
+        # RAG_LLM_MODEL 可能有獨立的 API base/key（例如 Google AI Studio OpenAI 相容端點）
+        rag_api_base = env.get("RAG_API_BASE", "")
+        rag_api_key = env.get("RAG_API_KEY", "")
+        if model == env.get("RAG_LLM_MODEL", "") and (rag_api_base or rag_api_key):
+            # RAG 模型用獨立端點，走 openai/ prefix
+            if not model.startswith(("openai/", "gemini/", "anthropic/", "ollama/")):
+                model = f"openai/{model}"
+            if rag_api_base:
+                os.environ["OPENAI_API_BASE"] = rag_api_base
+            if rag_api_key:
+                os.environ["OPENAI_API_KEY"] = rag_api_key
+
+        last_exc = None
+        for attempt in range(max_retries):
+            try:
+                resp = await litellm.acompletion(
+                    model=model,
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0.3,
+                    max_tokens=max_tokens,
+                )
+                return resp.choices[0].message.content or ""
+            except RateLimitError as exc:
+                last_exc = exc
+                retry_after = self._extract_retry_after(exc)
+                delay = retry_after if retry_after else 2.0 * (2 ** attempt)
+                self.log.warning(
+                    f"_quick_llm_call rate limited (attempt {attempt + 1}/{max_retries}), "
+                    f"retrying in {delay:.1f}s: {exc}"
+                )
+                if attempt < max_retries - 1:
+                    await _asyncio.sleep(delay)
+            except Exception as exc:
+                last_exc = exc
+                delay = 1.5 * (attempt + 1)
+                self.log.warning(
+                    f"_quick_llm_call error (attempt {attempt + 1}/{max_retries}), "
+                    f"retrying in {delay:.1f}s: {exc}"
+                )
+                if attempt < max_retries - 1:
+                    await _asyncio.sleep(delay)
+
+        raise last_exc
 
     async def _build_user_content(self, text: str):
         """組合使用者文字。
@@ -528,40 +588,86 @@ class ChatMixin:
         if not pending:
             return text
 
+        open("/tmp/deinsight_debug.log", "a").write(f"[DEBUG] _build_user_content: {len(pending)} pending images\n")
+
         from rag.image_store import describe_image_for_chat
 
         descriptions = []
         for img in pending:
             img_path = Path(img) if isinstance(img, str) else Path(img.get("path", ""))
+            _dbg = lambda m: open("/tmp/deinsight_debug.log", "a").write(m + "\n")
+            _dbg(f"[DEBUG] Processing image: {img_path.name}, exists={img_path.exists()}")
             if not img_path.exists():
                 continue
-            desc = await describe_image_for_chat(img_path, user_question=text)
-            if desc:
-                descriptions.append(f"── 圖片分析（{img_path.name}）──\n{desc}")
+            # --- 兩源合併：stored caption + live description ---
+            # 1) Live Vision 描述
+            live_desc = await describe_image_for_chat(img_path, user_question=text)
+            _dbg(f"[DEBUG] live desc: {len(live_desc) if live_desc else 0} chars")
+
+            # 2) LanceDB stored caption（三段式）
+            stored_block = ""
+            if self.state.current_project:
+                try:
+                    from rag.image_store import search_images, _normalize_caption
+                    results = await search_images(
+                        self.state.current_project["id"],
+                        img_path.name, limit=1,
+                    )
+                    if results and results[0].get("filename") == img_path.name:
+                        raw_cap = results[0].get("caption", "")
+                        cap = _normalize_caption(raw_cap, img_path.name)
+                        _dbg(f"[DEBUG] stored caption keys: {list(cap.keys()) if isinstance(cap, dict) else 'str'}")
+                        # 判斷是否為有效三段式（非 fallback）
+                        if isinstance(cap, dict):
+                            content = cap.get("content", {})
+                            title = content.get("title", "") if isinstance(content, dict) else ""
+                            tags = cap.get("style_tags", [])
+                            desc_text = cap.get("description", "")
+                            stem = Path(img_path.name).stem
+                            is_fallback = (desc_text == stem) and not tags
+                            if not is_fallback and (title or tags or (desc_text and desc_text != stem)):
+                                parts = []
+                                if title:
+                                    parts.append(f"標題：{title}")
+                                if content.get("type"):
+                                    parts.append(f"類型：{content['type']}")
+                                if content.get("creator"):
+                                    parts.append(f"創作者：{content['creator']}")
+                                if tags:
+                                    parts.append(f"風格標籤：{', '.join(tags[:5])}")
+                                if desc_text:
+                                    parts.append(f"描述：{desc_text}")
+                                stored_block = "\n".join(parts)
+                                _dbg(f"[DEBUG] stored_block built: {len(stored_block)} chars")
+                except Exception as e:
+                    _dbg(f"[DEBUG] stored caption fetch error: {e}")
+
+            # 3) 組合
+            blocks = []
+            if stored_block:
+                blocks.append(f"[上傳時的理解]\n{stored_block}")
+            if live_desc:
+                blocks.append(f"[當下觀察]\n{live_desc}")
+
+            if blocks:
+                descriptions.append(f"── 圖片分析（{img_path.name}）──\n" + "\n\n".join(blocks))
+            elif stored_block or live_desc:
+                # 理論上不會走到這裡，但保險
+                descriptions.append(f"── 圖片分析（{img_path.name}）──\n{stored_block or live_desc}")
             else:
-                # Fallback: 嘗試用 LanceDB 既有 caption
-                fallback_caption = ""
-                if self.state.current_project:
-                    try:
-                        from rag.image_store import search_images
-                        results = await search_images(
-                            self.state.current_project["id"],
-                            img_path.name, limit=1,
-                        )
-                        if results and results[0].get("filename") == img_path.name:
-                            fallback_caption = results[0].get("caption", "")
-                    except Exception:
-                        pass
-                if fallback_caption:
-                    descriptions.append(f"── 圖片分析（{img_path.name}）──\n{fallback_caption}")
-                else:
-                    descriptions.append(f"（附加圖片：{img_path.name}，描述生成失敗）")
+                descriptions.append(f"（附加圖片：{img_path.name}，描述生成失敗）")
 
         self.state.pending_images = []
         self._update_menu_bar()
 
         if descriptions:
-            return text + "\n\n" + "\n\n".join(descriptions)
+            combined = text + "\n\n" + "\n\n".join(descriptions)
+            _dbg = lambda m: open("/tmp/deinsight_debug.log", "a").write(m + "\n")
+            _dbg("=" * 80)
+            _dbg("[DEBUG] Final user content sent to LLM:")
+            _dbg(combined[:500])
+            _dbg("=" * 80)
+            return combined
         return text
 
     @staticmethod

@@ -235,6 +235,27 @@ async def update_image_endpoint(
     return {"status": "updated", "id": image_id}
 
 
+@router.put("/images/{image_id}/caption")
+async def update_caption(image_id: str, request: Request):
+    """更新圖片的三段式 caption 並重算向量。
+
+    body: {"content": {...}, "style_tags": [...], "description": "..."}
+    """
+    import json
+    pid = await _get_project_id(None)
+    body = await request.json()
+
+    # 驗證結構
+    if not isinstance(body, dict) or "description" not in body:
+        raise HTTPException(status_code=400, detail="Invalid caption structure")
+
+    from rag.image_store import update_image
+    ok = await update_image(pid, image_id, caption=body, tags="", recalc_vector=True)
+    if not ok:
+        raise HTTPException(status_code=404, detail="Image not found")
+    return {"status": "ok", "id": image_id}
+
+
 class SelectRequest(BaseModel):
     image_ids: List[str] = []
 

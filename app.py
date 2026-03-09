@@ -332,6 +332,18 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         background: #1a1a1a;
     }
 
+    .memory-item.-evolution {
+        border-left: solid #d4a27a;
+        padding-left: 1;
+        color: #d4a27a;
+    }
+
+    .memory-item.-contradiction {
+        border-left: solid #ff6b6b;
+        padding-left: 1;
+        color: #ff6b6b;
+    }
+
     /* ── history entries (WelcomeBlock) ── */
     .history-entry {
         height: 1;

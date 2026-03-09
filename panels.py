@@ -16,17 +16,24 @@ class MemoryItem(Static):
 
     def __init__(self, mem: dict, **kwargs) -> None:
         self.mem = mem
-        icons = {"insight": "💡", "question": "❓", "reaction": "💭"}
+        icons = {
+            "insight": "💡", "question": "❓", "reaction": "💭",
+            "evolution": "🔄", "contradiction": "⚡",
+        }
         icon = icons.get(mem["type"], "◇")
-        label = {"insight": "洞見", "question": "問題", "reaction": "反應"}.get(
-            mem["type"], mem["type"]
-        )
+        label = {
+            "insight": "洞見", "question": "問題", "reaction": "反應",
+            "evolution": "演變", "contradiction": "矛盾",
+        }.get(mem["type"], mem["type"])
         content = mem["content"]
         if len(content) > 30:
             content = content[:30] + "…"
+        extra_classes = "memory-item"
+        if mem["type"] in ("evolution", "contradiction"):
+            extra_classes += f" -{mem['type']}"
         super().__init__(
             f"{icon} [{label}] {content}",
-            classes="memory-item",
+            classes=extra_classes,
             **kwargs,
         )
 

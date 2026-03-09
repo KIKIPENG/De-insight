@@ -45,7 +45,7 @@ de-insight --uninstall
 - **Local GGUF embedding** — jina-embeddings-v4 (Q4_K_M, dim=1024) via llama-server, auto-installed on first run
 - **Image gallery** — web-based upload/search/select, multimodal embedding, `@mention` to attach images to conversation
 - **Ingestion pipeline** — background job queue with rate limiting, retry, and post-insert verification
-- **Multi-provider** — OpenAI, Anthropic, DeepSeek, OpenRouter, MiniMax, Ollama, Codex CLI
+- **Multi-provider** — OpenAI, Anthropic, DeepSeek, OpenRouter, Google AI Studio, MiniMax
 
 **Known limitations**
 
@@ -140,7 +140,7 @@ Edit `~/.deinsight/app/.env` (or `Ctrl+S` in TUI):
 | `DEEPSEEK_API_KEY` | DeepSeek |
 | `MINIMAX_API_KEY` | MiniMax |
 
-No key needed for **Ollama** (local) or **Codex CLI** (OAuth).
+All LLM calls go through cloud APIs. Embedding runs locally via GGUF.
 
 ### Optional
 

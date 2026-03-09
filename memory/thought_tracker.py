@@ -1,39 +1,93 @@
 """基礎思維追蹤 — Phase 1: SQLite + LLM prompt."""
 
+import asyncio
 import json
 
-from memory.store import search_memories, add_memory
+from memory.store import search_memories, add_memory, get_memories
 
 
 def _clean_json(text: str) -> str:
-    """Strip markdown code block wrappers from JSON output."""
+    """清理 LLM 輸出的 JSON，處理常見的格式漂移。"""
     text = text.strip()
-    if text.startswith("```"):
-        lines = text.split("\n")
-        text = "\n".join(lines[1:-1] if lines[-1].strip() == "```" else lines[1:])
+
+    # 移除 markdown fence（多種變體）
+    if text.startswith("```json"):
+        text = text[7:]
+    elif text.startswith("```"):
+        text = text[3:]
+    if text.endswith("```"):
+        text = text[:-3]
+    text = text.strip()
+
+    # 移除前導說明文字（常見於小模型）
+    # 例：「以下是記憶條目：\n[...]」
+    lines = text.split('\n')
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.startswith('[') or stripped.startswith('{'):
+            text = '\n'.join(lines[i:])
+            break
+
+    # 移除 trailing comma（JSON 不允許，但常見）
+    # 處理 ,] 和 ,\n] 等變體
+    import re as _re
+    text = _re.sub(r',\s*]', ']', text)
+    text = _re.sub(r',\s*}', '}', text)
+
+    # 單引號轉雙引號（JSON 規範要求雙引號）
+    # 只在整體看起來是 JSON 且單引號佔多數時才做
+    if text.startswith('[') or text.startswith('{'):
+        if text.count("'") > text.count('"') * 2:
+            text = text.replace("'", '"')
+
     return text.strip()
 
+
+def _text_overlap(a: str, b: str) -> float:
+    """計算兩段文字的重疊率（字符集合交集）。"""
+    a, b = a.lower(), b.lower()
+    if not a or not b:
+        return 0.0
+    a_chars = set(a.replace(' ', ''))
+    b_chars = set(b.replace(' ', ''))
+    if not a_chars or not b_chars:
+        return 0.0
+    intersection = len(a_chars & b_chars)
+    union = len(a_chars | b_chars)
+    return intersection / union if union > 0 else 0.0
+
+
 EVOLUTION_PROMPT = """\
-你是一個中性觀察者。以下是使用者過去的洞見和一條新洞見。
-請判斷新洞見與舊洞見之間是否存在「演變」或「矛盾」。
+你是思維演變偵測器。
 
-定義：
-- 演變（evolution）：思考自然成長，新觀點深化或擴展了舊觀點
-- 矛盾（contradiction）：同時持有互斥的觀點，邏輯上不相容
-
-舊洞見：
+使用者過去的洞見：
 {old_insights}
 
-新洞見：
+使用者剛才的新洞見：
 {new_insight}
 
-如果偵測到演變或矛盾，回傳 JSON：
-{{"type": "evolution" 或 "contradiction", "summary": "一句話描述偵測到什麼", "old": "相關的舊洞見原文", "new": "新洞見原文"}}
+任務：判斷新洞見和舊洞見的關係。
 
-如果沒有顯著變化，回傳：
-{{"type": "none"}}
+**演變（evolution）**：新洞見是對舊洞見的延伸、深化、質疑、或推翻。兩者在討論同一個主題，但觀點有所發展。即使是微小的觀點轉變也算演變。
 
-只回傳 JSON，不要加任何解釋。
+**矛盾（contradiction）**：新洞見和舊洞見在邏輯上互斥，無法同時為真。
+
+**無關（null）**：新洞見和舊洞見討論的是不同主題，沒有演變關係。
+
+只回傳 JSON，不要有任何其他文字：
+
+如果有演變或矛盾：
+{{"type": "evolution", "summary": "一句話描述演變方向", "old": "舊洞見摘要", "new": "新洞見摘要"}}
+或
+{{"type": "contradiction", "summary": "一句話描述衝突", "old": "舊洞見摘要", "new": "新洞見摘要"}}
+
+如果無關：
+{{"type": null}}
+
+範例：
+舊：「包豪斯強調功能決定形式」
+新：「包豪斯預設功能是穩定的，但功能常是流動的」
+→ {{"type": "evolution", "summary": "從肯定功能決定論到質疑其預設", "old": "功能決定形式", "new": "質疑功能穩定性"}}
 """
 
 EXTRACT_PROMPT = """\
@@ -55,13 +109,50 @@ EXTRACT_PROMPT = """\
 - category（理解面向），從以下四個選一個：
   思考方式、美學偏好、創作問題、理論連結
 
-使用者的話：
+不值得記憶的：閒聊、問候、操作性問題、太模糊的發言。
+
+---
+
+範例 1（值得記憶）：
+使用者說：「包豪斯那種功能決定形式的說法，其實預設了功能是穩定的。但很多時候功能本身就是流動的，形式反而在定義功能。」
+
+輸出：
+[{{"type": "insight", "content": "包豪斯預設功能穩定，但功能常是流動的，形式反過來定義功能", "topic": "設計史", "category": "思考方式"}}]
+
+---
+
+範例 2（不值得記憶）：
+使用者說：「好的我知道了，謝謝你的解釋。」
+
+輸出：
+[]
+
+---
+
+範例 3（問題）：
+使用者說：「那無媒材的概念藝術到底在說什麼？如果藝術不再需要物件，那它的力量是從哪裡來的？」
+
+輸出：
+[{{"type": "question", "content": "無媒材概念藝術的力量來源", "topic": "當代藝術", "category": "思考方式"}}]
+
+---
+
+範例 4（反應）：
+使用者說：「看 Donald Judd 的作品時，我感覺到一種安靜但不空洞的狀態，好像物件就是物件，不需要再指向別的東西。」
+
+輸出：
+[{{"type": "reaction", "content": "Judd 的作品讓我感到安靜但不空洞，物件不指向他物", "topic": "當代藝術", "category": "美學偏好"}}]
+
+---
+
+現在請處理以下使用者的話：
+
 {user_text}
 
 回傳 JSON 陣列，格式：
 [{{"type": "insight"|"question"|"reaction", "content": "精簡摘要", "topic": "主題", "category": "思考方式"|"美學偏好"|"創作問題"|"理論連結"}}]
 
-如果沒有值得記錄的內容，回傳：[]
+沒有值得記錄的內容就回傳：[]
 只回傳 JSON，不要加任何解釋。
 """
 
@@ -69,29 +160,68 @@ EXTRACT_PROMPT = """\
 async def check_for_evolution(
     new_insight: str,
     llm_call: callable,
+    db_path=None,
 ) -> dict | None:
-    """Check if a new insight shows evolution or contradiction with past insights."""
-    related = await search_memories(new_insight[:20], limit=5)
+    """
+    新增洞見後呼叫。
+    從歷史取出最相關的洞見，讓 LLM 判斷有無演變或矛盾。
+
+    回傳 None（無顯著變化）
+    或 {"type": "evolution"|"contradiction", "summary": str, "old": str, "new": str}
+    """
+    # 1. 搜尋相關記憶（向量搜索 → LIKE fallback → 直接取 insight）
+    query = new_insight[:30] if len(new_insight) > 30 else new_insight
+    print(f"[DEBUG] check_for_evolution: searching with query='{query}', db_path={db_path}")
+    related = await search_memories(query, limit=5, db_path=db_path)
+    print(f"[DEBUG] check_for_evolution: vector/LIKE search found {len(related) if related else 0}")
     if not related:
+        related = await get_memories(type="insight", limit=5, db_path=db_path)
+        print(f"[DEBUG] check_for_evolution: fallback get_memories found {len(related)} insights")
+
+    # 2. 只保留 insight，排除新洞見本身
+    insights = [
+        m for m in (related or [])
+        if m.get("type") == "insight" and m.get("content", "").strip() != new_insight.strip()
+    ]
+    print(f"[DEBUG] check_for_evolution: after filter, {len(insights)} comparable insights")
+    if not insights:
         return None
 
+    # 3. 構建 prompt（最多比較 3 條）
     old_text = "\n".join(
-        f"- [{m['type']}] {m['content']}" for m in related
+        f"{i+1}. {m['content']}" for i, m in enumerate(insights[:3])
     )
-
     prompt = EVOLUTION_PROMPT.format(
         old_insights=old_text,
         new_insight=new_insight,
     )
 
-    response = await llm_call(prompt)
+    # 4. 呼叫 LLM
+    response = await llm_call(prompt, max_tokens=2000)
+    print(f"[DEBUG] check_for_evolution: raw LLM response: {response!r}")
 
+    # 5. 解析結果
     try:
-        result = json.loads(_clean_json(response))
-        if result.get("type") == "none":
+        cleaned = _clean_json(response)
+        print(f"[DEBUG] check_for_evolution: cleaned JSON: {cleaned!r}")
+        result = json.loads(cleaned)
+        print(f"[DEBUG] check_for_evolution: parsed result: {result}")
+
+        if not isinstance(result, dict):
             return None
+
+        result_type = result.get("type")
+        if result_type is None or result_type not in ("evolution", "contradiction"):
+            print(f"[DEBUG] check_for_evolution: type={result_type!r}, no evolution")
+            return None
+
+        if not result.get("summary"):
+            print("[DEBUG] check_for_evolution: missing summary")
+            return None
+
         return result
-    except (json.JSONDecodeError, KeyError):
+    except (json.JSONDecodeError, KeyError) as e:
+        print(f"[DEBUG] check_for_evolution: JSON parse error: {e}")
         return None
 
 
@@ -99,26 +229,48 @@ async def extract_memories(
     user_text: str,
     llm_call: callable,
 ) -> list[dict]:
-    """Extract memorable items from user's message."""
+    """從使用者發言抽取記憶條目。最多重試 2 次。"""
     if not user_text or len(user_text.strip()) < 10:
         return []
 
     prompt = EXTRACT_PROMPT.format(user_text=user_text)
-    response = await llm_call(prompt)
 
-    try:
-        items = json.loads(_clean_json(response))
-        if not isinstance(items, list):
-            return []
-        valid = []
-        for item in items:
-            if item.get("type") in ("insight", "question", "reaction") and item.get("content"):
+    for attempt in range(3):
+        try:
+            response = await llm_call(prompt)
+            clean = _clean_json(response)
+            items = json.loads(clean)
+
+            if not isinstance(items, list):
+                raise ValueError("回傳格式非陣列")
+
+            valid = []
+            for item in items:
+                if not isinstance(item, dict):
+                    continue
+                if "type" not in item or "content" not in item:
+                    continue
+                if item["type"] not in ("insight", "question", "reaction"):
+                    continue
+                content = item["content"].strip()
+                if not content or len(content) < 5:
+                    continue
+                if _text_overlap(content, user_text) > 0.8:
+                    continue
                 valid.append({
                     "type": item["type"],
-                    "content": item["content"],
+                    "content": content,
                     "topic": item.get("topic", ""),
                     "category": item.get("category", ""),
                 })
-        return valid
-    except (json.JSONDecodeError, KeyError):
-        return []
+            return valid
+
+        except (json.JSONDecodeError, ValueError, KeyError):
+            if attempt == 2:
+                return []
+            await asyncio.sleep(0.5 * (attempt + 1))
+            continue
+        except Exception:
+            return []
+
+    return []

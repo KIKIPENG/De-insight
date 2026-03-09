@@ -258,24 +258,24 @@ class RAGMixin:
 
     @work(exclusive=True, group="backfill_captions")
     async def action_backfill_captions(self) -> None:
-        """批次為圖片庫中沒有描述的圖片自動生成 caption。"""
+        """為圖片庫重新生成 caption（所有圖片）。"""
         project_id = self.state.current_project["id"] if self.state.current_project else "default"
-        self.notify("開始為圖片生成描述…")
+        self.notify("開始重新生成 caption…")
         try:
-            from rag.image_store import backfill_captions
-            result = await backfill_captions(
-                project_id,
-                notify=lambda msg: self.notify(msg),
+            from rag.image_store import regenerate_all_captions
+            total, updated = await regenerate_all_captions(
+                project_id=project_id,
+                only_fallback=False,
+                progress_callback=lambda current, t: self.notify(
+                    f"進度：{current}/{t}"
+                ),
             )
-            total = result["total"]
-            updated = result["updated"]
-            failed = result["failed"]
             if total == 0:
-                self.notify("所有圖片都已有描述")
+                self.notify("圖片庫為空")
             else:
-                self.notify(f"描述生成完成：{updated}/{total} 成功" + (f"，{failed} 失敗" if failed else ""))
+                self.notify(f"完成：{updated}/{total} 張圖片重新生成 caption")
         except Exception as e:
-            self.notify(f"描述生成失敗: {e}")
+            self.notify(f"重新生成失敗: {e}")
 
     def action_cite_research(self) -> None:
         display = getattr(self, '_last_research_display', '')

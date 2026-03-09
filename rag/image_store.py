@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import base64
+import json
 import logging
 import math
 import os
@@ -124,81 +125,140 @@ def _dedup_filename(img_dir: Path, filename: str) -> str:
     return candidate
 
 
-AESTHETIC_ANALYSIS_PROMPT = """你是一位受過設計史與藝術史訓練的文字工作者。
-你的任務是為圖片寫一段精準的文字描述，供視覺檔案使用。
+CAPTION_PROMPT = """分析這張圖片，提取三個面向的資訊。
 
-────────────────────────────
-第一步：辨識物件或場域類型（可複選）
-────────────────────────────
-印刷品、字體排印、書籍、海報、包裝
-繪畫、素描、版畫、攝影
-裝置、雕塑、物件、模型
-建築、空間、室內、展場
-介面、螢幕、數位影像
-身體、服裝、布料
-自然、地景、材料本身
+**第一部分：CONTENT（內容辨識）**
+辨識：
+- type: 書籍 | 海報 | 展覽現場 | 作品照片 | 網頁截圖 | 其他
+- title: 如果可辨識書名、展覽名稱、作品名稱，提取出來（沒有就留空）
+- creator: 如果可辨識作者、藝術家、設計師，提取出來（沒有就留空）
+- content_design_link: 一句話，說明設計語言和內容的關係（如何透過形式傳遞訊息）
 
-────────────────────────────
-第二步：從以下維度中選擇可觀察到的項目描述
-────────────────────────────
+**第二部分：STYLE_TAGS（風格座標）**
+從以下六個維度各選 0-2 個最突出的標籤，總共 6-12 個：
 
-**文字內容**
-若圖中出現視覺層級較高的文字（標題、副標題、大字、主要標語），逐一記錄原文。
-保留原始語言與大小寫，不翻譯、不摘要。
-小字、內文、說明文字、頁碼等略過不記錄。
-若文字因角度、模糊或遮擋而無法完整辨識，標注可見部分並以「[不可辨]」標記缺漏處。
-若圖中無文字，略過此項。
+1. 製作態度：精緻/粗糙/控制/偶然/手工/工業/DIY/量產
+2. 密度節奏：密集/稀疏/均勻/不規則/留白/填滿/張力/平靜
+3. 色彩傾向：單色/多色/高飽和/低飽和/冷色/暖色/消色/螢光
+4. 時代感：古典/現代主義/後現代/當代/復古/未來感/無時間
+5. 文化軸：歐洲/美國/日本/東亞/全球南方/在地/國際主義
+6. 態度：嚴肅/玩味/諷刺/中性/激進/商業/實驗/學院
 
-**排版與版面**
-字距、行距、網格節奏、留白的密度；字體是幾何還是人文、現代主義還是後現代？
+**第三部分：DESCRIPTION（給人看的描述）**
+用策展語彙，2-3 句話，綜合描述這張圖片的視覺特質和設計手法。
 
-**材質與表面**
-紙張質地（模造紙、道林紙、牛皮、棉紙）、印刷工法（膠印、絹印、活版、數位輸出）、塗層與光澤（霧面、亮面、裸紙）、從視覺可推估的觸感與重量。
-
-**色彩系統**
-描述主色數量、冷暖關係、飽和度與明度範圍、墨色或色層的處理方式。
-若配色與特定色彩史脈絡有明確對應，可標注參考座標，例如：
-- 19世紀：自然主義色調、學院派用色、印象派的光色分析
-- 1900–1930s：新藝術運動的有機色、構成主義的原色體系、包浩斯基礎色實驗
-- 1940–1960s：戰後現代主義的克制用色、抽象表現主義的色域
-- 1960–1970s：普普藝術的高彩度對比、大地色系、迷幻視覺的光學色彩
-- 1980s：Memphis 的衝突配色、新浪潮的解構色彩、企業識別的系統化用色
-- 1990s：極簡主義的去色傾向、酸性螢光、grunge 的消色與髒色
-- 2000s：數位原生的RGB色彩、Web 2.0 的漸層與高光
-- 2010s：莫蘭迪色系的流行、扁平化設計的色票標準化
-- 2020s：Y2K 復興的金屬色與飽和色、AI 生成影像的色彩特徵
-若無明確對應，僅描述色彩的視覺特性即可，不強行歸類。
-
-**構圖邏輯**
-視覺重量的分佈、對稱或不對稱的關係、視線動線、負空間的作用。
-
-**尺度感與空間關係**
-物件在實體空間裡的存在感——紀念碑式、桌面的親密感，或牆面上的低調存在。
-
-**時代與地緣脈絡**
-若圖中有可辨識的視覺線索，描述其對應的年代、地域或文化語境。
-參考範圍涵蓋但不限於：
-- 歐洲：包浩斯、De Stijl、國際主義風格（Swiss Style）、Neue Grafik、新藝術運動、裝飾藝術、Fluxus、情境主義、荷蘭概念設計、德意志製造聯盟
-- 英美：Punk Zine 文化、Pop Art、地下漫畫、Psychedelia、後龐克視覺、英國新浪潮、美國企業現代主義
-- 日本：明治洋風版畫、戰後前衛設計、具體派、物派、1970–80s 商業設計黃金期、90s 次文化視覺
-- 東亞與全球：台灣黨外出版物美學、香港商業印刷文化、蘇聯構成主義宣傳視覺、拉丁美洲壁畫傳統、非洲當代藝術
-- 當代：後網路美學、數位工藝、獨立出版（Risograph/活版復興）、概念藝術的文件性
-若無法確認，標注「脈絡不明確」，不強行推測。
-
-**製作態度**
-精緻或粗糙、控制或偶然、手工感或工業感、是否保留製程痕跡。
-
-────────────────────────────
-輸出格式
-────────────────────────────
-[物件類型]
-[標題／副標題（若有）]
-[描述，150–300字，繁體中文]
-
-只描述圖中可見的事物，使用準確的設計與藝術詞彙。
-不加評價、不做詮釋、不表達喜好。
-若某個維度在圖中不明顯，略過不寫。
+只回傳 JSON，不要有任何解釋，格式：
+{
+  "content": {
+    "type": "...",
+    "title": "...",
+    "creator": "...",
+    "content_design_link": "..."
+  },
+  "style_tags": ["標籤1", "標籤2"],
+  "description": "..."
+}
 """
+
+
+def _minimal_caption(filename: str = "") -> dict:
+    """失敗時的最小 caption 結構。"""
+    return {
+        "content": {
+            "type": "其他",
+            "title": "",
+            "creator": "",
+            "content_design_link": "",
+        },
+        "style_tags": [],
+        "description": filename or "",
+    }
+
+
+def _parse_caption(text: str) -> dict:
+    """解析 LLM 回傳的 JSON caption，失敗時 raise。"""
+    # 清理 markdown fence
+    text = text.strip()
+    if text.startswith("```json"):
+        text = text[7:]
+    elif text.startswith("```"):
+        text = text[3:]
+    if text.endswith("```"):
+        text = text[:-3]
+    text = text.strip()
+
+    # 嘗試直接解析
+    try:
+        result = json.loads(text)
+    except json.JSONDecodeError:
+        # 常見 LLM 問題：單引號、尾隨逗號、不加引號的 key
+        import re
+        # 移除尾隨逗號（] 或 } 前面的逗號）
+        cleaned = re.sub(r',\s*([}\]])', r'\1', text)
+        # 如果仍失敗，嘗試用 ast.literal_eval 再轉 json
+        try:
+            result = json.loads(cleaned)
+        except json.JSONDecodeError:
+            import ast
+            result = ast.literal_eval(cleaned)
+
+    if not isinstance(result, dict):
+        raise ValueError("Not a dict")
+    if "content" not in result or "style_tags" not in result or "description" not in result:
+        raise ValueError("Missing required fields")
+    return result
+
+
+def _normalize_caption(caption) -> dict:
+    """將 caption 正規化為三段式 dict。支援舊的 str 格式向下相容。"""
+    if isinstance(caption, dict):
+        # 已經是新格式
+        if "content" in caption and "style_tags" in caption and "description" in caption:
+            return caption
+        # 部分結構
+        return {
+            "content": caption.get("content", _minimal_caption()["content"]),
+            "style_tags": caption.get("style_tags", []),
+            "description": caption.get("description", ""),
+        }
+    if isinstance(caption, str):
+        # 嘗試 JSON 解析
+        try:
+            parsed = json.loads(caption)
+            if isinstance(parsed, dict) and "description" in parsed:
+                return _normalize_caption(parsed)
+        except (json.JSONDecodeError, ValueError):
+            pass
+        # 舊的純文字 caption
+        return {
+            "content": {
+                "type": "其他",
+                "title": "",
+                "creator": "",
+                "content_design_link": "",
+            },
+            "style_tags": [],
+            "description": caption,
+        }
+    return _minimal_caption()
+
+
+def _build_embed_text(caption: dict) -> str:
+    """從三段式 caption 構建用於 embedding 的文字。"""
+    embed_parts = []
+    # style_tags（最重要，用於風格定位）
+    if caption.get("style_tags"):
+        embed_parts.append(" ".join(caption["style_tags"]))
+    # content.title + creator（如果有）
+    content = caption.get("content", {})
+    if content.get("title"):
+        embed_parts.append(content["title"])
+    if content.get("creator"):
+        embed_parts.append(content["creator"])
+    # 如果都沒有，用 description
+    if not embed_parts:
+        embed_parts.append(caption.get("description", ""))
+    return " ".join(embed_parts)
 
 
 def _resolve_vision_config() -> tuple[str, str, str]:
@@ -274,18 +334,27 @@ def _resolve_vision_config() -> tuple[str, str, str]:
     return model, api_key, api_base
 
 
-async def _auto_caption(image_bytes: bytes, filename: str = "") -> str:
-    """用 vision LLM 自動生成圖片美學描述。失敗時回傳空字串。"""
+async def _auto_caption(image_bytes: bytes, filename: str = "") -> dict:
+    """用 vision LLM 自動生成三段式 caption。失敗時回傳最小結構。"""
+    import traceback as _tb
+
+    print(f"[DEBUG] _auto_caption START: {filename}")
+    raw_text = ""
     try:
         import httpx
 
         model, api_key, api_base = _resolve_vision_config()
+        print(f"[DEBUG] Model: {model}")
+        print(f"[DEBUG] API base: {api_base}")
+        print(f"[DEBUG] API key: {api_key[:12]}..." if api_key else "[DEBUG] API key: (empty)")
         if not model:
+            print(f"[DEBUG] No vision model configured, returning fallback")
             log.warning("Auto-caption skipped: no vision model configured")
-            return ""
+            return _minimal_caption(Path(filename).stem if filename else "")
 
         # 圖片轉 base64
         b64 = base64.b64encode(image_bytes).decode()
+        print(f"[DEBUG] Image base64 length: {len(b64)} chars")
         suffix = Path(filename).suffix.lower().lstrip(".")
         mime = {
             "jpg": "image/jpeg", "jpeg": "image/jpeg",
@@ -296,6 +365,7 @@ async def _auto_caption(image_bytes: bytes, filename: str = "") -> str:
         from rag.rate_guard import get_rate_guard
 
         async def _call_caption():
+            print(f"[DEBUG] Calling Vision API: POST {api_base}/chat/completions")
             async with httpx.AsyncClient(timeout=60.0) as client:
                 resp = await client.post(
                     f"{api_base}/chat/completions",
@@ -308,29 +378,62 @@ async def _auto_caption(image_bytes: bytes, filename: str = "") -> str:
                         "messages": [{
                             "role": "user",
                             "content": [
-                                {"type": "text", "text": AESTHETIC_ANALYSIS_PROMPT},
+                                {"type": "text", "text": CAPTION_PROMPT},
                                 {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}"}},
                             ],
                         }],
                         "temperature": 0.3,
-                        "max_tokens": 800,
+                        "max_tokens": 4096,
                     },
                 )
+                print(f"[DEBUG] Vision API HTTP status: {resp.status_code}")
                 if resp.status_code != 200:
-                    log.warning("Auto-caption API error %d: %s", resp.status_code, resp.text[:200])
+                    resp_text = resp.text[:500]
+                    print(f"[ERROR] Vision API error response: {resp_text}")
+                    # 檢查 rate limit
+                    if resp.status_code == 429:
+                        print(f"[ERROR] 💥 RATE LIMIT (429)")
+                    log.warning("Auto-caption API error %d: %s", resp.status_code, resp_text[:200])
                     return ""
                 data = resp.json()
-                return (data["choices"][0]["message"]["content"] or "").strip()
+                text = (data["choices"][0]["message"]["content"] or "").strip()
+                finish = data["choices"][0].get("finish_reason", "")
+                print(f"[DEBUG] Vision API SUCCESS, finish_reason={finish}, response length={len(text)} chars")
+                if finish == "length":
+                    print(f"[WARN] Response truncated!")
+                    log.warning("Auto-caption truncated (finish_reason=length), response: %s", text[:200])
+                return text
 
         guard = get_rate_guard()
-        caption = await guard.call_with_retry(
+        raw_text = await guard.call_with_retry(
             "image/auto_caption", _call_caption, max_retries=2,
         )
-        log.info("Auto-caption generated: %s", caption[:80])
-        return caption
+
+        if not raw_text:
+            print(f"[DEBUG] Empty raw_text, returning fallback")
+            return _minimal_caption(Path(filename).stem if filename else "")
+
+        print(f"[DEBUG] Parsing JSON from raw_text ({len(raw_text)} chars)...")
+        result = _parse_caption(raw_text)
+        print(f"[DEBUG] _auto_caption SUCCESS: type={result['content'].get('type')}, "
+              f"tags={len(result.get('style_tags', []))}, desc_len={len(result.get('description', ''))}")
+        log.info("Auto-caption generated: %s", json.dumps(result, ensure_ascii=False)[:120])
+        return result
+
     except Exception as e:
+        error_str = str(e).lower()
+        print(f"[ERROR] _auto_caption FAILED: {filename}")
+        print(f"[ERROR] Type: {type(e).__name__}")
+        print(f"[ERROR] Message: {e}")
+        if "rate" in error_str or "429" in error_str or "quota" in error_str:
+            print(f"[ERROR] 💥 RATE LIMIT / QUOTA EXCEEDED")
+        if "auth" in error_str or "401" in error_str or "key" in error_str:
+            print(f"[ERROR] 💥 AUTHENTICATION ERROR")
+        _tb.print_exc()
+        if raw_text:
+            print(f"[DEBUG] Raw LLM response (first 300 chars): {raw_text[:300]}")
         log.warning("Auto-caption failed for %s: %s", filename, e)
-        return ""
+        return _minimal_caption(Path(filename).stem if filename else "")
 
 
 CHAT_DESCRIBE_PROMPT = """你是一位策展人的視覺助手。使用者正在對話中引用這張圖片，請提供詳細的視覺描述。
@@ -429,44 +532,51 @@ async def index_image(
     caption: str = "",
     tags: str = "",
 ) -> dict:
-    """為已存檔的圖片建立 auto_caption + embedding + LanceDB 索引。"""
+    """為已存檔的圖片建立 auto_caption + embedding + LanceDB 索引。
+
+    caption 為空時呼叫 LLM 自動生成（三段式）。
+    回傳包含完整 caption dict 的 metadata。
+    """
     import uuid
     img_path = _images_dir(project_id) / filename
     image_bytes = img_path.read_bytes()
 
+    # 生成或正規化 caption
     if not caption.strip():
-        caption = await _auto_caption(image_bytes, filename)
+        caption_dict = await _auto_caption(image_bytes, filename)
+    else:
+        caption_dict = _normalize_caption(caption)
 
-    img_vec = _truncate(await _embed_image(image_bytes))
-    final_vec = _truncate_and_normalize(img_vec)
-    if caption.strip():
-        try:
-            txt_vec = _truncate(await _embed_text(caption))
-            mixed = [(a * 0.5) + (b * 0.5) for a, b in zip(img_vec, txt_vec)]
-            final_vec = _truncate_and_normalize(mixed)
-        except Exception as e:
-            log.warning("Caption embedding failed for %s, use image vector only: %s", filename, e)
+    # 用 style_tags + title/creator 構建 embedding 文字（不再混合圖片向量）
+    embed_text_str = _build_embed_text(caption_dict)
+    try:
+        vec = _truncate(await _embed_text(embed_text_str))
+        final_vec = _truncate_and_normalize(vec)
+    except Exception as e:
+        log.warning("Text embedding failed for %s, using zero vector: %s", filename, e)
+        final_vec = [0.0] * IMAGE_DIM
 
     image_id = str(uuid.uuid4())[:8]
     created_at = time.strftime("%Y-%m-%d %H:%M:%S")
+    caption_json = json.dumps(caption_dict, ensure_ascii=False)
 
     db = _get_db(_lancedb_dir(project_id))
     table = _get_or_create_table(db)
     row = {
         "id": image_id,
         "filename": filename,
-        "caption": caption,
+        "caption": caption_json,
         "tags": tags,
         "created_at": created_at,
         "vector": final_vec,
     }
     table.add([row])
 
-    log.info("Indexed image %s: %s", filename, caption[:40])
+    log.info("Indexed image %s: %s", filename, caption_json[:80])
     return {
         "id": image_id,
         "filename": filename,
-        "caption": caption,
+        "caption": caption_dict,
         "tags": tags,
         "created_at": created_at,
         "path": str(img_path),
@@ -490,7 +600,7 @@ async def search_images(
     query: str,
     limit: int = 5,
 ) -> list[dict]:
-    """用文字語意搜尋圖片。回傳最相關的圖片 metadata。"""
+    """用文字語意搜尋圖片（用 style_tags 搜尋）。回傳最相關的圖片 metadata。"""
     db = _get_db(_lancedb_dir(project_id))
     if TABLE_NAME not in db.table_names():
         return []
@@ -508,22 +618,23 @@ async def search_images(
     )
 
     img_dir = _images_dir(project_id)
-    return [
-        {
+    parsed = []
+    for r in results:
+        caption = _normalize_caption(r.get("caption", ""))
+        parsed.append({
             "id": r.get("id", ""),
             "filename": r.get("filename", ""),
-            "caption": r.get("caption", ""),
+            "caption": caption,
             "tags": r.get("tags", ""),
             "created_at": r.get("created_at", ""),
             "path": str(img_dir / r.get("filename", "")),
             "score": 1.0 - r.get("_distance", 0),
-        }
-        for r in results
-    ]
+        })
+    return parsed
 
 
 async def list_images(project_id: str) -> list[dict]:
-    """列出專案所有圖片 metadata。"""
+    """列出專案所有圖片 metadata。caption 為三段式 dict。"""
     db = _get_db(_lancedb_dir(project_id))
     if TABLE_NAME not in db.table_names():
         return []
@@ -536,10 +647,11 @@ async def list_images(project_id: str) -> list[dict]:
     img_dir = _images_dir(project_id)
     result = []
     for _, r in rows.iterrows():
+        caption = _normalize_caption(r.get("caption", ""))
         result.append({
             "id": r.get("id", ""),
             "filename": r.get("filename", ""),
-            "caption": r.get("caption", ""),
+            "caption": caption,
             "tags": r.get("tags", ""),
             "created_at": r.get("created_at", ""),
             "path": str(img_dir / r.get("filename", "")),
@@ -571,10 +683,17 @@ async def delete_image(project_id: str, image_id: str) -> bool:
     return True
 
 
-async def update_image(project_id: str, image_id: str, caption: str = "", tags: str = "") -> bool:
+async def update_image(
+    project_id: str,
+    image_id: str,
+    caption: str | dict = "",
+    tags: str = "",
+    recalc_vector: bool = False,
+) -> bool:
     """更新圖片的 caption/tags。
 
-    v0.7: 不再因 caption 變更重算向量（避免阻塞與重複重型推論）。
+    caption 可以是 str（向下相容）或 dict（三段式）。
+    recalc_vector=True 時重算向量。
     """
     db = _get_db(_lancedb_dir(project_id))
     if TABLE_NAME not in db.table_names():
@@ -589,8 +708,24 @@ async def update_image(project_id: str, image_id: str, caption: str = "", tags: 
     row = match.iloc[0].to_dict()
     safe_id = image_id.replace("'", "''")
     table.delete(f"id = '{safe_id}'")
-    row["caption"] = caption
+
+    # 正規化 caption 為 JSON 字串
+    if isinstance(caption, dict):
+        caption_dict = _normalize_caption(caption)
+        row["caption"] = json.dumps(caption_dict, ensure_ascii=False)
+    else:
+        row["caption"] = caption
     row["tags"] = tags
+
+    # 重算向量
+    if recalc_vector:
+        caption_dict = _normalize_caption(row["caption"])
+        embed_text_str = _build_embed_text(caption_dict)
+        try:
+            vec = _truncate(await _embed_text(embed_text_str))
+            row["vector"] = _truncate_and_normalize(vec)
+        except Exception as e:
+            log.warning("Vector recalc failed for %s: %s", image_id, e)
 
     table.add([row])
     return True
@@ -632,11 +767,12 @@ async def backfill_captions(project_id: str, notify=None) -> dict:
             failed += 1
             continue
 
-        caption = await _auto_caption(img_path.read_bytes(), filename)
-        if not caption:
+        caption_dict = await _auto_caption(img_path.read_bytes(), filename)
+        if not caption_dict.get("description"):
             failed += 1
             continue
 
+        caption = json.dumps(caption_dict, ensure_ascii=False)
         ok = await update_image(project_id, image_id, caption=caption, tags=row.get("tags", ""))
         if ok:
             updated += 1
@@ -645,6 +781,87 @@ async def backfill_captions(project_id: str, notify=None) -> dict:
             failed += 1
 
     return {"updated": updated, "failed": failed, "total": total}
+
+
+async def update_caption_and_reindex(
+    project_id: str,
+    image_id: str,
+    new_caption: dict,
+) -> None:
+    """更新 caption 並重算向量（基於新的 style_tags）。"""
+    caption_dict = _normalize_caption(new_caption)
+    ok = await update_image(
+        project_id, image_id,
+        caption=caption_dict, tags="",
+        recalc_vector=True,
+    )
+    if not ok:
+        raise ValueError(f"Image {image_id} not found")
+
+
+async def regenerate_all_captions(
+    project_id: str,
+    only_fallback: bool = False,
+    progress_callback=None,
+) -> tuple[int, int]:
+    """為所有（或只有 fallback）圖片重新生成 caption。
+
+    回傳 (total, updated)
+    """
+    import asyncio
+
+    db = _get_db(_lancedb_dir(project_id))
+    if TABLE_NAME not in db.table_names():
+        return (0, 0)
+
+    table = db.open_table(TABLE_NAME)
+    if table.count_rows() == 0:
+        return (0, 0)
+
+    df = table.to_pandas().drop(columns=["vector"], errors="ignore")
+    rows = df.to_dict("records")
+
+    # 篩選需要重新生成的
+    to_regenerate = []
+    for row in rows:
+        if only_fallback:
+            cap = _normalize_caption(row.get("caption", ""))
+            desc = cap.get("description", "")
+            filename_stem = Path(row["filename"]).stem
+            if desc == filename_stem or not desc:
+                to_regenerate.append(row)
+        else:
+            to_regenerate.append(row)
+
+    total = len(to_regenerate)
+    updated = 0
+    img_dir = _images_dir(project_id)
+
+    for idx, row in enumerate(to_regenerate):
+        if progress_callback:
+            progress_callback(idx + 1, total)
+
+        img_path = img_dir / row["filename"]
+        if not img_path.exists():
+            continue
+
+        try:
+            # 延遲避免 rate limit（15 RPM）
+            if idx > 0:
+                await asyncio.sleep(4.5)
+
+            new_caption = await _auto_caption(img_path.read_bytes(), row["filename"])
+            await update_caption_and_reindex(
+                project_id=project_id,
+                image_id=row["id"],
+                new_caption=new_caption,
+            )
+            updated += 1
+        except Exception as e:
+            log.warning("Regenerate caption failed for %s: %s", row["filename"], e)
+            continue
+
+    return (total, updated)
 
 
 def get_selected_path(project_id: str) -> Path:
@@ -669,16 +886,17 @@ async def set_selected(project_id: str, image_ids: list[str]) -> list[dict]:
     df = table.to_pandas().drop(columns=["vector"], errors="ignore")
     selected = df[df["id"].isin(image_ids)]
     img_dir = _images_dir(project_id)
-    return [
-        {
+    result = []
+    for _, r in selected.iterrows():
+        caption = _normalize_caption(r.get("caption", ""))
+        result.append({
             "id": r.get("id", ""),
             "filename": r.get("filename", ""),
-            "caption": r.get("caption", ""),
+            "caption": caption,
             "tags": r.get("tags", ""),
             "path": str(img_dir / r.get("filename", "")),
-        }
-        for _, r in selected.iterrows()
-    ]
+        })
+    return result
 
 
 async def get_selected(project_id: str) -> list[dict]:

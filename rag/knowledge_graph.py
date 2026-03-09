@@ -188,9 +188,9 @@ def get_rag(project_id: str = "default") -> LightRAG:
             async def _call_llm():
                 async with _httpx.AsyncClient(timeout=_llm_timeout) as client:
                     body = {"model": llm_model, "messages": messages}
-                    # Ollama local: force CPU to avoid GPU contention with embedding server
+                    # Ollama local: use GPU — serialize with embedding via max_async=1
                     if _is_local_llm:
-                        body["options"] = {"num_gpu": 0}
+                        body["options"] = {"num_gpu": 99}
                     resp = await client.post(
                         f"{llm_base}/chat/completions",
                         headers={
@@ -250,8 +250,9 @@ def get_rag(project_id: str = "default") -> LightRAG:
     # Configurable performance parameters (overridable via env)
     # Local models (Ollama): lower LLM concurrency since GPU processes sequentially
     _embed_timeout = int(os.environ.get("LIGHTRAG_EMBEDDING_TIMEOUT", "180"))
-    _embed_max_async = int(os.environ.get("LIGHTRAG_EMBED_MAX_ASYNC", "4"))
-    _default_llm_async = "2" if _is_local_llm else "8"
+    _default_embed_async = "1" if _is_local_llm else "4"
+    _embed_max_async = int(os.environ.get("LIGHTRAG_EMBED_MAX_ASYNC", _default_embed_async))
+    _default_llm_async = "1" if _is_local_llm else "8"
     _llm_max_async = int(os.environ.get("LIGHTRAG_LLM_MAX_ASYNC", _default_llm_async))
     _chunk_token_size = int(os.environ.get("LIGHTRAG_CHUNK_TOKEN_SIZE", "2400"))
 
@@ -694,6 +695,9 @@ async def insert_url(url: str, project_id: str = "default", title: str = "", on_
     fetch_timeout = float(env.get("WEB_FETCH_TIMEOUT_SECS", "30"))
     reader_base = env.get("WEB_FETCH_READER_BASE", "https://r.jina.ai/")
 
+    # 下載大小上限（預設 5 MB），避免超大頁面撐爆記憶體 / GPU
+    _max_download = int(env.get("WEB_FETCH_MAX_BYTES", str(5 * 1024 * 1024)))
+
     # 先下載一次判斷是否為 PDF
     if on_progress:
         on_progress("正在下載網頁…")
@@ -702,6 +706,15 @@ async def insert_url(url: str, project_id: str = "default", title: str = "", on_
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
         })
         resp.raise_for_status()
+
+    if len(resp.content) > _max_download:
+        size_mb = len(resp.content) / (1024 * 1024)
+        limit_mb = _max_download / (1024 * 1024)
+        raise RuntimeError(
+            f"頁面太大（{size_mb:.1f} MB），超過上限 {limit_mb:.0f} MB。"
+            f" 可透過 WEB_FETCH_MAX_BYTES 調整。"
+        )
+
     content_type = resp.headers.get("content-type", "")
 
     if "pdf" in content_type or url.lower().endswith(".pdf"):
