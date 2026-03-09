@@ -35,7 +35,7 @@ class GGUFMultimodalBackend(EmbeddingBackend):
         self,
         base_url: str = "http://127.0.0.1:8999",
         dim: int = _EMBED_DIM,
-        timeout: float = 60.0,
+        timeout: float = 180.0,
     ) -> None:
         self._base_url = base_url.rstrip("/")
         self._dim = dim
