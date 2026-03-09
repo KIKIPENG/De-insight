@@ -277,6 +277,28 @@ class RAGMixin:
         except Exception as e:
             self.notify(f"重新生成失敗: {e}")
 
+    @work(exclusive=True, group="reindex_images")
+    async def action_reindex_images(self) -> None:
+        """為所有圖片生成圖片向量（/reindex-images 指令）。"""
+        if not self.state.current_project:
+            self.notify("請先選擇專案", severity="warning")
+            return
+        pid = self.state.current_project["id"]
+        self.notify("開始重新索引圖片向量...")
+        try:
+            from rag.image_store import reindex_all_images
+            result = await reindex_all_images(
+                pid,
+                progress_callback=lambda current, total: self.notify(
+                    f"索引中：{current}/{total}", timeout=2
+                ),
+            )
+            self.notify(
+                f"索引完成：{result['updated']} 更新、{result['skipped']} 跳過、{result['failed']} 失敗"
+            )
+        except Exception as e:
+            self.notify(f"索引失敗: {e}")
+
     def action_cite_research(self) -> None:
         display = getattr(self, '_last_research_display', '')
         if display:

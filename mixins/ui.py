@@ -58,12 +58,28 @@ class UIMixin:
         try:
             env = load_env()
             llm_model = env.get("LLM_MODEL", "")
+
+            # RAG LLM 狀態：有設定就算 OK（雲端 API，不做 probe）
+            rag_model = env.get("RAG_LLM_MODEL", "") or llm_model
+            rag_llm_ok = bool(rag_model)
+
+            # Vision 狀態：有模型設定就算 OK
+            vision_ok = False
+            try:
+                from rag.image_store import _resolve_vision_config
+                v_model, v_key, v_base = _resolve_vision_config()
+                vision_ok = bool(v_model)
+            except Exception:
+                pass
+
             menu = self.query_one("#menu-bar", MenuBar)
             menu.set_system_status(
                 llm_model=llm_model,
                 llm_ok=bool(llm_model),
                 embed_label=getattr(self, "_embed_label", "jina-embeddings-v4"),
                 embed_ok=getattr(self, "_embed_ok", False),
+                rag_llm_ok=rag_llm_ok,
+                vision_ok=vision_ok,
             )
         except NoMatches:
             pass

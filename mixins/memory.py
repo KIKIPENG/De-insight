@@ -253,39 +253,73 @@ class MemoryMixin:
 
         # 只對 insight 進行演變偵測
         insights = [i for i in items if isinstance(i, dict) and i.get("type") == "insight"]
-        print(f"[DEBUG] _save_confirmed_memories: found {len(insights)} insights in {len(items)} items")
         if insights:
-            print(f"[DEBUG] Triggering evolution check for: {insights[0]['content'][:50]}")
             self._check_insight_evolution(insights[0]["content"])
+
+        # 偏好萃取：每存入一批記憶後，檢查是否需要更新視覺偏好
+        self._maybe_update_visual_preference()
+
+    @work(exclusive=False)
+    async def _maybe_update_visual_preference(self) -> None:
+        """背景：圖片數 >= 5 且距上次萃取超過 5 張時，更新視覺偏好。"""
+        try:
+            if not self.state.current_project:
+                return
+            pid = self.state.current_project["id"]
+            db_path = self._memory_db_path()
+
+            from rag.image_store import get_image_count
+            count = await get_image_count(pid)
+            if count < 5:
+                return
+
+            # 檢查上次萃取時的圖片數
+            prefs = await get_memories(type="preference", limit=1, db_path=db_path)
+            if prefs:
+                # source 欄位存了上次的圖片數
+                last_count = 0
+                try:
+                    last_count = int(prefs[0].get("source", "0"))
+                except (ValueError, TypeError):
+                    pass
+                if count - last_count < 5:
+                    return  # 新增不到 5 張，不更新
+
+            from rag.image_store import extract_visual_preference
+            result = await extract_visual_preference(pid, llm_call=self._quick_llm_call)
+            if not result or not result.get("summary"):
+                return
+
+            await add_memory(
+                type="preference",
+                content=result["summary"],
+                source=str(count),  # 記錄當時的圖片數
+                topic="美學偏好",
+                category="美學偏好",
+                db_path=db_path,
+            )
+            self._refresh_memory_panel()
+            self.notify("◇ 視覺偏好已更新")
+        except Exception:
+            pass  # 偏好萃取失敗不影響主流程
 
     @work(exclusive=False)
     async def _check_insight_evolution(self, new_insight: str) -> None:
         """背景任務：檢查洞見的思維演變，結果寫入記憶面板。"""
-        print(f"[DEBUG] _check_insight_evolution called with: {new_insight[:50]}")
         try:
             from memory.thought_tracker import check_for_evolution
 
             db_path = self._memory_db_path()
-            print(f"[DEBUG] db_path={db_path}")
-            print(f"[DEBUG] Calling check_for_evolution...")
             result = await check_for_evolution(
                 new_insight, self._quick_llm_call, db_path=db_path
             )
-            print(f"[DEBUG] check_for_evolution result: {result}")
 
             if result is None or result.get("type") is None:
-                print("[DEBUG] No evolution detected (result is None or type is None)")
                 return
 
-            if result["type"] == "evolution":
-                type_label = "evolution"
-            else:
-                type_label = "contradiction"
-
+            type_label = result["type"]  # "evolution" or "contradiction"
             content = result["summary"]
             source_detail = f"舊：{result.get('old', '')}\n新：{result.get('new', '')}"
-
-            print(f"[DEBUG] Saving evolution record: type={type_label}, content={content[:50]}")
 
             await add_memory(
                 type=type_label,
@@ -296,11 +330,7 @@ class MemoryMixin:
                 db_path=db_path,
             )
 
-            print("[DEBUG] Evolution record saved, refreshing panel...")
             self._refresh_memory_panel()
-            print("[DEBUG] Panel refreshed successfully")
 
-        except Exception as e:
-            print(f"[DEBUG] Exception in _check_insight_evolution: {e}")
-            import traceback
-            traceback.print_exc()
+        except Exception:
+            pass

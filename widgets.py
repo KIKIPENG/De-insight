@@ -284,6 +284,8 @@ class MenuBar(Static):
         self._llm_ok: bool = False
         self._embed_label: str = ""
         self._embed_ok: bool = False
+        self._rag_llm_ok: bool = True
+        self._vision_ok: bool = False
         # ── 通知 / 進度 ──
         self._notify_msg: str = ""
         self._notify_severity: str = "info"
@@ -324,11 +326,15 @@ class MenuBar(Static):
         llm_ok: bool = False,
         embed_label: str = "",
         embed_ok: bool = False,
+        rag_llm_ok: bool = True,
+        vision_ok: bool = False,
     ) -> None:
         self._llm_model = llm_model
         self._llm_ok = llm_ok
         self._embed_label = embed_label
         self._embed_ok = embed_ok
+        self._rag_llm_ok = rag_llm_ok
+        self._vision_ok = vision_ok
         self._rebuild()
 
     def show_message(
@@ -494,6 +500,19 @@ class MenuBar(Static):
         text.append(" ", style="")
         col += 1
 
+        # 系統狀態：總狀態指示
+        all_ok = self._llm_ok and self._embed_ok and self._rag_llm_ok and self._vision_ok
+        some_ok = self._llm_ok  # 至少能對話
+        if all_ok:
+            text.append("◆", style="bold #8b949e")
+        elif some_ok:
+            text.append("◇", style="bold #f0c674")
+        else:
+            text.append("✗", style="bold #e06c75")
+        col += 1
+        text.append(" ", style="")
+        col += 1
+
         # 系統狀態：LLM 模型
         if self._llm_model:
             mark = "✓" if self._llm_ok else "…"
@@ -517,6 +536,14 @@ class MenuBar(Static):
             text.append(embed_short, style="#8b949e")
             text.append(f" {mark}", style=mark_style)
             col += 4 + len(embed_short) + 1 + len(mark)
+
+        # 降級服務（只在不 OK 時顯示）
+        if not self._rag_llm_ok:
+            text.append("  RAG✗", style="#e06c75")
+            col += 6
+        if not self._vision_ok:
+            text.append("  Vision✗", style="#e06c75")
+            col += 9
 
         # 通知 / 進度
         if self._notify_msg:

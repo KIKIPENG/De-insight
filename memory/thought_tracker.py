@@ -171,19 +171,15 @@ async def check_for_evolution(
     """
     # 1. 搜尋相關記憶（向量搜索 → LIKE fallback → 直接取 insight）
     query = new_insight[:30] if len(new_insight) > 30 else new_insight
-    print(f"[DEBUG] check_for_evolution: searching with query='{query}', db_path={db_path}")
     related = await search_memories(query, limit=5, db_path=db_path)
-    print(f"[DEBUG] check_for_evolution: vector/LIKE search found {len(related) if related else 0}")
     if not related:
         related = await get_memories(type="insight", limit=5, db_path=db_path)
-        print(f"[DEBUG] check_for_evolution: fallback get_memories found {len(related)} insights")
 
     # 2. 只保留 insight，排除新洞見本身
     insights = [
         m for m in (related or [])
         if m.get("type") == "insight" and m.get("content", "").strip() != new_insight.strip()
     ]
-    print(f"[DEBUG] check_for_evolution: after filter, {len(insights)} comparable insights")
     if not insights:
         return None
 
@@ -198,30 +194,24 @@ async def check_for_evolution(
 
     # 4. 呼叫 LLM
     response = await llm_call(prompt, max_tokens=2000)
-    print(f"[DEBUG] check_for_evolution: raw LLM response: {response!r}")
 
     # 5. 解析結果
     try:
         cleaned = _clean_json(response)
-        print(f"[DEBUG] check_for_evolution: cleaned JSON: {cleaned!r}")
         result = json.loads(cleaned)
-        print(f"[DEBUG] check_for_evolution: parsed result: {result}")
 
         if not isinstance(result, dict):
             return None
 
         result_type = result.get("type")
         if result_type is None or result_type not in ("evolution", "contradiction"):
-            print(f"[DEBUG] check_for_evolution: type={result_type!r}, no evolution")
             return None
 
         if not result.get("summary"):
-            print("[DEBUG] check_for_evolution: missing summary")
             return None
 
         return result
-    except (json.JSONDecodeError, KeyError) as e:
-        print(f"[DEBUG] check_for_evolution: JSON parse error: {e}")
+    except (json.JSONDecodeError, KeyError):
         return None
 
 

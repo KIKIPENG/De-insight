@@ -62,6 +62,7 @@ def _make_schema(dim: int = IMAGE_DIM) -> pa.Schema:
         pa.field("tags", pa.utf8()),
         pa.field("created_at", pa.utf8()),
         pa.field("vector", pa.list_(pa.float32(), dim)),
+        pa.field("vector_image", pa.list_(pa.float32(), dim)),
     ])
 
 
@@ -98,6 +99,18 @@ def _get_or_create_table(db):
             )
             db.drop_table(TABLE_NAME)
             return db.create_table(TABLE_NAME, schema=_make_schema())
+        # Migration: add vector_image column if missing
+        field_names = [f.name for f in tbl.schema]
+        if "vector_image" not in field_names:
+            log.info("Migrating image table: adding vector_image column")
+            df = tbl.to_pandas()
+            zero_vec = [[0.0] * IMAGE_DIM] * len(df)
+            df["vector_image"] = zero_vec
+            db.drop_table(TABLE_NAME)
+            new_tbl = db.create_table(TABLE_NAME, schema=_make_schema())
+            if len(df) > 0:
+                new_tbl.add(df.to_dict("records"))
+            return new_tbl
         return tbl
     return db.create_table(TABLE_NAME, schema=_make_schema())
 
@@ -336,25 +349,16 @@ def _resolve_vision_config() -> tuple[str, str, str]:
 
 async def _auto_caption(image_bytes: bytes, filename: str = "") -> dict:
     """用 vision LLM 自動生成三段式 caption。失敗時回傳最小結構。"""
-    import traceback as _tb
-
-    print(f"[DEBUG] _auto_caption START: {filename}")
     raw_text = ""
     try:
         import httpx
 
         model, api_key, api_base = _resolve_vision_config()
-        print(f"[DEBUG] Model: {model}")
-        print(f"[DEBUG] API base: {api_base}")
-        print(f"[DEBUG] API key: {api_key[:12]}..." if api_key else "[DEBUG] API key: (empty)")
         if not model:
-            print(f"[DEBUG] No vision model configured, returning fallback")
             log.warning("Auto-caption skipped: no vision model configured")
             return _minimal_caption(Path(filename).stem if filename else "")
 
-        # 圖片轉 base64
         b64 = base64.b64encode(image_bytes).decode()
-        print(f"[DEBUG] Image base64 length: {len(b64)} chars")
         suffix = Path(filename).suffix.lower().lstrip(".")
         mime = {
             "jpg": "image/jpeg", "jpeg": "image/jpeg",
@@ -365,7 +369,6 @@ async def _auto_caption(image_bytes: bytes, filename: str = "") -> dict:
         from rag.rate_guard import get_rate_guard
 
         async def _call_caption():
-            print(f"[DEBUG] Calling Vision API: POST {api_base}/chat/completions")
             async with httpx.AsyncClient(timeout=60.0) as client:
                 resp = await client.post(
                     f"{api_base}/chat/completions",
@@ -386,21 +389,13 @@ async def _auto_caption(image_bytes: bytes, filename: str = "") -> dict:
                         "max_tokens": 4096,
                     },
                 )
-                print(f"[DEBUG] Vision API HTTP status: {resp.status_code}")
                 if resp.status_code != 200:
-                    resp_text = resp.text[:500]
-                    print(f"[ERROR] Vision API error response: {resp_text}")
-                    # 檢查 rate limit
-                    if resp.status_code == 429:
-                        print(f"[ERROR] 💥 RATE LIMIT (429)")
-                    log.warning("Auto-caption API error %d: %s", resp.status_code, resp_text[:200])
+                    log.warning("Auto-caption API error %d: %s", resp.status_code, resp.text[:200])
                     return ""
                 data = resp.json()
                 text = (data["choices"][0]["message"]["content"] or "").strip()
                 finish = data["choices"][0].get("finish_reason", "")
-                print(f"[DEBUG] Vision API SUCCESS, finish_reason={finish}, response length={len(text)} chars")
                 if finish == "length":
-                    print(f"[WARN] Response truncated!")
                     log.warning("Auto-caption truncated (finish_reason=length), response: %s", text[:200])
                 return text
 
@@ -410,28 +405,13 @@ async def _auto_caption(image_bytes: bytes, filename: str = "") -> dict:
         )
 
         if not raw_text:
-            print(f"[DEBUG] Empty raw_text, returning fallback")
             return _minimal_caption(Path(filename).stem if filename else "")
 
-        print(f"[DEBUG] Parsing JSON from raw_text ({len(raw_text)} chars)...")
         result = _parse_caption(raw_text)
-        print(f"[DEBUG] _auto_caption SUCCESS: type={result['content'].get('type')}, "
-              f"tags={len(result.get('style_tags', []))}, desc_len={len(result.get('description', ''))}")
         log.info("Auto-caption generated: %s", json.dumps(result, ensure_ascii=False)[:120])
         return result
 
     except Exception as e:
-        error_str = str(e).lower()
-        print(f"[ERROR] _auto_caption FAILED: {filename}")
-        print(f"[ERROR] Type: {type(e).__name__}")
-        print(f"[ERROR] Message: {e}")
-        if "rate" in error_str or "429" in error_str or "quota" in error_str:
-            print(f"[ERROR] 💥 RATE LIMIT / QUOTA EXCEEDED")
-        if "auth" in error_str or "401" in error_str or "key" in error_str:
-            print(f"[ERROR] 💥 AUTHENTICATION ERROR")
-        _tb.print_exc()
-        if raw_text:
-            print(f"[DEBUG] Raw LLM response (first 300 chars): {raw_text[:300]}")
         log.warning("Auto-caption failed for %s: %s", filename, e)
         return _minimal_caption(Path(filename).stem if filename else "")
 
@@ -547,7 +527,7 @@ async def index_image(
     else:
         caption_dict = _normalize_caption(caption)
 
-    # 用 style_tags + title/creator 構建 embedding 文字（不再混合圖片向量）
+    # 用 style_tags + title/creator 構建 embedding 文字（文字向量，用於搜尋）
     embed_text_str = _build_embed_text(caption_dict)
     try:
         vec = _truncate(await _embed_text(embed_text_str))
@@ -555,6 +535,14 @@ async def index_image(
     except Exception as e:
         log.warning("Text embedding failed for %s, using zero vector: %s", filename, e)
         final_vec = [0.0] * IMAGE_DIM
+
+    # 圖片向量（CLIP image embedding，用於偏好聚類）
+    try:
+        vec_image = await _embed_image(image_bytes)
+        final_vec_image = _truncate_and_normalize(vec_image)
+    except Exception as e:
+        log.warning("Image embedding failed for %s, using zero vector: %s", filename, e)
+        final_vec_image = [0.0] * IMAGE_DIM
 
     image_id = str(uuid.uuid4())[:8]
     created_at = time.strftime("%Y-%m-%d %H:%M:%S")
@@ -569,6 +557,7 @@ async def index_image(
         "tags": tags,
         "created_at": created_at,
         "vector": final_vec,
+        "vector_image": final_vec_image,
     }
     table.add([row])
 
@@ -643,7 +632,7 @@ async def list_images(project_id: str) -> list[dict]:
     if table.count_rows() == 0:
         return []
 
-    rows = table.to_pandas().drop(columns=["vector"], errors="ignore")
+    rows = table.to_pandas().drop(columns=["vector", "vector_image"], errors="ignore")
     img_dir = _images_dir(project_id)
     result = []
     for _, r in rows.iterrows():
@@ -725,7 +714,19 @@ async def update_image(
             vec = _truncate(await _embed_text(embed_text_str))
             row["vector"] = _truncate_and_normalize(vec)
         except Exception as e:
-            log.warning("Vector recalc failed for %s: %s", image_id, e)
+            log.warning("Text vector recalc failed for %s: %s", image_id, e)
+        # 重算圖片向量
+        try:
+            img_path = _images_dir(project_id) / row.get("filename", "")
+            if img_path.exists():
+                vec_image = await _embed_image(img_path.read_bytes())
+                row["vector_image"] = _truncate_and_normalize(vec_image)
+        except Exception as e:
+            log.warning("Image vector recalc failed for %s: %s", image_id, e)
+
+    # Ensure vector_image exists (migration compat)
+    if "vector_image" not in row:
+        row["vector_image"] = [0.0] * IMAGE_DIM
 
     table.add([row])
     return True
@@ -818,7 +819,7 @@ async def regenerate_all_captions(
     if table.count_rows() == 0:
         return (0, 0)
 
-    df = table.to_pandas().drop(columns=["vector"], errors="ignore")
+    df = table.to_pandas().drop(columns=["vector", "vector_image"], errors="ignore")
     rows = df.to_dict("records")
 
     # 篩選需要重新生成的
@@ -864,6 +865,139 @@ async def regenerate_all_captions(
     return (total, updated)
 
 
+async def reindex_all_images(
+    project_id: str,
+    progress_callback=None,
+) -> dict:
+    """為所有圖片生成圖片向量（舊圖片可能只有文字向量）。
+
+    跳過已有非零 vector_image 的圖片。
+    Returns: {"total": int, "updated": int, "skipped": int, "failed": int}
+    """
+    images_dir = _images_dir(project_id)
+    if not images_dir.exists():
+        return {"total": 0, "updated": 0, "skipped": 0, "failed": 0}
+
+    db = _get_db(_lancedb_dir(project_id))
+    table = _get_or_create_table(db)
+    if table.count_rows() == 0:
+        return {"total": 0, "updated": 0, "skipped": 0, "failed": 0}
+
+    df = table.to_pandas()
+    total = len(df)
+    updated = 0
+    skipped = 0
+    failed = 0
+
+    for idx, (_, row) in enumerate(df.iterrows()):
+        if progress_callback:
+            progress_callback(idx + 1, total)
+
+        # 檢查是否已有圖片向量
+        vec_img = row.get("vector_image")
+        if vec_img is not None and hasattr(vec_img, '__len__') and sum(abs(x) for x in vec_img) > 0.01:
+            skipped += 1
+            continue
+
+        filename = row.get("filename", "")
+        img_path = images_dir / filename
+        if not img_path.exists():
+            failed += 1
+            continue
+
+        try:
+            new_vec = await _embed_image(img_path.read_bytes())
+            new_vec = _truncate_and_normalize(_truncate(new_vec))
+            # delete + add（LanceDB 不支援 in-place update）
+            row_dict = row.to_dict()
+            safe_id = str(row_dict["id"]).replace("'", "''")
+            table.delete(f"id = '{safe_id}'")
+            row_dict["vector_image"] = new_vec
+            table.add([row_dict])
+            updated += 1
+        except Exception as e:
+            log.warning("Reindex failed for %s: %s", filename, e)
+            failed += 1
+
+    return {"total": total, "updated": updated, "skipped": skipped, "failed": failed}
+
+
+async def get_image_count(project_id: str) -> int:
+    """取得專案圖片數量。"""
+    db = _get_db(_lancedb_dir(project_id))
+    if TABLE_NAME not in db.table_names():
+        return 0
+    table = db.open_table(TABLE_NAME)
+    return table.count_rows()
+
+
+async def extract_visual_preference(
+    project_id: str,
+    llm_call=None,
+) -> dict | None:
+    """從所有圖片的 style_tags 萃取視覺偏好。
+
+    Returns: {"tags_freq": dict, "summary": str, "image_count": int} 或 None（圖片不足）。
+    llm_call: async callable(prompt, max_tokens) -> str，用於生成自然語言摘要。
+    """
+    images = await list_images(project_id)
+    if len(images) < 5:
+        return None
+
+    # 第一階段：style_tags 詞頻統計
+    from collections import Counter
+    all_tags = []
+    for img in images:
+        cap = img.get("caption", {})
+        if isinstance(cap, str):
+            cap = _normalize_caption(cap)
+        tags = cap.get("style_tags", [])
+        if isinstance(tags, list):
+            all_tags.extend(tags)
+
+    if not all_tags:
+        return None
+
+    freq = Counter(all_tags)
+    top_tags = freq.most_common(15)
+
+    # 第二階段：LLM 自然語言描述（可選）
+    summary = ""
+    if llm_call and len(top_tags) >= 3:
+        freq_text = "\n".join(f"- {tag}：{count} 次" for tag, count in top_tags)
+        # 取前 5 張最有代表性的 description
+        sample_descs = []
+        for img in images[:5]:
+            cap = img.get("caption", {})
+            if isinstance(cap, str):
+                cap = _normalize_caption(cap)
+            desc = cap.get("description", "")
+            if desc and len(desc) > 10:
+                sample_descs.append(desc[:100])
+
+        prompt = f"""以下是一位創作者收集的參考圖片的風格標籤統計：
+
+{freq_text}
+
+代表圖片描述：
+{chr(10).join(f"- {d}" for d in sample_descs)}
+
+用 2-3 句話描述這位創作者的視覺偏好傾向。
+語氣像策展人在介紹一個人的眼光，不要用「使用者」，用「他」。
+不要條列，寫成自然段落，150 字以內。繁體中文。"""
+
+        try:
+            summary = await llm_call(prompt, max_tokens=300)
+        except Exception:
+            summary = ""
+
+    return {
+        "tags_freq": dict(top_tags),
+        "summary": summary,
+        "image_count": len(images),
+    }
+
+
 def get_selected_path(project_id: str) -> Path:
     """selected.json 路徑（統一放 DATA_ROOT）。"""
     return DATA_ROOT / "selected.json"
@@ -883,7 +1017,7 @@ async def set_selected(project_id: str, image_ids: list[str]) -> list[dict]:
         return []
 
     table = db.open_table(TABLE_NAME)
-    df = table.to_pandas().drop(columns=["vector"], errors="ignore")
+    df = table.to_pandas().drop(columns=["vector", "vector_image"], errors="ignore")
     selected = df[df["id"].isin(image_ids)]
     img_dir = _images_dir(project_id)
     result = []

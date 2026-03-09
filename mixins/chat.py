@@ -2,7 +2,10 @@
 from __future__ import annotations
 
 import json
+import logging
 from pathlib import Path
+
+log = logging.getLogger(__name__)
 from urllib.parse import unquote, urlparse
 
 import httpx
@@ -36,6 +39,7 @@ class ChatMixin:
         "/project": "open_project_modal",
         "/pending": "confirm_pending_memories",
         "/caption": "backfill_captions",
+        "/reindex-images": "reindex_images",
     }
 
     SLASH_HINTS: list[tuple[str, str]] = [
@@ -52,6 +56,7 @@ class ChatMixin:
         ("/project", "切換專案"),
         ("/pending", "記憶待確認"),
         ("/caption", "為圖片庫自動生成描述"),
+        ("/reindex-images", "重建圖片向量索引"),
     ]
 
     def on_chat_input_submitted(self, event) -> None:
@@ -588,21 +593,18 @@ class ChatMixin:
         if not pending:
             return text
 
-        open("/tmp/deinsight_debug.log", "a").write(f"[DEBUG] _build_user_content: {len(pending)} pending images\n")
+        log.debug("_build_user_content: %d pending images", len(pending))
 
         from rag.image_store import describe_image_for_chat
 
         descriptions = []
         for img in pending:
             img_path = Path(img) if isinstance(img, str) else Path(img.get("path", ""))
-            _dbg = lambda m: open("/tmp/deinsight_debug.log", "a").write(m + "\n")
-            _dbg(f"[DEBUG] Processing image: {img_path.name}, exists={img_path.exists()}")
             if not img_path.exists():
                 continue
             # --- 兩源合併：stored caption + live description ---
             # 1) Live Vision 描述
             live_desc = await describe_image_for_chat(img_path, user_question=text)
-            _dbg(f"[DEBUG] live desc: {len(live_desc) if live_desc else 0} chars")
 
             # 2) LanceDB stored caption（三段式）
             stored_block = ""
@@ -616,7 +618,6 @@ class ChatMixin:
                     if results and results[0].get("filename") == img_path.name:
                         raw_cap = results[0].get("caption", "")
                         cap = _normalize_caption(raw_cap, img_path.name)
-                        _dbg(f"[DEBUG] stored caption keys: {list(cap.keys()) if isinstance(cap, dict) else 'str'}")
                         # 判斷是否為有效三段式（非 fallback）
                         if isinstance(cap, dict):
                             content = cap.get("content", {})
@@ -638,9 +639,8 @@ class ChatMixin:
                                 if desc_text:
                                     parts.append(f"描述：{desc_text}")
                                 stored_block = "\n".join(parts)
-                                _dbg(f"[DEBUG] stored_block built: {len(stored_block)} chars")
-                except Exception as e:
-                    _dbg(f"[DEBUG] stored caption fetch error: {e}")
+                except Exception:
+                    pass
 
             # 3) 組合
             blocks = []
@@ -652,7 +652,6 @@ class ChatMixin:
             if blocks:
                 descriptions.append(f"── 圖片分析（{img_path.name}）──\n" + "\n\n".join(blocks))
             elif stored_block or live_desc:
-                # 理論上不會走到這裡，但保險
                 descriptions.append(f"── 圖片分析（{img_path.name}）──\n{stored_block or live_desc}")
             else:
                 descriptions.append(f"（附加圖片：{img_path.name}，描述生成失敗）")
@@ -661,13 +660,7 @@ class ChatMixin:
         self._update_menu_bar()
 
         if descriptions:
-            combined = text + "\n\n" + "\n\n".join(descriptions)
-            _dbg = lambda m: open("/tmp/deinsight_debug.log", "a").write(m + "\n")
-            _dbg("=" * 80)
-            _dbg("[DEBUG] Final user content sent to LLM:")
-            _dbg(combined[:500])
-            _dbg("=" * 80)
-            return combined
+            return text + "\n\n" + "\n\n".join(descriptions)
         return text
 
     @staticmethod
@@ -774,6 +767,25 @@ class ChatMixin:
             except Exception as e:
                 self.log.warning(f"RAG inject memory failed: {e}")
 
+        # ── 1.5 視覺偏好注入 ──
+        if not _skip_augment:
+            try:
+                from memory.store import get_memories
+                _mem_db = None
+                if self.state.current_project:
+                    from paths import project_root as _pr2
+                    _mem_db = _pr2(self.state.current_project["id"]) / "memories.db"
+                prefs = await get_memories(type="preference", limit=1, db_path=_mem_db)
+                if prefs and prefs[0].get("content"):
+                    pref_text = f"這位創作者的視覺偏好：{prefs[0]['content']}"
+                    if return_sys_addon:
+                        sys_addon_parts.append(pref_text)
+                    else:
+                        augmented.insert(insert_idx, {"role": "system", "content": pref_text})
+                        insert_idx += 1
+            except Exception:
+                pass
+
         # ── 2. 圖片知識庫檢索（skip in fast+building/degraded）──
         if not _skip_augment:
             try:
@@ -783,8 +795,25 @@ class ChatMixin:
                         self.state.current_project["id"], user_msg, limit=3,
                     )
                     if img_results:
+                        def _format_img(r):
+                            cap = r.get("caption", {})
+                            if isinstance(cap, dict):
+                                parts = []
+                                content = cap.get("content", {})
+                                if isinstance(content, dict) and content.get("title"):
+                                    parts.append(content["title"])
+                                tags = cap.get("style_tags", [])
+                                if tags:
+                                    parts.append(f"[{', '.join(tags[:4])}]")
+                                desc = cap.get("description", "")
+                                if desc:
+                                    parts.append(desc[:80])
+                                caption_str = " — ".join(parts) if parts else r["filename"]
+                            else:
+                                caption_str = str(cap) if cap else r["filename"]
+                            return f"- [圖片] {r['filename']}: {caption_str}"
                         img_lines = "\n".join(
-                            f"- [圖片] {r['filename']}: {r['caption']}" + (f" (tags: {r['tags']})" if r.get('tags') else "")
+                            _format_img(r)
                             for r in img_results
                             if r.get("score", 0) > 0.3 or r.get("filename", "") in user_msg
                         )

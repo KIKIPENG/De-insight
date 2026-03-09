@@ -545,6 +545,16 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         except Exception as e:
             self.log.warning(f"Failed to start ingestion worker: {e}")
 
+        # 定期健康檢查（30 秒）
+        self.set_interval(30, self._periodic_health_check)
+
+    async def _periodic_health_check(self) -> None:
+        """背景：定期更新服務狀態。"""
+        try:
+            self._update_status()
+        except Exception:
+            pass
+
     def _set_import_status(self, status: str) -> None:
         """Show/clear import progress on the MenuBar right side."""
         try:
