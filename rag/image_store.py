@@ -598,11 +598,13 @@ async def search_images(
     if table.count_rows() == 0:
         return []
 
+    # 粗篩：向量搜尋取 top 2x，留給 reranker 精排
+    fetch_limit = min(limit * 2, table.count_rows())
     query_vec = await _embed_text(query)
     results = (
         table.search(query_vec, vector_column_name="vector")
         .metric("cosine")
-        .limit(limit)
+        .limit(fetch_limit)
         .to_list()
     )
 
@@ -619,7 +621,27 @@ async def search_images(
             "path": str(img_dir / r.get("filename", "")),
             "score": 1.0 - r.get("_distance", 0),
         })
-    return parsed
+
+    # Jina Reranker 精排
+    if len(parsed) >= 2:
+        try:
+            from rag.reranker import rerank_with_items
+            reranked = await rerank_with_items(
+                query=query,
+                items=parsed,
+                text_fn=lambda item: (
+                    f"{' '.join(item['caption'].get('style_tags', []))} "
+                    f"{item['caption'].get('content', {}).get('title', '')} "
+                    f"{item['caption'].get('description', '')}"
+                ),
+                top_n=limit,
+            )
+            if reranked:
+                return reranked
+        except Exception as e:
+            log.debug("Image reranker skipped: %s", e)
+
+    return parsed[:limit]
 
 
 async def list_images(project_id: str) -> list[dict]:

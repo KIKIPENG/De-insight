@@ -612,6 +612,25 @@ async def run_thinking_pipeline(
     sources = apply_relevance_gate(sources, user_input, q_type)
     filtered_count = pre_gate_count - len(sources)
 
+    # Step 3.6: Jina Reranker (precision boost)
+    reranked = False
+    if sources and len(sources) >= 2:
+        try:
+            from rag.reranker import rerank_with_items
+            t_rerank = time.time()
+            reranked_sources = await rerank_with_items(
+                query=user_input,
+                items=sources,
+                text_fn=lambda s: f"{s.get('title', '')} {s.get('snippet', '')}",
+                top_n=min(len(sources), 5),
+            )
+            if reranked_sources:
+                sources = reranked_sources
+                reranked = True
+            latency_stages["rerank_ms"] = int((time.time() - t_rerank) * 1000)
+        except Exception as e:
+            log.debug("Reranker skipped: %s", e)
+
     # Step 4: Context cleaning
     context_text = clean_context(raw_result)
 
