@@ -281,8 +281,7 @@ class ChatMixin:
                 if not is_codex_available():
                     raise RuntimeError("codex CLI 未安裝。執行: npm i -g @openai/codex")
 
-                from prompts.foucault import get_system_prompt
-                sys_prompt = get_system_prompt(self.mode)
+                sys_prompt = await self._build_system_prompt()
                 user_msg = self.messages[-1]["content"]
 
                 # RAG 注入（統一呼叫）
@@ -310,7 +309,6 @@ class ChatMixin:
             elif self._is_direct_api_mode():
                 # ── 直接 API 路徑（MiniMax / OpenRouter / multimodal）──
                 import re as _re
-                from prompts.foucault import get_system_prompt as _get_sp
                 env = load_env()
                 raw_model = env.get("LLM_MODEL", "")
                 if raw_model.startswith("gemini/"):
@@ -322,7 +320,7 @@ class ChatMixin:
                     api_key = self._resolve_api_key(env)
                     model = raw_model.removeprefix("openai/")
 
-                sys_prompt = _get_sp(self.mode)
+                sys_prompt = await self._build_system_prompt()
 
                 # RAG 注入（統一呼叫）
                 send_messages = await self._inject_rag_context(
@@ -371,7 +369,10 @@ class ChatMixin:
                 full_content = _re.sub(r"<think>[\s\S]*?</think>\s*", "", full_content)
             else:
                 # ── FastAPI 後端路徑 ──
-                send_messages = await self._inject_rag_context(self.messages)
+                sys_prompt = await self._build_system_prompt()
+                send_messages = await self._inject_rag_context(
+                    [{"role": "system", "content": sys_prompt}] + self.messages
+                )
                 async with httpx.AsyncClient(timeout=120.0) as client:
                     async with client.stream(
                         "POST",
@@ -673,6 +674,32 @@ class ChatMixin:
                 p.get("text", "") for p in content if isinstance(p, dict) and p.get("type") == "text"
             )
         return str(content)
+
+    async def _get_memory_summary(self) -> str:
+        """取得近期記憶摘要（輕量格式，不需 LLM 呼叫）。"""
+        try:
+            from memory.store import get_memories
+            _mem_db = None
+            if self.state.current_project:
+                from paths import project_root
+                _mem_db = project_root(self.state.current_project["id"]) / "memories.db"
+            recent = await get_memories(limit=10, db_path=_mem_db)
+            if not recent:
+                return ""
+            lines = []
+            for m in recent:
+                topic = f" (#{m['topic']})" if m.get('topic') else ""
+                lines.append(f"- [{m['type']}] {m['content']}{topic}")
+            return "\n".join(lines)
+        except Exception:
+            return ""
+
+    async def _build_system_prompt(self) -> str:
+        """統一構建 system prompt：人格 + 模式 + 記憶摘要。\n\n        所有 LLM 路徑都應使用此方法，確保人格注入一致。
+        """
+        from prompts.foucault import get_system_prompt
+        memory_summary = await self._get_memory_summary()
+        return get_system_prompt(self.mode, memory_summary=memory_summary)
 
     async def _inject_rag_context(
         self,

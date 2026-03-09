@@ -31,11 +31,16 @@ class ChatRequest(BaseModel):
 
 @router.post("/chat")
 async def chat(request: ChatRequest):
-    system_prompt = get_system_prompt(request.mode)
-    messages = [
-        {"role": "system", "content": system_prompt},
-        *[{"role": m.role, "content": m.content} for m in request.messages],
-    ]
+    # TUI 已統一構建 system prompt（含記憶摘要），直接使用
+    if request.messages and request.messages[0].role == "system":
+        messages = [{"role": m.role, "content": m.content} for m in request.messages]
+    else:
+        # 向後相容：其他 client 未提供 system prompt 時自動加
+        system_prompt = get_system_prompt(request.mode)
+        messages = [
+            {"role": "system", "content": system_prompt},
+            *[{"role": m.role, "content": m.content} for m in request.messages],
+        ]
 
     async def generate():
         try:
