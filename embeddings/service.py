@@ -38,8 +38,14 @@ def _default_provider() -> str:
     """決定預設 embedding provider。
 
     有 JINA_API_KEY 就用 jina（輕量、免安裝），否則用 gguf（本地）。
+    讀取 .env 檔案（TUI 不會 load_dotenv，不能靠 os.environ）。
     """
-    if os.environ.get("JINA_API_KEY", ""):
+    try:
+        from settings import load_env
+        env = load_env()
+    except Exception:
+        env = {}
+    if env.get("JINA_API_KEY", "") or os.environ.get("JINA_API_KEY", ""):
         return "jina"
     return "gguf"
 
@@ -85,12 +91,33 @@ class EmbeddingService:
         with self._init_lock:
             if self._backend is not None:
                 return
-            provider = os.environ.get("EMBED_PROVIDER", _default_provider()).lower()
+
+            # 從 .env 讀取設定（TUI 不會 load_dotenv）
+            try:
+                from settings import load_env
+                env = load_env()
+            except Exception:
+                env = {}
+
+            provider = (
+                os.environ.get("EMBED_PROVIDER")
+                or env.get("EMBED_PROVIDER", "")
+                or _default_provider()
+            ).lower()
+
+            embed_dim = int(
+                os.environ.get("GGUF_EMBED_DIM")
+                or env.get("EMBED_DIM", "")
+                or str(EMBED_DIM)
+            )
+
             if provider in ("jina", "jina-api"):
+                # 從 .env 注入 JINA_API_KEY 到 os.environ（JinaAPIBackend 讀 os.environ）
+                jina_key = env.get("JINA_API_KEY", "")
+                if jina_key and not os.environ.get("JINA_API_KEY"):
+                    os.environ["JINA_API_KEY"] = jina_key
                 from embeddings.jina_backend import JinaAPIBackend
-                self._backend = JinaAPIBackend(
-                    dim=int(os.environ.get("GGUF_EMBED_DIM", str(EMBED_DIM))),
-                )
+                self._backend = JinaAPIBackend(dim=embed_dim)
                 self._provider_type = "jina"
                 log.info("Using Jina API embedding backend")
             else:
@@ -99,7 +126,7 @@ class EmbeddingService:
                 mgr = LlamaServerManager()
                 self._backend = GGUFMultimodalBackend(
                     base_url=mgr.base_url,
-                    dim=int(os.environ.get("GGUF_EMBED_DIM", str(EMBED_DIM))),
+                    dim=embed_dim,
                 )
                 self._provider_type = "gguf"
                 log.info("Using GGUF local embedding backend")
