@@ -152,10 +152,13 @@ class RAGMixin:
         elif is_url:
             source_type = "url"
         else:
-            source_type = "pdf"
             source = self._clean_file_path(source)
-            if not source.lower().endswith(".pdf"):
-                self.notify("僅支援 PDF 檔案", severity="warning", timeout=3)
+            if source.lower().endswith(".txt"):
+                source_type = "txt"
+            elif source.lower().endswith(".pdf"):
+                source_type = "pdf"
+            else:
+                self.notify("僅支援 PDF 或 TXT 檔案", severity="warning", timeout=3)
                 return
 
         try:

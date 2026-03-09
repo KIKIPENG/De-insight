@@ -227,9 +227,11 @@ def get_rag(project_id: str = "default") -> LightRAG:
         _clear_stale_vdb(working_dir, embed_dim, embed_dim)
         log.warning("Provider 簽章變更，已清除舊索引 (%s)", working_dir)
 
-    # Configurable embedding timeout (default 180s, overridable via env)
+    # Configurable performance parameters (overridable via env)
     _embed_timeout = int(os.environ.get("LIGHTRAG_EMBEDDING_TIMEOUT", "180"))
-    _embed_max_async = int(os.environ.get("LIGHTRAG_EMBED_MAX_ASYNC", "2"))
+    _embed_max_async = int(os.environ.get("LIGHTRAG_EMBED_MAX_ASYNC", "8"))
+    _llm_max_async = int(os.environ.get("LIGHTRAG_LLM_MAX_ASYNC", "8"))
+    _chunk_token_size = int(os.environ.get("LIGHTRAG_CHUNK_TOKEN_SIZE", "2400"))
 
     _rag_project_id = project_id
     _rag_instance = LightRAG(
@@ -242,9 +244,10 @@ def get_rag(project_id: str = "default") -> LightRAG:
             func=embed_func,
         ),
         entity_extract_max_gleaning=0,
+        chunk_token_size=_chunk_token_size,
         default_llm_timeout=600,
         default_embedding_timeout=_embed_timeout,
-        llm_model_max_async=4,
+        llm_model_max_async=_llm_max_async,
         embedding_func_max_async=_embed_max_async,
         cosine_better_than_threshold=0.4,
         addon_params={

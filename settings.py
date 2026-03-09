@@ -568,14 +568,17 @@ class SettingsScreen(ModalScreen[str | None]):
         else:
             self._env.pop("OPENAI_API_BASE", None)
 
-        # 2. FastAPI backend 相容層：把目前 provider 的 key 鏡像到 OPENAI_API_KEY
+        # 2. FastAPI backend 相容層：只有 openai/ 前綴的 provider 才鏡像 key
+        #    gemini/ 前綴走 litellm 原生路徑，不需要 OPENAI_API_KEY
         key_env = pinfo.get("key_env", "")
-        if key_env and key_env != "ANTHROPIC_API_KEY":
+        prefix = pinfo.get("model_prefix", "")
+        if prefix == "openai/" and key_env:
             current_key = self._env.get(key_env, "")
             if current_key:
                 self._env["OPENAI_API_KEY"] = current_key
-        elif not key_env:
+        elif prefix != "openai/":
             self._env.pop("OPENAI_API_KEY", None)
+            self._env.pop("OPENAI_API_BASE", None)
 
     def _save_embed_model(self, pid, model_name, pinfo):
         # v0.8: 統一使用 jina-embeddings-v4 本地模型，固定 1024d

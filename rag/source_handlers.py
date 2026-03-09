@@ -99,10 +99,35 @@ class DoiIngestHandler(SourceHandler):
         )
 
 
+class TxtFileIngestHandler(SourceHandler):
+    """從磁碟讀取 .txt 檔案，呼叫 insert_text() 匯入知識庫。"""
+
+    async def ingest(self, job: dict) -> IngestResult:
+        import os
+
+        from rag.knowledge_graph import insert_text
+
+        path = job["source"]
+        title = job.get("title", "") or os.path.basename(path)
+        with open(path, "r", encoding="utf-8") as f:
+            content = f.read()
+        if not content.strip():
+            raise ValueError(f"檔案內容為空: {path}")
+        warning = await insert_text(content, source=title, project_id=job["project_id"])
+        return IngestResult(
+            title=title,
+            warning=warning or "",
+            file_size=len(content.encode("utf-8")),
+            page_count=0,
+            source_type="txt",
+        )
+
+
 HANDLER_MAP: dict[str, type[SourceHandler]] = {
     "pdf": PdfIngestHandler,
     "url": UrlIngestHandler,
     "text": TextIngestHandler,
+    "txt": TxtFileIngestHandler,
     "doi": DoiIngestHandler,
 }
 

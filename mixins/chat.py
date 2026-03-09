@@ -93,11 +93,8 @@ class ChatMixin:
         path = self._clean_dropped_path(text)
         if path:
             event.prevent_default()
-            from widgets import ChatInput
-            inp = self.query_one("#chat-input", ChatInput)
-            inp.text = path
-            inp.focus()
-            self.notify("檔案路徑已填入輸入框，如需匯入請用 ctrl+f")
+            self._do_import(path)
+            return
 
     def _update_slash_hints(self) -> None:
         from widgets import ChatInput
@@ -132,8 +129,8 @@ class ChatMixin:
         t = t.replace("\\ ", " ")
         if not Path(t).exists() or not Path(t).is_file():
             return None
-        if not t.lower().endswith(".pdf"):
-            self.notify("僅支援 PDF 檔案", severity="warning", timeout=3)
+        if not t.lower().endswith((".pdf", ".txt")):
+            self.notify("僅支援 PDF 或 TXT 檔案", severity="warning", timeout=3)
             return None
         return t
 
@@ -212,10 +209,10 @@ class ChatMixin:
         env = load_env()
         model = env.get("LLM_MODEL", "")
         base = env.get("OPENAI_API_BASE", "")
-        if "openrouter.ai" in base:
-            return False
-        if "deepseek.com" in base:
-            return False
+        # Google AI Studio via gemini/ prefix (always direct)
+        if model.startswith("gemini/"):
+            return True
+        # OpenAI-compatible providers with explicit base
         return model.startswith("openai/") and bool(base)
 
     def _resolve_api_key(self, env: dict) -> str:
@@ -310,9 +307,15 @@ class ChatMixin:
                 import re as _re
                 from prompts.foucault import get_system_prompt as _get_sp
                 env = load_env()
-                api_base = env.get("OPENAI_API_BASE", "") or "https://api.openai.com/v1"
-                api_key = self._resolve_api_key(env)
-                model = env.get("LLM_MODEL", "").removeprefix("openai/")
+                raw_model = env.get("LLM_MODEL", "")
+                if raw_model.startswith("gemini/"):
+                    api_base = "https://generativelanguage.googleapis.com/v1beta/openai"
+                    api_key = env.get("GOOGLE_API_KEY", "")
+                    model = raw_model.removeprefix("gemini/")
+                else:
+                    api_base = env.get("OPENAI_API_BASE", "") or "https://api.openai.com/v1"
+                    api_key = self._resolve_api_key(env)
+                    model = raw_model.removeprefix("openai/")
 
                 sys_prompt = _get_sp(self.mode)
 

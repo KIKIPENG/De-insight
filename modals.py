@@ -2091,6 +2091,7 @@ class OnboardingScreen(ModalScreen[str | None]):
         self._step = "chat_provider"
         self._selected_chat_pid: str | None = None
         self._selected_embed_pid: str | None = None
+        self._selected_ollama_model: str | None = None
 
     def compose(self) -> ComposeResult:
         box = Vertical(id="ob-box")
@@ -2114,13 +2115,19 @@ class OnboardingScreen(ModalScreen[str | None]):
             await self._render_embed(container)
         elif self._step == "embed_download":
             await self._render_embed_download(container)
+        elif self._step == "rag_llm":
+            await self._render_rag_llm(container)
+        elif self._step == "ollama_model":
+            await self._render_ollama_model(container)
+        elif self._step == "ollama_install":
+            await self._render_ollama_install(container)
         elif self._step == "done":
             await self._render_done(container)
 
     async def _render_chat_provider(self, container: Vertical) -> None:
         from providers import CHAT_PROVIDERS
         await container.mount(
-            Static("  Step 1/3: Chat Provider", classes="ob-title"),
+            Static("  Step 1/4: Chat Provider", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             Static("  選擇聊天用的 LLM 服務", classes="ob-hint"),
         )
@@ -2140,7 +2147,7 @@ class OnboardingScreen(ModalScreen[str | None]):
         auth_type = pinfo.get("auth_type", "api_key")
 
         await container.mount(
-            Static(f"  Step 1/3: {pinfo.get('label', '')} Setup", classes="ob-title"),
+            Static(f"  Step 1/4: {pinfo.get('label', '')} Setup", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
         )
 
@@ -2188,7 +2195,7 @@ class OnboardingScreen(ModalScreen[str | None]):
 
     async def _render_embed(self, container: Vertical) -> None:
         await container.mount(
-            Static("  Step 2/3: Embedding Model (GGUF 本地)", classes="ob-title"),
+            Static("  Step 2/4: Embedding Model (GGUF 本地)", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             Static("  使用 jina-embeddings-v4 GGUF 模型（Q4_K_M, 1024d，文字+圖片共用）", classes="ob-hint"),
             Static("  首次需編譯 llama-server + 下載模型（約 3GB），之後離線可用", classes="ob-hint"),
@@ -2212,7 +2219,7 @@ class OnboardingScreen(ModalScreen[str | None]):
     async def _render_embed_download(self, container: Vertical) -> None:
         self._dl_phase_idx = 0
         await container.mount(
-            Static("  Step 2/3: 安裝 GGUF Embedding 環境", classes="ob-title"),
+            Static("  Step 2/4: 安裝 GGUF Embedding 環境", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             ProgressBar(total=None, id="ob-progress-bar"),
             Static(f"  {self._DL_PHASES[0]}", id="ob-download-status"),
@@ -2253,7 +2260,7 @@ class OnboardingScreen(ModalScreen[str | None]):
     def _on_download_complete(self) -> None:
         if hasattr(self, "_dl_timer"):
             self._dl_timer.stop()
-        self._step = "done"
+        self._step = "rag_llm"
         self.run_worker(self._render_step(), exclusive=True)
 
     def _on_download_error(self, msg: str) -> None:
@@ -2265,17 +2272,135 @@ class OnboardingScreen(ModalScreen[str | None]):
         except Exception:
             pass
 
+    # ── Step 3: RAG LLM ──
+
+    async def _render_rag_llm(self, container: Vertical) -> None:
+        await container.mount(
+            Static("  Step 3/4: 知識庫建圖 LLM", classes="ob-title"),
+            Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
+            Static("  匯入文件時需要 LLM 抽取知識圖譜", classes="ob-hint"),
+            Static("  本地模型不吃 API 額度，可全速並行", classes="ob-hint"),
+            Static("", classes="ob-sep"),
+            Button(
+                "  本地 Ollama（推薦，免 API 額度）",
+                id="ob-rag-ollama",
+                classes="ob-prov-btn",
+            ),
+            Button(
+                "  跟聊天模型相同（使用 API 額度）",
+                id="ob-rag-same",
+                classes="ob-prov-btn",
+            ),
+        )
+
+    async def _render_ollama_model(self, container: Vertical) -> None:
+        await container.mount(
+            Static("  Step 3/4: 選擇本地模型", classes="ob-title"),
+            Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
+            Static("  選擇知識庫抽取用的本地模型", classes="ob-hint"),
+        )
+        models_info = [
+            ("phi4-mini", "3.8B · 2.3GB · 快速精準（推薦）"),
+            ("gemma3:4b", "4B · 2.5GB · Google 出品"),
+            ("llama3.1:8b", "8B · 4.7GB · 品質最佳（需更多 RAM）"),
+            ("qwen2.5:7b", "7B · 4.4GB · 中文表現好"),
+        ]
+        for model_name, desc in models_info:
+            await container.mount(
+                Button(
+                    f"  {model_name}  [dim]{desc}[/]",
+                    id=f"ob-ollama-{model_name.replace(':', '-').replace('.', '_')}",
+                    classes="ob-prov-btn",
+                    name=model_name,
+                ),
+            )
+        await container.mount(
+            Horizontal(
+                Button("<- 返回", id="btn-ob-back"),
+                classes="ob-btn-row",
+            ),
+        )
+
+    _OLLAMA_DL_PHASES = [
+        "正在檢查 Ollama...",
+        "正在安裝 Ollama...",
+        "正在啟動 Ollama 服務...",
+        "正在下載模型（首次約 2-3GB）...",
+        "即將完成...",
+    ]
+
+    async def _render_ollama_install(self, container: Vertical) -> None:
+        self._ollama_dl_phase_idx = 0
+        await container.mount(
+            Static("  Step 3/4: 安裝本地 Ollama 環境", classes="ob-title"),
+            Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
+            ProgressBar(total=None, id="ob-progress-bar"),
+            Static(f"  {self._OLLAMA_DL_PHASES[0]}", id="ob-download-status"),
+        )
+        self._ollama_dl_timer = self.set_interval(10.0, self._tick_ollama_phase)
+        self._run_ollama_install()
+
+    def _tick_ollama_phase(self) -> None:
+        self._ollama_dl_phase_idx = min(
+            self._ollama_dl_phase_idx + 1, len(self._OLLAMA_DL_PHASES) - 1
+        )
+        try:
+            status = self.query_one("#ob-download-status", Static)
+            status.update(f"  {self._OLLAMA_DL_PHASES[self._ollama_dl_phase_idx]}")
+        except Exception:
+            pass
+
+    @work(exclusive=True, thread=True)
+    def _run_ollama_install(self) -> None:
+        import traceback
+        from ollama.installer import ensure_ollama_ready
+        try:
+            def _progress(desc: str, pct: float) -> None:
+                try:
+                    idx = min(int(pct * len(self._OLLAMA_DL_PHASES)), len(self._OLLAMA_DL_PHASES) - 1)
+                    self._ollama_dl_phase_idx = idx
+                except Exception:
+                    pass
+
+            ensure_ollama_ready(
+                model=self._selected_ollama_model,
+                progress_callback=_progress,
+            )
+            self.app.call_from_thread(self._on_ollama_complete)
+        except Exception as exc:
+            self.app.log.error("Ollama install failed:\n%s", traceback.format_exc())
+            msg = str(exc)
+            self.app.call_from_thread(self._on_ollama_error, msg)
+
+    def _on_ollama_complete(self) -> None:
+        if hasattr(self, "_ollama_dl_timer"):
+            self._ollama_dl_timer.stop()
+        self._step = "done"
+        self.run_worker(self._render_step(), exclusive=True)
+
+    def _on_ollama_error(self, msg: str) -> None:
+        if hasattr(self, "_ollama_dl_timer"):
+            self._ollama_dl_timer.stop()
+        try:
+            status = self.query_one("#ob-download-status", Static)
+            status.update(f"  [red]安裝失敗：{msg}[/]")
+        except Exception:
+            pass
+
     async def _render_done(self, container: Vertical) -> None:
         from settings import load_env
         env = load_env()
         model = env.get("LLM_MODEL", "(未設定)")
         embed = "jina-embeddings-v4 GGUF (Q4_K_M, 1024d)"
+        rag_llm = env.get("RAG_LLM_MODEL", "")
+        rag_display = rag_llm if rag_llm else "跟聊天模型相同"
 
         await container.mount(
-            Static("  Step 3/3: 設定完成!", classes="ob-title"),
+            Static("  Step 4/4: 設定完成!", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             Static(f"  Chat: {model}", classes="ob-hint"),
             Static(f"  Embedding: {embed}", classes="ob-hint"),
+            Static(f"  知識庫 LLM: {rag_display}", classes="ob-hint"),
             Static("", classes="ob-sep"),
             Static("  可隨時用 Ctrl+S 開啟設定修改", classes="ob-hint"),
             Horizontal(
@@ -2309,12 +2434,40 @@ class OnboardingScreen(ModalScreen[str | None]):
             await self._render_step()
             return
 
+        # Step 3: RAG LLM — ollama or same-as-chat
+        if btn_id == "ob-rag-ollama":
+            self._step = "ollama_model"
+            await self._render_step()
+            return
+
+        if btn_id == "ob-rag-same":
+            from settings import save_env_key
+            # Clear RAG_LLM_MODEL to fall back to chat model
+            save_env_key("RAG_LLM_MODEL", "")
+            self._step = "done"
+            await self._render_step()
+            return
+
+        # Step 3: Ollama model selection
+        if btn_id.startswith("ob-ollama-"):
+            from settings import save_env_key
+            model_name = btn_name
+            self._selected_ollama_model = model_name
+            save_env_key("RAG_LLM_MODEL", f"ollama/{model_name}")
+            self._step = "ollama_install"
+            await self._render_step()
+            return
+
         # Back button
         if btn_id == "btn-ob-back":
             if self._step == "chat_setup":
                 self._step = "chat_provider"
             elif self._step == "embed":
                 self._step = "chat_provider"
+            elif self._step == "rag_llm":
+                self._step = "embed"
+            elif self._step == "ollama_model":
+                self._step = "rag_llm"
             await self._render_step()
             return
 
@@ -2335,7 +2488,7 @@ class OnboardingScreen(ModalScreen[str | None]):
             save_env_key("EMBED_MODEL", "jina-embeddings-v4-gguf")
             save_env_key("EMBED_DIM", "1024")
             save_env_key("GGUF_AUTO_INSTALL", "1")
-            self._step = "done"
+            self._step = "rag_llm"
             await self._render_step()
             return
 
