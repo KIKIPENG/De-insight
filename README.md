@@ -1,13 +1,75 @@
-**[繁體中文](README.zh-TW.md)** | English
+<h4 align="center">
+  <strong>English</strong> | <a href="https://github.com/KIKIPENG/De-insight/blob/main/README.zh-TW.md">繁體中文</a>
+</h4>
 
-# De-insight
+<h1 align="center">◈ De-insight</h1>
 
-A terminal-based AI thinking partner for visual artists and designers.
+<p align="center">
+  An AI thinking partner for visual artists and designers.<br>
+  It remembers what you said, sees the images you collect, and tells you when your ideas evolve.
+</p>
 
-Not the kind of AI that says "sure, let me organize that for you."
-More like a friend who pushes back — when you say something vague, it asks what you actually mean.
+<pre align="center">curl -fsSL https://raw.githubusercontent.com/KIKIPENG/De-insight/main/install.sh | bash</pre>
 
-Ideas are always yours. It just helps you find the structure underneath.
+---
+
+## What is this
+
+When developing an artist statement or design thesis, you have readings, observations, and gut reactions scattered across months. Turning all of that into a coherent text is a long road.
+
+De-insight tries to shorten that road.
+
+It's not a search engine, not a writing assistant, not a general chatbot. It's closer to a long-term collaborator with curatorial sensibility — it remembers your last conversation, has read the texts you fed it, has seen the reference images you collected, and pushes back when you're being vague.
+
+When your thinking quietly shifts over three months, it tells you. When you say you like minimalism but your image collection is all rough, handmade stuff, it points that out.
+
+When you're ready to write, it helps you organize from your own language first. Theory comes last — as support, not the main character.
+
+> This is a graduation project. Built for one person's workflow, open to anyone who thinks similarly.
+
+---
+
+## What it does
+
+### Conversation
+
+Two modes. **Emotional mode** pays attention to the hesitation behind your word choices, doesn't rush to analyze. **Rational mode** demands precision — if a word is vague, it asks what you mean.
+
+The curator speaks directly, briefly, with a position. It's not neutral — ask what it thinks and it'll tell you.
+
+When you say "I want to write my statement now," it walks you through three steps: distill your thesis, find evidence from the knowledge base, draft the text. Each step waits for your confirmation.
+
+### Knowledge base
+
+Feed it what you've been reading: PDFs, web links, DOIs, arXiv, plain text. It builds a knowledge graph in the background. You can see progress in the MenuBar.
+
+During conversation, it automatically retrieves relevant passages. The curator can only use what's in the knowledge base — it can't invent theorists that aren't there, and must say so when evidence is insufficient.
+
+Two retrieval modes: **fast** (vector search, semantic matching) and **deep** (graph reasoning — can find structural connections across texts, like the link between Foucault's "panopticon" and Berger's "ways of seeing").
+
+### Memory
+
+After each conversation, the system analyzes what you said and extracts things worth keeping — insights, questions, reactions to artworks. These are candidates; they only get saved after you confirm.
+
+Memories carry topic tags and category labels. Next conversation, the curator speaks with these memories in context.
+
+**Thought evolution detection**: When you save a new insight, the system compares it against past insights to detect shifts or contradictions. "Three months ago you believed X, but what you're saying now implies Y."
+
+### Images
+
+Open the image gallery in your browser and upload reference images. Each image gets a three-part analysis:
+
+- **CONTENT**: Object identification — book title, author, and the relationship between content and design language
+- **STYLE_TAGS**: Style coordinates — making attitude, density, color tendency, era, cultural axis, stance
+- **DESCRIPTION**: Curatorial vocabulary description
+
+**Visual preference extraction**: After 5+ images, the system automatically identifies your style tendencies. The result is injected into conversation — the curator can say "your collection leans toward rough, handmade, experimental work."
+
+**Cross-modal detection**: When your image preferences contradict your text-based insights, the system flags it — "you say you like minimalism, but your images tell a different story."
+
+### Projects
+
+Each project has its own conversations, memories, knowledge base, and images. For separating different creative contexts.
 
 ---
 
@@ -17,209 +79,112 @@ Ideas are always yours. It just helps you find the structure underneath.
 curl -fsSL https://raw.githubusercontent.com/KIKIPENG/De-insight/main/install.sh | bash
 ```
 
-Then run:
-
 ```bash
-de-insight
+de-insight           # launch
+de-insight --update  # update
+de-insight --uninstall  # remove
 ```
 
-Update / uninstall:
+First launch walks you through onboarding to choose an LLM provider. The embedding model (~1.5 GB) downloads and compiles automatically on first use.
 
-```bash
-de-insight --update
-de-insight --uninstall
-```
-
-> Requires **Python 3.11+**, **git**, and **macOS / Linux**.
-
----
-
-## Features
-
-**v0.8 — Current**
-
-- **Curator dialogue** — emotional / rational mode switching, interactive prompts (`<<SELECT>>`, `<<CONFIRM>>`, etc.)
-- **Memory system** — auto-extracts insights from conversation, requires user confirmation before saving
-- **Knowledge base** — import PDFs/URLs/DOI, builds a knowledge graph (LightRAG), auto-referenced in conversation
-- **Project isolation** — each project has its own memories, conversations, knowledge graph, and images
-- **Local GGUF embedding** — jina-embeddings-v4 (Q4_K_M, dim=1024) via llama-server, auto-installed on first run
-- **Image gallery** — web-based upload/search/select, multimodal embedding, `@mention` to attach images to conversation
-- **Ingestion pipeline** — background job queue with rate limiting, retry, and post-insert verification
-- **Multi-provider** — OpenAI, Anthropic, DeepSeek, OpenRouter, Google AI Studio, MiniMax
-
-**Known limitations**
-
-- TUI does **not** render images inline. Image features work via text retrieval, path/caption references, and external viewing.
-
----
-
-## Architecture Overview
-
-```
-project-root/
-├── tui.py                     # Entry point
-├── app.py                     # DeInsightApp (CSS/BINDINGS/compose/on_mount)
-├── providers.py               # Provider/Service definitions
-├── settings.py                # SettingsScreen + ENV helpers
-├── widgets.py                 # ChatInput, MenuBar, Chatbox, etc.
-├── modals.py                  # All ModalScreens
-├── paths.py                   # Single source of truth for all data paths
-│
-├── mixins/                    # App mixin modules
-│   ├── chat.py                # Dialogue flow, slash commands, RAG injection
-│   ├── memory.py              # Memory CRUD, auto-extraction
-│   ├── rag.py                 # Knowledge import/search
-│   ├── project.py             # Project switching
-│   └── ui.py                  # UI state, settings, gallery
-│
-├── embeddings/
-│   ├── service.py             # EmbeddingService facade (singleton)
-│   ├── backend.py             # Abstract EmbeddingBackend interface
-│   ├── gguf_backend.py        # GGUFMultimodalBackend (llama-server API)
-│   ├── llama_server.py        # LlamaServerManager (lifecycle, PID tracking)
-│   └── gguf_installer.py      # Auto cmake + build + model download
-│
-├── memory/
-│   ├── store.py               # SQLite async CRUD (aiosqlite)
-│   ├── thought_tracker.py     # Memory extraction candidates
-│   └── vectorstore.py         # LanceDB vector index
-│
-├── rag/
-│   ├── knowledge_graph.py     # LightRAG wrapper
-│   ├── image_store.py         # Image knowledge base (LanceDB, multimodal)
-│   ├── pipeline.py            # RAG pipeline probe + readiness
-│   ├── ingestion_service.py   # Background ingestion job queue
-│   ├── job_repository.py      # SQLite job persistence
-│   ├── rate_guard.py          # Rate limiting + retry
-│   └── repair.py              # Index repair policies
-│
-├── backend/
-│   ├── main.py                # FastAPI entry point
-│   ├── routers/chat.py        # /api/chat SSE streaming
-│   ├── routers/images.py      # Image gallery API
-│   └── services/llm.py        # LiteLLM wrapper
-│
-├── frontend/
-│   └── index.html             # Web gallery (/gallery)
-│
-└── ~/.deinsight/               # User data
-    ├── v0.7/                   # Data (versioned)
-    │   ├── app.db
-    │   └── projects/{id}/
-    │       ├── memories.db
-    │       ├── conversations.db
-    │       ├── lancedb/
-    │       ├── lightrag/
-    │       ├── images/
-    │       └── documents/
-    └── gguf/                   # Embedding model + llama-server
-        ├── llama.cpp/
-        ├── models/
-        └── logs/
-```
+Requires **Python 3.11+**, **git**, and **macOS / Linux**.
 
 ---
 
 ## Configuration
 
-Edit `~/.deinsight/app/.env` (or `Ctrl+S` in TUI):
+Edit `~/.deinsight/app/.env`, or press `Ctrl+S` in the TUI.
 
-### Required
+```
+# Main chat model
+LLM_MODEL=openai/deepseek/deepseek-chat-v3-0324
+OPENROUTER_API_KEY=<key>
+OPENAI_API_BASE=https://openrouter.ai/api/v1
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `LLM_MODEL` | Chat model identifier | `openai/gpt-4o` |
+# Knowledge graph + image analysis (Gemini recommended — free and reliable)
+RAG_LLM_MODEL=gemini-2.5-flash
+VISION_MODEL=gemini-2.5-flash
+GOOGLE_API_KEY=<key>
+```
 
-### Provider API Keys
-
-| Variable | Provider |
-|----------|----------|
-| `ANTHROPIC_API_KEY` | Anthropic |
-| `OPENAI_API_KEY` | OpenAI |
-| `OPENROUTER_API_KEY` | OpenRouter |
-| `DEEPSEEK_API_KEY` | DeepSeek |
-| `MINIMAX_API_KEY` | MiniMax |
-
-All LLM calls go through cloud APIs. Embedding runs locally via GGUF.
-
-### Optional
-
-| Variable | Description |
-|----------|-------------|
-| `OPENAI_API_BASE` | Custom API base URL (for OpenRouter, MiniMax, etc.) |
-| `RAG_LLM_MODEL` | Separate model for knowledge graph extraction |
-| `DEINSIGHT_HOME` | Override data directory (default: `~/.deinsight`) |
-| `GGUF_AUTO_INSTALL` | Auto-install GGUF embedding on first run (default: `1`) |
+Embedding runs entirely locally. No API key needed.
 
 ---
 
-## Keyboard Shortcuts
+## System requirements
 
-| Key | Action |
-|-----|--------|
-| `Ctrl+S` | Settings |
-| `Ctrl+E` | Toggle emotional/rational mode |
-| `Ctrl+N` | New conversation |
-| `Ctrl+P` | Project management |
-| `Ctrl+F` | Import PDF/URL |
-| `Ctrl+K` | Search knowledge base |
-| `Ctrl+M` | Memory management |
-| `Ctrl+G` | View memory relations |
-| `Ctrl+L` | Open image gallery (browser) |
-| `Ctrl+D` | Document management |
-| `Ctrl+B` | Bulk import |
+| | Minimum | Recommended |
+|-|---------|-------------|
+| Chip | Any | Apple M1+ (Metal acceleration) |
+| RAM | 8 GB | 16 GB |
+| Disk | 4 GB | 10 GB+ |
+| Python | 3.11+ | — |
 
-Type `/help` in chat input for slash commands.
+macOS needs `xcode-select --install`. Linux needs `cmake` + `build-essential`.
 
 ---
 
-## Testing
+## Architecture
 
-```bash
-# Using the installed venv
-~/.deinsight/app/.venv/bin/python -m pytest -q tests/
+```
+tui.py → app.py (Textual TUI + FastAPI backend)
 
-# Or if developing locally
-backend/.venv/bin/python -m pytest -q tests/
+Chat         → DeepSeek V3 via OpenRouter
+Knowledge    → Gemini via Google AI Studio
+Vision       → Gemini via Google AI Studio
+Embedding    → jina-embeddings-v4 GGUF via llama-server (local)
+
+Knowledge DB → LightRAG (JSON/NetworkX)
+Vector index → LanceDB
+Memory       → SQLite (aiosqlite)
+Image gallery→ LanceDB + web frontend
+```
+
+```
+~/.deinsight/
+├── app/                  source + venv
+├── v0.7/projects/{id}/   project data
+│   ├── memories.db       insights, questions, reactions, preferences
+│   ├── conversations.db  conversation history
+│   ├── lancedb/          vector indices
+│   ├── lightrag/         knowledge graph
+│   ├── images/           image files
+│   └── documents/        PDFs
+└── gguf/                 embedding model + llama-server
 ```
 
 ---
 
 ## Troubleshooting
 
-### GGUF embedding build fails
+**Embedding build fails**: macOS — `xcode-select --install`. Linux — `sudo apt install cmake build-essential`.
 
-Requires Xcode Command Line Tools (macOS) or `cmake` + C++ compiler (Linux):
+**Backend won't connect**: It starts automatically with the TUI. Check port 8000: `curl -m 3 -sS http://127.0.0.1:8000/api/health`.
 
-```bash
-xcode-select --install   # macOS
-# or
-sudo apt install cmake build-essential   # Ubuntu/Debian
-```
-
-### Backend connection error in TUI
-
-The backend auto-starts with the TUI. If it fails, check port 8000:
-
-```bash
-curl -m 3 -sS http://127.0.0.1:8000/api/health
-```
-
-### Gallery not loading
-
-Open `http://localhost:8000/gallery` in browser. Ensure TUI is running (backend starts with it).
+**Gallery won't load**: Make sure the TUI is running, then open `http://localhost:8000/gallery`.
 
 ---
 
-## Contributing
+## Known limitations
 
-1. Fork the repo and create a feature branch
-2. Make changes — read relevant files before modifying
-3. Run `python -m pytest tests/` to verify no regressions
-4. Submit a pull request
+- The terminal can't render images inline. Image features work through text descriptions and semantic retrieval.
+- First launch requires compiling llama.cpp and downloading the model — takes a few minutes.
+- The curator speaks Traditional Chinese only.
+
+---
+
+## Tests
+
+```bash
+~/.deinsight/app/.venv/bin/python -m pytest -q tests/
+```
 
 ---
 
 ## License
 
-TODO — License not yet defined.
+Not yet defined.
+
+---
+
+<sub>made by KIKI PENG — art & design graduation project</sub>
