@@ -178,6 +178,10 @@ def get_rag(project_id: str = "default") -> LightRAG:
 
             async def _call_llm():
                 async with _httpx.AsyncClient(timeout=_llm_timeout) as client:
+                    body = {"model": llm_model, "messages": messages}
+                    # Ollama local: force CPU to avoid GPU contention with embedding server
+                    if _is_local_llm:
+                        body["options"] = {"num_gpu": 0}
                     resp = await client.post(
                         f"{llm_base}/chat/completions",
                         headers={
@@ -185,7 +189,7 @@ def get_rag(project_id: str = "default") -> LightRAG:
                             "HTTP-Referer": "https://github.com/De-insight",
                             "X-Title": "De-insight",
                         },
-                        json={"model": llm_model, "messages": messages},
+                        json=body,
                     )
                     if resp.status_code >= 400:
                         import logging as _log
