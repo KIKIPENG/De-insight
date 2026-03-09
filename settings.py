@@ -81,8 +81,12 @@ def _get_service_status(env: dict) -> dict[str, str]:
     # Chat
     chat_model = env.get("LLM_MODEL", "")
     status["chat"] = chat_model if chat_model else "(未設定)"
-    # Embedding — 統一使用 jina-embeddings-v4 本地模型 (1024d)
-    status["embedding"] = "jina-embeddings-v4 (本地, 1024d)"
+    # Embedding
+    embed_provider = env.get("EMBED_PROVIDER", "gguf").lower()
+    if embed_provider in ("jina", "jina-api"):
+        status["embedding"] = "Jina API (jina-embeddings-v3, 1024d)"
+    else:
+        status["embedding"] = "jina-embeddings-v4 GGUF (本地, 1024d)"
     # RAG LLM
     rag_model = env.get("RAG_LLM_MODEL", "")
     status["rag_llm"] = rag_model if rag_model else "(跟聊天模型相同)"
@@ -601,13 +605,24 @@ class SettingsScreen(ModalScreen[str | None]):
             self._env.pop("OPENAI_API_BASE", None)
 
     def _save_embed_model(self, pid, model_name, pinfo):
-        # v0.8: 統一使用 jina-embeddings-v4 本地模型，固定 1024d
-        self._env["EMBED_PROVIDER"] = "local"
-        self._env["EMBED_MODEL"] = "jina-embeddings-v4"
-        self._env["EMBED_DIM"] = "1024"
-        # 清理舊的 API 設定
-        for k in ("EMBED_MODE", "EMBED_API_KEY", "JINA_API_KEY", "EMBED_API_BASE"):
-            self._env.pop(k, None)
+        if pid in ("jina-api",):
+            self._env["EMBED_PROVIDER"] = "jina"
+            self._env["EMBED_MODEL"] = model_name or "jina-embeddings-v3"
+            self._env["EMBED_DIM"] = str(pinfo.get("dims", {}).get(model_name, 1024))
+            # 保留 JINA_API_KEY（已在 _save_key_and_continue 中儲存）
+        else:
+            self._env["EMBED_PROVIDER"] = "gguf"
+            self._env["EMBED_MODEL"] = model_name or "jina-embeddings-v4-gguf"
+            self._env["EMBED_DIM"] = "1024"
+            # GGUF 不需要 API key
+            for k in ("EMBED_MODE", "EMBED_API_KEY", "EMBED_API_BASE"):
+                self._env.pop(k, None)
+        # 重置 embedding service 單例，讓新設定生效
+        try:
+            from embeddings.service import reset_embedding_service
+            reset_embedding_service()
+        except Exception:
+            pass
 
     def _save_rag_model(self, pid, model_name, full_id, pinfo):
         # Validate: ensure model is in provider's model list (or is same-as-chat)
