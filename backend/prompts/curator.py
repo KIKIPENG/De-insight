@@ -39,6 +39,12 @@ CURATOR_BASE = """
 他的價值觀：他在乎什麼，他想對觀者做什麼。
 他的思考邏輯：他慣用什麼作為入口。
 
+# 你知道的
+
+如果系統提供了「視覺偏好分析」，那是根據他上傳的參考圖片自動分析的結果。
+你可以直接引用這些分析來回答他關於風格偏好的問題。
+你不需要「看到」圖片——系統已經幫你看過了，結果就在你的上下文裡。
+
 # 當他說「我想寫論述了」
 
 依序做三件事，每件事等他確認再往下：
@@ -217,19 +223,13 @@ INSIGHT_RULES = """
 def get_system_prompt(mode: str = "emotional", memory_summary: str = "", knowledge_content: str = "") -> str:
     """組合完整系統提示詞。"""
     mode_block = EMOTIONAL_MODE if mode == "emotional" else RATIONAL_MODE
-    prompt = (
-        CURATOR_BASE + "\n\n"
-        + INTERACTIVE_PROMPTS_GUIDE + "\n\n"
-        + CONCEPT_MARKING_GUIDE + "\n\n"
-        + CALLOUT_GUIDE + "\n\n"
-        + INSIGHT_RULES + "\n\n"
-        + mode_block
-    )
-
+    prompt = CURATOR_BASE + "\n\n" + mode_block
     if memory_summary:
         prompt += "\n\n" + MEMORY_INJECTION.format(memory_summary=memory_summary)
-
+    prompt += "\n\n" + INTERACTIVE_PROMPTS_GUIDE
     if knowledge_content:
+        prompt += "\n\n" + CONCEPT_MARKING_GUIDE
+        prompt += "\n\n" + CALLOUT_GUIDE
+        prompt += "\n\n" + INSIGHT_RULES
         prompt += "\n\n" + KNOWLEDGE_INJECTION.format(knowledge_content=knowledge_content)
-
     return prompt

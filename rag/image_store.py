@@ -998,6 +998,54 @@ async def extract_visual_preference(
     }
 
 
+async def trigger_preference_update(
+    project_id: str,
+    llm_call=None,
+    db_path=None,
+    min_images: int = 5,
+    min_delta: int = 5,
+) -> dict | None:
+    """獨立的偏好萃取入口。圖片上傳完成後呼叫。
+
+    檢查是否需要更新（圖片數 >= min_images 且距上次萃取 >= min_delta 張）。
+    回傳偏好結果 dict 或 None（不需更新）。
+    """
+    count = await get_image_count(project_id)
+    if count < min_images:
+        return None
+
+    # 檢查上次萃取時的圖片數
+    if db_path:
+        from memory.store import get_memories
+        prefs = await get_memories(type="preference", limit=1, db_path=db_path)
+        if prefs:
+            last_count = 0
+            try:
+                last_count = int(prefs[0].get("source", "0"))
+            except (ValueError, TypeError):
+                pass
+            if count - last_count < min_delta:
+                return None
+
+    result = await extract_visual_preference(project_id, llm_call=llm_call)
+    if not result or not result.get("summary"):
+        return None
+
+    # 存入記憶
+    if db_path:
+        from memory.store import add_memory
+        await add_memory(
+            type="preference",
+            content=result["summary"],
+            source=str(count),
+            topic="美學偏好",
+            category="美學偏好",
+            db_path=db_path,
+        )
+
+    return result
+
+
 def get_selected_path(project_id: str) -> Path:
     """selected.json 路徑（統一放 DATA_ROOT）。"""
     return DATA_ROOT / "selected.json"

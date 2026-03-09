@@ -743,8 +743,22 @@ class ChatMixin:
                 return augmented, _rag_hint + "\n\n請用繁體中文回覆。"
             return (augmented, "") if return_sys_addon else augmented
 
+        # ── 0. 計算 insight_score（影響記憶注入量）──
+        _insight_score = 0.0
+        if not _skip_augment:
+            try:
+                from rag.pipeline import get_insight_score
+                _db_path_for_score = None
+                if self.state.current_project:
+                    from paths import project_root as _pr_score
+                    _db_path_for_score = _pr_score(self.state.current_project["id"]) / "memories.db"
+                _insight_score = await get_insight_score(user_msg, _pid, db_path=_db_path_for_score)
+            except Exception:
+                pass
+
         # ── 1. 記憶向量搜尋（skip in fast+building/degraded）──
         if not _skip_augment:
+            _mem_limit = 5 if _insight_score > 0.4 else 3
             _lancedb_dir = None
             if self.state.current_project:
                 from paths import project_root
@@ -752,7 +766,7 @@ class ChatMixin:
             try:
                 from memory.vectorstore import search_similar, has_index
                 if has_index(lancedb_dir=_lancedb_dir):
-                    mem_results = await search_similar(user_msg, limit=3, lancedb_dir=_lancedb_dir)
+                    mem_results = await search_similar(user_msg, limit=_mem_limit, lancedb_dir=_lancedb_dir)
                     if mem_results:
                         mem_lines = "\n".join(
                             f"- [{m['type']}] {m['content']}" + (f" (#{m['topic']})" if m.get('topic') else "")
@@ -777,7 +791,12 @@ class ChatMixin:
                     _mem_db = _pr2(self.state.current_project["id"]) / "memories.db"
                 prefs = await get_memories(type="preference", limit=1, db_path=_mem_db)
                 if prefs and prefs[0].get("content"):
-                    pref_text = f"這位創作者的視覺偏好：{prefs[0]['content']}"
+                    pref_text = (
+                        "# 視覺偏好分析（系統根據使用者上傳的參考圖片自動生成）\n\n"
+                        f"{prefs[0]['content']}\n\n"
+                        "當使用者問到「我的圖片」「我的風格偏好」「我收集的東西」等問題時，"
+                        "直接引用以上分析結果回答，不要說你看不到圖片。"
+                    )
                     if return_sys_addon:
                         sys_addon_parts.append(pref_text)
                     else:
@@ -875,9 +894,13 @@ class ChatMixin:
 
             if context_text and len(context_text.strip()) > 10:
                 hint_prefix = f"（{_rag_hint}）\n\n" if _rag_hint else ""
+                insight_hint = ""
+                if _insight_score > 0.4:
+                    insight_hint = "（這個問題和這位創作者過去的洞見高度相關，回答時可以連結他之前的思考。）\n\n"
                 injection = (
                     "# 知識庫參考內容\n\n"
                     f"{hint_prefix}"
+                    f"{insight_hint}"
                     "以下是從使用者的知識庫中檢索到的相關資料，請優先根據這些內容回答。\n\n"
                     f"{context_text}\n\n"
                     "使用規則：\n"

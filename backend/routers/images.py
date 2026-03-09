@@ -134,6 +134,67 @@ async def _process_batch(
         except Exception as e:
             log.error("Index failed for %s: %s", item["filename"], e)
 
+    # 所有圖片索引完成後，觸發偏好萃取
+    try:
+        from rag.image_store import trigger_preference_update
+        from paths import project_root
+        db_path = project_root(pid) / "memories.db"
+
+        # _quick_llm_call 不在 backend context 裡，用 litellm 直接呼叫
+        async def _llm_call(prompt, max_tokens=300):
+            import os
+            from settings import load_env
+            env = load_env()
+            model = env.get("RAG_LLM_MODEL", "") or env.get("LLM_MODEL", "")
+            if not model:
+                return ""
+            import litellm
+            for k in ("GOOGLE_API_KEY", "GEMINI_API_KEY", "OPENAI_API_KEY",
+                       "OPENROUTER_API_KEY", "OPENAI_API_BASE"):
+                v = env.get(k, "")
+                if v:
+                    os.environ[k] = v
+            if not os.environ.get("GEMINI_API_KEY") and os.environ.get("GOOGLE_API_KEY"):
+                os.environ["GEMINI_API_KEY"] = os.environ["GOOGLE_API_KEY"]
+            # prefix 處理：裸模型名 + Google key → gemini/ prefix
+            if not model.startswith(("gemini/", "openai/", "anthropic/", "ollama/")):
+                if os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY"):
+                    model = f"gemini/{model}"
+            resp = await litellm.acompletion(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.3,
+                max_tokens=max_tokens,
+            )
+            return resp.choices[0].message.content or ""
+
+        result = await trigger_preference_update(
+            pid, llm_call=_llm_call, db_path=db_path,
+        )
+        if result:
+            log.info("Visual preference updated after batch upload: %s", result["summary"][:60])
+            # 交叉偵測
+            try:
+                from memory.thought_tracker import check_cross_modal
+                cross = await check_cross_modal(
+                    result["summary"], _llm_call, db_path=db_path,
+                )
+                if cross and cross.get("type") == "cross_modal":
+                    from memory.store import add_memory as _add_mem
+                    await _add_mem(
+                        type="contradiction",
+                        content=cross["summary"],
+                        source=f"視覺：{cross.get('visual', '')}\n文字：{cross.get('textual', '')}",
+                        topic="跨模態矛盾",
+                        category="美學偏好",
+                        db_path=db_path,
+                    )
+                    log.info("Cross-modal contradiction detected: %s", cross["summary"][:60])
+            except Exception as e:
+                log.warning("Cross-modal check failed: %s", e)
+    except Exception as e:
+        log.warning("Preference update after batch failed: %s", e)
+
 
 @router.get("/images/processing-status")
 async def processing_status(project_id: str | None = None):

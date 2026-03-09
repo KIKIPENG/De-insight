@@ -300,6 +300,26 @@ class MemoryMixin:
             )
             self._refresh_memory_panel()
             self.notify("◇ 視覺偏好已更新")
+
+            # 交叉偵測：視覺偏好 vs 文字洞見
+            try:
+                from memory.thought_tracker import check_cross_modal
+                cross = await check_cross_modal(
+                    result["summary"], self._quick_llm_call, db_path=db_path,
+                )
+                if cross and cross.get("type") == "cross_modal":
+                    await add_memory(
+                        type="contradiction",
+                        content=cross["summary"],
+                        source=f"視覺：{cross.get('visual', '')}\n文字：{cross.get('textual', '')}",
+                        topic="跨模態矛盾",
+                        category="美學偏好",
+                        db_path=db_path,
+                    )
+                    self._refresh_memory_panel()
+                    self.notify(f"⚡ {cross['summary']}", timeout=8)
+            except Exception:
+                pass  # 交叉偵測失敗不影響主流程
         except Exception:
             pass  # 偏好萃取失敗不影響主流程
 

@@ -61,14 +61,17 @@ async def _build_profile(project_id: str, db_path=None) -> dict:
     from memory.store import get_memories
 
     insights = await get_memories(type="insight", limit=50, db_path=db_path)
-    if not insights:
+    preferences = await get_memories(type="preference", limit=5, db_path=db_path)
+
+    all_items = (insights or []) + (preferences or [])
+    if not all_items:
         return {"keywords": [], "topics": [], "categories": [], "count": 0}
 
     all_keywords = []
     topics = set()
     categories = set()
 
-    for m in insights:
+    for m in all_items:
         all_keywords.extend(_extract_keywords(m.get("content", "")))
         t = m.get("topic", "")
         if t:
@@ -88,7 +91,7 @@ async def _build_profile(project_id: str, db_path=None) -> dict:
         "keywords": top_keywords,
         "topics": sorted(topics),
         "categories": sorted(categories),
-        "count": len(insights),
+        "count": len(all_items),
     }
 
     _profile_cache[project_id] = profile

@@ -215,6 +215,71 @@ async def check_for_evolution(
         return None
 
 
+CROSS_MODAL_PROMPT = """\
+你是思維矛盾偵測器。
+
+這位創作者的視覺偏好（從他收集的圖片歸納）：
+{visual_preference}
+
+這位創作者過去的文字洞見：
+{text_insights}
+
+任務：判斷視覺偏好和文字洞見之間是否存在矛盾。
+
+**矛盾**：他收集的圖片呈現的風格傾向，和他在對話中表達的觀點或偏好，明顯不一致。
+例如：文字裡強調極簡和克制，但圖片全是粗糙實驗的東西。
+
+**一致**：視覺偏好和文字洞見指向同一個方向，或者各自談不同面向沒有衝突。
+
+只回傳 JSON：
+矛盾時：{{"type": "cross_modal", "summary": "一句話描述矛盾", "visual": "視覺偏好摘要", "textual": "文字觀點摘要"}}
+一致時：{{"type": null}}
+""".strip()
+
+
+async def check_cross_modal(
+    visual_preference: str,
+    llm_call: callable,
+    db_path=None,
+) -> dict | None:
+    """比對視覺偏好和文字洞見，偵測跨模態矛盾。
+
+    回傳 None（一致）
+    或 {"type": "cross_modal", "summary": str, "visual": str, "textual": str}
+    """
+    if not visual_preference or len(visual_preference.strip()) < 10:
+        return None
+
+    # 取最近的 insight 記憶
+    insights = await get_memories(type="insight", limit=5, db_path=db_path)
+    if not insights or len(insights) < 2:
+        return None  # 洞見太少，不做比對
+
+    insight_text = "\n".join(
+        f"- {m['content']}" for m in insights
+    )
+
+    prompt = CROSS_MODAL_PROMPT.format(
+        visual_preference=visual_preference,
+        text_insights=insight_text,
+    )
+
+    response = await llm_call(prompt, max_tokens=300)
+
+    try:
+        cleaned = _clean_json(response)
+        result = json.loads(cleaned)
+        if not isinstance(result, dict):
+            return None
+        if result.get("type") != "cross_modal":
+            return None
+        if not result.get("summary"):
+            return None
+        return result
+    except (json.JSONDecodeError, KeyError):
+        return None
+
+
 async def extract_memories(
     user_text: str,
     llm_call: callable,
