@@ -237,7 +237,7 @@ def get_rag(project_id: str = "default") -> LightRAG:
     # Configurable performance parameters (overridable via env)
     # Local models (Ollama): lower LLM concurrency since GPU processes sequentially
     _embed_timeout = int(os.environ.get("LIGHTRAG_EMBEDDING_TIMEOUT", "180"))
-    _embed_max_async = int(os.environ.get("LIGHTRAG_EMBED_MAX_ASYNC", "8"))
+    _embed_max_async = int(os.environ.get("LIGHTRAG_EMBED_MAX_ASYNC", "4"))
     _default_llm_async = "2" if _is_local_llm else "8"
     _llm_max_async = int(os.environ.get("LIGHTRAG_LLM_MAX_ASYNC", _default_llm_async))
     _chunk_token_size = int(os.environ.get("LIGHTRAG_CHUNK_TOKEN_SIZE", "2400"))

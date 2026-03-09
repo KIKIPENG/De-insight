@@ -376,7 +376,7 @@ class MenuBar(Static):
         if not self._spinner_active:
             self._spinner_active = True
             self._spinner_frame = 0
-            self._spinner_timer = self.set_interval(0.08, self._tick_spinner)
+            self._spinner_timer = self.set_interval(0.3, self._tick_spinner)
 
     def _stop_spinner(self) -> None:
         if self._spinner_active:

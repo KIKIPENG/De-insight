@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 import os as _os
 
 _EMBED_DIM = 1024
-_BATCH_SIZE = int(_os.environ.get("GGUF_EMBED_BATCH_SIZE", "32"))
+_BATCH_SIZE = int(_os.environ.get("GGUF_EMBED_BATCH_SIZE", "8"))
 
 
 class GGUFMultimodalBackend(EmbeddingBackend):
@@ -91,10 +91,12 @@ class GGUFMultimodalBackend(EmbeddingBackend):
     # ── 內部實作 ────────────────────────────────────────────────
 
     async def _embed_texts(self, texts: list[str]) -> list[list[float]]:
-        """批次 embedding，自動分批。"""
+        """批次 embedding，自動分批。批次間讓出 GPU 避免系統卡頓。"""
         all_vecs: list[list[float]] = []
 
         for i in range(0, len(texts), _BATCH_SIZE):
+            if i > 0:
+                await asyncio.sleep(0.05)  # 讓 GPU 喘口氣
             batch = texts[i:i + _BATCH_SIZE]
             vecs = await self._call_embedding(batch)
             all_vecs.extend(vecs)
@@ -146,8 +148,8 @@ class GGUFMultimodalBackend(EmbeddingBackend):
     async def _call_prompt_format(
         self, client: httpx.AsyncClient, texts: list[str],
     ) -> list[list[float]]:
-        """llama.cpp 原生 prompt 格式：並行送 {"prompt": text}，上限 4 併發。"""
-        sem = asyncio.Semaphore(4)
+        """llama.cpp 原生 prompt 格式：並行送 {"prompt": text}，上限 2 併發。"""
+        sem = asyncio.Semaphore(2)
 
         async def _single(t: str) -> list[float]:
             async with sem:
