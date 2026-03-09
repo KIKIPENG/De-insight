@@ -580,7 +580,9 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
                 pct = job.get("progress_pct", 0) or 0
                 chunks_done = job.get("chunks_done", 0) or 0
                 chunks_total = job.get("chunks_total", 0) or 0
-                title = (job.get("title") or job.get("source", ""))[:20]
+                import os.path as _osp
+                _raw_title = job.get("title") or _osp.basename(job.get("source", ""))
+                title = _raw_title[:20]
 
                 # Calculate ETA from started_at
                 eta_str = ""
