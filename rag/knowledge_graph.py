@@ -254,7 +254,7 @@ def get_rag(project_id: str = "default") -> LightRAG:
     _embed_max_async = int(os.environ.get("LIGHTRAG_EMBED_MAX_ASYNC", _default_embed_async))
     _default_llm_async = "1" if _is_local_llm else "8"
     _llm_max_async = int(os.environ.get("LIGHTRAG_LLM_MAX_ASYNC", _default_llm_async))
-    _chunk_token_size = int(os.environ.get("LIGHTRAG_CHUNK_TOKEN_SIZE", "2400"))
+    _chunk_token_size = int(os.environ.get("LIGHTRAG_CHUNK_TOKEN_SIZE", "1000"))
 
     _rag_project_id = project_id
     _rag_instance = LightRAG(
