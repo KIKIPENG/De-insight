@@ -152,6 +152,10 @@ class IngestionService:
     async def get_job(self, job_id: str) -> dict | None:
         return await self._repo.get_job(job_id)
 
+    async def abort_incomplete(self) -> list[dict]:
+        """Abort all queued/running jobs from a previous session. Returns aborted jobs."""
+        return await self._repo.abort_incomplete()
+
     @property
     def worker_alive(self) -> bool:
         return self._worker is not None and self._worker.poll() is None

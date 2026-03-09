@@ -275,6 +275,31 @@ class JobRepository:
             await db.commit()
             return cursor.rowcount
 
+    async def abort_incomplete(self) -> list[dict]:
+        """Mark all queued/running jobs as failed and return them.
+
+        Called on startup to clean up jobs left over from a previous session.
+        """
+        async with aiosqlite.connect(self._db_path, timeout=15) as db:
+            db.row_factory = aiosqlite.Row
+            async with db.execute(
+                """SELECT * FROM ingest_jobs
+                   WHERE status IN ('queued', 'running')
+                   ORDER BY created_at ASC"""
+            ) as cur:
+                jobs = [dict(r) for r in await cur.fetchall()]
+            if jobs:
+                await db.execute(
+                    """UPDATE ingest_jobs
+                       SET status = 'failed',
+                           last_error = '程式關閉前未完成匯入',
+                           next_retry_at = NULL,
+                           updated_at = datetime('now','localtime')
+                       WHERE status IN ('queued', 'running')"""
+                )
+                await db.commit()
+            return jobs
+
     async def list_completed_since(self, since_ts: str | None = None) -> list[dict]:
         """Return jobs completed (done/done_with_warning) at or after since_ts.
 

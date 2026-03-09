@@ -520,6 +520,14 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
             from rag.ingestion_service import get_ingestion_service
             svc = get_ingestion_service()
             await svc.ensure_table()
+
+            # Abort incomplete jobs from previous session
+            import os.path as _osp
+            aborted = await svc.abort_incomplete()
+            for job in aborted:
+                _title = job.get("title") or _osp.basename(job.get("source", "未知"))
+                self.notify(f"「{_title}」匯入失敗（上次未完成）", severity="error", timeout=8)
+
             svc.ensure_worker_running()
             self._ingestion_poll_timer = self.set_interval(3.0, self._poll_ingestion_jobs)
         except Exception as e:
