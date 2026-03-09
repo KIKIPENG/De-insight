@@ -18,6 +18,8 @@ import os
 import sys
 import tempfile
 import threading
+from email.utils import format_datetime
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
@@ -197,6 +199,78 @@ class TestGGUFMultimodalBackend:
         result = await backend.embed_passages(["a", "b"])
         assert len(result) == 2
         assert all(len(v) == 1024 for v in result)
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Section 2.5: JinaAPIBackend 單元測試
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestJinaAPIBackend:
+    @pytest.fixture
+    def backend(self):
+        with patch.dict(
+            os.environ,
+            {
+                "JINA_API_KEY": "jina_test_key",
+                "JINA_EMBED_BACKOFF_JITTER": "0",
+                "JINA_EMBED_MIN_INTERVAL": "0",
+            },
+            clear=False,
+        ):
+            from embeddings.jina_backend import JinaAPIBackend
+            return JinaAPIBackend(timeout=1.0)
+
+    @pytest.mark.asyncio
+    async def test_retry_on_429_then_success(self, backend):
+        first = MagicMock()
+        first.status_code = 429
+        first.headers = {"Retry-After": "0"}
+        first.text = "too many requests"
+
+        second = MagicMock()
+        second.status_code = 200
+        second.json.return_value = {"data": [{"index": 0, "embedding": [0.1] * 8}]}
+
+        mock_client = AsyncMock()
+        mock_client.is_closed = False
+        mock_client.post = AsyncMock(side_effect=[first, second])
+        backend._client = mock_client
+
+        with patch("embeddings.jina_backend.asyncio.sleep", new=AsyncMock()) as mocked_sleep:
+            result = await backend.embed_query("hello")
+
+        assert len(result) == 8
+        assert mock_client.post.await_count == 2
+        assert mocked_sleep.await_count >= 1
+
+    @pytest.mark.asyncio
+    async def test_raise_rate_limit_after_retries_exhausted(self, backend):
+        resp = MagicMock()
+        resp.status_code = 429
+        resp.headers = {"Retry-After": "0"}
+        resp.text = "too many requests"
+
+        backend._max_retries = 1
+
+        mock_client = AsyncMock()
+        mock_client.is_closed = False
+        mock_client.post = AsyncMock(side_effect=[resp, resp])
+        backend._client = mock_client
+
+        with patch("embeddings.jina_backend.asyncio.sleep", new=AsyncMock()):
+            with pytest.raises(RuntimeError, match="429"):
+                await backend.embed_query("hello")
+
+    def test_parse_retry_after_seconds(self, backend):
+        assert backend._parse_retry_after("3") == 3.0
+
+    def test_parse_retry_after_http_date(self, backend):
+        dt = datetime.now(timezone.utc) + timedelta(seconds=5)
+        raw = format_datetime(dt)
+        parsed = backend._parse_retry_after(raw)
+        assert parsed is not None
+        assert parsed >= 0.0
 
 
 # ═══════════════════════════════════════════════════════════════════
