@@ -590,29 +590,30 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
                 chunks_total = job.get("chunks_total", 0) or 0
                 import os.path as _osp
                 _raw_title = job.get("title") or _osp.basename(job.get("source", ""))
-                title = _raw_title[:15] + "…" if len(_raw_title) > 15 else _raw_title
+                title = _raw_title[:15] + ("…" if len(_raw_title) > 15 else "")
 
                 # Calculate ETA from started_at
                 eta_str = ""
                 started_at = job.get("started_at")
-                if started_at and pct > 2:
+                if started_at and chunks_done > 0 and chunks_total > 0:
                     try:
                         from datetime import datetime
                         start = datetime.strptime(started_at, "%Y-%m-%d %H:%M:%S")
                         elapsed = (datetime.now() - start).total_seconds()
-                        if elapsed > 0 and pct < 100:
-                            remaining = elapsed * (100 - pct) / pct
+                        if elapsed > 0 and chunks_done < chunks_total:
+                            per_chunk = elapsed / chunks_done
+                            remaining = per_chunk * (chunks_total - chunks_done)
                             if remaining > 60:
-                                eta_str = f"  ~{int(remaining // 60)}m{int(remaining % 60):02d}s"
+                                eta_str = f" ~{int(remaining // 60)}m{int(remaining % 60):02d}s"
                             else:
-                                eta_str = f"  ~{int(remaining)}s"
+                                eta_str = f" ~{int(remaining)}s"
                     except Exception:
                         pass
 
                 if chunks_total > 0:
                     msg = f"建圖 {title} {chunks_done}/{chunks_total}{eta_str}"
                 else:
-                    msg = f"建圖 {title}…"
+                    msg = f"建圖 {title} 準備中…"
 
                 progress_float = pct / 100.0 if chunks_total > 0 else -1.0
                 if len(queued_jobs) > 0:

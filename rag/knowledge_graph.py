@@ -1,5 +1,6 @@
 """LightRAG 知識圖譜封裝。"""
 
+import asyncio
 import json as _json
 import logging
 import os
@@ -28,6 +29,12 @@ ART_ENTITY_TYPES = [
 
 _rag_instance: LightRAG | None = None
 _rag_project_id: str | None = None
+
+# ── Module-level progress counters (worker process only) ──
+# llm_func / embed_func inside _ensure_initialized() increment these.
+# _ProgressTracker reads them via background task → writes to DB.
+_progress_llm_calls: int = 0
+_progress_embed_texts: int = 0
 
 
 def _get_llm_config() -> tuple[str, str, str]:
@@ -160,6 +167,8 @@ def get_rag(project_id: str = "default") -> LightRAG:
             result = ""
             async for chunk in codex_stream(prompt, sys_p, model=codex_model_name):
                 result += chunk
+            global _progress_llm_calls
+            _progress_llm_calls += 1
             return result
     else:
         async def llm_func(prompt, system_prompt=None, history_messages=None, **kwargs):
@@ -206,6 +215,8 @@ def get_rag(project_id: str = "default") -> LightRAG:
             # Strip <think>...</think> from reasoning models
             if result and "<think>" in result:
                 result = _re.sub(r"<think>[\s\S]*?</think>\s*", "", result)
+            global _progress_llm_calls
+            _progress_llm_calls += 1
             return result
 
     async def embed_func(texts):
@@ -214,6 +225,8 @@ def get_rag(project_id: str = "default") -> LightRAG:
         svc = get_embedding_service()
         sanitized = [t if t and t.strip() else " " for t in texts]
         vecs = await svc.embed_texts(sanitized)
+        global _progress_embed_texts
+        _progress_embed_texts += len(texts)
         return np.array(vecs, dtype=np.float32)
 
     if project_id == "default":
@@ -453,53 +466,68 @@ async def _post_verify_insert(project_id: str) -> str:
 # ── Progress Tracker ─────────────────────────────────────────────────
 
 class _ProgressTracker:
-    """Wraps LightRAG's llm_model_func to count LLM calls and update job progress in DB."""
+    """Reads module-level counters (_progress_llm_calls / _progress_embed_texts)
+    via a background asyncio task and writes progress to the job DB every 2 s.
 
-    def __init__(self, rag: LightRAG, estimated_chunks: int, job_id: str, db_path: Path):
-        self._rag = rag
+    Primary metric: LLM calls (≈ 1 per chunk during entity extraction).
+    The counters are incremented by llm_func / embed_func directly —
+    no wrapping of rag.llm_model_func needed.
+    """
+
+    def __init__(self, job_id: str, db_path: Path, estimated_chunks: int):
         self._job_id = job_id
         self._db_path = db_path
         self._estimated_chunks = max(estimated_chunks, 1)
-        self._calls = 0
-        self._original_func = rag.llm_model_func
-        self._started_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self._started_at = datetime.now()
+        self._started_at_str = self._started_at.strftime("%Y-%m-%d %H:%M:%S")
+        self._bg_task: asyncio.Task | None = None
+        # Snapshot counters at creation so we track delta
+        self._llm_base = _progress_llm_calls
+        self._embed_base = _progress_embed_texts
 
-        # Wrap the LLM function
-        original = self._original_func
-        tracker = self
+    async def start(self):
+        """Write initial progress (chunks_total) and start background updater."""
+        await self._write_to_db(chunks_done=0)
+        self._bg_task = asyncio.create_task(self._bg_loop())
 
-        async def _counting_llm(*args, **kwargs):
-            result = await original(*args, **kwargs)
-            tracker._calls += 1
-            # Write on first call and then every 2 calls
-            if tracker._calls <= 1 or tracker._calls % 2 == 0 or tracker._calls >= tracker._estimated_chunks:
-                await tracker._write_progress()
-            return result
+    async def _bg_loop(self):
+        """Periodically write progress to DB."""
+        try:
+            while True:
+                await asyncio.sleep(2.0)
+                done = self._current_done()
+                await self._write_to_db(chunks_done=done)
+        except asyncio.CancelledError:
+            pass
 
-        rag.llm_model_func = _counting_llm
+    def _current_done(self) -> int:
+        """Derive chunks_done from module-level LLM call counter."""
+        llm_delta = _progress_llm_calls - self._llm_base
+        # Each chunk triggers ≈1 LLM call for entity extraction
+        return min(llm_delta, self._estimated_chunks)
 
-    async def write_initial_progress(self):
-        """Write initial progress to DB so TUI can show chunks_total immediately."""
-        await self._write_progress()
-
-    async def _write_progress(self):
+    async def _write_to_db(self, chunks_done: int):
         try:
             from rag.job_repository import JobRepository
             repo = JobRepository(self._db_path)
             await repo.update_progress(
                 self._job_id,
-                chunks_done=min(self._calls, self._estimated_chunks),
+                chunks_done=chunks_done,
                 chunks_total=self._estimated_chunks,
-                started_at=self._started_at,
+                started_at=self._started_at_str,
             )
         except Exception as e:
             log.warning("Progress write failed for job %s: %s", self._job_id, e)
 
     async def finish(self):
-        """Restore original func and write 100% progress."""
-        self._rag.llm_model_func = self._original_func
-        self._calls = self._estimated_chunks
-        await self._write_progress()
+        """Stop background task and write 100 %."""
+        if self._bg_task:
+            self._bg_task.cancel()
+            try:
+                await self._bg_task
+            except asyncio.CancelledError:
+                pass
+        await self._write_to_db(chunks_done=self._estimated_chunks)
 
 
 def _estimate_chunks(text: str) -> int:
@@ -511,13 +539,13 @@ def _estimate_chunks(text: str) -> int:
     return max(1, len(text) // chars_per_chunk)
 
 
-async def _install_progress_tracker(rag: LightRAG, text: str, job_id: str | None) -> _ProgressTracker | None:
-    """Install a progress tracker on the RAG instance if job_id is provided."""
+async def _install_progress_tracker(text: str, job_id: str | None) -> _ProgressTracker | None:
+    """Create and start a progress tracker for the given job."""
     if not job_id:
         return None
     estimated = _estimate_chunks(text)
-    tracker = _ProgressTracker(rag, estimated, job_id, _get_jobs_db_path())
-    await tracker.write_initial_progress()
+    tracker = _ProgressTracker(job_id, _get_jobs_db_path(), estimated)
+    await tracker.start()
     return tracker
 
 
@@ -536,7 +564,7 @@ async def insert_text(text: str, source: str = "", project_id: str = "default", 
     if source:
         doc = f"[來源: {source}]\n\n{text}"
 
-    tracker = (await _install_progress_tracker(rag, doc, job_id)) if job_id else None
+    tracker = await _install_progress_tracker(doc, job_id)
     await rag.ainsert(doc)
     if tracker:
         await tracker.finish()
@@ -585,7 +613,7 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
     rag = await _ensure_initialized(project_id=project_id)
     await _clear_failed(rag)
     full_text = "\n\n---\n\n".join(chunks)
-    tracker = (await _install_progress_tracker(rag, full_text, job_id)) if job_id else None
+    tracker = await _install_progress_tracker(full_text, job_id)
     await rag.ainsert(full_text)
     if tracker:
         await tracker.finish()
