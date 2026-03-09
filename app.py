@@ -292,11 +292,6 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     .kb-action:hover {
         color: #fafafa;
     }
-    #kb-status-line {
-        height: 1;
-        color: #484f58;
-        margin: 0;
-    }
     .kb-divider {
         height: 1;
         color: #2a2a2a;

@@ -84,7 +84,6 @@ class ResearchPanel(VerticalScroll):
             KnowledgeActionLink("[#6e7681]文獻[/]", "manage_documents", classes="kb-action"),
             classes="kb-actions-row",
         )
-        yield Static("", id="kb-status-line")
         yield Static("[dim #484f58]─[/]" * 30, classes="kb-divider")
         yield Vertical(id="kb-doc-list")
         yield Static("", id="research-content")

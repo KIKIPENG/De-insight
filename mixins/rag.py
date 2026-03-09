@@ -15,44 +15,13 @@ class RAGMixin:
     @work(exclusive=True, group="knowledge_panel")
     async def _refresh_knowledge_panel(self) -> None:
         from panels import ResearchPanel, DocumentItem
-        from widgets import _get_reindex_age
         try:
             panel = self.query_one("#research-panel", ResearchPanel)
         except NoMatches:
             return
         project_id = self.state.current_project["id"] if self.state.current_project else "default"
 
-        # Use IngestionReadinessService — no destructive repair here
-        try:
-            from rag.readiness import get_readiness_service
-            svc = get_readiness_service()
-            snapshot = await svc.get_snapshot(project_id)
-        except Exception:
-            from rag.readiness import ReadinessSnapshot
-            snapshot = ReadinessSnapshot()
-
-        # Status display
-        STATUS_ICONS = {
-            "ready": "✓",
-            "building": "⏳",
-            "degraded": "⚠",
-            "empty": "—",
-        }
-        kg_icon = STATUS_ICONS.get(snapshot.status_label, "—")
-        rag_label = "快速" if self.rag_mode == "fast" else "深度"
-        reindex_age = _get_reindex_age()
-        idx_info = f"  索引:{reindex_age}" if reindex_age else ""
-        status_extra = ""
-        if snapshot.status_label == "building":
-            status_extra = "  [建圖中]"
-        elif snapshot.status_label == "degraded" and snapshot.last_error:
-            status_extra = f"  [部分失敗]"
-        try:
-            self.query_one("#kb-status-line", Static).update(
-                f"[#484f58]知識庫:{kg_icon}  RAG:{rag_label}{idx_info}{status_extra}[/]"
-            )
-        except NoMatches:
-            pass
+        # Document list
         try:
             doc_list = self.query_one("#kb-doc-list", Vertical)
         except NoMatches:
