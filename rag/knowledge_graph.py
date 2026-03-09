@@ -147,6 +147,9 @@ def get_rag(project_id: str = "default") -> LightRAG:
     llm_model, llm_key, llm_base = _get_llm_config()
     embed_model, embed_key, embed_base, embed_dim = _get_embed_config()
 
+    _is_local_llm = "localhost" in llm_base or "127.0.0.1" in llm_base
+    _llm_timeout = 300.0 if _is_local_llm else 120.0
+
     if llm_model.startswith("codex-cli/"):
         # 用 Codex CLI 的 OAuth 認證，不需要 API key
         codex_model_name = llm_model.removeprefix("codex-cli/")
@@ -174,7 +177,7 @@ def get_rag(project_id: str = "default") -> LightRAG:
             messages.append({"role": "user", "content": prompt})
 
             async def _call_llm():
-                async with _httpx.AsyncClient(timeout=120.0) as client:
+                async with _httpx.AsyncClient(timeout=_llm_timeout) as client:
                     resp = await client.post(
                         f"{llm_base}/chat/completions",
                         headers={
@@ -228,9 +231,11 @@ def get_rag(project_id: str = "default") -> LightRAG:
         log.warning("Provider 簽章變更，已清除舊索引 (%s)", working_dir)
 
     # Configurable performance parameters (overridable via env)
+    # Local models (Ollama): lower LLM concurrency since GPU processes sequentially
     _embed_timeout = int(os.environ.get("LIGHTRAG_EMBEDDING_TIMEOUT", "180"))
     _embed_max_async = int(os.environ.get("LIGHTRAG_EMBED_MAX_ASYNC", "8"))
-    _llm_max_async = int(os.environ.get("LIGHTRAG_LLM_MAX_ASYNC", "8"))
+    _default_llm_async = "2" if _is_local_llm else "8"
+    _llm_max_async = int(os.environ.get("LIGHTRAG_LLM_MAX_ASYNC", _default_llm_async))
     _chunk_token_size = int(os.environ.get("LIGHTRAG_CHUNK_TOKEN_SIZE", "2400"))
 
     _rag_project_id = project_id
