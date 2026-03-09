@@ -141,16 +141,67 @@ class LlamaServerManager:
         except Exception as exc:
             log.debug("orphan cleanup failed: %s", exc)
 
+    def _auto_ctx_size(self) -> int:
+        """根據系統記憶體自動決定 ctx_size。
+
+        GGUF_CTX_SIZE 環境變數可手動覆蓋。
+        - ≤ 8 GB RAM → 2048（避免 MacBook Air GPU OOM）
+        - ≤ 16 GB RAM → 4096
+        - > 16 GB RAM → 8192
+        """
+        env_val = os.environ.get("GGUF_CTX_SIZE", "")
+        if env_val:
+            try:
+                val = int(env_val)
+                log.info("Using GGUF_CTX_SIZE from env: %d", val)
+                return val
+            except ValueError:
+                pass
+
+        # 讀取系統記憶體（macOS: sysctl; Linux: /proc/meminfo）
+        ram_gb = 0
+        try:
+            import subprocess as _sp
+            import platform
+            if platform.system() == "Darwin":
+                out = _sp.check_output(["sysctl", "-n", "hw.memsize"], text=True)
+                ram_gb = int(out.strip()) / (1024 ** 3)
+            else:
+                with open("/proc/meminfo") as f:
+                    for line in f:
+                        if line.startswith("MemTotal:"):
+                            ram_kb = int(line.split()[1])
+                            ram_gb = ram_kb / (1024 ** 2)
+                            break
+        except Exception:
+            ram_gb = 0
+
+        if ram_gb <= 8:
+            ctx = 2048
+        elif ram_gb <= 16:
+            ctx = 4096
+        else:
+            ctx = 8192
+
+        if ram_gb > 0:
+            log.info("System RAM: %.0f GB → ctx_size=%d", ram_gb, ctx)
+        else:
+            ctx = 2048  # 無法偵測時用保守值
+            log.warning("Cannot detect RAM, using conservative ctx_size=%d", ctx)
+        return ctx
+
     def start(
         self,
         model_path: str | Path,
         mmproj_path: str | Path | None = None,
         *,
         n_gpu_layers: int = 99,
-        ctx_size: int = 8192,
+        ctx_size: int | None = None,
         extra_args: list[str] | None = None,
     ) -> None:
         """啟動 llama-server。若已在跑則跳過。"""
+        if ctx_size is None:
+            ctx_size = self._auto_ctx_size()
         if self.is_running:
             log.info("llama-server already running (pid check)")
             return
