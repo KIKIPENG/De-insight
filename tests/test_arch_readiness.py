@@ -116,6 +116,20 @@ class TestReadinessService(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(snap.status_label, "building")
         self.assertTrue(snap.has_running_jobs)
 
+    async def test_building_status_running_waiting_backoff(self):
+        """Has running:* sub-status → still building."""
+        j = await self.repo.create_job("proj1", "test.pdf", "pdf")
+        await self.repo.claim_next_job()
+        await self.repo.update_status(
+            j,
+            "running:extracting:waiting_backoff",
+            last_error="rate limit",
+            phase="extracting",
+        )
+        snap = await self._get_snapshot("proj1")
+        self.assertEqual(snap.status_label, "building")
+        self.assertTrue(snap.has_running_jobs)
+
     async def test_degraded_status_with_chunks(self):
         """Has chunks + terminal failure → degraded."""
         self._write_vdb("proj1", data_count=2)

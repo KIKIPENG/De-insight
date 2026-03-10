@@ -281,8 +281,6 @@ class MenuBar(Static):
         # ── 系統狀態 ──
         self._llm_model: str = ""
         self._llm_ok: bool = False
-        self._embed_label: str = ""
-        self._embed_ok: bool = False
         self._rag_llm_ok: bool = True
         self._vision_ok: bool = False
         # ── 通知 / 進度 ──
@@ -323,15 +321,11 @@ class MenuBar(Static):
         self,
         llm_model: str = "",
         llm_ok: bool = False,
-        embed_label: str = "",
-        embed_ok: bool = False,
         rag_llm_ok: bool = True,
         vision_ok: bool = False,
     ) -> None:
         self._llm_model = llm_model
         self._llm_ok = llm_ok
-        self._embed_label = embed_label
-        self._embed_ok = embed_ok
         self._rag_llm_ok = rag_llm_ok
         self._vision_ok = vision_ok
         self._rebuild()
@@ -500,7 +494,7 @@ class MenuBar(Static):
         col += 1
 
         # 系統狀態：總狀態指示
-        all_ok = self._llm_ok and self._embed_ok and self._rag_llm_ok and self._vision_ok
+        all_ok = self._llm_ok and self._rag_llm_ok and self._vision_ok
         some_ok = self._llm_ok  # 至少能對話
         if all_ok:
             text.append("◆", style="bold #8b949e")
@@ -523,18 +517,6 @@ class MenuBar(Static):
             text.append(model_short, style="#8b949e")
             text.append(f" {mark}", style=mark_style)
             col += 2 + len(model_short) + 1 + len(mark)
-
-        # 系統狀態：Embedding 模型
-        if self._embed_label:
-            mark = "✓" if self._embed_ok else "…"
-            mark_style = "#8b949e" if self._embed_ok else "#f0c674"
-            embed_short = self._embed_label.split("/")[-1] if "/" in self._embed_label else self._embed_label
-            if len(embed_short) > 18:
-                embed_short = embed_short[:16] + "…"
-            text.append("  ◇ ", style="#d4a27a")
-            text.append(embed_short, style="#8b949e")
-            text.append(f" {mark}", style=mark_style)
-            col += 4 + len(embed_short) + 1 + len(mark)
 
         # 降級服務（只在不 OK 時顯示）
         if not self._rag_llm_ok:

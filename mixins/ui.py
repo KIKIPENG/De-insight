@@ -76,8 +76,6 @@ class UIMixin:
             menu.set_system_status(
                 llm_model=llm_model,
                 llm_ok=bool(llm_model),
-                embed_label=getattr(self, "_embed_label", "jina-embeddings-v4"),
-                embed_ok=getattr(self, "_embed_ok", False),
                 rag_llm_ok=rag_llm_ok,
                 vision_ok=vision_ok,
             )
@@ -144,7 +142,7 @@ class UIMixin:
             "| 指令 | 功能 |\n"
             "|------|------|\n"
             "| `/new` | 新對話 |\n"
-            "| `/import` | 匯入 PDF 或網頁到知識庫 |\n"
+            "| `/import` | 匯入 PDF/TXT/MD 或網頁到知識庫 |\n"
             "| `/search` | 搜尋知識庫 |\n"
             "| `/memory` | 管理記憶 |\n"
             "| `/save` | 儲存當前對話的洞見 |\n"
@@ -154,6 +152,7 @@ class UIMixin:
             "| `/ragmode` | 切換知識檢索：快速/深度 |\n"
             "| `/project` | 切換專案 |\n"
             "| `/pending` | 記憶待確認 |\n"
+            "| `/focus` | 對焦評估──比對問題意識與最近記憶 |\n"
             "| `/help` | 顯示此說明 |\n"
         )
         self.call_after_refresh(lambda: self._show_system_message(help_text))

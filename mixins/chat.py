@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import logging
+import inspect
 from pathlib import Path
 
 log = logging.getLogger(__name__)
@@ -40,12 +41,13 @@ class ChatMixin:
         "/pending": "confirm_pending_memories",
         "/caption": "backfill_captions",
         "/reindex-images": "reindex_images",
+        "/focus": "focus_evaluate",
     }
 
     SLASH_HINTS: list[tuple[str, str]] = [
         ("/help", "顯示所有指令說明"),
         ("/new", "開啟新對話"),
-        ("/import", "匯入 PDF 或網頁到知識庫"),
+        ("/import", "匯入 PDF/TXT/MD 或網頁到知識庫"),
         ("/search", "搜尋知識庫"),
         ("/memory", "管理記憶 / 知識"),
         ("/settings", "開啟設定"),
@@ -57,6 +59,7 @@ class ChatMixin:
         ("/pending", "記憶待確認"),
         ("/caption", "為圖片庫自動生成描述"),
         ("/reindex-images", "重建圖片向量索引"),
+        ("/focus", "對焦評估──比對問題意識與最近記憶"),
     ]
 
     def on_chat_input_submitted(self, event) -> None:
@@ -85,21 +88,8 @@ class ChatMixin:
             self._submit_chat()
 
     def on_paste(self, event) -> None:
-        """貼上/拖入處理：URL 直接匯入，PDF 路徑填入輸入框。"""
-        text = event.text.strip()
-        if not text:
-            return
-        # URL — auto-import
-        t = text.strip().strip("'\"")
-        if t.startswith("http://") or t.startswith("https://"):
-            event.prevent_default()
-            self._do_import(t)
-            return
-        path = self._clean_dropped_path(text)
-        if path:
-            event.prevent_default()
-            self._do_import(path)
-            return
+        """全域不處理貼上/拖入匯入；只在 KnowledgeModal 匯入頁處理。"""
+        return
 
     def _update_slash_hints(self) -> None:
         from widgets import ChatInput
@@ -134,8 +124,8 @@ class ChatMixin:
         t = t.replace("\\ ", " ")
         if not Path(t).exists() or not Path(t).is_file():
             return None
-        if not t.lower().endswith((".pdf", ".txt")):
-            self.notify("僅支援 PDF 或 TXT 檔案", severity="warning", timeout=3)
+        if not t.lower().endswith((".pdf", ".txt", ".md")):
+            self.notify("僅支援 PDF、TXT 或 MD 檔案", severity="warning", timeout=3)
             return None
         return t
 
@@ -149,13 +139,15 @@ class ChatMixin:
         except Exception:
             pass
 
-    def _handle_slash_command(self, text: str) -> bool:
+    async def _handle_slash_command(self, text: str) -> bool:
         cmd = text.split()[0].lower()
         if cmd in self.SLASH_COMMANDS:
             action = self.SLASH_COMMANDS[cmd]
             method = getattr(self, f"action_{action}", None)
             if method:
-                method()
+                result = method()
+                if inspect.isawaitable(result):
+                    await result
             return True
         if cmd.startswith("/"):
             self.notify(f"未知指令: {cmd}  輸入 /help 查看")
@@ -184,7 +176,7 @@ class ChatMixin:
             return
 
         if text.startswith("/"):
-            self._handle_slash_command(text)
+            await self._handle_slash_command(text)
             return
 
         user_content = await self._build_user_content(text)
@@ -434,6 +426,10 @@ class ChatMixin:
             if user_text and len(user_text.strip()) >= 40:
                 self._auto_extract_memories(user_text)
 
+            if getattr(self, "_pending_focus_nudge", False):
+                self._pending_focus_nudge = False
+                await self._inject_focus_nudge()
+
         except httpx.ConnectError:
             bubble.set_responding(False)
             bubble.stream_update(
@@ -586,6 +582,82 @@ class ChatMixin:
 
         raise last_exc
 
+    async def _inject_focus_nudge(self) -> None:
+        """在對話裡注入一條策展人的對焦提問。"""
+        try:
+            if not self.state.current_project:
+                return
+            from focus import load_focus
+            from paths import project_root as get_project_root
+            from memory.store import get_memories
+
+            pid = self.state.current_project["id"]
+            fields = load_focus(get_project_root(pid))
+            focus_question = fields.get("問題意識", "").strip()
+            if not focus_question:
+                return
+
+            recent = await get_memories(
+                type="insight",
+                limit=3,
+                db_path=get_project_root(pid) / "memories.db",
+            )
+            recent_str = "\n".join(f"- {m['content']}" for m in recent) if recent else "- （暫無）"
+
+            prompt = (
+                f"創作者的問題意識：{focus_question}\n\n"
+                f"他最近的洞見：\n{recent_str}\n\n"
+                "用一句話，以好奇的語氣，問他最近的討論和他的問題意識是什麼關係。"
+                "不要評判，不要說「你偏了」。繁體中文，不超過 40 字。"
+            )
+            nudge = (await self._quick_llm_call(prompt, max_tokens=80)).strip()
+            if nudge:
+                await self._add_assistant_bubble(nudge, persist=True)
+        except Exception:
+            pass
+
+    @work(exclusive=True, group="focus_evaluate", thread=False)
+    async def action_focus_evaluate(self) -> None:
+        """對焦評估：讀取問題意識與最近記憶，輸出完整評估。"""
+        try:
+            if not self.state.current_project:
+                self.notify("請先選擇一個專案", severity="warning")
+                return
+
+            from focus import load_focus, to_prompt_block
+            from paths import project_root as get_project_root
+            from memory.store import get_memories
+
+            pid = self.state.current_project["id"]
+            project_root = get_project_root(pid)
+            fields = load_focus(project_root)
+            focus_block = to_prompt_block(fields)
+            if not focus_block:
+                self.notify("請先填寫問題意識（Research 面板 → 問題）", severity="warning")
+                return
+
+            recent = await get_memories(limit=10, db_path=project_root / "memories.db")
+            if not recent:
+                self.notify("尚無記憶可以評估", severity="warning")
+                return
+
+            memories_str = "\n".join(f"[{m['type']}] {m['content']}" for m in recent)
+            prompt = (
+                f"# 這位創作者的問題意識\n{focus_block}\n\n"
+                f"# 他最近的記憶條目（最新 10 條）\n{memories_str}\n\n"
+                "請做一次對焦評估：\n"
+                "1. 哪些記憶和問題意識有直接關聯？\n"
+                "2. 哪些記憶偏離了問題意識的方向？\n"
+                "3. 有沒有他還沒意識到的張力或矛盾？\n\n"
+                "語氣：好奇的觀察者，不是評審。不要說「你做得好/不好」。"
+                "繁體中文，直接。"
+            )
+
+            await self._add_user_bubble("[對焦評估]", persist=True)
+            await self._stream_response_with_prompt(prompt)
+        except Exception as e:
+            self.notify(f"對焦評估失敗：{e}", severity="error")
+
     async def _build_user_content(self, text: str):
         """組合使用者文字。
         有 pending_images 時，呼叫 Vision LLM 即時生成詳細描述附加到文字中。
@@ -675,6 +747,38 @@ class ChatMixin:
             )
         return str(content)
 
+    async def _add_user_bubble(self, content: str, *, persist: bool = True) -> None:
+        from widgets import Chatbox
+        container = self.query_one("#messages", Vertical)
+        await container.mount(Chatbox("user", content))
+        self._scroll_to_bottom()
+        self.messages.append({"role": "user", "content": content})
+        if persist and self.state.current_conversation_id:
+            await self._conv_store.add_message(
+                self.state.current_conversation_id, "user", content
+            )
+
+    async def _add_assistant_bubble(self, content: str, *, persist: bool = True) -> None:
+        from widgets import Chatbox
+        container = self.query_one("#messages", Vertical)
+        await container.mount(Chatbox("assistant", content))
+        self._scroll_to_bottom()
+        self.messages.append({"role": "assistant", "content": content})
+        if persist and self.state.current_conversation_id:
+            await self._conv_store.add_message(
+                self.state.current_conversation_id, "assistant", content
+            )
+
+    async def _stream_response_with_prompt(self, prompt: str) -> None:
+        """以指定 prompt 直接呼叫 LLM 並輸出成 assistant bubble。"""
+        try:
+            response = (await self._quick_llm_call(prompt, max_tokens=900)).strip()
+            if not response:
+                response = "目前無法產生評估結果。"
+            await self._add_assistant_bubble(response, persist=True)
+        except Exception as e:
+            self.notify(f"對焦評估失敗：{e}", severity="error")
+
     async def _get_memory_summary(self) -> str:
         """取得近期記憶摘要（輕量格式，不需 LLM 呼叫）。"""
         try:
@@ -699,7 +803,21 @@ class ChatMixin:
         """
         from prompts.foucault import get_system_prompt
         memory_summary = await self._get_memory_summary()
-        return get_system_prompt(self.mode, memory_summary=memory_summary)
+        focus_block = ""
+        try:
+            from focus import load_focus, to_prompt_block
+            from paths import project_root as get_project_root
+            if self.state.current_project:
+                pid = self.state.current_project["id"]
+                fields = load_focus(get_project_root(pid))
+                focus_block = to_prompt_block(fields)
+        except Exception:
+            pass
+        return get_system_prompt(
+            self.mode,
+            memory_summary=memory_summary,
+            focus_block=focus_block,
+        )
 
     async def _inject_rag_context(
         self,

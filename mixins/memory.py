@@ -78,6 +78,11 @@ class MemoryMixin:
         for i, m in enumerate(mems):
             item = MemoryItem(m)
             await panel.mount(item)
+            if (
+                m.get("type") == "insight"
+                and m.get("content", "") in getattr(self, "_focus_tagged_insights", set())
+            ):
+                item.mark_focus_tagged()
             if i < highlight_count:
                 item.add_class("-new")
                 self.set_timer(1.5, lambda w=item: w.remove_class("-new") if w.is_mounted else None)
@@ -199,6 +204,8 @@ class MemoryMixin:
             pass
         self.notify(f"已儲存 [{data['type']}]")
         self._refresh_memory_panel()
+        if data.get("type") == "insight" and data.get("content"):
+            await self._tag_focus_relevance(data["content"])
 
     @work(exclusive=False)
     async def _auto_extract_memories(self, user_text: str) -> None:
@@ -255,9 +262,59 @@ class MemoryMixin:
         insights = [i for i in items if isinstance(i, dict) and i.get("type") == "insight"]
         if insights:
             self._check_insight_evolution(insights[0]["content"])
+            for insight in insights:
+                content = (insight.get("content") or "").strip()
+                if content:
+                    await self._tag_focus_relevance(content)
 
         # 偏好萃取：每存入一批記憶後，檢查是否需要更新視覺偏好
         self._maybe_update_visual_preference()
+
+    async def _tag_focus_relevance(self, insight_content: str) -> None:
+        """比對新洞見與問題意識，相關則標記；無關累積達門檻時排隊對焦提問。"""
+        try:
+            if not self.state.current_project:
+                return
+            from focus import load_focus
+            from paths import project_root as get_project_root
+
+            pid = self.state.current_project["id"]
+            fields = load_focus(get_project_root(pid))
+            focus_question = fields.get("問題意識", "").strip()
+            if not focus_question:
+                return
+
+            prompt = (
+                f"問題意識：{focus_question}\n"
+                f"洞見：{insight_content}\n\n"
+                "這條洞見和問題意識有沒有直接關聯？只回答 yes 或 no。"
+            )
+            result = (await self._quick_llm_call(prompt, max_tokens=8)).strip().lower()
+            if "yes" in result:
+                self._unrelated_insight_count = 0
+                self._focus_tagged_insights.add(insight_content)
+                self._mark_latest_insight_tagged()
+            else:
+                self._unrelated_insight_count += 1
+                if self._unrelated_insight_count >= 5:
+                    self._unrelated_insight_count = 0
+                    self._schedule_focus_nudge()
+        except Exception:
+            pass
+
+    def _mark_latest_insight_tagged(self) -> None:
+        """在記憶面板最新的 insight 條目加上 focus 標記。"""
+        try:
+            from panels import MemoryItem
+            for item in self.query(MemoryItem):
+                if getattr(item, "_memory_type", None) == "insight":
+                    item.mark_focus_tagged()
+                    break
+        except Exception:
+            pass
+
+    def _schedule_focus_nudge(self) -> None:
+        self._pending_focus_nudge = True
 
     @work(exclusive=False)
     async def _maybe_update_visual_preference(self) -> None:

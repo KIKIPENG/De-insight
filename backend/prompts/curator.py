@@ -137,6 +137,17 @@ KNOWLEDGE_INJECTION = """
 5) 引用知識庫概念時，用 [[概念名稱]] 標記。
 """.strip()
 
+FOCUS_INJECTION = """
+# 這位創作者的問題意識
+
+{focus_block}
+
+這是他這個專案的出發點和邊界。
+你不需要在每句話都對齊這個框架，但在適當的時機，可以輕輕問一下：
+「你說的這個，跟你的問題意識是什麼關係？」
+語氣是好奇，不是糾正。
+""".strip()
+
 
 INTERACTIVE_PROMPTS_GUIDE = """
 # 互動提問格式
@@ -220,12 +231,19 @@ INSIGHT_RULES = """
 """.strip()
 
 
-def get_system_prompt(mode: str = "emotional", memory_summary: str = "", knowledge_content: str = "") -> str:
+def get_system_prompt(
+    mode: str = "emotional",
+    memory_summary: str = "",
+    knowledge_content: str = "",
+    focus_block: str = "",
+) -> str:
     """組合完整系統提示詞。"""
     mode_block = EMOTIONAL_MODE if mode == "emotional" else RATIONAL_MODE
     prompt = CURATOR_BASE + "\n\n" + mode_block
     if memory_summary:
         prompt += "\n\n" + MEMORY_INJECTION.format(memory_summary=memory_summary)
+    if focus_block:
+        prompt += "\n\n" + FOCUS_INJECTION.format(focus_block=focus_block)
     prompt += "\n\n" + INTERACTIVE_PROMPTS_GUIDE
     if knowledge_content:
         prompt += "\n\n" + CONCEPT_MARKING_GUIDE

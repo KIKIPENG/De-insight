@@ -125,7 +125,9 @@ class IngestionReadinessService:
 
                 # Running
                 async with db.execute(
-                    "SELECT COUNT(*) as c FROM ingest_jobs WHERE project_id = ? AND status = 'running'",
+                    """SELECT COUNT(*) as c FROM ingest_jobs
+                       WHERE project_id = ?
+                         AND status LIKE 'running%'""",
                     (project_id,),
                 ) as cur:
                     row = await cur.fetchone()

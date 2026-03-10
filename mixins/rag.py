@@ -67,8 +67,12 @@ class RAGMixin:
         All actual insert_* work runs in the worker process.
         Returns meta dict compatible with previous API (title, doc_id, warning, etc.).
         """
+        import os.path as _osp
         import re as _re
         source = source.strip()
+        title = (title or "").strip()
+        if not title:
+            raise ValueError("請先輸入文獻標題（必填）")
         is_doi = bool(_re.match(r'^10\.\d{4,}/', source))
         is_arxiv = "arxiv.org/abs/" in source
         is_url = source.startswith("http://") or source.startswith("https://")
@@ -81,13 +85,19 @@ class RAGMixin:
         elif is_url:
             source_type = "url"
         else:
-            source_type = "pdf"
+            source = self._clean_file_path(source)
+            if source.lower().endswith(".txt"):
+                source_type = "txt"
+            elif source.lower().endswith(".md"):
+                source_type = "md"
+            else:
+                source_type = "pdf"
 
         svc = self._get_ingestion_service()
         job = await svc.submit_and_wait(project_id, source, source_type, title=title)
         result = job.get("_result", {})
         return {
-            "title": result.get("title", title or source),
+            "title": result.get("title", title or _osp.basename(source)),
             "doc_id": result.get("doc_id", ""),
             "file_size": result.get("file_size", 0),
             "page_count": result.get("page_count", 0),
@@ -122,6 +132,10 @@ class RAGMixin:
         import re as _re
         _pid = self.state.current_project["id"] if self.state.current_project else "default"
         source = source.strip()
+        title = (title or "").strip()
+        if not title:
+            self.notify("請先輸入文獻標題（必填）", severity="warning", timeout=3)
+            return
 
         # Determine source_type
         is_doi = bool(_re.match(r'^10\.\d{4,}/', source))
@@ -139,10 +153,12 @@ class RAGMixin:
             source = self._clean_file_path(source)
             if source.lower().endswith(".txt"):
                 source_type = "txt"
+            elif source.lower().endswith(".md"):
+                source_type = "md"
             elif source.lower().endswith(".pdf"):
                 source_type = "pdf"
             else:
-                self.notify("僅支援 PDF 或 TXT 檔案", severity="warning", timeout=3)
+                self.notify("僅支援 PDF、TXT 或 MD 檔案", severity="warning", timeout=3)
                 return
 
         try:
@@ -269,9 +285,6 @@ class RAGMixin:
     def action_manage_documents(self) -> None:
         self._open_knowledge_modal("docs")
 
-    def action_bulk_import(self) -> None:
-        self._open_knowledge_modal("bulk")
-
     def action_view_relations(self) -> None:
         from modals import RelationModal
         self.push_screen(RelationModal())
@@ -281,7 +294,8 @@ class RAGMixin:
         if not last:
             self.notify("尚無匯入記錄，請先用 ctrl+f 匯入文件")
             return
-        self._do_import(last)
+        self.notify("請開啟匯入視窗並重新輸入標題後再更新", severity="warning", timeout=4)
+        self._open_knowledge_modal("import")
 
     def action_view_sources(self) -> None:
         sources = self.state.last_rag_sources
@@ -388,6 +402,99 @@ class RAGMixin:
         text = re.sub(r"\n{3,}", "\n\n", text)
         return text.strip()
 
+    @staticmethod
+    def _build_research_meta(content: str, sources: list[dict]) -> str:
+        """Build compact metadata block shown before research result body."""
+        import re
+
+        # Titles
+        titles: list[str] = []
+        for src in sources or []:
+            t = (src.get("title", "") or "").strip()
+            if not t:
+                continue
+            if t not in titles:
+                titles.append(t)
+            if len(titles) >= 5:
+                break
+        title_text = "、".join(titles[:3]) if titles else "未識別"
+
+        # Concepts: prefer [[概念]] markers, then source snippets fallback.
+        concept_set: list[str] = []
+        for c in re.findall(r"\[\[([^\[\]]+)\]\]", content or ""):
+            c = c.strip()
+            if c and c not in concept_set:
+                concept_set.append(c)
+            if len(concept_set) >= 8:
+                break
+        if not concept_set:
+            joined = " ".join((s.get("snippet", "") or "") for s in (sources or []))
+            for token in re.findall(r"[\u4e00-\u9fff]{2,8}", joined):
+                if token not in concept_set:
+                    concept_set.append(token)
+                if len(concept_set) >= 8:
+                    break
+        concept_text = "、".join(concept_set[:5]) if concept_set else "未識別"
+
+        # Pages from titles/snippets/content
+        page_candidates: list[str] = []
+        page_text_src = "\n".join(
+            [
+                content or "",
+                *[(s.get("title", "") or "") for s in (sources or [])],
+                *[(s.get("snippet", "") or "") for s in (sources or [])],
+            ]
+        )
+        for p in re.findall(r"\bp\.\s*(\d+)\b", page_text_src, flags=re.IGNORECASE):
+            if p not in page_candidates:
+                page_candidates.append(p)
+        if not page_candidates:
+            for p in re.findall(r"第\s*(\d+)\s*頁", page_text_src):
+                if p not in page_candidates:
+                    page_candidates.append(p)
+        page_text = ", ".join(page_candidates[:8]) if page_candidates else "未識別"
+
+        return (
+            f"[#6e7681]文章標題：[/]{escape(title_text)}\n"
+            f"[#6e7681]關鍵字（概念）：[/]{escape(concept_text)}\n"
+            f"[#6e7681]頁數：[/]{escape(page_text)}"
+        )
+
+    async def _detect_warning_sources(self, project_id: str, sources: list[dict]) -> list[str]:
+        """Return warning document titles that match current sources."""
+        try:
+            from paths import project_root
+            from conversation.store import ConversationStore
+            import os.path as _osp
+
+            store = ConversationStore(db_path=project_root(project_id) / "conversations.db")
+            docs = await store.list_documents(project_id)
+            warned = []
+            for d in docs:
+                note = (d.get("note") or "").strip().lower()
+                if "warning:" not in note:
+                    continue
+                warned.append(d)
+            if not warned:
+                return []
+
+            matched: list[str] = []
+            for src in sources or []:
+                s_title = (src.get("title", "") or "").strip().lower()
+                s_file = _osp.basename((src.get("file", "") or "").strip()).lower()
+                for d in warned:
+                    d_title = (d.get("title", "") or "").strip().lower()
+                    d_file = _osp.basename((d.get("source_path", "") or "").strip()).lower()
+                    if (s_title and d_title and (s_title in d_title or d_title in s_title)) or (
+                        s_file and d_file and s_file == d_file
+                    ):
+                        t = d.get("title", "未知文獻")
+                        if t not in matched:
+                            matched.append(t)
+            return matched[:3]
+        except Exception:
+            return []
+
     async def _update_research_panel(
         self,
         content: str = "",
@@ -411,6 +518,15 @@ class RAGMixin:
             "query": query,
         }
 
+        _pid = self.state.current_project["id"] if self.state.current_project else "default"
+        warning_docs = await self._detect_warning_sources(_pid, list(sources or []))
+        warning_prefix = ""
+        if warning_docs:
+            warning_prefix = (
+                "[#d4a27a]（注意：部分來源文獻有警告，結果可能含重複節點影響）[/]\n"
+                f"[dim #6e7681]來源：{escape('、'.join(warning_docs))}[/]\n\n"
+            )
+
         try:
             panel = self.query_one("#research-content", Static)
             if status == "loading":
@@ -421,9 +537,26 @@ class RAGMixin:
                 panel.update("[dim #484f58]無結果[/]")
             elif status == "degraded":
                 prefix = "[#d4a27a]（部分匯入失敗，結果可能不完整）[/]\n\n"
-                panel.update(prefix + f"[#c9d1d9]{escape(display or '無結果')}[/]")
+                meta = self._build_research_meta(content, list(sources or []))
+                panel.update(
+                    prefix
+                    + warning_prefix
+                    + meta
+                    + "\n\n[dim #2a2a2a]"
+                    + ("-" * 42)
+                    + "[/]\n\n"
+                    + f"[#c9d1d9]{escape(display or '無結果')}[/]"
+                )
             else:
-                panel.update(f"[#c9d1d9]{escape(display or '無結果')}[/]")
+                meta = self._build_research_meta(content, list(sources or []))
+                panel.update(
+                    warning_prefix
+                    + meta
+                    + "\n\n[dim #2a2a2a]"
+                    + ("-" * 42)
+                    + "[/]\n\n"
+                    + f"[#c9d1d9]{escape(display or '無結果')}[/]"
+                )
         except NoMatches:
             pass
 

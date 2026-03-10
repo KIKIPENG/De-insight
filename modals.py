@@ -356,9 +356,18 @@ class DocReaderModal(ModalScreen):
 
     def compose(self) -> ComposeResult:
         title = self._doc.get("title", "未知文獻")
+        note = (self._doc.get("note") or "").strip()
         box = Vertical(id="doc-reader-box")
         box.border_title = f"◇ {title}"
         with box:
+            if note.lower().startswith("warning:"):
+                detail = note[len("warning:"):].strip() or note
+                if len(detail) > 180:
+                    detail = detail[:180] + "…"
+                yield Static(
+                    f"[#d4a27a]⚠ 完成（有警告）[/]\n[dim #6e7681]{detail}[/]"
+                )
+                yield Static("[dim #2a2a2a]" + "─" * 84 + "[/]")
             yield VerticalScroll(
                 Static("載入中…", id="doc-reader-text"),
                 id="doc-reader-scroll",
@@ -674,127 +683,6 @@ class DocumentManageModal(ModalScreen):
         self.dismiss(None)
 
 
-# ── BulkImportModal ───────────────────────────────────────────────
-
-class BulkImportModal(ModalScreen):
-    """批量匯入文獻。"""
-
-    BINDINGS = [("escape", "close_if_done", "關閉")]
-
-    CSS = """
-    BulkImportModal { align: center middle; }
-    #bulk-box {
-        width: 72; height: auto; max-height: 85%; padding: 1 2;
-        border: round #3a3a3a; background: #0a0a0a;
-        border-title-color: #fafafa;
-    }
-    #bulk-input {
-        height: 8; margin: 1 0;
-        background: #111111; color: #fafafa;
-        border: tall #3a3a3a;
-    }
-    #bulk-input:focus { border: tall #666666; }
-    #bulk-progress { height: auto; max-height: 50%; }
-    .bulk-item { height: 1; padding: 0 1; color: #8b949e; }
-    .bulk-item.-done { color: #7dd3fc; }
-    .bulk-item.-error { color: #ff6b6b; }
-    .bulk-item.-running { color: #fafafa; }
-    .bulk-actions { height: 1; margin: 1 0 0 0; }
-    .bulk-btn {
-        background: transparent; color: #484f58;
-        border: none; height: 1; min-width: 0;
-        margin: 0 1 0 0; padding: 0 1;
-    }
-    .bulk-btn:hover { color: #fafafa; }
-    """
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._done = False
-        self._items: list[Static] = []
-
-    def compose(self) -> ComposeResult:
-        box = Vertical(id="bulk-box")
-        box.border_title = "◇ 批量匯入"
-        with box:
-            yield Static("[#8b949e]每行一個來源（PDF 路徑、URL、DOI）[/]")
-            yield TextArea("", id="bulk-input")
-            yield Static("", id="bulk-status")
-            yield VerticalScroll(id="bulk-progress")
-            with Horizontal(classes="bulk-actions"):
-                yield Button("開始匯入", id="bulk-start", classes="bulk-btn")
-                yield Button("← 回到對話", classes="back-btn bulk-btn")
-
-    def on_mount(self) -> None:
-        try:
-            self.query_one("#bulk-input", TextArea).focus()
-        except Exception:
-            pass
-
-    def on_button_pressed(self, event: Button.Pressed) -> None:
-        if event.button.has_class("back-btn"):
-            if self._done or not self._items:
-                self.dismiss(None)
-            return
-        if event.button.id == "bulk-start":
-            text = self.query_one("#bulk-input", TextArea).text
-            sources = [s.strip() for s in text.strip().split("\n") if s.strip()]
-            if sources:
-                self._start_imports(sources)
-
-    @work(exclusive=True)
-    async def _start_imports(self, sources: list[str]) -> None:
-        # Build progress list
-        try:
-            scroll = self.query_one("#bulk-progress", VerticalScroll)
-        except Exception:
-            return
-        await scroll.remove_children()
-        self._items = []
-        for src in sources:
-            label = src[:60] + ("…" if len(src) > 60 else "")
-            item = Static(f"○  {label}", classes="bulk-item")
-            await scroll.mount(item)
-            self._items.append(item)
-
-        _pid = self.app.state.current_project["id"] if self.app.state.current_project else "default"
-        done_count = 0
-        for i, src in enumerate(sources):
-            self._items[i].update(f"⏳ {src[:60]}")
-            self._items[i].add_class("-running")
-            self._update_status(done_count, len(sources))
-            try:
-                await self.app._import_one(src, _pid)
-                self._items[i].update(f"✅ {src[:60]}")
-                self._items[i].remove_class("-running")
-                self._items[i].add_class("-done")
-                done_count += 1
-            except Exception as e:
-                self._items[i].update(f"❌ {src[:60]}  {str(e)[:30]}")
-                self._items[i].remove_class("-running")
-                self._items[i].add_class("-error")
-            self._update_status(done_count, len(sources))
-
-        self._done = True
-        if sources:
-            self.app.state.last_imported_source = sources[-1]
-        self._update_status(done_count, len(sources), finished=True)
-
-    def _update_status(self, done: int, total: int, finished: bool = False) -> None:
-        try:
-            status = self.query_one("#bulk-status", Static)
-            if finished:
-                status.update(f"[#7dd3fc]全部完成 {done}/{total}  按 ESC 關閉[/]")
-            else:
-                status.update(f"[#8b949e]匯入中 {done}/{total}[/]")
-        except Exception:
-            pass
-
-    def action_close_if_done(self) -> None:
-        if self._done or not self._items:
-            self.dismiss(None)
-
-
 # ── RelationModal ─────────────────────────────────────────────────
 
 class RelationModal(ModalScreen):
@@ -959,6 +847,54 @@ class ImportModal(ModalScreen[str | None]):
     def on_key(self, event) -> None:
         if event.key == "escape":
             self.dismiss(None)
+
+
+# ── FocusImportModal ──────────────────────────────────────────────
+
+class FocusImportModal(ModalScreen[str | None]):
+    """輸入 Markdown 檔案路徑並匯入問題意識。"""
+
+    CSS = """
+    FocusImportModal { align: center middle; }
+    #focus-import-container {
+        width: 60; height: auto;
+        background: #111111; border: round #2a2a2a; padding: 2 3;
+    }
+    #focus-import-title { color: #d4a27a; margin-bottom: 1; }
+    #focus-import-input { margin-bottom: 1; }
+    #focus-import-buttons { height: auto; }
+    """
+
+    BINDINGS = [("escape", "dismiss(None)", "取消")]
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id="focus-import-container"):
+            yield Static("匯入問題意識", id="focus-import-title")
+            yield Input(
+                placeholder="輸入 .md 檔案的完整路徑",
+                id="focus-import-input",
+            )
+            with Horizontal(id="focus-import-buttons"):
+                yield Button("匯入", id="btn-do-import", variant="primary")
+                yield Button("取消", id="btn-cancel-import", variant="default")
+
+    def on_mount(self) -> None:
+        try:
+            self.query_one("#focus-import-input", Input).focus()
+        except Exception:
+            pass
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "btn-cancel-import":
+            self.dismiss(None)
+        elif event.button.id == "btn-do-import":
+            path = self.query_one("#focus-import-input", Input).value.strip()
+            self.dismiss(path if path else None)
+
+    def on_input_submitted(self, event: Input.Submitted) -> None:
+        if event.input.id == "focus-import-input":
+            path = event.value.strip()
+            self.dismiss(path if path else None)
 
 
 # ── SearchModal ──────────────────────────────────────────────────
@@ -1522,7 +1458,7 @@ class MemorySaveModal(ModalScreen[dict | None]):
 # ── KnowledgeModal ───────────────────────────────────────────────
 
 class KnowledgeModal(ModalScreen):
-    """知識庫管理 — 匯入 / 搜尋 / 批量 / 文獻管理 四合一。"""
+    """知識庫管理 — 匯入 / 貼上 / 搜尋 / 文獻管理。"""
 
     BINDINGS = [("escape", "close", "關閉")]
 
@@ -1546,12 +1482,6 @@ class KnowledgeModal(ModalScreen):
         margin: 1 0; background: #111111; color: #fafafa;
         border: tall #3a3a3a; padding: 0 1;
     }
-    #kb-bulk-input {
-        height: 5; margin: 0 0 1 0;
-        background: #111111; color: #fafafa;
-        border: tall #3a3a3a;
-    }
-    #kb-bulk-input:focus { border: tall #666666; }
     #kb-paste-content {
         height: 10; margin: 1 0;
         background: #111111; color: #fafafa;
@@ -1574,11 +1504,6 @@ class KnowledgeModal(ModalScreen):
     }
     .kb-read-btn:hover { color: #fafafa; }
     .kb-sep { height: 1; color: #2a2a2a; }
-    .kb-progress { height: auto; max-height: 50%; }
-    .kb-bulk-item { height: 1; padding: 0 1; color: #8b949e; }
-    .kb-bulk-item.-done { color: #7dd3fc; }
-    .kb-bulk-item.-error { color: #ff6b6b; }
-    .kb-bulk-item.-running { color: #fafafa; }
     .kb-action-btn {
         background: transparent; color: #484f58;
         border: none; height: 1; min-width: 0;
@@ -1587,8 +1512,8 @@ class KnowledgeModal(ModalScreen):
     .kb-action-btn:hover { color: #fafafa; }
     """
 
-    _TAB_NAMES = ["匯入", "貼上", "搜尋", "批量", "文獻"]
-    _TAB_IDS = ["import", "paste", "search", "bulk", "docs"]
+    _TAB_NAMES = ["匯入", "貼上", "搜尋", "文獻"]
+    _TAB_IDS = ["import", "paste", "search", "docs"]
 
     def __init__(self, project_id: str = "default", initial_tab: str = "import") -> None:
         super().__init__()
@@ -1596,10 +1521,6 @@ class KnowledgeModal(ModalScreen):
         self._initial_tab = initial_tab
         self._current_tab = initial_tab
         self._docs: list[dict] = []
-        self._bulk_done = False
-        self._bulk_items: list[Static] = []
-        self._bulk_parsed_items: list[dict] = []
-        self._bulk_batch_meta: dict = {}
 
     def compose(self) -> ComposeResult:
         box = Vertical(id="kb-box")
@@ -1643,21 +1564,19 @@ class KnowledgeModal(ModalScreen):
             await self._render_paste(content)
         elif self._current_tab == "search":
             await self._render_search(content)
-        elif self._current_tab == "bulk":
-            await self._render_bulk(content)
         elif self._current_tab == "docs":
             await self._render_docs(content)
 
     async def _render_import(self, container: VerticalScroll) -> None:
-        await container.mount(Static("[#8b949e]輸入檔案路徑或網址[/]"))
+        await container.mount(Static("[#8b949e]輸入檔案路徑或網址（拖放僅在此頁生效）[/]"))
         await container.mount(
-            Input(placeholder="/path/to/file.pdf  或  https://...  或  10.1234/doi", id="kb-input")
+            Input(placeholder="/path/to/file.pdf|txt|md  或  https://...  或  10.1234/doi", id="kb-input")
         )
         await container.mount(
-            Input(placeholder="自訂標題（選填，留空則自動擷取）", id="kb-import-title")
+            Input(placeholder="文獻標題（必填）", id="kb-import-title")
         )
         await container.mount(
-            Static("[dim #484f58]支援：PDF 路徑、URL、arXiv 連結、DOI（10.xxxx/...）[/]")
+            Static("[dim #484f58]支援：PDF/TXT/MD 路徑、URL、arXiv 連結、DOI（10.xxxx/...）[/]")
         )
         try:
             self.query_one("#kb-input", Input).focus()
@@ -1683,22 +1602,6 @@ class KnowledgeModal(ModalScreen):
         except Exception:
             pass
 
-    async def _render_bulk(self, container: VerticalScroll) -> None:
-        self._bulk_done = False
-        self._bulk_items = []
-        await container.mount(Static(
-            "[#8b949e]每行一個來源，或貼入 JSON 陣列[/]\n"
-            "[dim #484f58]JSON 格式：[\"url\", ...] 或 [{\"url\": \"...\", \"title\": \"...\", \"tags\": [...]}][/]"
-        ))
-        await container.mount(TextArea("", id="kb-bulk-input"))
-        await container.mount(Button("開始匯入", id="kb-bulk-start", classes="kb-action-btn"))
-        await container.mount(Static("", id="kb-bulk-status"))
-        await container.mount(VerticalScroll(id="kb-bulk-progress", classes="kb-progress"))
-        try:
-            self.query_one("#kb-bulk-input", TextArea).focus()
-        except Exception:
-            pass
-
     async def _render_docs(self, container: VerticalScroll) -> None:
         await container.mount(Static("[dim #484f58]載入中…[/]"))
         from conversation.store import ConversationStore
@@ -1714,6 +1617,9 @@ class KnowledgeModal(ModalScreen):
             for doc in self._docs:
                 time_str = (doc.get("imported_at") or "")[:16]
                 title = doc.get("title", "未知")
+                note = (doc.get("note") or "").strip().lower()
+                if "warning:" in note:
+                    title = f"⚠ {title}"
                 if len(title) > 40:
                     title = title[:40] + "…"
                 row = Horizontal(classes="kb-doc-entry")
@@ -1733,25 +1639,6 @@ class KnowledgeModal(ModalScreen):
             tab = event.button.id.removeprefix("kb-tab-")
             if tab != self._current_tab:
                 self._show_tab(tab)
-            return
-        if event.button.id == "kb-bulk-start":
-            try:
-                text = self.query_one("#kb-bulk-input", TextArea).text.strip()
-            except Exception:
-                return
-            if not text:
-                return
-            items, batch_meta = self._parse_bulk_input(text)
-            if items:
-                self._bulk_parsed_items = items
-                self._bulk_batch_meta = batch_meta
-                self._show_bulk_preview(items, batch_meta)
-            return
-        if event.button.id == "kb-bulk-confirm":
-            self._run_bulk(self._bulk_parsed_items)
-            return
-        if event.button.id == "kb-bulk-reset":
-            self._show_tab("bulk")
             return
         if event.button.id == "kb-paste-submit":
             try:
@@ -1783,16 +1670,27 @@ class KnowledgeModal(ModalScreen):
 
     def on_input_submitted(self, event: Input.Submitted) -> None:
         value = event.value.strip()
-        if not value:
-            return
         if self._current_tab == "import":
-            # Capture optional title from second input
+            source = ""
+            if event.input.id == "kb-input":
+                source = value
+            else:
+                try:
+                    source = self.query_one("#kb-input", Input).value.strip()
+                except Exception:
+                    source = ""
             title = ""
             try:
                 title = self.query_one("#kb-import-title", Input).value.strip()
             except Exception:
                 pass
-            self.dismiss(("import", {"source": value, "title": title}))
+            if not source:
+                self.notify("請輸入來源（檔案路徑 / URL / DOI）", severity="warning")
+                return
+            if not title:
+                self.notify("請輸入文獻標題（必填）", severity="warning")
+                return
+            self.dismiss(("import", {"source": source, "title": title}))
         elif self._current_tab == "paste":
             try:
                 title = self.query_one("#kb-paste-title", Input).value.strip()
@@ -1806,207 +1704,48 @@ class KnowledgeModal(ModalScreen):
                 self.notify("請貼上內文", severity="warning")
                 return
             self.dismiss(("import_text", {"title": title, "content": content}))
-        elif self._current_tab == "search":
+        elif self._current_tab == "search" and value:
             self.dismiss(("search", value))
 
-    def _parse_bulk_input(self, text: str) -> tuple[list[dict], dict]:
-        """Parse bulk input. Returns (items, batch_meta).
-        items: list of dicts with 'src' key and optional metadata.
-        batch_meta: top-level metadata from wrapper JSON (project, description, etc.)
-        """
-        import json as _json
-        stripped = text.strip()
-        batch_meta: dict = {}
-        # Try JSON if starts with [ or {
-        if stripped.startswith("[") or stripped.startswith("{"):
-            try:
-                data = _json.loads(stripped)
-                # Wrapper object: {"project": ..., "items": [...]}
-                if isinstance(data, dict):
-                    if "items" in data:
-                        batch_meta = {k: v for k, v in data.items() if k != "items"}
-                        data = data["items"]
-                    else:
-                        # Single item object
-                        data = [data]
-                if not isinstance(data, list):
-                    raise ValueError("JSON 必須是陣列或含 items 的物件")
-                items = []
-                for entry in data:
-                    if isinstance(entry, str):
-                        items.append({"src": entry.strip()})
-                    elif isinstance(entry, dict):
-                        src = entry.get("url") or entry.get("path") or ""
-                        if not src:
-                            continue
-                        meta = {"src": src.strip()}
-                        if entry.get("title"):
-                            meta["title"] = entry["title"]
-                        if entry.get("tags"):
-                            meta["tags"] = entry["tags"]
-                        if entry.get("layer"):
-                            meta["layer"] = entry["layer"]
-                        # Collect note from note/author/source/layer
-                        note_parts = []
-                        if entry.get("note"):
-                            note_parts.append(entry["note"])
-                        for key in ("author", "source", "layer"):
-                            if entry.get(key):
-                                note_parts.append(f"{key}: {entry[key]}")
-                        if note_parts:
-                            meta["note"] = "\n".join(note_parts)
-                        items.append(meta)
-                if not items:
-                    self.notify("JSON 中未找到有效來源", severity="error")
-                return items, batch_meta
-            except (_json.JSONDecodeError, ValueError) as e:
-                self.notify(f"JSON 解析失敗：{e}", severity="error")
-                return [], {}
-        # Plain text: one source per line
-        return [{"src": line.strip()} for line in text.split("\n") if line.strip()], {}
-
-    @work(exclusive=True)
-    async def _show_bulk_preview(self, items: list[dict], batch_meta: dict) -> None:
-        """Stage 2: show parsed items with metadata for review before importing."""
-        try:
-            content = self.query_one("#kb-content", VerticalScroll)
-        except Exception:
+    def on_paste(self, event) -> None:
+        """只允許在匯入頁使用拖放/貼上來源。"""
+        if self._current_tab != "import":
             return
-        await content.remove_children()
-
-        # Batch metadata header
-        if batch_meta:
-            header_parts = []
-            if batch_meta.get("project"):
-                header_parts.append(f"[bold #fafafa]{batch_meta['project']}[/]")
-            if batch_meta.get("description"):
-                desc = batch_meta["description"]
-                if len(desc) > 100:
-                    desc = desc[:100] + "…"
-                header_parts.append(f"[#8b949e]{desc}[/]")
-            if header_parts:
-                await content.mount(Static("\n".join(header_parts)))
-                await content.mount(Static("[dim #2a2a2a]" + "─" * 70 + "[/]", classes="kb-sep"))
-
-        await content.mount(Static(f"[#6e7681]{len(items)} 筆來源[/]"))
-        await content.mount(Static("[dim #2a2a2a]" + "─" * 70 + "[/]", classes="kb-sep"))
-
-        # Item list with metadata
-        for i, item in enumerate(items):
-            src = item["src"]
-            title = item.get("title", "")
-            label = title if title else src
-            if len(label) > 55:
-                label = label[:55] + "…"
-
-            parts = [f"[#c9d1d9]{i+1}. {label}[/]"]
-            if title:
-                short_src = src if len(src) < 50 else src[:50] + "…"
-                parts.append(f"   [dim #484f58]{short_src}[/]")
-            meta_bits = []
-            if item.get("layer"):
-                meta_bits.append(f"[#7dd3fc]{item['layer']}[/]")
-            if item.get("tags"):
-                tags_str = ", ".join(item["tags"][:4])
-                if len(item["tags"]) > 4:
-                    tags_str += " …"
-                meta_bits.append(f"[#484f58]{tags_str}[/]")
-            if meta_bits:
-                parts.append("   " + "  ".join(meta_bits))
-            await content.mount(Static("\n".join(parts), classes="kb-bulk-item"))
-
-        await content.mount(Static("[dim #2a2a2a]" + "─" * 70 + "[/]", classes="kb-sep"))
-        await content.mount(Button(f"確認匯入 {len(items)} 筆", id="kb-bulk-confirm", classes="kb-action-btn"))
-
-    @work(exclusive=True)
-    async def _run_bulk(self, items: list[dict]) -> None:
-        try:
-            content = self.query_one("#kb-content", VerticalScroll)
-        except Exception:
+        raw = (event.text or "").strip()
+        if not raw:
             return
-        await content.remove_children()
-
-        await content.mount(Static("", id="kb-bulk-status"))
-        self._bulk_items = []
-        for item in items:
-            title = item.get("title", "")
-            src = item["src"]
-            label = title if title else src
-            if len(label) > 60:
-                label = label[:60] + "…"
-            widget = Static(f"○  {label}", classes="kb-bulk-item")
-            await content.mount(widget)
-            self._bulk_items.append(widget)
-
-        spin_frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
-        self._spin_idx = 0
-        self._spin_label = ""
-        self._spin_widget = None
-
-        def _spin() -> None:
-            if self._spin_widget is not None:
-                ch = spin_frames[self._spin_idx % len(spin_frames)]
-                self._spin_widget.update(f"{ch} {self._spin_label}")
-                self._spin_idx += 1
-
-        timer = self.set_interval(0.1, _spin)
-
-        done_count = 0
-        for i, item in enumerate(items):
-            src = item["src"]
-            title = item.get("title", "")
-            label = title if title else src
-            if len(label) > 60:
-                label = label[:60] + "…"
-            self._spin_label = label
-            self._spin_widget = self._bulk_items[i]
-            self._spin_idx = 0
-            self._bulk_items[i].add_class("-running")
-            self._update_bulk_status(done_count, len(items))
-            try:
-                meta = await self.app._import_one(src, self._project_id, title=item.get("title", ""))
-                doc_id = meta.get("doc_id")
-                if doc_id and any(k in item for k in ("title", "tags", "note")):
-                    from conversation.store import ConversationStore
-                    from paths import project_root
-                    store = ConversationStore(db_path=project_root(self._project_id) / "conversations.db")
-                    await store.update_document_meta(
-                        doc_id,
-                        title=item.get("title"),
-                        tags=item.get("tags"),
-                        note=item.get("note"),
-                    )
-                self._bulk_items[i].update(f"✅ {label}")
-                self._bulk_items[i].remove_class("-running")
-                self._bulk_items[i].add_class("-done")
-                done_count += 1
-            except Exception as e:
-                self._bulk_items[i].update(f"❌ {label}  [#ff6b6b]{str(e)[:30]}[/]")
-                self._bulk_items[i].remove_class("-running")
-                self._bulk_items[i].add_class("-error")
-            self._update_bulk_status(done_count, len(items))
-
-        self._spin_widget = None
-        timer.stop()
-
-        self._bulk_done = True
-        if items:
-            self.app.state.last_imported_source = items[-1]["src"]
-        self._update_bulk_status(done_count, len(items), finished=True)
+        source = self._normalize_import_source(raw)
+        if not source:
+            return
+        event.prevent_default()
         try:
-            await content.mount(Button("重新匯入", id="kb-bulk-reset", classes="kb-action-btn"))
+            self.query_one("#kb-input", Input).value = source
+            self.query_one("#kb-import-title", Input).focus()
         except Exception:
             pass
 
-    def _update_bulk_status(self, done: int, total: int, finished: bool = False) -> None:
-        try:
-            status = self.query_one("#kb-bulk-status", Static)
-            if finished:
-                status.update(f"[#7dd3fc]全部完成 {done}/{total}[/]")
-            else:
-                status.update(f"[#8b949e]匯入中 {done}/{total}[/]")
-        except Exception:
-            pass
+    def _normalize_import_source(self, text: str) -> str:
+        from pathlib import Path
+        from urllib.parse import unquote, urlparse
+        t = text.strip().strip("'\"")
+        if not t:
+            return ""
+        if t.startswith("http://") or t.startswith("https://"):
+            return t
+        if t.startswith("10."):
+            return t
+        if t.startswith("file://"):
+            t = unquote(urlparse(t).path)
+        if "%20" in t:
+            t = unquote(t)
+        t = t.replace("\\ ", " ")
+        p = Path(t)
+        if not p.exists() or not p.is_file():
+            return ""
+        if not t.lower().endswith((".pdf", ".txt", ".md")):
+            self.notify("僅支援 PDF、TXT、MD 檔案", severity="warning")
+            return ""
+        return str(p)
 
     @work(exclusive=True)
     async def _delete_doc(self, doc_id: str) -> None:

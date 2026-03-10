@@ -7,11 +7,13 @@ TUI 透過這個類別 submit job + 查詢狀態。
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 import logging
 import os
 import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
 
 log = logging.getLogger(__name__)
@@ -46,15 +48,109 @@ class IngestionService:
         """Submit a new ingestion job and ensure worker is running."""
         await self._repo.ensure_table()
         self.ensure_worker_running()
+        idempotency_key, config_signature = self._build_idempotency_key(
+            project_id=project_id,
+            source=source,
+            source_type=source_type,
+            payload=payload or {},
+        )
+        existing = await self._repo.find_by_idempotency(project_id, idempotency_key)
+        if existing:
+            log.info(
+                "Dedup submit -> existing job %s (status=%s)",
+                existing.get("id"),
+                existing.get("status"),
+            )
+            return str(existing["id"])
+        max_retries = max(1, int(os.environ.get("RAG_INGEST_MAX_RETRIES", "3") or "3"))
         job_id = await self._repo.create_job(
             project_id=project_id,
             source=source,
             source_type=source_type,
             title=title,
             payload_json=json.dumps(payload or {}, ensure_ascii=False),
+            idempotency_key=idempotency_key,
+            config_signature=config_signature,
+            max_retries=max_retries,
         )
         log.info("Submitted job %s: type=%s source=%s", job_id, source_type, source[:80])
         return job_id
+
+    async def submit_meta(
+        self,
+        project_id: str,
+        source: str,
+        source_type: str,
+        title: str = "",
+        payload: dict | None = None,
+    ) -> dict:
+        await self._repo.ensure_table()
+        self.ensure_worker_running()
+        idempotency_key, config_signature = self._build_idempotency_key(
+            project_id=project_id,
+            source=source,
+            source_type=source_type,
+            payload=payload or {},
+        )
+        existing = await self._repo.find_by_idempotency(project_id, idempotency_key)
+        if existing:
+            return {"job_id": str(existing["id"]), "accepted": False, "deduped": True}
+        max_retries = max(1, int(os.environ.get("RAG_INGEST_MAX_RETRIES", "3") or "3"))
+        job_id = await self._repo.create_job(
+            project_id=project_id,
+            source=source,
+            source_type=source_type,
+            title=title,
+            payload_json=json.dumps(payload or {}, ensure_ascii=False),
+            idempotency_key=idempotency_key,
+            config_signature=config_signature,
+            max_retries=max_retries,
+        )
+        return {"job_id": str(job_id), "accepted": True, "deduped": False}
+
+    @staticmethod
+    def _build_idempotency_key(
+        *,
+        project_id: str,
+        source: str,
+        source_type: str,
+        payload: dict,
+    ) -> tuple[str, str]:
+        """Compute idempotency key based on content + ingestion-affecting config."""
+        from config.service import get_config_service
+
+        content_fp = IngestionService._content_fingerprint(source, source_type, payload)
+        cfg = get_config_service().snapshot(include_process=True)
+        signature_payload = {
+            "chunk_size": cfg.get("LIGHTRAG_CHUNK_TOKEN_SIZE", "1000"),
+            "chunk_overlap": cfg.get("LIGHTRAG_CHUNK_OVERLAP", "0"),
+            "embedding_provider": (cfg.get("EMBED_PROVIDER", "") or "").lower(),
+            "embedding_model": cfg.get("EMBED_MODEL", "") or cfg.get("JINA_EMBED_MODEL", ""),
+            "embedding_dim": cfg.get("EMBED_DIM", "") or cfg.get("GGUF_EMBED_DIM", "1024"),
+            "extraction_model": cfg.get("RAG_LLM_MODEL", "") or cfg.get("LLM_MODEL", ""),
+            "extraction_prompt_version": cfg.get("RAG_EXTRACTION_PROMPT_VERSION", "v1"),
+            "entity_schema_version": cfg.get("RAG_ENTITY_SCHEMA_VERSION", "v1"),
+        }
+        config_signature = hashlib.sha256(
+            json.dumps(signature_payload, sort_keys=True, ensure_ascii=False).encode("utf-8")
+        ).hexdigest()[:16]
+        idem = f"{project_id}:{content_fp}:{config_signature}"
+        return idem, config_signature
+
+    @staticmethod
+    def _content_fingerprint(source: str, source_type: str, payload: dict) -> str:
+        if source_type in ("pdf", "txt", "md"):
+            p = Path(source)
+            if p.exists() and p.is_file():
+                h = hashlib.sha256()
+                with p.open("rb") as f:
+                    for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                        h.update(chunk)
+                return h.hexdigest()[:16]
+        if source_type == "text":
+            content = (payload.get("content") or "").encode("utf-8")
+            return hashlib.sha256(content).hexdigest()[:16]
+        return hashlib.sha256(source.encode("utf-8")).hexdigest()[:16]
 
     def ensure_worker_running(self) -> None:
         """Start worker subprocess if not already running."""
@@ -119,7 +215,7 @@ class IngestionService:
         title: str = "",
         payload: dict | None = None,
         poll_interval: float = 1.0,
-        timeout: float = 600.0,
+        timeout: float = 3600.0,
     ) -> dict:
         """Submit a job and poll until it completes. Returns job dict with result_json.
 
@@ -170,8 +266,119 @@ class IngestionService:
         """Return all active jobs with progress info for UI display."""
         return await self._repo.get_active_jobs()
 
+    async def get_deferred_retries(self) -> list[dict]:
+        """Return failed jobs waiting for retry, with countdown seconds."""
+        jobs = await self._repo.list_failed_retrying()
+        now = datetime.now()
+        enriched: list[dict] = []
+        for j in jobs:
+            retry_at = (j.get("next_retry_at") or "").strip()
+            retry_in = None
+            if retry_at:
+                try:
+                    dt = datetime.strptime(retry_at, "%Y-%m-%d %H:%M:%S")
+                    retry_in = max(0, int((dt - now).total_seconds()))
+                except Exception:
+                    retry_in = None
+            jj = dict(j)
+            jj["retry_in_seconds"] = retry_in
+            enriched.append(jj)
+        return enriched
+
     async def get_job(self, job_id: str) -> dict | None:
         return await self._repo.get_job(job_id)
+
+    @staticmethod
+    def _parse_db_datetime(value: str | None) -> datetime | None:
+        if not value:
+            return None
+        s = str(value).strip()
+        if not s:
+            return None
+        for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S"):
+            try:
+                return datetime.strptime(s[:19], fmt)
+            except Exception:
+                continue
+        return None
+
+    @classmethod
+    def _estimate_eta_from_batches(cls, batches: list[dict]) -> int | None:
+        done_durations: list[float] = []
+        for b in batches:
+            if str(b.get("status") or "") != "done":
+                continue
+            st = cls._parse_db_datetime(b.get("started_at"))
+            ft = cls._parse_db_datetime(b.get("finished_at"))
+            if not st or not ft:
+                continue
+            delta = (ft - st).total_seconds()
+            if delta > 0:
+                done_durations.append(delta)
+        if len(done_durations) < 2:
+            return None
+        recent = done_durations[-5:]
+        avg = sum(recent) / len(recent)
+        remaining = len([b for b in batches if str(b.get("status") or "") != "done"])
+        return max(0, int(avg * max(remaining, 0)))
+
+    async def get_job_detail(self, job_id: str) -> dict | None:
+        job = await self._repo.get_job(job_id)
+        if not job:
+            return None
+        batches = await self._repo.list_batches(job_id)
+        effective_phase = self._repo._phase_from_stage(job.get("progress_stage", "") or "") or str(
+            job.get("phase", "") or ""
+        )
+        running = [b for b in batches if (b.get("status") or "") == "running"]
+        queued = [b for b in batches if (b.get("status") or "") == "queued"]
+        done = [b for b in batches if (b.get("status") or "") == "done"]
+        batch_current = None
+        page_range = None
+        if running:
+            b = running[0]
+            batch_current = int(b.get("batch_no") or 0) + 1
+            page_range = f"{b.get('page_start')}-{b.get('page_end')}"
+        elif queued:
+            b = queued[0]
+            batch_current = int(b.get("batch_no") or 0) + 1
+            page_range = f"{b.get('page_start')}-{b.get('page_end')}"
+        elif done:
+            b = done[-1]
+            batch_current = int(b.get("batch_no") or 0) + 1
+            page_range = f"{b.get('page_start')}-{b.get('page_end')}"
+        eta_seconds = self._estimate_eta_from_batches(batches)
+        if eta_seconds is None:
+            raw_eta = job.get("eta_seconds")
+            if isinstance(raw_eta, (int, float)):
+                eta_seconds = max(0, int(raw_eta))
+        detail = {
+            "job_id": str(job.get("id", "")),
+            "status": job.get("status", ""),
+            "phase": effective_phase,
+            "overall_progress": int(float(job.get("progress_pct", 0) or 0)),
+            "phase_detail": {
+                "phase": effective_phase,
+                "batch_current": batch_current,
+                "batch_total": len(batches) if batches else None,
+                "page_range": page_range,
+            },
+            "last_progress_at": job.get("last_progress_at"),
+            "next_retry_at": job.get("next_retry_at"),
+            "error_code": job.get("error_code"),
+            "error_detail": job.get("error_detail"),
+            "eta_seconds": eta_seconds,
+        }
+        return detail
+
+    async def cancel_job(self, job_id: str) -> bool:
+        return await self._repo.cancel_job(job_id)
+
+    async def retry_job(self, job_id: str) -> bool:
+        ok = await self._repo.retry_job(job_id)
+        if ok:
+            self.ensure_worker_running()
+        return ok
 
     async def abort_incomplete(self) -> list[dict]:
         """Abort all queued/running jobs from a previous session. Returns aborted jobs."""

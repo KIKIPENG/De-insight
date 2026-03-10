@@ -47,9 +47,11 @@ app.add_middleware(
 
 from routers.chat import router as chat_router  # noqa: E402
 from routers.images import router as images_router  # noqa: E402
+from routers.ingest import router as ingest_router  # noqa: E402
 
 app.include_router(chat_router, prefix="/api")
 app.include_router(images_router, prefix="/api")
+app.include_router(ingest_router, prefix="/api")
 
 # /gallery static — serve frontend/index.html
 from fastapi.staticfiles import StaticFiles  # noqa: E402

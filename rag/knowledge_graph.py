@@ -4,6 +4,8 @@ import asyncio
 import json as _json
 import logging
 import os
+import random
+import time
 from pathlib import Path
 
 from lightrag import LightRAG, QueryParam
@@ -12,6 +14,7 @@ from lightrag.utils import EmbeddingFunc
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from config.service import get_config_service
+from settings import load_env  # backward-compatible export for tests/patch points
 
 from paths import project_root, ensure_project_dirs, DATA_ROOT
 
@@ -29,6 +32,10 @@ ART_ENTITY_TYPES = [
 
 _rag_instance: LightRAG | None = None
 _rag_project_id: str | None = None
+
+# ── Query cache (process-local) ───────────────────────────────────
+_QUERY_CACHE: dict[tuple[str, str, bool, int, str], tuple[float, str, list[dict]]] = {}
+_QUERY_CACHE_MAX = 256
 
 # ── Module-level progress counters (worker process only) ──
 # llm_func / embed_func inside _ensure_initialized() increment these.
@@ -486,19 +493,22 @@ async def _post_verify_insert(project_id: str) -> str:
     except Exception as e:
         return f"post_verify: 無法讀取 vdb_chunks: {e}"
 
-    # Check 2: query-back — verify retrieval actually works
-    try:
-        result, sources = await query_knowledge(
-            "test", mode="naive", context_only=True,
-            project_id=project_id, chunk_top_k=1,
-        )
-        if _is_no_context_result(result) and not result:
-            return "post_verify: vdb 有資料但查詢回傳空（索引可能損壞）"
-    except Exception as e:
-        import logging as _pv_log
-        _pv_log.getLogger("rag.post_verify").debug("query-back failed: %s", e)
-        # Don't fail on query-back error (might be LLM issue, not index issue)
-        pass
+    # Optional Check 2: query-back — disabled by default to avoid false positives.
+    env = get_config_service().snapshot(include_process=True)
+    do_query_back = (env.get("POST_VERIFY_QUERY_BACK", "0") or "0") == "1"
+    if do_query_back:
+        try:
+            result, _sources = await query_knowledge(
+                "測試", mode="naive", context_only=True,
+                project_id=project_id, chunk_top_k=1,
+            )
+            if _is_no_context_result(result) and not result:
+                return "post_verify: vdb 有資料但查詢回傳空（索引可能損壞）"
+        except Exception as e:
+            import logging as _pv_log
+            _pv_log.getLogger("rag.post_verify").debug("query-back failed: %s", e)
+            # Don't fail on query-back error (might be LLM issue, not index issue)
+            pass
 
     return ""
 
@@ -514,21 +524,52 @@ class _ProgressTracker:
     no wrapping of rag.llm_model_func needed.
     """
 
-    def __init__(self, job_id: str, db_path: Path, estimated_chunks: int):
+    def __init__(
+        self,
+        job_id: str,
+        db_path: Path,
+        estimated_chunks: int,
+        tail_expected_seconds: float | None = None,
+    ):
         self._job_id = job_id
         self._db_path = db_path
         self._estimated_chunks = max(estimated_chunks, 1)
         self._started_at = datetime.now()
         self._started_at_str = self._started_at.strftime("%Y-%m-%d %H:%M:%S")
         self._bg_task: asyncio.Task | None = None
+        self._stage: str = "分chunk"
+        self._stage_base_pct: float = 20.0
+        self._stage_span_pct: float = 70.0
         # Snapshot counters at creation so we track delta
         self._llm_base = _progress_llm_calls
         self._embed_base = _progress_embed_texts
+        self._last_update_ts: float | None = None
+        self._last_progress_pct: float | None = None
+        self._eta_estimate: float | None = None
+        self._tail_started_ts: float | None = None
+        # Build-stage tail (graph merge/write) often has low visible LLM-call deltas.
+        # Reserve 90~94% for this period so UI keeps moving.
+        _env_tail = float(os.environ.get("RAG_PROGRESS_TAIL_SECONDS", "420") or "420")
+        _tail = tail_expected_seconds if tail_expected_seconds is not None else _env_tail
+        self._tail_expected_seconds = max(60.0, float(_tail))
 
     async def start(self):
         """Write initial progress (chunks_total) and start background updater."""
-        await self._write_to_db(chunks_done=0)
+        await self._write_to_db(chunks_done=0, progress_pct=self._stage_base_pct)
         self._bg_task = asyncio.create_task(self._bg_loop())
+
+    async def set_stage(
+        self,
+        stage: str,
+        stage_base_pct: float,
+        stage_span_pct: float,
+        progress_within_stage: float = 0.0,
+    ) -> None:
+        self._stage = stage
+        self._stage_base_pct = stage_base_pct
+        self._stage_span_pct = stage_span_pct
+        pct = self._stage_base_pct + self._stage_span_pct * max(0.0, min(progress_within_stage, 1.0))
+        await self._write_to_db(chunks_done=self._current_done(), progress_pct=pct)
 
     async def _bg_loop(self):
         """Periodically write progress to DB."""
@@ -536,7 +577,25 @@ class _ProgressTracker:
             while True:
                 await asyncio.sleep(2.0)
                 done = self._current_done()
-                await self._write_to_db(chunks_done=done)
+                ratio = done / self._estimated_chunks if self._estimated_chunks > 0 else 0.0
+
+                if self._stage == "建立圖譜" and ratio >= 0.99:
+                    now_ts = datetime.now().timestamp()
+                    if self._tail_started_ts is None:
+                        self._tail_started_ts = now_ts
+                    tail_elapsed = max(0.0, now_ts - self._tail_started_ts)
+                    tail_ratio = min(tail_elapsed / self._tail_expected_seconds, 1.0)
+                    pct = self._stage_base_pct + self._stage_span_pct * (0.92 + (0.08 * tail_ratio))
+                    eta_tail = int(max(0.0, self._tail_expected_seconds - tail_elapsed))
+                    await self._write_to_db(
+                        chunks_done=self._estimated_chunks,
+                        progress_pct=pct,
+                        stage_override="圖譜合併",
+                        eta_override=eta_tail,
+                    )
+                else:
+                    pct = self._stage_base_pct + self._stage_span_pct * max(0.0, min(ratio, 1.0))
+                    await self._write_to_db(chunks_done=done, progress_pct=pct)
         except asyncio.CancelledError:
             pass
 
@@ -546,18 +605,69 @@ class _ProgressTracker:
         # Each chunk triggers ≈1 LLM call for entity extraction
         return max(0, min(llm_delta, self._estimated_chunks))
 
-    async def _write_to_db(self, chunks_done: int):
+    async def _write_to_db(
+        self,
+        chunks_done: int,
+        progress_pct: float,
+        stage_override: str | None = None,
+        eta_override: int | None = None,
+    ):
         try:
             from rag.job_repository import JobRepository
             repo = JobRepository(self._db_path)
+            now_ts = datetime.now().timestamp()
+            eta_seconds = eta_override if eta_override is not None else self._compute_eta_seconds(progress_pct, now_ts)
             await repo.update_progress(
                 self._job_id,
                 chunks_done=chunks_done,
                 chunks_total=self._estimated_chunks,
                 started_at=self._started_at_str,
+                progress_pct=progress_pct,
+                progress_stage=(stage_override or self._stage),
+                eta_seconds=eta_seconds,
             )
         except Exception as e:
             log.warning("Progress write failed for job %s: %s", self._job_id, e)
+
+    def _compute_eta_seconds(self, progress_pct: float, now_ts: float) -> int | None:
+        """ETA estimator that avoids continuous extension during temporary stalls.
+
+        Rule:
+        - progress 有前進：重估 ETA（平滑）。
+        - progress 停滯：ETA 只倒數，不回升。
+        """
+        progress = max(0.0, min(progress_pct, 100.0))
+        if progress >= 99.9:
+            self._last_update_ts = now_ts
+            self._last_progress_pct = progress
+            self._eta_estimate = 0.0
+            return 0
+
+        if self._last_update_ts is None or self._last_progress_pct is None:
+            self._last_update_ts = now_ts
+            self._last_progress_pct = progress
+            return None
+
+        delta_t = max(0.0, now_ts - self._last_update_ts)
+        delta_p = progress - self._last_progress_pct
+
+        if delta_p > 0.05 and delta_t > 0.0:
+            raw_eta = (100.0 - progress) * (delta_t / delta_p)
+            if self._eta_estimate is None:
+                self._eta_estimate = raw_eta
+            else:
+                # EWMA smoothing to reduce jitter
+                self._eta_estimate = (0.7 * self._eta_estimate) + (0.3 * raw_eta)
+        elif self._eta_estimate is not None and delta_t > 0.0:
+            # No visible progress: countdown only, do not increase ETA.
+            self._eta_estimate = max(0.0, self._eta_estimate - delta_t)
+
+        self._last_update_ts = now_ts
+        self._last_progress_pct = progress
+
+        if self._eta_estimate is None:
+            return None
+        return int(max(0.0, min(self._eta_estimate, 7200.0)))
 
     async def finish(self):
         """Stop background task and write 100 %."""
@@ -567,7 +677,48 @@ class _ProgressTracker:
                 await self._bg_task
             except asyncio.CancelledError:
                 pass
-        await self._write_to_db(chunks_done=self._estimated_chunks)
+        await self._write_to_db(
+            chunks_done=self._estimated_chunks,
+            progress_pct=self._stage_base_pct + self._stage_span_pct,
+        )
+
+
+async def _set_job_stage(
+    job_id: str | None,
+    *,
+    stage: str,
+    progress_pct: float,
+    chunks_done: int = 0,
+    chunks_total: int = 0,
+    started_at: str | None = None,
+) -> None:
+    if not job_id:
+        return
+    try:
+        from rag.job_repository import JobRepository
+        repo = JobRepository(_get_jobs_db_path())
+        eta_seconds = None
+        if started_at and chunks_total > 0 and chunks_done > 0 and chunks_done < chunks_total:
+            try:
+                start = datetime.strptime(started_at, "%Y-%m-%d %H:%M:%S")
+                elapsed = max(0.0, (datetime.now() - start).total_seconds())
+                ratio = chunks_done / chunks_total
+                if ratio > 0 and ratio < 1 and elapsed > 0:
+                    total = elapsed / ratio
+                    eta_seconds = max(0, int(total - elapsed))
+            except Exception:
+                eta_seconds = None
+        await repo.update_progress(
+            job_id,
+            chunks_done=chunks_done,
+            chunks_total=max(chunks_total, 0),
+            started_at=started_at,
+            progress_pct=progress_pct,
+            progress_stage=stage,
+            eta_seconds=eta_seconds,
+        )
+    except Exception as e:
+        log.warning("set_job_stage failed for %s: %s", job_id, e)
 
 
 def _estimate_chunks(text: str) -> int:
@@ -576,7 +727,33 @@ def _estimate_chunks(text: str) -> int:
     # Rough estimate: 1 token ≈ 2 chars for Chinese, 4 chars for English
     # Use 3 as average
     chars_per_chunk = chunk_token_size * 3
-    return max(1, len(text) // chars_per_chunk)
+    base = max(1, len(text) // chars_per_chunk)
+    # Empirical calibration: LightRAG often creates significantly more chunks than
+    # this rough token/char estimate, especially for CJK-heavy docs.
+    mult = float(os.environ.get("RAG_PROGRESS_CHUNK_MULTIPLIER", "6.5") or "6.5")
+    return max(1, int(base * max(mult, 1.0)))
+
+
+def _estimate_chunks_from_char_count(char_count: int) -> int:
+    """Estimate chunk count without building a huge concatenated string."""
+    chunk_token_size = int(os.environ.get("LIGHTRAG_CHUNK_TOKEN_SIZE", "2400"))
+    chars_per_chunk = chunk_token_size * 3
+    base = max(1, int(char_count) // chars_per_chunk)
+    mult = float(os.environ.get("RAG_PROGRESS_CHUNK_MULTIPLIER", "6.5") or "6.5")
+    return max(1, int(base * max(mult, 1.0)))
+
+
+def _build_pdf_batches(
+    page_chunks: list[tuple[int, str]],
+    *,
+    batch_size: int,
+) -> list[list[tuple[int, str]]]:
+    """Always split PDFs through the batch pipeline.
+
+    A single-shot path defeats checkpointing, retry locality, and ETA quality.
+    """
+    size = max(1, int(batch_size))
+    return [page_chunks[idx: idx + size] for idx in range(0, len(page_chunks), size)]
 
 
 async def _install_progress_tracker(text: str, job_id: str | None) -> _ProgressTracker | None:
@@ -585,6 +762,24 @@ async def _install_progress_tracker(text: str, job_id: str | None) -> _ProgressT
         return None
     estimated = _estimate_chunks(text)
     tracker = _ProgressTracker(job_id, _get_jobs_db_path(), estimated)
+    await tracker.start()
+    return tracker
+
+
+async def _install_progress_tracker_with_estimated(
+    job_id: str | None,
+    *,
+    estimated_chunks: int,
+    tail_expected_seconds: float | None = None,
+) -> _ProgressTracker | None:
+    if not job_id:
+        return None
+    tracker = _ProgressTracker(
+        job_id,
+        _get_jobs_db_path(),
+        max(1, int(estimated_chunks)),
+        tail_expected_seconds=tail_expected_seconds,
+    )
     await tracker.start()
     return tracker
 
@@ -603,13 +798,32 @@ async def insert_text(text: str, source: str = "", project_id: str = "default", 
     doc = text
     if source:
         doc = f"[來源: {source}]\n\n{text}"
+    started_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    await _set_job_stage(
+        job_id,
+        stage="分chunk",
+        progress_pct=10.0,
+        chunks_done=0,
+        chunks_total=1,
+        started_at=started_at,
+    )
 
     tracker = await _install_progress_tracker(doc, job_id)
+    if tracker:
+        await tracker.set_stage("建立圖譜", stage_base_pct=20.0, stage_span_pct=70.0)
     try:
         await rag.ainsert(doc)
     finally:
         if tracker:
             await tracker.finish()
+    await _set_job_stage(
+        job_id,
+        stage="寫入圖譜",
+        progress_pct=95.0,
+        chunks_done=1,
+        chunks_total=1,
+        started_at=started_at,
+    )
     warning = await _flush_and_check(rag, 0, context=source or "text")
     # C1: Post-verify
     pv_warning = await _post_verify_insert(project_id)
@@ -629,6 +843,15 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
     file_size = Path(path).stat().st_size if Path(path).exists() else 0
     reader = PdfReader(path)
     page_count = len(reader.pages)
+    started_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    await _set_job_stage(
+        job_id,
+        stage="分chunk",
+        progress_pct=3.0,
+        chunks_done=0,
+        chunks_total=max(page_count, 1),
+        started_at=started_at,
+    )
 
     # Determine display name: explicit title > PDF metadata > filename
     display_name = title.strip() if title else ""
@@ -644,28 +867,247 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
     if not safe_name:
         safe_name = Path(path).stem
 
-    chunks = []
+    page_chunks: list[tuple[int, str]] = []
+    extract_fail_pages: list[int] = []
     for i, page in enumerate(reader.pages):
-        text = page.extract_text()
+        try:
+            text = page.extract_text()
+        except Exception:
+            text = ""
+            extract_fail_pages.append(i + 1)
         if text and text.strip():
-            chunks.append(f"[{display_name} p.{i+1}]\n{text.strip()}")
+            page_chunks.append((i + 1, f"[{display_name} p.{i+1}]\n{text.strip()}"))
+        if page_count > 0:
+            chunk_pct = 3.0 + (17.0 * ((i + 1) / page_count))
+            await _set_job_stage(
+                job_id,
+                stage="分chunk",
+                progress_pct=chunk_pct,
+                chunks_done=i + 1,
+                chunks_total=page_count,
+                started_at=started_at,
+            )
 
     if on_progress:
         on_progress(f"正在建構知識圖譜（{page_count} 頁）…")
     rag = await _ensure_initialized(project_id=project_id)
     await _clear_failed(rag)
-    full_text = "\n\n---\n\n".join(chunks)
-    tracker = await _install_progress_tracker(full_text, job_id)
-    try:
-        await rag.ainsert(full_text)
-    finally:
+    if not page_chunks:
+        raise RuntimeError("PDF 無可匯入文字（可能為掃描檔或抽取失敗）")
+
+    # 大 PDF 以分批寫入 + checkpoint（M2）。
+    cfg = get_config_service().snapshot(include_process=True)
+    batch_size = max(8, int(cfg.get("RAG_PDF_BATCH_PAGES", "20") or "20"))
+    total_chunks = max(len(page_chunks), 1)
+    processed = 0
+    insert_fail_pages: list[int] = []
+    duplicate_risk = False
+    jobs_repo = None
+    if job_id:
+        from rag.job_repository import JobRepository
+        jobs_repo = JobRepository(_get_jobs_db_path())
+
+    def _graph_deltas() -> tuple[int, int]:
+        """Return (entity_count, relation_count) from current lightrag vdb files."""
+        wd = ensure_project_dirs(project_id) / "lightrag"
+        ent_n = 0
+        rel_n = 0
+        try:
+            ep = wd / "vdb_entities.json"
+            if ep.exists():
+                data = _json.loads(ep.read_text(encoding="utf-8"))
+                ent_n = len(data.get("data", []) or [])
+        except Exception:
+            ent_n = 0
+        try:
+            rp = wd / "vdb_relationships.json"
+            if rp.exists():
+                data = _json.loads(rp.read_text(encoding="utf-8"))
+                rel_n = len(data.get("data", []) or [])
+        except Exception:
+            rel_n = 0
+        return ent_n, rel_n
+
+    def _is_rate_limit_error(exc: Exception) -> bool:
+        s = str(exc).lower()
+        return ("429" in s) or ("rate limit" in s) or ("速率限制" in s)
+
+    def _backoff_seconds(retry_count: int) -> int:
+        seq = [30, 60, 120, 240, 300]
+        base = seq[min(max(0, int(retry_count) - 1), len(seq) - 1)]
+        jitter = base * random.uniform(0, 0.2)
+        return int(base + jitter)
+
+    async def _handle_rate_limit_backoff(exc: Exception, phase: str = "extracting") -> None:
+        nonlocal jobs_repo
+        if not (job_id and jobs_repo):
+            raise exc
+        from rag.job_executor import JobExecutor
+
+        cur = await jobs_repo.get_job(job_id)
+        if not cur:
+            raise exc
+        rl_count = int(cur.get("rate_limit_retry_count") or 0) + 1
+        wall = int(cur.get("backoff_wall_time_seconds") or 0)
+        wait_seconds = _backoff_seconds(rl_count)
+        new_wall = wall + wait_seconds
+        if JobExecutor.is_rate_limit_exhausted(rl_count, new_wall):
+            await jobs_repo.update_status(
+                job_id,
+                "failed",
+                last_error=str(exc),
+                phase="failed",
+                error_code="RATE_LIMIT_EXHAUSTED",
+                error_detail=f"retries={rl_count}, wall_time={new_wall}s",
+            )
+            raise RuntimeError(f"RATE_LIMIT_EXHAUSTED retries={rl_count} wall={new_wall}s")
+        await jobs_repo.set_waiting_backoff(
+            job_id,
+            phase=phase,
+            wait_seconds=wait_seconds,
+            rate_limit_retry_count=rl_count,
+            backoff_wall_time_seconds=new_wall,
+        )
+        remained = wait_seconds
+        while remained > 0:
+            step = min(5, remained)
+            await asyncio.sleep(step)
+            remained -= step
+            await jobs_repo.touch_heartbeat(job_id)
+        await jobs_repo.clear_waiting_backoff(job_id, phase=phase)
+
+    batches = _build_pdf_batches(page_chunks, batch_size=batch_size)
+
+    if jobs_repo and job_id:
+        batch_rows = []
+        for i, b in enumerate(batches):
+            p_start = b[0][0] if b else 0
+            p_end = b[-1][0] if b else 0
+            batch_rows.append(
+                {
+                    "batch_no": i,
+                    "page_start": p_start,
+                    "page_end": p_end,
+                    "actual_chunks": len(b),
+                }
+            )
+        existing_rows = await jobs_repo.list_batches(job_id)
+        # Resume from checkpoint when schema matches; otherwise re-seed once.
+        if (not existing_rows) or (len(existing_rows) != len(batch_rows)):
+            await jobs_repo.create_or_replace_batches(job_id, batch_rows)
+        await jobs_repo.update_phase(job_id, "extracting", status="running")
+
+    batch_states = await jobs_repo.list_batches(job_id) if (jobs_repo and job_id) else []
+    batch_by_no = {int(b.get("batch_no") or 0): b for b in batch_states}
+    total_batches = max(1, len(batches))
+    for idx, batch in enumerate(batches):
+        if not batch:
+            continue
+        b_row = batch_by_no.get(idx)
+        if b_row and (b_row.get("status") or "") == "done":
+            processed += len(batch)
+            if on_progress:
+                on_progress(f"建立圖譜 {processed}/{total_chunks} 頁")
+            continue
+        payload = "\n\n---\n\n".join(t for _, t in batch)
+        if not payload.strip():
+            insert_fail_pages.extend([p for p, _ in batch])
+            processed += len(batch)
+            continue
+        if b_row and jobs_repo:
+            await jobs_repo.mark_batch_running(int(b_row["id"]))
+            await jobs_repo.update_phase(job_id, "extracting", status="running")
+        batch_pages = max(1, int(batch[-1][0] - batch[0][0] + 1))
+        actual_chunks = max(1, len(batch))
+        estimated_batch_chunks = max(1, _estimate_chunks_from_char_count(len(payload)))
+        batch_base_pct = 20.0 + (70.0 * (idx / total_batches))
+        batch_span_pct = 70.0 / total_batches
+        timeout_per_page = float(os.environ.get("RAG_BATCH_TIMEOUT_PER_PAGE", "20") or "20")
+        timeout_per_chunk = float(os.environ.get("RAG_BATCH_TIMEOUT_PER_CHUNK", "6") or "6")
+        timeout_floor = max(120, int(os.environ.get("RAG_BATCH_TIMEOUT_MIN", "300") or "300"))
+        timeout_cap = max(timeout_floor, int(os.environ.get("RAG_BATCH_TIMEOUT_MAX", "3600") or "3600"))
+        timeout_seconds = int(timeout_per_page * batch_pages + timeout_per_chunk * actual_chunks)
+        timeout_seconds = max(timeout_floor, min(timeout_cap, timeout_seconds))
+        tail_per_page = float(os.environ.get("RAG_PROGRESS_TAIL_PER_PAGE_SECONDS", "2.0") or "2.0")
+        tail_cap = float(os.environ.get("RAG_PROGRESS_TAIL_MAX_SECONDS", "600") or "600")
+        tail_floor = float(os.environ.get("RAG_PROGRESS_TAIL_MIN_SECONDS", "90") or "90")
+        batch_tail_seconds = min(
+            tail_cap,
+            max(tail_floor, float(batch_pages) * tail_per_page),
+        )
+        tracker = await _install_progress_tracker_with_estimated(
+            job_id,
+            estimated_chunks=estimated_batch_chunks,
+            tail_expected_seconds=batch_tail_seconds,
+        )
         if tracker:
-            await tracker.finish()
+            await tracker.set_stage(
+                "建立圖譜",
+                stage_base_pct=batch_base_pct,
+                stage_span_pct=batch_span_pct,
+            )
+        before_ent, before_rel = _graph_deltas()
+        try:
+            while True:
+                try:
+                    await asyncio.wait_for(rag.ainsert(payload), timeout=float(timeout_seconds))
+                    break
+                except asyncio.TimeoutError:
+                    if b_row and jobs_repo:
+                        await jobs_repo.mark_batch_failed(int(b_row["id"]), "PHASE_TIMEOUT")
+                    raise RuntimeError(f"PHASE_TIMEOUT batch={idx} timeout={timeout_seconds}s")
+                except Exception as e:
+                    if _is_rate_limit_error(e):
+                        await _handle_rate_limit_backoff(e, phase="extracting")
+                        continue
+                    if b_row and jobs_repo:
+                        await jobs_repo.mark_batch_failed(int(b_row["id"]), "EXTRACT_ERROR")
+                    raise
+        finally:
+            if tracker:
+                await tracker.finish()
+        after_ent, after_rel = _graph_deltas()
+        if b_row and jobs_repo:
+            await jobs_repo.update_phase(job_id, "merging", status="running")
+            ent_delta = max(0, int(after_ent - before_ent))
+            rel_delta = max(0, int(after_rel - before_rel))
+            risky = await jobs_repo.mark_batch_done(int(b_row["id"]), ent_delta, rel_delta)
+            duplicate_risk = duplicate_risk or bool(risky)
+        processed += len(batch)
+        if on_progress:
+            on_progress(f"建立圖譜 {processed}/{total_chunks} 頁")
+
+    await _set_job_stage(
+        job_id,
+        stage="寫入圖譜",
+        progress_pct=95.0,
+        chunks_done=total_chunks,
+        chunks_total=total_chunks,
+        started_at=started_at,
+    )
+    if jobs_repo and job_id:
+        await jobs_repo.update_phase(job_id, "flushing", status="running")
     warning = await _flush_and_check(rag, 0, context=display_name)
+    warn_parts: list[str] = []
+    if warning:
+        warn_parts.append(warning)
+    if extract_fail_pages:
+        warn_parts.append(
+            f"extract_failed_pages={len(extract_fail_pages)}({','.join(map(str, extract_fail_pages[:12]))}{'…' if len(extract_fail_pages) > 12 else ''})"
+        )
+    if insert_fail_pages:
+        uniq_fail = sorted(set(insert_fail_pages))
+        warn_parts.append(
+            f"insert_failed_pages={len(uniq_fail)}({','.join(map(str, uniq_fail[:12]))}{'…' if len(uniq_fail) > 12 else ''})"
+        )
+    if duplicate_risk:
+        warn_parts.append("DUPLICATE_RISK: batch merge delta exceeded baseline x1.5")
+
     # C1: Post-verify
     pv_warning = await _post_verify_insert(project_id)
     if pv_warning:
-        warning = f"{warning}; {pv_warning}" if warning else pv_warning
+        warn_parts.append(pv_warning)
+    warning = "; ".join(warn_parts)
 
     # 保留原始檔案到專案目錄
     doc_dir = ensure_project_dirs(project_id) / "documents"
@@ -730,34 +1172,33 @@ async def insert_url(url: str, project_id: str = "default", title: str = "", on_
 
     # 讀取 web fetch 設定
     env = get_config_service().snapshot(include_process=True)
-    fetch_provider = env.get("WEB_FETCH_PROVIDER", "auto").lower()  # auto|reader|legacy
-    fetch_timeout = float(env.get("WEB_FETCH_TIMEOUT_SECS", "30"))
-    reader_base = env.get("WEB_FETCH_READER_BASE", "https://r.jina.ai/")
+    legacy_env = load_env() or {}
+
+    def _cfg(name: str, default: str) -> str:
+        # Backward-compat: explicit .env/load_env values override runtime snapshot.
+        v = legacy_env.get(name)
+        if v is None or str(v).strip() == "":
+            v = env.get(name, default)
+        return str(v)
+
+    fetch_provider = _cfg("WEB_FETCH_PROVIDER", "auto").lower()  # auto|reader|legacy
+    fetch_timeout = float(_cfg("WEB_FETCH_TIMEOUT_SECS", "30"))
+    reader_base = _cfg("WEB_FETCH_READER_BASE", "https://r.jina.ai/")
 
     # 下載大小上限（預設 5 MB），避免超大頁面撐爆記憶體 / GPU
-    _max_download = int(env.get("WEB_FETCH_MAX_BYTES", str(5 * 1024 * 1024)))
+    _max_download = int(_cfg("WEB_FETCH_MAX_BYTES", str(5 * 1024 * 1024)))
+    started_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    await _set_job_stage(
+        job_id,
+        stage="分chunk",
+        progress_pct=5.0,
+        chunks_done=0,
+        chunks_total=1,
+        started_at=started_at,
+    )
 
-    # 先下載一次判斷是否為 PDF
-    if on_progress:
-        on_progress("正在下載網頁…")
-    async with httpx.AsyncClient(timeout=60.0, follow_redirects=True) as client:
-        resp = await client.get(url, headers={
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
-        })
-        resp.raise_for_status()
-
-    if len(resp.content) > _max_download:
-        size_mb = len(resp.content) / (1024 * 1024)
-        limit_mb = _max_download / (1024 * 1024)
-        raise RuntimeError(
-            f"頁面太大（{size_mb:.1f} MB），超過上限 {limit_mb:.0f} MB。"
-            f" 可透過 WEB_FETCH_MAX_BYTES 調整。"
-        )
-
-    content_type = resp.headers.get("content-type", "")
-
-    if "pdf" in content_type or url.lower().endswith(".pdf"):
-        # PDF 分支維持原樣
+    # 優化：避免 HTML 路徑雙重抓取。reader/auto 先走 Jina Reader，必要時才回退下載原頁。
+    if url.lower().endswith(".pdf"):
         from urllib.parse import urlparse, unquote
         url_path = urlparse(url).path
         url_filename = unquote(Path(url_path).stem) if url_path else ""
@@ -767,7 +1208,21 @@ async def insert_url(url: str, project_id: str = "default", title: str = "", on_
 
         tmp_dir = Path(tempfile.gettempdir())
         tmp_path = str(tmp_dir / f"{url_filename}.pdf")
-        Path(tmp_path).write_bytes(resp.content)
+        if on_progress:
+            on_progress("正在下載 PDF…")
+        async with httpx.AsyncClient(timeout=60.0, follow_redirects=True) as client:
+            pdf_resp = await client.get(url, headers={
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+            })
+            pdf_resp.raise_for_status()
+            if len(pdf_resp.content) > _max_download:
+                size_mb = len(pdf_resp.content) / (1024 * 1024)
+                limit_mb = _max_download / (1024 * 1024)
+                raise RuntimeError(
+                    f"頁面太大（{size_mb:.1f} MB），超過上限 {limit_mb:.0f} MB。"
+                    f" 可透過 WEB_FETCH_MAX_BYTES 調整。"
+                )
+            Path(tmp_path).write_bytes(pdf_resp.content)
         try:
             result = await insert_pdf(tmp_path, project_id=project_id, title=title, on_progress=on_progress, job_id=job_id)
             result["fetch_method"] = "pdf"
@@ -776,8 +1231,8 @@ async def insert_url(url: str, project_id: str = "default", title: str = "", on_
             Path(tmp_path).unlink(missing_ok=True)
 
     # ── HTML 分支：Jina Reader 優先，legacy 回退 ──
-    html = resp.text
-    file_size = len(resp.content)
+    html = ""
+    file_size = 0
 
     # 解析 title
     if title.strip():
@@ -804,6 +1259,7 @@ async def insert_url(url: str, project_id: str = "default", title: str = "", on_
             )
             text = reader_text
             fetch_method = "jina_reader"
+            file_size = len(reader_text.encode("utf-8"))
         except RuntimeError as e:
             fallback_reason = str(e)
             log.warning("Jina Reader 失敗: %s", fallback_reason)
@@ -811,8 +1267,45 @@ async def insert_url(url: str, project_id: str = "default", title: str = "", on_
                 # reader-only 模式：不回退，直接報錯
                 raise RuntimeError(f"Jina Reader 失敗且 WEB_FETCH_PROVIDER=reader，不回退: {fallback_reason}")
 
-    # ── Legacy 回退 ──
+    # ── Legacy 回退：reader 未命中時才下載原頁 ──
     if text is None and fetch_provider in ("auto", "legacy"):
+        if on_progress:
+            on_progress("正在下載網頁…")
+        async with httpx.AsyncClient(timeout=60.0, follow_redirects=True) as client:
+            resp = await client.get(url, headers={
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+            })
+            resp.raise_for_status()
+
+        if len(resp.content) > _max_download:
+            size_mb = len(resp.content) / (1024 * 1024)
+            limit_mb = _max_download / (1024 * 1024)
+            raise RuntimeError(
+                f"頁面太大（{size_mb:.1f} MB），超過上限 {limit_mb:.0f} MB。"
+                f" 可透過 WEB_FETCH_MAX_BYTES 調整。"
+            )
+        content_type = resp.headers.get("content-type", "")
+        file_size = len(resp.content)
+
+        # 若回退抓到 PDF，直接走 PDF 分支。
+        if "pdf" in content_type:
+            from urllib.parse import urlparse, unquote
+            url_path = urlparse(url).path
+            url_filename = unquote(Path(url_path).stem) if url_path else ""
+            url_filename = re.sub(r'[^\w\-\.\(\)\[\]\u4e00-\u9fff]+', '_', url_filename).strip('_')
+            if not url_filename or len(url_filename) < 3:
+                url_filename = "downloaded_pdf"
+            tmp_dir = Path(tempfile.gettempdir())
+            tmp_path = str(tmp_dir / f"{url_filename}.pdf")
+            Path(tmp_path).write_bytes(resp.content)
+            try:
+                result = await insert_pdf(tmp_path, project_id=project_id, title=title, on_progress=on_progress, job_id=job_id)
+                result["fetch_method"] = "pdf"
+                return result
+            finally:
+                Path(tmp_path).unlink(missing_ok=True)
+
+        html = resp.text
         if on_progress:
             on_progress("正在用 LLM 清理網頁內容…")
         if fallback_reason:
@@ -825,7 +1318,23 @@ async def insert_url(url: str, project_id: str = "default", title: str = "", on_
 
     if on_progress:
         on_progress("正在建構知識圖譜…")
+    await _set_job_stage(
+        job_id,
+        stage="建立圖譜",
+        progress_pct=20.0,
+        chunks_done=0,
+        chunks_total=1,
+        started_at=started_at,
+    )
     warning = await insert_text(text, source=source, project_id=project_id, job_id=job_id)
+    await _set_job_stage(
+        job_id,
+        stage="寫入圖譜",
+        progress_pct=95.0,
+        chunks_done=1,
+        chunks_total=1,
+        started_at=started_at,
+    )
     result = {"title": source, "page_count": 0, "file_size": file_size, "fetch_method": fetch_method}
     if warning:
         result["warning"] = warning
@@ -870,18 +1379,67 @@ async def query_knowledge(question: str, mode: str = "naive", context_only: bool
     若無來源資訊則回傳空 list。
     """
     rag = await _ensure_initialized(project_id=project_id)
+    pid = project_id or "default"
+    q_norm = " ".join((question or "").strip().split()).lower()
+    env = get_config_service().snapshot(include_process=True)
+    cache_ttl = int(env.get("RAG_QUERY_CACHE_TTL_SEC", "120") or "120")
+    use_fast_first = (env.get("RAG_FAST_FIRST", "1") or "1") != "0"
+
+    cache_key = (pid, mode, context_only, int(chunk_top_k), q_norm)
+    now = time.time()
+    if cache_ttl > 0:
+        cached = _QUERY_CACHE.get(cache_key)
+        if cached and cached[0] > now:
+            return cached[1], list(cached[2])
+        if cached and cached[0] <= now:
+            _QUERY_CACHE.pop(cache_key, None)
     if context_only:
-        param = QueryParam(mode=mode, only_need_context=True, chunk_top_k=chunk_top_k)
+        # Fast-first: graph modes先跑naive，命中就直接回傳，避免每次進入慢速圖譜關鍵詞/圖遍歷。
+        if use_fast_first and mode in ("local", "global", "hybrid"):
+            naive_param = QueryParam(
+                mode="naive",
+                only_need_context=True,
+                chunk_top_k=chunk_top_k,
+                enable_rerank=False,
+            )
+            naive_result = await rag.aquery(question, param=naive_param)
+            if not _is_no_context_result(naive_result):
+                naive_sources = _extract_sources(naive_result)
+                if cache_ttl > 0:
+                    if len(_QUERY_CACHE) >= _QUERY_CACHE_MAX:
+                        _QUERY_CACHE.pop(next(iter(_QUERY_CACHE)))
+                    _QUERY_CACHE[cache_key] = (now + cache_ttl, naive_result, naive_sources)
+                return naive_result, naive_sources
+
+        param = QueryParam(
+            mode=mode,
+            only_need_context=True,
+            chunk_top_k=chunk_top_k,
+            enable_rerank=False,
+        )
         result = await rag.aquery(question, param=param)
         if _is_no_context_result(result):
             return "", []
         sources = _extract_sources(result)
+        if cache_ttl > 0:
+            if len(_QUERY_CACHE) >= _QUERY_CACHE_MAX:
+                _QUERY_CACHE.pop(next(iter(_QUERY_CACHE)))
+            _QUERY_CACHE[cache_key] = (now + cache_ttl, result, sources)
         return result, sources
-    param = QueryParam(mode=mode, chunk_top_k=chunk_top_k, user_prompt="請用繁體中文回答。\n\n" + question)
+    param = QueryParam(
+        mode=mode,
+        chunk_top_k=chunk_top_k,
+        user_prompt="請用繁體中文回答。\n\n" + question,
+        enable_rerank=False,
+    )
     result = await rag.aquery(question, param=param)
     if _is_no_context_result(result):
         return "", []
     sources = _extract_sources(result)
+    if cache_ttl > 0:
+        if len(_QUERY_CACHE) >= _QUERY_CACHE_MAX:
+            _QUERY_CACHE.pop(next(iter(_QUERY_CACHE)))
+        _QUERY_CACHE[cache_key] = (now + cache_ttl, result, sources)
     return result, sources
 
 

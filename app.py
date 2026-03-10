@@ -272,7 +272,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
 
     /* ── research panel ── */
     #research-panel {
-        height: 60%;
+        height: 80%;
         border-bottom: solid #2a2a2a;
         border-top: solid #2a2a2a;
         border-title-color: #6e7681;
@@ -294,6 +294,10 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     .kb-action:hover {
         color: #fafafa;
     }
+    .kb-action.-active {
+        color: #fafafa;
+        background: #1a1a1a;
+    }
     .kb-action:focus {
         color: #fafafa;
         background: #1a1a1a;
@@ -307,7 +311,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         margin: 0 0 1 0;
     }
     #kb-doc-scroll {
-        height: 9;
+        height: 25%;
         border: round #2a2a2a;
         padding: 0 1;
         margin: 0 0 1 0;
@@ -322,8 +326,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         background: #111111;
     }
     #research-result-scroll {
-        height: 1fr;
-        min-height: 8;
+        height: 75%;
         border: round #2a2a2a;
         padding: 0 1;
         margin: 0 0 1 0;
@@ -347,9 +350,60 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         color: #484f58;
     }
 
+    /* ── focus panel ── */
+    #research-view {
+        height: 100%;
+    }
+    #focus-view {
+        display: none;
+        height: 100%;
+        overflow-y: auto;
+        padding: 1 1;
+    }
+    .focus-label {
+        color: #6e7681;
+        margin: 1 0 0 0;
+        height: 1;
+    }
+    .focus-editor {
+        height: 1fr;
+        min-height: 12;
+        margin: 0 0 1 0;
+        border: solid #2a2a2a;
+        background: #0d0d0d;
+    }
+    #focus-buttons {
+        height: auto;
+        margin-top: 1;
+    }
+    #focus-buttons Button {
+        height: 1;
+        min-width: 10;
+        margin-right: 1;
+        background: #1a1a1a;
+        color: #8b949e;
+        border: solid #2a2a2a;
+    }
+    #focus-buttons Button:hover {
+        background: #2a2a2a;
+        color: #fafafa;
+    }
+    #focus-buttons #btn-focus-evaluate {
+        border: solid #d4a27a 50%;
+        color: #d4a27a;
+    }
+    #focus-buttons #btn-focus-evaluate:hover {
+        background: #3d2a1a;
+    }
+    #focus-import-status {
+        margin-top: 1;
+        color: #6e7681;
+        height: auto;
+    }
+
     /* ── memory panel ── */
     #memory-panel {
-        height: 40%;
+        height: 20%;
         border-top: solid #2a2a2a;
         border-title-color: #6e7681;
         padding: 0 1;
@@ -382,6 +436,9 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         border-left: solid #ff6b6b;
         padding-left: 1;
         color: #ff6b6b;
+    }
+    .memory-item.-focus-tagged {
+        color: #d4a27a;
     }
 
     /* ── history entries (WelcomeBlock) ── */
@@ -443,7 +500,6 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         Binding("ctrl+m", "manage_memories", "記憶管理", show=False, priority=True),
         Binding("ctrl+p", "open_project_modal", "專案管理", show=False, priority=True),
         Binding("ctrl+d", "manage_documents", "文獻管理", show=False, priority=True),
-        Binding("ctrl+b", "bulk_import", "批量匯入", show=False, priority=True),
         Binding("ctrl+g", "view_relations", "記憶關聯", show=False, priority=True),
         Binding("ctrl+l", "open_gallery", "圖片庫", show=False, priority=True),
         Binding("ctrl+u", "update_document", "更新文件", show=False, priority=True),
@@ -452,18 +508,18 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
 
     mode: reactive[str] = reactive("emotional")
     is_loading: reactive[bool] = reactive(False)
-    rag_mode: str = "deep"
+    rag_mode: str = "fast"
 
     def __init__(self) -> None:
         super().__init__()
         self.messages: list[dict] = []
         self.api_base = "http://localhost:8000"
         self.state = AppState()
+        self._unrelated_insight_count: int = 0
+        self._pending_focus_nudge: bool = False
+        self._focus_tagged_insights: set[str] = set()
         self._project_manager = ProjectManager()
         self._conv_store = ConversationStore()
-        # StatusBar system status tracking
-        self._embed_ok: bool = False
-        self._embed_label: str = "GGUF"
 
     def notify(
         self,
@@ -533,6 +589,8 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
 
     async def _init_app(self, projects: list[dict]) -> None:
         """正常初始化流程（onboarding 後或直接啟動）。"""
+        # 開啟軟體時一律先用快速檢索模式。
+        self.rag_mode = "fast"
         if projects:
             self.state.current_project = projects[0]
             from paths import project_root, ensure_project_dirs
@@ -565,21 +623,12 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         self._refresh_memory_panel()
         self._refresh_knowledge_panel()
         self._reindex_pending_memories()
-        self.run_worker(self._check_embedding_model_ready(), exclusive=False, group="startup_embed")
 
         # Start ingestion worker + polling timer
         try:
             from rag.ingestion_service import get_ingestion_service
             svc = get_ingestion_service()
             await svc.ensure_table()
-
-            # Abort incomplete jobs from previous session
-            import os.path as _osp
-            aborted = await svc.abort_incomplete()
-            for job in aborted:
-                _title = job.get("title") or _osp.basename(job.get("source", "未知"))
-                self.notify(f"「{_title}」匯入失敗（上次未完成）", severity="error", timeout=8)
-
             svc.ensure_worker_running()
             self._ingestion_poll_timer = self.set_interval(3.0, self._poll_ingestion_jobs)
         except Exception as e:
@@ -592,17 +641,6 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         """背景：定期更新服務狀態。"""
         try:
             self._update_status()
-        except Exception:
-            pass
-
-    def _set_import_status(self, status: str) -> None:
-        """Show/clear import progress on the MenuBar right side."""
-        try:
-            menu = self.query_one("#menu-bar", MenuBar)
-            if status:
-                menu.show_progress(status)
-            else:
-                menu.clear_notification()
         except Exception:
             pass
 
@@ -643,41 +681,76 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
 
             # Show real progress for active jobs
             active_jobs = await svc.get_active_progress()
-            running_jobs = [j for j in active_jobs if j.get("status") == "running"]
+            running_jobs = [j for j in active_jobs if str(j.get("status", "")).startswith("running")]
             queued_jobs = [j for j in active_jobs if j.get("status") == "queued"]
             if running_jobs:
-                job = running_jobs[0]  # Show first running job
+                # Prefer the most recently updated running job to avoid stale display.
+                running_jobs.sort(key=lambda j: (j.get("updated_at") or "", j.get("created_at") or ""), reverse=True)
+                job = running_jobs[0]
                 pct = job.get("progress_pct", 0) or 0
                 chunks_done = job.get("chunks_done", 0) or 0
                 chunks_total = job.get("chunks_total", 0) or 0
+                stage = (job.get("progress_stage", "") or "").strip() or "處理中"
+                status = str(job.get("status", "") or "")
+                phase = (job.get("phase", "") or "").strip()
                 import os.path as _osp
                 _raw_title = job.get("title") or _osp.basename(job.get("source", ""))
                 title = _raw_title[:15] + ("…" if len(_raw_title) > 15 else "")
+                detail = None
+                try:
+                    detail = await svc.get_job_detail(str(job.get("id", "")))
+                except Exception:
+                    detail = None
 
-                # Calculate ETA from started_at
+                # ETA: use backend estimator only (prevents client-side over-estimation drift).
                 eta_str = ""
-                started_at = job.get("started_at")
-                if started_at and chunks_done > 0 and chunks_total > 0:
-                    try:
-                        from datetime import datetime
-                        start = datetime.strptime(started_at, "%Y-%m-%d %H:%M:%S")
-                        elapsed = (datetime.now() - start).total_seconds()
-                        if elapsed > 0 and chunks_done < chunks_total:
-                            per_chunk = elapsed / chunks_done
-                            remaining = per_chunk * (chunks_total - chunks_done)
-                            if remaining > 60:
-                                eta_str = f" ~{int(remaining // 60)}m{int(remaining % 60):02d}s"
+                eta_seconds = None
+                if detail and isinstance(detail.get("eta_seconds"), (int, float)):
+                    eta_seconds = detail.get("eta_seconds")
+                elif isinstance(job.get("eta_seconds"), (int, float)):
+                    eta_seconds = job.get("eta_seconds")
+                if isinstance(eta_seconds, (int, float)) and eta_seconds >= 0:
+                    remaining = int(eta_seconds)
+                    if remaining > 60:
+                        eta_str = f" ~{remaining // 60}m{remaining % 60:02d}s"
+                    else:
+                        eta_str = f" ~{remaining}s"
+
+                if "waiting_backoff" in status:
+                    msg = f"速率限制重試 {title}{eta_str}"
+                elif detail and isinstance(detail.get("phase_detail"), dict):
+                    pd = detail.get("phase_detail") or {}
+                    bc = pd.get("batch_current")
+                    bt = pd.get("batch_total")
+                    pr = pd.get("page_range")
+                    if phase == "chunking":
+                        msg = f"分塊：頁 {chunks_done}/{chunks_total}{eta_str}"
+                    elif phase == "extracting":
+                        if bc and bt:
+                            if pr:
+                                msg = f"抽取：批 {bc}/{bt}（頁 {pr}）{eta_str}"
                             else:
-                                eta_str = f" ~{int(remaining)}s"
-                    except Exception:
-                        pass
-
-                if chunks_total > 0:
-                    msg = f"建圖 {title} {chunks_done}/{chunks_total}{eta_str}"
+                                msg = f"抽取：批 {bc}/{bt}{eta_str}"
+                        else:
+                            msg = f"抽取：{title}{eta_str}"
+                    elif phase == "merging":
+                        if bc and bt:
+                            msg = f"合併：批 {bc}/{bt}{eta_str}"
+                        else:
+                            msg = f"合併：{title}{eta_str}"
+                    elif phase == "flushing":
+                        if bc and bt:
+                            msg = f"寫入：批 {bc}/{bt}{eta_str}"
+                        else:
+                            msg = f"寫入中：{title}{eta_str}"
+                    else:
+                        msg = f"{stage} {title}{eta_str}"
+                elif chunks_total > 0:
+                    msg = f"{stage} {title} {chunks_done}/{chunks_total}{eta_str}"
                 else:
-                    msg = f"建圖 {title} 準備中…"
+                    msg = f"{stage} {title}{eta_str}"
 
-                progress_float = min(pct / 100.0, 1.0) if chunks_total > 0 else -1.0
+                progress_float = min(max(pct / 100.0, 0.0), 1.0)
                 if len(queued_jobs) > 0:
                     msg += f"  +{len(queued_jobs)}等候"
 
@@ -689,17 +762,53 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
             elif queued_jobs:
                 try:
                     menu = self.query_one("#menu-bar", MenuBar)
-                    menu.show_progress(f"等候建圖 {len(queued_jobs)} 件")
+                    if not svc.worker_alive:
+                        menu.show_progress("worker recovering（< 20s）")
+                    else:
+                        menu.show_progress(f"等候建圖 {len(queued_jobs)} 件")
                 except Exception:
                     pass
-            elif not completed and not failed:
-                # No active jobs and no new events — clear progress if showing
-                try:
-                    menu = self.query_one("#menu-bar", MenuBar)
-                    if menu._spinner_active:
-                        menu.clear_notification()
-                except Exception:
-                    pass
+            else:
+                # Show deferred retry countdown (e.g. rate-limit backoff) when no active job.
+                deferred = await svc.get_deferred_retries()
+                if deferred:
+                    d0 = deferred[0]
+                    import os.path as _osp
+                    _raw_title = d0.get("title") or _osp.basename(d0.get("source", ""))
+                    title = _raw_title[:15] + ("…" if len(_raw_title) > 15 else "")
+                    sec = d0.get("retry_in_seconds")
+                    if isinstance(sec, int) and sec >= 0:
+                        if sec > 60:
+                            eta = f"{sec // 60}m{sec % 60:02d}s"
+                        else:
+                            eta = f"{sec}s"
+                    else:
+                        eta = "稍後"
+                    wait_cnt = len(deferred)
+                    error_code = str(d0.get("error_code") or "").strip().upper()
+                    last_error = str(d0.get("last_error") or "").strip().lower()
+                    if error_code in ("RATE_LIMIT", "RATE_LIMIT_EXHAUSTED") or "rate limit" in last_error or "速率限制" in last_error:
+                        prefix = "速率限制重試"
+                    elif "post_verify" in last_error or "vdb_chunks 為空" in last_error:
+                        prefix = "驗證失敗重試"
+                    else:
+                        prefix = "匯入重試"
+                    msg = f"{prefix} {title} ~{eta}"
+                    if wait_cnt > 1:
+                        msg += f"  +{wait_cnt - 1}件"
+                    try:
+                        menu = self.query_one("#menu-bar", MenuBar)
+                        menu.show_progress(msg)
+                    except Exception:
+                        pass
+                elif not completed and not failed:
+                    # No active jobs and no new events — clear progress if showing
+                    try:
+                        menu = self.query_one("#menu-bar", MenuBar)
+                        if menu._spinner_active:
+                            menu.clear_notification()
+                    except Exception:
+                        pass
         except Exception as e:
             self.log.warning(f"Ingestion poll error: {e}")
 
@@ -716,28 +825,13 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         self.exit()
 
     async def _check_embedding_model_ready(self) -> None:
-        """Background check: GGUF 環境診斷（不啟動 server）。
+        """Compatibility diagnostics hook.
 
-        Only checks installation status. The llama-server is started lazily
-        on first embedding call.
+        Keeps legacy tests green; does not trigger installation/download.
         """
-        self._set_import_status("檢查 Embedding 環境…")
         try:
             from embeddings.service import get_embedding_service
             svc = get_embedding_service()
-            diag = await asyncio.to_thread(svc.get_device_diagnostics)
-            from embeddings.service import EMBED_MODEL
-            installed = diag.get("installed", False)
-            self._embed_ok = installed
-            self._embed_label = EMBED_MODEL if installed else "未安裝"
-            self._update_status()
-            if installed:
-                self.notify("Embedding 環境就緒", severity="information", timeout=3)
-            else:
-                self.notify("Embedding 環境未安裝", severity="warning", timeout=5)
-        except Exception as e:
-            self._embed_ok = False
-            self._embed_label = "異常"
-            self._update_status()
-            self.log.warning(f"Embedding diagnostics failed: {e}")
-            self.notify("Embedding 環境異常", severity="error", timeout=5)
+            await asyncio.to_thread(svc.get_device_diagnostics)
+        except Exception:
+            pass

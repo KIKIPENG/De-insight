@@ -12,6 +12,7 @@ import mimetypes
 import os
 import random
 import time
+from collections import OrderedDict
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Union
@@ -25,11 +26,21 @@ log = logging.getLogger(__name__)
 _JINA_API_URL = "https://api.jina.ai/v1/embeddings"
 _DEFAULT_MODEL = "jina-embeddings-v4"
 _DEFAULT_DIM = 1024
-_BATCH_SIZE = 64  # Jina API 最大單次 batch
+_DEFAULT_BATCH_SIZE = 32
+
+
+class JinaRateLimitError(RuntimeError):
+    """Raised when Jina API rate limit is exhausted after retries."""
+
+    def __init__(self, message: str, retry_after: float | None = None):
+        super().__init__(message)
+        self.retry_after = retry_after
 
 
 class JinaAPIBackend(EmbeddingBackend):
     """透過 Jina Embedding API 取得文字/圖片向量。"""
+    _global_semaphore: asyncio.Semaphore | None = None
+
 
     def __init__(
         self,
@@ -50,11 +61,23 @@ class JinaAPIBackend(EmbeddingBackend):
         self._request_lock = asyncio.Lock()
         self._next_allowed_ts = 0.0
         self._min_interval_sec = float(os.environ.get("JINA_EMBED_MIN_INTERVAL", "1.2"))
-        self._max_retries = max(0, int(os.environ.get("JINA_EMBED_MAX_RETRIES", "5")))
+        self._max_retries = max(0, int(os.environ.get("JINA_EMBED_MAX_RETRIES", "8")))
+        self._rate_limit_max_retries = max(
+            0, int(os.environ.get("JINA_EMBED_RATE_LIMIT_MAX_RETRIES", str(self._max_retries)))
+        )
+        self._rate_limit_cooldown_sec = float(
+            os.environ.get("JINA_EMBED_RATE_LIMIT_COOLDOWN", "65")
+        )
         self._backoff_base_sec = float(os.environ.get("JINA_EMBED_BACKOFF_BASE", "1.0"))
         self._backoff_multiplier = float(os.environ.get("JINA_EMBED_BACKOFF_MULTIPLIER", "2.0"))
-        self._backoff_max_sec = float(os.environ.get("JINA_EMBED_BACKOFF_MAX", "20.0"))
+        self._backoff_max_sec = float(os.environ.get("JINA_EMBED_BACKOFF_MAX", "8.0"))
         self._backoff_jitter_sec = float(os.environ.get("JINA_EMBED_BACKOFF_JITTER", "0.3"))
+        self._batch_size = max(1, int(os.environ.get("JINA_EMBED_BATCH_SIZE", str(_DEFAULT_BATCH_SIZE))))
+        self._cache_max_items = max(0, int(os.environ.get("JINA_EMBED_CACHE_MAX_ITEMS", "20000")))
+        self._text_cache: OrderedDict[str, list[float]] = OrderedDict()
+        self._global_max_concurrency = max(1, int(os.environ.get("JINA_EMBED_MAX_CONCURRENCY", "1")))
+        if JinaAPIBackend._global_semaphore is None:
+            JinaAPIBackend._global_semaphore = asyncio.Semaphore(self._global_max_concurrency)
 
         if not self._api_key:
             raise ValueError(
@@ -82,12 +105,28 @@ class JinaAPIBackend(EmbeddingBackend):
         """Passage encoding（文件索引用）。"""
         if not texts:
             return []
-        all_vecs: list[list[float]] = []
-        for i in range(0, len(texts), _BATCH_SIZE):
-            batch = texts[i:i + _BATCH_SIZE]
-            vecs = await self._call_api(batch, task="retrieval.passage")
-            all_vecs.extend(vecs)
-        return all_vecs
+
+        # Cache aggressively during ingest merge stage; repeated entities are common.
+        results: list[list[float] | None] = [None] * len(texts)
+        misses: list[tuple[int, str]] = []
+        for idx, t in enumerate(texts):
+            cached = self._cache_get(t)
+            if cached is not None:
+                results[idx] = cached
+            else:
+                misses.append((idx, t))
+
+        for i in range(0, len(misses), self._batch_size):
+            miss_batch = misses[i:i + self._batch_size]
+            batch_inputs = [t for _, t in miss_batch]
+            vecs = await self._call_api(batch_inputs, task="retrieval.passage")
+            for (original_idx, text_value), vec in zip(miss_batch, vecs):
+                results[original_idx] = vec
+                self._cache_set(text_value, vec)
+
+        if any(v is None for v in results):
+            raise RuntimeError("Jina embedding batch result length mismatch")
+        return [v for v in results if v is not None]
 
     async def embed_image(self, image: Union[str, Path, bytes]) -> list[float]:
         """圖片 embedding（jina-embeddings-v4）。"""
@@ -128,10 +167,16 @@ class JinaAPIBackend(EmbeddingBackend):
             "Content-Type": "application/json",
         }
 
-        for attempt in range(self._max_retries + 1):
+        total_attempts = max(self._max_retries, self._rate_limit_max_retries) + 1
+        for attempt in range(total_attempts):
             await self._acquire_slot()
             try:
-                resp = await client.post(_JINA_API_URL, json=payload, headers=headers)
+                sem = JinaAPIBackend._global_semaphore
+                if sem is None:
+                    resp = await client.post(_JINA_API_URL, json=payload, headers=headers)
+                else:
+                    async with sem:
+                        resp = await client.post(_JINA_API_URL, json=payload, headers=headers)
             except (httpx.TimeoutException, httpx.TransportError) as exc:
                 if attempt >= self._max_retries:
                     raise RuntimeError(f"Jina Embedding API 網路錯誤: {exc}") from exc
@@ -139,7 +184,7 @@ class JinaAPIBackend(EmbeddingBackend):
                 log.warning(
                     "Jina API network error (attempt %d/%d), retry in %.2fs: %s",
                     attempt + 1,
-                    self._max_retries + 1,
+                    total_attempts,
                     sleep_sec,
                     exc,
                 )
@@ -155,14 +200,19 @@ class JinaAPIBackend(EmbeddingBackend):
             error_text = resp.text[:300]
             is_rate_limit = resp.status_code == 429
             should_retry = is_rate_limit or resp.status_code >= 500
-            if should_retry and attempt < self._max_retries:
+            max_retry_for_status = min(self._rate_limit_max_retries, self._max_retries) if is_rate_limit else self._max_retries
+            if should_retry and attempt < max_retry_for_status:
                 retry_after = self._parse_retry_after(resp.headers.get("Retry-After", ""))
+                if is_rate_limit and retry_after is None:
+                    retry_after = self._rate_limit_cooldown_sec
                 sleep_sec = self._compute_backoff(retry_after, attempt)
+                if is_rate_limit:
+                    await self._apply_rate_limit_cooldown(sleep_sec)
                 log.warning(
                     "Jina API error %d (attempt %d/%d), retry in %.2fs: %s",
                     resp.status_code,
                     attempt + 1,
-                    self._max_retries + 1,
+                    total_attempts,
                     sleep_sec,
                     error_text,
                 )
@@ -171,9 +221,15 @@ class JinaAPIBackend(EmbeddingBackend):
 
             log.error("Jina API error %d: %s", resp.status_code, error_text)
             if is_rate_limit:
-                raise RuntimeError(
+                retry_after = self._parse_retry_after(resp.headers.get("Retry-After", ""))
+                if retry_after is None:
+                    retry_after = self._rate_limit_cooldown_sec
+                await self._apply_rate_limit_cooldown(retry_after)
+                raise JinaRateLimitError(
                     "Jina Embedding API 達到速率限制（429）。"
-                    " 可稍後重試，或將 EMBED_PROVIDER 改為 gguf 使用本地模型。"
+                    " 可稍後重試。"
+                    f" 建議等待 {int(max(1.0, retry_after))} 秒後重試。",
+                    retry_after=retry_after,
                 )
             raise RuntimeError(
                 f"Jina Embedding API 錯誤 {resp.status_code}: {error_text}"
@@ -192,6 +248,13 @@ class JinaAPIBackend(EmbeddingBackend):
                 await asyncio.sleep(wait_sec)
                 now = time.monotonic()
             self._next_allowed_ts = now + self._min_interval_sec
+
+    async def _apply_rate_limit_cooldown(self, wait_seconds: float) -> None:
+        if wait_seconds <= 0:
+            return
+        async with self._request_lock:
+            now = time.monotonic()
+            self._next_allowed_ts = max(self._next_allowed_ts, now + wait_seconds)
 
     def _compute_backoff(self, retry_after: float | None, attempt: int) -> float:
         exp = self._backoff_base_sec * (self._backoff_multiplier ** attempt)
@@ -218,6 +281,23 @@ class JinaAPIBackend(EmbeddingBackend):
             return max(0.0, dt.timestamp() - now)
         except Exception:
             return None
+
+    def _cache_get(self, text: object) -> list[float] | None:
+        if self._cache_max_items <= 0 or not isinstance(text, str):
+            return None
+        v = self._text_cache.get(text)
+        if v is None:
+            return None
+        self._text_cache.move_to_end(text)
+        return v
+
+    def _cache_set(self, text: object, vec: list[float]) -> None:
+        if self._cache_max_items <= 0 or not isinstance(text, str):
+            return
+        self._text_cache[text] = vec
+        self._text_cache.move_to_end(text)
+        while len(self._text_cache) > self._cache_max_items:
+            self._text_cache.popitem(last=False)
 
     @staticmethod
     def _image_to_data_url(source: Union[str, Path, bytes]) -> str:
