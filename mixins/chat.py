@@ -618,7 +618,7 @@ class ChatMixin:
                     )
                     if results and results[0].get("filename") == img_path.name:
                         raw_cap = results[0].get("caption", "")
-                        cap = _normalize_caption(raw_cap, img_path.name)
+                        cap = _normalize_caption(raw_cap)
                         # 判斷是否為有效三段式（非 fallback）
                         if isinstance(cap, dict):
                             content = cap.get("content", {})

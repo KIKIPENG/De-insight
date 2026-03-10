@@ -170,21 +170,20 @@ class ChatInput(TextArea):
     def _load_gallery_selected(self) -> None:
         """背景讀取 selected.json，避免按 @ 時卡 UI。"""
         try:
-            from paths import DATA_ROOT, project_root
+            from paths import project_root
             import json as _json
             import lancedb
-
-            sel_path = DATA_ROOT / "selected.json"
-            if not sel_path.exists():
-                return
-            ids = _json.loads(sel_path.read_text())
-            if not ids:
-                return
 
             state = getattr(self.app, "state", None)
             if not state or not state.current_project:
                 return
             pid = state.current_project["id"]
+            sel_path = project_root(pid) / "selected.json"
+            if not sel_path.exists():
+                return
+            ids = _json.loads(sel_path.read_text())
+            if not ids:
+                return
             img_dir = project_root(pid) / "images"
             lance_dir = project_root(pid) / "lancedb"
             if not lance_dir.exists():

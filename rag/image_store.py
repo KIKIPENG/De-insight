@@ -6,6 +6,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import base64
 import json
 import logging
@@ -17,7 +18,7 @@ from pathlib import Path
 import lancedb
 import pyarrow as pa
 
-from paths import DATA_ROOT, project_root
+from paths import project_root
 from embeddings.service import get_embedding_service as _get_svc
 
 
@@ -400,8 +401,11 @@ async def _auto_caption(image_bytes: bytes, filename: str = "") -> dict:
                 return text
 
         guard = get_rate_guard()
-        raw_text = await guard.call_with_retry(
-            "image/auto_caption", _call_caption, max_retries=2,
+        raw_text = await asyncio.wait_for(
+            guard.call_with_retry(
+                "image/auto_caption", _call_caption, max_retries=1,
+            ),
+            timeout=45.0,
         )
 
         if not raw_text:
@@ -548,8 +552,6 @@ async def index_image(
     created_at = time.strftime("%Y-%m-%d %H:%M:%S")
     caption_json = json.dumps(caption_dict, ensure_ascii=False)
 
-    db = _get_db(_lancedb_dir(project_id))
-    table = _get_or_create_table(db)
     row = {
         "id": image_id,
         "filename": filename,
@@ -559,7 +561,13 @@ async def index_image(
         "vector": final_vec,
         "vector_image": final_vec_image,
     }
-    table.add([row])
+
+    def _sync_write():
+        db = _get_db(_lancedb_dir(project_id))
+        table = _get_or_create_table(db)
+        table.add([row])
+
+    await asyncio.to_thread(_sync_write)
 
     log.info("Indexed image %s: %s", filename, caption_json[:80])
     return {
@@ -1069,8 +1077,10 @@ async def trigger_preference_update(
 
 
 def get_selected_path(project_id: str) -> Path:
-    """selected.json 路徑（統一放 DATA_ROOT）。"""
-    return DATA_ROOT / "selected.json"
+    """selected.json 路徑（每個專案獨立）。"""
+    root = project_root(project_id)
+    root.mkdir(parents=True, exist_ok=True)
+    return root / "selected.json"
 
 
 async def set_selected(project_id: str, image_ids: list[str]) -> list[dict]:

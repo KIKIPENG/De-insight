@@ -74,12 +74,12 @@ CHAT_PROVIDERS = {
 EMBED_PROVIDERS = {
     "jina-api": {
         "label": "Jina Embedding API（推薦，免安裝）",
-        "models": ["jina-embeddings-v3"],
+        "models": ["jina-embeddings-v4", "jina-embeddings-v3"],
         "key_env": "JINA_API_KEY",
         "base_env": "",
         "default_base": "",
         "auth_type": "api_key",
-        "dims": {"jina-embeddings-v3": 1024},
+        "dims": {"jina-embeddings-v4": 1024, "jina-embeddings-v3": 1024},
         "env_extras": {},
     },
     "gguf": {
@@ -120,7 +120,7 @@ RAG_LLM_PROVIDERS = {
     },
     "google-rag": {
         "label": "Google AI Studio",
-        "models": ["gemini-2.5-flash", "gemini-2.5-pro"],
+        "models": ["gemini-1.5-flash", "gemini-2.5-flash", "gemini-2.5-pro"],
         "key_env": "GOOGLE_API_KEY",
         "base_env": "",
         "model_prefix": "",

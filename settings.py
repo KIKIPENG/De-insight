@@ -84,7 +84,7 @@ def _get_service_status(env: dict) -> dict[str, str]:
     # Embedding
     embed_provider = env.get("EMBED_PROVIDER", "gguf").lower()
     if embed_provider in ("jina", "jina-api"):
-        status["embedding"] = "Jina API (jina-embeddings-v3, 1024d)"
+        status["embedding"] = "Jina API (jina-embeddings-v4, 1024d)"
     else:
         status["embedding"] = "jina-embeddings-v4 GGUF (本地, 1024d)"
     # RAG LLM
@@ -607,7 +607,7 @@ class SettingsScreen(ModalScreen[str | None]):
     def _save_embed_model(self, pid, model_name, pinfo):
         if pid in ("jina-api",):
             self._env["EMBED_PROVIDER"] = "jina"
-            self._env["EMBED_MODEL"] = model_name or "jina-embeddings-v3"
+            self._env["EMBED_MODEL"] = model_name or "jina-embeddings-v4"
             self._env["EMBED_DIM"] = str(pinfo.get("dims", {}).get(model_name, 1024))
             # 保留 JINA_API_KEY（已在 _save_key_and_continue 中儲存）
         else:

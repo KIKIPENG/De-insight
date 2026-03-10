@@ -67,7 +67,18 @@ async def reload_env():
     import os
 
     import services.llm as llm_mod
+    from embeddings.service import reset_embedding_service
+    from rag.knowledge_graph import reset_rag
 
     load_dotenv(dotenv_path=env_path, override=True)
     llm_mod.DEFAULT_MODEL = os.getenv("LLM_MODEL", "ollama/llama3.2")
-    return {"status": "ok", "model": llm_mod.DEFAULT_MODEL}
+    # Also reset long-lived singletons that cache env-sensitive configs.
+    reset_embedding_service()
+    reset_rag()
+    return {
+        "status": "ok",
+        "model": llm_mod.DEFAULT_MODEL,
+        "embed_provider": os.getenv("EMBED_PROVIDER", ""),
+        "embed_model": os.getenv("EMBED_MODEL", ""),
+        "rag_model": os.getenv("RAG_LLM_MODEL", ""),
+    }

@@ -21,10 +21,29 @@ def _is_backend_ready() -> bool:
         return False
 
 
+def _kill_port(port: int) -> None:
+    """Kill any process holding the given port."""
+    try:
+        result = subprocess.run(
+            ["lsof", "-ti", f":{port}"],
+            capture_output=True, text=True
+        )
+        pids = result.stdout.strip().split()
+        for pid in pids:
+            if pid.isdigit():
+                subprocess.run(["kill", "-9", pid], capture_output=True)
+    except Exception:
+        pass
+
+
 def _ensure_backend() -> subprocess.Popen | None:
     """Start the FastAPI backend if it's not already running."""
     if _is_backend_ready():
         return None
+
+    # Kill any stale process holding the port before starting a fresh one
+    _kill_port(BACKEND_PORT)
+    time.sleep(0.3)
 
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     log_file = open(LOG_DIR / "backend.log", "a")

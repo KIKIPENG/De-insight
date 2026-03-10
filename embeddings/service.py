@@ -99,25 +99,35 @@ class EmbeddingService:
             except Exception:
                 env = {}
 
+            # Prefer .env over process env to avoid stale in-memory config
+            # after Settings writes new keys.
             provider = (
-                os.environ.get("EMBED_PROVIDER")
-                or env.get("EMBED_PROVIDER", "")
+                env.get("EMBED_PROVIDER", "")
+                or os.environ.get("EMBED_PROVIDER")
                 or _default_provider()
             ).lower()
 
             embed_dim = int(
-                os.environ.get("GGUF_EMBED_DIM")
-                or env.get("EMBED_DIM", "")
+                env.get("EMBED_DIM", "")
+                or os.environ.get("EMBED_DIM")
+                or os.environ.get("GGUF_EMBED_DIM")
                 or str(EMBED_DIM)
             )
 
             if provider in ("jina", "jina-api"):
-                # 從 .env 注入 JINA_API_KEY 到 os.environ（JinaAPIBackend 讀 os.environ）
-                jina_key = env.get("JINA_API_KEY", "")
-                if jina_key and not os.environ.get("JINA_API_KEY"):
+                # Inject latest values from .env so downstream libs read fresh keys.
+                jina_key = env.get("JINA_API_KEY", "") or os.environ.get("JINA_API_KEY", "")
+                jina_model = env.get("EMBED_MODEL", "") or os.environ.get("JINA_EMBED_MODEL", "")
+                if jina_key:
                     os.environ["JINA_API_KEY"] = jina_key
+                if jina_model:
+                    os.environ["JINA_EMBED_MODEL"] = jina_model
                 from embeddings.jina_backend import JinaAPIBackend
-                self._backend = JinaAPIBackend(dim=embed_dim)
+                self._backend = JinaAPIBackend(
+                    api_key=jina_key,
+                    model=jina_model,
+                    dim=embed_dim,
+                )
                 self._provider_type = "jina"
                 log.info("Using Jina API embedding backend")
             else:
@@ -140,13 +150,15 @@ class EmbeddingService:
         if self._server_started:
             return
 
+        # Initialize backend outside this lock to avoid re-entrant deadlock:
+        # ensure_server_running() may call _init_backend(), and _init_backend()
+        # also uses _init_lock internally.
+        if self._backend is None:
+            self._init_backend()
+
         with self._init_lock:
             if self._server_started:
                 return
-
-            # 確保 backend 已初始化
-            if self._backend is None:
-                self._init_backend()
 
             # Jina API 不需要本地 server
             provider_type = getattr(self, "_provider_type", "gguf")
@@ -189,17 +201,19 @@ class EmbeddingService:
         """批次 passage embedding。"""
         if not texts:
             return []
-        self.ensure_server_running()
+        # ensure_server_running() may block on installer/server health checks.
+        # Offload it to a worker thread so FastAPI event loop stays responsive.
+        await asyncio.to_thread(self.ensure_server_running)
         return await self.backend.embed_passages(texts)
 
     async def embed_text(self, text: str) -> list[float]:
         """單筆 query embedding。"""
-        self.ensure_server_running()
+        await asyncio.to_thread(self.ensure_server_running)
         return await self.backend.embed_query(text)
 
     async def embed_image(self, image: Union[str, Path, bytes]) -> list[float]:
         """圖片 embedding。"""
-        self.ensure_server_running()
+        await asyncio.to_thread(self.ensure_server_running)
         return await self.backend.embed_image(image)
 
     def dimension(self) -> int:

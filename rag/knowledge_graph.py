@@ -250,7 +250,8 @@ def get_rag(project_id: str = "default") -> LightRAG:
     # Configurable performance parameters (overridable via env)
     # Local models (Ollama): lower LLM concurrency since GPU processes sequentially
     _embed_timeout = int(os.environ.get("LIGHTRAG_EMBEDDING_TIMEOUT", "180"))
-    _default_embed_async = "1" if _is_local_llm else "4"
+    # Jina API 限制同時最多 2 concurrent requests，用 1 確保不超限
+    _default_embed_async = "1"
     _embed_max_async = int(os.environ.get("LIGHTRAG_EMBED_MAX_ASYNC", _default_embed_async))
     _default_llm_async = "1" if _is_local_llm else "8"
     _llm_max_async = int(os.environ.get("LIGHTRAG_LLM_MAX_ASYNC", _default_llm_async))

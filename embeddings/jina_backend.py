@@ -1,13 +1,14 @@
-"""Jina Embedding API 後端 — 透過 Jina Cloud API 取得文字 embedding。
+"""Jina Embedding API 後端 — 透過 Jina Cloud API 取得文字/圖片 embedding。
 
-純文字 embedding，不支援圖片（圖片 embedding 仍需 GGUF 本地模型）。
 API 文件：https://jina.ai/embeddings/
 """
 
 from __future__ import annotations
 
 import asyncio
+import base64
 import logging
+import mimetypes
 import os
 import random
 import time
@@ -22,17 +23,13 @@ from embeddings.backend import EmbeddingBackend
 log = logging.getLogger(__name__)
 
 _JINA_API_URL = "https://api.jina.ai/v1/embeddings"
-_DEFAULT_MODEL = "jina-embeddings-v3"
+_DEFAULT_MODEL = "jina-embeddings-v4"
 _DEFAULT_DIM = 1024
 _BATCH_SIZE = 64  # Jina API 最大單次 batch
 
 
 class JinaAPIBackend(EmbeddingBackend):
-    """透過 Jina Embedding API 取得文字向量。
-
-    不支援 embed_image()，會 raise NotImplementedError。
-    需要圖片 embedding 時應使用 GGUF 後端。
-    """
+    """透過 Jina Embedding API 取得文字/圖片向量。"""
 
     def __init__(
         self,
@@ -43,7 +40,11 @@ class JinaAPIBackend(EmbeddingBackend):
     ) -> None:
         self._api_key = api_key or os.environ.get("JINA_API_KEY", "")
         self._model = model or os.environ.get("JINA_EMBED_MODEL", _DEFAULT_MODEL)
-        self._dim = dim or int(os.environ.get("GGUF_EMBED_DIM", str(_DEFAULT_DIM)))
+        self._dim = dim or int(
+            os.environ.get("EMBED_DIM")
+            or os.environ.get("GGUF_EMBED_DIM")
+            or str(_DEFAULT_DIM)
+        )
         self._timeout = timeout
         self._client: httpx.AsyncClient | None = None
         self._request_lock = asyncio.Lock()
@@ -89,11 +90,15 @@ class JinaAPIBackend(EmbeddingBackend):
         return all_vecs
 
     async def embed_image(self, image: Union[str, Path, bytes]) -> list[float]:
-        """Jina API 文字後端不支援圖片 embedding。"""
-        raise NotImplementedError(
-            "Jina API 後端僅支援文字 embedding。"
-            " 圖片 embedding 需要本地 GGUF 模型（EMBED_PROVIDER=gguf）。"
+        """圖片 embedding（jina-embeddings-v4）。"""
+        data_url = self._image_to_data_url(image)
+        model = self._model if "v4" in self._model else "jina-embeddings-v4"
+        results = await self._call_api(
+            [{"image": data_url}],
+            task="retrieval.passage",
+            model=model,
         )
+        return results[0]
 
     def dimension(self) -> int:
         return self._dim
@@ -105,14 +110,15 @@ class JinaAPIBackend(EmbeddingBackend):
 
     async def _call_api(
         self,
-        texts: list[str],
+        inputs: list[object],
         task: str = "retrieval.passage",
+        model: str | None = None,
     ) -> list[list[float]]:
         """呼叫 Jina Embedding API，含 429 節流與自動重試。"""
         client = self._get_client()
         payload = {
-            "model": self._model,
-            "input": texts,
+            "model": model or self._model,
+            "input": inputs,
             "dimensions": self._dim,
             "task": task,
             "late_chunking": False,
@@ -143,7 +149,6 @@ class JinaAPIBackend(EmbeddingBackend):
             if resp.status_code == 200:
                 data = resp.json()
                 embeddings = data.get("data", [])
-                # Sort by index to ensure order
                 embeddings.sort(key=lambda x: x.get("index", 0))
                 return [item["embedding"] for item in embeddings]
 
@@ -213,3 +218,25 @@ class JinaAPIBackend(EmbeddingBackend):
             return max(0.0, dt.timestamp() - now)
         except Exception:
             return None
+
+    @staticmethod
+    def _image_to_data_url(source: Union[str, Path, bytes]) -> str:
+        """將圖片來源轉為 data URL（Jina image input）。"""
+        if isinstance(source, bytes):
+            b64 = base64.b64encode(source).decode("ascii")
+            return f"data:image/jpeg;base64,{b64}"
+
+        if isinstance(source, str) and (
+            source.startswith("http://")
+            or source.startswith("https://")
+            or source.startswith("data:image/")
+        ):
+            return source
+
+        path = Path(source)
+        raw = path.read_bytes()
+        mime, _ = mimetypes.guess_type(path.name)
+        if not mime or not mime.startswith("image/"):
+            mime = "image/jpeg"
+        b64 = base64.b64encode(raw).decode("ascii")
+        return f"data:{mime};base64,{b64}"

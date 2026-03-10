@@ -3,6 +3,7 @@
 import asyncio
 import logging
 import sys
+import time
 from pathlib import Path
 from typing import List
 
@@ -16,6 +17,7 @@ log = logging.getLogger(__name__)
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 router = APIRouter()
+_processing_state: dict[str, dict] = {}
 
 
 async def _get_project_id(project_id: str | None = None) -> str:
@@ -108,6 +110,14 @@ async def upload_image(
         )
 
     # 階段二：背景逐張建索引
+    _processing_state[pid] = {
+        "active": True,
+        "total": len(saved),
+        "indexed": 0,
+        "failed": 0,
+        "last_error": "",
+        "updated_at": time.time(),
+    }
     asyncio.create_task(_process_batch(pid, saved, caption, tags))
 
     return {
@@ -125,14 +135,41 @@ async def _process_batch(
     """背景逐張建立圖片索引，每張之間加 2 秒延遲避免速率限制。"""
     from rag.image_store import index_image
 
+    state = _processing_state.get(pid)
+    if state is None:
+        state = {
+            "active": True,
+            "total": len(saved_files),
+            "indexed": 0,
+            "failed": 0,
+            "last_error": "",
+            "updated_at": time.time(),
+        }
+        _processing_state[pid] = state
+
     for i, item in enumerate(saved_files):
         if i > 0:
             await asyncio.sleep(5)  # 避免 Jina API 429（free tier 速率限制嚴格）
         try:
-            await index_image(pid, item["filename"], caption=caption, tags=tags)
+            # Guard against per-image indexing hanging indefinitely.
+            await asyncio.wait_for(
+                index_image(pid, item["filename"], caption=caption, tags=tags),
+                timeout=45.0,
+            )
             log.info("Indexed image: %s", item["filename"])
+            state["indexed"] = int(state.get("indexed", 0)) + 1
+            state["updated_at"] = time.time()
+        except asyncio.TimeoutError:
+            err_msg = "index timeout (45s)"
+            log.error("Index failed for %s: %s", item["filename"], err_msg)
+            state["failed"] = int(state.get("failed", 0)) + 1
+            state["last_error"] = f"{item['filename']}: {err_msg}"
+            state["updated_at"] = time.time()
         except Exception as e:
             log.error("Index failed for %s: %s", item["filename"], e)
+            state["failed"] = int(state.get("failed", 0)) + 1
+            state["last_error"] = f"{item['filename']}: {e}"
+            state["updated_at"] = time.time()
 
     # 所有圖片索引完成後，觸發偏好萃取
     try:
@@ -194,6 +231,9 @@ async def _process_batch(
                 log.warning("Cross-modal check failed: %s", e)
     except Exception as e:
         log.warning("Preference update after batch failed: %s", e)
+    finally:
+        state["active"] = False
+        state["updated_at"] = time.time()
 
 
 @router.get("/images/processing-status")
@@ -209,11 +249,17 @@ async def processing_status(project_id: str | None = None):
     indexed_imgs = await _list(pid)
     indexed_names = {img["filename"] for img in indexed_imgs}
     orphans = files_on_disk - indexed_names
+    st = _processing_state.get(pid, {})
     return {
         "total_files": len(files_on_disk),
         "indexed": len(indexed_names),
         "pending": len(orphans),
         "orphan_files": sorted(orphans),
+        "processing": bool(st.get("active", False)),
+        "batch_total": int(st.get("total", 0)),
+        "batch_indexed": int(st.get("indexed", 0)),
+        "batch_failed": int(st.get("failed", 0)),
+        "last_error": str(st.get("last_error", "")),
     }
 
 
@@ -233,6 +279,14 @@ async def process_orphans(project_id: str | None = None):
     if not orphans:
         return {"processing": False, "count": 0, "message": "no orphans"}
     saved = [{"filename": fn} for fn in orphans]
+    _processing_state[pid] = {
+        "active": True,
+        "total": len(saved),
+        "indexed": 0,
+        "failed": 0,
+        "last_error": "",
+        "updated_at": time.time(),
+    }
     asyncio.create_task(_process_batch(pid, saved, caption="", tags=""))
     return {"processing": True, "count": len(orphans)}
 
@@ -297,13 +351,16 @@ async def update_image_endpoint(
 
 
 @router.put("/images/{image_id}/caption")
-async def update_caption(image_id: str, request: Request):
+async def update_caption(
+    image_id: str,
+    request: Request,
+    project_id: str | None = None,
+):
     """更新圖片的三段式 caption 並重算向量。
 
     body: {"content": {...}, "style_tags": [...], "description": "..."}
     """
-    import json
-    pid = await _get_project_id(None)
+    pid = await _get_project_id(project_id)
     body = await request.json()
 
     # 驗證結構
@@ -314,20 +371,21 @@ async def update_caption(image_id: str, request: Request):
     ok = await update_image(pid, image_id, caption=body, tags="", recalc_vector=True)
     if not ok:
         raise HTTPException(status_code=404, detail="Image not found")
-    return {"status": "ok", "id": image_id}
+    return {"status": "ok", "id": image_id, "project_id": pid}
 
 
 class SelectRequest(BaseModel):
     image_ids: List[str] = []
+    project_id: str | None = None
 
 
 @router.post("/images/select")
 async def select_images(req: SelectRequest):
     """設定選取的圖片（寫入 selected.json，TUI 端讀取）。"""
-    pid = await _get_project_id(None)
+    pid = await _get_project_id(req.project_id)
     from rag.image_store import set_selected
     selected = await set_selected(pid, req.image_ids)
-    return {"selected": selected, "count": len(selected)}
+    return {"selected": selected, "count": len(selected), "project_id": pid}
 
 
 @router.post("/images/backfill-captions")

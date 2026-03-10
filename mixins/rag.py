@@ -20,6 +20,13 @@ class RAGMixin:
         except NoMatches:
             return
         project_id = self.state.current_project["id"] if self.state.current_project else "default"
+        readiness_status = ""
+        try:
+            from rag.readiness import get_readiness_service
+            snapshot = await get_readiness_service().get_snapshot(project_id)
+            readiness_status = snapshot.status_label
+        except Exception:
+            readiness_status = ""
 
         # Document list
         try:
@@ -36,6 +43,14 @@ class RAGMixin:
                 Static("[dim #484f58]尚無文獻，按上方「匯入」開始[/]")
             )
         else:
+            if readiness_status == "building":
+                await doc_list.mount(
+                    Static("[dim #6e7681]建圖中：內容可能尚未完整[/]")
+                )
+            elif readiness_status == "degraded":
+                await doc_list.mount(
+                    Static("[dim #d4a27a]部分匯入失敗：結果可能不完整[/]")
+                )
             for d in docs[:8]:
                 await doc_list.mount(DocumentItem(d))
             if len(docs) > 8:

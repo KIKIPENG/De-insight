@@ -211,7 +211,13 @@ class UIMixin:
     def action_open_gallery(self) -> None:
         """在瀏覽器開啟圖片庫。"""
         import webbrowser
-        gallery_url = f"{self.api_base}/gallery"
+        project_id = ""
+        if self.state.current_project:
+            project_id = self.state.current_project.get("id", "")
+        if project_id:
+            gallery_url = f"{self.api_base}/gallery?project_id={project_id}"
+        else:
+            gallery_url = f"{self.api_base}/gallery"
         try:
             health_url = f"{self.api_base}/api/health"
             r = httpx.get(health_url, timeout=1.5)
