@@ -280,21 +280,36 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     }
 
     .kb-actions-row {
-        height: 1;
+        height: auto;
         margin: 1 0 1 0;
     }
     .kb-action {
         width: auto;
         min-width: 0;
         padding: 0 1;
+        background: transparent;
         color: #6e7681;
+        border: none;
     }
     .kb-action:hover {
         color: #fafafa;
     }
+    .kb-action:focus {
+        color: #fafafa;
+        background: #1a1a1a;
+    }
     .kb-divider {
         height: 1;
         color: #2a2a2a;
+        margin: 0 0 1 0;
+    }
+    .kb-section-label {
+        margin: 0 0 1 0;
+    }
+    #kb-doc-scroll {
+        height: 9;
+        border: round #2a2a2a;
+        padding: 0 1;
         margin: 0 0 1 0;
     }
     .doc-item {
@@ -305,6 +320,31 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     .doc-item:hover {
         color: #fafafa;
         background: #111111;
+    }
+    #research-result-scroll {
+        height: 1fr;
+        min-height: 8;
+        border: round #2a2a2a;
+        padding: 0 1;
+        margin: 0 0 1 0;
+    }
+    #research-content {
+        height: auto;
+        color: #c9d1d9;
+    }
+    #research-cite {
+        width: auto;
+        min-width: 0;
+        background: transparent;
+        border: none;
+        color: #6e7681;
+        padding: 0;
+    }
+    #research-cite:hover {
+        color: #fafafa;
+    }
+    #research-cite:disabled {
+        color: #484f58;
     }
 
     /* ── memory panel ── */

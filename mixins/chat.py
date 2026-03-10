@@ -765,7 +765,11 @@ class ChatMixin:
         if _skip_all:
             # B3: Clear stale sources
             self.state.last_rag_sources = []
-            await self._update_research_panel("")
+            await self._update_research_panel(
+                status="empty",
+                content="",
+                query=user_msg,
+            )
             if _rag_hint and return_sys_addon:
                 return augmented, _rag_hint + "\n\n請用繁體中文回覆。"
             return (augmented, "") if return_sys_addon else augmented
@@ -875,7 +879,11 @@ class ChatMixin:
 
         # B3: Clear stale sources before each query to prevent carryover
         self.state.last_rag_sources = []
-        await self._update_research_panel("")
+        await self._update_research_panel(
+            status="loading",
+            content="正在檢索知識庫…",
+            query=user_msg,
+        )
 
         # ── 3. 知識庫 RAG — pipeline ──
         try:
@@ -892,6 +900,7 @@ class ChatMixin:
             )
             # Store diagnostics for debugging
             self._last_pipeline_diagnostics = pipeline_result.get("diagnostics", {})
+            diag = pipeline_result.get("diagnostics", {})
 
             context_text = pipeline_result.get("context_text", "")
             raw_result = pipeline_result.get("raw_result", "")
@@ -906,13 +915,25 @@ class ChatMixin:
 
             # Update research panel with raw result (for display cleaning)
             if raw_result and len(raw_result.strip()) > 10:
-                await self._update_research_panel(raw_result)
+                status = "degraded" if _readiness.status_label == "degraded" else "ready"
+                await self._update_research_panel(
+                    content=raw_result,
+                    status=status,
+                    sources=sources or [],
+                    diagnostics=diag,
+                    query=user_msg,
+                )
             else:
-                await self._update_research_panel("")
+                await self._update_research_panel(
+                    status="empty",
+                    content="",
+                    sources=sources or [],
+                    diagnostics=diag,
+                    query=user_msg,
+                )
             self.state.last_rag_sources = sources or []
 
             # Log fallback events
-            diag = pipeline_result.get("diagnostics", {})
             if diag.get("deep_error_code"):
                 self.log.warning(
                     "RAG deep fallback: %s (strategy=%s)",
@@ -944,7 +965,11 @@ class ChatMixin:
             self.log.warning(f"RAG pipeline failed: {e}")
             # B3: Also clear panel on failure to prevent stale display
             self.state.last_rag_sources = []
-            await self._update_research_panel("")
+            await self._update_research_panel(
+                status="error",
+                content=f"知識庫檢索失敗：{e}",
+                query=user_msg,
+            )
 
         if return_sys_addon:
             addon = "\n\n".join(sys_addon_parts)

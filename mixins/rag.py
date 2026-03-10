@@ -4,7 +4,7 @@ from __future__ import annotations
 from textual import work
 from textual.containers import Vertical
 from textual.css.query import NoMatches
-from textual.widgets import Static
+from textual.widgets import Button, Static
 
 from rich.markup import escape
 
@@ -186,6 +186,11 @@ class RAGMixin:
             _pid = self.state.current_project["id"] if self.state.current_project else "default"
             # Prevent stale source carryover between searches.
             self.state.last_rag_sources = []
+            await self._update_research_panel(
+                status="loading",
+                content="正在搜尋知識庫…",
+                query=query,
+            )
 
             # Use readiness gate — same rules as chat RAG
             from rag.readiness import get_readiness_service
@@ -193,25 +198,42 @@ class RAGMixin:
 
             if snapshot.status_label == "empty":
                 self.notify("知識庫為空，請先匯入文件 (ctrl+f)")
+                await self._update_research_panel(status="empty", content="", query=query)
                 return
             if snapshot.status_label == "degraded" and not snapshot.has_ready_chunks:
                 msg = "匯入曾失敗，知識庫尚無可檢索內容；請重新匯入文件"
                 if snapshot.last_error:
                     msg += f"（{snapshot.last_error[:60]}）"
                 self.notify(msg, severity="warning")
+                await self._update_research_panel(status="error", content=msg, query=query)
                 return
             if snapshot.status_label == "building" and not snapshot.has_ready_chunks:
                 self.notify("知識庫建構中，完成後即可搜尋")
+                await self._update_research_panel(
+                    status="loading",
+                    content="知識庫建構中，請稍候再試",
+                    query=query,
+                )
                 return
 
             from rag.knowledge_graph import query_knowledge
             result, sources = await query_knowledge(query, project_id=_pid)
             if not result:
                 self.notify("搜尋完成，但未找到相關內容")
-                await self._update_research_panel("")
+                await self._update_research_panel(
+                    status="empty",
+                    content="",
+                    sources=[],
+                    query=query,
+                )
                 return
             self.state.last_rag_sources = sources or []
-            await self._update_research_panel(result)
+            await self._update_research_panel(
+                status="degraded" if snapshot.status_label == "degraded" else "ready",
+                content=result,
+                sources=sources or [],
+                query=query,
+            )
 
             # Show readiness hint if degraded/building
             if snapshot.status_label == "building":
@@ -220,6 +242,7 @@ class RAGMixin:
                 self.notify("部分文獻匯入失敗，搜尋結果可能不完整", timeout=3)
         except Exception as e:
             self.notify(f"搜尋失敗: {e}")
+            await self._update_research_panel(status="error", content=f"搜尋失敗：{e}", query=query)
 
     def _open_knowledge_modal(self, tab: str = "import") -> None:
         project_id = self.state.current_project["id"] if self.state.current_project else "default"
@@ -315,9 +338,25 @@ class RAGMixin:
             self.notify(f"索引失敗: {e}")
 
     def action_cite_research(self) -> None:
-        display = getattr(self, '_last_research_display', '')
-        if display:
-            self.fill_input(f"[知識庫參考]\n{display}")
+        state = getattr(self, "_research_panel_state", {}) or {}
+        sources = state.get("sources", []) or []
+        context = state.get("raw_result", "") or state.get("display_text", "")
+        if sources:
+            lines: list[str] = []
+            for idx, src in enumerate(sources[:8], start=1):
+                title = (src.get("title", "") or src.get("file", "") or "未知來源").strip()
+                snippet = (src.get("snippet", "") or "").strip()
+                file_path = (src.get("file", "") or "").strip()
+                head = f"{idx}. {title}"
+                if file_path and file_path != title:
+                    head += f" ({file_path})"
+                lines.append(head)
+                if snippet:
+                    lines.append(f"   摘要：{snippet}")
+            cite_text = "[知識庫參考來源]\n" + "\n".join(lines)
+            self.fill_input(cite_text)
+        elif context:
+            self.fill_input(f"[知識庫參考]\n{context}")
         else:
             self.notify("目前無知識庫內容可引用", timeout=2)
 
@@ -337,55 +376,61 @@ class RAGMixin:
 
     @staticmethod
     def _clean_rag_display(raw: str) -> str:
-        """清理 LightRAG 原始輸出，提取可讀的中文內容。"""
+        """清理 RAG 原始輸出，保留可讀段落（最小破壞）。"""
         import re
-        # 先從原始文字提取 JSON content（在移除 header/footer 之前）
-        contents = re.findall(r'"content"\s*:\s*"((?:[^"\\]|\\.)*)"', raw)
-        if not contents:
-            text = re.sub(r"Document Chunks.*?Reference Document List[`'\s)]*:", "", raw, flags=re.DOTALL)
-            text = re.sub(r"```json\s*", "", text)
-            text = re.sub(r"```\s*", "", text)
-        else:
-            text = raw
-        if contents:
-            parts = []
-            for c in contents:
-                c = c.replace("\\n", "\n").replace("\\t", " ").strip()
-                if c and len(c) > 20:
-                    parts.append(c)
-            if parts:
-                def cn_ratio(s):
-                    cn = len(re.findall(r'[\u4e00-\u9fff]', s))
-                    return cn / max(len(s), 1)
-                parts.sort(key=cn_ratio, reverse=True)
-                result = "\n\n---\n\n".join(parts[:3])
-                result = re.sub(r"\[.*?p\.\d+\]\s*", "", result)
-                return result
-        text = re.sub(r'\{["\s]*reference_id["\s]*:.*?\}', "", text)
+        text = raw or ""
+        text = text.replace("\\n", "\n").replace("\\t", " ").replace("\\r", "")
+        text = re.sub(r"```json\s*", "", text, flags=re.IGNORECASE)
+        text = re.sub(r"```\s*", "", text)
+        text = re.sub(r"Document Chunks.*?Reference Document List[`'\s)]*:", "", text, flags=re.DOTALL)
         text = re.sub(r"Reference Document List.*", "", text, flags=re.DOTALL)
+        text = re.sub(r"\{[^{}]*\"reference_id\"[^{}]*\}", "", text)
+        text = re.sub(r"\n{3,}", "\n\n", text)
         return text.strip()
 
-    async def _update_research_panel(self, content: str) -> None:
+    async def _update_research_panel(
+        self,
+        content: str = "",
+        *,
+        status: str = "ready",
+        sources: list[dict] | None = None,
+        diagnostics: dict | None = None,
+        query: str = "",
+    ) -> None:
+        display = ""
+        if content and status not in ("loading", "error"):
+            display = self._clean_rag_display(content) or content
+            display = display[:1200] + ("…" if len(display) > 1200 else "")
+
+        self._research_panel_state = {
+            "status": status,
+            "display_text": display,
+            "raw_result": content or "",
+            "sources": list(sources or []),
+            "diagnostics": diagnostics or {},
+            "query": query,
+        }
+
         try:
             panel = self.query_one("#research-content", Static)
-            if content:
-                display = self._clean_rag_display(content)
-                if not display:
-                    display = content
-                display = display[:800] + ("…" if len(display) > 800 else "")
-                self._last_research_display = display
-                panel.update(f"[#c9d1d9]{escape(display)}[/]")
-            else:
-                self._last_research_display = ""
+            if status == "loading":
+                panel.update("[dim #6e7681]檢索中…[/]")
+            elif status == "error":
+                panel.update(f"[#d4a27a]{escape(content or '搜尋失敗')}[/]")
+            elif status == "empty":
                 panel.update("[dim #484f58]無結果[/]")
+            elif status == "degraded":
+                prefix = "[#d4a27a]（部分匯入失敗，結果可能不完整）[/]\n\n"
+                panel.update(prefix + f"[#c9d1d9]{escape(display or '無結果')}[/]")
+            else:
+                panel.update(f"[#c9d1d9]{escape(display or '無結果')}[/]")
         except NoMatches:
             pass
-        # Update cite link visibility
+
+        has_citable = bool((sources or []) or display)
         try:
-            cite_link = self.query_one("#research-cite", Static)
-            if content:
-                cite_link.update("[#484f58]▸ 引用到對話[/]")
-            else:
-                cite_link.update("")
+            cite_link = self.query_one("#research-cite", Button)
+            cite_link.disabled = not has_citable
+            cite_link.label = "引用到對話"
         except NoMatches:
             pass

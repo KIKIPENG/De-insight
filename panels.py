@@ -1,11 +1,8 @@
 """De-insight v0.2 — 右側面板 Widget"""
 
-from textual import work
 from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical, VerticalScroll
-from textual.widgets import Button, Input, Static
-
-from memory.store import get_memories, delete_memory, get_memory_stats
+from textual.widgets import Button, Static
 
 
 # ── Right Panel Widgets ──────────────────────────────────────────────
@@ -51,14 +48,15 @@ class MemoryItem(Static):
         self.app.push_screen(MemoryDetailModal(self.mem), callback=on_result)
 
 
-class KnowledgeActionLink(Static):
-    """知識庫面板內的可點擊操作。"""
+class KnowledgeActionButton(Button):
+    """知識庫面板操作按鈕。"""
 
     def __init__(self, label: str, action: str, **kwargs) -> None:
         super().__init__(label, **kwargs)
         self._action = action
 
-    def on_click(self) -> None:
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        event.stop()
         method = getattr(self.app, f"action_{self._action}", None)
         if method:
             method()
@@ -80,27 +78,32 @@ class DocumentItem(Static):
         self.app.action_manage_documents()
 
 
-class ResearchPanel(VerticalScroll):
+class ResearchPanel(Vertical):
     """右上：知識庫面板，含文獻列表 + 操作 + 查詢結果。"""
 
     def compose(self) -> ComposeResult:
         yield Horizontal(
-            KnowledgeActionLink("[#6e7681]匯入[/]", "import_document", classes="kb-action"),
-            KnowledgeActionLink("[#6e7681]搜尋[/]", "search_knowledge", classes="kb-action"),
-            KnowledgeActionLink("[#6e7681]批量[/]", "bulk_import", classes="kb-action"),
-            KnowledgeActionLink("[#6e7681]文獻[/]", "manage_documents", classes="kb-action"),
+            KnowledgeActionButton("匯入", "import_document", classes="kb-action"),
+            KnowledgeActionButton("搜尋", "search_knowledge", classes="kb-action"),
+            KnowledgeActionButton("批量", "bulk_import", classes="kb-action"),
+            KnowledgeActionButton("文獻", "manage_documents", classes="kb-action"),
             classes="kb-actions-row",
         )
         yield Static("[dim #484f58]─[/]" * 30, classes="kb-divider")
-        yield Vertical(id="kb-doc-list")
-        yield Static("", id="research-content")
-        yield ResearchCiteLink("", id="research-cite")
+        yield Static("[dim #6e7681]文獻[/]", classes="kb-section-label")
+        with VerticalScroll(id="kb-doc-scroll"):
+            yield Vertical(id="kb-doc-list")
+        yield Static("[dim #6e7681]研究結果[/]", classes="kb-section-label")
+        with VerticalScroll(id="research-result-scroll"):
+            yield Static("[dim #484f58]尚未檢索[/]", id="research-content")
+        yield ResearchCiteLink("引用到對話", id="research-cite", disabled=True)
 
 
-class ResearchCiteLink(Static):
-    """知識庫引用連結，點擊後將 RAG 摘要注入聊天。"""
+class ResearchCiteLink(Button):
+    """知識庫引用按鈕，將 RAG 摘要注入聊天。"""
 
-    def on_click(self) -> None:
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        event.stop()
         method = getattr(self.app, "action_cite_research", None)
         if method:
             method()
