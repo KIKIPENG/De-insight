@@ -52,14 +52,24 @@ def get_degraded_reason() -> str:
 async def _probe_rag_llm(model: str, key: str, base: str) -> str | None:
     """Actually probe the RAG LLM endpoint. Returns error string or None if OK."""
     if model.startswith("codex-cli/") or not base:
-        return None  # Can't probe codex-cli or local-only
+        # Gemini (LiteLLM native path) can still be probed without base URL.
+        if not model.startswith("gemini/"):
+            return None  # Can't probe codex-cli or local-only
     if "ollama" in model.lower() or key == "ollama":
         return None  # Skip ollama probe (may not be running during startup)
     try:
         import httpx
+        import litellm
         from rag.rate_guard import get_rate_guard
 
         async def _do_probe():
+            if model.startswith("gemini/"):
+                return await litellm.acompletion(
+                    model=model,
+                    messages=[{"role": "user", "content": "test"}],
+                    api_key=key,
+                    max_tokens=1,
+                )
             async with httpx.AsyncClient(timeout=10.0) as client:
                 resp = await client.post(
                     f"{base}/chat/completions",
@@ -80,6 +90,8 @@ async def _probe_rag_llm(model: str, key: str, base: str) -> str | None:
         resp = await guard.call_with_retry(
             "probe/chat/completions", _do_probe, max_retries=1,
         )
+        if model.startswith("gemini/"):
+            return None
         if resp.status_code == 401:
             return f"API key 無效 (401)"
         if resp.status_code == 404:

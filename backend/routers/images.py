@@ -180,8 +180,8 @@ async def _process_batch(
         # _quick_llm_call 不在 backend context 裡，用 litellm 直接呼叫
         async def _llm_call(prompt, max_tokens=300):
             import os
-            from settings import load_env
-            env = load_env()
+            from config.service import get_config_service
+            env = get_config_service().snapshot(include_process=True)
             model = env.get("RAG_LLM_MODEL", "") or env.get("LLM_MODEL", "")
             if not model:
                 return ""

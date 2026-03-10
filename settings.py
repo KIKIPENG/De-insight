@@ -13,6 +13,7 @@ from providers import (
     SERVICES, CHAT_PROVIDERS, EMBED_PROVIDERS, RAG_LLM_PROVIDERS,
     VISION_PROVIDERS, PROVIDERS,
 )
+from config.service import get_config_service
 
 ENV_PATH = Path(__file__).resolve().parent / ".env"
 
@@ -21,35 +22,18 @@ ENV_PATH = Path(__file__).resolve().parent / ".env"
 
 
 def load_env() -> dict[str, str]:
-    env = {}
-    if ENV_PATH.exists():
-        for line in ENV_PATH.read_text().splitlines():
-            line = line.strip()
-            if not line or line.startswith("#"):
-                continue
-            if "=" in line:
-                k, v = line.split("=", 1)
-                env[k.strip()] = v.strip()
-    return env
+    """Backward-compatible wrapper over ConfigService snapshot."""
+    return get_config_service().snapshot()
 
 
 def save_env(env: dict[str, str]) -> None:
-    lines = [f"{k}={v}" for k, v in env.items() if v]
-    ENV_PATH.write_text("\n".join(lines) + "\n")
+    """Backward-compatible wrapper that persists to .env via ConfigService."""
+    get_config_service().replace_env(env)
 
 
 def save_env_key(key: str, value: str) -> None:
-    """把單個 key 寫入 .env 檔案。若 .env 不存在則建立。"""
-    lines = ENV_PATH.read_text().splitlines() if ENV_PATH.exists() else []
-    found = False
-    for i, line in enumerate(lines):
-        if line.startswith(f"{key}="):
-            lines[i] = f"{key}={value}"
-            found = True
-            break
-    if not found:
-        lines.append(f"{key}={value}")
-    ENV_PATH.write_text("\n".join(lines) + "\n")
+    """把單個 key 寫入 .env（透過 ConfigService）。"""
+    get_config_service().update_env({key: value})
 
 
 def _full_model_id(provider_id: str, model_name: str, providers: dict = None) -> str:
@@ -172,6 +156,12 @@ class SettingsScreen(ModalScreen[str | None]):
     }
     .model-btn:hover { background: #1a1a1a; color: #fafafa; }
     .model-btn.-active { color: #fafafa; text-style: bold; }
+    #model-search-input {
+        margin: 0 0 1 0; background: #111111; color: #fafafa;
+        border: tall #3a3a3a; padding: 0 1;
+    }
+    #model-search-input:focus { border: tall #fafafa 40%; }
+    #model-scroll { height: 20; max-height: 45%; }
     /* navigation */
     #btn-back {
         background: #2a2a2a; color: #8b949e; border: none;
@@ -185,6 +175,8 @@ class SettingsScreen(ModalScreen[str | None]):
         super().__init__()
         self._env = load_env()
         self._current_model = self._env.get("LLM_MODEL", "")
+        self._model_search_query = ""
+        self._resolved_models_cache: list[str] | None = None
         # steps: "services" | "provider" | "setup" | "model"
         self._step = "services"
         self._active_service: str = "chat"  # which service we're configuring
@@ -270,7 +262,12 @@ class SettingsScreen(ModalScreen[str | None]):
                     yield Static(
                         "[dim #2a2a2a]" + "-" * 50 + "[/]", classes="sep",
                     )
-                    yield Vertical(id="model-list")
+                    yield Input(
+                        placeholder="搜尋模型...",
+                        id="model-search-input",
+                    )
+                    with VerticalScroll(id="model-scroll"):
+                        yield Vertical(id="model-list")
                     with Vertical(classes="btn-row"):
                         yield Button("<- 返回", id="btn-back-model")
 
@@ -431,6 +428,8 @@ class SettingsScreen(ModalScreen[str | None]):
                 models = cached
 
         self._pending_models = models
+        self._resolved_models_cache = None
+        self._model_search_query = ""
         self.query_one("#model-title", Static).update(
             f"  {pinfo['label']} — 選擇模型"
         )
@@ -442,8 +441,20 @@ class SettingsScreen(ModalScreen[str | None]):
         pid = self._selected_pid
         if not pid:
             return
-        models = getattr(self, "_pending_models", [])
+        models = list(getattr(self, "_pending_models", []))
         providers = self._get_providers()
+        from model_registry import resolve_dynamic_models
+        if self._resolved_models_cache is None:
+            self._resolved_models_cache = await resolve_dynamic_models(
+                provider_id=pid,
+                service=self._active_service,
+                fallback=models,
+                env=self._env,
+            )
+        models = list(self._resolved_models_cache or models)
+        query = self._model_search_query.strip().lower()
+        if query:
+            models = [m for m in models if query in m.lower()]
 
         # Determine current model for this service
         if self._active_service == "chat":
@@ -469,6 +480,11 @@ class SettingsScreen(ModalScreen[str | None]):
                 name=f"{pid}|{m}",
             )
             await model_list.mount(btn)
+
+    def on_input_changed(self, event: Input.Changed) -> None:
+        if event.input.id == "model-search-input":
+            self._model_search_query = event.value
+            self.call_after_refresh(self._populate_models)
 
     # ── button handling ──
 

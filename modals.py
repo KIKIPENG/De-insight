@@ -2051,6 +2051,12 @@ class OnboardingScreen(ModalScreen[str | None]):
         border: tall #3a3a3a; padding: 0 1;
     }
     #ob-key-input:focus { border: tall #fafafa 40%; }
+    #ob-model-search {
+        margin: 0; background: #111111; color: #fafafa;
+        border: tall #3a3a3a; padding: 0 1;
+    }
+    #ob-model-search:focus { border: tall #fafafa 40%; }
+    #ob-model-scroll { height: 16; max-height: 45%; }
     #ob-key-section { height: auto; }
     .ob-btn-row { height: auto; margin: 1 0 0 0; }
     .ob-btn-row Button { margin: 0 1 0 0; }
@@ -2082,6 +2088,9 @@ class OnboardingScreen(ModalScreen[str | None]):
         self._selected_embed_pid: str | None = None
         self._selected_rag_pid: str | None = None
         self._selected_vision_pid: str | None = None
+        self._model_search_query: str = ""
+        self._model_candidates: list[str] = []
+        self._model_button_kind: str | None = None
 
     def compose(self) -> ComposeResult:
         box = Vertical(id="ob-box")
@@ -2118,6 +2127,49 @@ class OnboardingScreen(ModalScreen[str | None]):
         elif self._step == "done":
             await self._render_done(container)
 
+    def _filter_models(self, models: list[str]) -> list[str]:
+        q = self._model_search_query.strip().lower()
+        if not q:
+            return models
+        return [m for m in models if q in m.lower()]
+
+    def on_input_changed(self, event: Input.Changed) -> None:
+        if event.input.id == "ob-model-search":
+            self._model_search_query = event.value
+            self.run_worker(self._refresh_model_buttons(), exclusive=True)
+
+    async def _refresh_model_buttons(self) -> None:
+        """Refresh only the model button list to avoid full-screen flicker."""
+        try:
+            scroll = self.query_one("#ob-model-scroll", VerticalScroll)
+        except Exception:
+            return
+
+        await scroll.remove_children()
+        models = self._filter_models(self._model_candidates)
+        kind = self._model_button_kind
+        for idx, model in enumerate(models):
+            if kind == "chat":
+                btn_id = f"ob-model-{idx}"
+            elif kind == "rag":
+                btn_id = (
+                    "ob-ragmodel-"
+                    + model.replace("/", "_").replace(":", "-").replace(".", "_")
+                )
+            elif kind == "vision":
+                btn_id = f"ob-vmodel-{idx}"
+            else:
+                continue
+
+            await scroll.mount(
+                Button(
+                    f"  {model}",
+                    id=btn_id,
+                    classes="ob-prov-btn",
+                    name=model,
+                )
+            )
+
     async def _render_chat_provider(self, container: Vertical) -> None:
         from providers import CHAT_PROVIDERS
         await container.mount(
@@ -2137,6 +2189,8 @@ class OnboardingScreen(ModalScreen[str | None]):
 
     async def _render_chat_setup(self, container: Vertical) -> None:
         from providers import CHAT_PROVIDERS
+        from config.service import get_config_service
+        from model_registry import resolve_dynamic_models
         pinfo = CHAT_PROVIDERS.get(self._selected_chat_pid, {})
         auth_type = pinfo.get("auth_type", "api_key")
 
@@ -2163,14 +2217,29 @@ class OnboardingScreen(ModalScreen[str | None]):
             await container.mount(Static(f"  {label}", classes="ob-hint"))
 
         # model selection
-        models = pinfo.get("models", [])
+        models = await resolve_dynamic_models(
+            provider_id=self._selected_chat_pid or "",
+            service="chat",
+            fallback=list(pinfo.get("models", [])),
+            env=get_config_service().snapshot(include_process=True),
+        )
+        self._model_candidates = list(models)
+        self._model_button_kind = "chat"
+        models = self._filter_models(self._model_candidates)
         if models:
             await container.mount(
                 Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
                 Static("  選擇模型", classes="ob-hint"),
+                Input(
+                    value=self._model_search_query,
+                    placeholder="搜尋模型...",
+                    id="ob-model-search",
+                ),
             )
+            scroll = VerticalScroll(id="ob-model-scroll")
+            await container.mount(scroll)
             for idx, model in enumerate(models):
-                await container.mount(
+                await scroll.mount(
                     Button(
                         f"  {model}",
                         id=f"ob-model-{idx}",
@@ -2321,6 +2390,8 @@ class OnboardingScreen(ModalScreen[str | None]):
 
     async def _render_rag_setup(self, container: Vertical) -> None:
         from providers import RAG_LLM_PROVIDERS
+        from config.service import get_config_service
+        from model_registry import resolve_dynamic_models
         pinfo = RAG_LLM_PROVIDERS.get(self._selected_rag_pid, {})
         auth_type = pinfo.get("auth_type", "api_key")
 
@@ -2346,11 +2417,28 @@ class OnboardingScreen(ModalScreen[str | None]):
                 ),
             )
 
-        models = pinfo.get("models", [])
+        models = await resolve_dynamic_models(
+            provider_id=self._selected_rag_pid or "",
+            service="rag_llm",
+            fallback=list(pinfo.get("models", [])),
+            env=get_config_service().snapshot(include_process=True),
+        )
+        self._model_candidates = list(models)
+        self._model_button_kind = "rag"
+        models = self._filter_models(self._model_candidates)
         if models:
-            await container.mount(Static("  選擇模型：", classes="ob-hint"))
+            await container.mount(
+                Static("  選擇模型：", classes="ob-hint"),
+                Input(
+                    value=self._model_search_query,
+                    placeholder="搜尋模型...",
+                    id="ob-model-search",
+                ),
+            )
+            scroll = VerticalScroll(id="ob-model-scroll")
+            await container.mount(scroll)
             for m in models:
-                await container.mount(
+                await scroll.mount(
                     Button(
                         f"  {m}",
                         id=f"ob-ragmodel-{m.replace('/', '_').replace(':', '-').replace('.', '_')}",
@@ -2417,6 +2505,8 @@ class OnboardingScreen(ModalScreen[str | None]):
 
     async def _render_vision_setup(self, container: Vertical) -> None:
         from providers import VISION_PROVIDERS
+        from config.service import get_config_service
+        from model_registry import resolve_dynamic_models
         pinfo = VISION_PROVIDERS.get(self._selected_vision_pid, {})
         auth_type = pinfo.get("auth_type", "api_key")
 
@@ -2444,14 +2534,29 @@ class OnboardingScreen(ModalScreen[str | None]):
             )
 
         # Model selection
-        models = pinfo.get("models", [])
+        models = await resolve_dynamic_models(
+            provider_id=self._selected_vision_pid or "",
+            service="vision",
+            fallback=list(pinfo.get("models", [])),
+            env=get_config_service().snapshot(include_process=True),
+        )
+        self._model_candidates = list(models)
+        self._model_button_kind = "vision"
+        models = self._filter_models(self._model_candidates)
         if models:
             await container.mount(
                 Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
                 Static("  選擇 Vision 模型", classes="ob-hint"),
+                Input(
+                    value=self._model_search_query,
+                    placeholder="搜尋模型...",
+                    id="ob-model-search",
+                ),
             )
+            scroll = VerticalScroll(id="ob-model-scroll")
+            await container.mount(scroll)
             for idx, model in enumerate(models):
-                await container.mount(
+                await scroll.mount(
                     Button(
                         f"  {model}",
                         id=f"ob-vmodel-{idx}",
@@ -2498,6 +2603,9 @@ class OnboardingScreen(ModalScreen[str | None]):
         # Step 1: chat provider selection
         if btn_id.startswith("ob-chat-"):
             self._selected_chat_pid = btn_name
+            self._model_search_query = ""
+            self._model_candidates = []
+            self._model_button_kind = None
             self._step = "chat_setup"
             await self._render_step()
             return
@@ -2526,6 +2634,9 @@ class OnboardingScreen(ModalScreen[str | None]):
                 await self._render_step()
                 return
             self._selected_rag_pid = pid
+            self._model_search_query = ""
+            self._model_candidates = []
+            self._model_button_kind = None
             self._step = "rag_setup"
             await self._render_step()
             return
@@ -2538,6 +2649,9 @@ class OnboardingScreen(ModalScreen[str | None]):
                 await self._render_step()
                 return
             self._selected_vision_pid = pid
+            self._model_search_query = ""
+            self._model_candidates = []
+            self._model_button_kind = None
             self._step = "vision_setup"
             await self._render_step()
             return
@@ -2559,6 +2673,7 @@ class OnboardingScreen(ModalScreen[str | None]):
         # Back button
         if btn_id == "btn-ob-back":
             if self._step == "chat_setup":
+                self._model_search_query = ""
                 self._step = "chat_provider"
             elif self._step == "embed":
                 self._step = "chat_provider"
@@ -2567,10 +2682,12 @@ class OnboardingScreen(ModalScreen[str | None]):
             elif self._step == "rag_llm":
                 self._step = "embed"
             elif self._step == "rag_setup":
+                self._model_search_query = ""
                 self._step = "rag_llm"
             elif self._step == "vision_provider":
                 self._step = "rag_llm"
             elif self._step == "vision_setup":
+                self._model_search_query = ""
                 self._step = "vision_provider"
             await self._render_step()
             return

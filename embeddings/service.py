@@ -19,6 +19,7 @@ import threading
 from pathlib import Path
 from typing import Union
 
+from config.service import get_config_service
 from embeddings.backend import EmbeddingBackend
 
 log = logging.getLogger(__name__)
@@ -40,11 +41,7 @@ def _default_provider() -> str:
     有 JINA_API_KEY 就用 jina（輕量、免安裝），否則用 gguf（本地）。
     讀取 .env 檔案（TUI 不會 load_dotenv，不能靠 os.environ）。
     """
-    try:
-        from settings import load_env
-        env = load_env()
-    except Exception:
-        env = {}
+    env = get_config_service().snapshot(include_process=True)
     if env.get("JINA_API_KEY", "") or os.environ.get("JINA_API_KEY", ""):
         return "jina"
     return "gguf"
@@ -92,12 +89,8 @@ class EmbeddingService:
             if self._backend is not None:
                 return
 
-            # 從 .env 讀取設定（TUI 不會 load_dotenv）
-            try:
-                from settings import load_env
-                env = load_env()
-            except Exception:
-                env = {}
+            cfg = get_config_service()
+            env = cfg.snapshot(include_process=True)
 
             # Prefer .env over process env to avoid stale in-memory config
             # after Settings writes new keys.

@@ -13,6 +13,11 @@ if _venv_dir.is_dir():
         if _p not in sys.path:
             sys.path.insert(0, _p)
 
+# Ensure project root is importable (for shared modules like config/).
+_project_root = Path(__file__).resolve().parent.parent
+if str(_project_root) not in sys.path:
+    sys.path.insert(0, str(_project_root))
+
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -64,21 +69,26 @@ async def health():
 @app.post("/api/reload-env")
 async def reload_env():
     """重新載入 .env，讓設定變更立即生效。"""
-    import os
-
+    from config.service import get_config_service
     import services.llm as llm_mod
     from embeddings.service import reset_embedding_service
     from rag.knowledge_graph import reset_rag
 
-    load_dotenv(dotenv_path=env_path, override=True)
-    llm_mod.DEFAULT_MODEL = os.getenv("LLM_MODEL", "ollama/llama3.2")
+    cfg = get_config_service()
+    cfg.reload()
+    # Export all persisted config keys so downstream libraries (e.g. LiteLLM)
+    # that still read process env get a consistent, up-to-date view.
+    cfg.export_to_environ()
+    llm_mod.DEFAULT_MODEL = cfg.get("LLM_MODEL", "ollama/llama3.2")
     # Also reset long-lived singletons that cache env-sensitive configs.
     reset_embedding_service()
     reset_rag()
+    issues = cfg.validate()
     return {
         "status": "ok",
         "model": llm_mod.DEFAULT_MODEL,
-        "embed_provider": os.getenv("EMBED_PROVIDER", ""),
-        "embed_model": os.getenv("EMBED_MODEL", ""),
-        "rag_model": os.getenv("RAG_LLM_MODEL", ""),
+        "embed_provider": cfg.get("EMBED_PROVIDER", ""),
+        "embed_model": cfg.get("EMBED_MODEL", ""),
+        "rag_model": cfg.get("RAG_LLM_MODEL", ""),
+        "config_issues": issues,
     }

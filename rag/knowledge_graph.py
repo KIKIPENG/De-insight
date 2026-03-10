@@ -11,7 +11,7 @@ from lightrag.utils import EmbeddingFunc
 
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from settings import load_env
+from config.service import get_config_service
 
 from paths import project_root, ensure_project_dirs, DATA_ROOT
 
@@ -43,7 +43,7 @@ def _get_llm_config() -> tuple[str, str, str]:
     可在 .env 設定 RAG_LLM_MODEL / RAG_API_KEY / RAG_API_BASE
     來獨立控制知識庫用的 LLM，不受主聊天模型影響。
     """
-    env = load_env()
+    env = get_config_service().snapshot(include_process=True)
 
     # 優先使用獨立的 RAG LLM 設定
     rag_model = env.get("RAG_LLM_MODEL", "")
@@ -52,14 +52,33 @@ def _get_llm_config() -> tuple[str, str, str]:
         rag_base = env.get("RAG_API_BASE", "") or env.get("OPENAI_API_BASE", "https://api.openai.com/v1")
         if rag_model.startswith("ollama/"):
             return rag_model.removeprefix("ollama/"), "ollama", "http://localhost:11434/v1"
+        # Google AI Studio (Gemini): use LiteLLM native Gemini path instead of
+        # forcing OpenAI-compatible /chat/completions.
+        # Keep OpenRouter models (e.g. google/gemini-*) untouched when base is OpenRouter.
+        _base_lower = rag_base.lower()
+        _is_openrouter_base = "openrouter.ai" in _base_lower
+        _is_google_base = "generativelanguage.googleapis.com" in _base_lower
+        _is_gemini_like = rag_model.startswith("gemini-") or rag_model.startswith("gemini/")
+        if (_is_gemini_like or _is_google_base) and not _is_openrouter_base:
+            if rag_model.startswith("gemini/"):
+                _gemini_model = rag_model
+            elif rag_model.startswith("google/"):
+                _gemini_model = f"gemini/{rag_model.removeprefix('google/')}"
+            else:
+                _gemini_model = f"gemini/{rag_model.removeprefix('gemini/')}"
+            # Guardrail: Google endpoint currently rejects gemini-1.5-flash
+            # (404 model not found / unsupported). Auto-upgrade to 2.5-flash.
+            if _gemini_model in ("gemini/gemini-1.5-flash", "gemini-1.5-flash"):
+                log.warning(
+                    "RAG_LLM_MODEL=%s 已不可用，改用 gemini/gemini-2.5-flash",
+                    _gemini_model,
+                )
+                _gemini_model = "gemini/gemini-2.5-flash"
+            rag_key = env.get("RAG_API_KEY", "") or env.get("GOOGLE_API_KEY", "") or rag_key
+            return _gemini_model, rag_key, ""
         # Strip openai/ prefix — API endpoint expects bare model name
         if rag_model.startswith("openai/"):
             rag_model = rag_model.removeprefix("openai/")
-        # Google AI Studio: route to Google endpoint with GOOGLE_API_KEY
-        if rag_model.startswith("google/"):
-            rag_model = rag_model.removeprefix("google/")
-            rag_base = rag_base or "https://generativelanguage.googleapis.com/v1beta/openai"
-            rag_key = env.get("RAG_API_KEY", "") or env.get("GOOGLE_API_KEY", "")
         return rag_model, rag_key, rag_base
 
     model = env.get("LLM_MODEL", "ollama/llama3.2")
@@ -131,7 +150,7 @@ def _clear_stale_vdb(working_dir: Path, old_dim: int, new_dim: int) -> None:
 
 def _apply_env() -> None:
     """Set env vars for LightRAG's OpenAI client."""
-    env = load_env()
+    env = get_config_service().snapshot(include_process=True)
     for key in (
         "OPENAI_API_KEY", "OPENAI_API_BASE",
         "ANTHROPIC_API_KEY", "CODEX_API_KEY",
@@ -174,6 +193,7 @@ def get_rag(project_id: str = "default") -> LightRAG:
         async def llm_func(prompt, system_prompt=None, history_messages=None, **kwargs):
             import re as _re
             import httpx as _httpx
+            import litellm as _litellm
             from rag.rate_guard import get_rate_guard
             # Drop response_format — reasoning models (MiniMax-M2.5) return
             # <think> tags that break structured output validation.
@@ -186,6 +206,15 @@ def get_rag(project_id: str = "default") -> LightRAG:
             messages.append({"role": "user", "content": prompt})
 
             async def _call_llm():
+                # Gemini family: use LiteLLM native provider routing.
+                if llm_model.startswith("gemini/"):
+                    resp = await _litellm.acompletion(
+                        model=llm_model,
+                        messages=messages,
+                        api_key=llm_key,
+                    )
+                    return (resp.choices[0].message.content or "")
+
                 async with _httpx.AsyncClient(timeout=_llm_timeout) as client:
                     body = {"model": llm_model, "messages": messages}
                     # Ollama local: use GPU — serialize with embedding via max_async=1
@@ -391,6 +420,15 @@ async def _llm_clean_web_content(raw_text: str, source: str, project_id: str = "
         from rag.rate_guard import get_rate_guard
 
         async def _call_clean():
+            if llm_model.startswith("gemini/"):
+                import litellm
+                resp = await litellm.acompletion(
+                    model=llm_model,
+                    messages=[{"role": "user", "content": prompt}],
+                    api_key=llm_key,
+                )
+                return (resp.choices[0].message.content or "")
+
             async with httpx.AsyncClient(timeout=120.0) as client:
                 resp = await client.post(
                     f"{llm_base}/chat/completions",
@@ -691,7 +729,7 @@ async def insert_url(url: str, project_id: str = "default", title: str = "", on_
     log = logging.getLogger("rag.insert_url")
 
     # 讀取 web fetch 設定
-    env = load_env()
+    env = get_config_service().snapshot(include_process=True)
     fetch_provider = env.get("WEB_FETCH_PROVIDER", "auto").lower()  # auto|reader|legacy
     fetch_timeout = float(env.get("WEB_FETCH_TIMEOUT_SECS", "30"))
     reader_base = env.get("WEB_FETCH_READER_BASE", "https://r.jina.ai/")

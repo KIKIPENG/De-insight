@@ -120,7 +120,7 @@ RAG_LLM_PROVIDERS = {
     },
     "google-rag": {
         "label": "Google AI Studio",
-        "models": ["gemini-1.5-flash", "gemini-2.5-flash", "gemini-2.5-pro"],
+        "models": ["gemini-2.5-flash", "gemini-2.5-pro"],
         "key_env": "GOOGLE_API_KEY",
         "base_env": "",
         "model_prefix": "",

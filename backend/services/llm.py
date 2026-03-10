@@ -7,17 +7,11 @@ from collections.abc import AsyncGenerator
 
 import httpx
 import litellm
+from config.service import get_config_service
 
 def _get_default_model() -> str:
     """每次重新讀取 .env，避免快取舊值。"""
-    from pathlib import Path
-    env_path = Path(__file__).resolve().parent.parent.parent / ".env"
-    if env_path.exists():
-        for line in env_path.read_text().splitlines():
-            line = line.strip()
-            if line.startswith("LLM_MODEL="):
-                return line.split("=", 1)[1].strip()
-    return os.getenv("LLM_MODEL", "ollama/llama3.2")
+    return get_config_service().get("LLM_MODEL", "ollama/llama3.2")
 
 
 def _is_codex_model(model: str) -> bool:
@@ -35,7 +29,8 @@ async def _codex_stream(
 ) -> AsyncGenerator[str, None]:
     """透過 OpenAI Responses API 串流 Codex 回應。"""
     # Codex: prefer CODEX_API_KEY, fallback to OPENAI_API_KEY
-    api_key = os.getenv("CODEX_API_KEY", "") or os.getenv("OPENAI_API_KEY", "")
+    cfg = get_config_service()
+    api_key = cfg.get("CODEX_API_KEY", "") or cfg.get("OPENAI_API_KEY", "")
     # Codex 永遠使用 OpenAI 官方 API，不走自訂 base
     base_url = "https://api.openai.com/v1"
     # Strip prefix
@@ -125,7 +120,7 @@ async def chat_completion(
     try:
         # 若有自訂 API base，傳給 LiteLLM
         kwargs = {}
-        api_base = os.getenv("OPENAI_API_BASE", "")
+        api_base = get_config_service().get("OPENAI_API_BASE", "")
         if api_base and target_model.startswith("openai/"):
             kwargs["api_base"] = api_base
         response = await litellm.acompletion(
@@ -186,10 +181,11 @@ async def chat_completion(
 
 def get_available_models() -> list[str]:
     """回傳已設定的可用模型列表。"""
+    cfg = get_config_service()
     models = [_get_default_model()]
-    if os.getenv("OPENAI_API_KEY"):
+    if cfg.get("OPENAI_API_KEY", ""):
         models.append("gpt-4o")
         models.append("codex/codex-mini-latest")
-    if os.getenv("ANTHROPIC_API_KEY"):
+    if cfg.get("ANTHROPIC_API_KEY", ""):
         models.append("claude-sonnet-4-20250514")
     return models

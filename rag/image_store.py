@@ -284,8 +284,8 @@ def _resolve_vision_config() -> tuple[str, str, str]:
     3. LLM_MODEL（主聊天模型）
     4. 預設 gemini-2.5-flash（免費且支援 vision）
     """
-    from settings import load_env
-    env = load_env()
+    from config.service import get_config_service
+    env = get_config_service().snapshot(include_process=True)
 
     # 1. 獨立 vision 設定
     model = env.get("VISION_MODEL", "")

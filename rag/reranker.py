@@ -7,7 +7,6 @@ API 文件：https://jina.ai/reranker/
 from __future__ import annotations
 
 import logging
-import os
 from typing import Any
 
 import httpx
@@ -20,14 +19,8 @@ _DEFAULT_MODEL = "jina-reranker-v2-base-multilingual"
 
 def _get_api_key() -> str:
     """從 .env 或 os.environ 取得 JINA_API_KEY。"""
-    key = os.environ.get("JINA_API_KEY", "")
-    if not key:
-        try:
-            from settings import load_env
-            key = load_env().get("JINA_API_KEY", "")
-        except Exception:
-            pass
-    return key
+    from config.service import get_config_service
+    return get_config_service().get("JINA_API_KEY", "")
 
 
 async def rerank(
