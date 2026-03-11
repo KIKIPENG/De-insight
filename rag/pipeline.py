@@ -13,6 +13,7 @@ v7.5.0 穩定化：
 from __future__ import annotations
 
 import logging
+import os
 import re
 import time
 from dataclasses import dataclass, field
@@ -23,6 +24,8 @@ log = logging.getLogger(__name__)
 
 _deep_fail_until: float = 0.0  # timestamp until which deep is disabled
 _DEEP_COOLDOWN_SECS = 120  # 2 minutes cooldown after failure
+_HYDE_CACHE: dict[tuple[str, str], tuple[float, str]] = {}
+_HYDE_CACHE_MAX = 128
 
 
 def _trip_deep_breaker(error_code: str) -> None:
@@ -382,6 +385,209 @@ def augment_query_cross_lang(user_input: str) -> str:
 
 # ── Retrieval layer ────────────────────────────────────────────────
 
+_HYDE_SYSTEM_PROMPT = (
+    "你在幫知識庫檢索做 HyDE。"
+    "請根據使用者查詢，寫出一小段『如果知識庫裡真的有一段相關論述，它可能會怎麼說』的假想段落。"
+    "重點是保留論證結構、價值張力與因果關係，不是重複關鍵字。"
+    "不要加標題、不要條列、不要解釋任務、不要虛構精確史實或引用。"
+)
+
+
+def _hyde_enabled(mode: str, q_type: str) -> bool:
+    """Return whether HyDE should be applied for this query."""
+    if q_type == "fact":
+        return False
+    from config.service import get_config_service
+    env = get_config_service().snapshot(include_process=True)
+    if (env.get("RAG_HYDE_ENABLED", "1") or "1") == "0":
+        return False
+    if mode == "deep":
+        return True
+    return (env.get("RAG_HYDE_FAST", "0") or "0") == "1"
+
+
+def _extract_retry_after(exc: Exception) -> float | None:
+    """Extract retry-after seconds from provider errors."""
+    match = re.search(r'retry[\s_-]*after[\s:=]*(\d+(?:\.\d+)?)', str(exc), re.IGNORECASE)
+    if match:
+        return float(match.group(1))
+    return None
+
+
+async def _rag_llm_complete(
+    prompt: str,
+    *,
+    system_prompt: str = "",
+    max_tokens: int = 320,
+    temperature: float = 0.2,
+    max_retries: int = 2,
+) -> str:
+    """Small non-streaming LLM call using the RAG model settings."""
+    from rag.knowledge_graph import _get_llm_config
+
+    llm_model, llm_key, llm_base = _get_llm_config()
+    if not llm_model:
+        return ""
+
+    if llm_model.startswith("codex-cli/"):
+        from codex_client import codex_stream
+
+        result = ""
+        async for chunk in codex_stream(
+            prompt,
+            system_prompt,
+            model=llm_model.removeprefix("codex-cli/"),
+        ):
+            result += chunk
+        return result.strip()
+
+    import asyncio as _asyncio
+    import httpx as _httpx
+    import litellm as _litellm
+    from rag.rate_guard import RateLimitError
+
+    messages = []
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
+    messages.append({"role": "user", "content": prompt})
+
+    local_llm = "localhost" in llm_base or "127.0.0.1" in llm_base
+    timeout = 45.0 if local_llm else 30.0
+
+    if llm_model.startswith("gemini/"):
+        if llm_key:
+            os.environ["GEMINI_API_KEY"] = llm_key
+            os.environ["GOOGLE_API_KEY"] = llm_key
+    elif llm_key:
+        os.environ["OPENAI_API_KEY"] = llm_key
+    if llm_base:
+        os.environ["OPENAI_API_BASE"] = llm_base
+
+    last_exc = None
+    for attempt in range(max_retries):
+        try:
+            if llm_model.startswith("gemini/"):
+                resp = await _litellm.acompletion(
+                    model=llm_model,
+                    messages=messages,
+                    api_key=llm_key,
+                    max_tokens=max_tokens,
+                    temperature=temperature,
+                )
+                result = resp.choices[0].message.content or ""
+            else:
+                async with _httpx.AsyncClient(timeout=timeout) as client:
+                    body = {
+                        "model": llm_model,
+                        "messages": messages,
+                        "max_tokens": max_tokens,
+                        "temperature": temperature,
+                    }
+                    if local_llm:
+                        body["options"] = {"num_gpu": 99}
+                    resp = await client.post(
+                        f"{llm_base}/chat/completions",
+                        headers={
+                            "Authorization": f"Bearer {llm_key}",
+                            "HTTP-Referer": "https://github.com/De-insight",
+                            "X-Title": "De-insight",
+                        },
+                        json=body,
+                    )
+                    resp.raise_for_status()
+                    result = resp.json()["choices"][0]["message"]["content"]
+            if result and "<think>" in result:
+                result = re.sub(r"<think>[\s\S]*?</think>\s*", "", result)
+            return (result or "").strip()
+        except RateLimitError as exc:
+            last_exc = exc
+            if attempt < max_retries - 1:
+                await _asyncio.sleep(_extract_retry_after(exc) or (2.0 * (2 ** attempt)))
+        except Exception as exc:
+            last_exc = exc
+            if attempt < max_retries - 1:
+                await _asyncio.sleep(1.0 * (attempt + 1))
+
+    raise last_exc if last_exc else RuntimeError("RAG LLM completion failed")
+
+
+def _clean_hyde_passage(text: str, limit: int = 700) -> str:
+    """Normalize LLM output into a single short retrieval passage."""
+    cleaned = (text or "").strip()
+    cleaned = re.sub(r"^#+\s*", "", cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r"^[\-\*\d\.\)\s]+", "", cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r"\s+", " ", cleaned)
+    return cleaned[:limit].strip()
+
+
+async def _generate_hyde_passage(query: str, q_type: str) -> str:
+    """Generate and cache a hypothetical document passage for retrieval."""
+    from config.service import get_config_service
+
+    q_norm = " ".join((query or "").strip().split()).lower()
+    if not q_norm:
+        return ""
+
+    env = get_config_service().snapshot(include_process=True)
+    ttl = int(env.get("RAG_HYDE_CACHE_TTL_SEC", "600") or "600")
+    cache_key = (q_type, q_norm)
+    now = time.time()
+    if ttl > 0:
+        cached = _HYDE_CACHE.get(cache_key)
+        if cached and cached[0] > now:
+            return cached[1]
+        if cached and cached[0] <= now:
+            _HYDE_CACHE.pop(cache_key, None)
+
+    prompt = (
+        f"查詢：{query}\n\n"
+        "請寫一段 120 到 220 字的假想知識庫段落。"
+        "這段文字應該像是某篇文章或書中的自然段落，"
+        "把這個查詢背後的論證結構、價值判準與問題意識說清楚。"
+        "避免只重述原句，也不要補入查詢中沒有根據的人名、年份、作品名。"
+    )
+    result = _clean_hyde_passage(await _rag_llm_complete(prompt, system_prompt=_HYDE_SYSTEM_PROMPT))
+    if result and ttl > 0:
+        if len(_HYDE_CACHE) >= _HYDE_CACHE_MAX:
+            _HYDE_CACHE.pop(next(iter(_HYDE_CACHE)))
+        _HYDE_CACHE[cache_key] = (now + ttl, result)
+    return result
+
+
+async def prepare_retrieval_query(
+    user_input: str,
+    mode: str,
+    q_type: str,
+) -> tuple[str, dict]:
+    """Build the retrieval query text and diagnostics."""
+    augmented_input = augment_query_cross_lang(user_input)
+    diag = {
+        "retrieval_query": augmented_input,
+        "retrieval_query_kind": "augmented",
+        "hyde_used": False,
+        "hyde_passage": "",
+    }
+    if not _hyde_enabled(mode, q_type):
+        return augmented_input, diag
+
+    try:
+        hyde_passage = await _generate_hyde_passage(user_input, q_type)
+    except Exception as e:
+        log.debug("HyDE generation skipped: %s", e)
+        return augmented_input, diag
+
+    if not hyde_passage:
+        return augmented_input, diag
+
+    retrieval_query = f"{augmented_input}\n\n{hyde_passage}"
+    diag.update({
+        "retrieval_query": retrieval_query,
+        "retrieval_query_kind": "hyde",
+        "hyde_used": True,
+        "hyde_passage": hyde_passage,
+    })
+    return retrieval_query, diag
+
 def _get_chunk_top_k(q_type: str) -> int:
     """Dynamic chunk_top_k based on question type."""
     return {"fact": 8, "summary": 5, "reasoning": 6}.get(q_type, 5)
@@ -392,6 +598,7 @@ async def _retrieve(
     project_id: str,
     mode: str,
     q_type: str,
+    retrieval_input: str | None = None,
 ) -> tuple[str, list[dict], str, str | None]:
     """Execute retrieval. Returns (raw_result, sources, strategy_used, deep_error_code).
 
@@ -403,8 +610,7 @@ async def _retrieve(
     if not has_knowledge(project_id=project_id):
         return "", [], "none", None
 
-    # D1: Augment query for cross-language retrieval
-    augmented_input = augment_query_cross_lang(user_input)
+    retrieval_query = retrieval_input or augment_query_cross_lang(user_input)
 
     chunk_top_k = _get_chunk_top_k(q_type)
     deep_error_code = None
@@ -425,7 +631,7 @@ async def _retrieve(
         else:
             try:
                 result, sources = await query_knowledge(
-                    augmented_input,
+                    retrieval_query,
                     mode="hybrid",
                     context_only=False,
                     project_id=project_id,
@@ -453,7 +659,7 @@ async def _retrieve(
     # Fast path (or fallback)
     try:
         result, sources = await query_knowledge(
-            augmented_input,
+            retrieval_query,
             mode="naive",
             context_only=True,
             project_id=project_id,
@@ -583,6 +789,7 @@ async def run_thinking_pipeline(
     project_id: str,
     mode: str = "fast",
     db_path=None,
+    recent_surfaced_bridges: list = None,
 ) -> dict:
     """Unified RAG pipeline entry point.
 
@@ -612,10 +819,15 @@ async def run_thinking_pipeline(
     # Step 2: Question classification
     q_type = classify_question(user_input)
 
+    # Step 2.5: Build retrieval query (cross-language + optional HyDE)
+    t_stage = time.time()
+    retrieval_query, retrieval_diag = await prepare_retrieval_query(user_input, mode, q_type)
+    latency_stages["query_prep_ms"] = int((time.time() - t_stage) * 1000)
+
     # Step 3: Retrieval (with deep fallback + cross-language augmentation)
     t_stage = time.time()
     raw_result, sources, strategy, deep_error_code = await _retrieve(
-        user_input, project_id, mode, q_type,
+        user_input, project_id, mode, q_type, retrieval_input=retrieval_query,
     )
     latency_stages["retrieval_ms"] = int((time.time() - t_stage) * 1000)
 
@@ -667,6 +879,33 @@ async def run_thinking_pipeline(
         " ".join(f"{k}={v}" for k, v in latency_stages.items()),
     )
 
+    # Step 6.5: Bridge surfacing (if bridges available from core.retriever)
+    surfaced_bridge = None
+    recent_surfaced_bridges = recent_surfaced_bridges or []
+    try:
+        from core.bridge_surfacing import apply_surfacing_policy
+        from core.retriever import assess_anchor_quality
+        from core.schemas import RetrievalResult
+
+        # Try to extract bridges from raw_result if it's a RetrievalResult
+        if isinstance(raw_result, RetrievalResult) and raw_result.bridges:
+            anchor = getattr(raw_result, 'claims', [None])[0] if hasattr(raw_result, 'claims') else None
+            anchor_quality = assess_anchor_quality(anchor).get("quality_score", 0) if anchor else 0
+
+            # Get messages for context (approximation)
+            messages_for_context = [{"role": "user", "content": user_input}]
+
+            should_surface, surfaced = apply_surfacing_policy(
+                anchor_quality=anchor_quality,
+                bridges=raw_result.bridges,
+                messages=messages_for_context,
+                recent_surfaced=recent_surfaced_bridges,
+            )
+            if should_surface:
+                surfaced_bridge = surfaced
+    except Exception as e:
+        log.debug("Bridge surfacing skipped: %s", e)
+
     return {
         "strategy_used": strategy,
         "fallback_used": strategy in ("fast_fallback", "failed"),
@@ -675,8 +914,13 @@ async def run_thinking_pipeline(
         "sources": sources,
         "perspective_card": perspective.to_dict(),
         "links": [],
+        "surfaced_bridge": surfaced_bridge,
         "diagnostics": {
             "deep_error_code": deep_error_code,
+            "hyde_passage": retrieval_diag.get("hyde_passage", ""),
+            "hyde_used": retrieval_diag.get("hyde_used", False),
+            "retrieval_query": retrieval_diag.get("retrieval_query", ""),
+            "retrieval_query_kind": retrieval_diag.get("retrieval_query_kind", "augmented"),
             "retrieval_hit_count": pre_gate_count,
             "source_count": source_count,
             "filtered_by_gate": filtered_count,

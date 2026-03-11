@@ -421,6 +421,32 @@ class ChatMixin:
                         self.state.current_conversation_id, "assistant", full_content)
                 self.state.interactive_depth = 0
 
+                surfaced_bridge = getattr(self, "_last_surfaced_bridge", None)
+                if surfaced_bridge:
+                    from widgets import Container, Text
+                    bridge_container = self.query_one("#messages", Container)
+                    bridge_hint = Text(f"💡 {surfaced_bridge}", id="bridge-hint")
+                    bridge_hint.styles.color = "silver"
+                    bridge_hint.styles.italic = True
+                    bridge_hint.styles.margin_top = 1
+                    await bridge_container.mount(bridge_hint)
+                    self._scroll_to_bottom()
+
+                    import time
+                    from widgets import SurfacedBridgeRecord, _normalize_bridge_topic, MAX_RECENT_SURFACED_BRIDGES
+                    normalized = _normalize_bridge_topic(surfaced_bridge)
+                    self.state.recent_surfaced_bridges.append(
+                        SurfacedBridgeRecord(
+                            topic=normalized,
+                            turn_index=self.state.turn_index,
+                            timestamp=time.time()
+                        )
+                    )
+                    if len(self.state.recent_surfaced_bridges) > MAX_RECENT_SURFACED_BRIDGES:
+                        self.state.recent_surfaced_bridges = self.state.recent_surfaced_bridges[-MAX_RECENT_SURFACED_BRIDGES:]
+
+            self.state.turn_index += 1
+
             raw_content = self.messages[-2]["content"] if len(self.messages) >= 2 else ""
             user_text = self._extract_text(raw_content)
             if user_text and len(user_text.strip()) >= 40:
@@ -798,6 +824,66 @@ class ChatMixin:
         except Exception:
             return ""
 
+    async def _decompose_query_deep(self, user_msg: str, recent_turns: list[dict] | None = None) -> list[str]:
+        """深度模式：用對話脈絡抽取底層敘事結構，轉成跨領域可搜的搜尋查詢。
+
+        核心邏輯：把名詞重要性降低，找出這段對話裡正在形成的論點結構，
+        再把它重寫成「不帶特定領域詞彙」的搜尋查詢——這樣才能在知識庫
+        裡找到敘事結構相似、但領域完全不同的論述。
+
+        recent_turns: 最近幾輪對話（[{role, content}, ...]），用於理解脈絡。
+        """
+        # 組合對話摘要：取最近 6 輪（避免過長），只留文字內容
+        ctx_lines: list[str] = []
+        for m in (recent_turns or [])[-6:]:
+            role_label = "創作者" if m.get("role") == "user" else "對話者"
+            content = self._extract_text(m.get("content", ""))
+            if content and len(content.strip()) > 3:
+                ctx_lines.append(f"{role_label}：{content[:200]}")
+        context_block = "\n".join(ctx_lines)
+
+        # 即使 user_msg 很短，只要有對話上文就繼續
+        if not context_block and len(user_msg.strip()) < 10:
+            return [user_msg]
+
+        prompt = (
+            "以下是一段創作者正在進行的思考對話：\n\n"
+            f"{context_block}\n"
+            f"（最新一句）創作者：{user_msg[:300]}\n\n"
+            "請完成以下兩個步驟，直接輸出結果，不要輸出步驟說明或標題：\n\n"
+            "第一行：把所有具體名詞拿掉，用一句話說出這段對話裡正在形成的底層論點。\n"
+            "例：「一種媒介只有不偽裝自身本質，才具有倫理正當性」\n"
+            "例：「工藝的真實性不應為外在市場壓力而妥協」\n\n"
+            "第二、三行（可選第四行）：把上面那個論點改寫成 2–3 個完整句子的搜尋查詢，\n"
+            "用來在知識庫找處理相同邏輯的論述——哪怕那些論述談的是攝影、陶瓷、字體、教育等完全不同的領域。\n"
+            "每個查詢都是完整的一句話，不是關鍵字組合。\n\n"
+            "直接輸出 3–4 行，每行一個，不要任何格式符號、不要編號、不要解釋。\n"
+            "繁體中文，每行不超過30字，不要用「書籍」「建築」等對話裡已有的具體名詞。"
+        )
+        try:
+            result = await self._quick_llm_call(prompt, max_tokens=300)
+            lines = [
+                l.strip().strip("[]「」\'\"")
+                for l in result.strip().splitlines()
+                if l.strip() and not l.strip().startswith("#")
+            ]
+            # 第一行是抽象論點描述，也拿來搜（它比原始 user_msg 更能跨領域命中）
+            # 後面是搜尋查詢
+            struct_queries = [q for q in lines[:4] if q and len(q) > 4]
+            # 組合：原始訊息（保底）+ 結構化查詢
+            all_queries = struct_queries + [user_msg]
+            # 去重，保留順序
+            seen: set[str] = set()
+            unique: list[str] = []
+            for q in all_queries:
+                if q not in seen:
+                    seen.add(q)
+                    unique.append(q)
+            return unique[:4]  # 最多 4 個查詢
+        except Exception as e:
+            self.log.debug(f"_decompose_query_deep failed: {e}")
+            return [user_msg]
+
     async def _build_system_prompt(self) -> str:
         """統一構建 system prompt：人格 + 模式 + 記憶摘要。\n\n        所有 LLM 路徑都應使用此方法，確保人格注入一致。
         """
@@ -817,6 +903,7 @@ class ChatMixin:
             self.mode,
             memory_summary=memory_summary,
             focus_block=focus_block,
+            rag_mode=getattr(self, "rag_mode", "fast"),
         )
 
     async def _inject_rag_context(
@@ -1004,18 +1091,82 @@ class ChatMixin:
         )
 
         # ── 3. 知識庫 RAG — pipeline ──
+        # 深度模式：先拆解查詢結構，再對每個子查詢分別檢索，合併結果
         try:
             from rag.pipeline import run_thinking_pipeline
             _db_path = None
             if self.state.current_project:
                 from paths import project_root as _pr
                 _db_path = _pr(self.state.current_project["id"]) / "memories.db"
-            pipeline_result = await run_thinking_pipeline(
-                user_input=user_msg,
-                project_id=_pid,
-                mode="deep" if not _is_fast else "fast",
-                db_path=_db_path,
-            )
+
+            if not _is_fast:
+                # ── 深度模式：多查詢拆解 + 合併 ──
+                await self._update_research_panel(
+                    status="loading",
+                    content="深度模式：提取對話論點結構…",
+                    query=user_msg,
+                )
+                # 傳入最近對話上文（排除最後一條 user msg，已在 user_msg 裡）
+                recent_turns = [
+                    m for m in self.messages[:-1]
+                    if m.get("role") in ("user", "assistant")
+                ][-10:]
+                sub_queries = await self._decompose_query_deep(user_msg, recent_turns=recent_turns)
+                self.log.info("Deep decompose: %d queries: %s", len(sub_queries), sub_queries)
+
+                # 對每個子查詢分別跑 pipeline，合併 context 和 sources
+                merged_context_parts: list[str] = []
+                merged_sources: list[dict] = []
+                seen_snippets: set[str] = set()
+                main_diag: dict = {}
+
+                for idx, q in enumerate(sub_queries):
+                    try:
+                        r = await run_thinking_pipeline(
+                            user_input=q,
+                            project_id=_pid,
+                            mode="deep",
+                            db_path=_db_path,
+                            recent_surfaced_bridges=self.state.recent_surfaced_bridges,
+                        )
+                        if idx == 0:
+                            main_diag = r.get("diagnostics", {})
+                        ctx = r.get("context_text", "").strip()
+                        if ctx:
+                            # 標注這段來自哪個概念查詢（若是子查詢才標，原始查詢不標）
+                            label = f"【{q}】\n" if idx > 0 else ""
+                            merged_context_parts.append(f"{label}{ctx}")
+                        for src in r.get("sources", []):
+                            snip = src.get("snippet", "") or src.get("title", "")
+                            if snip and snip not in seen_snippets:
+                                seen_snippets.add(snip)
+                                merged_sources.append(src)
+                    except Exception as sub_e:
+                        self.log.debug("Deep sub-query %d failed: %s", idx, sub_e)
+
+                # 組合合併後的 pipeline_result 結構
+                merged_context = "\n\n".join(merged_context_parts)
+                from rag.pipeline import clean_context
+                pipeline_result = {
+                    "strategy_used": "deep",
+                    "context_text": merged_context,
+                    "raw_result": merged_context,
+                    "sources": merged_sources[:8],
+                    "diagnostics": {
+                        **main_diag,
+                        "deep_decomposed_queries": sub_queries,
+                        "deep_query_count": len(sub_queries),
+                    },
+                }
+            else:
+                # ── 快速模式：單次檢索 ──
+                pipeline_result = await run_thinking_pipeline(
+                    user_input=user_msg,
+                    project_id=_pid,
+                    mode="fast",
+                    db_path=_db_path,
+                    recent_surfaced_bridges=self.state.recent_surfaced_bridges,
+                )
             # Store diagnostics for debugging
             self._last_pipeline_diagnostics = pipeline_result.get("diagnostics", {})
             diag = pipeline_result.get("diagnostics", {})
@@ -1023,6 +1174,7 @@ class ChatMixin:
             context_text = pipeline_result.get("context_text", "")
             raw_result = pipeline_result.get("raw_result", "")
             sources = pipeline_result.get("sources", [])
+            self._last_surfaced_bridge = pipeline_result.get("surfaced_bridge")
 
             self.log.info(
                 "RAG pipeline: strategy=%s context_len=%d raw_len=%d sources=%d readiness=%s augment_skipped=%s",
@@ -1058,23 +1210,62 @@ class ChatMixin:
                     diag["deep_error_code"], pipeline_result["strategy_used"],
                 )
 
+
             if context_text and len(context_text.strip()) > 10:
                 hint_prefix = f"（{_rag_hint}）\n\n" if _rag_hint else ""
                 insight_hint = ""
                 if _insight_score > 0.4:
                     insight_hint = "（這個問題和這位創作者過去的洞見高度相關，回答時可以連結他之前的思考。）\n\n"
-                injection = (
-                    "# 知識庫參考內容\n\n"
-                    f"{hint_prefix}"
-                    f"{insight_hint}"
-                    "以下是從使用者的知識庫中檢索到的相關資料，請優先根據這些內容回答。\n\n"
-                    f"{context_text}\n\n"
-                    "使用規則：\n"
-                    "- 回答應基於上述知識庫內容，不可自行補入未出現的人名、理論或引文\n"
-                    "- 引用知識庫概念時用 [[概念名稱]] 標記\n"
-                    "- 若知識庫資訊不足，明確說明後可提供一般性思考方向\n"
-                    "請用繁體中文回覆。"
-                )
+
+                if not _is_fast:
+                    # 深度模式：把原始問題和搜尋邏輯分開說清楚
+                    # 讓 LLM 知道：「要回應的是原始問題，不是抽象查詢」
+                    decomposed = pipeline_result.get("diagnostics", {}).get("deep_decomposed_queries", [])
+                    # 把原始 user_msg 從列表移除，只列抽象查詢
+                    abstract_queries = [q for q in (decomposed or []) if q != user_msg]
+                    search_angle_note = ""
+                    if abstract_queries:
+                        search_angle_note = (
+                            "（系統從對話脈絡中提取出以下底層論點，用來在知識庫搜尋平行論述——"
+                            "這些是搜尋用的角度，不是新的問題：\n"
+                            + "\n".join(f"  · {q}" for q in abstract_queries)
+                            + "）\n\n"
+                        )
+                    injection = (
+                        "# 知識庫平行論述（深度模式）\n\n"
+                        f"{hint_prefix}"
+                        f"{insight_hint}"
+                        f"【使用者原始問題／陳述】（你要回應的是這個，不是下面的抽象查詢）：\n"
+                        f"{user_msg}\n\n"
+                        f"{search_angle_note}"
+                        "以下是依上述底層論點角度從知識庫找到的平行論述片段。\n"
+                        "這些文本不一定用相同的詞，但在處理和使用者論點相同的問題邏輯。\n"
+                        "帶有【】標籤的段落代表從那個角度搜到的內容，不是新的問題。\n\n"
+                        f"{context_text}\n\n"
+                        "你的任務（不要展示給使用者看）：\n"
+                        "1. 用這些平行論述的視角，回應使用者原始說的那件事\n"
+                        "2. 說明這些論述強化了、還是動搖了使用者的論點\n"
+                        "3. 如果相關：從設計實踐角度說，這個原則為什麼難落實\n\n"
+                        "以你自己的語氣說話，不要整理片段、不要條列。\n"
+                        "知識庫是你的視角來源，不是你要報告的對象。\n"
+                        "- 引用知識庫概念時用 [[概念名稱]] 標記\n"
+                        "- 不補入知識庫未出現的人名、理論、史實\n"
+                        "請用繁體中文回覆。"
+                    )
+                else:
+                    # 快速模式：維持現有格式
+                    injection = (
+                        "# 知識庫參考內容\n\n"
+                        f"{hint_prefix}"
+                        f"{insight_hint}"
+                        "以下是從使用者的知識庫中檢索到的相關資料，請優先根據這些內容回答。\n\n"
+                        f"{context_text}\n\n"
+                        "使用規則：\n"
+                        "- 回答應基於上述知識庫內容，不可自行補入未出現的人名、理論或引文\n"
+                        "- 引用知識庫概念時用 [[概念名稱]] 標記\n"
+                        "- 若知識庫資訊不足，明確說明後可提供一般性思考方向\n"
+                        "請用繁體中文回覆。"
+                    )
                 if return_sys_addon:
                     sys_addon_parts.append(injection)
                 else:

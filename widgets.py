@@ -61,6 +61,27 @@ SPINNER_FRAMES = ["|", "/", "—", "\\"]
 
 
 @dataclass
+class SurfacedBridgeRecord:
+    topic: str
+    turn_index: int
+    timestamp: float
+
+
+MAX_RECENT_SURFACED_BRIDGES = 10
+
+
+def _normalize_bridge_topic(topic: str) -> str:
+    """Normalize bridge topic for comparison."""
+    import re
+    if not topic:
+        return ""
+    normalized = topic.lower()
+    normalized = re.sub(r'[^\w\s\u4e00-\u9fff]', '', normalized)
+    normalized = re.sub(r'\s+', ' ', normalized).strip()
+    return normalized
+
+
+@dataclass
 class AppState:
     current_project: dict | None = None
     pending_memories: list[dict] = field(default_factory=list)
@@ -71,6 +92,8 @@ class AppState:
     last_rag_sources: list[dict] = field(default_factory=list)
     last_imported_source: str | None = None
     pending_images: list = field(default_factory=list)
+    recent_surfaced_bridges: list[SurfacedBridgeRecord] = field(default_factory=list)
+    turn_index: int = 0
 
 LANCEDB_DIR = Path(__file__).parent / "data" / "lancedb"
 
