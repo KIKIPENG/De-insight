@@ -831,6 +831,25 @@ async def run_thinking_pipeline(
     )
     latency_stages["retrieval_ms"] = int((time.time() - t_stage) * 1000)
 
+    # Step 3.1: Bridge retrieval via core.retriever
+    bridge_result = None
+    try:
+        from core.retriever import retrieve_with_plan
+        from core.schemas import RetrievalPlan
+
+        plan = RetrievalPlan(
+            project_id=project_id,
+            query_mode="fast",
+            thought_summary="",
+            concept_queries=[user_input],
+        )
+        bridge_result = await retrieve_with_plan(plan, user_input, project_id)
+        log.debug("Bridge retrieval: %d claims, %d bridges", 
+                  len(bridge_result.claims) if bridge_result else 0,
+                  len(bridge_result.bridges) if bridge_result else 0)
+    except Exception as e:
+        log.debug("Bridge retrieval skipped: %s", e)
+
     # Step 3.5: B1 — Relevance gate (filter irrelevant sources)
     pre_gate_count = len(sources)
     sources = apply_relevance_gate(sources, user_input, q_type)
@@ -879,25 +898,23 @@ async def run_thinking_pipeline(
         " ".join(f"{k}={v}" for k, v in latency_stages.items()),
     )
 
-    # Step 6.5: Bridge surfacing (if bridges available from core.retriever)
+    # Step 6.5: Bridge surfacing (using bridge_result from core.retriever)
     surfaced_bridge = None
     recent_surfaced_bridges = recent_surfaced_bridges or []
     try:
         from core.bridge_surfacing import apply_surfacing_policy
         from core.retriever import assess_anchor_quality
-        from core.schemas import RetrievalResult
 
-        # Try to extract bridges from raw_result if it's a RetrievalResult
-        if isinstance(raw_result, RetrievalResult) and raw_result.bridges:
-            anchor = getattr(raw_result, 'claims', [None])[0] if hasattr(raw_result, 'claims') else None
+        # Use bridge_result from Step 3.1 (core.retriever)
+        if bridge_result and bridge_result.bridges:
+            anchor = bridge_result.claims[0] if bridge_result.claims else None
             anchor_quality = assess_anchor_quality(anchor).get("quality_score", 0) if anchor else 0
 
-            # Get messages for context (approximation)
             messages_for_context = [{"role": "user", "content": user_input}]
 
             should_surface, surfaced = apply_surfacing_policy(
                 anchor_quality=anchor_quality,
-                bridges=raw_result.bridges,
+                bridges=bridge_result.bridges,
                 messages=messages_for_context,
                 recent_surfaced=recent_surfaced_bridges,
             )
