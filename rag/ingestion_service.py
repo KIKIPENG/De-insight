@@ -124,9 +124,9 @@ class IngestionService:
         signature_payload = {
             "chunk_size": cfg.get("LIGHTRAG_CHUNK_TOKEN_SIZE", "1000"),
             "chunk_overlap": cfg.get("LIGHTRAG_CHUNK_OVERLAP", "0"),
-            "embedding_provider": (cfg.get("EMBED_PROVIDER", "") or "").lower(),
-            "embedding_model": cfg.get("EMBED_MODEL", "") or cfg.get("JINA_EMBED_MODEL", ""),
-            "embedding_dim": cfg.get("EMBED_DIM", "") or cfg.get("GGUF_EMBED_DIM", "1024"),
+            "embedding_provider": (cfg.get("EMBED_PROVIDER", "") or "openrouter").lower(),
+            "embedding_model": cfg.get("EMBED_MODEL", ""),
+            "embedding_dim": cfg.get("EMBED_DIM", "") or "1024",
             "extraction_model": cfg.get("RAG_LLM_MODEL", "") or cfg.get("LLM_MODEL", ""),
             "extraction_prompt_version": cfg.get("RAG_EXTRACTION_PROMPT_VERSION", "v1"),
             "entity_schema_version": cfg.get("RAG_ENTITY_SCHEMA_VERSION", "v1"),
@@ -191,9 +191,11 @@ class IngestionService:
     def stop_worker(self) -> None:
         """Terminate worker subprocess."""
         if self._worker is None:
+            self._kill_orphan_workers()
             return
         if self._worker.poll() is not None:
             self._worker = None
+            self._kill_orphan_workers()
             return
         try:
             self._worker.terminate()
@@ -206,6 +208,7 @@ class IngestionService:
             except Exception:
                 pass
         self._worker = None
+        self._kill_orphan_workers()
 
     async def submit_and_wait(
         self,
@@ -262,13 +265,15 @@ class IngestionService:
         """Return {'queued': N, 'running': N} for active jobs."""
         return await self._repo.count_active()
 
-    async def get_active_progress(self) -> list[dict]:
+    async def get_active_progress(self, project_id: str | None = None) -> list[dict]:
         """Return all active jobs with progress info for UI display."""
-        return await self._repo.get_active_jobs()
+        return await self._repo.get_active_jobs(project_id)
 
-    async def get_deferred_retries(self) -> list[dict]:
+    async def get_deferred_retries(self, project_id: str | None = None) -> list[dict]:
         """Return failed jobs waiting for retry, with countdown seconds."""
         jobs = await self._repo.list_failed_retrying()
+        if project_id:
+            jobs = [j for j in jobs if str(j.get("project_id") or "") == str(project_id)]
         now = datetime.now()
         enriched: list[dict] = []
         for j in jobs:
@@ -371,8 +376,52 @@ class IngestionService:
         }
         return detail
 
+    async def _restore_job_if_needed(self, job: dict, *, cleanup: bool) -> str:
+        from rag.rollback import cleanup_job_snapshot, restore_job_snapshot
+
+        restore_warning = ""
+        current = await self._repo.get_job(job["id"]) or job
+        if int(current.get("rollback_pending") or 0):
+            try:
+                await asyncio.to_thread(restore_job_snapshot, current)
+                await self._repo.set_rollback_pending(current["id"], False)
+                current = await self._repo.get_job(current["id"]) or current
+            except Exception as e:
+                restore_warning = f"rollback_restore_failed: {e}"
+        snapshot_dir = str(current.get("rollback_snapshot_dir") or "").strip()
+        if cleanup and snapshot_dir:
+            try:
+                await asyncio.to_thread(cleanup_job_snapshot, current)
+            finally:
+                await self._repo.clear_rollback(current["id"])
+        return restore_warning
+
     async def cancel_job(self, job_id: str) -> bool:
-        return await self._repo.cancel_job(job_id)
+        job = await self._repo.get_job(job_id)
+        if not job:
+            return False
+        status = str(job.get("status") or "")
+        if not (status == "queued" or status == "retrying" or status.startswith("running")):
+            return False
+        if status.startswith("running"):
+            self.stop_worker()
+            job = await self._repo.get_job(job_id) or job
+        restore_warning = await self._restore_job_if_needed(job, cleanup=True)
+        ok = await self._repo.cancel_job(job_id)
+        if ok and restore_warning:
+            await self._repo.update_status(
+                job_id,
+                "failed",
+                last_error=restore_warning,
+                next_retry_at=None,
+                phase="failed",
+                error_code="CANCELLED_BY_USER",
+                error_detail=restore_warning[:300],
+            )
+        counts = await self.count_active()
+        if (counts.get("queued") or 0) > 0 or (counts.get("retrying") or 0) > 0:
+            self.ensure_worker_running()
+        return ok
 
     async def retry_job(self, job_id: str) -> bool:
         ok = await self._repo.retry_job(job_id)
@@ -383,6 +432,48 @@ class IngestionService:
     async def abort_incomplete(self) -> list[dict]:
         """Abort all queued/running jobs from a previous session. Returns aborted jobs."""
         return await self._repo.abort_incomplete()
+
+    async def abort_and_rollback_incomplete(self) -> list[dict]:
+        await self._repo.ensure_table()
+        self.stop_worker()
+        jobs = await self._repo.list_incomplete_jobs()
+        aborted: list[dict] = []
+        for job in jobs:
+            restore_warning = await self._restore_job_if_needed(job, cleanup=True)
+            await self._repo.update_status(
+                str(job["id"]),
+                "failed",
+                last_error=restore_warning or "TUI closed before ingestion completed",
+                next_retry_at=None,
+                phase="failed",
+                error_code="CANCELLED_ON_TUI_EXIT",
+                error_detail=(restore_warning or "cancelled on TUI exit")[:300],
+            )
+            latest = await self._repo.get_job(str(job["id"]))
+            if latest:
+                aborted.append(latest)
+        return aborted
+
+    async def restore_pending_rollbacks(self) -> list[dict]:
+        await self._repo.ensure_table()
+        jobs = await self._repo.list_jobs_requiring_restore()
+        restored: list[dict] = []
+        for job in jobs:
+            warning = await self._restore_job_if_needed(job, cleanup=False)
+            latest = await self._repo.get_job(str(job["id"])) or job
+            if warning:
+                await self._repo.update_status(
+                    str(job["id"]),
+                    str(latest.get("status") or "retrying"),
+                    last_error=str(latest.get("last_error") or ""),
+                    next_retry_at=latest.get("next_retry_at"),
+                    phase=str(latest.get("phase") or "retrying"),
+                    error_code=str(latest.get("error_code") or "ROLLBACK_RESTORE_FAILED"),
+                    error_detail=warning[:300],
+                )
+                latest = await self._repo.get_job(str(job["id"])) or latest
+            restored.append(latest)
+        return restored
 
     @property
     def worker_alive(self) -> bool:
