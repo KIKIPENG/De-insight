@@ -630,10 +630,16 @@ async def _retrieve(
             deep_error_code = "circuit_breaker"
         else:
             try:
+                # Use context_only=True so LightRAG returns raw chunks
+                # from graph traversal instead of asking its LLM to
+                # synthesize an answer (the curator should do that, not
+                # LightRAG's internal LLM).  This also avoids the problem
+                # where LightRAG's LLM says "I can't answer" in Chinese,
+                # which bypasses _is_no_context_result and pollutes context.
                 result, sources = await query_knowledge(
                     retrieval_query,
                     mode="hybrid",
-                    context_only=False,
+                    context_only=True,
                     project_id=project_id,
                     chunk_top_k=chunk_top_k,
                 )

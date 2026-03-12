@@ -1566,11 +1566,20 @@ def _is_no_context_result(text: str) -> bool:
     if not text:
         return True
     t = text.strip().lower()
-    return (
+    if (
         "[no-context]" in t
         or "not able to provide an answer" in t
         or "no relevant document chunks found" in t
-    )
+    ):
+        return True
+    # Chinese "I can't answer" patterns from various LLMs
+    if "無法根據提供的上下文" in text or "无法根据提供的" in text:
+        return True
+    if "我無法回答" in text or "我无法回答" in text:
+        return True
+    if ("很抱歉" in text or "抱歉" in text) and "無法" in text:
+        return True
+    return False
 
 
 def _extract_sources(raw_result: str) -> list[dict]:
