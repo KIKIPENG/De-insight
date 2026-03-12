@@ -707,10 +707,6 @@ class WelcomeBlock(Vertical):
             "[#8b949e]  把還說不清楚的東西說清楚。\n"
             "  想法來自你，它幫你找到骨架。[/]",
         )
-        # 呼吸鑽石動畫
-        from utils.animations import AnimatedStatic, WELCOME_FRAMES
-        self._diamond = AnimatedStatic(id="welcome-diamond")
-        yield self._diamond
         yield Static(
             "[dim #6e7681]────────────────────────────────[/]",
         )
@@ -752,13 +748,8 @@ class WelcomeBlock(Vertical):
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
         self._all_conversations: list[dict] = []
-        self._diamond: AnimatedStatic | None = None
 
     async def on_mount(self) -> None:
-        # 啟動呼吸鑽石動畫（0.7s/幀，約 5 秒一個呼吸週期）
-        if self._diamond:
-            from utils.animations import WELCOME_FRAMES
-            self._diamond.start(WELCOME_FRAMES, interval=0.7)
         await self._load_recent_conversations()
 
     def on_input_changed(self, event: object) -> None:

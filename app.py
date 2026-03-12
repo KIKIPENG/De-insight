@@ -150,12 +150,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     }
 
     /* ── animations ── */
-    #welcome-diamond {
-        height: auto;
-        margin: 1 0;
-        text-align: center;
-        background: transparent;
-    }
+
 
     #think-anim {
         height: auto;
