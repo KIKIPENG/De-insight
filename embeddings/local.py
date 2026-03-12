@@ -1,7 +1,7 @@
-"""Embedding 公開 API — 委派給 EmbeddingService（GGUF 後端）。
+"""Embedding 公開 API — 委派給 EmbeddingService（OpenRouter 後端）。
 
 此模組保留原始 API 簽名以確保向後相容。
-所有實際 embedding 邏輯已移至 embeddings.service + embeddings.gguf_backend。
+所有實際 embedding 邏輯已移至 embeddings.service + embeddings.openrouter_backend。
 
 舊 API 函數仍可用：embed_texts, embed_text, embed_image, get_embed_config, etc.
 """
@@ -26,7 +26,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 # ── 公開常數（向後相容）────────────────────────────────────────
 
 EMBED_DIM = 1024
-EMBED_MODEL = "jina-embeddings-v4"
+EMBED_MODEL = "nvidia/llama-nemotron-embed-vl-1b-v2:free"
 
 
 # ── 舊版 model 載入介面（供相容測試）───────────────────────────
@@ -66,7 +66,7 @@ def _truncate_and_normalize(vec: list[float], dim: int = EMBED_DIM) -> list[floa
 
 def get_embed_config() -> tuple[str, str, str, int]:
     """回傳 (model, key, base, dim)。"""
-    return EMBED_MODEL, "local", "", EMBED_DIM
+    return EMBED_MODEL, "", "https://openrouter.ai/api/v1", EMBED_DIM
 
 
 async def embed_texts(texts: list[str]) -> list[list[float]]:
@@ -109,7 +109,7 @@ def get_device_diagnostics() -> dict[str, object]:
 
 def get_runtime_device() -> str:
     """回傳目前 embedding 後端類型。"""
-    return "gguf-server"
+    return "openrouter"
 
 
 def ensure_model_downloaded(
@@ -117,23 +117,9 @@ def ensure_model_downloaded(
     download_if_missing: bool = True,
     progress_callback: Callable[[str, float], None] | None = None,
 ) -> None:
-    """確保 GGUF 環境已安裝（模型下載 + llama-server 編譯）。
-
-    取代舊的 sentence-transformers 模型下載。
-    """
-    from embeddings.gguf_installer import GGUFInstaller
-    installer = GGUFInstaller()
-
-    if installer.is_fully_installed():
-        log.info("GGUF environment already installed.")
-        return
-
+    """Legacy shim for call sites that expect a setup step."""
+    if progress_callback:
+        progress_callback("OpenRouter embedding does not require local installation.", 1.0)
     if not download_if_missing:
-        raise RuntimeError(
-            "GGUF 環境未安裝。需要下載模型並編譯 llama-server。"
-            " 請以 download_if_missing=True 呼叫或執行 Onboarding。"
-        )
-
-    log.info("Installing GGUF environment (model + llama-server)...")
-    installer.install(progress_callback=progress_callback)
-    log.info("GGUF environment installed successfully.")
+        return
+    log.info("OpenRouter embedding backend does not require local model download.")

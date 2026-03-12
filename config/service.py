@@ -117,9 +117,11 @@ class ConfigService:
         elif llm_model.startswith("gemini/") and not cfg.get("GOOGLE_API_KEY"):
             issues.append("gemini 模型需要 GOOGLE_API_KEY")
 
-        embed_provider = (cfg.get("EMBED_PROVIDER", "") or "gguf").lower()
-        if embed_provider in ("jina", "jina-api") and not cfg.get("JINA_API_KEY"):
-            issues.append("EMBED_PROVIDER=jina 但 JINA_API_KEY 未設定")
+        embed_provider = (cfg.get("EMBED_PROVIDER", "") or "openrouter").lower()
+        if embed_provider == "openrouter" and not (
+            cfg.get("EMBED_API_KEY") or cfg.get("OPENROUTER_API_KEY")
+        ):
+            issues.append("EMBED_PROVIDER=openrouter 但 OPENROUTER_API_KEY 未設定")
 
         rag_model = cfg.get("RAG_LLM_MODEL", "")
         if rag_model and rag_model.startswith(("gemini", "google/")) and not (

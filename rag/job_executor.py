@@ -62,6 +62,52 @@ class JobExecutor:
 
         self._repo = JobRepository(db_path)
 
+    async def _prepare_snapshot(self, job: dict) -> dict:
+        from rag.rollback import prepare_job_snapshot, restore_job_snapshot
+
+        current = await self._repo.get_job(job["id"]) or job
+        snapshot_dir = str(current.get("rollback_snapshot_dir") or "").strip()
+        if not snapshot_dir:
+            snap = await asyncio.to_thread(prepare_job_snapshot, current)
+            await self._repo.set_rollback_snapshot(current["id"], str(snap))
+            current = await self._repo.get_job(current["id"]) or current
+        if int(current.get("rollback_pending") or 0):
+            await asyncio.to_thread(restore_job_snapshot, current)
+            await self._repo.set_rollback_pending(current["id"], False)
+            current = await self._repo.get_job(current["id"]) or current
+        return current
+
+    async def _restore_if_pending(self, job: dict, *, failure_detail: str | None = None) -> tuple[dict, str]:
+        from rag.rollback import restore_job_snapshot
+
+        current = await self._repo.get_job(job["id"]) or job
+        if not int(current.get("rollback_pending") or 0):
+            return current, failure_detail or ""
+        try:
+            await asyncio.to_thread(restore_job_snapshot, current)
+            await self._repo.set_rollback_pending(current["id"], False)
+            return (await self._repo.get_job(current["id"]) or current), failure_detail or ""
+        except Exception as restore_error:
+            extra = f"rollback_restore_failed: {restore_error}"
+            if failure_detail:
+                return current, f"{failure_detail}; {extra}"
+            return current, extra
+
+    async def _finalize_snapshot(self, job: dict) -> None:
+        from rag.rollback import cleanup_job_snapshot
+
+        current = await self._repo.get_job(job["id"]) or job
+        snapshot_dir = str(current.get("rollback_snapshot_dir") or "").strip()
+        try:
+            if snapshot_dir:
+                await asyncio.to_thread(cleanup_job_snapshot, current)
+        except Exception:
+            log.exception("cleanup_job_snapshot failed for job %s", current["id"])
+        try:
+            await self._repo.clear_rollback(current["id"])
+        except Exception:
+            log.exception("clear_rollback failed for job %s", current["id"])
+
     async def execute(self, job: dict) -> None:
         """Execute a job: dispatch to handler, update status based on outcome."""
         from rag.source_handlers import get_handler
@@ -76,7 +122,9 @@ class JobExecutor:
         )
 
         try:
+            job = await self._prepare_snapshot(job)
             await self._repo.update_phase(job_id, "chunking", status="running")
+            await self._repo.set_rollback_pending(job_id, True)
             handler = get_handler(source_type)
             stall_triggered = False
             stall_task: asyncio.Task | None = None
@@ -138,6 +186,7 @@ class JobExecutor:
             else:
                 await self._repo.update_status(job_id, "done", phase="flushing")
                 log.info("Job %s done: %s", job_id, result.title)
+            await self._finalize_snapshot(job)
 
         except Exception as e:
             category = classify_error(e)
@@ -145,6 +194,8 @@ class JobExecutor:
                 "Job %s failed (attempt=%d, category=%s): %s",
                 job_id, attempts, category.value, e,
             )
+            restored_job, restore_warning = await self._restore_if_pending(job, failure_detail=str(e)[:300])
+            error_detail = restore_warning or str(e)[:300]
 
             if category == ErrorCategory.TRANSIENT and attempts < self.MAX_ATTEMPTS:
                 next_retry = self._compute_transient_retry_at(attempts, e)
@@ -155,7 +206,7 @@ class JobExecutor:
                     next_retry_at=next_retry,
                     phase="retrying",
                     error_code=self._error_code_from_exception(e, category),
-                    error_detail=str(e)[:300],
+                    error_detail=error_detail,
                 )
             else:
                 # Terminal failure — no retry
@@ -166,17 +217,18 @@ class JobExecutor:
                     next_retry_at=None,
                     phase="failed",
                     error_code=self._error_code_from_exception(e, category),
-                    error_detail=str(e)[:300],
+                    error_detail=error_detail,
                 )
+                await self._finalize_snapshot(restored_job)
 
     async def _stall_watchdog(self, job_id: str, ingest_task) -> None:
         import asyncio
 
         thresholds = {
             "extracting": 180,
-            "merging": 600,
+            "merging": 1200,
             "chunking": 300,
-            "flushing": 300,
+            "flushing": 900,
         }
         while not ingest_task.done():
             await asyncio.sleep(5)
@@ -198,7 +250,13 @@ class JobExecutor:
             # Give a longer safety window to avoid false-positive stall kills.
             if phase in ("extracting", "merging") and prog >= 85.0:
                 threshold = max(threshold, 900)
-            last = (job.get("last_progress_at") or job.get("phase_started_at") or job.get("updated_at") or "").strip()
+            last = (
+                job.get("last_progress_at")
+                or job.get("heartbeat_at")
+                or job.get("phase_started_at")
+                or job.get("updated_at")
+                or ""
+            ).strip()
             if not last:
                 continue
             try:
@@ -278,7 +336,7 @@ class JobExecutor:
         hard_markers = (
             "post_verify: vdb_chunks 為空",
             "vdb_chunks 為空",
-            "llama-server embedding 失敗",
+            "embedding api 錯誤",
             "embedding 失敗: http 500",
             "http 500",
             "key 'prompt' not found",

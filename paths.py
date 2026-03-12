@@ -10,12 +10,6 @@ DATA_ROOT = APP_HOME / DATA_VERSION
 APP_DB = DATA_ROOT / "app.db"
 PROJECTS_DIR = DATA_ROOT / "projects"
 
-# GGUF 相關路徑
-GGUF_HOME = APP_HOME / "gguf"
-GGUF_MODELS_DIR = GGUF_HOME / "models"
-GGUF_LOGS_DIR = GGUF_HOME / "logs"
-
-
 def project_root(project_id: str) -> Path:
     return PROJECTS_DIR / project_id
 

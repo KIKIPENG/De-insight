@@ -87,6 +87,30 @@ class TestPipelineBridgeIntegration:
             # Bridge should be retrieved and potentially surfaced
             assert "surfaced_bridge" in result
 
+    def test_no_recursion_between_pipeline_and_retriever(self):
+        """Regression test: verify pipeline doesn't cause recursion with retriever."""
+        import asyncio
+        import sys
+        from rag.pipeline import run_thinking_pipeline
+
+        # Set a low recursion limit to catch infinite recursion quickly
+        old_limit = sys.getrecursionlimit()
+        sys.setrecursionlimit(100)
+
+        try:
+            # This should complete without RecursionError
+            result = asyncio.run(run_thinking_pipeline(
+                user_input="test recursion",
+                project_id="test-project-recursion",
+                mode="fast",
+            ))
+            # If we get here, no recursion occurred
+            assert "surfaced_bridge" in result
+        except RecursionError:
+            pytest.fail("Pipeline caused infinite recursion with retriever")
+        finally:
+            sys.setrecursionlimit(old_limit)
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

@@ -1,0 +1,94 @@
+{
+  "malformed_outputs": [
+    {
+      "case_id": "malformed_001",
+      "name": "non_json_text",
+      "description": "Plain text response instead of JSON",
+      "raw_output": "這是一個普通的文字回覆，不是JSON格式。"
+    },
+    {
+      "case_id": "malformed_002",
+      "name": "missing_claims_key",
+      "description": "JSON but missing required 'claims' key",
+      "raw_output": "{\"thought_summary\": \"測試\", \"concepts\": []}"
+    },
+    {
+      "case_id": "malformed_003",
+      "name": "claims_is_string_not_list",
+      "description": "claims field is a string instead of list",
+      "raw_output": "{\"claims\": \"這應該是陣列\", \"thought_summary\": \"test\"}"
+    },
+    {
+      "case_id": "malformed_004",
+      "name": "null_instead_of_list",
+      "description": "null value where list is expected",
+      "raw_output": "{\"claims\": [{\"core_claim\": \"test\", \"critique_target\": null}], \"thought_summary\": \"\"}"
+    },
+    {
+      "case_id": "malformed_005",
+      "name": "extra_unknown_fields",
+      "description": "Extra unknown fields in the output",
+      "raw_output": "{\"claims\": [{\"core_claim\": \"test\", \"unknown_field\": \"value\", \"another_unknown\": 123}], \"thought_summary\": \"test\", \"concepts\": [], \"extra_data\": \"should be ignored\"}"
+    },
+    {
+      "case_id": "malformed_006",
+      "name": "mixed_language_list",
+      "description": "Mixed language items in lists",
+      "raw_output": "{\"claims\": [{\"core_claim\": \"测试\", \"critique_target\": [\"English\", \"中文\"], \"value_axes\": [\"aesthetic\", \"美学\"]}], \"thought_summary\": \"mixed language test\"}"
+    },
+    {
+      "case_id": "malformed_007",
+      "name": "truncated_json",
+      "description": "Truncated/incomplete JSON",
+      "raw_output": "{\"claims\": [{\"core_claim\": \"test claim"
+    },
+    {
+      "case_id": "malformed_008",
+      "name": "empty_response",
+      "description": "Empty string response",
+      "raw_output": ""
+    },
+    {
+      "case_id": "malformed_009",
+      "name": "invalid_enum_value",
+      "description": "Invalid enum value in output",
+      "raw_output": "{\"claims\": [{\"core_claim\": \"test\", \"confidence\": 1.5}], \"thought_summary\": \"\"}"
+    },
+    {
+      "case_id": "malformed_010",
+      "name": "nested_object_drift",
+      "description": "Unexpected nested object structure",
+      "raw_output": "{\"claims\": [{\"core_claim\": \"test\", \"critique_target\": {\"primary\": \"value\", \"secondary\": \"another\"}}], \"thought_summary\": \"\"}"
+    },
+    {
+      "case_id": "malformed_011",
+      "name": "markdown_code_block",
+      "description": "JSON wrapped in markdown code block",
+      "raw_output": "```json\n{\"claims\": [], \"thought_summary\": \"test\"}\n```"
+    },
+    {
+      "case_id": "malformed_012",
+      "name": "leading_explanatory_text",
+      "description": "Explanatory text before JSON",
+      "raw_output": "以下是分析結果：\n\n{\"claims\": [{\"core_claim\": \"test\"}], \"thought_summary\": \"\"}"
+    },
+    {
+      "case_id": "malformed_013",
+      "name": "trailing_comma",
+      "description": "Trailing comma in JSON",
+      "raw_output": "{\"claims\": [{\"core_claim\": \"test\",}], \"thought_summary\": \"\"}"
+    },
+    {
+      "case_id": "malformed_014",
+      "name": "single_quotes",
+      "description": "Single quotes instead of double quotes",
+      "raw_output": "{'claims': [{'core_claim': 'test'}], 'thought_summary': ''}"
+    },
+    {
+      "case_id": "malformed_015",
+      "name": "whitespace_corruption",
+      "description": "Corrupted whitespace in JSON",
+      "raw_output": "{ \"claims\" : [ { \"core_claim\" : \"test\" } ] ,  }"
+    }
+  ]
+}

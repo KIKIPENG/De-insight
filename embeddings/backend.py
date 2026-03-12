@@ -1,6 +1,6 @@
 """抽象 Embedding 後端介面。
 
-所有 embedding 實作（GGUF、SentenceTransformers 等）都必須實作此介面。
+所有 embedding 實作都必須實作此介面。
 """
 
 from __future__ import annotations

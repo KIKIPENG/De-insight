@@ -481,43 +481,6 @@ class TestJobDedup:
 
 
 # ═══════════════════════════════════════════════════════════════════
-# Section 10: EMBEDDING_LOCAL_ONLY enforcement
-# ═══════════════════════════════════════════════════════════════════
-
-
-class TestEmbeddingLocalOnly:
-
-    def setup_method(self):
-        from embeddings.service import reset_embedding_service
-        reset_embedding_service()
-
-    def teardown_method(self):
-        from embeddings.service import reset_embedding_service
-        reset_embedding_service()
-
-    def test_local_only_allows_gguf(self):
-        with patch.dict("os.environ", {"EMBEDDING_LOCAL_ONLY": "1", "EMBED_PROVIDER": "gguf"}):
-            from embeddings.service import _enforce_local_only
-            _enforce_local_only()  # should not raise
-
-    def test_local_only_allows_local(self):
-        with patch.dict("os.environ", {"EMBEDDING_LOCAL_ONLY": "1", "EMBED_PROVIDER": "local"}):
-            from embeddings.service import _enforce_local_only
-            _enforce_local_only()  # should not raise
-
-    def test_local_only_rejects_remote(self):
-        with patch.dict("os.environ", {"EMBEDDING_LOCAL_ONLY": "1", "EMBED_PROVIDER": "openai"}):
-            from embeddings.service import _enforce_local_only
-            with pytest.raises(RuntimeError, match="remote embedding provider"):
-                _enforce_local_only()
-
-    def test_local_only_disabled_allows_remote(self):
-        with patch.dict("os.environ", {"EMBEDDING_LOCAL_ONLY": "0", "EMBED_PROVIDER": "openai"}):
-            from embeddings.service import _enforce_local_only
-            _enforce_local_only()  # should not raise
-
-
-# ═══════════════════════════════════════════════════════════════════
 # Section 11: Error classification (job_executor)
 # ═══════════════════════════════════════════════════════════════════
 

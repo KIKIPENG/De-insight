@@ -1,0 +1,107 @@
+You are working inside the De-insight repository.
+
+Read this specification file first:
+- `deinsight_phase2_test_debug_spec.md`
+
+Your task is to implement the Phase 2 preflight test/debug hardening described in that file.
+
+## Scope
+
+Implement the following in a practical, minimal, maintainable way:
+
+1. Add new tests for:
+   - golden semantic cases
+   - malformed extractor output robustness
+   - end-to-end core pipeline behavior
+   - store integration
+   - legacy/core comparison fixtures
+
+2. Add structured debug/telemetry support for the core pipeline:
+   - pipeline trace object
+   - extractor telemetry
+   - planner decision logs
+   - store write audit information
+
+3. Keep the implementation backward-compatible.
+   - Do not break existing Phase 1 tests.
+   - Do not remove the feature flag pattern.
+   - Do not remove delegation to legacy retrieval where current code relies on it.
+
+## Constraints
+
+- Preserve the current `core/` architecture introduced in Phase 1.
+- Prefer small, composable utilities over large rewrites.
+- Use typed models where it improves reliability.
+- Keep debug output structured and JSON-serializable.
+- Avoid introducing heavyweight new dependencies unless absolutely necessary.
+- Use overlap-based or containment-based assertions for semantic tests instead of brittle exact-string equality.
+
+## Deliverables
+
+Please implement:
+
+### A. Test files
+Create or update test files under `core/tests/` including at least:
+- `test_extractor_robustness.py`
+- `test_pipeline_e2e.py`
+- `test_store_integration.py`
+
+Add fixture files under `core/tests/fixtures/`:
+- `golden_cases.json`
+- `malformed_outputs.json`
+- `legacy_core_comparison_cases.json`
+
+You may also extend `test_core.py` if useful.
+
+### B. Debug utilities
+Add a small debug/telemetry module, for example under:
+- `core/debug/trace.py`
+- `core/debug/telemetry.py`
+
+If a different small structure fits better, keep it clean and consistent.
+
+### C. Pipeline integration
+Update the relevant core pipeline entry points so they can:
+- produce a structured trace object
+- record extractor repair attempts
+- record classifier/planner decisions
+- record store writes
+- record fallback reasons
+- expose this data in a way tests can inspect
+
+## Behavior expectations
+
+### Extractor
+- Must gracefully handle malformed or partial LLM output
+- Should attempt repair for common JSON issues
+- Should fill safe defaults when possible
+- Must not crash the pipeline on malformed output
+
+### Planner / classifier
+- Must make decisions that are inspectable in traces
+- Must expose enough detail that a developer can understand why fast or deep mode was chosen
+
+### Stores
+- Must support typed round-trip tests
+- Must preserve project isolation
+
+### Comparison fixtures
+- These do not need strict pass/fail semantic scoring yet
+- It is acceptable to produce diagnostic comparison artifacts or structured summaries that tests can inspect
+
+## Working style
+
+1. Inspect the existing Phase 1 implementation first.
+2. Reuse current naming and patterns where sensible.
+3. Implement the minimum viable version that satisfies the spec cleanly.
+4. Add clear docstrings/comments only where they help maintainability.
+5. Run the tests you add and report what passed.
+
+## Output expectations
+
+When finished, summarize:
+- files created
+- files modified
+- number of tests passed
+- important assumptions
+- any remaining gaps that should be addressed in the next phase

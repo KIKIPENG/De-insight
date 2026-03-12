@@ -72,28 +72,17 @@ CHAT_PROVIDERS = {
 # ── Embedding providers ──
 
 EMBED_PROVIDERS = {
-    "jina-api": {
-        "label": "Jina Embedding API（推薦，免安裝）",
-        "models": ["jina-embeddings-v4", "jina-embeddings-v3"],
-        "key_env": "JINA_API_KEY",
+    "openrouter": {
+        "label": "OpenRouter Multimodal Embedding",
+        "models": [
+            "nvidia/llama-nemotron-embed-vl-1b-v2:free",
+        ],
+        "key_env": "OPENROUTER_API_KEY",
         "base_env": "",
-        "default_base": "",
+        "default_base": "https://openrouter.ai/api/v1",
         "auth_type": "api_key",
-        "dims": {"jina-embeddings-v4": 1024, "jina-embeddings-v3": 1024},
-        "env_extras": {},
-    },
-    "gguf": {
-        "label": "jina-embeddings-v4 GGUF (本地 llama-server)",
-        "models": ["jina-embeddings-v4-gguf"],
-        "key_env": "",
-        "base_env": "GGUF_SERVER_HOST",
-        "default_base": "127.0.0.1",
-        "auth_type": "none",
-        "dims": {"jina-embeddings-v4-gguf": 1024},
-        "env_extras": {
-            "GGUF_SERVER_PORT": "8999",
-            "GGUF_AUTO_INSTALL": "1",
-        },
+        "dims": {"nvidia/llama-nemotron-embed-vl-1b-v2:free": 1024},
+        "env_extras": {"EMBED_API_BASE": "https://openrouter.ai/api/v1"},
     },
 }
 

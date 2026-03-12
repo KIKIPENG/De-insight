@@ -1,0 +1,137 @@
+{
+  "flagship_cases": [
+    {
+      "case_id": "flagship_001",
+      "name": "Book Materiality → Lamp of Truth / Arts and Crafts",
+      "user_message": "我覺得書籍設計師在設計書籍時，應該要考量到書籍的材質，不應該為了特定目的去把書籍本該有的材質性忽略，或是在設計時沒有用心，用時間去編排。",
+      "expected_mode": "deep",
+      "expected_thought_structure": {
+        "core_claim": "book design should respect the material nature of the book instead of subordinating it to external purposes",
+        "value_axes": ["material honesty", "craftsmanship", "temporal labor", "anti-instrumentalism"],
+        "abstract_patterns": ["truth to materials", "ethics of making", "form-function"],
+        "critique_targets": ["instrumentalized design", "neglect of materiality", "careless design labor"],
+        "theory_hints": ["Ruskin", "Lamp of Truth", "Arts and Crafts", "William Morris"]
+      },
+      "expected_bridge_directions": {
+        "theory_paths": [
+          "Ruskin - Lamp of Truth",
+          "Arts and Crafts movement",
+          "William Morris - material truth"
+        ],
+        "conceptual_relatives": [
+          "truth to materials",
+          "material integrity",
+          "anti-instrumentalism",
+          "craft labor value"
+        ],
+        "cross_domain_mappings": [
+          "book design ↔ architectural materiality",
+          "designer ethics ↔ maker ethics",
+          "temporal labor ↔ craft tradition"
+        ]
+      },
+      "minimum_acceptable_bridges": {
+        "must_include_at_least_one": [
+          "Ruskin",
+          "Arts and Crafts",
+          "truth to materials",
+          "material integrity"
+        ],
+        "directional_score_threshold": 0.15
+      },
+      "evaluation_notes": "This is the canonical case for De-insight's core promise: connecting book materiality to Arts and Crafts/Ruskin theory."
+    },
+    {
+      "case_id": "flagship_002",
+      "name": "Exhibition Movement / Display Sequence → Spatial Rhetoric",
+      "user_message": "展覽的動線安排其實就像在說故事一樣，观众走進展場的那一刻，就已經開始接受策展人的視角了。每一個轉彎、每一個停留，都是在引導觀眾的思考方向。",
+      "expected_mode": "deep",
+      "expected_thought_structure": {
+        "core_claim": "exhibition choreography shapes viewer interpretation through spatial narrative; movement itself is a rhetorical device",
+        "value_axes": ["spatial rhetoric", "narrative structure", "guided interpretation", "curatorial authority"],
+        "abstract_patterns": ["movement as meaning", "spatial rhetoric", "attention choreography", "narrative sequence"],
+        "critique_targets": ["passive viewing", "neutral display", "objective presentation myth"],
+        "theory_hints": ["spatial rhetoric", "exhibition design", "museum studies", "narrative display"]
+      },
+      "expected_bridge_directions": {
+        "theory_paths": [
+          "spatial rhetoric",
+          "display as narrative",
+          "choreography of attention",
+          "curatorial interpretation"
+        ],
+        "conceptual_relatives": [
+          "guided tour rhetoric",
+          "architectural narrative",
+          "attention economy",
+          "viewer positioning"
+        ],
+        "cross_domain_mappings": [
+          "exhibition ↔ architectural promenade",
+          "viewer movement ↔ reading sequence",
+          "curator ↔ author of experience"
+        ]
+      },
+      "minimum_acceptable_bridges": {
+        "must_include_at_least_one": [
+          "spatial rhetoric",
+          "narrative display",
+          "movement",
+          "attention"
+        ],
+        "directional_score_threshold": 0.15
+      },
+      "evaluation_notes": "Tests whether the system can connect exhibition practice to rhetoric/theory domain."
+    },
+    {
+      "case_id": "flagship_003",
+      "name": "Preference for Traces of Making / Repair / Time",
+      "user_message": "我特別喜歡那種可以看到制作痕跡的作品，哪怕是不完美、修補過的痕跡也很好。那種「曾經被使用過」「曾經被修復過」的感覺，比全新的東西更有故事。",
+      "expected_mode": "deep",
+      "expected_thought_structure": {
+        "core_claim": "traces of making, use, and repair carry intrinsic aesthetic and narrative value; imperfection tells story",
+        "value_axes": ["material memory", "repair aesthetics", "wabi-sabi", "anti-polish", "authenticity"],
+        "abstract_patterns": ["trace as meaning", "time materializes", "imperfection value", "use history"],
+        "critique_targets": ["factory polish", "pristine surfaces", "new as default", "planned obsolescence"],
+        "theory_hints": ["wabi-sabi", "kintsugi", "repair aesthetics", "material memory", "anti-consumerism"]
+      },
+      "expected_bridge_directions": {
+        "theory_paths": [
+          "wabi-sabi",
+          "Japanese repair aesthetics",
+          "kintsugi tradition",
+          "material memory"
+        ],
+        "conceptual_relatives": [
+          "visible labor",
+          "repair culture",
+          "imperfection aesthetics",
+          "use trace value"
+        ],
+        "cross_domain_mappings": [
+          "ceramic repair ↔ design ethics",
+          "vintage wear ↔ authenticity",
+          "repair act ↔ creative process"
+        ]
+      },
+      "minimum_acceptable_bridges": {
+        "must_include_at_least_one": [
+          "wabi-sabi",
+          "repair",
+          "material memory",
+          "trace",
+          "imperfection"
+        ],
+        "directional_score_threshold": 0.15
+      },
+      "evaluation_notes": "Tests whether the system can connect material preference to Japanese aesthetic traditions and repair culture."
+    }
+  ],
+  "validation_metadata": {
+    "created": "2026-03-12",
+    "purpose": "Milestone D: Core Product Validation",
+    "pipeline_version": "v0.4a",
+    "total_cases": 3,
+    "run_instructions": "Use core/tests/validate_flagship.py or run manually through the pipeline"
+  }
+}

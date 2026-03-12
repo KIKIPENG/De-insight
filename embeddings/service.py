@@ -1,13 +1,4 @@
-"""EmbeddingService — 統一的 embedding facade。
-
-所有 embedding 使用方（rag/knowledge_graph, memory/vectorstore, rag/image_store）
-都透過此 service 取得 embedding，不再直接依賴 embeddings.local。
-
-功能：
-- 管理 GGUFMultimodalBackend 生命週期
-- 負責 llama-server 自動啟動
-- Provider 簽章比對與索引重建觸發
-"""
+"""EmbeddingService — 統一的 embedding facade。"""
 
 from __future__ import annotations
 
@@ -30,21 +21,20 @@ _service: EmbeddingService | None = None
 _service_lock = threading.Lock()
 
 EMBED_DIM = 1024
-EMBED_MODEL = "jina-embeddings-v4-gguf"
+EMBED_MODEL = "nvidia/llama-nemotron-embed-vl-1b-v2:free"
 
 _SIGNATURE_FILE = "embed_provider_signature.json"
 
 
 def _default_provider() -> str:
-    """決定預設 embedding provider。
+    return "openrouter"
 
-    有 JINA_API_KEY 就用 jina（輕量、免安裝），否則用 gguf（本地）。
-    讀取 .env 檔案（TUI 不會 load_dotenv，不能靠 os.environ）。
-    """
-    env = get_config_service().snapshot(include_process=True)
-    if env.get("JINA_API_KEY", "") or os.environ.get("JINA_API_KEY", ""):
-        return "jina"
-    return "gguf"
+
+def _resolve_model(raw_model: str) -> str:
+    model = (raw_model or "").strip()
+    if not model or "/" not in model:
+        return EMBED_MODEL
+    return model
 
 
 def get_embedding_service() -> EmbeddingService:
@@ -65,7 +55,6 @@ def reset_embedding_service() -> None:
     with _service_lock:
         if _service is not None:
             _service._backend = None
-            _service._server_started = False
         _service = None
 
 
@@ -74,7 +63,6 @@ class EmbeddingService:
 
     def __init__(self) -> None:
         self._backend: EmbeddingBackend | None = None
-        self._server_started = False
         self._init_lock = threading.Lock()
 
     @property
@@ -92,101 +80,48 @@ class EmbeddingService:
             cfg = get_config_service()
             env = cfg.snapshot(include_process=True)
 
-            # Prefer .env over process env to avoid stale in-memory config
-            # after Settings writes new keys.
-            provider = (
-                env.get("EMBED_PROVIDER", "")
-                or os.environ.get("EMBED_PROVIDER")
-                or _default_provider()
-            ).lower()
-
             embed_dim = int(
                 env.get("EMBED_DIM", "")
                 or os.environ.get("EMBED_DIM")
-                or os.environ.get("GGUF_EMBED_DIM")
                 or str(EMBED_DIM)
             )
 
-            if provider in ("jina", "jina-api"):
-                # Inject latest values from .env so downstream libs read fresh keys.
-                jina_key = env.get("JINA_API_KEY", "") or os.environ.get("JINA_API_KEY", "")
-                jina_model = env.get("EMBED_MODEL", "") or os.environ.get("JINA_EMBED_MODEL", "")
-                if jina_key:
-                    os.environ["JINA_API_KEY"] = jina_key
-                if jina_model:
-                    os.environ["JINA_EMBED_MODEL"] = jina_model
-                from embeddings.jina_backend import JinaAPIBackend
-                self._backend = JinaAPIBackend(
-                    api_key=jina_key,
-                    model=jina_model,
-                    dim=embed_dim,
-                )
-                self._provider_type = "jina"
-                log.info("Using Jina API embedding backend")
-            else:
-                from embeddings.gguf_backend import GGUFMultimodalBackend
-                from embeddings.llama_server import LlamaServerManager
-                mgr = LlamaServerManager()
-                self._backend = GGUFMultimodalBackend(
-                    base_url=mgr.base_url,
-                    dim=embed_dim,
-                )
-                self._provider_type = "gguf"
-                log.info("Using GGUF local embedding backend")
+            api_key = (
+                env.get("EMBED_API_KEY", "")
+                or env.get("OPENROUTER_API_KEY", "")
+                or os.environ.get("EMBED_API_KEY", "")
+                or os.environ.get("OPENROUTER_API_KEY", "")
+            )
+            raw_model = env.get("EMBED_MODEL", "") or os.environ.get("EMBED_MODEL", "")
+            model = _resolve_model(raw_model)
+            base_url = (
+                env.get("EMBED_API_BASE", "")
+                or env.get("OPENROUTER_API_BASE", "")
+                or os.environ.get("EMBED_API_BASE", "")
+                or os.environ.get("OPENROUTER_API_BASE", "")
+                or "https://openrouter.ai/api/v1"
+            )
+            if api_key:
+                os.environ["OPENROUTER_API_KEY"] = api_key
+                os.environ["EMBED_API_KEY"] = api_key
+            os.environ["EMBED_MODEL"] = model
+            os.environ["EMBED_API_BASE"] = base_url
+
+            from embeddings.openrouter_backend import OpenRouterEmbeddingBackend
+
+            self._backend = OpenRouterEmbeddingBackend(
+                api_key=api_key,
+                model=model,
+                dim=embed_dim,
+                base_url=base_url,
+            )
+            self._provider_type = "openrouter"
+            log.info("Using OpenRouter embedding backend")
 
     def ensure_server_running(self) -> None:
-        """確保 embedding 後端就緒。
-
-        Jina API: 只需確認 backend 已初始化。
-        GGUF: 確保 llama-server 在跑。
-        """
-        if self._server_started:
-            return
-
-        # Initialize backend outside this lock to avoid re-entrant deadlock:
-        # ensure_server_running() may call _init_backend(), and _init_backend()
-        # also uses _init_lock internally.
+        """確保 embedding 後端就緒。"""
         if self._backend is None:
             self._init_backend()
-
-        with self._init_lock:
-            if self._server_started:
-                return
-
-            # Jina API 不需要本地 server
-            provider_type = getattr(self, "_provider_type", "gguf")
-            if provider_type == "jina":
-                self._server_started = True
-                log.info("Jina API backend ready (no local server needed)")
-                return
-
-            # GGUF: 啟動 llama-server
-            from embeddings.llama_server import LlamaServerManager
-            from embeddings.gguf_installer import GGUFInstaller
-
-            mgr = LlamaServerManager()
-
-            if mgr.is_running and mgr.health_check():
-                self._server_started = True
-                log.info("llama-server already healthy")
-                return
-
-            installer = GGUFInstaller()
-            if not installer.is_fully_installed():
-                auto_install = os.environ.get("GGUF_AUTO_INSTALL", "1") == "1"
-                if not auto_install:
-                    raise RuntimeError(
-                        "GGUF 環境未安裝且 GGUF_AUTO_INSTALL=0。"
-                        " 請執行 GGUFInstaller().install() 或設定 GGUF_AUTO_INSTALL=1。"
-                    )
-                log.info("Auto-installing GGUF environment...")
-                installer.install()
-
-            mgr.start(
-                model_path=installer.model_path,
-                mmproj_path=installer.mmproj_path,
-            )
-            self._server_started = True
 
     # ── 公開 API（與舊 embeddings.local 相容的介面）───────────
 
@@ -194,8 +129,6 @@ class EmbeddingService:
         """批次 passage embedding。"""
         if not texts:
             return []
-        # ensure_server_running() may block on installer/server health checks.
-        # Offload it to a worker thread so FastAPI event loop stays responsive.
         await asyncio.to_thread(self.ensure_server_running)
         return await self.backend.embed_passages(texts)
 
@@ -217,7 +150,11 @@ class EmbeddingService:
 
     def get_embed_config(self) -> tuple[str, str, str, int]:
         """回傳 (model, key, base, dim)。相容舊 API。"""
-        return EMBED_MODEL, "local", "", self.dimension()
+        cfg = get_config_service().snapshot(include_process=True)
+        model = _resolve_model(cfg.get("EMBED_MODEL", ""))
+        key = cfg.get("EMBED_API_KEY", "") or cfg.get("OPENROUTER_API_KEY", "")
+        base = cfg.get("EMBED_API_BASE", "") or cfg.get("OPENROUTER_API_BASE", "") or "https://openrouter.ai/api/v1"
+        return model, key, base, self.dimension()
 
     # ── Provider 簽章遷移 ───────────────────────────────────────
 
@@ -259,32 +196,25 @@ class EmbeddingService:
 
     def get_diagnostics(self) -> dict:
         """回傳 embedding 環境診斷資訊。"""
-        from embeddings.llama_server import LlamaServerManager
-        from embeddings.gguf_installer import GGUFInstaller
-
-        mgr = LlamaServerManager()
-        installer = GGUFInstaller()
+        model, _, base, dim = self.get_embed_config()
 
         return {
-            "backend": "gguf",
-            "model": EMBED_MODEL,
-            "dimension": self.dimension(),
+            "backend": "openrouter",
+            "model": model,
+            "dimension": dim,
             "provider_signature": self.provider_signature(),
-            "server_running": mgr.is_running,
-            "server_healthy": mgr.health_check() if mgr.is_running else False,
-            "server_url": mgr.base_url,
-            "installation": installer.installation_status(),
+            "server_running": True,
+            "server_healthy": True,
+            "server_url": base,
+            "installation": {"remote_api": True},
         }
 
     def get_device_diagnostics(self) -> dict:
         """回傳相容舊 API 的診斷（不載入模型）。"""
-        from embeddings.gguf_installer import GGUFInstaller
-        installer = GGUFInstaller()
-        status = installer.installation_status()
         return {
-            "runtime_device": "gguf-server",
-            "reason": "gguf_backend",
-            "installed": status["fully_installed"],
-            "cmake": status["cmake"],
-            "model_ready": status["model_downloaded"],
+            "runtime_device": "remote-api",
+            "reason": "openrouter_backend",
+            "installed": True,
+            "cmake": False,
+            "model_ready": True,
         }

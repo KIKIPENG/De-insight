@@ -28,6 +28,15 @@ ART_ENTITY_TYPES = [
     "哲學概念", "批判理論",
     "藝術機構", "美術館", "畫廊",
     "展覽", "作品", "著作", "批評文本",
+    "空間", "場所", "地景",
+    "社會現象", "文化現象",
+    "策展概念", "展覽形式",
+    "身體", "感知", "凝視", "日常生活",
+    "都市", "類型學", "生產方式", "資本",
+    "主體性", "身份認同", "權力關係", "他者",
+    "物質性", "技術", "物件",
+    "歷史時期", "集體記憶", "遺產",
+    "敘事", "再現", "圖像", "表演性",
 ]
 
 _rag_instance: LightRAG | None = None
@@ -116,7 +125,7 @@ def _get_llm_config() -> tuple[str, str, str]:
 def _get_embed_config() -> tuple[str, str, str, int]:
     """Return (model, api_key, api_base, dim) for embeddings.
 
-    v0.8: 透過 EmbeddingService 取得（GGUF 後端）。
+    v0.8: 透過 EmbeddingService 取得。
     """
     from embeddings.service import get_embedding_service
     return get_embedding_service().get_embed_config()
@@ -289,9 +298,13 @@ def get_rag(project_id: str = "default") -> LightRAG:
     # Jina API 限制同時最多 2 concurrent requests，用 1 確保不超限
     _default_embed_async = "1"
     _embed_max_async = int(os.environ.get("LIGHTRAG_EMBED_MAX_ASYNC", _default_embed_async))
-    _default_llm_async = "1" if _is_local_llm else "8"
+    _default_llm_async = "1" if _is_local_llm else "4"
     _llm_max_async = int(os.environ.get("LIGHTRAG_LLM_MAX_ASYNC", _default_llm_async))
     _chunk_token_size = int(os.environ.get("LIGHTRAG_CHUNK_TOKEN_SIZE", "1000"))
+    _summary_trigger = int(os.environ.get("LIGHTRAG_FORCE_LLM_SUMMARY_ON_MERGE", "9999"))
+    _summary_context = int(os.environ.get("LIGHTRAG_SUMMARY_CONTEXT_SIZE", "8000"))
+    _summary_max_tokens = int(os.environ.get("LIGHTRAG_SUMMARY_MAX_TOKENS", "800"))
+    _summary_length = int(os.environ.get("LIGHTRAG_SUMMARY_LENGTH_RECOMMENDED", "400"))
 
     _rag_project_id = project_id
     _rag_instance = LightRAG(
@@ -309,6 +322,10 @@ def get_rag(project_id: str = "default") -> LightRAG:
         default_embedding_timeout=_embed_timeout,
         llm_model_max_async=_llm_max_async,
         embedding_func_max_async=_embed_max_async,
+        force_llm_summary_on_merge=_summary_trigger,
+        summary_context_size=_summary_context,
+        summary_max_tokens=_summary_max_tokens,
+        summary_length_recommended=_summary_length,
         cosine_better_than_threshold=0.4,
         addon_params={
             "entity_types": ART_ENTITY_TYPES,
@@ -784,6 +801,40 @@ async def _install_progress_tracker_with_estimated(
     return tracker
 
 
+async def _run_ainsert_with_keepalive(
+    rag: LightRAG,
+    payload: str,
+    *,
+    timeout_seconds: float,
+    jobs_repo=None,
+    job_id: str | None = None,
+    heartbeat_interval: float = 10.0,
+) -> None:
+    keepalive_task = None
+
+    async def _keepalive_loop() -> None:
+        if not jobs_repo or not job_id:
+            return
+        try:
+            while True:
+                await asyncio.sleep(heartbeat_interval)
+                await jobs_repo.touch_heartbeat(job_id)
+        except asyncio.CancelledError:
+            return
+
+    try:
+        if jobs_repo and job_id:
+            keepalive_task = asyncio.create_task(_keepalive_loop())
+        await asyncio.wait_for(rag.ainsert(payload), timeout=float(timeout_seconds))
+    finally:
+        if keepalive_task:
+            keepalive_task.cancel()
+            try:
+                await keepalive_task
+            except asyncio.CancelledError:
+                pass
+
+
 def _get_jobs_db_path() -> Path:
     from paths import DATA_ROOT
     return DATA_ROOT / "ingest_jobs.db"
@@ -897,7 +948,8 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
 
     # 大 PDF 以分批寫入 + checkpoint（M2）。
     cfg = get_config_service().snapshot(include_process=True)
-    batch_size = max(8, int(cfg.get("RAG_PDF_BATCH_PAGES", "20") or "20"))
+    # Keep PDF batches small enough that remote extraction/merge doesn't stall at ~90%.
+    batch_size = max(4, int(cfg.get("RAG_PDF_BATCH_PAGES", "6") or "6"))
     total_chunks = max(len(page_chunks), 1)
     processed = 0
     insert_fail_pages: list[int] = []
@@ -992,8 +1044,26 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
                 }
             )
         existing_rows = await jobs_repo.list_batches(job_id)
-        # Resume from checkpoint when schema matches; otherwise re-seed once.
-        if (not existing_rows) or (len(existing_rows) != len(batch_rows)):
+        existing_signature = [
+            (
+                int(r.get("batch_no") or 0),
+                int(r.get("page_start") or 0),
+                int(r.get("page_end") or 0),
+                int(r.get("actual_chunks") or 0),
+            )
+            for r in existing_rows
+        ]
+        target_signature = [
+            (
+                int(r.get("batch_no") or 0),
+                int(r.get("page_start") or 0),
+                int(r.get("page_end") or 0),
+                int(r.get("actual_chunks") or 0),
+            )
+            for r in batch_rows
+        ]
+        # Resume from checkpoint when batch layout matches; otherwise re-seed once.
+        if (not existing_rows) or (existing_signature != target_signature):
             await jobs_repo.create_or_replace_batches(job_id, batch_rows)
         await jobs_repo.update_phase(job_id, "extracting", status="running")
 
@@ -1022,10 +1092,10 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
         estimated_batch_chunks = max(1, _estimate_chunks_from_char_count(len(payload)))
         batch_base_pct = 20.0 + (70.0 * (idx / total_batches))
         batch_span_pct = 70.0 / total_batches
-        timeout_per_page = float(os.environ.get("RAG_BATCH_TIMEOUT_PER_PAGE", "20") or "20")
-        timeout_per_chunk = float(os.environ.get("RAG_BATCH_TIMEOUT_PER_CHUNK", "6") or "6")
-        timeout_floor = max(120, int(os.environ.get("RAG_BATCH_TIMEOUT_MIN", "300") or "300"))
-        timeout_cap = max(timeout_floor, int(os.environ.get("RAG_BATCH_TIMEOUT_MAX", "3600") or "3600"))
+        timeout_per_page = float(os.environ.get("RAG_BATCH_TIMEOUT_PER_PAGE", "30") or "30")
+        timeout_per_chunk = float(os.environ.get("RAG_BATCH_TIMEOUT_PER_CHUNK", "10") or "10")
+        timeout_floor = max(180, int(os.environ.get("RAG_BATCH_TIMEOUT_MIN", "600") or "600"))
+        timeout_cap = max(timeout_floor, int(os.environ.get("RAG_BATCH_TIMEOUT_MAX", "7200") or "7200"))
         timeout_seconds = int(timeout_per_page * batch_pages + timeout_per_chunk * actual_chunks)
         timeout_seconds = max(timeout_floor, min(timeout_cap, timeout_seconds))
         tail_per_page = float(os.environ.get("RAG_PROGRESS_TAIL_PER_PAGE_SECONDS", "2.0") or "2.0")
@@ -1050,7 +1120,13 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
         try:
             while True:
                 try:
-                    await asyncio.wait_for(rag.ainsert(payload), timeout=float(timeout_seconds))
+                    await _run_ainsert_with_keepalive(
+                        rag,
+                        payload,
+                        timeout_seconds=float(timeout_seconds),
+                        jobs_repo=jobs_repo,
+                        job_id=job_id,
+                    )
                     break
                 except asyncio.TimeoutError:
                     if b_row and jobs_repo:

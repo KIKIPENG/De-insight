@@ -189,15 +189,14 @@ def test_deep_fallback_on_timeout():
     asyncio.run(_run())
 
 
-def test_embed_provider_unified_v4():
-    """v0.8: 所有 embedding 統一使用本地 jina-embeddings-v4 / 1024d。"""
+def test_embed_provider_unified_openrouter():
+    """v0.8: 所有 embedding 統一使用 OpenRouter / 1024d。"""
     from rag.knowledge_graph import _get_embed_config
     model, key, base, dim = _get_embed_config()
-    assert model == "jina-embeddings-v4-gguf"
+    assert model == "nvidia/llama-nemotron-embed-vl-1b-v2:free"
     assert dim == 1024
-    assert key == "local"
-    assert base == ""
-    print("PASS: test_embed_provider_unified_v4")
+    assert base == "https://openrouter.ai/api/v1"
+    print("PASS: test_embed_provider_unified_openrouter")
 
 
 def test_insight_score_affects_ranking():
@@ -359,6 +358,45 @@ def test_cross_lang_augments_with_entities():
     assert len(result) > len(query)
     print(f"  augmented: {result}")
     print("PASS: test_cross_lang_augments_with_entities")
+
+
+# ── D2: HyDE retrieval preparation tests ─────────────────────────
+
+def test_prepare_retrieval_query_uses_hyde_in_deep():
+    """D2: Deep mode should append a hypothetical passage for retrieval."""
+    async def _run():
+        from rag.pipeline import prepare_retrieval_query
+
+        with patch("rag.pipeline._generate_hyde_passage", new_callable=AsyncMock, return_value="假想論述段落"):
+            query, diag = await prepare_retrieval_query(
+                "媒介應該誠實面對自身限制",
+                mode="deep",
+                q_type="summary",
+            )
+            assert "假想論述段落" in query
+            assert diag["hyde_used"] is True
+            assert diag["retrieval_query_kind"] == "hyde"
+            print("PASS: test_prepare_retrieval_query_uses_hyde_in_deep")
+    asyncio.run(_run())
+
+
+def test_prepare_retrieval_query_skips_hyde_for_fact():
+    """D2: Fact queries should not use HyDE by default."""
+    async def _run():
+        from rag.pipeline import prepare_retrieval_query
+
+        with patch("rag.pipeline._generate_hyde_passage", new_callable=AsyncMock) as mock_hyde:
+            query, diag = await prepare_retrieval_query(
+                "王志弘是誰？",
+                mode="deep",
+                q_type="fact",
+            )
+            assert query
+            assert diag["hyde_used"] is False
+            assert diag["retrieval_query_kind"] == "augmented"
+            mock_hyde.assert_not_awaited()
+            print("PASS: test_prepare_retrieval_query_skips_hyde_for_fact")
+    asyncio.run(_run())
 
 
 # ── A3: Startup health check tests ───────────────────────────────
@@ -565,22 +603,24 @@ def test_deep_available_uses_deep():
         _p._deep_fail_until = 0.0
         _p._degraded_mode = False
 
-        with patch("rag.knowledge_graph.query_knowledge") as mock_qk:
-            with patch("rag.knowledge_graph.has_knowledge", return_value=True):
-                mock_qk.return_value = (
-                    '{"reference_id": "1", "content": "深度檢索結果"}',
-                    [{"title": "Deep result", "snippet": "detail", "file": "f"}],
-                )
+        with patch("rag.pipeline._generate_hyde_passage", new_callable=AsyncMock, return_value="假想段落"):
+            with patch("rag.knowledge_graph.query_knowledge") as mock_qk:
+                with patch("rag.knowledge_graph.has_knowledge", return_value=True):
+                    mock_qk.return_value = (
+                        '{"reference_id": "1", "content": "深度檢索結果"}',
+                        [{"title": "Deep result", "snippet": "detail", "file": "f"}],
+                    )
 
-                from rag.pipeline import run_thinking_pipeline
-                result = await run_thinking_pipeline(
-                    user_input="分析設計美學",
-                    project_id="test_proj",
-                    mode="deep",
-                )
-                assert result["strategy_used"] == "deep"
-                assert not result["fallback_used"]
-                print("PASS: test_deep_available_uses_deep")
+                    from rag.pipeline import run_thinking_pipeline
+                    result = await run_thinking_pipeline(
+                        user_input="分析設計美學",
+                        project_id="test_proj",
+                        mode="deep",
+                    )
+                    assert result["strategy_used"] == "deep"
+                    assert not result["fallback_used"]
+                    assert result["diagnostics"]["hyde_used"] is True
+                    print("PASS: test_deep_available_uses_deep")
     asyncio.run(_run())
 
 
@@ -591,25 +631,27 @@ def test_deep_fallback_still_returns_sources():
         _p._deep_fail_until = 0.0
         _p._degraded_mode = False
 
-        with patch("rag.knowledge_graph.query_knowledge") as mock_qk:
-            with patch("rag.knowledge_graph.has_knowledge", return_value=True):
-                mock_qk.side_effect = [
-                    Exception("500 Internal Server Error"),
-                    ('{"reference_id": "1", "content": "排版設計的原理和方法"}',
-                     [{"title": "排版設計", "snippet": "排版設計是視覺傳達的核心技術之一", "file": "design.pdf"}]),
-                ]
+        with patch("rag.pipeline._generate_hyde_passage", new_callable=AsyncMock, return_value="假想段落"):
+            with patch("rag.knowledge_graph.query_knowledge") as mock_qk:
+                with patch("rag.knowledge_graph.has_knowledge", return_value=True):
+                    mock_qk.side_effect = [
+                        Exception("500 Internal Server Error"),
+                        ('{"reference_id": "1", "content": "排版設計的原理和方法"}',
+                         [{"title": "排版設計", "snippet": "排版設計是視覺傳達的核心技術之一", "file": "design.pdf"}]),
+                    ]
 
-                from rag.pipeline import run_thinking_pipeline
-                result = await run_thinking_pipeline(
-                    user_input="排版設計",
-                    project_id="test_proj",
-                    mode="deep",
-                )
-                assert result["fallback_used"]
-                assert result["strategy_used"] == "fast_fallback"
-                assert result["diagnostics"]["deep_error_code"] is not None
-                assert result["diagnostics"]["retrieval_hit_count"] >= 1
-                print("PASS: test_deep_fallback_still_returns_sources")
+                    from rag.pipeline import run_thinking_pipeline
+                    result = await run_thinking_pipeline(
+                        user_input="排版設計",
+                        project_id="test_proj",
+                        mode="deep",
+                    )
+                    assert result["fallback_used"]
+                    assert result["strategy_used"] == "fast_fallback"
+                    assert result["diagnostics"]["deep_error_code"] is not None
+                    assert result["diagnostics"]["retrieval_hit_count"] >= 1
+                    assert result["diagnostics"]["hyde_used"] is True
+                    print("PASS: test_deep_fallback_still_returns_sources")
     asyncio.run(_run())
 
 

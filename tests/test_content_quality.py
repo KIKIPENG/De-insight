@@ -344,7 +344,7 @@ class TestDiscriminability:
         ("RAG 如何運作？", "RAG 的工作原理是什麼？"),
         ("向量搜尋怎麼做？", "如何實現向量檢索？"),
         ("什麼是量化？", "模型量化是什麼意思？"),
-        ("GGUF 格式的用途？", "GGUF 檔案格式是做什麼的？"),
+        ("向量資料庫的用途？", "向量資料庫是做什麼的？"),
         ("什麼是 Matryoshka embedding？", "Matryoshka 截斷技術是什麼？"),
         ("如何評估檢索品質？", "檢索品質的衡量方法？"),
         ("什麼是知識圖譜？", "知識圖譜的定義與用途？"),
@@ -358,7 +358,7 @@ class TestDiscriminability:
             "Embedding 是將文字或圖片映射到高維向量空間的技術。"
             "RAG (Retrieval-Augmented Generation) 結合檢索與生成。"
             "向量搜尋使用 ANN 算法，如 HNSW、IVF。"
-            "GGUF 是 llama.cpp 使用的量化模型格式，支援多種量化等級如 Q4_K_M、Q8_0。"
+            "向量資料庫用來儲存 embedding，支援相似度搜尋與檢索。"
             "Matryoshka embedding 允許在不同維度截斷向量而不失太多品質。"
             "知識圖譜以實體和關係組織結構化知識。"
             "多模態模型可以同時處理文字、圖片、音訊等多種輸入。"

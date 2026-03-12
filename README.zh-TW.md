@@ -120,7 +120,7 @@ Embedding 完全本地，不需要 API key。
 | 磁碟 | 4 GB | 10 GB+ |
 | Python | 3.11+ | — |
 
-macOS 需要 `xcode-select --install`，Linux 需要 `cmake` + `build-essential`。
+macOS 與 Linux 只需要可用的 Python 3.11+ 環境即可使用預設的遠端 embedding 設定。
 
 ---
 
@@ -132,7 +132,7 @@ tui.py → app.py（Textual TUI + FastAPI 後端）
 聊天      → DeepSeek V3 via OpenRouter
 知識圖譜  → Gemini via Google AI Studio
 圖片描述  → Gemini via Google AI Studio
-Embedding → jina-embeddings-v4 GGUF via llama-server（本地）
+Embedding → NVIDIA Llama Nemotron Embed VL via OpenRouter
 
 知識庫    → LightRAG（JSON/NetworkX）
 向量索引  → LanceDB
@@ -150,14 +150,13 @@ Embedding → jina-embeddings-v4 GGUF via llama-server（本地）
 │   ├── lightrag/         知識圖譜
 │   ├── images/           圖片
 │   └── documents/        PDF
-└── gguf/                 Embedding 模型 + llama-server
 ```
 
 ---
 
 ## 疑難排解
 
-**Embedding 編譯失敗**：macOS 跑 `xcode-select --install`，Linux 跑 `sudo apt install cmake build-essential`。
+**Embedding 設定失敗**：確認 `OPENROUTER_API_KEY` 已設定，且選擇的 embedding 模型可用。
 
 **後端連不上**：後端隨 TUI 自動啟動。`curl -m 3 -sS http://127.0.0.1:8000/api/health` 確認。
 

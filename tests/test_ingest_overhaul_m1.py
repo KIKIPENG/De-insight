@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import os
+import shutil
 from pathlib import Path
 
 import aiosqlite
@@ -11,6 +12,7 @@ from rag.ingestion_service import IngestionService
 from rag.job_executor import JobExecutor
 from rag.job_repository import JobRepository
 from rag.knowledge_graph import _build_pdf_batches
+from rag.rollback import cleanup_job_snapshot, prepare_job_snapshot, restore_job_snapshot
 
 
 @pytest.mark.asyncio
@@ -250,3 +252,169 @@ async def test_12_done_status_clears_stale_error_fields(tmp_path: Path):
     assert job["status"] == "done"
     assert job["error_code"] is None
     assert job["error_detail"] is None
+
+
+@pytest.mark.asyncio
+async def test_13_rollback_snapshot_restores_project_files(tmp_path: Path, monkeypatch):
+    import paths
+    import rag.rollback as rollback_mod
+
+    data_root = tmp_path / "data"
+    projects_dir = data_root / "projects"
+    monkeypatch.setattr(paths, "DATA_ROOT", data_root)
+    monkeypatch.setattr(paths, "PROJECTS_DIR", projects_dir)
+    monkeypatch.setattr(rollback_mod, "DATA_ROOT", data_root)
+
+    project_id = "p1"
+    root = paths.ensure_project_dirs(project_id)
+    (root / "lightrag" / "state.txt").write_text("clean", encoding="utf-8")
+    (root / "documents" / "doc.txt").write_text("doc-clean", encoding="utf-8")
+    (root / "conversations.db").write_text("conv-clean", encoding="utf-8")
+    job = {"id": "j1", "project_id": project_id}
+
+    snap = prepare_job_snapshot(job)
+    (root / "lightrag" / "state.txt").write_text("dirty", encoding="utf-8")
+    (root / "documents" / "extra.txt").write_text("extra", encoding="utf-8")
+    (root / "conversations.db").write_text("conv-dirty", encoding="utf-8")
+
+    restore_job_snapshot({**job, "rollback_snapshot_dir": str(snap)})
+
+    assert (root / "lightrag" / "state.txt").read_text(encoding="utf-8") == "clean"
+    assert (root / "documents" / "doc.txt").read_text(encoding="utf-8") == "doc-clean"
+    assert not (root / "documents" / "extra.txt").exists()
+    assert (root / "conversations.db").read_text(encoding="utf-8") == "conv-clean"
+
+    cleanup_job_snapshot({**job, "rollback_snapshot_dir": str(snap)})
+    assert not snap.exists()
+
+
+@pytest.mark.asyncio
+async def test_14_transient_failure_restores_snapshot_and_keeps_retry(tmp_path: Path, monkeypatch):
+    import paths
+    import rag.rollback as rollback_mod
+    import rag.source_handlers as sh
+
+    data_root = tmp_path / "data"
+    projects_dir = data_root / "projects"
+    monkeypatch.setattr(paths, "DATA_ROOT", data_root)
+    monkeypatch.setattr(paths, "PROJECTS_DIR", projects_dir)
+    monkeypatch.setattr(rollback_mod, "DATA_ROOT", data_root)
+
+    project_id = "p1"
+    root = paths.ensure_project_dirs(project_id)
+    (root / "lightrag" / "state.txt").write_text("clean", encoding="utf-8")
+
+    db_path = tmp_path / "ingest_jobs.db"
+    repo = JobRepository(db_path)
+    await repo.ensure_table()
+    job_id = await repo.create_job(project_id, "/tmp/a.txt", "txt", title="doc")
+    job = await repo.get_job(job_id)
+    assert job is not None
+
+    class _TransientHandler:
+        async def ingest(self, _job):
+            (root / "lightrag" / "state.txt").write_text("dirty", encoding="utf-8")
+            raise RuntimeError("timeout while calling provider")
+
+    monkeypatch.setattr(sh, "get_handler", lambda _st: _TransientHandler())
+
+    executor = JobExecutor(db_path)
+    await executor.execute(job)
+
+    row = await repo.get_job(job_id)
+    assert row is not None
+    assert row["status"] == "retrying"
+    assert int(row.get("rollback_pending") or 0) == 0
+    assert str(row.get("rollback_snapshot_dir") or "").strip() != ""
+    assert (root / "lightrag" / "state.txt").read_text(encoding="utf-8") == "clean"
+
+
+@pytest.mark.asyncio
+async def test_15_abort_and_rollback_incomplete_restores_only_pending_jobs(tmp_path: Path, monkeypatch):
+    import paths
+    import rag.rollback as rollback_mod
+
+    data_root = tmp_path / "data"
+    projects_dir = data_root / "projects"
+    monkeypatch.setattr(paths, "DATA_ROOT", data_root)
+    monkeypatch.setattr(paths, "PROJECTS_DIR", projects_dir)
+    monkeypatch.setattr(rollback_mod, "DATA_ROOT", data_root)
+
+    db_path = tmp_path / "ingest_jobs.db"
+    repo = JobRepository(db_path)
+    await repo.ensure_table()
+
+    root_running = paths.ensure_project_dirs("p-running")
+    (root_running / "lightrag" / "state.txt").write_text("clean-running", encoding="utf-8")
+    running_id = await repo.create_job("p-running", "/tmp/running.txt", "txt", title="running")
+    running_job = await repo.get_job(running_id)
+    assert running_job is not None
+    running_snap = prepare_job_snapshot(running_job)
+    (root_running / "lightrag" / "state.txt").write_text("dirty-running", encoding="utf-8")
+    await repo.set_rollback_snapshot(running_id, str(running_snap))
+    await repo.set_rollback_pending(running_id, True)
+    await repo.update_status(
+        running_id,
+        "running",
+        phase="extracting",
+        error_code="STALL_DETECTED",
+        error_detail="still running",
+    )
+
+    root_retry = paths.ensure_project_dirs("p-retrying")
+    (root_retry / "lightrag" / "state.txt").write_text("stable-retrying", encoding="utf-8")
+    retry_id = await repo.create_job("p-retrying", "/tmp/retrying.txt", "txt", title="retrying")
+    retry_job = await repo.get_job(retry_id)
+    assert retry_job is not None
+    retry_snap = prepare_job_snapshot(retry_job)
+    await repo.set_rollback_snapshot(retry_id, str(retry_snap))
+    await repo.update_status(
+        retry_id,
+        "retrying",
+        last_error="timeout",
+        next_retry_at="2099-01-01 00:00:00",
+        phase="retrying",
+        error_code="PHASE_TIMEOUT",
+        error_detail="already restored",
+    )
+
+    queued_id = await repo.create_job("p-queued", "/tmp/queued.txt", "txt", title="queued")
+
+    svc = IngestionService(db_path)
+    monkeypatch.setattr(svc, "stop_worker", lambda: None)
+    aborted = await svc.abort_and_rollback_incomplete()
+
+    assert {row["id"] for row in aborted} == {running_id, retry_id, queued_id}
+
+    running_row = await repo.get_job(running_id)
+    retry_row = await repo.get_job(retry_id)
+    queued_row = await repo.get_job(queued_id)
+    assert running_row is not None and retry_row is not None and queued_row is not None
+    assert running_row["status"] == "failed"
+    assert retry_row["status"] == "failed"
+    assert queued_row["status"] == "failed"
+    assert running_row["error_code"] == "CANCELLED_ON_TUI_EXIT"
+    assert retry_row["error_code"] == "CANCELLED_ON_TUI_EXIT"
+    assert queued_row["error_code"] == "CANCELLED_ON_TUI_EXIT"
+    assert (root_running / "lightrag" / "state.txt").read_text(encoding="utf-8") == "clean-running"
+    assert (root_retry / "lightrag" / "state.txt").read_text(encoding="utf-8") == "stable-retrying"
+    assert str((await repo.get_job(running_id))["rollback_snapshot_dir"] or "") == ""
+    assert str((await repo.get_job(retry_id))["rollback_snapshot_dir"] or "") == ""
+    assert not running_snap.exists()
+    assert not retry_snap.exists()
+
+
+@pytest.mark.asyncio
+async def test_16_get_active_progress_filters_by_project(tmp_path: Path):
+    db_path = tmp_path / "ingest_jobs.db"
+    repo = JobRepository(db_path)
+    await repo.ensure_table()
+    j1 = await repo.create_job("p1", "/tmp/a.pdf", "pdf")
+    j2 = await repo.create_job("p2", "/tmp/b.pdf", "pdf")
+    await repo.update_status(j1, "running", phase="extracting")
+    await repo.update_status(j2, "queued", phase="queued")
+
+    svc = IngestionService(db_path)
+    only_p1 = await svc.get_active_progress("p1")
+
+    assert [job["id"] for job in only_p1] == [j1]

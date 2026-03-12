@@ -59,6 +59,13 @@ def _mask_key(key: str) -> str:
     return key[:4] + "----" + key[-4:]
 
 
+def _normalize_embed_model(model: str) -> str:
+    model = (model or "").strip()
+    if not model or "/" not in model:
+        return "nvidia/llama-nemotron-embed-vl-1b-v2:free"
+    return model
+
+
 def _get_service_status(env: dict) -> dict[str, str]:
     """回傳每個服務目前的設定狀態摘要。"""
     status = {}
@@ -66,11 +73,9 @@ def _get_service_status(env: dict) -> dict[str, str]:
     chat_model = env.get("LLM_MODEL", "")
     status["chat"] = chat_model if chat_model else "(未設定)"
     # Embedding
-    embed_provider = env.get("EMBED_PROVIDER", "gguf").lower()
-    if embed_provider in ("jina", "jina-api"):
-        status["embedding"] = "Jina API (jina-embeddings-v4, 1024d)"
-    else:
-        status["embedding"] = "jina-embeddings-v4 GGUF (本地, 1024d)"
+    embed_model = _normalize_embed_model(env.get("EMBED_MODEL", ""))
+    embed_dim = env.get("EMBED_DIM", "") or "1024"
+    status["embedding"] = f"OpenRouter ({embed_model}, {embed_dim}d)"
     # RAG LLM
     rag_model = env.get("RAG_LLM_MODEL", "")
     status["rag_llm"] = rag_model if rag_model else "(跟聊天模型相同)"
@@ -621,18 +626,15 @@ class SettingsScreen(ModalScreen[str | None]):
             self._env.pop("OPENAI_API_BASE", None)
 
     def _save_embed_model(self, pid, model_name, pinfo):
-        if pid in ("jina-api",):
-            self._env["EMBED_PROVIDER"] = "jina"
-            self._env["EMBED_MODEL"] = model_name or "jina-embeddings-v4"
-            self._env["EMBED_DIM"] = str(pinfo.get("dims", {}).get(model_name, 1024))
-            # 保留 JINA_API_KEY（已在 _save_key_and_continue 中儲存）
-        else:
-            self._env["EMBED_PROVIDER"] = "gguf"
-            self._env["EMBED_MODEL"] = model_name or "jina-embeddings-v4-gguf"
-            self._env["EMBED_DIM"] = "1024"
-            # GGUF 不需要 API key
-            for k in ("EMBED_MODE", "EMBED_API_KEY", "EMBED_API_BASE"):
-                self._env.pop(k, None)
+        self._env["EMBED_PROVIDER"] = "openrouter"
+        self._env["EMBED_MODEL"] = model_name or "nvidia/llama-nemotron-embed-vl-1b-v2:free"
+        self._env["EMBED_DIM"] = str(
+            pinfo.get("dims", {}).get(model_name or "nvidia/llama-nemotron-embed-vl-1b-v2:free", 1024)
+        )
+        self._env["EMBED_API_BASE"] = pinfo.get("default_base", "https://openrouter.ai/api/v1")
+        current_key = self._env.get(pinfo.get("key_env", ""), "")
+        if current_key:
+            self._env["EMBED_API_KEY"] = current_key
         # 重置 embedding service 單例，讓新設定生效
         try:
             from embeddings.service import reset_embedding_service

@@ -1,0 +1,40 @@
+{
+  "comparison_cases": [
+    {
+      "case_id": "compare_001",
+      "user_message": "包豪斯的理論框架是什麼？",
+      "notes": "Theory mapping - should trigger deep mode",
+      "expected_mode": "deep"
+    },
+    {
+      "case_id": "compare_002",
+      "user_message": "這和其他設計運動的結構模式有什麼相似之處？",
+      "notes": "Structural similarity - should trigger deep mode",
+      "expected_mode": "deep"
+    },
+    {
+      "case_id": "compare_003",
+      "user_message": "這像建築中的什麼？兩者有什麼相通之處？",
+      "notes": "Analogy question - should trigger deep mode",
+      "expected_mode": "deep"
+    },
+    {
+      "case_id": "compare_004",
+      "user_message": "這個概念是什麼意思？",
+      "notes": "Conceptual interpretation - should trigger deep mode",
+      "expected_mode": "deep"
+    },
+    {
+      "case_id": "compare_005",
+      "user_message": "包豪斯是什麼時候成立的？",
+      "notes": "Factual question - should trigger fast mode",
+      "expected_mode": "fast"
+    },
+    {
+      "case_id": "compare_006",
+      "user_message": "極簡主義的代表作有哪些？",
+      "notes": "Information lookup - should trigger fast mode",
+      "expected_mode": "fast"
+    }
+  ]
+}

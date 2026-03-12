@@ -75,7 +75,7 @@ def _detect_vector_dim(table) -> int | None:
 
 
 async def _get_embedding_fn():
-    """取得 embedding 函數 — 透過 EmbeddingService（GGUF 後端）。"""
+    """取得 embedding 函數 — 透過 EmbeddingService。"""
     global _embed_fn, _embed_dim
     if _embed_fn is not None:
         return _embed_fn, _embed_dim

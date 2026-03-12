@@ -1,0 +1,63 @@
+You are working on the public GitHub repository `KIKIPENG/De-insight`.
+
+Your task is to implement the first phase of a **core architecture rewrite** for De-insight.
+
+Read the repository carefully before making changes.
+Use the attached technical specification file `deinsight_v2_codex_technical_spec.md` as the source of truth for architectural direction.
+
+## Objective
+
+Shift the semantic center of De-insight from a chunk-centric RAG architecture to a thought-structure-centric architecture.
+
+This is **not** a full product rewrite.
+Preserve the existing shell where practical, but introduce a new `core/` package that will become the v2 center.
+
+## What to do
+
+1. Inspect the current repo structure and identify the best insertion points.
+2. Create a new `core/` package.
+3. Implement typed schema models for:
+   - Claim
+   - ThoughtUnit
+   - ConceptMapping
+   - Bridge
+   - RetrievalPlan
+4. Implement store abstractions for these models.
+5. Implement a first-pass `ThoughtExtractor` module.
+   - It must output structured typed data, not freeform text.
+   - It can initially be heuristic or use existing model utilities if present.
+   - Keep the interface stable and testable.
+6. Implement a first-pass `QueryClassifier` and `RetrievalPlanner`.
+   - Support at least `fast` and `deep` modes.
+   - Deep mode should be selected when the user appears to ask for theory mapping, structural similarity, cross-domain analogy, or conceptual interpretation.
+7. Add a compatibility integration point so that one existing chat path can call the new core pipeline without breaking the current app.
+8. Add tests for the new schemas and at least one planner/extractor path.
+9. Write concise developer documentation in code comments and/or a short markdown file describing how the new core fits into the old system.
+
+## Constraints
+
+- Preserve existing public behavior where possible.
+- Do not remove old modules yet; treat them as legacy compatibility layers.
+- Keep the new code modular, typed, and debuggable.
+- Do not implement a giant monolithic prompt.
+- Prefer small composable functions and clearly inspectable intermediate outputs.
+- If the repo already has related utilities in `memory/`, `rag/`, `backend/`, or `projects/`, reuse them when appropriate instead of duplicating logic.
+
+## Code quality requirements
+
+- Use Python 3.11+ idioms.
+- Prefer Pydantic models where appropriate.
+- Add docstrings to public classes/functions.
+- Keep function boundaries explicit.
+- Avoid hidden global state.
+- Make sure the new code can evolve toward ingestion-time annotation and bridge ranking later.
+
+## Expected output
+
+Please:
+1. Modify the repo directly.
+2. Summarize the file-level changes.
+3. Explain architectural decisions briefly.
+4. Point out any unresolved assumptions or risks.
+
+Start by reading the technical spec file and the current repository structure, then implement Phase 1 only.

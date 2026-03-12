@@ -120,7 +120,7 @@ Embedding runs entirely locally. No API key needed.
 | Disk | 4 GB | 10 GB+ |
 | Python | 3.11+ | — |
 
-macOS needs `xcode-select --install`. Linux needs `cmake` + `build-essential`.
+macOS and Linux only need a working Python 3.11+ environment for the default remote embedding setup.
 
 ---
 
@@ -132,7 +132,7 @@ tui.py → app.py (Textual TUI + FastAPI backend)
 Chat         → DeepSeek V3 via OpenRouter
 Knowledge    → Gemini via Google AI Studio
 Vision       → Gemini via Google AI Studio
-Embedding    → jina-embeddings-v4 GGUF via llama-server (local)
+Embedding    → NVIDIA Llama Nemotron Embed VL via OpenRouter
 
 Knowledge DB → LightRAG (JSON/NetworkX)
 Vector index → LanceDB
@@ -150,14 +150,13 @@ Image gallery→ LanceDB + web frontend
 │   ├── lightrag/         knowledge graph
 │   ├── images/           image files
 │   └── documents/        PDFs
-└── gguf/                 embedding model + llama-server
 ```
 
 ---
 
 ## Troubleshooting
 
-**Embedding build fails**: macOS — `xcode-select --install`. Linux — `sudo apt install cmake build-essential`.
+**Embedding setup fails**: confirm `OPENROUTER_API_KEY` is set and the selected embedding model is reachable.
 
 **Backend won't connect**: It starts automatically with the TUI. Check port 8000: `curl -m 3 -sS http://127.0.0.1:8000/api/health`.
 

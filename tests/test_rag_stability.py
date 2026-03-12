@@ -17,14 +17,13 @@ os.environ.setdefault("DEINSIGHT_DATA_VERSION", "test_v0.6")
 
 
 def test_embed_config_always_v4():
-    """v0.8: _get_embed_config 統一回傳本地 jina-embeddings-v4 / 1024。"""
+    """v0.8: _get_embed_config 統一回傳 OpenRouter embedding / 1024。"""
     from rag.knowledge_graph import _get_embed_config
 
     model, key, base, dim = _get_embed_config()
     assert dim == 1024, f"預設維度應為 1024，實際 {dim}"
-    assert model == "jina-embeddings-v4-gguf"
-    assert key == "local"
-    assert base == ""
+    assert model == "nvidia/llama-nemotron-embed-vl-1b-v2:free"
+    assert base == "https://openrouter.ai/api/v1"
 
 
 def test_embed_dim_fixed_1024():

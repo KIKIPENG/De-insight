@@ -33,6 +33,7 @@ class IngestionWorkerProcess:
     LEASE_NAME = "ingestion_worker"
     LEASE_TTL_SECONDS = 20
     LEASE_HEARTBEAT_SECONDS = 5
+    LEASE_ACQUIRE_MAX_WAIT_SECONDS = 15
 
     def __init__(self, db_path: str) -> None:
         self._db_path = Path(db_path)
@@ -76,6 +77,7 @@ class IngestionWorkerProcess:
             log.exception("safe_land_current_job failed")
 
     async def _acquire_lease_loop(self) -> bool:
+        waited = 0.0
         while self._running:
             ok = await self._repo.acquire_lease(
                 self.LEASE_NAME,
@@ -86,6 +88,10 @@ class IngestionWorkerProcess:
                 return True
             log.info("Lease busy; worker recovering (<20s)")
             await asyncio.sleep(2.0)
+            waited += 2.0
+            if waited >= self.LEASE_ACQUIRE_MAX_WAIT_SECONDS:
+                log.info("Lease still busy after %.0fs; exiting idle worker", waited)
+                return False
         return False
 
     async def _lease_heartbeat_loop(self) -> None:
@@ -122,6 +128,15 @@ class IngestionWorkerProcess:
         reconciled = await self._repo.reconcile_stale_running_jobs(stale_seconds=30)
         if reconciled:
             log.info("Reconciled %d stale running jobs", reconciled)
+        try:
+            from rag.ingestion_service import IngestionService
+
+            svc = IngestionService(self._db_path)
+            restored = await svc.restore_pending_rollbacks()
+            if restored:
+                log.info("Restored %d pending rollback snapshot(s)", len(restored))
+        except Exception:
+            log.exception("Failed to restore pending rollback snapshots")
 
         log.info("Worker started, polling %s", self._db_path)
 

@@ -2017,17 +2017,21 @@ class OnboardingScreen(ModalScreen[str | None]):
         )
 
     async def _render_embed_setup(self, container: Vertical) -> None:
-        """Jina API Key 輸入步驟。"""
+        """OpenRouter API Key 輸入步驟。"""
         from settings import load_env
-        existing_key = load_env().get("JINA_API_KEY", "")
-        hint = "  已有 JINA_API_KEY（可直接下一步，或輸入新的）" if existing_key else "  請輸入 Jina API Key（到 https://jina.ai/ 免費取得）"
+        existing_key = load_env().get("OPENROUTER_API_KEY", "")
+        hint = (
+            "  已有 OPENROUTER_API_KEY（可直接下一步，或輸入新的）"
+            if existing_key else
+            "  請輸入 OpenRouter API Key"
+        )
         await container.mount(
-            Static("  Step 2/5: Jina Embedding API", classes="ob-title"),
+            Static("  Step 2/5: OpenRouter Embedding", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
             Static(hint, classes="ob-hint"),
             Vertical(
                 Input(
-                    placeholder="jina_xxxx（留空則沿用現有）" if existing_key else "jina_xxxx",
+                    placeholder="sk-or-xxxx（留空則沿用現有）" if existing_key else "sk-or-xxxx",
                     id="ob-key-input",
                     password=True,
                 ),
@@ -2035,72 +2039,31 @@ class OnboardingScreen(ModalScreen[str | None]):
             ),
             Horizontal(
                 Button("<- 返回", id="btn-ob-back"),
-                Button("儲存並繼續 ->", id="btn-ob-jina-save"),
+                Button("儲存並繼續 ->", id="btn-ob-embed-save"),
                 classes="ob-btn-row",
             ),
         )
 
-    _DL_PHASES = [
-        "正在檢查環境...",
-        "正在編譯 llama-server（Metal ON）...",
-        "正在下載 GGUF 模型（Q4_K_M）...",
-        "正在下載 mmproj-f16...",
-        "即將完成，請稍候...",
-    ]
-
     async def _render_embed_download(self, container: Vertical) -> None:
-        self._dl_phase_idx = 0
         await container.mount(
-            Static("  Step 2/5: 安裝 GGUF Embedding 環境", classes="ob-title"),
+            Static("  Step 2/5: OpenRouter Embedding", classes="ob-title"),
             Static("[dim #2a2a2a]" + "-" * 56 + "[/]", classes="ob-sep"),
-            ProgressBar(total=None, id="ob-progress-bar"),
-            Static(f"  {self._DL_PHASES[0]}", id="ob-download-status"),
+            Static("  OpenRouter embedding 不需要本地安裝。", id="ob-download-status"),
         )
-        self._dl_timer = self.set_interval(15.0, self._tick_dl_phase)
-        self._run_model_download()
-
-    def _tick_dl_phase(self) -> None:
-        self._dl_phase_idx = min(
-            self._dl_phase_idx + 1, len(self._DL_PHASES) - 1
-        )
-        try:
-            status = self.query_one("#ob-download-status", Static)
-            status.update(f"  {self._DL_PHASES[self._dl_phase_idx]}")
-        except Exception:
-            pass
+        self._on_download_complete()
 
     @work(exclusive=True, thread=True)
     def _run_model_download(self) -> None:
-        import traceback
-        from embeddings.local import ensure_model_downloaded
-        try:
-            def _progress(desc: str, pct: float) -> None:
-                try:
-                    # 更新 phase 文字
-                    idx = min(int(pct * len(self._DL_PHASES)), len(self._DL_PHASES) - 1)
-                    self._dl_phase_idx = idx
-                except Exception:
-                    pass
-
-            ensure_model_downloaded(download_if_missing=True, progress_callback=_progress)
-            self.app.call_from_thread(self._on_download_complete)
-        except Exception as exc:
-            self.app.log.error("GGUF install failed:\n%s", traceback.format_exc())
-            msg = str(exc)
-            self.app.call_from_thread(self._on_download_error, msg)
+        self.app.call_from_thread(self._on_download_complete)
 
     def _on_download_complete(self) -> None:
-        if hasattr(self, "_dl_timer"):
-            self._dl_timer.stop()
         self._step = "rag_llm"
         self.run_worker(self._render_step(), exclusive=True)
 
     def _on_download_error(self, msg: str) -> None:
-        if hasattr(self, "_dl_timer"):
-            self._dl_timer.stop()
         try:
             status = self.query_one("#ob-download-status", Static)
-            status.update(f"  [red]下載失敗：{msg}[/]")
+            status.update(f"  [red]設定失敗：{msg}[/]")
         except Exception:
             pass
 
@@ -2314,7 +2277,9 @@ class OnboardingScreen(ModalScreen[str | None]):
         from settings import load_env
         env = load_env()
         model = env.get("LLM_MODEL", "(未設定)")
-        embed = "jina-embeddings-v4 GGUF (Q4_K_M, 1024d)"
+        embed = env.get("EMBED_MODEL", "")
+        if not embed or "/" not in embed:
+            embed = "nvidia/llama-nemotron-embed-vl-1b-v2:free"
         rag_llm = env.get("RAG_LLM_MODEL", "")
         rag_display = rag_llm if rag_llm else "跟聊天模型相同"
         vision = env.get("VISION_MODEL", "")
@@ -2434,45 +2399,28 @@ class OnboardingScreen(ModalScreen[str | None]):
         # Step 2: embed provider selection
         if btn_id.startswith("ob-embed-provider-"):
             embed_pid = btn_name
-            if embed_pid == "jina-api":
-                self._selected_embed_pid = "jina-api"
+            if embed_pid == "openrouter":
+                self._selected_embed_pid = "openrouter"
                 self._step = "embed_setup"
                 await self._render_step()
                 return
-            elif embed_pid == "gguf":
-                from settings import save_env_key
-                save_env_key("EMBED_PROVIDER", "gguf")
-                save_env_key("EMBED_MODEL", "jina-embeddings-v4-gguf")
-                save_env_key("EMBED_DIM", "1024")
-                save_env_key("GGUF_AUTO_INSTALL", "1")
-                self._step = "embed_download"
-                await self._render_step()
-                return
 
-        # Step 2: Jina API key save
-        if btn_id == "btn-ob-jina-save":
-            await self._save_jina_config()
+        # Step 2: embedding API key save
+        if btn_id == "btn-ob-embed-save":
+            await self._save_embedding_config()
             self._step = "rag_llm"
             await self._render_step()
             return
 
-        # Step 2: embed — download or skip (GGUF path)
+        # Step 2: embed — keep backward-compatible button ids
         if btn_id == "ob-embed-download":
-            from settings import save_env_key
-            save_env_key("EMBED_PROVIDER", "gguf")
-            save_env_key("EMBED_MODEL", "jina-embeddings-v4-gguf")
-            save_env_key("EMBED_DIM", "1024")
-            save_env_key("GGUF_AUTO_INSTALL", "1")
+            await self._save_embedding_config()
             self._step = "embed_download"
             await self._render_step()
             return
 
         if btn_id == "ob-embed-skip":
-            from settings import save_env_key
-            save_env_key("EMBED_PROVIDER", "gguf")
-            save_env_key("EMBED_MODEL", "jina-embeddings-v4-gguf")
-            save_env_key("EMBED_DIM", "1024")
-            save_env_key("GGUF_AUTO_INSTALL", "1")
+            await self._save_embedding_config()
             self._step = "rag_llm"
             await self._render_step()
             return
@@ -2547,22 +2495,26 @@ class OnboardingScreen(ModalScreen[str | None]):
             save_env_key("VISION_API_BASE", pinfo["default_base"])
 
     async def _save_embed_config(self, embed_pid: str) -> None:
-        # v0.7: 統一 jina-embeddings-v4，此方法僅作向後相容
+        # v0.7: 向後相容 shim
         from settings import save_env_key
-        save_env_key("EMBED_PROVIDER", "jina")
-        save_env_key("EMBED_MODEL", "jina-embeddings-v3")
+        save_env_key("EMBED_PROVIDER", "openrouter")
+        save_env_key("EMBED_MODEL", "nvidia/llama-nemotron-embed-vl-1b-v2:free")
         save_env_key("EMBED_DIM", "1024")
+        save_env_key("EMBED_API_BASE", "https://openrouter.ai/api/v1")
 
-    async def _save_jina_config(self) -> None:
-        """儲存 Jina API 設定。"""
+    async def _save_embedding_config(self) -> None:
+        """儲存 OpenRouter embedding 設定。"""
         from settings import save_env_key
         try:
             key_input = self.query_one("#ob-key-input", Input)
             key_val = key_input.value.strip()
             if key_val:
-                save_env_key("JINA_API_KEY", key_val)
+                save_env_key("OPENROUTER_API_KEY", key_val)
+                save_env_key("EMBED_API_KEY", key_val)
         except Exception:
             pass
-        save_env_key("EMBED_PROVIDER", "jina")
-        save_env_key("EMBED_MODEL", "jina-embeddings-v3")
+        save_env_key("EMBED_PROVIDER", "openrouter")
+        save_env_key("EMBED_MODEL", "nvidia/llama-nemotron-embed-vl-1b-v2:free")
+        save_env_key("EMBED_DIM", "1024")
+        save_env_key("EMBED_API_BASE", "https://openrouter.ai/api/v1")
         save_env_key("EMBED_DIM", "1024")

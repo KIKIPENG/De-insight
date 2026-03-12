@@ -20,6 +20,7 @@ if _venv_dir.is_dir():
 from widgets import (
     AppState, ChatInput, MenuBar, WelcomeBlock,
 )
+from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical, VerticalScroll
@@ -680,7 +681,8 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
                 )
 
             # Show real progress for active jobs
-            active_jobs = await svc.get_active_progress()
+            current_project_id = self.state.current_project["id"] if self.state.current_project else None
+            active_jobs = await svc.get_active_progress(current_project_id)
             running_jobs = [j for j in active_jobs if str(j.get("status", "")).startswith("running")]
             queued_jobs = [j for j in active_jobs if j.get("status") == "queued"]
             if running_jobs:
@@ -770,7 +772,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
                     pass
             else:
                 # Show deferred retry countdown (e.g. rate-limit backoff) when no active job.
-                deferred = await svc.get_deferred_retries()
+                deferred = await svc.get_deferred_retries(current_project_id)
                 if deferred:
                     d0 = deferred[0]
                     import os.path as _osp
@@ -813,16 +815,37 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
             self.log.warning(f"Ingestion poll error: {e}")
 
     def action_quit(self) -> None:
-        """Override quit to stop ingestion worker before exit."""
+        if getattr(self, "_shutdown_in_progress", False):
+            return
+        self._shutdown_in_progress = True
+        self._shutdown_and_exit()
+
+    @work(exclusive=True, group="shutdown")
+    async def _shutdown_and_exit(self) -> None:
+        """Override quit to stop ingestion worker and rollback unfinished jobs before exit."""
         try:
-            from rag.ingestion_service import get_ingestion_service
-            svc = get_ingestion_service()
-            svc.stop_worker()
+            menu = self.query_one("#menu-bar", MenuBar)
+            menu.show_progress("正在取消匯入並回滾…")
         except Exception:
-            pass
+            menu = None
         if hasattr(self, "_ingestion_poll_timer"):
             self._ingestion_poll_timer.stop()
-        self.exit()
+        try:
+            from rag.ingestion_service import get_ingestion_service
+
+            svc = get_ingestion_service()
+            aborted = await svc.abort_and_rollback_incomplete()
+            if aborted:
+                self.notify(f"已取消並回滾 {len(aborted)} 筆未完成匯入", timeout=4)
+        except Exception as e:
+            self.notify(f"退出前清理失敗: {e}", severity="error", timeout=6)
+        finally:
+            try:
+                if menu and menu._spinner_active:
+                    menu.clear_notification()
+            except Exception:
+                pass
+            self.exit()
 
     async def _check_embedding_model_ready(self) -> None:
         """Compatibility diagnostics hook.

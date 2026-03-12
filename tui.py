@@ -1,4 +1,5 @@
 """De-insight TUI — 入口點"""
+import asyncio
 import atexit
 import os
 import subprocess
@@ -87,4 +88,12 @@ if __name__ == "__main__":
         atexit.register(backend_proc.terminate)
 
     from app import DeInsightApp
-    DeInsightApp().run()
+    try:
+        DeInsightApp().run()
+    finally:
+        try:
+            from rag.ingestion_service import get_ingestion_service
+
+            asyncio.run(get_ingestion_service().abort_and_rollback_incomplete())
+        except Exception:
+            pass

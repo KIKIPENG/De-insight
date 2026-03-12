@@ -62,6 +62,9 @@ class JobRepository:
                     max_retries   INTEGER DEFAULT 3,
                     rate_limit_retry_count INTEGER DEFAULT 0,
                     backoff_wall_time_seconds INTEGER DEFAULT 0,
+                    rollback_snapshot_dir TEXT DEFAULT NULL,
+                    rollback_prepared_at TEXT DEFAULT NULL,
+                    rollback_pending INTEGER DEFAULT 0,
                     created_at    TEXT DEFAULT (datetime('now','localtime')),
                     updated_at    TEXT DEFAULT (datetime('now','localtime'))
                 )
@@ -96,6 +99,9 @@ class JobRepository:
                 ("max_retries", "INTEGER DEFAULT 3"),
                 ("rate_limit_retry_count", "INTEGER DEFAULT 0"),
                 ("backoff_wall_time_seconds", "INTEGER DEFAULT 0"),
+                ("rollback_snapshot_dir", "TEXT DEFAULT NULL"),
+                ("rollback_prepared_at", "TEXT DEFAULT NULL"),
+                ("rollback_pending", "INTEGER DEFAULT 0"),
             ]
             for col_name, col_sql in add_columns:
                 if col_name in columns:
@@ -316,6 +322,10 @@ class JobRepository:
                                WHEN retry_count < attempts + 1 THEN attempts + 1
                                ELSE retry_count
                            END,
+                           error_code=NULL,
+                           error_detail=NULL,
+                           last_error='',
+                           next_retry_at=NULL,
                            phase=CASE
                                WHEN phase IN ('queued', 'retrying', 'unknown', '') THEN 'chunking'
                                ELSE phase
@@ -379,6 +389,49 @@ class JobRepository:
                     error_detail,
                     job_id,
                 ),
+            )
+            await db.commit()
+
+    async def set_rollback_snapshot(
+        self,
+        job_id: str,
+        snapshot_dir: str,
+        *,
+        prepared_at: str | None = None,
+    ) -> None:
+        ts = prepared_at or datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        async with aiosqlite.connect(self._db_path, timeout=15) as db:
+            await db.execute(
+                """UPDATE ingest_jobs
+                   SET rollback_snapshot_dir=?,
+                       rollback_prepared_at=?,
+                       updated_at=datetime('now','localtime')
+                   WHERE id=?""",
+                (snapshot_dir, ts, job_id),
+            )
+            await db.commit()
+
+    async def set_rollback_pending(self, job_id: str, pending: bool) -> None:
+        async with aiosqlite.connect(self._db_path, timeout=15) as db:
+            await db.execute(
+                """UPDATE ingest_jobs
+                   SET rollback_pending=?,
+                       updated_at=datetime('now','localtime')
+                   WHERE id=?""",
+                (1 if pending else 0, job_id),
+            )
+            await db.commit()
+
+    async def clear_rollback(self, job_id: str) -> None:
+        async with aiosqlite.connect(self._db_path, timeout=15) as db:
+            await db.execute(
+                """UPDATE ingest_jobs
+                   SET rollback_snapshot_dir=NULL,
+                       rollback_prepared_at=NULL,
+                       rollback_pending=0,
+                       updated_at=datetime('now','localtime')
+                   WHERE id=?""",
+                (job_id,),
             )
             await db.commit()
 
@@ -490,8 +543,25 @@ class JobRepository:
                 )
             await db.commit()
 
-    async def get_active_jobs(self) -> list[dict]:
+    async def get_active_jobs(self, project_id: str | None = None) -> list[dict]:
         """Return all active jobs with progress info."""
+        async with aiosqlite.connect(self._db_path, timeout=15) as db:
+            db.row_factory = aiosqlite.Row
+            sql = """SELECT * FROM ingest_jobs
+                     WHERE (
+                       status = 'queued'
+                       OR status = 'retrying'
+                       OR status LIKE 'running%'
+                     )"""
+            params: tuple[object, ...] = ()
+            if project_id:
+                sql += " AND project_id = ?"
+                params = (project_id,)
+            sql += " ORDER BY created_at ASC"
+            async with db.execute(sql, params) as cur:
+                return [dict(r) for r in await cur.fetchall()]
+
+    async def list_incomplete_jobs(self) -> list[dict]:
         async with aiosqlite.connect(self._db_path, timeout=15) as db:
             db.row_factory = aiosqlite.Row
             async with db.execute(
@@ -499,6 +569,17 @@ class JobRepository:
                    WHERE status = 'queued'
                       OR status = 'retrying'
                       OR status LIKE 'running%'
+                   ORDER BY created_at ASC"""
+            ) as cur:
+                return [dict(r) for r in await cur.fetchall()]
+
+    async def list_jobs_requiring_restore(self) -> list[dict]:
+        async with aiosqlite.connect(self._db_path, timeout=15) as db:
+            db.row_factory = aiosqlite.Row
+            async with db.execute(
+                """SELECT * FROM ingest_jobs
+                   WHERE rollback_pending = 1
+                     AND rollback_snapshot_dir IS NOT NULL
                    ORDER BY created_at ASC"""
             ) as cur:
                 return [dict(r) for r in await cur.fetchall()]
