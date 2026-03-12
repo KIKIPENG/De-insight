@@ -395,7 +395,10 @@ class Retriever:
         return result
 
     async def _retrieve_from_claims(self, query: str) -> list[dict]:
-        """Retrieve from ClaimStore.
+        """Retrieve from ClaimStore using both text and structural search.
+
+        Combines text-based LIKE search with structural dimension search
+        to find claims that share argumentative patterns, not just vocabulary.
 
         Args:
             query: Search query
@@ -404,13 +407,67 @@ class Retriever:
             List of claim items with metadata
         """
         try:
-            # Use text search if store available
-            if self._claim_store is not None:
-                results = await self.claim_store.search_by_text(query, limit=10)
-                return [
-                    {"claim": claim, "score": 0.8, "reason": "text_match"}
-                    for claim in results
-                ]
+            if self._claim_store is None:
+                return []
+
+            all_results: list[dict] = []
+            seen_ids: set[str] = set()
+
+            # Route 1: Text search (surface-level match)
+            try:
+                text_results = await self.claim_store.search_by_text(query, limit=5)
+                for claim in text_results:
+                    if claim.claim_id not in seen_ids:
+                        seen_ids.add(claim.claim_id)
+                        all_results.append(
+                            {"claim": claim, "score": 0.7, "reason": "text_match"}
+                        )
+            except Exception:
+                pass
+
+            # Route 2: Structural search — use dimensions from top text-match
+            # claim as seeds for finding structurally similar claims
+            structural_seeds: dict[str, list[str]] = {
+                "value_axes": [],
+                "abstract_patterns": [],
+                "theory_hints": [],
+                "critique_target": [],
+            }
+            # Seed from text-match results
+            for item in all_results:
+                c = item.get("claim")
+                if c and isinstance(c, Claim):
+                    structural_seeds["value_axes"].extend(c.value_axes or [])
+                    structural_seeds["abstract_patterns"].extend(c.abstract_patterns or [])
+                    structural_seeds["theory_hints"].extend(c.theory_hints or [])
+                    structural_seeds["critique_target"].extend(c.critique_target or [])
+
+            # Also add query keywords as fallback search terms
+            query_words = [w for w in query.replace("?", "").replace("？", "").split() if len(w) > 1]
+            if not any(structural_seeds.values()) and query_words:
+                structural_seeds["value_axes"] = query_words[:3]
+
+            # Only run structural search if we have seed terms
+            if any(structural_seeds.values()):
+                try:
+                    struct_results = await self.claim_store.search_by_structure(
+                        value_axes=structural_seeds["value_axes"][:5],
+                        abstract_patterns=structural_seeds["abstract_patterns"][:5],
+                        theory_hints=structural_seeds["theory_hints"][:5],
+                        critique_target=structural_seeds["critique_target"][:5],
+                        limit=10,
+                    )
+                    for claim in struct_results:
+                        if claim.claim_id not in seen_ids:
+                            seen_ids.add(claim.claim_id)
+                            all_results.append(
+                                {"claim": claim, "score": 0.85, "reason": "structural_match"}
+                            )
+                except Exception:
+                    pass
+
+            return all_results
+
         except Exception:
             pass
         return []

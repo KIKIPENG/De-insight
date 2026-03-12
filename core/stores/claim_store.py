@@ -197,6 +197,70 @@ class ClaimStore:
         finally:
             await db.close()
 
+    async def search_by_structure(
+        self,
+        value_axes: list[str] | None = None,
+        abstract_patterns: list[str] | None = None,
+        theory_hints: list[str] | None = None,
+        critique_target: list[str] | None = None,
+        limit: int = 10,
+    ) -> list[Claim]:
+        """Search claims by structural dimensions using JSON field matching.
+
+        Finds claims that share structural patterns, value axes, or theory
+        connections — regardless of surface-level text similarity.
+
+        Args:
+            value_axes: Value dimensions to match
+            abstract_patterns: Structural patterns to match
+            theory_hints: Theory directions to match
+            critique_target: Critique targets to match
+            limit: Maximum results
+
+        Returns:
+            Claims ranked by number of matching dimensions
+        """
+        db = await _get_db(self._db_path)
+        try:
+            search_terms: list[str] = []
+            if value_axes:
+                search_terms.extend(value_axes)
+            if abstract_patterns:
+                search_terms.extend(abstract_patterns)
+            if theory_hints:
+                search_terms.extend(theory_hints)
+            if critique_target:
+                search_terms.extend(critique_target)
+
+            if not search_terms:
+                return []
+
+            # Build OR conditions across structural columns
+            conditions = []
+            params: list[str] = [self.project_id]
+            for term in search_terms:
+                term_lower = term.lower()
+                conditions.append(
+                    "(LOWER(value_axes) LIKE ? OR LOWER(abstract_patterns) LIKE ? "
+                    "OR LOWER(theory_hints) LIKE ? OR LOWER(critique_target) LIKE ?)"
+                )
+                params.extend([f"%{term_lower}%"] * 4)
+
+            where_clause = " OR ".join(conditions)
+            query = f"""
+                SELECT * FROM claims
+                WHERE project_id = ? AND ({where_clause})
+                ORDER BY confidence DESC
+                LIMIT ?
+            """
+            params.append(str(limit))
+
+            async with db.execute(query, params) as cursor:
+                rows = await cursor.fetchall()
+                return [self._row_to_claim(dict(row)) for row in rows]
+        finally:
+            await db.close()
+
     async def update(self, claim: Claim) -> Claim:
         """Update an existing claim.
 

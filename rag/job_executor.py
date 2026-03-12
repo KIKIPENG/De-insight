@@ -186,6 +186,10 @@ class JobExecutor:
             else:
                 await self._repo.update_status(job_id, "done", phase="flushing")
                 log.info("Job %s done: %s", job_id, result.title)
+
+            # Post-ingestion: extract structural claims from chunks
+            await self._extract_claims_from_chunks(job, doc_id or "")
+
             await self._finalize_snapshot(job)
 
         except Exception as e:
@@ -381,3 +385,131 @@ class JobExecutor:
         except Exception as e:
             log.warning("Failed to register document for job %s: %s", job["id"], e)
             return None, f"register_document_failed: {e}"
+
+    async def _extract_claims_from_chunks(self, job: dict, doc_id: str) -> None:
+        """Extract structural claims from ingested chunks and store them.
+
+        Reads vdb_chunks.json, samples representative chunks, runs
+        ThoughtExtractor.extract_from_passage() on each, and persists
+        resulting Claims to ClaimStore.
+
+        This is a best-effort step — failures are logged but do not
+        affect the job's success status.
+        """
+        try:
+            from pathlib import Path
+            from core.thought_extractor import ThoughtExtractor, LLMCallable
+            from core.stores.claim_store import ClaimStore
+            from rag.vdb_utils import find_vdb_chunks_file
+
+            pid = job["project_id"]
+
+            # 1. Read chunks from vdb_chunks.json
+            vdb_path = find_vdb_chunks_file(pid)
+            if not vdb_path or not vdb_path.exists():
+                log.debug("_extract_claims: no vdb_chunks file for project %s", pid)
+                return
+
+            chunks_data = json.loads(vdb_path.read_text(encoding="utf-8"))
+            all_chunks = chunks_data.get("data", [])
+            if not all_chunks:
+                log.debug("_extract_claims: empty chunks for project %s", pid)
+                return
+
+            # 2. Sample chunks — avoid excessive LLM calls
+            # Take up to 10 representative chunks, evenly spaced
+            max_samples = min(10, len(all_chunks))
+            if len(all_chunks) <= max_samples:
+                sampled = all_chunks
+            else:
+                step = len(all_chunks) / max_samples
+                sampled = [all_chunks[int(i * step)] for i in range(max_samples)]
+
+            # 3. Create LLM callable (reuse RAG LLM config)
+            from config_service import get_config_service
+            env = get_config_service().snapshot(include_process=True)
+            llm_model = env.get("LLM_MODEL", "")
+            llm_key = env.get("OPENAI_API_KEY", "") or env.get("ANTHROPIC_API_KEY", "")
+            llm_base = env.get("OPENAI_API_BASE", "https://openrouter.ai/api/v1")
+
+            async def _llm_for_claims(prompt: str) -> str:
+                import httpx
+                import litellm
+                from rag.rate_guard import get_rate_guard
+
+                messages = [{"role": "user", "content": prompt}]
+
+                async def _call():
+                    if llm_model.startswith("gemini/"):
+                        resp = await litellm.acompletion(
+                            model=llm_model, messages=messages, api_key=llm_key,
+                        )
+                        return resp.choices[0].message.content or ""
+                    async with httpx.AsyncClient(timeout=120.0) as client:
+                        body = {"model": llm_model, "messages": messages}
+                        resp = await client.post(
+                            f"{llm_base}/chat/completions",
+                            headers={
+                                "Authorization": f"Bearer {llm_key}",
+                                "HTTP-Referer": "https://github.com/De-insight",
+                                "X-Title": "De-insight",
+                            },
+                            json=body,
+                        )
+                        resp.raise_for_status()
+                        return resp.json()["choices"][0]["message"]["content"]
+
+                guard = get_rate_guard()
+                result = await guard.call_with_retry(
+                    "claim_extraction/chat", _call, max_retries=2,
+                )
+                # Strip <think>...</think> from reasoning models
+                if result and "<think>" in result:
+                    result = re.sub(r"<think>[\s\S]*?</think>\s*", "", result)
+                return result
+
+            # 4. Run extraction on sampled chunks
+            extractor = ThoughtExtractor(
+                llm_callable=LLMCallable(func=_llm_for_claims),
+                project_id=pid,
+            )
+            claim_store = ClaimStore(project_id=pid)
+            total_claims = 0
+
+            for chunk in sampled:
+                # Extract text content from chunk
+                chunk_text = ""
+                if isinstance(chunk, dict):
+                    chunk_text = chunk.get("content", "") or chunk.get("text", "")
+                elif isinstance(chunk, str):
+                    chunk_text = chunk
+
+                if not chunk_text or len(chunk_text.strip()) < 30:
+                    continue
+
+                try:
+                    result = await extractor.extract_from_passage(
+                        passage_text=chunk_text,
+                        source_id=doc_id,
+                    )
+                    if result.was_extracted and result.claims:
+                        for claim in result.claims:
+                            await claim_store.add(claim)
+                            total_claims += 1
+                except Exception as chunk_err:
+                    log.debug(
+                        "_extract_claims: chunk extraction failed: %s",
+                        str(chunk_err)[:200],
+                    )
+                    continue
+
+            log.info(
+                "Extracted %d structural claims from %d chunks for job %s (doc_id=%s)",
+                total_claims, len(sampled), job["id"], doc_id,
+            )
+
+        except Exception as e:
+            log.warning(
+                "_extract_claims_from_chunks failed for job %s: %s",
+                job["id"], str(e)[:300],
+            )

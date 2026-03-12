@@ -831,20 +831,35 @@ async def run_thinking_pipeline(
     )
     latency_stages["retrieval_ms"] = int((time.time() - t_stage) * 1000)
 
-    # Step 3.1: Bridge retrieval via core.retriever
+    # Step 3.1: Bridge retrieval via core.retriever (with ClaimStore injection)
     bridge_result = None
     try:
-        from core.retriever import retrieve_with_plan
+        from core.retriever import Retriever
+        from core.stores.claim_store import ClaimStore
         from core.schemas import RetrievalPlan
+        from core.query_classifier import QueryClassifier
+
+        # Classify query to decide fast/deep plan
+        classifier = QueryClassifier()
+        classification = classifier.classify(user_input)
+        query_mode = classification.mode.value if hasattr(classification.mode, 'value') else str(classification.mode)
 
         plan = RetrievalPlan(
             project_id=project_id,
-            query_mode="fast",
+            query_mode=query_mode,
+            why_deep=classification.why_deep if hasattr(classification, 'why_deep') else None,
             thought_summary="",
             concept_queries=[user_input],
         )
-        bridge_result = await retrieve_with_plan(plan, user_input, project_id)
-        log.debug("Bridge retrieval: %d claims, %d bridges", 
+
+        # Inject ClaimStore so _has_stores() returns True → hybrid retrieval
+        claim_store = ClaimStore(project_id=project_id)
+        retriever = Retriever(
+            project_id=project_id,
+            claim_store=claim_store,
+        )
+        bridge_result = await retriever.retrieve(plan, user_input)
+        log.debug("Bridge retrieval: %d claims, %d bridges",
                   len(bridge_result.claims) if bridge_result else 0,
                   len(bridge_result.bridges) if bridge_result else 0)
     except Exception as e:
