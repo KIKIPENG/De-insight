@@ -279,7 +279,7 @@ class Retriever:
         legacy_results = await self._retrieve_legacy(plan, user_query)
 
         # Get store results
-        claims = await self._retrieve_from_claims(user_query)
+        claims = await self._retrieve_from_claims(user_query, plan=plan)
         thoughts = await self._retrieve_from_thoughts(user_query)
         concepts = await self._retrieve_from_concepts(user_query)
 
@@ -394,14 +394,63 @@ class Retriever:
 
         return result
 
-    async def _retrieve_from_claims(self, query: str) -> list[dict]:
-        """Retrieve from ClaimStore using both text and structural search.
+    @staticmethod
+    def _extract_chinese_keywords(text: str, max_terms: int = 6) -> list[str]:
+        """Extract meaningful keyword segments from Chinese text.
 
-        Combines text-based LIKE search with structural dimension search
-        to find claims that share argumentative patterns, not just vocabulary.
+        Chinese doesn't use spaces between words, so str.split() fails.
+        This uses a simple heuristic: extract 2-4 character segments
+        that appear frequently in structural dimensions (value_axes,
+        abstract_patterns, etc.).
 
         Args:
-            query: Search query
+            text: Chinese (or mixed) text
+            max_terms: Maximum terms to return
+
+        Returns:
+            List of keyword strings
+        """
+        import re
+        # Remove punctuation and whitespace
+        cleaned = re.sub(r'[，。、！？：；「」『』（）\s,.!?;:\'"()\[\]]+', ' ', text)
+        # Split on spaces (handles mixed Chinese/English)
+        segments = cleaned.split()
+
+        keywords: list[str] = []
+        for seg in segments:
+            # English words: keep as-is if length > 1
+            if seg.isascii():
+                if len(seg) > 1:
+                    keywords.append(seg)
+                continue
+            # Chinese: extract overlapping 2-char bigrams
+            for i in range(len(seg) - 1):
+                bigram = seg[i:i+2]
+                if bigram not in keywords:
+                    keywords.append(bigram)
+            # Also extract 3-char trigrams for better precision
+            for i in range(len(seg) - 2):
+                trigram = seg[i:i+3]
+                if trigram not in keywords:
+                    keywords.append(trigram)
+
+        return keywords[:max_terms]
+
+    async def _retrieve_from_claims(
+        self, query: str, plan: RetrievalPlan | None = None,
+    ) -> list[dict]:
+        """Retrieve from ClaimStore using text + plan-seeded structural search.
+
+        Three-route strategy:
+          Route 0: Plan-based — use concept_queries & supporting_paths from
+                   RetrievalPlan as direct structural seeds (independent of
+                   Route 1, solves the Chinese vocabulary gap problem)
+          Route 1: Text search — surface-level LIKE match on core_claim
+          Route 2: Structural search — seeds from Route 0 + Route 1 hits
+
+        Args:
+            query: Search query (user's raw text)
+            plan: Optional RetrievalPlan with concept_queries for seeding
 
         Returns:
             List of claim items with metadata
@@ -425,15 +474,23 @@ class Retriever:
             except Exception:
                 pass
 
-            # Route 2: Structural search — use dimensions from top text-match
-            # claim as seeds for finding structurally similar claims
+            # ── Build structural seeds from multiple sources ──
             structural_seeds: dict[str, list[str]] = {
                 "value_axes": [],
                 "abstract_patterns": [],
                 "theory_hints": [],
                 "critique_target": [],
             }
-            # Seed from text-match results
+
+            # Route 0: Seed from RetrievalPlan (independent of Route 1)
+            if plan is not None:
+                for cq in (plan.concept_queries or []):
+                    structural_seeds["value_axes"].append(cq)
+                    structural_seeds["abstract_patterns"].append(cq)
+                for sp in (plan.supporting_paths or []):
+                    structural_seeds["abstract_patterns"].append(sp)
+
+            # Seed from Route 1 text-match results (original Route 2 logic)
             for item in all_results:
                 c = item.get("claim")
                 if c and isinstance(c, Claim):
@@ -442,17 +499,27 @@ class Retriever:
                     structural_seeds["theory_hints"].extend(c.theory_hints or [])
                     structural_seeds["critique_target"].extend(c.critique_target or [])
 
-            # Also add query keywords as fallback search terms
-            query_words = [w for w in query.replace("?", "").replace("？", "").split() if len(w) > 1]
-            if not any(structural_seeds.values()) and query_words:
-                structural_seeds["value_axes"] = query_words[:3]
+            # Fallback: extract Chinese keywords from query
+            if not any(structural_seeds.values()):
+                cjk_keywords = self._extract_chinese_keywords(query)
+                if cjk_keywords:
+                    structural_seeds["value_axes"] = cjk_keywords[:3]
+                    structural_seeds["abstract_patterns"] = cjk_keywords[:3]
+                else:
+                    # Pure English or very short — split on spaces
+                    query_words = [
+                        w for w in query.replace("?", "").replace("？", "").split()
+                        if len(w) > 1
+                    ]
+                    if query_words:
+                        structural_seeds["value_axes"] = query_words[:3]
 
-            # Only run structural search if we have seed terms
+            # Route 2: Structural search with combined seeds
             if any(structural_seeds.values()):
                 try:
                     struct_results = await self.claim_store.search_by_structure(
-                        value_axes=structural_seeds["value_axes"][:5],
-                        abstract_patterns=structural_seeds["abstract_patterns"][:5],
+                        value_axes=structural_seeds["value_axes"][:8],
+                        abstract_patterns=structural_seeds["abstract_patterns"][:8],
                         theory_hints=structural_seeds["theory_hints"][:5],
                         critique_target=structural_seeds["critique_target"][:5],
                         limit=10,

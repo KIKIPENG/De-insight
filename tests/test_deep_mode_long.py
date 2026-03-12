@@ -832,9 +832,11 @@ async def run_tests():
         )
         found_docs = {r.source_id for r in struct_results}
 
-        # Retriever route
+        # Retriever route — pass patterns as concept_queries (simulating
+        # what the pipeline would provide after query decomposition)
         retriever = Retriever(project_id="mega", claim_store=store)
-        direct = await retriever._retrieve_from_claims(user_msg)
+        plan = RetrievalPlan(concept_queries=patterns)
+        direct = await retriever._retrieve_from_claims(user_msg, plan=plan)
         direct_docs = {r["claim"].source_id for r in direct}
 
         all_found = found_docs | direct_docs
