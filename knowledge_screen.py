@@ -327,15 +327,11 @@ class KnowledgeScreen(ModalScreen):
         time_ago = _format_time_ago(imported_at)
         time_abs = imported_at[:16] if imported_at else ""
 
-        # 標題行
-        display_title = title if len(title) <= 60 else title[:57] + "…"
+        display_title = title[:60] + "..." if len(title) > 60 else title
         title_line = f"{icon} {display_title}"
 
-        # 元資料行
-        meta_parts = []
-        if time_ago:
-            meta_parts.append(time_ago)
-        if time_abs and time_ago != time_abs:
+        meta_parts = [time_ago]
+        if time_abs:
             meta_parts.append(f"({time_abs})")
         if file_size:
             meta_parts.append(file_size)
@@ -345,19 +341,28 @@ class KnowledgeScreen(ModalScreen):
             meta_parts.append(source_type.upper())
         meta_line = "  ·  ".join(meta_parts)
 
-        card = Vertical(classes="ks-doc-card", name=doc_id)
-        await card.mount(Static(title_line))
-        await card.mount(Static(f"[dim #484f58]{meta_line}[/]", classes="ks-doc-meta"))
+        card = Vertical(
+            Static(title_line),
+            Static(f"[dim #484f58]{meta_line}[/]", classes="ks-doc-meta"),
+            classes="ks-doc-card",
+            name=doc_id,
+        )
 
-        # 操作按鈕
-        actions = Horizontal(classes="ks-doc-actions")
-        await card.mount(actions)
-        await actions.mount(Button("重命名", classes="ks-small-btn ks-rename-btn", name=doc_id))
-        await actions.mount(Button("閱讀", classes="ks-small-btn ks-read-btn", name=doc_id))
-        await actions.mount(Button("刪除", classes="ks-small-btn ks-del-btn", name=doc_id))
+        actions = Horizontal(
+            Button("重命名", classes="ks-small-btn ks-rename-btn", name=doc_id),
+            Button("閱讀", classes="ks-small-btn ks-read-btn", name=doc_id),
+            Button("刪除", classes="ks-small-btn ks-del-btn", name=doc_id),
+            classes="ks-doc-actions",
+        )
 
-        # 分隔線
-        await card.mount(Static("[dim #1a1a1a]" + "─" * 82 + "[/]"))
+        card = Vertical(
+            Static(title_line),
+            Static(f"[dim #484f58]{meta_line}[/]", classes="ks-doc-meta"),
+            actions,
+            Static("[dim #1a1a1a]" + "─" * 82 + "[/]"),
+            classes="ks-doc-card",
+            name=doc_id,
+        )
 
         return card
 
