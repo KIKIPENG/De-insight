@@ -432,6 +432,12 @@ class JobExecutor:
             llm_key = env.get("OPENAI_API_KEY", "") or env.get("ANTHROPIC_API_KEY", "")
             llm_base = env.get("OPENAI_API_BASE", "https://openrouter.ai/api/v1")
 
+            # Strip litellm provider prefix for direct API calls
+            # e.g. "openai/deepseek/deepseek-chat-v3-0324" → "deepseek/deepseek-chat-v3-0324"
+            api_model = llm_model
+            if llm_model.startswith("openai/") and llm_base and "openrouter" in llm_base:
+                api_model = llm_model[len("openai/"):]
+
             async def _llm_for_claims(prompt: str) -> str:
                 import httpx
                 import litellm
@@ -446,7 +452,7 @@ class JobExecutor:
                         )
                         return resp.choices[0].message.content or ""
                     async with httpx.AsyncClient(timeout=120.0) as client:
-                        body = {"model": llm_model, "messages": messages}
+                        body = {"model": api_model, "messages": messages}
                         resp = await client.post(
                             f"{llm_base}/chat/completions",
                             headers={

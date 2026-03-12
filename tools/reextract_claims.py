@@ -132,7 +132,13 @@ async def reextract(project_id: str, dry_run: bool = False):
         print("❌ 沒有 API key (OPENAI_API_KEY 或 ANTHROPIC_API_KEY)")
         return
 
-    print(f"🤖 使用模型: {llm_model}")
+    # Strip litellm provider prefix for direct API calls
+    # e.g. "openai/deepseek/deepseek-chat-v3-0324" → "deepseek/deepseek-chat-v3-0324"
+    api_model = llm_model
+    if llm_model.startswith("openai/") and llm_base and "openrouter" in llm_base:
+        api_model = llm_model[len("openai/"):]
+
+    print(f"🤖 使用模型: {llm_model} (API model: {api_model})")
     print(f"🔗 API base: {llm_base}")
 
     async def _llm_for_claims(prompt: str) -> str:
@@ -148,7 +154,7 @@ async def reextract(project_id: str, dry_run: bool = False):
             return resp.choices[0].message.content or ""
 
         async with httpx.AsyncClient(timeout=120.0) as client:
-            body = {"model": llm_model, "messages": messages}
+            body = {"model": api_model, "messages": messages}
             resp = await client.post(
                 f"{llm_base}/chat/completions",
                 headers={
@@ -158,7 +164,9 @@ async def reextract(project_id: str, dry_run: bool = False):
                 },
                 json=body,
             )
-            resp.raise_for_status()
+            if resp.status_code != 200:
+                err_body = resp.text[:200]
+                raise RuntimeError(f"LLM API {resp.status_code}: {err_body}")
             result = resp.json()["choices"][0]["message"]["content"]
 
         # Strip <think>...</think>
