@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import subprocess
+import time
 
 import httpx
 from textual import work
@@ -25,6 +26,12 @@ class UIMixin:
             self._update_status()
 
     def _update_menu_bar(self) -> None:
+        # Throttle: skip update if called within last 0.3s
+        now = time.time()
+        if hasattr(self, '_menu_bar_last_update') and now - self._menu_bar_last_update < 0.3:
+            return
+        self._menu_bar_last_update = now
+
         from widgets import MenuBar
         try:
             env = load_env()
@@ -49,11 +56,18 @@ class UIMixin:
                 project_name=project_name,
                 pending_count=pending_count,
                 gallery_selected=gallery_selected,
+                llm_calls=getattr(self, '_llm_call_count', 0),
             )
         except NoMatches:
             pass
 
     def _update_status(self) -> None:
+        # Throttle: skip update if called within last 0.5s
+        now = time.time()
+        if hasattr(self, '_status_last_update') and now - self._status_last_update < 0.5:
+            return
+        self._status_last_update = now
+
         from widgets import MenuBar
         try:
             env = load_env()
@@ -103,6 +117,18 @@ class UIMixin:
                 self._update_menu_bar()
                 self._update_status()
                 self._reload_backend_env()
+                # 設定變更後自動重置 embedding 快取，避免模型切換後用到舊的 embedding 函數
+                try:
+                    from memory.vectorstore import reset_embed_fn
+                    reset_embed_fn()
+                except Exception:
+                    pass
+                # 同時清除 LanceDB query cache
+                try:
+                    from rag.knowledge_graph import _QUERY_CACHE
+                    _QUERY_CACHE.clear()
+                except Exception:
+                    pass
 
         self.push_screen(SettingsScreen(), callback=on_dismiss)
 
@@ -133,27 +159,37 @@ class UIMixin:
         from widgets import WelcomeBlock
         container = self.query_one("#messages", Vertical)
         welcome = WelcomeBlock()
-        welcome.border_title = "[#d4a27a]◈[/] De-insight v0.8"
+        from paths import __version__ as _ver
+        welcome.border_title = f"[#d4a27a]◈[/] De-insight {_ver}"
         await container.mount(welcome)
 
     def action_show_help(self) -> None:
+        from paths import __version__
         help_text = (
-            "**可用指令**\n\n"
-            "| 指令 | 功能 |\n"
-            "|------|------|\n"
-            "| `/new` | 新對話 |\n"
-            "| `/import` | 匯入 PDF/TXT/MD 或網頁到知識庫 |\n"
-            "| `/search` | 搜尋知識庫 |\n"
-            "| `/memory` | 管理記憶 |\n"
-            "| `/save` | 儲存當前對話的洞見 |\n"
-            "| `/reindex` | 重建記憶向量索引 |\n"
-            "| `/settings` | 開啟設定 |\n"
-            "| `/mode` | 切換感性/理性 |\n"
-            "| `/ragmode` | 切換知識檢索：快速/深度 |\n"
-            "| `/project` | 切換專案 |\n"
-            "| `/pending` | 記憶待確認 |\n"
-            "| `/focus` | 對焦評估──比對問題意識與最近記憶 |\n"
-            "| `/help` | 顯示此說明 |\n"
+            f"# De-insight 說明\n\n"
+            f"**版本:** {__version__}\n\n"
+            f"**關於**\n\n"
+            f"De-insight 是你的思想策展人。"
+            f"懂得聆聽、說話直接、不急著給答案。"
+            f"幫你把還說不清楚的東西說清楚。\n\n"
+            f"**可用指令**\n\n"
+            f"| 指令 | 功能 |\n"
+            f"|------|------|\n"
+            f"| `/new` | 新對話 |\n"
+            f"| `/import` | 匯入 PDF/TXT/MD 或網頁到知識庫 |\n"
+            f"| `/search` | 搜尋知識庫 |\n"
+            f"| `/memory` | 管理記憶 |\n"
+            f"| `/save` | 儲存當前對話的洞見 |\n"
+            f"| `/reindex` | 重建記憶向量索引 |\n"
+            f"| `/settings` | 開啟設定 |\n"
+            f"| `/mode` | 切換感性/理性 |\n"
+            f"| `/ragmode` | 切換知識檢索：快速/深度 |\n"
+            f"| `/project` | 切換專案 |\n"
+            f"| `/pending` | 記憶待確認 |\n"
+            f"| `/caption` | 為圖片庫自動生成描述 |\n"
+            f"| `/reindex-images` | 重建圖片向量索引 |\n"
+            f"| `/focus` | 對焦評估──比對問題意識與最近記憶 |\n"
+            f"| `/help` | 顯示此說明 |\n"
         )
         self.call_after_refresh(lambda: self._show_system_message(help_text))
 
@@ -166,7 +202,24 @@ class UIMixin:
         if not content:
             return
         try:
-            subprocess.run(["pbcopy"], input=content.encode(), check=True)
+            import platform
+            system = platform.system()
+            if system == "Darwin":
+                subprocess.run(["pbcopy"], input=content.encode(), check=True)
+            elif system == "Linux":
+                # 嘗試 xclip → xsel → wl-copy
+                for cmd in (["xclip", "-selection", "clipboard"], ["xsel", "--clipboard", "--input"], ["wl-copy"]):
+                    try:
+                        subprocess.run(cmd, input=content.encode(), check=True)
+                        break
+                    except FileNotFoundError:
+                        continue
+                else:
+                    raise FileNotFoundError("No clipboard tool found (xclip/xsel/wl-copy)")
+            elif system == "Windows":
+                subprocess.run(["clip"], input=content.encode(), check=True)
+            else:
+                raise RuntimeError(f"Unsupported platform: {system}")
             self.notify("已複製到剪貼板")
         except Exception:
             self.notify("複製失敗，請手動選取")
@@ -227,5 +280,39 @@ class UIMixin:
         except Exception:
             self.notify("後端未啟動：cd backend && .venv/bin/python -m uvicorn main:app --reload")
 
+    def action_show_health(self) -> None:
+        """開啟系統健康監測儀板。"""
+        from modals import HealthDashboardModal
+
+        def on_dismiss(result) -> None:
+            pass
+
+        self.push_screen(HealthDashboardModal(), callback=on_dismiss)
+
     def _scroll_to_bottom(self) -> None:
         self.query_one("#chat-scroll", VerticalScroll).scroll_end(animate=False)
+        # 長對話優化：卸載超出可見範圍的舊 Chatbox 子 widget，減少 DOM 複雜度
+        self._gc_old_chatboxes()
+
+    _GC_KEEP_RECENT = 40  # 保留最近 N 個 Chatbox
+
+    def _gc_old_chatboxes(self) -> None:
+        """將最近 N 個以外的 Chatbox 子 widget 折疊為空 Static，降低 DOM 開銷。"""
+        from widgets import Chatbox
+        try:
+            container = self.query_one("#messages", Vertical)
+        except NoMatches:
+            return
+        chatboxes = list(container.query(Chatbox))
+        if len(chatboxes) <= self._GC_KEEP_RECENT:
+            return
+        for box in chatboxes[:-self._GC_KEEP_RECENT]:
+            if getattr(box, "_gc_collapsed", False):
+                continue
+            # 保留 border_title 讓使用者能看到是誰的訊息，但移除子 widget
+            box._gc_collapsed = True
+            box.remove_children()
+            # 用簡短標記取代完整內容
+            role_label = "You" if box.role == "user" else "De-insight"
+            preview = (box._content or "")[:40].replace("\n", " ")
+            box.mount(Static(f"[dim]…{role_label}: {preview}…[/dim]", classes="chatbox-body"))

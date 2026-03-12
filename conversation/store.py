@@ -4,6 +4,7 @@ import json
 import uuid
 from pathlib import Path
 import aiosqlite
+from utils.db_pool import get_connection
 
 
 class ConversationStore:
@@ -63,7 +64,7 @@ class ConversationStore:
         return cid
 
     async def add_message(self, conversation_id: str, role: str, content: str) -> None:
-        async with aiosqlite.connect(self._db_path) as db:
+        async with get_connection(self._db_path) as db:
             await db.execute(
                 "INSERT INTO messages (conversation_id, role, content) VALUES (?, ?, ?)",
                 (conversation_id, role, content)
@@ -75,7 +76,7 @@ class ConversationStore:
             await db.commit()
 
     async def set_title(self, conversation_id: str, title: str) -> None:
-        async with aiosqlite.connect(self._db_path) as db:
+        async with get_connection(self._db_path) as db:
             await db.execute(
                 "UPDATE conversations SET title = ? WHERE id = ?",
                 (title, conversation_id)
@@ -84,8 +85,7 @@ class ConversationStore:
 
     async def get_messages(self, conversation_id: str) -> list[dict]:
         await self._ensure_db()
-        async with aiosqlite.connect(self._db_path) as db:
-            db.row_factory = aiosqlite.Row
+        async with get_connection(self._db_path) as db:
             async with db.execute(
                 "SELECT role, content FROM messages WHERE conversation_id = ? ORDER BY id ASC",
                 (conversation_id,)
@@ -95,8 +95,7 @@ class ConversationStore:
     async def get_conversation(self, conversation_id: str) -> dict | None:
         """取得單筆 conversation row（含 id, project_id, title 等）。"""
         await self._ensure_db()
-        async with aiosqlite.connect(self._db_path) as db:
-            db.row_factory = aiosqlite.Row
+        async with get_connection(self._db_path) as db:
             async with db.execute(
                 "SELECT * FROM conversations WHERE id = ?",
                 (conversation_id,)
@@ -107,8 +106,7 @@ class ConversationStore:
     async def list_conversations(self, project_id: str | None = None) -> list[dict]:
         """列出對話，依 updated_at 倒序。project_id=None 回傳全部。"""
         await self._ensure_db()
-        async with aiosqlite.connect(self._db_path) as db:
-            db.row_factory = aiosqlite.Row
+        async with get_connection(self._db_path) as db:
             if project_id:
                 async with db.execute(
                     "SELECT * FROM conversations WHERE project_id = ? ORDER BY updated_at DESC",
@@ -122,7 +120,7 @@ class ConversationStore:
                     return [dict(r) for r in await cur.fetchall()]
 
     async def delete_conversation(self, conversation_id: str) -> None:
-        async with aiosqlite.connect(self._db_path) as db:
+        async with get_connection(self._db_path) as db:
             await db.execute("DELETE FROM messages WHERE conversation_id = ?", (conversation_id,))
             await db.execute("DELETE FROM conversations WHERE id = ?", (conversation_id,))
             await db.commit()
@@ -150,8 +148,7 @@ class ConversationStore:
 
     async def list_documents(self, project_id: str = "default") -> list[dict]:
         await self._ensure_db()
-        async with aiosqlite.connect(self._db_path) as db:
-            db.row_factory = aiosqlite.Row
+        async with get_connection(self._db_path) as db:
             async with db.execute(
                 "SELECT * FROM documents WHERE project_id = ? ORDER BY imported_at DESC",
                 (project_id,),
@@ -160,12 +157,12 @@ class ConversationStore:
                 return [dict(r) for r in rows]
 
     async def delete_document(self, doc_id: str) -> None:
-        async with aiosqlite.connect(self._db_path) as db:
+        async with get_connection(self._db_path) as db:
             await db.execute("DELETE FROM documents WHERE id = ?", (doc_id,))
             await db.commit()
 
     async def update_document_tags(self, doc_id: str, tags: list[str]) -> None:
-        async with aiosqlite.connect(self._db_path) as db:
+        async with get_connection(self._db_path) as db:
             await db.execute(
                 "UPDATE documents SET tags = ? WHERE id = ?",
                 (json.dumps(tags, ensure_ascii=False), doc_id),
@@ -192,7 +189,7 @@ class ConversationStore:
         if not sets:
             return
         params.append(doc_id)
-        async with aiosqlite.connect(self._db_path) as db:
+        async with get_connection(self._db_path) as db:
             await db.execute(
                 f"UPDATE documents SET {', '.join(sets)} WHERE id = ?",
                 tuple(params),

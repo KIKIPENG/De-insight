@@ -41,7 +41,11 @@ if "lightrag" not in sys.modules:
 
 # ── Helpers ────────────────────────────────────────────────────────
 
-_MODALS_PATH = Path(__file__).parent.parent / "modals.py"
+# modals.py 已拆分為 modals/ 目錄；OnboardingScreen 在 modals/onboarding.py
+_MODALS_PATH = Path(__file__).parent.parent / "modals" / "onboarding.py"
+if not _MODALS_PATH.exists():
+    # fallback: 尚未拆分的舊版
+    _MODALS_PATH = Path(__file__).parent.parent / "modals.py"
 _MODALS_SRC = _MODALS_PATH.read_text()
 _MODALS_TREE = ast.parse(_MODALS_SRC)
 

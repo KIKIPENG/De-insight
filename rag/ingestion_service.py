@@ -47,6 +47,12 @@ class IngestionService:
     ) -> str:
         """Submit a new ingestion job and ensure worker is running."""
         await self._repo.ensure_table()
+
+        # Recover any stale running jobs from worker crashes
+        recovered_count = await self._repo.recover_stale_jobs(timeout_minutes=30)
+        if recovered_count > 0:
+            log.info("Recovered %d stale jobs from worker crash", recovered_count)
+
         self.ensure_worker_running()
         idempotency_key, config_signature = self._build_idempotency_key(
             project_id=project_id,
@@ -85,6 +91,12 @@ class IngestionService:
         payload: dict | None = None,
     ) -> dict:
         await self._repo.ensure_table()
+
+        # Recover any stale running jobs from worker crashes
+        recovered_count = await self._repo.recover_stale_jobs(timeout_minutes=30)
+        if recovered_count > 0:
+            log.info("Recovered %d stale jobs from worker crash", recovered_count)
+
         self.ensure_worker_running()
         idempotency_key, config_signature = self._build_idempotency_key(
             project_id=project_id,

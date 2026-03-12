@@ -19,6 +19,8 @@ from textual.widgets.option_list import Option
 
 from codex_client import codex_stream, is_codex_available
 from settings import load_env
+from utils.think_filter import ThinkTagFilter
+from utils.health_monitor import get_health_monitor
 
 
 class ChatMixin:
@@ -42,6 +44,8 @@ class ChatMixin:
         "/caption": "backfill_captions",
         "/reindex-images": "reindex_images",
         "/focus": "focus_evaluate",
+        "/health": "show_health",
+        "/export": "export_conversation",
     }
 
     SLASH_HINTS: list[tuple[str, str]] = [
@@ -60,6 +64,8 @@ class ChatMixin:
         ("/caption", "為圖片庫自動生成描述"),
         ("/reindex-images", "重建圖片向量索引"),
         ("/focus", "對焦評估──比對問題意識與最近記憶"),
+        ("/health", "系統健康監測"),
+        ("/export", "匯出當前對話為 Markdown 文件"),
     ]
 
     def on_chat_input_submitted(self, event) -> None:
@@ -187,6 +193,18 @@ class ChatMixin:
             self.state.current_conversation_id = await self._conv_store.create_conversation(project_id)
             title = text[:30].strip().replace("\n", " ")
             await self._conv_store.set_title(self.state.current_conversation_id, title)
+
+            # Show guidance if project has no knowledge base
+            if self.state.current_project and project_id:
+                try:
+                    docs = await self._conv_store.list_documents(project_id)
+                    if not docs:
+                        # Show empty project guidance as a system message
+                        guidance = "歡迎！你可以直接開始對話，或用 /import 匯入文獻。"
+                        await self.notify(guidance, timeout=4.0)
+                except Exception:
+                    pass
+
         await self._conv_store.add_message(self.state.current_conversation_id, "user", text)
 
         container = self.query_one("#messages", Vertical)
@@ -253,10 +271,33 @@ class ChatMixin:
                 return True
         return False
 
+    def _trim_long_conversation(self, messages: list) -> list:
+        """Trim conversation context if it exceeds 100 messages.
+
+        Keeps system message (index 0 if present) and last 80 messages.
+        Returns a trimmed copy without modifying self.messages.
+        """
+        if len(messages) <= 100:
+            return messages
+
+        log.warning("Conversation length %d exceeds 100, trimming to 80 recent messages", len(messages))
+
+        # Determine if first message is system message
+        has_system = messages and messages[0].get("role") == "system"
+        if has_system:
+            # Keep system message + last 80 messages
+            trimmed = [messages[0]] + messages[-80:]
+        else:
+            # Keep only last 80 messages
+            trimmed = messages[-80:]
+
+        return trimmed
+
     @work(exclusive=True, group="stream_response")
     async def _stream_response(self) -> None:
         from widgets import Chatbox, ChatInput
         self.is_loading = True
+        self._llm_call_count = 0
         self.state.last_rag_sources = []
         container = self.query_one("#messages", Vertical)
 
@@ -266,6 +307,7 @@ class ChatMixin:
         self._scroll_to_bottom()
 
         full_content = ""
+        think_filter = ThinkTagFilter()
 
         try:
             if self._is_codex_cli_mode():
@@ -274,7 +316,10 @@ class ChatMixin:
                     raise RuntimeError("codex CLI 未安裝。執行: npm i -g @openai/codex")
 
                 sys_prompt = await self._build_system_prompt()
-                user_msg = self.messages[-1]["content"]
+
+                # Trim long conversations before sending
+                trimmed_messages = self._trim_long_conversation(self.messages)
+                user_msg = trimmed_messages[-1]["content"]
 
                 # RAG 注入（統一呼叫）
                 _, sys_addon = await self._inject_rag_context(
@@ -285,7 +330,7 @@ class ChatMixin:
                     sys_prompt += "\n\n" + sys_addon
 
                 context = ""
-                for m in self.messages[:-1]:
+                for m in trimmed_messages[:-1]:
                     role = "You" if m["role"] == "user" else "De-insight"
                     context += f"{role}: {m['content']}\n\n"
 
@@ -296,11 +341,14 @@ class ChatMixin:
 
                 async for chunk in codex_stream(full_prompt, sys_prompt, model=codex_model):
                     full_content += chunk
-                    bubble.stream_update(full_content)
+                    display = think_filter.feed(chunk)
+                    bubble.stream_update(display)
                     self._scroll_to_bottom()
+                think_filter.flush()
+                self._llm_call_count += 1
+                get_health_monitor().record_api_call()
             elif self._is_direct_api_mode():
                 # ── 直接 API 路徑（MiniMax / OpenRouter / multimodal）──
-                import re as _re
                 env = load_env()
                 raw_model = env.get("LLM_MODEL", "")
                 if raw_model.startswith("gemini/"):
@@ -314,9 +362,12 @@ class ChatMixin:
 
                 sys_prompt = await self._build_system_prompt()
 
+                # Trim long conversations before sending
+                trimmed_messages = self._trim_long_conversation(self.messages)
+
                 # RAG 注入（統一呼叫）
                 send_messages = await self._inject_rag_context(
-                    [{"role": "system", "content": sys_prompt}] + self.messages
+                    [{"role": "system", "content": sys_prompt}] + trimmed_messages
                 )
 
                 async with httpx.AsyncClient(timeout=120.0) as client:
@@ -334,6 +385,8 @@ class ChatMixin:
                         if response.status_code >= 400:
                             body = await response.aread()
                             err_text = body.decode("utf-8", errors="replace")[:300]
+                            if response.status_code in (401, 403):
+                                raise RuntimeError("API 金鑰無效或已過期，請到 /settings 更新")
                             if "vision" in err_text.lower() or "image" in err_text.lower() or "multimodal" in err_text.lower():
                                 raise RuntimeError(f"此模型不支援圖片輸入。請切換到支援 vision 的模型（如 gpt-4o、gemini）。")
                             raise RuntimeError(f"API 錯誤 {response.status_code}: {err_text}")
@@ -351,19 +404,23 @@ class ChatMixin:
                                 delta = choices[0].get("delta", {}).get("content", "")
                                 if delta:
                                     full_content += delta
-                                    display = _re.sub(r"<think>[\s\S]*?</think>\s*", "", full_content)
-                                    if "<think>" in full_content and "</think>" not in full_content:
-                                        display = ""
+                                    display = think_filter.feed(delta)
                                     bubble.stream_update(display)
                                     self._scroll_to_bottom()
                             except (json.JSONDecodeError, ValueError):
                                 pass
-                full_content = _re.sub(r"<think>[\s\S]*?</think>\s*", "", full_content)
+                think_filter.flush()
+                self._llm_call_count += 1
+                get_health_monitor().record_api_call()
             else:
                 # ── FastAPI 後端路徑 ──
                 sys_prompt = await self._build_system_prompt()
+
+                # Trim long conversations before sending
+                trimmed_messages = self._trim_long_conversation(self.messages)
+
                 send_messages = await self._inject_rag_context(
-                    [{"role": "system", "content": sys_prompt}] + self.messages
+                    [{"role": "system", "content": sys_prompt}] + trimmed_messages
                 )
                 async with httpx.AsyncClient(timeout=120.0) as client:
                     async with client.stream(
@@ -371,12 +428,19 @@ class ChatMixin:
                         f"{self.api_base}/api/chat",
                         json={"messages": send_messages, "mode": self.mode},
                     ) as response:
+                        if response.status_code in (401, 403):
+                            raise RuntimeError("API 金鑰無效或已過期，請到 /settings 更新")
+                        if response.status_code >= 400:
+                            body = await response.aread()
+                            err_text = body.decode("utf-8", errors="replace")[:300]
+                            raise RuntimeError(f"後端錯誤 {response.status_code}: {err_text}")
                         async for line in response.aiter_lines():
                             if line.startswith("0:"):
                                 try:
                                     chunk = json.loads(line[2:])
                                     full_content += chunk
-                                    bubble.stream_update(full_content)
+                                    display = think_filter.feed(chunk)
+                                    bubble.stream_update(display)
                                     self._scroll_to_bottom()
                                 except (json.JSONDecodeError, ValueError):
                                     pass
@@ -387,6 +451,9 @@ class ChatMixin:
                                 except json.JSONDecodeError:
                                     raise RuntimeError(line[2:])
                             elif line.startswith("d:"):
+                                think_filter.flush()
+                                self._llm_call_count += 1
+                                get_health_monitor().record_api_call()
                                 break
 
             full_content = self._strip_reasoning(full_content)
@@ -456,7 +523,8 @@ class ChatMixin:
                 self._pending_focus_nudge = False
                 await self._inject_focus_nudge()
 
-        except httpx.ConnectError:
+        except httpx.ConnectError as e:
+            get_health_monitor().record_error("ConnectError", str(e))
             bubble.set_responding(False)
             bubble.stream_update(
                 "**連線錯誤** — 後端未啟動\n\n"
@@ -464,12 +532,20 @@ class ChatMixin:
             )
             await bubble.finalize_stream()
         except Exception as e:
+            # Check if it's a rate limit error
+            error_msg = str(e)
+            if "429" in error_msg or "rate" in error_msg.lower():
+                get_health_monitor().record_rate_limit()
+            else:
+                error_type = type(e).__name__
+                get_health_monitor().record_error(error_type, error_msg)
             bubble.set_responding(False)
-            bubble.stream_update(f"**錯誤** — {escape(str(e))}")
+            bubble.stream_update(f"**錯誤** — {escape(error_msg)}")
             await bubble.finalize_stream()
         finally:
             self.is_loading = False
             self._update_status()
+            self._update_menu_bar()
             self.query_one("#chat-input", ChatInput).focus()
 
     # ── interactive prompt handling ──
@@ -485,14 +561,27 @@ class ChatMixin:
         frame = self.query_one("#input-frame", Vertical)
         frame.border_title = f"◇ {block.prompt}"
 
+        choices = None
         if block.type == 'confirm':
-            ta.set_choices(["是，繼續", "不，我還想調整"])
+            choices = ["是，繼續", "不，我還想調整"]
         elif block.type == 'select':
-            ta.set_choices(block.choices)
+            choices = block.choices
         elif block.type == 'multi':
-            ta.set_choices(block.choices)
+            choices = block.choices
         elif block.type == 'input':
             pass
+
+        # Check if choices are empty for select/multi types
+        if block.type in ('select', 'multi') and (not choices or len(choices) == 0):
+            self.notify("互動選項為空，已跳過", timeout=3)
+            self.state.current_interactive_block = None
+            # Continue to next block if any
+            if len(blocks) > 1:
+                self._handle_interactive_blocks(blocks[1:])
+            return
+
+        if choices:
+            ta.set_choices(choices)
 
         ta.focus()
 
@@ -544,6 +633,9 @@ class ChatMixin:
             result = ""
             async for chunk in codex_stream(prompt, model=codex_model):
                 result += chunk
+            if hasattr(self, '_llm_call_count'):
+                self._llm_call_count += 1
+            get_health_monitor().record_api_call()
             return result
 
         if model.startswith("codex/"):
@@ -585,8 +677,12 @@ class ChatMixin:
                     temperature=0.3,
                     max_tokens=max_tokens,
                 )
+                if hasattr(self, '_llm_call_count'):
+                    self._llm_call_count += 1
+                get_health_monitor().record_api_call()
                 return resp.choices[0].message.content or ""
             except RateLimitError as exc:
+                get_health_monitor().record_rate_limit(self._extract_retry_after(exc))
                 last_exc = exc
                 retry_after = self._extract_retry_after(exc)
                 delay = retry_after if retry_after else 2.0 * (2 ** attempt)
@@ -597,6 +693,7 @@ class ChatMixin:
                 if attempt < max_retries - 1:
                     await _asyncio.sleep(delay)
             except Exception as exc:
+                get_health_monitor().record_error("LLMError", str(exc))
                 last_exc = exc
                 delay = 1.5 * (attempt + 1)
                 self.log.warning(
@@ -684,7 +781,68 @@ class ChatMixin:
         except Exception as e:
             self.notify(f"對焦評估失敗：{e}", severity="error")
 
-    async def _build_user_content(self, text: str):
+    def action_export_conversation(self) -> None:
+        """Export current conversation as Markdown file."""
+        if not self.messages:
+            self.notify("沒有對話可匯出", severity="warning")
+            return
+
+        try:
+            from pathlib import Path
+            from datetime import datetime
+
+            # Get home directory or use project directory
+            if self.state.current_project:
+                from paths import project_root
+                export_dir = project_root(self.state.current_project["id"])
+            else:
+                export_dir = Path.home()
+
+            export_dir.mkdir(parents=True, exist_ok=True)
+
+            # Generate markdown content
+            md_lines = []
+            md_lines.append("# 對話記錄")
+            md_lines.append(f"\n**匯出時間**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+
+            if self.state.current_project:
+                md_lines.append(f"**專案**: {self.state.current_project.get('name', 'N/A')}\n")
+
+            md_lines.append("---\n")
+
+            # Add messages
+            for msg in self.messages:
+                role = msg.get("role", "unknown")
+                content = msg.get("content", "")
+
+                if role == "user":
+                    md_lines.append("### 👤 User\n")
+                elif role == "assistant":
+                    md_lines.append("### 🤖 Assistant\n")
+                elif role == "system":
+                    md_lines.append("### ⚙️ System\n")
+                else:
+                    md_lines.append(f"### {role}\n")
+
+                # Escape content and add to markdown
+                md_lines.append(f"{content}\n")
+                md_lines.append("")
+
+            md_content = "\n".join(md_lines)
+
+            # Generate filename with timestamp
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = export_dir / f"conversation_{timestamp}.md"
+
+            # Write file
+            with open(filename, "w", encoding="utf-8") as f:
+                f.write(md_content)
+
+            self.notify(f"對話已匯出至: {filename}", timeout=3.0)
+        except Exception as e:
+            self.notify(f"匯出失敗：{e}", severity="error")
+
+    async def _build_user_content(self, text: str) -> str:
         """組合使用者文字。
         有 pending_images 時，呼叫 Vision LLM 即時生成詳細描述附加到文字中。
         """
@@ -763,7 +921,7 @@ class ChatMixin:
         return text
 
     @staticmethod
-    def _extract_text(content) -> str:
+    def _extract_text(content: str | list[dict]) -> str:
         """從 multipart content 取出純文字。"""
         if isinstance(content, str):
             return content
@@ -912,9 +1070,9 @@ class ChatMixin:
         return_sys_addon: bool = False,
     ) -> list[dict] | tuple[list[dict], str]:
         """
-        統一 RAG 注入入口。使用 rag.pipeline 統一處理知識庫檢索。
+        統一 RAG 注入入口。協調各個子方法以處理知識庫檢索。
 
-        Readiness gate 放在最前面，決定要跑哪些增強路徑：
+        Readiness gate 決定要跑哪些增強路徑：
         - empty / building(no chunks)：全部跳過，快速返回
         - building(has chunks) + fast：只跑 pipeline，跳過 memory/image
         - building(has chunks) + deep：完整流程
@@ -931,25 +1089,99 @@ class ChatMixin:
             return (messages, "") if return_sys_addon else messages
 
         augmented = list(messages)
-        # Insert RAG context right before the last user message
-        # so the LLM sees it adjacent to the question (not buried at start)
         insert_idx = max(len(augmented) - 1, 0)
         sys_addon_parts = []
 
-        # ── Readiness gate (前移到所有增強路徑之前) ──
+        # 獲取 readiness 狀態和 RAG 模式
         _pid = self.state.current_project["id"] if self.state.current_project else "default"
+        _readiness, _is_fast, _skip_all, _skip_augment, _rag_hint = await self._apply_readiness_gate(_pid)
+
+        # Early return for empty / building-no-chunks
+        if _skip_all:
+            self.state.last_rag_sources = []
+            await self._update_research_panel(status="empty", content="", query=user_msg)
+            if _rag_hint and return_sys_addon:
+                return augmented, _rag_hint + "\n\n請用繁體中文回覆。"
+            return (augmented, "") if return_sys_addon else augmented
+
+        # 計算 insight score（影響記憶注入量）
+        _insight_score = await self._compute_insight_score(user_msg, _pid, _skip_augment)
+
+        # 構建記憶上下文
+        if not _skip_augment:
+            mem_addon = await self._build_memory_context(user_msg, _insight_score, return_sys_addon)
+            if mem_addon:
+                if return_sys_addon:
+                    sys_addon_parts.append(mem_addon)
+                else:
+                    augmented.insert(insert_idx, {"role": "system", "content": mem_addon})
+                    insert_idx += 1
+
+        # 檢測是否應注入圖片上下文
+        _user_asks_about_images = self._detect_image_relevance(user_msg)
+
+        # 構建視覺偏好上下文
+        if not _skip_augment and _user_asks_about_images:
+            pref_addon = await self._build_image_preference_context(return_sys_addon)
+            if pref_addon:
+                if return_sys_addon:
+                    sys_addon_parts.append(pref_addon)
+                else:
+                    augmented.insert(insert_idx, {"role": "system", "content": pref_addon})
+                    insert_idx += 1
+
+        # 構建圖片知識庫上下文
+        if not _skip_augment and _user_asks_about_images:
+            img_addon = await self._build_image_context(user_msg, return_sys_addon)
+            if img_addon:
+                if return_sys_addon:
+                    sys_addon_parts.append(img_addon)
+                else:
+                    augmented.insert(insert_idx, {"role": "system", "content": img_addon})
+                    insert_idx += 1
+
+        # 清除舊的 RAG sources 並開始管道檢索
+        self.state.last_rag_sources = []
+        await self._update_research_panel(
+            status="loading",
+            content="正在檢索知識庫…",
+            query=user_msg,
+        )
+
+        # 執行 RAG 管道並格式化輸出
+        await self._retrieve_and_inject_rag_context(
+            user_msg, _pid, _is_fast, _readiness, _skip_augment,
+            _insight_score, _rag_hint, augmented, insert_idx,
+            sys_addon_parts, return_sys_addon
+        )
+
+        if return_sys_addon:
+            addon = "\n\n".join(sys_addon_parts)
+            if addon:
+                addon += "\n\n請用繁體中文回覆。"
+            return augmented, addon
+
+        return augmented
+
+    async def _apply_readiness_gate(
+        self, project_id: str
+    ) -> tuple[object, bool, bool, bool, str]:
+        """
+        檢查 readiness 狀態並決定要跳過哪些路徑。
+
+        回傳：(readiness_obj, is_fast_mode, skip_all, skip_augment, hint_message)
+        """
         try:
             from rag.readiness import get_readiness_service
-            _readiness = await get_readiness_service().get_snapshot(_pid)
+            _readiness = await get_readiness_service().get_snapshot(project_id)
         except Exception:
             from rag.readiness import ReadinessSnapshot
             _readiness = ReadinessSnapshot()
 
         _is_fast = (getattr(self, "rag_mode", "fast") != "deep")
 
-        # Determine what to skip based on readiness + mode
-        _skip_all = False       # Skip memory, image, and pipeline
-        _skip_augment = False   # Skip memory & image only (still run pipeline)
+        _skip_all = False
+        _skip_augment = False
         _rag_hint = ""
 
         if _readiness.status_label == "empty":
@@ -960,151 +1192,174 @@ class ChatMixin:
         elif _readiness.status_label == "building":
             _rag_hint = "知識庫建構中，以下為部分可用資料。"
             if _is_fast:
-                _skip_augment = True   # fast: skip memory/image for speed
+                _skip_augment = True
         elif _readiness.status_label == "degraded":
             _rag_hint = "部分文獻匯入失敗，資料可能不完整。"
             if _is_fast:
-                _skip_augment = True   # fast: skip memory/image for speed
+                _skip_augment = True
 
-        # Early return for empty / building-no-chunks
-        if _skip_all:
-            # B3: Clear stale sources
-            self.state.last_rag_sources = []
-            await self._update_research_panel(
-                status="empty",
-                content="",
-                query=user_msg,
-            )
-            if _rag_hint and return_sys_addon:
-                return augmented, _rag_hint + "\n\n請用繁體中文回覆。"
-            return (augmented, "") if return_sys_addon else augmented
+        return _readiness, _is_fast, _skip_all, _skip_augment, _rag_hint
 
-        # ── 0. 計算 insight_score（影響記憶注入量）──
-        _insight_score = 0.0
-        if not _skip_augment:
-            try:
-                from rag.pipeline import get_insight_score
-                _db_path_for_score = None
-                if self.state.current_project:
-                    from paths import project_root as _pr_score
-                    _db_path_for_score = _pr_score(self.state.current_project["id"]) / "memories.db"
-                _insight_score = await get_insight_score(user_msg, _pid, db_path=_db_path_for_score)
-            except Exception:
-                pass
+    async def _compute_insight_score(
+        self, user_msg: str, project_id: str, skip_augment: bool
+    ) -> float:
+        """計算 insight score，影響記憶注入的數量上限。"""
+        if skip_augment:
+            return 0.0
 
-        # ── 1. 記憶向量搜尋（skip in fast+building/degraded）──
-        if not _skip_augment:
-            _mem_limit = 5 if _insight_score > 0.4 else 3
-            _lancedb_dir = None
+        try:
+            from rag.pipeline import get_insight_score
+            _db_path = None
             if self.state.current_project:
-                from paths import project_root
-                _lancedb_dir = project_root(self.state.current_project["id"]) / "lancedb"
-            try:
-                from memory.vectorstore import search_similar, has_index
-                if has_index(lancedb_dir=_lancedb_dir):
-                    mem_results = await search_similar(user_msg, limit=_mem_limit, lancedb_dir=_lancedb_dir)
-                    if mem_results:
-                        mem_lines = "\n".join(
-                            f"- [{m['type']}] {m['content']}" + (f" (#{m['topic']})" if m.get('topic') else "")
-                            for m in mem_results
-                        )
-                        context_text = f"使用者過去的想法（語意相關）：\n{mem_lines}"
-                        if return_sys_addon:
-                            sys_addon_parts.append(context_text)
-                        else:
-                            augmented.insert(insert_idx, {"role": "system", "content": context_text})
-                            insert_idx += 1
-            except Exception as e:
-                self.log.warning(f"RAG inject memory failed: {e}")
+                from paths import project_root as _pr
+                _db_path = _pr(self.state.current_project["id"]) / "memories.db"
+            return await get_insight_score(user_msg, project_id, db_path=_db_path)
+        except Exception:
+            return 0.0
 
-        # ── Image relevance guard ──
-        # 只在使用者提問涉及圖片/視覺相關時才注入圖片上下文，
-        # 避免 LLM 在無關對話中提到圖片
+    async def _build_memory_context(
+        self, user_msg: str, insight_score: float, return_sys_addon: bool
+    ) -> str:
+        """
+        從記憶向量資料庫檢索並格式化相關記憶。
+        回傳格式化的記憶文本，若無相關記憶則回傳空字串。
+        """
+        _mem_limit = 5 if insight_score > 0.4 else 3
+        _lancedb_dir = None
+        if self.state.current_project:
+            from paths import project_root
+            _lancedb_dir = project_root(self.state.current_project["id"]) / "lancedb"
+
+        try:
+            from memory.vectorstore import search_similar, has_index
+            if not has_index(lancedb_dir=_lancedb_dir):
+                return ""
+
+            mem_results = await search_similar(user_msg, limit=_mem_limit, lancedb_dir=_lancedb_dir)
+            if not mem_results:
+                return ""
+
+            mem_lines = "\n".join(
+                f"- [{m['type']}] {m['content']}" + (f" (#{m['topic']})" if m.get('topic') else "")
+                for m in mem_results
+            )
+            return f"使用者過去的想法（語意相關）：\n{mem_lines}"
+        except Exception as e:
+            self.log.warning(f"RAG inject memory failed: {e}")
+            return ""
+
+    def _detect_image_relevance(self, user_msg: str) -> bool:
+        """
+        判斷使用者的提問是否涉及圖片/視覺相關內容。
+        """
         _IMAGE_KEYWORDS = (
             "圖", "圖片", "照片", "相片", "影像", "視覺", "畫面",
             "風格", "偏好", "收集", "參考圖", "靈感",
             "image", "photo", "picture", "visual", "style",
         )
         _has_pending_images = bool(getattr(self.state, "pending_images", None))
-        _user_asks_about_images = _has_pending_images or any(
-            kw in user_msg for kw in _IMAGE_KEYWORDS
-        )
+        return _has_pending_images or any(kw in user_msg for kw in _IMAGE_KEYWORDS)
 
-        # ── 1.5 視覺偏好注入（僅在使用者提到圖片/風格時）──
-        if not _skip_augment and _user_asks_about_images:
-            try:
-                from memory.store import get_memories
-                _mem_db = None
-                if self.state.current_project:
-                    from paths import project_root as _pr2
-                    _mem_db = _pr2(self.state.current_project["id"]) / "memories.db"
-                prefs = await get_memories(type="preference", limit=1, db_path=_mem_db)
-                if prefs and prefs[0].get("content"):
-                    pref_text = (
-                        "# 視覺偏好分析（系統根據使用者上傳的參考圖片自動生成）\n\n"
-                        f"{prefs[0]['content']}\n\n"
-                        "當使用者問到「我的圖片」「我的風格偏好」「我收集的東西」等問題時，"
-                        "直接引用以上分析結果回答，不要說你看不到圖片。"
-                    )
-                    if return_sys_addon:
-                        sys_addon_parts.append(pref_text)
-                    else:
-                        augmented.insert(insert_idx, {"role": "system", "content": pref_text})
-                        insert_idx += 1
-            except Exception:
-                pass
+    async def _build_image_preference_context(self, return_sys_addon: bool) -> str:
+        """
+        取得使用者的視覺偏好分析並格式化。
+        回傳視覺偏好文本，若無則回傳空字串。
+        """
+        try:
+            from memory.store import get_memories
+            _mem_db = None
+            if self.state.current_project:
+                from paths import project_root as _pr
+                _mem_db = _pr(self.state.current_project["id"]) / "memories.db"
 
-        # ── 2. 圖片知識庫檢索（僅在使用者提到圖片/視覺時）──
-        if not _skip_augment and _user_asks_about_images:
-            try:
-                if self.state.current_project:
-                    from rag.image_store import search_images
-                    img_results = await search_images(
-                        self.state.current_project["id"], user_msg, limit=3,
-                    )
-                    if img_results:
-                        def _format_img(r):
-                            cap = r.get("caption", {})
-                            if isinstance(cap, dict):
-                                parts = []
-                                content = cap.get("content", {})
-                                if isinstance(content, dict) and content.get("title"):
-                                    parts.append(content["title"])
-                                tags = cap.get("style_tags", [])
-                                if tags:
-                                    parts.append(f"[{', '.join(tags[:4])}]")
-                                desc = cap.get("description", "")
-                                if desc:
-                                    parts.append(desc[:80])
-                                caption_str = " — ".join(parts) if parts else r["filename"]
-                            else:
-                                caption_str = str(cap) if cap else r["filename"]
-                            return f"- [圖片] {r['filename']}: {caption_str}"
-                        img_lines = "\n".join(
-                            _format_img(r)
-                            for r in img_results
-                            if r.get("score", 0) > 0.3 or r.get("filename", "") in user_msg
-                        )
-                        if img_lines:
-                            context_text = f"相關圖片（可引用路徑或描述）：\n{img_lines}"
-                            if return_sys_addon:
-                                sys_addon_parts.append(context_text)
-                            else:
-                                augmented.insert(insert_idx, {"role": "system", "content": context_text})
-                                insert_idx += 1
-            except Exception as e:
-                self.log.warning(f"RAG inject images failed: {e}")
+            prefs = await get_memories(type="preference", limit=1, db_path=_mem_db)
+            if not prefs or not prefs[0].get("content"):
+                return ""
 
-        # B3: Clear stale sources before each query to prevent carryover
-        self.state.last_rag_sources = []
-        await self._update_research_panel(
-            status="loading",
-            content="正在檢索知識庫…",
-            query=user_msg,
-        )
+            return (
+                "# 視覺偏好分析（系統根據使用者上傳的參考圖片自動生成）\n\n"
+                f"{prefs[0]['content']}\n\n"
+                "當使用者問到「我的圖片」「我的風格偏好」「我收集的東西」等問題時，"
+                "直接引用以上分析結果回答，不要說你看不到圖片。"
+            )
+        except Exception:
+            return ""
 
-        # ── 3. 知識庫 RAG — pipeline ──
-        # 深度模式：先拆解查詢結構，再對每個子查詢分別檢索，合併結果
+    async def _build_image_context(
+        self, user_msg: str, return_sys_addon: bool
+    ) -> str:
+        """
+        檢索圖片知識庫並格式化相關圖片。
+        回傳圖片上下文文本，若無相關圖片則回傳空字串。
+        """
+        try:
+            if not self.state.current_project:
+                return ""
+
+            from rag.image_store import search_images
+            img_results = await search_images(
+                self.state.current_project["id"], user_msg, limit=3,
+            )
+            if not img_results:
+                return ""
+
+            def _format_img(r):
+                cap = r.get("caption", {})
+                if isinstance(cap, dict):
+                    parts = []
+                    content = cap.get("content", {})
+                    if isinstance(content, dict) and content.get("title"):
+                        parts.append(content["title"])
+                    tags = cap.get("style_tags", [])
+                    if tags:
+                        parts.append(f"[{', '.join(tags[:4])}]")
+                    desc = cap.get("description", "")
+                    if desc:
+                        parts.append(desc[:80])
+                    caption_str = " — ".join(parts) if parts else r["filename"]
+                else:
+                    caption_str = str(cap) if cap else r["filename"]
+                return f"- [圖片] {r['filename']}: {caption_str}"
+
+            img_lines = "\n".join(
+                _format_img(r)
+                for r in img_results
+                if r.get("score", 0) > 0.3 or r.get("filename", "") in user_msg
+            )
+            if not img_lines:
+                return ""
+
+            return f"相關圖片（可引用路徑或描述）：\n{img_lines}"
+        except Exception as e:
+            self.log.warning(f"RAG inject images failed: {e}")
+            return ""
+
+    async def _retrieve_and_inject_rag_context(
+        self,
+        user_msg: str,
+        project_id: str,
+        is_fast: bool,
+        readiness: object,
+        skip_augment: bool,
+        insight_score: float,
+        rag_hint: str,
+        augmented: list[dict],
+        insert_idx: int,
+        sys_addon_parts: list[str],
+        return_sys_addon: bool,
+    ) -> None:
+        """
+        執行 RAG 管道（深度或快速模式）並將結果注入上下文。
+        直接修改 augmented 和 sys_addon_parts。
+        """
+        # Show spinner while searching knowledge base
+        try:
+            from widgets import MenuBar
+            menu = self.query_one("#menu-bar", MenuBar)
+            menu.show_progress("正在搜尋知識庫...")
+        except Exception:
+            pass
+
         try:
             from rag.pipeline import run_thinking_pipeline
             _db_path = None
@@ -1112,151 +1367,22 @@ class ChatMixin:
                 from paths import project_root as _pr
                 _db_path = _pr(self.state.current_project["id"]) / "memories.db"
 
-            if not _is_fast:
-                # ── 深度模式：多查詢拆解 + 合併 ──
-                await self._update_research_panel(
-                    status="loading",
-                    content="深度模式：提取對話論點結構…",
-                    query=user_msg,
+            if not is_fast:
+                # 深度模式
+                pipeline_result = await self._execute_deep_rag_pipeline(
+                    user_msg, project_id, _db_path
                 )
-                # 傳入最近對話上文（排除最後一條 user msg，已在 user_msg 裡）
-                recent_turns = [
-                    m for m in self.messages[:-1]
-                    if m.get("role") in ("user", "assistant")
-                ][-10:]
-                sub_queries = await self._decompose_query_deep(user_msg, recent_turns=recent_turns)
-                self.log.info("Deep decompose: %d queries: %s", len(sub_queries), sub_queries)
-
-                # ── 思考流程追蹤 ──
-                _thinking_lines: list[str] = ["⟐ 論點拆解"]
-                for i, sq in enumerate(sub_queries):
-                    _thinking_lines.append(f"  {i+1}. {sq[:40]}")
-                await self._update_research_panel(
-                    status="loading",
-                    content="\n".join(_thinking_lines) + "\n\n檢索中…",
-                    query=user_msg,
-                )
-
-                # 對每個子查詢分別跑 pipeline，合併 context 和 sources
-                merged_context_parts: list[str] = []
-                merged_sources: list[dict] = []
-                seen_snippets: set[str] = set()
-                main_diag: dict = {}
-
-                for idx, q in enumerate(sub_queries):
-                    try:
-                        r = await run_thinking_pipeline(
-                            user_input=q,
-                            project_id=_pid,
-                            mode="deep",
-                            db_path=_db_path,
-                            recent_surfaced_bridges=self.state.recent_surfaced_bridges,
-                        )
-                        if idx == 0:
-                            main_diag = r.get("diagnostics", {})
-                        ctx = r.get("context_text", "").strip()
-                        _r_diag = r.get("diagnostics", {})
-                        _r_strategy = r.get("strategy_used", "?")
-                        _r_n_src = len(r.get("sources", []))
-                        self.log.info(
-                            "Deep sub-query %d/%d: q='%s' strategy=%s ctx_len=%d sources=%d error=%s",
-                            idx + 1, len(sub_queries), q[:50],
-                            _r_strategy, len(ctx), _r_n_src,
-                            _r_diag.get("deep_error_code"),
-                        )
-
-                        # ── 更新思考流程 ──
-                        if ctx:
-                            _thinking_lines.append(
-                                f"  ✓ [{idx+1}] {q[:30]}… → {len(ctx)}字 ({_r_strategy})"
-                            )
-                        else:
-                            _thinking_lines.append(
-                                f"  · [{idx+1}] {q[:30]}… → 無結果"
-                            )
-                        # Show progress in panel
-                        _progress = f"檢索中… ({idx+1}/{len(sub_queries)})"
-                        await self._update_research_panel(
-                            status="loading",
-                            content="\n".join(_thinking_lines) + f"\n\n{_progress}",
-                            query=user_msg,
-                        )
-
-                        if ctx:
-                            # 標注這段來自哪個概念查詢（若是子查詢才標，原始查詢不標）
-                            label = f"【{q}】\n" if idx > 0 else ""
-                            merged_context_parts.append(f"{label}{ctx}")
-                        for src in r.get("sources", []):
-                            snip = src.get("snippet", "") or src.get("title", "")
-                            if snip and snip not in seen_snippets:
-                                seen_snippets.add(snip)
-                                merged_sources.append(src)
-                    except Exception as sub_e:
-                        self.log.warning("Deep sub-query %d failed: %s", idx, sub_e)
-                        _thinking_lines.append(
-                            f"  ✗ [{idx+1}] {q[:30]}… → 失敗"
-                        )
-
-                # 組合合併後的 pipeline_result 結構
-                merged_context = "\n\n".join(merged_context_parts)
-
-                # ── 深度模式保底：若所有子查詢都沒找到內容，用原始訊息跑一次快速模式 ──
-                if not merged_context.strip():
-                    self.log.info("Deep mode returned empty for all %d sub-queries, falling back to fast with original msg", len(sub_queries))
-                    _thinking_lines.append("\n⟐ 深度無結果，改用快速模式保底…")
-                    await self._update_research_panel(
-                        status="loading",
-                        content="\n".join(_thinking_lines),
-                        query=user_msg,
-                    )
-                    try:
-                        fallback_r = await run_thinking_pipeline(
-                            user_input=user_msg,
-                            project_id=_pid,
-                            mode="fast",
-                            db_path=_db_path,
-                            recent_surfaced_bridges=self.state.recent_surfaced_bridges,
-                        )
-                        fb_ctx = fallback_r.get("context_text", "").strip()
-                        if fb_ctx:
-                            merged_context = fb_ctx
-                            merged_sources = fallback_r.get("sources", [])
-                            main_diag = fallback_r.get("diagnostics", {})
-                            self.log.info("Deep→fast fallback found content: %d chars, %d sources", len(fb_ctx), len(merged_sources))
-                            _thinking_lines.append(f"  ✓ 快速模式找到 {len(fb_ctx)}字")
-                        else:
-                            _thinking_lines.append("  · 快速模式也無結果")
-                    except Exception as fb_e:
-                        self.log.debug("Deep→fast fallback failed: %s", fb_e)
-                        _thinking_lines.append("  ✗ 快速模式失敗")
-
-                # ── 思考流程摘要 ──
-                _thinking_summary = "\n".join(_thinking_lines)
-
-                from rag.pipeline import clean_context
-                pipeline_result = {
-                    "strategy_used": "deep" if merged_context_parts else "deep_fast_fallback",
-                    "context_text": merged_context,
-                    "raw_result": merged_context,
-                    "sources": merged_sources[:8],
-                    "diagnostics": {
-                        **main_diag,
-                        "deep_decomposed_queries": sub_queries,
-                        "deep_query_count": len(sub_queries),
-                        "deep_fallback_to_fast": not merged_context_parts,
-                        "thinking_trace": _thinking_summary,
-                    },
-                }
             else:
-                # ── 快速模式：單次檢索 ──
+                # 快速模式
                 pipeline_result = await run_thinking_pipeline(
                     user_input=user_msg,
-                    project_id=_pid,
+                    project_id=project_id,
                     mode="fast",
                     db_path=_db_path,
                     recent_surfaced_bridges=self.state.recent_surfaced_bridges,
                 )
-            # Store diagnostics for debugging
+
+            # 儲存診斷資訊
             self._last_pipeline_diagnostics = pipeline_result.get("diagnostics", {})
             diag = pipeline_result.get("diagnostics", {})
 
@@ -1269,12 +1395,12 @@ class ChatMixin:
                 "RAG pipeline: strategy=%s context_len=%d raw_len=%d sources=%d readiness=%s augment_skipped=%s",
                 pipeline_result.get("strategy_used"),
                 len(context_text), len(raw_result), len(sources),
-                _readiness.status_label, _skip_augment,
+                readiness.status_label, skip_augment,
             )
 
-            # Update research panel with raw result (for display cleaning)
+            # 更新研究面板
             if raw_result and len(raw_result.strip()) > 10:
-                status = "degraded" if _readiness.status_label == "degraded" else "ready"
+                status = "degraded" if readiness.status_label == "degraded" else "ready"
                 await self._update_research_panel(
                     content=raw_result,
                     status=status,
@@ -1292,87 +1418,271 @@ class ChatMixin:
                 )
             self.state.last_rag_sources = sources or []
 
-            # Log fallback events
+            # 記錄深度模式的 fallback 事件
             if diag.get("deep_error_code"):
                 self.log.warning(
                     "RAG deep fallback: %s (strategy=%s)",
                     diag["deep_error_code"], pipeline_result["strategy_used"],
                 )
 
-
+            # 格式化並注入最終的系統提示附加文本
             if context_text and len(context_text.strip()) > 10:
-                hint_prefix = f"（{_rag_hint}）\n\n" if _rag_hint else ""
-                insight_hint = ""
-                if _insight_score > 0.4:
-                    insight_hint = "（這個問題和這位創作者過去的洞見高度相關，回答時可以連結他之前的思考。）\n\n"
-
-                if not _is_fast:
-                    # 深度模式：把原始問題和搜尋邏輯分開說清楚
-                    # 讓 LLM 知道：「要回應的是原始問題，不是抽象查詢」
-                    decomposed = pipeline_result.get("diagnostics", {}).get("deep_decomposed_queries", [])
-                    # 把原始 user_msg 從列表移除，只列抽象查詢
-                    abstract_queries = [q for q in (decomposed or []) if q != user_msg]
-                    search_angle_note = ""
-                    if abstract_queries:
-                        search_angle_note = (
-                            "（系統從對話脈絡中提取出以下底層論點，用來在知識庫搜尋平行論述——"
-                            "這些是搜尋用的角度，不是新的問題：\n"
-                            + "\n".join(f"  · {q}" for q in abstract_queries)
-                            + "）\n\n"
-                        )
-                    injection = (
-                        "# 知識庫平行論述（深度模式）\n\n"
-                        f"{hint_prefix}"
-                        f"{insight_hint}"
-                        f"【使用者原始問題／陳述】（你要回應的是這個，不是下面的抽象查詢）：\n"
-                        f"{user_msg}\n\n"
-                        f"{search_angle_note}"
-                        "以下是依上述底層論點角度從知識庫找到的平行論述片段。\n"
-                        "這些文本不一定用相同的詞，但在處理和使用者論點相同的問題邏輯。\n"
-                        "帶有【】標籤的段落代表從那個角度搜到的內容，不是新的問題。\n\n"
-                        f"{context_text}\n\n"
-                        "你的任務（不要展示給使用者看）：\n"
-                        "1. 用這些平行論述的視角，回應使用者原始說的那件事\n"
-                        "2. 說明這些論述強化了、還是動搖了使用者的論點\n"
-                        "3. 如果相關：從設計實踐角度說，這個原則為什麼難落實\n\n"
-                        "以你自己的語氣說話，不要整理片段、不要條列。\n"
-                        "知識庫是你的視角來源，不是你要報告的對象。\n"
-                        "- 引用知識庫概念時用 [[概念名稱]] 標記\n"
-                        "- 不補入知識庫未出現的人名、理論、史實\n"
-                        "請用繁體中文回覆。"
-                    )
-                else:
-                    # 快速模式：維持現有格式
-                    injection = (
-                        "# 知識庫參考內容\n\n"
-                        f"{hint_prefix}"
-                        f"{insight_hint}"
-                        "以下是從使用者的知識庫中檢索到的相關資料，請優先根據這些內容回答。\n\n"
-                        f"{context_text}\n\n"
-                        "使用規則：\n"
-                        "- 回答應基於上述知識庫內容，不可自行補入未出現的人名、理論或引文\n"
-                        "- 引用知識庫概念時用 [[概念名稱]] 標記\n"
-                        "- 若知識庫資訊不足，明確說明後可提供一般性思考方向\n"
-                        "請用繁體中文回覆。"
-                    )
+                injection = await self._format_rag_addon(
+                    context_text, user_msg, is_fast, insight_score,
+                    rag_hint, pipeline_result
+                )
                 if return_sys_addon:
                     sys_addon_parts.append(injection)
                 else:
                     augmented.insert(insert_idx, {"role": "system", "content": injection})
+
         except Exception as e:
             self.log.warning(f"RAG pipeline failed: {e}")
-            # B3: Also clear panel on failure to prevent stale display
             self.state.last_rag_sources = []
             await self._update_research_panel(
                 status="error",
                 content=f"知識庫檢索失敗：{e}",
                 query=user_msg,
             )
+            # Show MenuBar notification for RAG failure
+            try:
+                from widgets import MenuBar
+                menu = self.query_one("#menu-bar", MenuBar)
+                menu.show_message("知識庫查詢失敗，使用純對話模式", severity="warning", timeout=5)
+            except Exception:
+                pass
+        finally:
+            # Clear spinner after RAG search completes
+            try:
+                from widgets import MenuBar
+                menu = self.query_one("#menu-bar", MenuBar)
+                menu.clear_notification()
+            except Exception:
+                pass
 
-        if return_sys_addon:
-            addon = "\n\n".join(sys_addon_parts)
-            if addon:
-                addon += "\n\n請用繁體中文回覆。"
-            return augmented, addon
+    async def _execute_deep_rag_pipeline(
+        self, user_msg: str, project_id: str, db_path
+    ) -> dict:
+        """
+        執行深度模式的 RAG 管道：拆解查詢、並行檢索、合併結果。
+        """
+        from rag.pipeline import run_thinking_pipeline
 
-        return augmented
+        await self._update_research_panel(
+            status="loading",
+            content="深度模式：提取對話論點結構…",
+            query=user_msg,
+        )
+
+        # 拆解查詢
+        recent_turns = [
+            m for m in self.messages[:-1]
+            if m.get("role") in ("user", "assistant")
+        ][-10:]
+        sub_queries = await self._decompose_query_deep(user_msg, recent_turns=recent_turns)
+        self.log.info("Deep decompose: %d queries: %s", len(sub_queries), sub_queries)
+
+        # 初始化思考追蹤
+        _thinking_lines: list[str] = ["⟐ 論點拆解"]
+        for i, sq in enumerate(sub_queries):
+            _thinking_lines.append(f"  {i+1}. {sq[:40]}")
+
+        await self._update_research_panel(
+            status="loading",
+            content="\n".join(_thinking_lines) + "\n\n檢索中…",
+            query=user_msg,
+        )
+
+        # 對每個子查詢進行檢索
+        merged_context_parts: list[str] = []
+        merged_sources: list[dict] = []
+        seen_snippets: set[str] = set()
+        main_diag: dict = {}
+
+        for idx, q in enumerate(sub_queries):
+            try:
+                r = await run_thinking_pipeline(
+                    user_input=q,
+                    project_id=project_id,
+                    mode="deep",
+                    db_path=db_path,
+                    recent_surfaced_bridges=self.state.recent_surfaced_bridges,
+                )
+                if idx == 0:
+                    main_diag = r.get("diagnostics", {})
+
+                ctx = r.get("context_text", "").strip()
+                _r_diag = r.get("diagnostics", {})
+                _r_strategy = r.get("strategy_used", "?")
+                _r_n_src = len(r.get("sources", []))
+
+                self.log.info(
+                    "Deep sub-query %d/%d: q='%s' strategy=%s ctx_len=%d sources=%d error=%s",
+                    idx + 1, len(sub_queries), q[:50],
+                    _r_strategy, len(ctx), _r_n_src,
+                    _r_diag.get("deep_error_code"),
+                )
+
+                # 更新思考流程
+                if ctx:
+                    _thinking_lines.append(
+                        f"  ✓ [{idx+1}] {q[:30]}… → {len(ctx)}字 ({_r_strategy})"
+                    )
+                else:
+                    _thinking_lines.append(
+                        f"  · [{idx+1}] {q[:30]}… → 無結果"
+                    )
+
+                _progress = f"檢索中… ({idx+1}/{len(sub_queries)})"
+                await self._update_research_panel(
+                    status="loading",
+                    content="\n".join(_thinking_lines) + f"\n\n{_progress}",
+                    query=user_msg,
+                )
+
+                # 累積結果
+                if ctx:
+                    label = f"【{q}】\n" if idx > 0 else ""
+                    merged_context_parts.append(f"{label}{ctx}")
+                for src in r.get("sources", []):
+                    snip = src.get("snippet", "") or src.get("title", "")
+                    if snip and snip not in seen_snippets:
+                        seen_snippets.add(snip)
+                        merged_sources.append(src)
+
+            except Exception as sub_e:
+                self.log.warning("Deep sub-query %d failed: %s", idx, sub_e)
+                _thinking_lines.append(
+                    f"  ✗ [{idx+1}] {q[:30]}… → 失敗"
+                )
+
+        # 組合合併結果
+        merged_context = "\n\n".join(merged_context_parts)
+
+        # 若深度模式無結果，fallback 到快速模式
+        if not merged_context.strip():
+            self.log.info(
+                "Deep mode returned empty for all %d sub-queries, falling back to fast",
+                len(sub_queries),
+            )
+            _thinking_lines.append("\n⟐ 深度無結果，改用快速模式保底…")
+            await self._update_research_panel(
+                status="loading",
+                content="\n".join(_thinking_lines),
+                query=user_msg,
+            )
+            # Show MenuBar notification for deep search circuit breaker
+            try:
+                from widgets import MenuBar
+                menu = self.query_one("#menu-bar", MenuBar)
+                menu.show_message("深度搜尋暫時降級為快速模式", severity="warning", timeout=5)
+            except Exception:
+                pass
+
+            try:
+                fallback_r = await run_thinking_pipeline(
+                    user_input=user_msg,
+                    project_id=project_id,
+                    mode="fast",
+                    db_path=db_path,
+                    recent_surfaced_bridges=self.state.recent_surfaced_bridges,
+                )
+                fb_ctx = fallback_r.get("context_text", "").strip()
+                if fb_ctx:
+                    merged_context = fb_ctx
+                    merged_sources = fallback_r.get("sources", [])
+                    main_diag = fallback_r.get("diagnostics", {})
+                    self.log.info(
+                        "Deep→fast fallback found content: %d chars, %d sources",
+                        len(fb_ctx), len(merged_sources),
+                    )
+                    _thinking_lines.append(f"  ✓ 快速模式找到 {len(fb_ctx)}字")
+                else:
+                    _thinking_lines.append("  · 快速模式也無結果")
+            except Exception as fb_e:
+                self.log.debug("Deep→fast fallback failed: %s", fb_e)
+                _thinking_lines.append("  ✗ 快速模式失敗")
+
+        _thinking_summary = "\n".join(_thinking_lines)
+
+        return {
+            "strategy_used": "deep" if merged_context_parts else "deep_fast_fallback",
+            "context_text": merged_context,
+            "raw_result": merged_context,
+            "sources": merged_sources[:8],
+            "diagnostics": {
+                **main_diag,
+                "deep_decomposed_queries": sub_queries,
+                "deep_query_count": len(sub_queries),
+                "deep_fallback_to_fast": not merged_context_parts,
+                "thinking_trace": _thinking_summary,
+            },
+        }
+
+    async def _format_rag_addon(
+        self,
+        context_text: str,
+        user_msg: str,
+        is_fast: bool,
+        insight_score: float,
+        rag_hint: str,
+        pipeline_result: dict,
+    ) -> str:
+        """
+        格式化最終的系統提示附加文本，根據 RAG 模式和 insight score。
+        """
+        hint_prefix = f"（{rag_hint}）\n\n" if rag_hint else ""
+        insight_hint = ""
+        if insight_score > 0.4:
+            insight_hint = (
+                "（這個問題和這位創作者過去的洞見高度相關，回答時可以連結他之前的思考。）\n\n"
+            )
+
+        if not is_fast:
+            # 深度模式：詳細說明搜尋邏輯
+            decomposed = pipeline_result.get("diagnostics", {}).get("deep_decomposed_queries", [])
+            abstract_queries = [q for q in (decomposed or []) if q != user_msg]
+            search_angle_note = ""
+            if abstract_queries:
+                search_angle_note = (
+                    "（系統從對話脈絡中提取出以下底層論點，用來在知識庫搜尋平行論述——"
+                    "這些是搜尋用的角度，不是新的問題：\n"
+                    + "\n".join(f"  · {q}" for q in abstract_queries)
+                    + "）\n\n"
+                )
+
+            return (
+                "# 知識庫平行論述（深度模式）\n\n"
+                f"{hint_prefix}"
+                f"{insight_hint}"
+                f"【使用者原始問題／陳述】（你要回應的是這個，不是下面的抽象查詢）：\n"
+                f"{user_msg}\n\n"
+                f"{search_angle_note}"
+                "以下是依上述底層論點角度從知識庫找到的平行論述片段。\n"
+                "這些文本不一定用相同的詞，但在處理和使用者論點相同的問題邏輯。\n"
+                "帶有【】標籤的段落代表從那個角度搜到的內容，不是新的問題。\n\n"
+                f"{context_text}\n\n"
+                "你的任務（不要展示給使用者看）：\n"
+                "1. 用這些平行論述的視角，回應使用者原始說的那件事\n"
+                "2. 說明這些論述強化了、還是動搖了使用者的論點\n"
+                "3. 如果相關：從設計實踐角度說，這個原則為什麼難落實\n\n"
+                "以你自己的語氣說話，不要整理片段、不要條列。\n"
+                "知識庫是你的視角來源，不是你要報告的對象。\n"
+                "- 引用知識庫概念時用 [[概念名稱]] 標記\n"
+                "- 不補入知識庫未出現的人名、理論、史實\n"
+                "請用繁體中文回覆。"
+            )
+        else:
+            # 快速模式：簡潔格式
+            return (
+                "# 知識庫參考內容\n\n"
+                f"{hint_prefix}"
+                f"{insight_hint}"
+                "以下是從使用者的知識庫中檢索到的相關資料，請優先根據這些內容回答。\n\n"
+                f"{context_text}\n\n"
+                "使用規則：\n"
+                "- 回答應基於上述知識庫內容，不可自行補入未出現的人名、理論或引文\n"
+                "- 引用知識庫概念時用 [[概念名稱]] 標記\n"
+                "- 若知識庫資訊不足，明確說明後可提供一般性思考方向\n"
+                "請用繁體中文回覆。"
+            )

@@ -84,7 +84,7 @@ class RAGMixin:
     def action_import_document(self) -> None:
         self._open_knowledge_modal("import")
 
-    async def _import_one(self, source: str, project_id: str, title: str = "") -> dict:
+    async def _import_one(self, source: str, project_id: str, title: str = "") -> dict[str, int | str]:
         """Submit a single import job and wait for completion.
 
         All actual insert_* work runs in the worker process.
@@ -153,71 +153,105 @@ class RAGMixin:
     @work(exclusive=True)
     async def _do_import(self, source: str, title: str = "") -> None:
         import re as _re
-        _pid = self.state.current_project["id"] if self.state.current_project else "default"
-        source = source.strip()
-        title = (title or "").strip()
-        if not title:
-            self.notify("請先輸入文獻標題（必填）", severity="warning", timeout=3)
-            return
-
-        # Determine source_type
-        is_doi = bool(_re.match(r'^10\.\d{4,}/', source))
-        is_arxiv = "arxiv.org/abs/" in source
-        is_url = source.startswith("http://") or source.startswith("https://")
-
-        if is_doi:
-            source_type = "doi"
-        elif is_arxiv:
-            source_type = "url"
-            source = source.replace("/abs/", "/pdf/")
-        elif is_url:
-            source_type = "url"
-        else:
-            source = self._clean_file_path(source)
-            if source.lower().endswith(".txt"):
-                source_type = "txt"
-            elif source.lower().endswith(".md"):
-                source_type = "md"
-            elif source.lower().endswith(".pdf"):
-                source_type = "pdf"
-            else:
-                self.notify("僅支援 PDF、TXT 或 MD 檔案", severity="warning", timeout=3)
+        self.state.import_in_progress = True
+        try:
+            _pid = self.state.current_project["id"] if self.state.current_project else "default"
+            source = source.strip()
+            title = (title or "").strip()
+            if not title:
+                self.notify("請先輸入文獻標題（必填）", severity="warning", timeout=3)
                 return
 
-        try:
-            svc = self._get_ingestion_service()
-            await svc.submit(_pid, source, source_type, title=title)
-            self.state.last_imported_source = source
-            self.notify("已排入建圖佇列")
-        except Exception as e:
-            self.notify(f"排入佇列失敗: {e}")
+            # Determine source_type
+            is_doi = bool(_re.match(r'^10\.\d{4,}/', source))
+            is_arxiv = "arxiv.org/abs/" in source
+            is_url = source.startswith("http://") or source.startswith("https://")
+
+            if is_doi:
+                source_type = "doi"
+            elif is_arxiv:
+                source_type = "url"
+                source = source.replace("/abs/", "/pdf/")
+            elif is_url:
+                source_type = "url"
+            else:
+                source = self._clean_file_path(source)
+                if source.lower().endswith(".txt"):
+                    source_type = "txt"
+                elif source.lower().endswith(".md"):
+                    source_type = "md"
+                elif source.lower().endswith(".pdf"):
+                    source_type = "pdf"
+                else:
+                    self.notify("僅支援 PDF、TXT 或 MD 檔案", severity="warning", timeout=3)
+                    return
+
+            try:
+                svc = self._get_ingestion_service()
+                await svc.submit(_pid, source, source_type, title=title)
+                self.state.last_imported_source = source
+                self.notify("已排入建圖佇列")
+            except Exception as e:
+                self.notify(f"排入佇列失敗: {e}")
+        finally:
+            self.state.import_in_progress = False
 
     @work(exclusive=True)
-    async def _do_import_text(self, payload: dict) -> None:
+    async def _do_import_text(self, payload: dict[str, str]) -> None:
         """手動貼上標題＋內文匯入知識庫。"""
-        _pid = self.state.current_project["id"] if self.state.current_project else "default"
-        title = (payload or {}).get("title", "").strip()
-        content = (payload or {}).get("content", "").strip()
-        if not content:
-            self.notify("內文不能為空")
-            return
-        if not title:
-            title = "手動貼上文獻"
-
+        self.state.import_in_progress = True
         try:
-            svc = self._get_ingestion_service()
-            await svc.submit(
-                _pid, f"manual:{title}", "text",
-                title=title,
-                payload={"content": content},
-            )
-            self.state.last_imported_source = f"manual:{title}"
-            self.notify("已排入建圖佇列（手動貼上）")
-        except Exception as e:
-            self.notify(f"排入佇列失敗: {e}")
+            _pid = self.state.current_project["id"] if self.state.current_project else "default"
+            title = (payload or {}).get("title", "").strip()
+            content = (payload or {}).get("content", "").strip()
+            if not content:
+                self.notify("內文不能為空")
+                return
+            if not title:
+                title = "手動貼上文獻"
+
+            try:
+                svc = self._get_ingestion_service()
+                await svc.submit(
+                    _pid, f"manual:{title}", "text",
+                    title=title,
+                    payload={"content": content},
+                )
+                self.state.last_imported_source = f"manual:{title}"
+                self.notify("已排入建圖佇列（手動貼上）")
+            except Exception as e:
+                self.notify(f"排入佇列失敗: {e}")
+        finally:
+            self.state.import_in_progress = False
 
     def action_search_knowledge(self) -> None:
         self._open_knowledge_modal("search")
+
+    def _highlight_keywords(self, text: str, query: str) -> str:
+        """Highlight search keywords in text using Rich markup."""
+        import re
+        if not query or not text:
+            return text
+
+        # Extract words from query (simple tokenization)
+        keywords = re.findall(r'\w+', query.lower())
+        if not keywords:
+            return text
+
+        # Create case-insensitive regex pattern
+        result = text
+        for keyword in keywords:
+            # Use word boundaries to match whole words only
+            pattern = rf'\b{re.escape(keyword)}\b'
+            # Replace with Rich bold markup (case-insensitive)
+            result = re.sub(
+                pattern,
+                f'[bold]{keyword}[/bold]',
+                result,
+                flags=re.IGNORECASE
+            )
+
+        return result
 
     @work(exclusive=True)
     async def _do_search(self, query: str) -> None:
@@ -266,10 +300,14 @@ class RAGMixin:
                     query=query,
                 )
                 return
+
+            # Highlight search keywords in result
+            highlighted_result = self._highlight_keywords(result, query)
+
             self.state.last_rag_sources = sources or []
             await self._update_research_panel(
                 status="degraded" if snapshot.status_label == "degraded" else "ready",
-                content=result,
+                content=highlighted_result,
                 sources=sources or [],
                 query=query,
             )
@@ -285,7 +323,7 @@ class RAGMixin:
 
     def _open_knowledge_modal(self, tab: str = "import") -> None:
         project_id = self.state.current_project["id"] if self.state.current_project else "default"
-        def on_dismiss(result) -> None:
+        def on_dismiss(result: str | tuple[str, str] | None) -> None:
             self._refresh_knowledge_panel()
             self._update_menu_bar()
             if isinstance(result, str) and result.startswith("__fill__:"):
@@ -308,7 +346,7 @@ class RAGMixin:
     def action_open_knowledge_screen(self) -> None:
         """開啟全屏 Knowledge 管理介面。"""
         project_id = self.state.current_project["id"] if self.state.current_project else "default"
-        def on_dismiss(result) -> None:
+        def on_dismiss(result: tuple[str, str] | None) -> None:
             self._refresh_knowledge_panel()
             self._update_menu_bar()
             if result is None:
@@ -344,7 +382,7 @@ class RAGMixin:
         sources = self.state.last_rag_sources
         if sources:
             from modals import SourceModal
-            def _on_source_result(result):
+            def _on_source_result(result: str | None) -> None:
                 if result and isinstance(result, str) and result.startswith("__cite__:"):
                     self.fill_input(result[len("__cite__:"):])
             self.push_screen(SourceModal(sources), callback=_on_source_result)
@@ -417,7 +455,7 @@ class RAGMixin:
         else:
             self.notify("目前無知識庫內容可引用", timeout=2)
 
-    def _get_ingestion_service(self):
+    def _get_ingestion_service(self) -> object:
         """Get or create global IngestionService singleton."""
         from rag.ingestion_service import get_ingestion_service
         return get_ingestion_service()
@@ -516,6 +554,11 @@ class RAGMixin:
 
     async def _detect_warning_sources(self, project_id: str, sources: list[dict]) -> list[str]:
         """Return warning document titles that match current sources."""
+        # Simple cache: skip DB query if sources unchanged
+        _sources_key = tuple(sorted((s.get("title", ""), s.get("file", "")) for s in (sources or [])))
+        if hasattr(self, '_warning_cache_key') and self._warning_cache_key == _sources_key:
+            return getattr(self, '_warning_cache_result', [])
+
         try:
             from paths import project_root
             from conversation.store import ConversationStore
@@ -545,7 +588,10 @@ class RAGMixin:
                         t = d.get("title", "未知文獻")
                         if t not in matched:
                             matched.append(t)
-            return matched[:3]
+            result = matched[:3]
+            self._warning_cache_key = _sources_key
+            self._warning_cache_result = result
+            return result
         except Exception:
             return []
 

@@ -4,12 +4,17 @@ import asyncio
 import sys
 from pathlib import Path
 
-# Allow importing from backend/
-sys.path.insert(0, str(Path(__file__).parent / "backend"))
+# Version — single source of truth in paths.py
+
+# backend/ contains FastAPI routers and services that need to be importable
+# TODO: Remove after migrating to proper package structure (pip install -e .)
+_backend_dir = Path(__file__).parent / "backend"
+if str(_backend_dir) not in sys.path:
+    sys.path.insert(0, str(_backend_dir))
 
 # Auto-discover backend venv site-packages so TUI works regardless of
 # which Python interpreter is used to launch it.
-_venv_dir = Path(__file__).parent / "backend" / ".venv"
+_venv_dir = _backend_dir / ".venv"
 if _venv_dir.is_dir():
     import glob as _glob
     _sp = _glob.glob(str(_venv_dir / "lib" / "python*" / "site-packages"))
@@ -72,7 +77,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         height: 1;
         padding: 0;
         margin: 0 1 0 0;
-        color: #2a2a2a;
+        color: #30363d;
     }
 
     ActionLink:hover {
@@ -83,9 +88,9 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     #chat-scroll {
         background: #0a0a0a;
         scrollbar-size: 1 1;
-        scrollbar-color: #2a2a2a;
-        scrollbar-color-hover: #484f58;
-        scrollbar-color-active: #6e7681;
+        scrollbar-color: #30363d;
+        scrollbar-color-hover: #6e7681;
+        scrollbar-color-active: #8b949e;
     }
 
     #messages {
@@ -142,6 +147,28 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         padding: 0;
         height: auto;
         color: #fafafa;
+    }
+
+    /* ── animations ── */
+    #welcome-diamond {
+        height: auto;
+        margin: 1 0;
+        text-align: center;
+        background: transparent;
+    }
+
+    #think-anim {
+        height: auto;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+    }
+
+    .memory-discovery-anim {
+        height: auto;
+        margin: 1 1 0 1;
+        text-align: center;
+        background: transparent;
     }
 
     /* ── markdown overrides ── */
@@ -236,8 +263,8 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         height: auto;
         margin: 0 1;
         padding: 0 1;
-        border: round #2a2a2a;
-        border-title-color: #484f58;
+        border: round #30363d;
+        border-title-color: #6e7681;
         background: #0d0d0d;
     }
 
@@ -268,15 +295,15 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
 
     #right-panel {
         width: 35%;
-        border-left: solid #2a2a2a;
+        border-left: solid #30363d;
     }
 
     /* ── research panel ── */
     #research-panel {
         height: 80%;
-        border-bottom: solid #2a2a2a;
-        border-top: solid #2a2a2a;
-        border-title-color: #6e7681;
+        border-bottom: solid #30363d;
+        border-top: solid #30363d;
+        border-title-color: #8b949e;
         padding: 0 1;
     }
 
@@ -289,7 +316,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         min-width: 0;
         padding: 0 1;
         background: transparent;
-        color: #6e7681;
+        color: #8b949e;
         border: none;
     }
     .kb-action:hover {
@@ -305,7 +332,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     }
     .kb-divider {
         height: 1;
-        color: #2a2a2a;
+        color: #30363d;
         margin: 0 0 1 0;
     }
     .kb-section-label {
@@ -313,7 +340,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     }
     #kb-doc-scroll {
         height: 25%;
-        border: round #2a2a2a;
+        border: round #30363d;
         padding: 0 1;
         margin: 0 0 1 0;
     }
@@ -328,7 +355,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     }
     #research-result-scroll {
         height: 75%;
-        border: round #2a2a2a;
+        border: round #30363d;
         padding: 0 1;
         margin: 0 0 1 0;
     }
@@ -348,7 +375,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         color: #fafafa;
     }
     #research-cite:disabled {
-        color: #484f58;
+        color: #6e7681;
     }
 
     /* ── focus panel ── */
@@ -370,7 +397,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         height: 1fr;
         min-height: 12;
         margin: 0 0 1 0;
-        border: solid #2a2a2a;
+        border: solid #30363d;
         background: #0d0d0d;
     }
     #focus-buttons {
@@ -383,7 +410,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         margin-right: 1;
         background: #1a1a1a;
         color: #8b949e;
-        border: solid #2a2a2a;
+        border: solid #30363d;
     }
     #focus-buttons Button:hover {
         background: #2a2a2a;
@@ -405,8 +432,8 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     /* ── memory panel ── */
     #memory-panel {
         height: 20%;
-        border-top: solid #2a2a2a;
-        border-title-color: #6e7681;
+        border-top: solid #30363d;
+        border-title-color: #8b949e;
         padding: 0 1;
     }
 
@@ -463,10 +490,10 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         width: 40;
         margin: 0 0 0 3;
         background: #1a1a1a;
-        border: round #3a3a3a;
+        border: round #30363d;
         color: #c9d1d9;
         scrollbar-size: 1 1;
-        scrollbar-color: #2a2a2a;
+        scrollbar-color: #30363d;
     }
     #slash-hints > .option-list--option-highlighted {
         background: #2a2a2a;
@@ -479,7 +506,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     /* ── back button (shared across modals) ── */
     .back-btn {
         background: transparent;
-        color: #484f58;
+        color: #6e7681;
         border: none;
         height: 1;
         min-width: 0;
@@ -495,7 +522,6 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     BINDINGS = [
         Binding("ctrl+s", "open_settings", "設定", show=False, priority=True),
         Binding("ctrl+e", "toggle_mode", "感性/理性", show=False, priority=True),
-        Binding("ctrl+n", "new_chat", "新對話", show=False, priority=True),
         Binding("ctrl+k", "search_knowledge", "搜尋知識庫", show=False, priority=True),
         Binding("ctrl+f", "import_document", "匯入文件", show=False, priority=True),
         Binding("ctrl+m", "manage_memories", "記憶管理", show=False, priority=True),
@@ -504,7 +530,6 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         Binding("ctrl+g", "view_relations", "記憶關聯", show=False, priority=True),
         Binding("ctrl+l", "open_gallery", "圖片庫", show=False, priority=True),
         Binding("ctrl+u", "update_document", "更新文件", show=False, priority=True),
-        Binding("ctrl+c", "quit", "退出", show=False),
     ]
 
     mode: reactive[str] = reactive("emotional")
@@ -618,10 +643,12 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
         self._update_status()
         container = self.query_one("#messages", Vertical)
         welcome = WelcomeBlock()
-        welcome.border_title = "[#d4a27a]◈[/] De-insight v0.8"
+        from paths import __version__ as _ver
+        welcome.border_title = f"[#d4a27a]◈[/] De-insight {_ver}"
         await container.mount(welcome)
         self.query_one("#chat-input", ChatInput).focus()
         self._refresh_memory_panel()
+        self._load_pending_memories_from_db()
         self._refresh_knowledge_panel()
         self._reindex_pending_memories()
 
@@ -817,8 +844,15 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
     def action_quit(self) -> None:
         if getattr(self, "_shutdown_in_progress", False):
             return
-        self._shutdown_in_progress = True
-        self._shutdown_and_exit()
+        # Show confirmation dialog before exiting
+        from modals.exit_confirm import ExitConfirmModal
+
+        def on_exit_confirm(result: bool) -> None:
+            if result:
+                self._shutdown_in_progress = True
+                self._shutdown_and_exit()
+
+        self.push_screen(ExitConfirmModal(), callback=on_exit_confirm)
 
     @work(exclusive=True, group="shutdown")
     async def _shutdown_and_exit(self) -> None:

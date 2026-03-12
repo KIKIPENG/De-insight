@@ -575,9 +575,10 @@ class _ProgressTracker:
         self._last_progress_pct: float | None = None
         self._eta_estimate: float | None = None
         self._tail_started_ts: float | None = None
+        self._max_written_pct: float | None = None  # Non-regression guard for progress pct
         # Build-stage tail (graph merge/write) often has low visible LLM-call deltas.
         # Reserve 90~94% for this period so UI keeps moving.
-        _env_tail = float(os.environ.get("RAG_PROGRESS_TAIL_SECONDS", "420") or "420")
+        _env_tail = float(os.environ.get("RAG_PROGRESS_TAIL_SECONDS", "120") or "120")
         _tail = tail_expected_seconds if tail_expected_seconds is not None else _env_tail
         self._tail_expected_seconds = max(60.0, float(_tail))
 
@@ -623,6 +624,9 @@ class _ProgressTracker:
                     )
                 else:
                     pct = self._stage_base_pct + self._stage_span_pct * max(0.0, min(ratio, 1.0))
+                    # 防止進度倒退
+                    if self._max_written_pct is not None and pct < self._max_written_pct:
+                        pct = self._max_written_pct
                     await self._write_to_db(chunks_done=done, progress_pct=pct)
         except asyncio.CancelledError:
             pass
@@ -645,6 +649,9 @@ class _ProgressTracker:
             repo = JobRepository(self._db_path)
             now_ts = datetime.now().timestamp()
             eta_seconds = eta_override if eta_override is not None else self._compute_eta_seconds(progress_pct, now_ts)
+            # Track max written pct for non-regression guard
+            if self._max_written_pct is None or progress_pct > self._max_written_pct:
+                self._max_written_pct = progress_pct
             await repo.update_progress(
                 self._job_id,
                 chunks_done=chunks_done,
@@ -725,17 +732,6 @@ async def _set_job_stage(
     try:
         from rag.job_repository import JobRepository
         repo = JobRepository(_get_jobs_db_path())
-        eta_seconds = None
-        if started_at and chunks_total > 0 and chunks_done > 0 and chunks_done < chunks_total:
-            try:
-                start = datetime.strptime(started_at, "%Y-%m-%d %H:%M:%S")
-                elapsed = max(0.0, (datetime.now() - start).total_seconds())
-                ratio = chunks_done / chunks_total
-                if ratio > 0 and ratio < 1 and elapsed > 0:
-                    total = elapsed / ratio
-                    eta_seconds = max(0, int(total - elapsed))
-            except Exception:
-                eta_seconds = None
         await repo.update_progress(
             job_id,
             chunks_done=chunks_done,
@@ -743,7 +739,7 @@ async def _set_job_stage(
             started_at=started_at,
             progress_pct=progress_pct,
             progress_stage=stage,
-            eta_seconds=eta_seconds,
+            eta_seconds=None,
         )
     except Exception as e:
         log.warning("set_job_stage failed for %s: %s", job_id, e)
@@ -758,7 +754,7 @@ def _estimate_chunks(text: str) -> int:
     base = max(1, len(text) // chars_per_chunk)
     # Empirical calibration: LightRAG often creates significantly more chunks than
     # this rough token/char estimate, especially for CJK-heavy docs.
-    mult = float(os.environ.get("RAG_PROGRESS_CHUNK_MULTIPLIER", "6.5") or "6.5")
+    mult = float(os.environ.get("RAG_PROGRESS_CHUNK_MULTIPLIER", "9.5") or "9.5")
     return max(1, int(base * max(mult, 1.0)))
 
 
@@ -767,7 +763,7 @@ def _estimate_chunks_from_char_count(char_count: int) -> int:
     chunk_token_size = int(os.environ.get("LIGHTRAG_CHUNK_TOKEN_SIZE", "2400"))
     chars_per_chunk = chunk_token_size * 3
     base = max(1, int(char_count) // chars_per_chunk)
-    mult = float(os.environ.get("RAG_PROGRESS_CHUNK_MULTIPLIER", "6.5") or "6.5")
+    mult = float(os.environ.get("RAG_PROGRESS_CHUNK_MULTIPLIER", "9.5") or "9.5")
     return max(1, int(base * max(mult, 1.0)))
 
 
@@ -950,6 +946,10 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
                 started_at=started_at,
             )
 
+    # 用全文字數預估 chunk 總數，而非頁數
+    total_char_count = sum(len(t) for _, t in page_chunks)
+    global_estimated_chunks = _estimate_chunks_from_char_count(total_char_count)
+
     if on_progress:
         on_progress(f"正在建構知識圖譜（{page_count} 頁）…")
     rag = await _ensure_initialized(project_id=project_id)
@@ -1081,6 +1081,28 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
     batch_states = await jobs_repo.list_batches(job_id) if (jobs_repo and job_id) else []
     batch_by_no = {int(b.get("batch_no") or 0): b for b in batch_states}
     total_batches = max(1, len(batches))
+
+    # 建立全域 tracker，跨批次累計
+    # 計算總 tail 時間
+    total_tail_seconds = 0.0
+    for idx, batch in enumerate(batches):
+        if not batch:
+            continue
+        batch_pages = max(1, int(batch[-1][0] - batch[0][0] + 1))
+        tail_per_page = float(os.environ.get("RAG_PROGRESS_TAIL_PER_PAGE_SECONDS", "2.0") or "2.0")
+        tail_cap = float(os.environ.get("RAG_PROGRESS_TAIL_MAX_SECONDS", "600") or "600")
+        tail_floor = float(os.environ.get("RAG_PROGRESS_TAIL_MIN_SECONDS", "90") or "90")
+        batch_tail = min(tail_cap, max(tail_floor, float(batch_pages) * tail_per_page))
+        total_tail_seconds += batch_tail
+
+    global_tracker = await _install_progress_tracker_with_estimated(
+        job_id,
+        estimated_chunks=global_estimated_chunks,
+        tail_expected_seconds=total_tail_seconds,
+    )
+    if global_tracker:
+        await global_tracker.set_stage("建立圖譜", stage_base_pct=20.0, stage_span_pct=70.0)
+
     for idx, batch in enumerate(batches):
         if not batch:
             continue
@@ -1100,33 +1122,12 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
             await jobs_repo.update_phase(job_id, "extracting", status="running")
         batch_pages = max(1, int(batch[-1][0] - batch[0][0] + 1))
         actual_chunks = max(1, len(batch))
-        estimated_batch_chunks = max(1, _estimate_chunks_from_char_count(len(payload)))
-        batch_base_pct = 20.0 + (70.0 * (idx / total_batches))
-        batch_span_pct = 70.0 / total_batches
         timeout_per_page = float(os.environ.get("RAG_BATCH_TIMEOUT_PER_PAGE", "30") or "30")
         timeout_per_chunk = float(os.environ.get("RAG_BATCH_TIMEOUT_PER_CHUNK", "10") or "10")
         timeout_floor = max(180, int(os.environ.get("RAG_BATCH_TIMEOUT_MIN", "600") or "600"))
         timeout_cap = max(timeout_floor, int(os.environ.get("RAG_BATCH_TIMEOUT_MAX", "7200") or "7200"))
         timeout_seconds = int(timeout_per_page * batch_pages + timeout_per_chunk * actual_chunks)
         timeout_seconds = max(timeout_floor, min(timeout_cap, timeout_seconds))
-        tail_per_page = float(os.environ.get("RAG_PROGRESS_TAIL_PER_PAGE_SECONDS", "2.0") or "2.0")
-        tail_cap = float(os.environ.get("RAG_PROGRESS_TAIL_MAX_SECONDS", "600") or "600")
-        tail_floor = float(os.environ.get("RAG_PROGRESS_TAIL_MIN_SECONDS", "90") or "90")
-        batch_tail_seconds = min(
-            tail_cap,
-            max(tail_floor, float(batch_pages) * tail_per_page),
-        )
-        tracker = await _install_progress_tracker_with_estimated(
-            job_id,
-            estimated_chunks=estimated_batch_chunks,
-            tail_expected_seconds=batch_tail_seconds,
-        )
-        if tracker:
-            await tracker.set_stage(
-                "建立圖譜",
-                stage_base_pct=batch_base_pct,
-                stage_span_pct=batch_span_pct,
-            )
         before_ent, before_rel = _graph_deltas()
         try:
             while True:
@@ -1150,9 +1151,8 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
                     if b_row and jobs_repo:
                         await jobs_repo.mark_batch_failed(int(b_row["id"]), "EXTRACT_ERROR")
                     raise
-        finally:
-            if tracker:
-                await tracker.finish()
+        except Exception:
+            raise
         after_ent, after_rel = _graph_deltas()
         if b_row and jobs_repo:
             await jobs_repo.update_phase(job_id, "merging", status="running")
@@ -1163,6 +1163,10 @@ async def insert_pdf(path: str, project_id: str = "default", title: str = "", on
         processed += len(batch)
         if on_progress:
             on_progress(f"建立圖譜 {processed}/{total_chunks} 頁")
+
+    # 結束全域 tracker
+    if global_tracker:
+        await global_tracker.finish()
 
     await _set_job_stage(
         job_id,
@@ -1488,14 +1492,17 @@ async def query_knowledge_merged(
     if not tasks:
         return "", [], {"global_chars": 0, "project_chars": 0, "global_sources": 0, "project_sources": 0}
 
-    # 並行查詢
+    # 並行查詢 — 使用 asyncio.gather 實現真正的並行
+    keys = list(tasks.keys())
+    coros = list(tasks.values())
+    raw_results = await asyncio.gather(*coros, return_exceptions=True)
     results = {}
-    for key, coro in tasks.items():
-        try:
-            results[key] = await coro
-        except Exception as e:
-            log.warning("Merged query %s failed: %s", key, e)
+    for key, result in zip(keys, raw_results):
+        if isinstance(result, Exception):
+            log.warning("Merged query %s failed: %s", key, result)
             results[key] = ("", [])
+        else:
+            results[key] = result
 
     global_text, global_sources = results.get("global", ("", []))
     project_text, project_sources = results.get("project", ("", []))

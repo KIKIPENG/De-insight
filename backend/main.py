@@ -39,7 +39,12 @@ app = FastAPI(title="De-insight API", default_response_class=JSONResponse)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -71,6 +76,7 @@ async def health():
 @app.post("/api/reload-env")
 async def reload_env():
     """重新載入 .env，讓設定變更立即生效。"""
+    # 安全性：CORS 已限制只接受 localhost 來源
     from config.service import get_config_service
     import services.llm as llm_mod
     from embeddings.service import reset_embedding_service

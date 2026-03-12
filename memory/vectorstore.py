@@ -175,8 +175,11 @@ async def search_similar(query: str, limit: int = 5, topic: str = "", lancedb_di
 
     search = table.search(query_vec, vector_column_name="vector").limit(limit)
     if topic:
-        safe_topic = topic.replace("'", "''")
-        search = search.where(f"topic = '{safe_topic}'")
+        import re as _re
+        # 只允許安全字元，防止 SQL 注入
+        safe_topic = _re.sub(r"[^a-zA-Z0-9\u4e00-\u9fff\u3400-\u4dbf_\-\s]", "", topic)
+        if safe_topic:
+            search = search.where(f"topic = '{safe_topic}'")
 
     results = search.to_list()
     return [
@@ -199,7 +202,7 @@ async def delete_from_index(memory_id: int, lancedb_dir: Path | None = None) -> 
     if TABLE_NAME not in db.table_names():
         return
     table = db.open_table(TABLE_NAME)
-    table.delete(f"id = {memory_id}")
+    table.delete(f"id = {int(memory_id)}")
 
 
 def has_index(lancedb_dir: Path | None = None) -> bool:

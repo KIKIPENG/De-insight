@@ -91,34 +91,65 @@ class AppState:
     current_interactive_block: object = None  # InteractiveBlock | None
     last_rag_sources: list[dict] = field(default_factory=list)
     last_imported_source: str | None = None
-    pending_images: list = field(default_factory=list)
+    pending_images: list[str] = field(default_factory=list)
     recent_surfaced_bridges: list[SurfacedBridgeRecord] = field(default_factory=list)
     turn_index: int = 0
+    import_in_progress: bool = False
 
 LANCEDB_DIR = Path(__file__).parent / "data" / "lancedb"
 
+# ── _get_reindex_age: 5 秒 TTL 快取，避免每次 MenuBar rebuild 都掃檔案系統 ──
+_reindex_age_cache: tuple[float, str] = (0.0, "")
+_REINDEX_AGE_TTL = 5.0
+
 
 def _get_reindex_age() -> str:
-    """取得距離上次 reindex 的時間描述。回傳空字串表示尚無索引。"""
+    """取得距離上次 reindex 的時間描述。回傳空字串表示尚無索引。
+
+    使用 5 秒快取避免頻繁掃描 lancedb 目錄。
+    """
+    global _reindex_age_cache
+    now = time.time()
+    if now - _reindex_age_cache[0] < _REINDEX_AGE_TTL:
+        return _reindex_age_cache[1]
+
     if not LANCEDB_DIR.exists():
+        _reindex_age_cache = (now, "")
         return ""
+    # 只看頂層檔案的 mtime，不遞迴走訪整個目錄
     latest = 0.0
-    for f in LANCEDB_DIR.rglob("*"):
-        if f.is_file():
-            mt = f.stat().st_mtime
-            if mt > latest:
-                latest = mt
-    if latest == 0.0:
+    try:
+        for f in LANCEDB_DIR.iterdir():
+            if f.is_file():
+                mt = f.stat().st_mtime
+                if mt > latest:
+                    latest = mt
+        # 若頂層無檔案，看子目錄的 mtime（目錄本身的 mtime 反映最近修改）
+        if latest == 0.0:
+            for f in LANCEDB_DIR.iterdir():
+                if f.is_dir():
+                    mt = f.stat().st_mtime
+                    if mt > latest:
+                        latest = mt
+    except OSError:
+        _reindex_age_cache = (now, "")
         return ""
-    elapsed = time.time() - latest
-    if elapsed < 60:
-        return "剛剛"
-    elif elapsed < 3600:
-        return f"{int(elapsed // 60)}分鐘前"
-    elif elapsed < 86400:
-        return f"{int(elapsed // 3600)}小時前"
+
+    if latest == 0.0:
+        result = ""
     else:
-        return f"{int(elapsed // 86400)}天前"
+        elapsed = now - latest
+        if elapsed < 60:
+            result = "剛剛"
+        elif elapsed < 3600:
+            result = f"{int(elapsed // 60)}分鐘前"
+        elif elapsed < 86400:
+            result = f"{int(elapsed // 3600)}小時前"
+        else:
+            result = f"{int(elapsed // 86400)}天前"
+
+    _reindex_age_cache = (now, result)
+    return result
 
 
 # ── Widgets ──────────────────────────────────────────────────────────
@@ -161,7 +192,17 @@ class ChatInput(TextArea):
             lines.append(f"{prefix} {c}")
         self.text = "\n".join(lines)
 
-    async def _on_key(self, event) -> None:
+    async def _on_key(self, event: object) -> None:
+        # Editing hotkeys: Ctrl+A (select all), Ctrl+C (copy), Ctrl+V (paste)
+        if hasattr(event, 'key'):
+            if event.key == "ctrl+a":
+                event.prevent_default()
+                event.stop()
+                self.selection = (0, len(self.text))
+                return
+            # Note: Ctrl+C and Ctrl+V are handled by TextArea's default copy/paste
+            # We just let them pass through without stopping
+
         if event.key == "tab":
             event.prevent_default()
             event.stop()
@@ -170,6 +211,21 @@ class ChatInput(TextArea):
                 self._render_choices()
             else:
                 self._cycle_slash_hints()
+            return
+        # Arrow key navigation for choice mode
+        if event.key == "up":
+            if self._choices:
+                event.prevent_default()
+                event.stop()
+                self._choice_idx = (self._choice_idx - 1) % len(self._choices)
+                self._render_choices()
+            return
+        if event.key == "down":
+            if self._choices:
+                event.prevent_default()
+                event.stop()
+                self._choice_idx = (self._choice_idx + 1) % len(self._choices)
+                self._render_choices()
             return
         if event.key == "enter":
             if not self.text.strip():
@@ -297,6 +353,7 @@ class MenuBar(Static):
     _project_name: str | None = None
     _pending_count: int = 0
     _gallery_selected: int = 0
+    _llm_calls: int = 0
 
     def __init__(self, **kwargs) -> None:
         super().__init__("", **kwargs)
@@ -314,6 +371,8 @@ class MenuBar(Static):
         self._spinner_frame: int = 0
         self._spinner_timer: Timer | None = None
         self._clear_timer: Timer | None = None
+        # ── debounce ──
+        self._rebuild_timer: Timer | None = None
 
     # ── 功能區 set_state（左側）──────────────────────────
 
@@ -327,6 +386,7 @@ class MenuBar(Static):
         project_name: str | None = None,
         pending_count: int = 0,
         gallery_selected: int = 0,
+        llm_calls: int = 0,
     ) -> None:
         self._mode = mode
         self._model = model
@@ -336,6 +396,7 @@ class MenuBar(Static):
         self._project_name = project_name
         self._pending_count = pending_count
         self._gallery_selected = gallery_selected
+        self._llm_calls = llm_calls
         self._rebuild()
 
     # ── 狀態 / 通知 API（右側）───────────────────────────
@@ -412,7 +473,15 @@ class MenuBar(Static):
         self._rebuild()
 
     def _rebuild(self) -> None:
-        """Build full content and push via update()."""
+        """Build full content and push via update(). Debounced to avoid flicker."""
+        # Debounce: cancel pending timer and set a new one
+        if self._rebuild_timer:
+            self._rebuild_timer.stop()
+        self._rebuild_timer = self.set_timer(0.1, self._rebuild_impl)
+
+    def _rebuild_impl(self) -> None:
+        """Actually rebuild the menu bar content."""
+        self._rebuild_timer = None
         text = Text()
         col = 1
         self._regions.clear()
@@ -486,7 +555,11 @@ class MenuBar(Static):
             col += 1
             text.append(" ", style="")
             col += 1
-            proj_label = f"● {self._project_name}"
+            # Truncate project name if > 40 chars
+            display_name = self._project_name
+            if len(display_name) > 40:
+                display_name = display_name[:37] + "..."
+            proj_label = f"● {display_name}"
             text.append(proj_label, style="bold #7dd3fc")
             col += sum(2 if ord(c) > 0x7F else 1 for c in proj_label)
 
@@ -507,6 +580,13 @@ class MenuBar(Static):
             text.append(gal_label, style="bold #d4a27a")
             col += sum(2 if ord(c) > 0x7F else 1 for c in gal_label)
             self._regions.append((gal_start, col, "open_gallery"))
+
+        if self._llm_calls > 0:
+            text.append("  ")
+            col += 2
+            llm_label = f"⚡{self._llm_calls}"
+            text.append(llm_label, style="bold #61afef")
+            col += len(llm_label)
 
         # ── 右側：系統狀態 + 通知 / 進度 ──
         text.append("  ")
@@ -608,7 +688,7 @@ class MenuBar(Static):
 
         self.update(text)
 
-    def on_click(self, event) -> None:
+    def on_click(self, event: object) -> None:
         x = event.x
         for start, end, action in self._regions:
             if start <= x < end:
@@ -624,7 +704,7 @@ class MenuBar(Static):
 
 
 class WelcomeBlock(Vertical):
-    """初始歡迎畫面，含最近對話歷史。"""
+    """初始歡迎畫面，含最近對話歷史與呼吸鑽石動畫。"""
 
     def compose(self) -> ComposeResult:
         yield Static(
@@ -634,6 +714,10 @@ class WelcomeBlock(Vertical):
             "[#8b949e]  把還說不清楚的東西說清楚。\n"
             "  想法來自你，它幫你找到骨架。[/]",
         )
+        # 呼吸鑽石動畫
+        from utils.animations import AnimatedStatic, WELCOME_FRAMES
+        self._diamond = AnimatedStatic(id="welcome-diamond")
+        yield self._diamond
         yield Static(
             "[dim #6e7681]────────────────────────────────[/]",
         )
@@ -659,6 +743,11 @@ class WelcomeBlock(Vertical):
             "[dim #6e7681]────────────────────────────────[/]",
         )
         yield Static("[dim #fafafa][#d4a27a]◇[/] 最近的對話[/]")
+        from textual.widgets import Input
+        search_input = Input(id="welcome-search", placeholder="輸入以篩選對話...")
+        search_input.styles.margin = (0, 0, 1, 0)
+        search_input.styles.height = 1
+        yield search_input
         yield Vertical(id="welcome-history")
         yield Static(
             "[dim #6e7681]────────────────────────────────[/]",
@@ -667,8 +756,53 @@ class WelcomeBlock(Vertical):
             "[dim #484f58]  made by KIKI PENG with love[/]",
         )
 
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
+        self._all_conversations: list[dict] = []
+        self._diamond: AnimatedStatic | None = None
+
     async def on_mount(self) -> None:
+        # 啟動呼吸鑽石動畫（0.7s/幀，約 5 秒一個呼吸週期）
+        if self._diamond:
+            from utils.animations import WELCOME_FRAMES
+            self._diamond.start(WELCOME_FRAMES, interval=0.7)
         await self._load_recent_conversations()
+
+    def on_input_changed(self, event: object) -> None:
+        """Filter conversations as user types in search input."""
+        from textual.widgets import Input
+        if isinstance(event.control, Input) and event.control.id == "welcome-search":
+            query = event.control.value.strip().lower()
+            self.app.call_from_thread(self._filter_conversations, query)
+
+    async def _filter_conversations(self, query: str) -> None:
+        """Filter conversations by title."""
+        container = self.query_one("#welcome-history")
+        container.remove_children()
+
+        if not query:
+            # Show all conversations (up to 10)
+            conversations = self._all_conversations[:10]
+        else:
+            # Filter by title
+            conversations = [
+                c for c in self._all_conversations
+                if query in c.get("title", "").lower()
+            ][:10]
+
+        if not conversations:
+            await container.mount(Static("[dim #484f58]  無符合結果[/]"))
+            return
+
+        for c in conversations:
+            updated = c.get("updated_at", "")[:16]
+            title = c.get("title", "未命名對話")
+            entry = Static(
+                f"  [#484f58]{updated}[/]  [#8b949e]{title}[/]",
+                classes="history-entry",
+                name=c["id"],
+            )
+            await container.mount(entry)
 
     async def _load_recent_conversations(self) -> None:
         from paths import project_root
@@ -678,7 +812,9 @@ class WelcomeBlock(Vertical):
         else:
             store = ConversationStore()
         conversations = await store.list_conversations(project_id=project_id)
-        conversations = conversations[:10]
+        # Store all conversations for filtering
+        self._all_conversations = conversations[:20]  # Keep up to 20 for filtering
+        conversations = conversations[:10]  # Show 10 by default
         container = self.query_one("#welcome-history")
         if not conversations:
             await container.mount(
@@ -695,12 +831,49 @@ class WelcomeBlock(Vertical):
             )
             await container.mount(entry)
 
-    def on_click(self, event) -> None:
+    def on_click(self, event: object) -> None:
         widget = event.widget if hasattr(event, 'widget') else None
         if widget and isinstance(widget, Static) and widget.has_class("history-entry"):
             conv_id = widget.name
             if conv_id:
                 self.app._load_conversation(conv_id)
+
+    def on_right_click(self, event: object) -> None:
+        """Right-click on conversation to delete."""
+        widget = event.widget if hasattr(event, 'widget') else None
+        if widget and isinstance(widget, Static) and widget.has_class("history-entry"):
+            conv_id = widget.name
+            if conv_id:
+                self._delete_conversation(conv_id)
+
+    def _delete_conversation(self, conv_id: str) -> None:
+        """Delete a conversation after confirmation."""
+        from modals.delete_confirm import DeleteConfirmModal
+
+        def on_delete_confirm(result: bool) -> None:
+            if result:
+                self.app.call_from_thread(self._do_delete_conversation, conv_id)
+
+        self.app.push_screen(DeleteConfirmModal(f"刪除對話?"), callback=on_delete_confirm)
+
+    @work(thread=True)
+    async def _do_delete_conversation(self, conv_id: str) -> None:
+        """Actually delete the conversation."""
+        try:
+            from paths import project_root
+            project_id = self.app.state.current_project["id"] if self.app.state.current_project else None
+            if project_id:
+                store = ConversationStore(db_path=project_root(project_id) / "conversations.db")
+            else:
+                store = ConversationStore()
+            await store.delete_conversation(conv_id)
+            self.app.notify("對話已刪除", severity="information", timeout=3)
+            # Reload conversation list
+            container = self.query_one("#welcome-history")
+            container.remove_children()
+            await self._load_recent_conversations()
+        except Exception as e:
+            self.app.notify(f"刪除失敗: {e}", severity="error", timeout=5)
 
 
 class ThinkingIndicator(Static):
@@ -789,6 +962,7 @@ class Chatbox(Vertical):
         self.add_class(f"chatbox-{role}")
         self._breath_timer: Timer | None = None
         self._breath_frame = 0
+        self._think_anim: object | None = None  # AnimatedStatic for thinking
 
     def on_mount(self) -> None:
         if self.role == "user":
@@ -811,7 +985,7 @@ class Chatbox(Vertical):
         import re
         concepts = []
         has = bool(re.search(r'\[\[.+?\]\]', text))
-        def replace(m):
+        def replace(m: object) -> str:
             concept = m.group(1)
             concepts.append(concept)
             return f"[underline]{concept}[/underline]"
@@ -820,6 +994,11 @@ class Chatbox(Vertical):
 
     def compose(self) -> ComposeResult:
         if self._streaming:
+            from utils.animations import AnimatedStatic
+            self._think_anim = AnimatedStatic(
+                id="think-anim", classes="chatbox-body"
+            )
+            yield self._think_anim
             yield Static("", classes="chatbox-body stream-body", id="stream-text")
         else:
             cleaned = self._clean_callouts(self._content)
@@ -844,6 +1023,14 @@ class Chatbox(Vertical):
 
     def stream_update(self, content: str) -> None:
         self._content = content
+        # 第一個 chunk 進來時移除思考動畫
+        if self._think_anim and content:
+            self._think_anim.stop()
+            try:
+                self._think_anim.remove()
+            except Exception:
+                pass
+            self._think_anim = None
         try:
             self.query_one("#stream-text", Static).update(content)
         except NoMatches:
@@ -889,10 +1076,22 @@ class Chatbox(Vertical):
             self._breath_frame = 0
             if self.is_mounted:
                 self._breath_timer = self.set_interval(0.08, self._breathe)
+            # 啟動思考動畫
+            if self._think_anim and self.is_mounted:
+                from utils.animations import THINK_FRAMES
+                self._think_anim.start(THINK_FRAMES, interval=0.35)
         else:
             if self._breath_timer:
                 self._breath_timer.stop()
                 self._breath_timer = None
+            # 停止並移除思考動畫
+            if self._think_anim:
+                self._think_anim.stop()
+                try:
+                    self._think_anim.remove()
+                except Exception:
+                    pass
+                self._think_anim = None
             self.border_title = "[#d4a27a]◆[/] De-insight"
             self.remove_class("responding")
             self.styles.border = ("round", "#444444")

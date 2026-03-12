@@ -191,6 +191,7 @@ class KnowledgeScreen(ModalScreen):
         self._importing = False
         self._import_start_time: float = 0
         self._renaming_doc_id: str | None = None
+        self._progress_timer = None
 
     @property
     def _active_project_id(self) -> str:
@@ -470,8 +471,8 @@ class KnowledgeScreen(ModalScreen):
         try:
             status.update("[#f59e0b]⟳ 正在提交匯入任務…[/]")
 
-            # 啟動進度更新 timer
-            self._update_import_progress("正在處理…")
+            # 啟動進度更新 timer，每 2 秒輪詢一次
+            self._update_import_progress()
 
             result = await self.app._import_one(source, pid, title=title)
 
@@ -503,26 +504,51 @@ class KnowledgeScreen(ModalScreen):
             status.update(f"[#ff6b6b]✗ 匯入失敗 ({elapsed:.0f}s): {e}[/]")
         finally:
             self._importing = False
+            # 停止進度 timer
+            if self._progress_timer:
+                self._progress_timer.stop()
+                self._progress_timer = None
 
-    def _update_import_progress(self, stage: str) -> None:
-        """更新匯入進度與 ETA。"""
+    def _update_import_progress(self) -> None:
+        """啟動定時器，每 2 秒從 job DB 讀取真實進度。"""
+        if self._progress_timer:
+            self._progress_timer.stop()
+        self._progress_timer = self.set_interval(2.0, self._poll_import_progress)
+
+    async def _poll_import_progress(self) -> None:
+        """從 job DB 讀取真實進度。"""
         if not self._importing:
+            if self._progress_timer:
+                self._progress_timer.stop()
+                self._progress_timer = None
             return
         elapsed = time.time() - self._import_start_time
         try:
-            status = self.query_one("#ks-import-status", Static)
-            # 根據經驗估算 ETA
-            if elapsed < 5:
-                eta_str = "預計 30-60 秒"
-            elif elapsed < 15:
-                eta_str = "預計 20-40 秒"
-            elif elapsed < 30:
-                eta_str = "預計 10-30 秒"
+            svc = self.app._get_ingestion_service()
+            jobs = await svc.get_active_progress(self._active_project_id)
+            if jobs:
+                job = jobs[0]
+                pct = job.get("progress_pct", 0) or 0
+                stage = job.get("progress_stage", "處理中") or "處理中"
+                eta = job.get("eta_seconds")
+
+                if eta is not None and eta > 0:
+                    if eta >= 60:
+                        eta_str = f"剩餘 {eta // 60} 分 {eta % 60} 秒"
+                    else:
+                        eta_str = f"剩餘 {eta} 秒"
+                else:
+                    eta_str = ""
+
+                status = self.query_one("#ks-import-status", Static)
+                parts = [f"⟳ {stage}", f"{pct:.0f}%", f"已用 {elapsed:.0f}s"]
+                if eta_str:
+                    parts.append(eta_str)
+                status.update(f"[#f59e0b]{' · '.join(parts)}[/]")
             else:
-                eta_str = "接近完成…"
-            status.update(
-                f"[#f59e0b]⟳ {stage}  ·  已用 {elapsed:.0f}s  ·  {eta_str}[/]"
-            )
+                # No active jobs yet, show generic message
+                status = self.query_one("#ks-import-status", Static)
+                status.update(f"[#f59e0b]⟳ 正在處理… · 已用 {elapsed:.0f}s[/]")
         except Exception:
             pass
 

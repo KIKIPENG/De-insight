@@ -15,6 +15,7 @@ from __future__ import annotations
 import logging
 import os
 import re
+import threading
 import time
 from dataclasses import dataclass, field
 
@@ -26,16 +27,19 @@ _deep_fail_until: float = 0.0  # timestamp until which deep is disabled
 _DEEP_COOLDOWN_SECS = 120  # 2 minutes cooldown after failure
 _HYDE_CACHE: dict[tuple[str, str], tuple[float, str]] = {}
 _HYDE_CACHE_MAX = 128
+_pipeline_lock = threading.Lock()  # Protect global mutable state
 
 
 def _trip_deep_breaker(error_code: str) -> None:
     global _deep_fail_until
-    _deep_fail_until = time.time() + _DEEP_COOLDOWN_SECS
+    with _pipeline_lock:
+        _deep_fail_until = time.time() + _DEEP_COOLDOWN_SECS
     log.warning("Deep mode circuit breaker tripped: %s (cooldown %ds)", error_code, _DEEP_COOLDOWN_SECS)
 
 
 def _deep_breaker_open() -> bool:
-    return time.time() < _deep_fail_until
+    with _pipeline_lock:
+        return time.time() < _deep_fail_until
 
 
 # ── A3: Startup health check / degraded mode ─────────────────────

@@ -6,6 +6,7 @@ from pathlib import Path
 import aiosqlite
 
 from paths import DATA_ROOT
+from utils.db_pool import get_connection
 
 _DEFAULT_DB = DATA_ROOT / "projects" / "default" / "memories.db"
 
@@ -26,6 +27,16 @@ CREATE TABLE IF NOT EXISTS memories (
 );
 """
 
+_CREATE_PENDING_TABLE = """\
+CREATE TABLE IF NOT EXISTS pending_memories (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    type       TEXT,
+    content    TEXT,
+    source     TEXT,
+    created_at DATETIME DEFAULT (datetime('now', 'localtime'))
+);
+"""
+
 _MIGRATE_TOPIC = "ALTER TABLE memories ADD COLUMN topic TEXT DEFAULT ''"
 _MIGRATE_PROJECT_ID = "ALTER TABLE memories ADD COLUMN project_id TEXT DEFAULT NULL"
 _MIGRATE_CATEGORY = "ALTER TABLE memories ADD COLUMN category TEXT DEFAULT ''"
@@ -38,6 +49,7 @@ async def _get_db(db_path: Path | None = None) -> aiosqlite.Connection:
     db = await aiosqlite.connect(str(path))
     db.row_factory = aiosqlite.Row
     await db.execute(_CREATE_TABLE)
+    await db.execute(_CREATE_PENDING_TABLE)
     # Migrate: add topic column if missing
     try:
         await db.execute(_MIGRATE_TOPIC)
@@ -62,10 +74,63 @@ async def _get_db(db_path: Path | None = None) -> aiosqlite.Connection:
     return db
 
 
-def _row_to_dict(row: aiosqlite.Row) -> dict:
+def _row_to_dict(row: aiosqlite.Row) -> dict[str, int | str | list[str]]:
     d = dict(row)
     d["tags"] = json.loads(d.get("tags") or "[]")
     return d
+
+
+def _jaccard_similarity(text1: str, text2: str) -> float:
+    """Calculate Jaccard similarity between two texts based on word tokens."""
+    import re
+
+    def tokenize(text: str) -> set[str]:
+        # Simple word tokenization
+        words = re.findall(r'\w+', text.lower())
+        return set(words)
+
+    set1 = tokenize(text1)
+    set2 = tokenize(text2)
+
+    if not set1 or not set2:
+        return 0.0
+
+    intersection = len(set1 & set2)
+    union = len(set1 | set2)
+
+    return intersection / union if union > 0 else 0.0
+
+
+async def check_duplicate(
+    content: str, threshold: float = 0.8, db_path: Path | None = None
+) -> dict | None:
+    """
+    Check if similar memory already exists (Jaccard similarity > threshold).
+    Returns the duplicate memory dict if found, None otherwise.
+    """
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
+        # Get recent memories (last 50) to check against
+        cursor = await db.execute(
+            "SELECT id, content FROM memories ORDER BY created_at DESC LIMIT 50"
+        )
+        rows = await cursor.fetchall()
+
+        for row in rows:
+            existing_content = row["content"]
+            similarity = _jaccard_similarity(content, existing_content)
+
+            if similarity > threshold:
+                # Found a duplicate, fetch full record
+                cursor = await db.execute(
+                    "SELECT * FROM memories WHERE id = ?", (row["id"],)
+                )
+                dup_row = await cursor.fetchone()
+                return _row_to_dict(dup_row) if dup_row else None
+
+    return None
 
 
 async def add_memory(
@@ -75,8 +140,10 @@ async def add_memory(
     db_path: Path | None = None,
 ) -> int:
     tags_json = json.dumps(tags or [], ensure_ascii=False)
-    db = await _get_db(db_path)
-    try:
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
         cursor = await db.execute(
             "INSERT INTO memories (type, content, source, topic, category, tags, project_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
             (type, content, source, topic, category, tags_json, project_id),
@@ -98,13 +165,13 @@ async def add_memory(
             await _mark_pending_index(mem_id, db_path=db_path)
 
         return mem_id
-    finally:
-        await db.close()
 
 
 async def get_memories(type: str | None = None, limit: int = 20, project_id: str | None = None, category: str | None = None, db_path: Path | None = None) -> list[dict]:
-    db = await _get_db(db_path)
-    try:
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
         conditions = []
         params = []
         if type:
@@ -121,17 +188,16 @@ async def get_memories(type: str | None = None, limit: int = 20, project_id: str
         )
         rows = await cursor.fetchall()
         return [_row_to_dict(r) for r in rows]
-    finally:
-        await db.close()
 
 
 async def delete_memory(id: int, db_path: Path | None = None) -> None:
-    db = await _get_db(db_path)
-    try:
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
         await db.execute("DELETE FROM memories WHERE id = ?", (id,))
         await db.commit()
-    finally:
-        await db.close()
+
     # 同步刪除向量索引
     lancedb_dir = db_path.parent / "lancedb" if db_path else None
     try:
@@ -154,57 +220,59 @@ async def search_memories(query: str, limit: int = 5, db_path: Path | None = Non
         pass
 
     # Fallback: SQLite LIKE
-    db = await _get_db(db_path)
-    try:
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
         cursor = await db.execute(
             "SELECT * FROM memories WHERE content LIKE ? ORDER BY created_at DESC LIMIT ?",
             (f"%{query}%", limit),
         )
         rows = await cursor.fetchall()
         return [_row_to_dict(r) for r in rows]
-    finally:
-        await db.close()
 
 
 async def get_topics(db_path: Path | None = None) -> list[str]:
     """取得所有不重複的 topic。"""
-    db = await _get_db(db_path)
-    try:
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
         cursor = await db.execute(
             "SELECT DISTINCT topic FROM memories WHERE topic != '' ORDER BY topic"
         )
         rows = await cursor.fetchall()
         return [r["topic"] for r in rows]
-    finally:
-        await db.close()
 
 
 async def get_memories_by_topic(topic: str, limit: int = 50, db_path: Path | None = None) -> list[dict]:
-    db = await _get_db(db_path)
-    try:
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
         cursor = await db.execute(
             "SELECT * FROM memories WHERE topic = ? ORDER BY created_at DESC LIMIT ?",
             (topic, limit),
         )
         rows = await cursor.fetchall()
         return [_row_to_dict(r) for r in rows]
-    finally:
-        await db.close()
 
 
 async def update_memory_topic(id: int, topic: str, db_path: Path | None = None) -> None:
-    db = await _get_db(db_path)
-    try:
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
         await db.execute("UPDATE memories SET topic = ? WHERE id = ?", (topic, id))
         await db.commit()
-    finally:
-        await db.close()
 
 
 async def get_memory_stats(project_id: str | None = None, db_path: Path | None = None) -> dict:
     """取得記憶統計：類型數量、主題數量、總數。"""
-    db = await _get_db(db_path)
-    try:
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
         cursor = await db.execute("SELECT COUNT(*) as total FROM memories")
         total = (await cursor.fetchone())["total"]
         cursor = await db.execute(
@@ -216,28 +284,26 @@ async def get_memory_stats(project_id: str | None = None, db_path: Path | None =
         )
         by_topic = {r["topic"]: r["cnt"] for r in await cursor.fetchall()}
         return {"total": total, "by_type": by_type, "by_topic": by_topic}
-    finally:
-        await db.close()
 
 
 async def _mark_pending_index(memory_id: int, db_path: Path | None = None) -> None:
     """標記此記憶的向量索引待補跑。"""
-    db = await _get_db(db_path)
-    try:
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
         await db.execute("UPDATE memories SET pending_index = 1 WHERE id = ?", (memory_id,))
         await db.commit()
-    finally:
-        await db.close()
 
 
 async def _clear_pending_index(memory_id: int, db_path: Path | None = None) -> None:
     """補跑成功後清除標記。"""
-    db = await _get_db(db_path)
-    try:
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
         await db.execute("UPDATE memories SET pending_index = 0 WHERE id = ?", (memory_id,))
         await db.commit()
-    finally:
-        await db.close()
 
 
 async def reindex_pending(db_path: Path | None = None, lancedb_dir: Path | None = None) -> int:
@@ -264,3 +330,40 @@ async def reindex_pending(db_path: Path | None = None, lancedb_dir: Path | None 
         except Exception:
             pass  # 繼續下一條
     return count
+
+
+async def save_pending_memories(items: list[dict], db_path: Path | None = None) -> None:
+    """Save pending memory candidates to database so they survive app restarts."""
+    if not items:
+        return
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
+        for item in items:
+            await db.execute(
+                "INSERT INTO pending_memories (type, content, source) VALUES (?, ?, ?)",
+                (item.get("type"), item.get("content"), item.get("source", "")),
+            )
+        await db.commit()
+
+
+async def load_pending_memories(db_path: Path | None = None) -> list[dict]:
+    """Load pending memory candidates from database."""
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
+        cursor = await db.execute("SELECT type, content, source FROM pending_memories ORDER BY id")
+        rows = await cursor.fetchall()
+        return [{"type": r["type"], "content": r["content"], "source": r["source"]} for r in rows]
+
+
+async def clear_pending_memories(db_path: Path | None = None) -> None:
+    """Clear all pending memory candidates from database."""
+    path = _resolve_db(db_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    async with get_connection(str(path)) as db:
+        await db.execute("DELETE FROM pending_memories")
+        await db.commit()

@@ -2,6 +2,7 @@
 import asyncio
 import atexit
 import os
+import socket
 import subprocess
 import sys
 import time
@@ -22,29 +23,51 @@ def _is_backend_ready() -> bool:
         return False
 
 
-def _kill_port(port: int) -> None:
-    """Kill any process holding the given port."""
+def _is_port_available(port: int) -> bool:
+    """Check if port is available by attempting to bind to it."""
     try:
-        result = subprocess.run(
-            ["lsof", "-ti", f":{port}"],
-            capture_output=True, text=True
-        )
-        pids = result.stdout.strip().split()
-        for pid in pids:
-            if pid.isdigit():
-                subprocess.run(["kill", "-9", pid], capture_output=True)
-    except Exception:
-        pass
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        sock.bind((BACKEND_HOST, port))
+        sock.close()
+        return True
+    except (OSError, socket.error):
+        return False
 
 
 def _ensure_backend() -> subprocess.Popen | None:
-    """Start the FastAPI backend if it's not already running."""
+    """Start the FastAPI backend if it's not already running.
+
+    If the default BACKEND_PORT is in use and backend is not already running,
+    try alternative ports (8001, 8002, 8003, 8004).
+    """
+    global BACKEND_PORT, HEALTH_URL
+
     if _is_backend_ready():
         return None
 
-    # Kill any stale process holding the port before starting a fresh one
-    _kill_port(BACKEND_PORT)
-    time.sleep(0.3)
+    # Check if port is available before starting
+    if not _is_port_available(BACKEND_PORT):
+        # Port is in use, try alternatives
+        alternative_ports = [8001, 8002, 8003, 8004]
+        port_found = False
+        for alt_port in alternative_ports:
+            if _is_port_available(alt_port):
+                print(
+                    f"[de-insight] port {BACKEND_PORT} in use, using {alt_port} instead",
+                    file=sys.stderr,
+                )
+                BACKEND_PORT = alt_port
+                HEALTH_URL = f"http://{BACKEND_HOST}:{BACKEND_PORT}/api/health"
+                port_found = True
+                break
+
+        if not port_found:
+            print(
+                f"[de-insight] port {BACKEND_PORT} and alternatives (8001-8004) all in use.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
 
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     log_file = open(LOG_DIR / "backend.log", "a")
@@ -65,7 +88,7 @@ def _ensure_backend() -> subprocess.Popen | None:
     for i in range(60):
         if proc.poll() is not None:
             print(
-                f"Backend process exited unexpectedly. See log: {LOG_DIR / 'backend.log'}",
+                f"系統已重啟。詳見日誌: {LOG_DIR / 'backend.log'}",
                 file=sys.stderr,
             )
             sys.exit(1)
@@ -75,7 +98,7 @@ def _ensure_backend() -> subprocess.Popen | None:
         time.sleep(0.5)
 
     print(
-        f"Backend failed to start within timeout. See log: {LOG_DIR / 'backend.log'}",
+        f"正在重新連線...詳見日誌: {LOG_DIR / 'backend.log'}",
         file=sys.stderr,
     )
     proc.terminate()

@@ -643,6 +643,34 @@ class JobRepository:
             await db.commit()
             return cursor.rowcount
 
+    async def recover_stale_jobs(self, timeout_minutes: int = 30) -> int:
+        """Recover stale running jobs that exceed timeout.
+
+        Updates any job with status='running' that was last updated more than
+        timeout_minutes ago to status='failed' with error='Worker 逾時未回應'.
+
+        Args:
+            timeout_minutes: Timeout threshold in minutes (default 30)
+
+        Returns:
+            Number of jobs recovered
+        """
+        timeout_seconds = timeout_minutes * 60
+        cutoff = (datetime.now() - timedelta(seconds=timeout_seconds)).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
+        async with aiosqlite.connect(self._db_path, timeout=15) as db:
+            cursor = await db.execute(
+                """UPDATE ingest_jobs
+                   SET status='failed', last_error='Worker 逾時未回應',
+                       updated_at=datetime('now','localtime')
+                   WHERE status='running'
+                     AND (updated_at < ? OR COALESCE(heartbeat_at, updated_at) < ?)""",
+                (cutoff, cutoff),
+            )
+            await db.commit()
+            return cursor.rowcount
+
     async def reconcile_unknown_job(self, job_id: str) -> None:
         async with aiosqlite.connect(self._db_path, timeout=15) as db:
             db.row_factory = aiosqlite.Row

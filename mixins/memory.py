@@ -5,7 +5,7 @@ from textual import work
 from textual.css.query import NoMatches
 from textual.widgets import Static
 
-from memory.store import add_memory, get_memories
+from memory.store import add_memory, get_memories, save_pending_memories, load_pending_memories, clear_pending_memories
 
 
 class MemoryMixin:
@@ -119,7 +119,7 @@ class MemoryMixin:
         if user_msg:
             self._prepare_insight(user_msg, ai_msg)
 
-    def action_save_insight_from_chat(self, chatbox) -> None:
+    def action_save_insight_from_chat(self, chatbox: object) -> None:
         ai_msg = chatbox._content
         user_msg = ""
         for m in reversed(self.messages):
@@ -129,7 +129,7 @@ class MemoryMixin:
         if user_msg or ai_msg:
             self._prepare_insight(user_msg, ai_msg)
 
-    def action_save_memory_from_chat(self, chatbox) -> None:
+    def action_save_memory_from_chat(self, chatbox: object) -> None:
         from modals import MemorySaveModal
         content = chatbox._content
         mem_type = "thought" if chatbox.role == "user" else "reference"
@@ -141,7 +141,7 @@ class MemoryMixin:
         self.push_screen(MemorySaveModal(content, mem_type), callback=on_confirm)
 
     @work(exclusive=True)
-    async def _do_save_memory(self, data: dict) -> None:
+    async def _do_save_memory(self, data: dict[str, str]) -> None:
         try:
             db_path = self._memory_db_path()
             await add_memory(
@@ -187,7 +187,7 @@ class MemoryMixin:
             self.notify(f"整理失敗: {e}")
 
     @work()
-    async def _save_confirmed_insight(self, data: dict, source: str) -> None:
+    async def _save_confirmed_insight(self, data: dict[str, str], source: str) -> None:
         db_path = self._memory_db_path()
         await add_memory(
             type=data["type"],
@@ -207,8 +207,28 @@ class MemoryMixin:
         if data.get("type") == "insight" and data.get("content"):
             await self._tag_focus_relevance(data["content"])
 
-    @work(exclusive=False)
+    @work(exclusive=True)
+    async def _load_pending_memories_from_db(self) -> None:
+        """Load pending memories from database on startup."""
+        try:
+            db_path = self._memory_db_path()
+            items = await load_pending_memories(db_path=db_path)
+            if items:
+                self.state.pending_memories.extend(items)
+                self._update_menu_bar()
+        except Exception as e:
+            import logging
+            logging.getLogger("de-insight").warning("待確認記憶載入失敗: %s", e, exc_info=True)
+
+    @work(exclusive=True, group="auto_extract_mem")
     async def _auto_extract_memories(self, user_text: str) -> None:
+        # 冷卻：距上次抽取不到 10 秒則跳過，避免快速連打時 API storm
+        import time as _time
+        _last = getattr(self, "_last_extract_time", 0.0)
+        _now = _time.time()
+        if _now - _last < 10.0:
+            return
+        self._last_extract_time = _now
         try:
             from memory.thought_tracker import extract_memories
             items = await extract_memories(user_text, self._quick_llm_call)
@@ -217,9 +237,45 @@ class MemoryMixin:
             for item in items:
                 item["source"] = user_text[:80]
             self.state.pending_memories.extend(items)
+            # 上限 50 筆，超出時丟棄最舊的
+            _MAX_PENDING = 50
+            if len(self.state.pending_memories) > _MAX_PENDING:
+                self.state.pending_memories = self.state.pending_memories[-_MAX_PENDING:]
+            # Also save to database for persistence across restarts
+            db_path = self._memory_db_path()
+            await save_pending_memories(items, db_path=db_path)
             self._update_menu_bar()
+            # 播放記憶發現動畫
+            await self._show_memory_discovery_animation()
+        except Exception as e:
+            import logging
+            logging.getLogger("de-insight").warning("記憶抽取失敗: %s", e, exc_info=True)
+            # Show MenuBar notification for memory extraction failure
+            try:
+                from widgets import MenuBar
+                menu = self.query_one("#menu-bar", MenuBar)
+                menu.show_message("記憶抽取暫時不可用", severity="warning", timeout=5)
+            except Exception:
+                pass
+
+    async def _show_memory_discovery_animation(self) -> None:
+        """在對話區域播放記憶發現動畫。"""
+        try:
+            from textual.containers import Vertical
+            from utils.animations import AnimatedStatic, MEMORY_FRAMES
+
+            container = self.query_one("#messages", Vertical)
+            anim = AnimatedStatic(classes="memory-discovery-anim")
+            await container.mount(anim)
+            self._scroll_to_bottom()
+
+            # 非循環播放，播完後自動移除
+            def _on_done():
+                anim.set_timer(2.0, anim.remove)
+
+            anim.start(MEMORY_FRAMES, interval=0.4, loop=False, on_complete=_on_done)
         except Exception:
-            pass
+            pass  # 動畫失敗不影響主流程
 
     def _update_menubar_pending_count(self) -> None:
         self._update_menu_bar()
@@ -230,9 +286,9 @@ class MemoryMixin:
             self.notify("目前沒有待確認的記憶")
             return
 
-        def on_dismiss(result) -> None:
+        def on_dismiss(result: list[dict] | None) -> None:
             if result is None:
-                self.state.pending_memories.clear()
+                # User cancelled — keep pending memories in state AND database (don't clear)
                 self._update_menu_bar()
                 return
             self._save_confirmed_memories(result)
@@ -240,7 +296,7 @@ class MemoryMixin:
         self.push_screen(MemoryConfirmModal(self.state.pending_memories), callback=on_dismiss)
 
     @work(exclusive=True)
-    async def _save_confirmed_memories(self, items: list) -> None:
+    async def _save_confirmed_memories(self, items: list[dict]) -> None:
         db_path = self._memory_db_path()
         for item in items:
             if isinstance(item, dict):
@@ -253,6 +309,8 @@ class MemoryMixin:
                     db_path=db_path,
                 )
         self.state.pending_memories.clear()
+        # Clear pending memories from database after confirming
+        await clear_pending_memories(db_path=db_path)
         self._newly_saved_count = len(items)
         self._refresh_memory_panel()
         self._update_menu_bar()

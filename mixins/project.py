@@ -35,6 +35,9 @@ class ProjectMixin:
 
     @work(exclusive=True)
     async def _switch_project(self, project: dict) -> None:
+        if self.state.import_in_progress:
+            self.notify("匯入進行中，無法切換專案", severity="warning", timeout=3)
+            return
         await self._do_switch_project(project)
 
     async def _do_switch_project(self, project: dict) -> None:

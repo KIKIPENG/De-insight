@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "de-insight"
+version = "1.0.0-pre"
+description = "AI 思想對話工具 — 策展人"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+include = ["backend*", "memory*", "rag*", "projects*", "conversation*", "interaction*", "mixins*", "utils*"]
+
+[tool.setuptools.package-dir]
+"" = "."
