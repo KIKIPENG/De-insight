@@ -1017,8 +1017,21 @@ class ChatMixin:
             except Exception as e:
                 self.log.warning(f"RAG inject memory failed: {e}")
 
-        # ── 1.5 視覺偏好注入 ──
-        if not _skip_augment:
+        # ── Image relevance guard ──
+        # 只在使用者提問涉及圖片/視覺相關時才注入圖片上下文，
+        # 避免 LLM 在無關對話中提到圖片
+        _IMAGE_KEYWORDS = (
+            "圖", "圖片", "照片", "相片", "影像", "視覺", "畫面",
+            "風格", "偏好", "收集", "參考圖", "靈感",
+            "image", "photo", "picture", "visual", "style",
+        )
+        _has_pending_images = bool(getattr(self.state, "pending_images", None))
+        _user_asks_about_images = _has_pending_images or any(
+            kw in user_msg for kw in _IMAGE_KEYWORDS
+        )
+
+        # ── 1.5 視覺偏好注入（僅在使用者提到圖片/風格時）──
+        if not _skip_augment and _user_asks_about_images:
             try:
                 from memory.store import get_memories
                 _mem_db = None
@@ -1041,8 +1054,8 @@ class ChatMixin:
             except Exception:
                 pass
 
-        # ── 2. 圖片知識庫檢索（skip in fast+building/degraded）──
-        if not _skip_augment:
+        # ── 2. 圖片知識庫檢索（僅在使用者提到圖片/視覺時）──
+        if not _skip_augment and _user_asks_about_images:
             try:
                 if self.state.current_project:
                     from rag.image_store import search_images
@@ -1132,6 +1145,14 @@ class ChatMixin:
                         if idx == 0:
                             main_diag = r.get("diagnostics", {})
                         ctx = r.get("context_text", "").strip()
+                        _r_diag = r.get("diagnostics", {})
+                        self.log.info(
+                            "Deep sub-query %d/%d: q='%s' strategy=%s ctx_len=%d sources=%d error=%s",
+                            idx + 1, len(sub_queries), q[:50],
+                            r.get("strategy_used"), len(ctx),
+                            len(r.get("sources", [])),
+                            _r_diag.get("deep_error_code"),
+                        )
                         if ctx:
                             # 標注這段來自哪個概念查詢（若是子查詢才標，原始查詢不標）
                             label = f"【{q}】\n" if idx > 0 else ""
@@ -1142,13 +1163,34 @@ class ChatMixin:
                                 seen_snippets.add(snip)
                                 merged_sources.append(src)
                     except Exception as sub_e:
-                        self.log.debug("Deep sub-query %d failed: %s", idx, sub_e)
+                        self.log.warning("Deep sub-query %d failed: %s", idx, sub_e)
 
                 # 組合合併後的 pipeline_result 結構
                 merged_context = "\n\n".join(merged_context_parts)
+
+                # ── 深度模式保底：若所有子查詢都沒找到內容，用原始訊息跑一次快速模式 ──
+                if not merged_context.strip():
+                    self.log.info("Deep mode returned empty for all %d sub-queries, falling back to fast with original msg", len(sub_queries))
+                    try:
+                        fallback_r = await run_thinking_pipeline(
+                            user_input=user_msg,
+                            project_id=_pid,
+                            mode="fast",
+                            db_path=_db_path,
+                            recent_surfaced_bridges=self.state.recent_surfaced_bridges,
+                        )
+                        fb_ctx = fallback_r.get("context_text", "").strip()
+                        if fb_ctx:
+                            merged_context = fb_ctx
+                            merged_sources = fallback_r.get("sources", [])
+                            main_diag = fallback_r.get("diagnostics", {})
+                            self.log.info("Deep→fast fallback found content: %d chars, %d sources", len(fb_ctx), len(merged_sources))
+                    except Exception as fb_e:
+                        self.log.debug("Deep→fast fallback failed: %s", fb_e)
+
                 from rag.pipeline import clean_context
                 pipeline_result = {
-                    "strategy_used": "deep",
+                    "strategy_used": "deep" if merged_context_parts else "deep_fast_fallback",
                     "context_text": merged_context,
                     "raw_result": merged_context,
                     "sources": merged_sources[:8],
@@ -1156,6 +1198,7 @@ class ChatMixin:
                         **main_diag,
                         "deep_decomposed_queries": sub_queries,
                         "deep_query_count": len(sub_queries),
+                        "deep_fallback_to_fast": not merged_context_parts,
                     },
                 }
             else:
