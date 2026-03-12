@@ -483,12 +483,27 @@ class Retriever:
             }
 
             # Route 0: Seed from RetrievalPlan (independent of Route 1)
+            # concept_queries may contain short pattern terms (e.g. "約束→本質")
+            # or long raw user input.  Long text must be split into keywords
+            # because LIKE %long_sentence% won't match anything.
+            _LONG_THRESHOLD = 15  # queries > 15 chars get split
             if plan is not None:
                 for cq in (plan.concept_queries or []):
-                    structural_seeds["value_axes"].append(cq)
-                    structural_seeds["abstract_patterns"].append(cq)
+                    if len(cq) <= _LONG_THRESHOLD:
+                        # Short pattern — use directly
+                        structural_seeds["value_axes"].append(cq)
+                        structural_seeds["abstract_patterns"].append(cq)
+                    else:
+                        # Long raw text — extract keywords
+                        kw = self._extract_chinese_keywords(cq, max_terms=8)
+                        structural_seeds["value_axes"].extend(kw[:4])
+                        structural_seeds["abstract_patterns"].extend(kw[:4])
                 for sp in (plan.supporting_paths or []):
-                    structural_seeds["abstract_patterns"].append(sp)
+                    if len(sp) <= _LONG_THRESHOLD:
+                        structural_seeds["abstract_patterns"].append(sp)
+                    else:
+                        kw = self._extract_chinese_keywords(sp, max_terms=4)
+                        structural_seeds["abstract_patterns"].extend(kw)
 
             # Seed from Route 1 text-match results (original Route 2 logic)
             for item in all_results:

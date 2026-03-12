@@ -865,6 +865,39 @@ async def run_thinking_pipeline(
     except Exception as e:
         log.debug("Bridge retrieval skipped: %s", e)
 
+    # Step 3.2: Merge claim context into raw_result
+    # bridge_result contains claims found via structural search —
+    # these must be injected into the LLM context, not just used for
+    # bridge surfacing.  Without this merge, claim-based retrieval
+    # has zero effect on the curator's answer.
+    if bridge_result and bridge_result.claims:
+        claim_lines = []
+        for c in bridge_result.claims[:5]:
+            patterns = ", ".join(c.abstract_patterns or [])
+            claim_lines.append(
+                f"- {c.core_claim}" + (f" [{patterns}]" if patterns else "")
+            )
+        if claim_lines:
+            claim_block = (
+                "\n\n---\n【結構相關脈絡（跨領域 claims）】\n"
+                + "\n".join(claim_lines)
+            )
+            raw_result = (raw_result or "") + claim_block
+            log.info(
+                "Merged %d claims into context (%d chars added)",
+                len(claim_lines), len(claim_block),
+            )
+            # Also add claim sources so they appear in citations
+            for c in bridge_result.claims[:5]:
+                src_entry = {
+                    "title": (c.core_claim or "")[:50],
+                    "snippet": c.core_claim or "",
+                    "source": f"claim:{c.claim_id}",
+                    "source_id": c.source_id or "",
+                }
+                if src_entry not in sources:
+                    sources.append(src_entry)
+
     # Step 3.5: B1 — Relevance gate (filter irrelevant sources)
     pre_gate_count = len(sources)
     sources = apply_relevance_gate(sources, user_input, q_type)
