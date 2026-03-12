@@ -542,7 +542,7 @@ class MenuBar(Static):
         text.append("  ")
         col += 2
 
-        rag_label = "討論" if self._rag_mode == "fast" else "查詢"
+        rag_label = "向量搜尋" if self._rag_mode == "fast" else "圖譜推理"
         rag_start = col
         text.append(rag_label, style="#6e7681")
         col += sum(2 if ord(c) > 0x7F else 1 for c in rag_label)
