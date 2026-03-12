@@ -78,7 +78,7 @@ async def reextract(project_id: str, dry_run: bool = False):
     from rag.vdb_utils import find_vdb_chunks_file
     from core.thought_extractor import ThoughtExtractor, LLMCallable
     from core.stores.claim_store import ClaimStore
-    from config_service import get_config_service
+    from config import get_config_service
 
     # 1. 找 vdb_chunks
     vdb_path = find_vdb_chunks_file(project_id)
