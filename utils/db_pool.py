@@ -27,6 +27,56 @@ _pool: dict[str, aiosqlite.Connection] = {}
 _pool_lock = asyncio.Lock()
 
 
+_CREATE_TABLE = """\
+CREATE TABLE IF NOT EXISTS memories (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    type       TEXT NOT NULL,
+    content    TEXT NOT NULL,
+    source     TEXT,
+    topic      TEXT DEFAULT '',
+    created_at DATETIME DEFAULT (datetime('now', 'localtime')),
+    tags       TEXT DEFAULT '[]'
+);
+"""
+
+_CREATE_PENDING_TABLE = """\
+CREATE TABLE IF NOT EXISTS pending_memories (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    type       TEXT,
+    content    TEXT,
+    source     TEXT,
+    created_at DATETIME DEFAULT (datetime('now', 'localtime'))
+);
+"""
+
+_MIGRATE_TOPIC = "ALTER TABLE memories ADD COLUMN topic TEXT DEFAULT ''"
+_MIGRATE_PROJECT_ID = "ALTER TABLE memories ADD COLUMN project_id TEXT DEFAULT NULL"
+_MIGRATE_CATEGORY = "ALTER TABLE memories ADD COLUMN category TEXT DEFAULT ''"
+_MIGRATE_PENDING_INDEX = "ALTER TABLE memories ADD COLUMN pending_index INTEGER DEFAULT 0"
+
+
+async def _ensure_memories_tables(conn: aiosqlite.Connection) -> None:
+    """Ensure memories tables exist."""
+    await conn.execute(_CREATE_TABLE)
+    await conn.execute(_CREATE_PENDING_TABLE)
+    try:
+        await conn.execute(_MIGRATE_TOPIC)
+    except Exception:
+        pass
+    try:
+        await conn.execute(_MIGRATE_PROJECT_ID)
+    except Exception:
+        pass
+    try:
+        await conn.execute(_MIGRATE_CATEGORY)
+    except Exception:
+        pass
+    try:
+        await conn.execute(_MIGRATE_PENDING_INDEX)
+    except Exception:
+        pass
+
+
 async def _get_or_create(db_path: str) -> aiosqlite.Connection:
     """取得或建立一個 aiosqlite 連線。"""
     async with _pool_lock:
@@ -48,6 +98,7 @@ async def _get_or_create(db_path: str) -> aiosqlite.Connection:
         conn.row_factory = aiosqlite.Row
         await conn.execute("PRAGMA journal_mode=WAL")
         await conn.execute("PRAGMA busy_timeout=5000")
+        await _ensure_memories_tables(conn)
         _pool[db_path] = conn
         return conn
 
