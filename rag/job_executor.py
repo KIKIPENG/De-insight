@@ -475,8 +475,9 @@ class JobExecutor:
             )
             claim_store = ClaimStore(project_id=pid)
             total_claims = 0
+            chunk_errors = 0
 
-            for chunk in sampled:
+            for idx, chunk in enumerate(sampled):
                 # Extract text content from chunk
                 chunk_text = ""
                 if isinstance(chunk, dict):
@@ -497,19 +498,35 @@ class JobExecutor:
                             await claim_store.add(claim)
                             total_claims += 1
                 except Exception as chunk_err:
-                    log.debug(
-                        "_extract_claims: chunk extraction failed: %s",
+                    chunk_errors += 1
+                    log.warning(
+                        "_extract_claims: chunk %d/%d extraction failed: %s: %s",
+                        idx + 1, len(sampled),
+                        type(chunk_err).__name__,
                         str(chunk_err)[:200],
                     )
                     continue
 
-            log.info(
-                "Extracted %d structural claims from %d chunks for job %s (doc_id=%s)",
-                total_claims, len(sampled), job["id"], doc_id,
-            )
+            if total_claims > 0:
+                log.info(
+                    "Extracted %d structural claims from %d chunks for job %s (doc_id=%s, errors=%d)",
+                    total_claims, len(sampled), job["id"], doc_id, chunk_errors,
+                )
+            elif chunk_errors > 0:
+                log.error(
+                    "Claim extraction produced 0 claims with %d errors from %d chunks "
+                    "for job %s (doc_id=%s). Run: python tools/reextract_claims.py %s",
+                    chunk_errors, len(sampled), job["id"], doc_id, pid,
+                )
+            else:
+                log.warning(
+                    "Claim extraction produced 0 claims (no errors) from %d chunks "
+                    "for job %s — LLM may have returned empty results",
+                    len(sampled), job["id"],
+                )
 
         except Exception as e:
-            log.warning(
-                "_extract_claims_from_chunks failed for job %s: %s",
-                job["id"], str(e)[:300],
+            log.error(
+                "_extract_claims_from_chunks failed for job %s: %s: %s",
+                job["id"], type(e).__name__, str(e)[:300],
             )
