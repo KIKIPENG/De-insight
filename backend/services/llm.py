@@ -120,7 +120,14 @@ async def chat_completion(
     try:
         # 若有自訂 API base，傳給 LiteLLM
         kwargs = {}
-        api_base = get_config_service().get("OPENAI_API_BASE", "")
+        cfg = get_config_service()
+        api_base = cfg.get("OPENAI_API_BASE", "")
+        
+        # Pass API key explicitly to litellm (env vars not inherited by subprocess)
+        api_key = cfg.get("OPENAI_API_KEY", "") or cfg.get("OPENROUTER_API_KEY", "")
+        if api_key:
+            kwargs["api_key"] = api_key
+        
         if api_base and target_model.startswith("openai/"):
             kwargs["api_base"] = api_base
         response = await litellm.acompletion(
