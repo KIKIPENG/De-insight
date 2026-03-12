@@ -403,6 +403,17 @@ class RAGMixin:
         return text.strip()
 
     @staticmethod
+    def _build_thinking_block(diagnostics: dict | None) -> str:
+        """Build thinking trace block from pipeline diagnostics."""
+        if not diagnostics:
+            return ""
+        trace = diagnostics.get("thinking_trace", "")
+        if not trace:
+            return ""
+        from rich.markup import escape
+        return f"[dim #8b949e]{escape(trace)}[/]\n\n"
+
+    @staticmethod
     def _build_research_meta(content: str, sources: list[dict]) -> str:
         """Build compact metadata block shown before research result body."""
         import re
@@ -530,7 +541,11 @@ class RAGMixin:
         try:
             panel = self.query_one("#research-content", Static)
             if status == "loading":
-                panel.update("[dim #6e7681]檢索中…[/]")
+                # Show thinking trace if available in content
+                if content and len(content) > 10 and "⟐" in content:
+                    panel.update(f"[dim #8b949e]{escape(content)}[/]")
+                else:
+                    panel.update(f"[dim #6e7681]{escape(content or '檢索中…')}[/]")
             elif status == "error":
                 panel.update(f"[#d4a27a]{escape(content or '搜尋失敗')}[/]")
             elif status == "empty":
@@ -538,9 +553,11 @@ class RAGMixin:
             elif status == "degraded":
                 prefix = "[#d4a27a]（部分匯入失敗，結果可能不完整）[/]\n\n"
                 meta = self._build_research_meta(content, list(sources or []))
+                thinking_block = self._build_thinking_block(diagnostics)
                 panel.update(
                     prefix
                     + warning_prefix
+                    + thinking_block
                     + meta
                     + "\n\n[dim #2a2a2a]"
                     + ("-" * 42)
@@ -549,8 +566,10 @@ class RAGMixin:
                 )
             else:
                 meta = self._build_research_meta(content, list(sources or []))
+                thinking_block = self._build_thinking_block(diagnostics)
                 panel.update(
                     warning_prefix
+                    + thinking_block
                     + meta
                     + "\n\n[dim #2a2a2a]"
                     + ("-" * 42)

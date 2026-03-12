@@ -1127,6 +1127,16 @@ class ChatMixin:
                 sub_queries = await self._decompose_query_deep(user_msg, recent_turns=recent_turns)
                 self.log.info("Deep decompose: %d queries: %s", len(sub_queries), sub_queries)
 
+                # ── 思考流程追蹤 ──
+                _thinking_lines: list[str] = ["⟐ 論點拆解"]
+                for i, sq in enumerate(sub_queries):
+                    _thinking_lines.append(f"  {i+1}. {sq[:40]}")
+                await self._update_research_panel(
+                    status="loading",
+                    content="\n".join(_thinking_lines) + "\n\n檢索中…",
+                    query=user_msg,
+                )
+
                 # 對每個子查詢分別跑 pipeline，合併 context 和 sources
                 merged_context_parts: list[str] = []
                 merged_sources: list[dict] = []
@@ -1146,13 +1156,32 @@ class ChatMixin:
                             main_diag = r.get("diagnostics", {})
                         ctx = r.get("context_text", "").strip()
                         _r_diag = r.get("diagnostics", {})
+                        _r_strategy = r.get("strategy_used", "?")
+                        _r_n_src = len(r.get("sources", []))
                         self.log.info(
                             "Deep sub-query %d/%d: q='%s' strategy=%s ctx_len=%d sources=%d error=%s",
                             idx + 1, len(sub_queries), q[:50],
-                            r.get("strategy_used"), len(ctx),
-                            len(r.get("sources", [])),
+                            _r_strategy, len(ctx), _r_n_src,
                             _r_diag.get("deep_error_code"),
                         )
+
+                        # ── 更新思考流程 ──
+                        if ctx:
+                            _thinking_lines.append(
+                                f"  ✓ [{idx+1}] {q[:30]}… → {len(ctx)}字 ({_r_strategy})"
+                            )
+                        else:
+                            _thinking_lines.append(
+                                f"  · [{idx+1}] {q[:30]}… → 無結果"
+                            )
+                        # Show progress in panel
+                        _progress = f"檢索中… ({idx+1}/{len(sub_queries)})"
+                        await self._update_research_panel(
+                            status="loading",
+                            content="\n".join(_thinking_lines) + f"\n\n{_progress}",
+                            query=user_msg,
+                        )
+
                         if ctx:
                             # 標注這段來自哪個概念查詢（若是子查詢才標，原始查詢不標）
                             label = f"【{q}】\n" if idx > 0 else ""
@@ -1164,6 +1193,9 @@ class ChatMixin:
                                 merged_sources.append(src)
                     except Exception as sub_e:
                         self.log.warning("Deep sub-query %d failed: %s", idx, sub_e)
+                        _thinking_lines.append(
+                            f"  ✗ [{idx+1}] {q[:30]}… → 失敗"
+                        )
 
                 # 組合合併後的 pipeline_result 結構
                 merged_context = "\n\n".join(merged_context_parts)
@@ -1171,6 +1203,12 @@ class ChatMixin:
                 # ── 深度模式保底：若所有子查詢都沒找到內容，用原始訊息跑一次快速模式 ──
                 if not merged_context.strip():
                     self.log.info("Deep mode returned empty for all %d sub-queries, falling back to fast with original msg", len(sub_queries))
+                    _thinking_lines.append("\n⟐ 深度無結果，改用快速模式保底…")
+                    await self._update_research_panel(
+                        status="loading",
+                        content="\n".join(_thinking_lines),
+                        query=user_msg,
+                    )
                     try:
                         fallback_r = await run_thinking_pipeline(
                             user_input=user_msg,
@@ -1185,8 +1223,15 @@ class ChatMixin:
                             merged_sources = fallback_r.get("sources", [])
                             main_diag = fallback_r.get("diagnostics", {})
                             self.log.info("Deep→fast fallback found content: %d chars, %d sources", len(fb_ctx), len(merged_sources))
+                            _thinking_lines.append(f"  ✓ 快速模式找到 {len(fb_ctx)}字")
+                        else:
+                            _thinking_lines.append("  · 快速模式也無結果")
                     except Exception as fb_e:
                         self.log.debug("Deep→fast fallback failed: %s", fb_e)
+                        _thinking_lines.append("  ✗ 快速模式失敗")
+
+                # ── 思考流程摘要 ──
+                _thinking_summary = "\n".join(_thinking_lines)
 
                 from rag.pipeline import clean_context
                 pipeline_result = {
@@ -1199,6 +1244,7 @@ class ChatMixin:
                         "deep_decomposed_queries": sub_queries,
                         "deep_query_count": len(sub_queries),
                         "deep_fallback_to_fast": not merged_context_parts,
+                        "thinking_trace": _thinking_summary,
                     },
                 }
             else:
