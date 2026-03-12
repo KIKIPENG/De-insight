@@ -341,13 +341,6 @@ class KnowledgeScreen(ModalScreen):
             meta_parts.append(source_type.upper())
         meta_line = "  ·  ".join(meta_parts)
 
-        card = Vertical(
-            Static(title_line),
-            Static(f"[dim #484f58]{meta_line}[/]", classes="ks-doc-meta"),
-            classes="ks-doc-card",
-            name=doc_id,
-        )
-
         actions = Horizontal(
             Button("重命名", classes="ks-small-btn ks-rename-btn", name=doc_id),
             Button("閱讀", classes="ks-small-btn ks-read-btn", name=doc_id),
