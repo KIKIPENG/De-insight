@@ -128,8 +128,13 @@ async def chat_completion(
         if api_key:
             kwargs["api_key"] = api_key
         
-        if api_base and target_model.startswith("openai/"):
+        # Apply api_base for OpenRouter or models with "openai/" prefix
+        is_openrouter_key = bool(cfg.get("OPENROUTER_API_KEY", ""))
+        if api_base:
             kwargs["api_base"] = api_base
+        elif is_openrouter_key:
+            # OpenRouter key set but no explicit base - use OpenRouter default
+            kwargs["api_base"] = "https://openrouter.ai/api/v1"
         response = await litellm.acompletion(
             model=target_model,
             messages=messages,
