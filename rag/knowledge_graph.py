@@ -326,7 +326,7 @@ def get_rag(project_id: str = "default") -> LightRAG:
         summary_context_size=_summary_context,
         summary_max_tokens=_summary_max_tokens,
         summary_length_recommended=_summary_length,
-        cosine_better_than_threshold=0.4,
+        cosine_better_than_threshold=float(os.environ.get("LIGHTRAG_COSINE_THRESHOLD", "0.2")),
         addon_params={
             "entity_types": ART_ENTITY_TYPES,
             "example_number": 3,

@@ -172,28 +172,64 @@ class ClaimStore:
         query: str,
         limit: int = 10,
     ) -> list[Claim]:
-        """Search claims by text content (simple LIKE match).
+        """Search claims by text content.
+
+        Uses per-keyword OR matching for Chinese text (since LIKE %full_query%
+        almost never matches across domains).  Falls back to full-query LIKE
+        for short or non-CJK queries.
 
         Args:
             query: Search query
             limit: Maximum results
 
         Returns:
-            Matching claims
+            Matching claims ranked by number of keyword hits
         """
         db = await _get_db(self._db_path)
         try:
-            async with db.execute(
+            # Extract meaningful CJK bigrams for broad matching
+            cjk_chars = [ch for ch in query if '\u4e00' <= ch <= '\u9fff']
+            if len(cjk_chars) >= 4:
+                # Build 2-char keywords (real Chinese words are mostly 2 chars)
+                keywords = list(dict.fromkeys(
+                    cjk_chars[i] + cjk_chars[i + 1]
+                    for i in range(len(cjk_chars) - 1)
+                ))[:12]
+                # Score = number of keyword hits across core_claim + all dimension fields
+                # Search claims where ANY keyword matches ANY text field
+                conditions = []
+                params: list[str] = [self.project_id]
+                for kw in keywords:
+                    conditions.append(
+                        "(core_claim LIKE ? OR value_axes LIKE ? "
+                        "OR abstract_patterns LIKE ? OR theory_hints LIKE ?)"
+                    )
+                    params.extend([f"%{kw}%"] * 4)
+
+                where_clause = " OR ".join(conditions)
+                sql = f"""
+                    SELECT * FROM claims
+                    WHERE project_id = ? AND ({where_clause})
+                    ORDER BY confidence DESC
+                    LIMIT ?
                 """
-                SELECT * FROM claims
-                WHERE core_claim LIKE ? AND project_id = ?
-                ORDER BY confidence DESC
-                LIMIT ?
-                """,
-                (f"%{query}%", self.project_id, limit)
-            ) as cursor:
-                rows = await cursor.fetchall()
-                return [self._row_to_claim(dict(row)) for row in rows]
+                params.append(str(limit))
+                async with db.execute(sql, params) as cursor:
+                    rows = await cursor.fetchall()
+                    return [self._row_to_claim(dict(row)) for row in rows]
+            else:
+                # Short or non-CJK: original full-query LIKE
+                async with db.execute(
+                    """
+                    SELECT * FROM claims
+                    WHERE core_claim LIKE ? AND project_id = ?
+                    ORDER BY confidence DESC
+                    LIMIT ?
+                    """,
+                    (f"%{query}%", self.project_id, limit)
+                ) as cursor:
+                    rows = await cursor.fetchall()
+                    return [self._row_to_claim(dict(row)) for row in rows]
         finally:
             await db.close()
 
