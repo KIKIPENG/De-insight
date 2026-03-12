@@ -183,7 +183,7 @@ class UIMixin:
             f"| `/reindex` | 重建記憶向量索引 |\n"
             f"| `/settings` | 開啟設定 |\n"
             f"| `/mode` | 切換感性/理性 |\n"
-            f"| `/ragmode` | 切換知識檢索：快速/深度 |\n"
+            f"| `/ragmode` | 切換模式：討論/查詢 |\n"
             f"| `/project` | 切換專案 |\n"
             f"| `/pending` | 記憶待確認 |\n"
             f"| `/caption` | 為圖片庫自動生成描述 |\n"

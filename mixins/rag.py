@@ -463,10 +463,10 @@ class RAGMixin:
     def action_toggle_rag_mode(self) -> None:
         if self.rag_mode == "fast":
             self.rag_mode = "deep"
-            self.notify("知識檢索：深度模式（圖譜推理，較慢）")
+            self.notify("查詢模式（圖譜推理，適合找資料）")
         else:
             self.rag_mode = "fast"
-            self.notify("知識檢索：快速模式（向量搜尋，<1秒）")
+            self.notify("討論模式（輕量檢索，適合對話）")
         self._update_menu_bar()
 
     @staticmethod

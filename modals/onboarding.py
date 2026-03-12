@@ -91,7 +91,8 @@ class OnboardingScreen(ModalScreen[str | None]):
 
     def compose(self) -> ComposeResult:
         box = Vertical(id="ob-box")
-        box.border_title = "De-insight v0.7 Setup"
+        from paths import __version__ as _ver
+        box.border_title = f"De-insight {_ver} Setup"
         with box:
             with VerticalScroll(id="ob-scroll"):
                 yield Vertical(id="ob-content")

@@ -76,9 +76,9 @@ class HealthDashboardModal(ModalScreen):
                 yield Button("重新整理", id="health-refresh", classes="health-btn")
             yield Button("← 回到對話", classes="back-btn")
 
-    async def on_mount(self) -> None:
+    def on_mount(self) -> None:
         """Refresh health status when modal opens."""
-        await self._update_health_status()
+        self._update_health_status()
         self._start_auto_refresh()
 
     def on_unmount(self) -> None:

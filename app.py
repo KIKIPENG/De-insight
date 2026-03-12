@@ -534,7 +534,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
 
     mode: reactive[str] = reactive("emotional")
     is_loading: reactive[bool] = reactive(False)
-    rag_mode: str = "fast"
+    rag_mode: str = "fast"  # internal: "fast"=討論, "deep"=查詢
 
     def __init__(self) -> None:
         super().__init__()
@@ -615,7 +615,7 @@ class DeInsightApp(ChatMixin, MemoryMixin, RAGMixin, ProjectMixin, UIMixin, App)
 
     async def _init_app(self, projects: list[dict]) -> None:
         """正常初始化流程（onboarding 後或直接啟動）。"""
-        # 開啟軟體時一律先用快速檢索模式。
+        # 開啟軟體時預設「討論」模式（internal: fast）
         self.rag_mode = "fast"
         if projects:
             self.state.current_project = projects[0]

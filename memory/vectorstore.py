@@ -212,3 +212,61 @@ def has_index(lancedb_dir: Path | None = None) -> bool:
         return False
     table = db.open_table(TABLE_NAME)
     return table.count_rows() > 0
+
+
+async def search_similar_merged(
+    query: str,
+    limit: int = 5,
+    topic: str = "",
+    project_lancedb_dir: Path | None = None,
+) -> list[dict]:
+    """合併搜尋專案 + 全局記憶，專案結果優先，去重後回傳。
+
+    流程：
+    1. 查專案 LanceDB（如果有索引）
+    2. 查全局 LanceDB（如果有索引且不是全局專案本身）
+    3. 以 content 去重，專案結果優先
+    4. 按 score 排序，取前 limit 筆
+    """
+    import asyncio as _asyncio
+    from paths import GLOBAL_PROJECT_ID, project_root
+
+    global_lancedb = project_root(GLOBAL_PROJECT_ID) / "lancedb"
+
+    # 判斷是否需要查全局（避免重複查同一個目錄）
+    _proj_dir_str = str(project_lancedb_dir) if project_lancedb_dir else ""
+    _global_dir_str = str(global_lancedb)
+    skip_global = (not project_lancedb_dir) or (_proj_dir_str == _global_dir_str)
+
+    tasks: dict[str, object] = {}
+    if project_lancedb_dir and has_index(project_lancedb_dir):
+        tasks["project"] = search_similar(query, limit=limit, topic=topic, lancedb_dir=project_lancedb_dir)
+    if not skip_global and has_index(global_lancedb):
+        tasks["global"] = search_similar(query, limit=limit, topic=topic, lancedb_dir=global_lancedb)
+
+    if not tasks:
+        return []
+
+    keys = list(tasks.keys())
+    coros = list(tasks.values())
+    raw_results = await _asyncio.gather(*coros, return_exceptions=True)
+
+    # 合併：專案優先，全局補充
+    seen_contents: set[str] = set()
+    merged: list[dict] = []
+
+    for key, result in zip(keys, raw_results):
+        if isinstance(result, Exception):
+            log.warning("search_similar_merged %s failed: %s", key, result)
+            continue
+        source_tag = "project" if key == "project" else "global"
+        for item in result:
+            content = item.get("content", "")
+            if content not in seen_contents:
+                seen_contents.add(content)
+                item["_source"] = source_tag
+                merged.append(item)
+
+    # 按 score 降序排序，取前 limit 筆
+    merged.sort(key=lambda x: x.get("score", 0), reverse=True)
+    return merged[:limit]

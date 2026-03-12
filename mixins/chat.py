@@ -58,7 +58,7 @@ class ChatMixin:
         ("/mode", "切換感性 / 理性模式"),
         ("/save", "儲存當前對話的洞見"),
         ("/reindex", "重建記憶向量索引"),
-        ("/ragmode", "切換知識檢索：快速 / 深度"),
+        ("/ragmode", "切換模式：討論 / 查詢"),
         ("/project", "切換專案"),
         ("/pending", "記憶待確認"),
         ("/caption", "為圖片庫自動生成描述"),
@@ -1222,7 +1222,8 @@ class ChatMixin:
     ) -> str:
         """
         從記憶向量資料庫檢索並格式化相關記憶。
-        回傳格式化的記憶文本，若無相關記憶則回傳空字串。
+        記憶是 per-project 的（使用者的想法/洞見），不需要合併全局。
+        全局文獻庫的合併由 query_knowledge_merged() 負責。
         """
         _mem_limit = 5 if insight_score > 0.4 else 3
         _lancedb_dir = None

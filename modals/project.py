@@ -78,23 +78,9 @@ class ProjectModal(ModalScreen):
         box = Vertical(id="project-box")
         box.border_title = "◇ 專案管理"
         with box:
-            # 全局文獻庫固定在最上方
-            global_proj = next((p for p in self._projects if p.get("id") == GLOBAL_PROJECT_ID or p.get("is_global")), None)
             regular_projects = [p for p in self._projects if p.get("id") != GLOBAL_PROJECT_ID and not p.get("is_global")]
 
-            if global_proj:
-                is_active = global_proj["id"] == self._current_id if self._current_id else False
-                marker = "●" if is_active else "◆"
-                yield Static(
-                    f"[#f59e0b]{marker}[/] [#f59e0b]{global_proj['name']}[/]  [dim #484f58]跨專案基礎文獻[/]",
-                    classes="proj-entry" + (" -active" if is_active else ""),
-                    name=global_proj["id"],
-                )
-                yield Static("[dim #2a2a2a]" + "─" * 54 + "[/]", classes="proj-sep")
-
             if regular_projects:
-                yield Static(f"[#6e7681]{len(regular_projects)} 個專案[/]")
-                yield Static("[dim #2a2a2a]" + "─" * 54 + "[/]", classes="proj-sep")
                 with VerticalScroll(id="project-scroll"):
                     for p in regular_projects:
                         is_active = p["id"] == self._current_id if self._current_id else False
@@ -107,11 +93,12 @@ class ProjectModal(ModalScreen):
                         )
                         yield entry
                 yield Static("[dim #2a2a2a]" + "─" * 54 + "[/]", classes="proj-sep")
-            elif not global_proj:
+            else:
                 yield Static("[dim #484f58]尚無專案，在下方輸入名稱新增[/]")
             yield Input(placeholder="新專案名稱…", id="project-new-input")
             with Horizontal(classes="proj-actions"):
                 yield Button("新增", id="proj-create", classes="proj-btn")
+            yield Static("[dim #484f58]全局文獻庫的內容會自動帶入所有專案的對話中[/]")
             yield Button("← 回到對話", classes="back-btn")
 
     def on_mount(self) -> None:

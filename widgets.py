@@ -542,7 +542,7 @@ class MenuBar(Static):
         text.append("  ")
         col += 2
 
-        rag_label = "RAG:快速" if self._rag_mode == "fast" else "RAG:深度"
+        rag_label = "討論" if self._rag_mode == "fast" else "查詢"
         rag_start = col
         text.append(rag_label, style="#6e7681")
         col += sum(2 if ord(c) > 0x7F else 1 for c in rag_label)
@@ -580,13 +580,6 @@ class MenuBar(Static):
             text.append(gal_label, style="bold #d4a27a")
             col += sum(2 if ord(c) > 0x7F else 1 for c in gal_label)
             self._regions.append((gal_start, col, "open_gallery"))
-
-        if self._llm_calls > 0:
-            text.append("  ")
-            col += 2
-            llm_label = f"⚡{self._llm_calls}"
-            text.append(llm_label, style="bold #61afef")
-            col += len(llm_label)
 
         # ── 右側：系統狀態 + 通知 / 進度 ──
         text.append("  ")
