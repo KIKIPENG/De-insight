@@ -15,6 +15,7 @@ class RAGMixin:
     @work(exclusive=True, group="knowledge_panel")
     async def _refresh_knowledge_panel(self) -> None:
         from panels import ResearchPanel, DocumentItem
+        from paths import GLOBAL_PROJECT_ID, project_root
         try:
             panel = self.query_one("#research-panel", ResearchPanel)
         except NoMatches:
@@ -34,13 +35,28 @@ class RAGMixin:
         except NoMatches:
             return
         await doc_list.remove_children()
+
+        # 載入專案文獻
         try:
             docs = await self._conv_store.list_documents(project_id)
         except Exception:
             docs = []
-        if not docs:
+
+        # 載入全局文獻（如果當前不在全局專案）
+        global_docs = []
+        if project_id != GLOBAL_PROJECT_ID:
+            try:
+                from conversation.store import ConversationStore
+                global_store = ConversationStore(
+                    db_path=project_root(GLOBAL_PROJECT_ID) / "conversations.db"
+                )
+                global_docs = await global_store.list_documents(GLOBAL_PROJECT_ID)
+            except Exception:
+                pass
+
+        if not docs and not global_docs:
             await doc_list.mount(
-                Static("[dim #484f58]尚無文獻，按上方「匯入」開始[/]")
+                Static("[dim #484f58]尚無文獻，按上方「文獻」開始管理[/]")
             )
         else:
             if readiness_status == "building":
@@ -51,11 +67,18 @@ class RAGMixin:
                 await doc_list.mount(
                     Static("[dim #d4a27a]部分匯入失敗：結果可能不完整[/]")
                 )
-            for d in docs[:8]:
-                await doc_list.mount(DocumentItem(d))
-            if len(docs) > 8:
+            # 專案文獻
+            if docs:
+                for d in docs[:5]:
+                    await doc_list.mount(DocumentItem(d))
+                if len(docs) > 5:
+                    await doc_list.mount(
+                        Static(f"[dim #484f58]… 還有 {len(docs) - 5} 份專案文獻[/]")
+                    )
+            # 全局文獻摘要
+            if global_docs:
                 await doc_list.mount(
-                    Static(f"[dim #484f58]… 還有 {len(docs) - 8} 份文獻[/]")
+                    Static(f"[dim #f59e0b]◆ 全局文獻 {len(global_docs)} 篇[/]")
                 )
 
     def action_import_document(self) -> None:
@@ -282,8 +305,28 @@ class RAGMixin:
         from modals import KnowledgeModal
         self.push_screen(KnowledgeModal(project_id, initial_tab=tab), callback=on_dismiss)
 
+    def action_open_knowledge_screen(self) -> None:
+        """開啟全屏 Knowledge 管理介面。"""
+        project_id = self.state.current_project["id"] if self.state.current_project else "default"
+        def on_dismiss(result) -> None:
+            self._refresh_knowledge_panel()
+            self._update_menu_bar()
+            if result is None:
+                return
+            if isinstance(result, tuple):
+                action, value = result
+                if action == "open_search":
+                    self._open_knowledge_modal("search")
+                elif action == "open_bulk":
+                    self._open_knowledge_modal("bulk")
+                elif action == "read_doc":
+                    from modals import DocReaderModal
+                    self.push_screen(DocReaderModal(value, project_id))
+        from knowledge_screen import KnowledgeScreen
+        self.push_screen(KnowledgeScreen(project_id=project_id), callback=on_dismiss)
+
     def action_manage_documents(self) -> None:
-        self._open_knowledge_modal("docs")
+        self.action_open_knowledge_screen()
 
     def action_view_relations(self) -> None:
         from modals import RelationModal

@@ -179,7 +179,7 @@ class ResearchPanel(Vertical):
         method_name = {
             "tab-import": "action_import_document",
             "tab-search": "action_search_knowledge",
-            "tab-docs": "action_manage_documents",
+            "tab-docs": "action_open_knowledge_screen",
         }.get(tab_id)
         if method_name:
             method = getattr(self.app, method_name, None)

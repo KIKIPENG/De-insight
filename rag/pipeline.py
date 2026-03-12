@@ -605,9 +605,16 @@ async def _retrieve(
     Handles deep -> fast fallback with circuit breaker.
     Uses cross-language augmented query for better recall.
     """
-    from rag.knowledge_graph import query_knowledge, has_knowledge, _is_no_context_result
+    from rag.knowledge_graph import (
+        query_knowledge, query_knowledge_merged,
+        has_knowledge, _is_no_context_result,
+    )
+    from paths import GLOBAL_PROJECT_ID
 
-    if not has_knowledge(project_id=project_id):
+    has_project = has_knowledge(project_id=project_id)
+    has_global = (project_id != GLOBAL_PROJECT_ID) and has_knowledge(project_id=GLOBAL_PROJECT_ID)
+
+    if not has_project and not has_global:
         return "", [], "none", None
 
     retrieval_query = retrieval_input or augment_query_cross_lang(user_input)
@@ -636,7 +643,7 @@ async def _retrieve(
                 # LightRAG's internal LLM).  This also avoids the problem
                 # where LightRAG's LLM says "I can't answer" in Chinese,
                 # which bypasses _is_no_context_result and pollutes context.
-                result, sources = await query_knowledge(
+                result, sources, merge_info = await query_knowledge_merged(
                     retrieval_query,
                     mode="hybrid",
                     context_only=True,
@@ -662,9 +669,9 @@ async def _retrieve(
                 fallback_used = True
                 log.warning("Deep mode failed (%s), falling back to fast", deep_error_code)
 
-    # Fast path (or fallback)
+    # Fast path (or fallback) — 使用合併查詢
     try:
-        result, sources = await query_knowledge(
+        result, sources, merge_info = await query_knowledge_merged(
             retrieval_query,
             mode="naive",
             context_only=True,

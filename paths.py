@@ -10,6 +10,9 @@ DATA_ROOT = APP_HOME / DATA_VERSION
 APP_DB = DATA_ROOT / "app.db"
 PROJECTS_DIR = DATA_ROOT / "projects"
 
+# 全局文獻庫使用固定 project_id
+GLOBAL_PROJECT_ID = "__global__"
+
 def project_root(project_id: str) -> Path:
     return PROJECTS_DIR / project_id
 

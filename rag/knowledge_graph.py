@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from config.service import get_config_service
 from settings import load_env  # backward-compatible export for tests/patch points
 
-from paths import project_root, ensure_project_dirs, DATA_ROOT
+from paths import project_root, ensure_project_dirs, DATA_ROOT, GLOBAL_PROJECT_ID
 
 log = logging.getLogger(__name__)
 _DEFAULT_LIGHTRAG_DIR = DATA_ROOT / "projects" / "default" / "lightrag"
@@ -41,6 +41,16 @@ ART_ENTITY_TYPES = [
 
 _rag_instance: LightRAG | None = None
 _rag_project_id: str | None = None
+_rag_lock = None  # asyncio.Lock, lazy init (event loop not available at import time)
+
+
+def _get_rag_lock():
+    """Lazy-init asyncio.Lock to avoid event loop issues at import time."""
+    global _rag_lock
+    if _rag_lock is None:
+        _rag_lock = asyncio.Lock()
+    return _rag_lock
+
 
 # ── Query cache (process-local) ───────────────────────────────────
 _QUERY_CACHE: dict[tuple[str, str, bool, int, str], tuple[float, str, list[dict]]] = {}
@@ -338,10 +348,11 @@ def get_rag(project_id: str = "default") -> LightRAG:
 
 async def _ensure_initialized(project_id: str | None = None) -> LightRAG:
     """取得 RAG 並確保 storages 已初始化。"""
-    pid = project_id or _rag_project_id or "default"
-    rag = get_rag(project_id=pid)
-    await rag.initialize_storages()
-    return rag
+    async with _get_rag_lock():
+        pid = project_id or _rag_project_id or "default"
+        rag = get_rag(project_id=pid)
+        await rag.initialize_storages()
+        return rag
 
 
 def reset_rag() -> None:
@@ -1442,6 +1453,79 @@ async def insert_doi(doi: str, project_id: str = "default", title: str = "", job
     if not pdf_url:
         raise RuntimeError(f"找不到 open access 版本：{doi}")
     return await insert_url(pdf_url, project_id=project_id, title=title, job_id=job_id)
+
+
+async def query_knowledge_merged(
+    question: str,
+    mode: str = "naive",
+    context_only: bool = True,
+    project_id: str | None = None,
+    chunk_top_k: int = 5,
+) -> tuple[str, list[dict], dict]:
+    """合併查詢全局 + 專案知識庫。
+
+    同時搜尋全局文獻庫和專案圖譜，合併結果。
+    回傳 (merged_text, merged_sources, merge_info)。
+    merge_info = {"global_chars": int, "project_chars": int, "global_sources": int, "project_sources": int}
+    """
+    pid = project_id or "default"
+    tasks = {}
+
+    # 全局圖譜查詢（如果有資料且當前不在全局專案）
+    if pid != GLOBAL_PROJECT_ID and has_knowledge(project_id=GLOBAL_PROJECT_ID):
+        tasks["global"] = query_knowledge(
+            question, mode=mode, context_only=context_only,
+            project_id=GLOBAL_PROJECT_ID, chunk_top_k=chunk_top_k,
+        )
+
+    # 專案圖譜查詢
+    if has_knowledge(project_id=pid):
+        tasks["project"] = query_knowledge(
+            question, mode=mode, context_only=context_only,
+            project_id=pid, chunk_top_k=chunk_top_k,
+        )
+
+    if not tasks:
+        return "", [], {"global_chars": 0, "project_chars": 0, "global_sources": 0, "project_sources": 0}
+
+    # 並行查詢
+    results = {}
+    for key, coro in tasks.items():
+        try:
+            results[key] = await coro
+        except Exception as e:
+            log.warning("Merged query %s failed: %s", key, e)
+            results[key] = ("", [])
+
+    global_text, global_sources = results.get("global", ("", []))
+    project_text, project_sources = results.get("project", ("", []))
+
+    # 標記來源層級
+    for s in global_sources:
+        s["tier"] = "global"
+    for s in project_sources:
+        s["tier"] = "project"
+
+    # 合併：專案結果優先（放前面），全局結果補充
+    parts = []
+    if project_text:
+        parts.append(project_text)
+    if global_text:
+        if parts:
+            parts.append("\n\n─── 全局文獻 ───\n\n")
+        parts.append(global_text)
+
+    merged_text = "".join(parts)
+    merged_sources = project_sources + global_sources
+
+    merge_info = {
+        "global_chars": len(global_text),
+        "project_chars": len(project_text),
+        "global_sources": len(global_sources),
+        "project_sources": len(project_sources),
+    }
+
+    return merged_text, merged_sources, merge_info
 
 
 async def query_knowledge(question: str, mode: str = "naive", context_only: bool = True, project_id: str | None = None, chunk_top_k: int = 5) -> tuple[str, list[dict]]:
