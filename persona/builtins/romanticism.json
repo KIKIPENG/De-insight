@@ -1,0 +1,543 @@
+{
+  "movement_id": "romanticism",
+  "name": {
+    "zh": "浪漫主義",
+    "en": "Romanticism",
+    "de": "Romantik"
+  },
+  "domain": [
+    "視覺藝術",
+    "文學與敘事",
+    "音樂",
+    "哲學與美學"
+  ],
+  "period": {
+    "start": 1780,
+    "end": 1850,
+    "peak": "1800-1840（德國早期浪漫主義哲學成熟、英國湖畔詩人與拜倫世代交替、法國浪漫主義繪畫與文學在七月革命後全面爆發）"
+  },
+  "geography": [
+    "德國（Jena, Heidelberg, Dresden, Berlin — 哲學與早期浪漫主義文學的發源地）",
+    "英國（Lake District, London — 湖畔詩人與第二代浪漫詩人）",
+    "法國（Paris — Delacroix, Hugo, Berlioz，浪漫主義的政治化高峰）",
+    "美國（New England, Hudson River — 超驗主義與 Hudson River School 風景畫）"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1789 年法國大革命粉碎了舊制度的政治秩序，拿破崙戰爭在 1803-1815 年間將整個歐洲拖入長達十二年的軍事衝突，戰死人數估計達 350-600 萬。啟蒙運動承諾的理性秩序在恐怖統治（1793-1794）中自我摧毀——以理性之名送上斷頭台的人數超過 16,000。工業革命從 1760 年代起徹底改變英國的社會結構：農村人口湧入城市，曼徹斯特人口從 1773 年的 22,000 增長到 1801 年的 70,000。機械化生產將勞動者變成齒輪的附屬品，童工、十六小時工時、污染成為新常態。啟蒙理性主義——Descartes 的主客二分、Newton 的機械宇宙觀、百科全書派的分類體系——被視為導致這一切的知識框架：它把自然變成可剝削的資源，把人變成可計算的單位，把情感變成理性的障礙物。浪漫主義在這個斷裂點上誕生，它的第一聲吶喊是：理性殺死了我們與世界之間的活生生的聯繫。",
+    "social_energy": "浪漫主義的能量來自三個源頭：(1) 對啟蒙理性之暴力後果的精神反彈——法國大革命的恐怖統治證明「理性」可以變成屠殺的修辭工具，年輕一代開始質疑理性能否獨自指引人類文明；(2) 工業化對傳統生活方式的連根拔起——圈地運動消滅了英國農村的公共地，工廠把家庭作坊的手藝人變成流水線工人，鄉村景觀被煤煙覆蓋，人與自然、人與勞動的有機聯繫被切斷；(3) 個體意識的覺醒——法國大革命的「人權宣言」與 Rousseau 的「自然人」概念釋放了一種全新的主體性：每一個人都有權利依據自己的內在感受去定義意義，傳統、教會、國家不再是唯一的意義來源。",
+    "purpose": "浪漫主義的核心企圖是恢復人類經驗的完整性。它要重新連接被啟蒙理性切斷的一切：主體與客體、人與自然、理性與情感、有限與無限、個體與宇宙。Novalis 稱之為「將世界浪漫化」（Die Welt muss romantisiert werden）——讓日常事物重新顯現出它們蘊含的無限性與神秘。這個企圖的終極形式是藝術：浪漫主義者相信，藝術能夠達到哲學和科學無法企及的真理，因為藝術保留了人類經驗中非理性、非概念化、無法被邏輯窮盡的那些維度。",
+    "key_timeline": [
+      "1762 — Rousseau 出版《社會契約論》與《愛彌兒》，提出自然狀態與自然教育的核心概念",
+      "1774 — Goethe 出版《少年維特的煩惱》，掀起「Sturm und Drang」（狂飆運動）浪潮，青年自殺事件引發全歐轟動",
+      "1789.07.14 — 法國大革命攻陷巴士底獄，歐洲知識分子普遍歡欣鼓舞",
+      "1793-1794 — 恐怖統治時期，超過 16,000 人被送上斷頭台，Wordsworth 等英國同情者幻滅",
+      "1798 — Wordsworth 與 Coleridge 合著出版《抒情歌謠集》(Lyrical Ballads)，英國浪漫主義的正式宣言",
+      "1798-1800 — Jena 浪漫主義圈（Friedrich Schlegel, Novalis, Tieck）活動高峰，《雅典娜神殿》(Athenaeum) 期刊創辦",
+      "1806 — 神聖羅馬帝國在拿破崙壓力下正式解體，德意志民族主義情緒高漲",
+      "1808 — Friedrich 完成《海邊修士》(The Monk by the Sea)，展出後震撼柏林藝術界",
+      "1815 — 拿破崙戰敗，維也納會議重建歐洲保守秩序，浪漫主義轉入對自由的深層反思",
+      "1818 — Mary Shelley 出版《科學怪人》(Frankenstein)，科學理性的恐怖後果成為文學主題",
+      "1824 — Byron 死於希臘獨立戰爭前線 Missolonghi，浪漫主義英雄神話達到頂峰",
+      "1827 — Delacroix 展出《薩達那帕拉之死》(The Death of Sardanapalus)，色彩與暴力的極限表現",
+      "1830 — 法國七月革命，Delacroix 以《自由引導人民》(Liberty Leading the People) 回應",
+      "1848 — 歐洲革命浪潮席捲多國，浪漫主義的政治能量在失敗中耗竭，寫實主義接手"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "卡斯帕·大衛·弗里德里希",
+        "en": "Caspar David Friedrich"
+      },
+      "role": "德國浪漫主義繪畫的核心人物。以風景畫為媒介表達人面對自然與無限時的精神狀態——孤獨、崇高、渴望。他的背影人物（Ruckenfigur）成為浪漫主義視覺語彙中最具代表性的構圖母題。",
+      "key_works": [
+        "《雲海上的旅人》(Wanderer above the Sea of Fog, c.1818)",
+        "《海邊修士》(The Monk by the Sea, 1808-1810)",
+        "《呂根島上的白堊懸崖》(Chalk Cliffs on Rugen, 1818)",
+        "《冰海》(The Sea of Ice / Das Eismeer, 1823-1824)",
+        "《橡樹林中的修道院》(The Abbey in the Oakwood, 1809-1810)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Der Maler soll nicht bloß malen, was er vor sich sieht, sondern auch, was er in sich sieht. Sieht er aber nichts in sich, so unterlasse er auch zu malen, was er vor sich sieht.",
+          "source": "Caspar David Friedrich, Äußerungen bei Betrachtung einer Sammlung von Gemählden, 1830",
+          "meaning": "（畫家應該畫的是他在自身內部看見的東西。如果他內心空無一物，就不要去畫眼前的景色。外在風景只是觸發內在視覺的媒介——沒有內在體驗作為根基的寫生，只是死物的抄錄。）"
+        },
+        {
+          "text": "Close your bodily eye, so that you may see your picture first with the spiritual eye. Then bring to the light of day that which you have seen in the darkness, so that it may react upon others from the outside inwards.",
+          "source": "Caspar David Friedrich, in a letter to a student, c.1830; quoted in Helmut Borsch-Supan, Caspar David Friedrich, 1974",
+          "meaning": "（先閉上肉眼，用靈魂之眼觀看——再將黑暗中所見帶到光天化日之下。藝術的方向是從內向外、從暗到明，最終在觀者體內反向觸發同樣的內在視覺。）"
+        },
+        {
+          "text": "Why, it has often occurred to me to ask, do you so frequently choose for the subject of your painting, death, transience, and the grave? One must submit oneself many times to death in order some day to attain life everlasting.",
+          "source": "Caspar David Friedrich, Äußerungen bei Betrachtung einer Sammlung von Gemählden, c.1830",
+          "meaning": "（對「你為何總畫廢墟與墳墓」的自問自答：必須反覆直面死亡，才可能觸及永恆的生命。死亡主題在 Friedrich 手中從病態的迷戀變成精神昇華的通道。）"
+        },
+        {
+          "text": "The artist should paint not only what he sees before him, but also what he sees within him. If, however, he sees nothing within him, then he should also refrain from painting that which he sees before him.",
+          "source": "Friedrich, collected remarks; cited in William Vaughan, Friedrich, 2004",
+          "meaning": "（同一核心觀點的英譯版本：外部觀察如果沒有經過內在轉化，產出的就只是空洞的模仿。Friedrich 反覆強調這一點，因為他所對抗的是當時 Dresden 學院以寫實技法為衡量標準的教學系統。）"
+        },
+        {
+          "text": "I have to stay alone and know that I am alone to contemplate and feel nature fully. I have to surrender myself to what encircles me, I have to merge with my clouds and rocks in order to be what I am.",
+          "source": "Caspar David Friedrich, in a letter; cited in Joseph Leo Koerner, Caspar David Friedrich and the Subject of Landscape, 1990",
+          "meaning": "（要完全感知自然，必須獨處；要成為自己，必須與雲與岩石融合。孤獨在此並非社交失敗——它是認知的前提條件——唯有在孤獨中，主體與客體的界線才會溶解。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "威廉·華茲華斯",
+        "en": "William Wordsworth"
+      },
+      "role": "英國湖畔詩人的核心人物。1798 年與 Coleridge 合著《抒情歌謠集》被視為英國浪漫主義的正式起點。以日常語言書寫自然經驗與鄉村生活，主張詩歌應是「強烈情感的自然溢出」。",
+      "key_works": [
+        "《抒情歌謠集》(Lyrical Ballads, 1798, with Coleridge; Preface added 1800)",
+        "《序曲》(The Prelude, 1805/1850，自傳體長詩)",
+        "《丁登寺》(Lines Composed a Few Miles above Tintern Abbey, 1798)",
+        "《詠水仙》(I Wandered Lonely as a Cloud, 1807)",
+        "《頌：永生的暗示》(Ode: Intimations of Immortality, 1807)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Poetry is the spontaneous overflow of powerful feelings: it takes its origin from emotion recollected in tranquillity.",
+          "source": "William Wordsworth, Preface to Lyrical Ballads, 1800",
+          "meaning": "（詩是強烈情感的自然溢出，但它的源頭是在寧靜中回憶起的情感。這句話同時定義了創作的兩個階段：先經歷、後沉澱。未經沉澱的情感是吶喊，經過寧靜蒸餾的情感才是詩。）"
+        },
+        {
+          "text": "The child is father of the man.",
+          "source": "William Wordsworth, 'My Heart Leaps Up', 1802",
+          "meaning": "（童年是成年的源頭與教師——兒童保有的那種對自然的直覺感應力，是成人喪失後需要透過詩歌重新尋回的能力。浪漫主義將童年從「不成熟」重新定義為「更接近真實的感知狀態」。）"
+        },
+        {
+          "text": "Come forth into the light of things, let Nature be your teacher.",
+          "source": "William Wordsworth, 'The Tables Turned', 1798",
+          "meaning": "（離開書齋，讓自然成為你的導師。這是對啟蒙時代以書本和理論為知識唯一來源的直接抗議——真正的智慧在活生生的自然經驗中，而非分類系統裡。）"
+        },
+        {
+          "text": "Poetry is the breath and finer spirit of all knowledge; it is the impassioned expression which is in the countenance of all Science.",
+          "source": "William Wordsworth, Preface to Lyrical Ballads, 1800",
+          "meaning": "（詩是一切知識中最精細的呼吸，是科學面容上的激情表達。Wordsworth 不否認科學的價值，但堅持詩歌捕捉到的是科學無法量化的那層真實——事物的情感紋理。）"
+        },
+        {
+          "text": "We murder to dissect.",
+          "source": "William Wordsworth, 'The Tables Turned', 1798",
+          "meaning": "（為了解剖，我們謀殺了活物。理性分析的代價是摧毀生命的整體性——蝴蝶一旦被釘在標本板上就不再是蝴蝶。這五個字濃縮了浪漫主義對啟蒙科學方法論的根本批判。）"
+        },
+        {
+          "text": "Fill your paper with the breathings of your heart.",
+          "source": "William Wordsworth, in a letter to his wife Mary, 1812",
+          "meaning": "（讓你的心臟呼吸灌滿紙頁。寫作的原料是親身體驗過的情感，而非修辭手冊裡的典故。Wordsworth 用身體隱喻重新定義了寫作——它是生理行為，如同呼吸一般自然。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "歐仁·德拉克洛瓦",
+        "en": "Eugène Delacroix"
+      },
+      "role": "法國浪漫主義繪畫領袖。以色彩的表現力和激烈的構圖打破新古典主義的理性構圖法則，主張「色彩即思想」。他的作品將浪漫主義從私人情感推向政治與歷史的公共場域。",
+      "key_works": [
+        "《自由引導人民》(Liberty Leading the People, 1830)",
+        "《但丁之舟》(The Barque of Dante, 1822)",
+        "《希俄斯島的屠殺》(The Massacre at Chios, 1824)",
+        "《薩達那帕拉之死》(The Death of Sardanapalus, 1827)",
+        "《阿爾及爾女人》(Women of Algiers, 1834)"
+      ],
+      "key_quotes": [
+        {
+          "text": "What moves those of genius, what inspires their work, is not new ideas, but their obsession with the idea that what has already been said is still not enough.",
+          "source": "Eugène Delacroix, Journal, 15 May 1824",
+          "meaning": "（天才的驅動力並非新想法——驅動他們的是一種執念：已經說過的還遠遠不夠。每一代藝術家面對同樣的主題——愛、死、自由——但表達的急迫感來自語言永遠追不上經驗的深度。）"
+        },
+        {
+          "text": "The first virtue of a painting is to be a feast for the eyes.",
+          "source": "Eugène Delacroix, Journal, attributed entry; cited in Théophile Silvestre, Eugène Delacroix: Documents Nouveaux, 1864",
+          "meaning": "（繪畫的首要美德是讓眼睛享受盛宴。這直接對抗新古典主義將繪畫降格為道德教訓的圖解——Ingres 畫線條的精確，Delacroix 畫色彩的狂喜。）"
+        },
+        {
+          "text": "I live in company with a body, a silent companion, exacting and eternal. He it is who notes that individuality which is the seal of the weakness of our race. My soul has wings, but the brutal jailer is strict.",
+          "source": "Eugène Delacroix, Journal, 1824",
+          "meaning": "（我與一個沉默的同伴共同生活：我的身體。靈魂有翅膀，但殘酷的獄卒（肉身）嚴格看管。浪漫主義反覆書寫的核心張力：精神的無限渴望被困在有限的物質存在中。）"
+        },
+        {
+          "text": "Coldness and convention are not the attributes of the great masters. When you begin to compose, you must be bold, daring, without timidity.",
+          "source": "Eugène Delacroix, Journal; cited in Hubert Wellington, ed., The Journal of Eugène Delacroix, 1951",
+          "meaning": "（冷漠和因循守舊從來不是偉大藝術家的特質。創作的開端必須大膽、勇敢、無所畏懼——Delacroix 以此為自己對抗 Ingres 學院派系的宣言。）"
+        },
+        {
+          "text": "The source of genius is imagination alone, the refinement of the senses that sees what others do not see, or sees them differently.",
+          "source": "Eugène Delacroix, Journal, c.1850; cited in Hubert Wellington, ed., The Journal of Eugène Delacroix, 1951",
+          "meaning": "（天才的根源是想像力——一種精煉後的感官能力，能看見他人看不見的東西，或以截然不同的方式看見同樣的東西。這個定義把天才從神秘的天賦拉回感知的強度。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "拜倫勳爵",
+        "en": "Lord Byron (George Gordon Byron)"
+      },
+      "role": "英國第二代浪漫詩人的核心人物，「拜倫式英雄」(Byronic hero) 的原型創造者。他的生命本身成為浪漫主義的最高文本——詩人、貴族、流亡者、革命參與者、三十六歲死於希臘獨立戰爭前線。",
+      "key_works": [
+        "《乞爾德·哈羅德遊記》(Childe Harold's Pilgrimage, 1812-1818)",
+        "《乞爾德·哈羅德遊記》使他「一覺醒來發現自己已經成名」",
+        "《唐璜》(Don Juan, 1819-1824，未完成的諷刺史詩)",
+        "《曼弗雷德》(Manfred, 1817)",
+        "《該隱》(Cain: A Mystery, 1821)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I awoke one morning and found myself famous.",
+          "source": "Lord Byron, attributed remark after the publication of Childe Harold's Pilgrimage, Cantos I-II, March 1812; recorded by Thomas Moore in Letters and Journals of Lord Byron, 1830",
+          "meaning": "（一覺醒來發現自己已經成名。《乞爾德·哈羅德遊記》出版後的真實經歷——浪漫主義詩人成為現代意義上的「名人」。但 Byron 對名聲的態度始終是矛盾的：他既享受又鄙視它。）"
+        },
+        {
+          "text": "The great object of life is sensation — to feel that we exist, even though in pain.",
+          "source": "Lord Byron, letter to Annabella Milbanke, 6 September 1813",
+          "meaning": "（生命的重大目標是感覺——感覺到自己存在，哪怕是透過痛苦。感受的強度比感受的性質更重要。這句話定義了拜倫式的存在主義：麻木比痛苦更可怕。）"
+        },
+        {
+          "text": "There is a pleasure in the pathless woods, / There is a rapture on the lonely shore, / There is society where none intrudes, / By the deep Sea, and Music in its roar: / I love not Man the less, but Nature more.",
+          "source": "Lord Byron, Childe Harold's Pilgrimage, Canto IV, stanza 178, 1818",
+          "meaning": "（無路可走的樹林中有快感，孤獨的海岸上有狂喜。Byron 在此的辯護是精確的：愛自然更多，並非愛人類更少——這是擴張而非替代。自然提供的是一種沒有社會規則干擾的純粹陪伴。）"
+        },
+        {
+          "text": "But words are things, and a small drop of ink, / Falling like dew, upon a thought, produces / That which makes thousands, perhaps millions, think.",
+          "source": "Lord Byron, Don Juan, Canto III, stanza 88, 1821",
+          "meaning": "（文字是實體之物——一小滴墨水落在一個念頭上，就能讓千萬人開始思考。Byron 以物質隱喻捕捉了語言的力量：思想通過墨水的物質性得以在世間擴散。）"
+        },
+        {
+          "text": "Sorrow is knowledge: they who know the most must mourn the deepest o'er the fatal truth, the Tree of Knowledge is not that of Life.",
+          "source": "Lord Byron, Manfred, Act I, Scene I, 1817",
+          "meaning": "（悲傷就是知識。知識之樹與生命之樹並非同一棵——知道越多，越深切地哀悼這個致命的真相。Manfred 的開場白直接回應了啟蒙運動對知識的無條件樂觀：知識帶來的可能是詛咒，而非拯救。）"
+        },
+        {
+          "text": "Yet, Freedom! yet thy banner, torn, but flying, / Streams like the thunder-storm against the wind.",
+          "source": "Lord Byron, Childe Harold's Pilgrimage, Canto IV, stanza 98, 1818",
+          "meaning": "（自由的旗幟——破損但依然飛揚——逆風飄動如雷暴。Byron 用逆風中的破旗定義了自由的本質：它的價值恰恰在其脆弱與對抗之中，完美的自由不存在。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "弗里德里希·席勒",
+        "en": "Friedrich Schiller"
+      },
+      "role": "德國狂飆運動（Sturm und Drang）的核心劇作家，後轉向古典與浪漫主義的哲學整合。他的美學論著——尤其是《論素樸的詩與感傷的詩》與《美育書簡》——為浪漫主義提供了最嚴密的哲學基礎，將「遊戲衝動」定義為藝術的本質。",
+      "key_works": [
+        "《強盜》(Die Räuber, 1781，首演引發觀眾暴動)",
+        "《陰謀與愛情》(Kabale und Liebe, 1784)",
+        "《論人類的美育書簡》(Über die ästhetische Erziehung des Menschen, 1795)",
+        "《論素樸的詩與感傷的詩》(Über naive und sentimentalische Dichtung, 1795-1796)",
+        "《歡樂頌》(An die Freude, 1785，後由 Beethoven 譜入第九號交響曲)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Der Mensch spielt nur, wo er in voller Bedeutung des Wortes Mensch ist, und er ist nur da ganz Mensch, wo er spielt.",
+          "source": "Friedrich Schiller, Über die ästhetische Erziehung des Menschen (Letters on the Aesthetic Education of Man), Letter XV, 1795",
+          "meaning": "（人只有在遊戲時才是完整意義上的人，也只有在他是完整的人時才會遊戲。「遊戲衝動」(Spieltrieb) 是席勒美學的核心概念——藝術活動統合了感性衝動與理性衝動，是人類達到自由的唯一途徑。）"
+        },
+        {
+          "text": "Live with your century, but do not be its creature; render to your contemporaries what they need, not what they praise.",
+          "source": "Friedrich Schiller, Über die ästhetische Erziehung des Menschen, Letter IX, 1795",
+          "meaning": "（活在你的時代之中，但不要成為時代的產物。給予同代人他們需要的，而非他們讚美的。藝術家的責任是對抗時代的盲點，而非迎合時代的品味。）"
+        },
+        {
+          "text": "Deeper meaning resides in the fairy tales told to me in my childhood than in the truth that is taught by life.",
+          "source": "Friedrich Schiller, Die Piccolomini (Part II of the Wallenstein trilogy), Act III, Scene 4, 1799",
+          "meaning": "（童年時聽到的童話比人生教導的真理包含更深的意義。浪漫主義對童年、童話、民間傳說的重視在此獲得哲學論證：神話的「虛構」比經驗的「事實」更接近存在的核心結構。）"
+        },
+        {
+          "text": "Art is the daughter of freedom.",
+          "source": "Friedrich Schiller, Über die ästhetische Erziehung des Menschen, Letter II, 1795",
+          "meaning": "（藝術是自由的女兒。這句開場白式的宣言為整部《美育書簡》定調：沒有自由就沒有藝術，但同時只有透過藝術（美的教育）才能達到真正的政治自由。藝術與自由互為條件。）"
+        },
+        {
+          "text": "Respect the dreams of your youth.",
+          "source": "Friedrich Schiller, attributed; cf. Don Carlos, Act IV, 1787",
+          "meaning": "（尊重你青年時代的夢想。年輕時的理想主義不是需要被現實「矯正」的幼稚——它是生命能量最純粹的表達形式，一旦放棄就再也無法恢復。）"
+        },
+        {
+          "text": "It is through beauty that one proceeds to freedom.",
+          "source": "Friedrich Schiller, Über die ästhetische Erziehung des Menschen, Letter II, 1795",
+          "meaning": "（通往自由的道路經過美。席勒的核心政治哲學：法國大革命試圖透過暴力建立自由國家，但失敗了，因為人民的靈魂尚未準備好承受自由。只有透過美的教育——培養感性與理性的和諧——才能造就真正自由的公民。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Preface to Lyrical Ballads（《抒情歌謠集》序言）",
+      "author": "William Wordsworth",
+      "year": 1800,
+      "significance": "英國浪漫主義的綱領性文件。宣告詩歌應使用「真正被人使用的語言」，取材自「日常生活中的事件與情境」，以「強烈情感的自然溢出」為創作原理。徹底挑戰 18 世紀新古典主義詩學的修辭傳統。"
+    },
+    {
+      "title": "Über die ästhetische Erziehung des Menschen（《論人類的美育書簡》）",
+      "author": "Friedrich Schiller",
+      "year": 1795,
+      "significance": "浪漫主義美學哲學的奠基之作。席勒提出「遊戲衝動」(Spieltrieb) 概念，論證藝術是統合感性衝動 (Sinntrieb) 與理性衝動 (Formtrieb) 的唯一途徑，也是通向真正政治自由的必經之路。"
+    },
+    {
+      "title": "Über naive und sentimentalische Dichtung（《論素樸的詩與感傷的詩》）",
+      "author": "Friedrich Schiller",
+      "year": 1796,
+      "significance": "區分「素樸詩人」（與自然合一，如荷馬、莎士比亞）和「感傷詩人」（意識到與自然的分裂，渴望重新統一，如現代詩人）。這個區分為浪漫主義的自我意識——「我們已經失落了某種東西」——提供了精確的哲學框架。"
+    },
+    {
+      "title": "Athenaeum Fragment 116（《雅典娜神殿》斷片第 116 則）",
+      "author": "Friedrich Schlegel",
+      "year": 1798,
+      "significance": "浪漫主義文學理論最核心的宣言。Schlegel 定義浪漫詩為「永遠處於生成過程中的漸進的普遍詩」(progressive Universalpoesie)——它混合所有文類，連接詩與哲學，永遠不完成，因為它的本質就是無限的生成。"
+    },
+    {
+      "title": "Biographia Literaria（《文學傳記》）",
+      "author": "Samuel Taylor Coleridge",
+      "year": 1817,
+      "significance": "英國浪漫主義最重要的理論著作。Coleridge 區分「想像力」(Imagination) 與「幻想」(Fancy)：想像力是「活的力量與首要的創造動因」，能將對立面統合為有機整體；幻想只是記憶元素的機械重組。"
+    },
+    {
+      "title": "A Defence of Poetry（《詩辯》）",
+      "author": "Percy Bysshe Shelley",
+      "year": 1821,
+      "significance": "以「詩人是世界未被承認的立法者」作結，主張想像力是道德的器官——能讓人「設身處地理解他人的感受」。將詩歌提升到認知論與倫理學的核心位置。"
+    },
+    {
+      "title": "Vorlesungen über die Ästhetik（《美學講稿》）",
+      "author": "Georg Wilhelm Friedrich Hegel",
+      "year": 1835,
+      "significance": "雖然 Hegel 對浪漫主義持批判態度，他的「浪漫藝術形式」概念——精神性溢出物質形式的容量——是對浪漫主義藝術最深刻的哲學描述之一。他宣布「藝術的終結」也刺激了後世關於藝術本質的持續辯論。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "情感與主觀經驗的至上性：將個體的情感體驗——而非理性法則或古典規範——確立為藝術創作的首要素材與最高裁判。（WHY：啟蒙時代的知識體系將情感歸類為「低等認知能力」，需要被理性管控和馴服。但法國大革命的恐怖統治證明：純粹的理性可以計算出最有效率的屠殺方案。浪漫主義要為情感「正名」——它攜帶著理性無法捕獲的關於人類處境的重要真理。）",
+      "自然作為精神啟示的場域：視自然為活的有機體、神聖力量的顯現，人類透過沉浸自然經驗來觸及超越性的真理。（WHY：Newton 的機械宇宙觀將自然簡化為可用數學方程式描述的物質運動，Descartes 將動物定義為沒有靈魂的「自動機器」。工業革命更把自然變成開採的對象——森林是木材，河流是動力。浪漫主義要恢復自然的「魅力」(enchantment)：它有自己的生命、自己的語言、自己的意志。）",
+      "崇高感 (the Sublime) 的追求：有意識地尋求讓人感到自身渺小與恐懼的經驗——暴風雨、深淵、荒野、廢墟——作為觸及無限的入口。（WHY：Edmund Burke 在 1757 年的《崇高與美的觀念之起源》區分了「美」(beautiful) 與「崇高」(sublime)——美令人愉悅，崇高令人恐懼卻無法移開目光。Kant 在 1790 年進一步論證崇高感揭示了人類理性超越感官世界的能力。浪漫主義藝術家將這個哲學概念轉化為創作實踐：Friedrich 的懸崖、Turner 的暴風雨、Byron 的阿爾卑斯山，都是用藝術製造崇高經驗的嘗試。）",
+      "想像力作為最高認知能力：視想像力 (Imagination) 為超越理性分析的創造性力量，能統合對立面、穿透表象、觸及存在的深層結構。（WHY：啟蒙哲學家把想像力歸入「幻覺」或「錯誤認知」的範疇——Locke 認為知識只能來自感官經驗，想像力是對感官印象的不可靠重組。Coleridge 徹底翻轉這個定義：想像力是「活的力量與首要的創造動因」，是人類認知中最接近神聖創造力的能力。）",
+      "有機形式的追求：作品的形式應從內在內容中自然生長，如同植物從種子中長出，拒絕外部強加的古典規則。（WHY：新古典主義的「三一律」（時間、地點、情節的統一）和亞里斯多德的體裁等級制度，是從外部強加在作品上的模具。A. W. Schlegel 提出「機械形式」對比「有機形式」：機械形式如同把黏土壓入模具，有機形式如同植物的生長——每一片葉子的形狀都由其內在生命力決定。）",
+      "片斷、未完成與開放性作為美學價值：斷片 (Fragment)、廢墟、未完成的作品被視為比完美的整體更能表達人類經驗的無限性。（WHY：古典主義追求完整、對稱、封閉的形式——完美的圓。但浪漫主義者認為，任何「完成」的作品都是對無限的背叛，因為它宣稱自己已經捕獲了無法被捕獲的東西。Schlegel 的「斷片」(Fragment) 體裁是蓄意的美學策略：保持開放，才能暗示那些語言無法直接言說的東西。Schubert 的「未完成」交響曲不是失敗——它是浪漫主義美學邏輯的必然結果。）",
+      "渴望 (Sehnsucht) 作為存在的基本動力：一種永遠指向遠方、永遠無法被滿足的深層渴望——對失落家園的鄉愁、對不可知事物的嚮往。（WHY：啟蒙理性承諾了一個可被完全理解、可被完全掌控的世界。浪漫主義者發現這個承諾是空的：世界的核心是不可知的，而人類靈魂最深處的渴望永遠指向那個不可知。Novalis 的「藍花」(blaue Blume) 是這個渴望的最著名象徵——你永遠在追尋，永遠無法抵達，但追尋本身就是生命的意義。）",
+      "民族文化遺產的重新發現：收集民間故事、民謠、神話、方言，將「民間」(Volk) 的集體記憶確立為民族精神的根基。（WHY：啟蒙運動推崇超越國界的普世理性，法語成為歐洲精英的通用語言，各地方言和民間傳統被視為「落後」。拿破崙征服更讓被壓迫民族需要一個抵抗的精神資源。Herder 率先提出 Volksgeist（民族精神）概念，Grimm 兄弟收集德語童話，Wordsworth 書寫 Lake District 農民——重新賦予「底層」的語言和故事以尊嚴與歷史意義。）"
+    ],
+    "what_they_refuse": [
+      "啟蒙理性主義的認知壟斷：拒絕將理性分析視為通向真理的唯一途徑。（WHY：Descartes 的「我思故我在」將思維等同於存在，Locke 的經驗主義將知識限縮為感官資料的加工，百科全書派試圖用分類系統窮盡一切知識。浪漫主義者親眼看見理性的最高成就之一——法國大革命——如何在計算中走向屠殺。他們堅持：情感直覺、想像力、審美經驗所揭示的真理，與邏輯推論揭示的真理具有同等的認知地位。）",
+      "機械宇宙觀：拒絕將自然視為由固定法則運行的死物機械。（WHY：Newton 的物理學把宇宙描述為一架精密的鐘錶，上帝是鐘錶匠，啟動後就不再干預。這個隱喻將自然從「有生命的母親」降格為「無生命的機器」，從而為工業剝削自然提供了知識論的許可證。Schelling 的自然哲學和 Goethe 的植物變態學是浪漫主義陣營的科學替代方案：自然是活的整體，人類是其中的一部分，分析性的切割會摧毀我們所試圖理解的東西。）",
+      "新古典主義的規則至上：拒絕以古希臘羅馬藝術為永恆典範、以外部規則約束創作。（WHY：新古典主義把亞里斯多德的《詩學》和賀拉斯的《詩藝》當作超越時代的法典。三一律規定戲劇必須在一天之內、一個地點、一條故事線完成。浪漫主義者——尤其是 A. W. Schlegel 和 Victor Hugo——主張每個時代有自己的表達需求，莎士比亞打破了所有古典規則卻比任何遵守規則的劇作家更偉大。Hugo 的《乞爾德·哈羅德遊記》序言是對古典「三一律」的正式宣戰。）",
+      "功利主義與工業理性：拒絕以效率和利潤作為衡量人類活動的唯一標準。（WHY：Jeremy Bentham 的功利主義將一切價值簡化為「最大多數人的最大幸福」，可以用痛苦與快樂的計算來量化。工業資本主義將這個邏輯應用到勞動力——人變成生產函數中的變量。Blake 的「dark Satanic Mills」和 Wordsworth 對 Lake District 田園生活的挽歌，都是對這種將一切「工具化」的精神抗議。）",
+      "藝術的模仿論：拒絕將藝術定義為對外在現實的忠實再現。（WHY：從亞里斯多德的 mimesis 概念到 18 世紀學院派的寫實主義教學，「藝術是自然的鏡子」統治了歐洲美學兩千年。浪漫主義者主張藝術是一面「燈」而非「鏡子」——它從藝術家的內在向外投射光芒，照亮現實中肉眼看不見的維度。M. H. Abrams 的經典著作《鏡與燈》精確地命名了這個典範轉移。）",
+      "情感的壓抑與「體面」的修辭規範：拒絕 18 世紀文學中的禮儀化情感表達——精確計量的悲傷、恰到好處的感動。（WHY：新古典主義文學的「decorum」(得體) 要求情感表達必須符合社會等級與場合——國王的悲傷與農民的悲傷不能用同一種語言書寫。Wordsworth 的革命在於用「真正被人使用的語言」書寫鄉村底層的情感經驗——一個母親失去孩子的痛苦不需要古典修辭的包裝就足以成為偉大的詩歌素材。）",
+      "個體性的消解：拒絕啟蒙時代試圖建立「普遍人性」的企圖，堅持每一個個體的獨特性不可還原。（WHY：啟蒙理性追求普遍法則——在物理學中是萬有引力，在倫理學中是 Kant 的「定言令式」，在政治中是「人人生而平等」。但浪漫主義者問：如果所有人在本質上都一樣，那「我」是誰？個體的獨特體驗、獨特情感、獨特想像——這些不可被普遍化的東西，恰恰是構成一個人的核心。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "新古典主義 (Neoclassicism)：主張以古希臘羅馬為永恆典範、三一律、理性節制、形式完美。浪漫主義逐點對抗——以中世紀取代古典、以情感取代理性、以有機形式取代規則、以片斷取代完美",
+      "法國百科全書派 (Encyclopédistes)：Diderot、d'Alembert 試圖用分類系統窮盡一切知識。浪漫主義堅持存在的核心是不可被分類的神秘",
+      "英國經驗主義 (British Empiricism)：Locke 將知識限縮為感官經驗的加工。浪漫主義主張想像力是獨立於感官經驗的認知能力",
+      "功利主義 (Utilitarianism)：Bentham 的「最大幸福原則」與快樂計算。Dickens 的 Hard Times (1854) 與 Blake 的 'London' 是文學對功利主義最猛烈的回擊",
+      "學院派藝術 (Academic art)：法國美術學院的等級制度——歷史畫最高、風景畫與靜物畫最低。浪漫主義畫家將風景畫提升到精神表達的最高場域"
+    ],
+    "against_values": [
+      "理性是通向真理的唯一途徑：浪漫主義堅持情感、直覺、想像力同樣是認知的器官",
+      "自然是可被完全理解的機械系統：浪漫主義視自然為活的有機整體，其核心不可被分析性思維窮盡",
+      "藝術的目的是模仿現實或教化大眾：浪漫主義主張藝術是內在視覺的外化，是自我表達與精神探索",
+      "完美與完整是最高美學價值：浪漫主義視片斷、廢墟、未完成為更高的美——因為它們暗示了有限形式無法容納的無限性",
+      "普遍性高於個體性：浪漫主義主張每一個個體的獨特經驗是不可替代的價值來源",
+      "進步是線性且必然的：浪漫主義質疑啟蒙時代對「進步」的無條件信仰，看見工業化帶來的精神代價"
+    ],
+    "societal_context": "浪漫主義誕生在法國大革命（1789）與工業革命（1760s 起）的雙重衝擊之下。大革命先是激發了全歐知識分子的烏托邦熱情——Wordsworth 寫下「在那個黎明活著就是幸福」——接著恐怖統治（1793-1794）將這股熱情碾碎為幻滅。拿破崙戰爭（1803-1815）在整個歐洲製造了空前的破壞與流亡。維也納會議（1815）復辟了保守秩序，壓制自由主義與民族主義運動。工業化同時在英國加速推進：圈地運動摧毀了農村共同體，工廠制度將人變成機器的附屬品，倫敦和曼徹斯特的貧民窟成為新的社會景觀。浪漫主義者在這個雙重斷裂中找到了自己的位置：他們既是革命理想的繼承者（追求自由、個體尊嚴、民族解放），又是革命暴力的目擊者（質疑理性能否獨自建設美好社會）。1830 年七月革命與 1848 年歐洲革命浪潮是浪漫主義政治能量的最後爆發——1848 年革命的全面失敗標誌了浪漫主義的衰退，寫實主義與實證主義接手回應「革命之後怎麼辦」的問題。"
+  },
+
+  "problems_solved": [
+    "恢復了情感作為認知方式的正當性：在啟蒙理性主義將情感邊緣化為「認知障礙」之後，浪漫主義重新論證了情感經驗攜帶著無法被邏輯推論替代的真理——為後世的表現主義、存在主義、情感社會學提供了知識論基礎",
+    "發明了現代意義上的「自我表達」概念：將藝術的功能從「模仿外在現實」轉向「表達內在經驗」，確立了藝術家的主觀性為創作的核心驅動力——這個轉向至今仍是大多數創作者的基本預設",
+    "建立了自然書寫的文學傳統：Wordsworth、Thoreau、Muir 的自然寫作傳統直接催生了現代環境意識——在自然被工業化視為純粹資源的時代，浪漫主義為自然的「內在價值」辯護",
+    "拯救了歐洲的民間文化遺產：Grimm 兄弟的童話收集、Herder 的民歌整理、各國浪漫主義者對方言和地方傳統的記錄，在工業化和都市化摧毀這些文化之前將其保存——成為後世民俗學、人類學、文化遺產保護的先驅",
+    "將「想像力」確立為獨立的認知能力：Coleridge 的 Primary/Secondary Imagination 理論和 Shelley 的「詩人是未被承認的立法者」，為創造性思維的哲學地位奠基——至今影響著從教育理論到人工智慧哲學的廣泛領域",
+    "創造了「藝術自律」(Autonomy of Art) 的概念：藝術不必服務於宗教、道德、政治——它有自己的內在法則與自身存在的理由。這個由 Kant 的美學判斷力理論啟動、被浪漫主義者激進化的概念，是現代藝術體制的基石"
+  ],
+
+  "problems_created": [
+    "「天才」崇拜與藝術家的神話化：將藝術家抬升為受苦的先知、被社會誤解的天才，製造了一種有毒的浪漫敘事——藝術家必須貧窮、瘋狂、英年早逝才算「真實」。這個神話至今仍在壓迫創作者，並被文化產業用來合理化對藝術勞動者的經濟剝削",
+    "民族主義的文化武器化：浪漫主義對 Volksgeist（民族精神）和民間文化的挖掘，被 19 世紀後半葉的民族主義運動挪用為排他性的政治工具——「我們的文化比你們的更古老、更純粹」的論述最終滑向法西斯主義的種族等級理論",
+    "逃避現實的美學傾向：對中世紀的懷舊、對異國的想像、對田園生活的理想化，提供了一種逃避當下社會問題的精神出口——Marx 批評浪漫主義是「對工業資本主義的感傷抗議」，它哀悼失去的世界而非建設新的世界",
+    "女性創作者的系統性邊緣化：浪漫主義的「天才」概念幾乎完全由男性定義——「天才」的特質（大膽、叛逆、不羈）被編碼為男性特質。Mary Shelley、Dorothy Wordsworth、Bettina von Arnim 等女性浪漫主義者長期被歸入「某某人的妻子 / 姊妹 / 情人」的從屬位置",
+    "對「自發性」的過度崇拜導致反智傾向：「我們為了解剖而謀殺」的邏輯推到極端，會變成對一切分析性思考的敵意。浪漫主義的某些支流確實滑向了反科學、反理性的神秘主義——為後世的偽科學和反啟蒙思潮提供了美學包裝",
+    "「痛苦即深度」的有害等式：拜倫式英雄將痛苦浪漫化為深刻的標誌，將快樂貶低為膚淺的狀態。這個等式暗中鼓勵自我毀滅行為，並將心理健康問題美學化——「真正的藝術家」應該受苦的迷思至今仍在傷害創作者的身心健康",
+    "文化精英主義的隱性延續：浪漫主義聲稱為「人人」的情感發聲，但它的讀者和觀眾主要是受教育的中產階級。它重新定義了「什麼是好品味」——從新古典主義的宮廷品味轉向浪漫的「自然感性」——但這個新標準同樣排斥了無法接受教育的底層民眾"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "藝術的本質是表達（expression），而非模仿（imitation）。這個從「鏡子」到「燈」的典範轉移——M. H. Abrams 在《鏡與燈》(The Mirror and the Lamp, 1953) 中的經典命名——徹底重新定義了藝術家的身份（從模仿者到創造者）、藝術的功能（從再現外在世界到外化內在經驗）、以及美的標準（從客觀和諧到主觀真誠）。這個轉移的影響至今仍是大多數創作實踐的底層預設。",
+    "what_was_truly_new": [
+      "想像力的認知論地位提升：Coleridge 將想像力從「幻想的製造機」重新定義為「活的力量與首要的創造動因」，一種能統合對立面的最高認知能力。這在西方哲學史上前所未有——亞里斯多德以降的主流傳統一直將想像力歸入低等認知功能",
+      "崇高美學的系統性藝術化：Burke 和 Kant 提出理論，浪漫主義藝術家將其轉化為完整的創作實踐——Friedrich 的背影人物面對深淵、Turner 的暴風雨吞沒船隻、Beethoven 的「命運」動機。崇高不再只是哲學概念，而是可以被製造的美學經驗",
+      "詩的語言革命：Wordsworth 的「真正被人使用的語言」主張，以及他對鄉村底層人物的詩意化書寫，在英語詩歌史上開啟了一個全新的傳統——詩歌的素材與語言不再被社會等級所限制",
+      "「浪漫反諷」(Romantic Irony) 的發明：Friedrich Schlegel 提出的概念——創作者必須同時全身投入創作並保持對自身創作行為的超然觀照。這種「自我意識的自我意識」是現代性的核心特徵，影響了從 Kierkegaard 到後現代主義的整條思想線索",
+      "「無限的渴望」(Sehnsucht) 作為美學原則的確立：將「永遠無法被滿足的渴望」從痛苦的心理狀態轉化為創作的驅動力和美學價值——這個轉化為後世的存在主義和精神分析提供了美學先例"
+    ],
+    "what_was_borrowed": [
+      "狂飆運動 (Sturm und Drang, 1767-1785)：Goethe 的《少年維特的煩惱》和席勒的《強盜》已經展現了情感的爆裂力、對社會規範的反抗、天才個體的崇拜。浪漫主義繼承並哲學化了這些主題",
+      "Rousseau 的自然哲學 (1750s-1770s)：「自然狀態」、「高貴的野蠻人」、「回歸自然」——Rousseau 對文明的批判和對自然情感的推崇是浪漫主義最直接的思想源頭",
+      "Kant 的美學與崇高理論 (1790)：《判斷力批判》的「審美判斷」理論和崇高感分析，為浪漫主義提供了哲學基礎——雖然 Kant 本人遠非浪漫主義者",
+      "哥德式文學傳統 (1760s-)：Horace Walpole 的《奧特蘭多城堡》(1764)、Ann Radcliffe 的恐怖小說——浪漫主義的黑暗面（廢墟、恐懼、超自然）直接繼承了哥德式傳統",
+      "Herder 的文化多元主義 (1770s-)：Volksgeist（民族精神）、Volkslieder（民歌收集）的概念。Herder 主張每個民族有其獨特的文化表達，不存在普世的「最佳文化」——浪漫主義的民族文化運動以此為理論基礎",
+      "新柏拉圖主義與神秘主義傳統：Jakob Bohme、Meister Eckhart 的神秘主義，以及新柏拉圖主義的「萬物流出論」——浪漫主義者從這些傳統中汲取了「有限通向無限」的精神結構"
+    ],
+    "creative_leap": "浪漫主義的關鍵創造性飛躍在於「反轉」(inversion)：它系統性地將啟蒙時代的價值等級倒轉過來——情感高於理性、個體高於普遍、想像力高於邏輯、有機體高於機械、黑夜高於白晝、童年高於成年、片斷高於完整、荒野高於花園、中世紀高於古典。這個反轉並非簡單的「反過來就好」，而是透過哲學論證（Schiller, Schlegel, Coleridge）建立了一套完整的替代認識論——一個情感與想像力擁有認知正當性的知識體系。這套體系影響之深，以至於今天的創作者在說「跟隨你的心」(follow your heart) 時，無意中繼承的正是浪漫主義的遺產。",
+    "inspiration_potential": {
+      "score": 9,
+      "why": "在 AI 能夠生成文字、圖像、音樂的時代，浪漫主義提出的核心問題再次變得尖銳：如果機器能模仿人類的創作行為，那「創作」的本質到底是什麼？浪漫主義的回答——創作的核心在於主觀經驗的不可替代性、想像力的活的力量、情感真誠作為美學的最終裁判——在 AI 時代提供了一個強力的人類立場。同時，浪漫主義對「自然」的重新定義也與當代生態危機共鳴：在地球系統瀕臨崩潰的時刻，「自然是活的有機體」的浪漫主義直覺比「自然是可開採的資源庫」的啟蒙理性框架更接近生態科學的發現。",
+      "transferable_to": [
+        "AI 時代的創作者身份危機：浪漫主義對「什麼是人類獨有的創造力」的追問，在 AI 生成內容泛濫的今天重新變得迫切",
+        "環境與生態運動：浪漫主義的自然觀是當代深層生態學 (deep ecology) 和環境倫理學的直接先驅",
+        "心理健康與情感素養：浪漫主義對情感經驗的「正名」，為今天的情感教育和心理健康意識提供了文化史的脈絡",
+        "個人品牌與真實性行銷：「真誠」(authenticity) 是當代行銷的核心概念，其思想根源正是浪漫主義對「真實自我表達」的崇拜",
+        "體驗經濟與沉浸式設計：浪漫主義追求的崇高感和情感強度，是當代體驗設計（沉浸式劇場、VR 體驗、大地藝術）的美學先驅",
+        "民族文化復興與去殖民：浪漫主義對本土語言和民間傳統的重視，為當代原住民文化復振和後殖民文化運動提供了方法論先例",
+        "創意寫作教育：「寫你知道的」(Write what you know) 這個創意寫作的基本教條，是 Wordsworth「在寧靜中回憶起的情感」的直系後裔"
+      ]
+    },
+    "originality_type": "inversion"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "狂飆運動 (Sturm und Drang, 1767-1785)：Goethe 與 Herder 領導的反理性主義文學運動，浪漫主義的直接前驅",
+      "Jean-Jacques Rousseau (1712-1778)：自然狀態、自然教育、「回歸自然」的呼籲，為浪漫主義提供了核心的自然觀與文明批判框架",
+      "Immanuel Kant 的批判哲學 (1781-1790)：《判斷力批判》的崇高理論與審美判斷理論為浪漫主義美學奠基",
+      "Edmund Burke 的崇高理論 (1757)：《崇高與美的觀念之起源》區分「美」與「崇高」，為浪漫主義的恐懼美學提供框架",
+      "新柏拉圖主義與基督教神秘主義：Plotinus、Meister Eckhart、Jakob Bohme 的靈性傳統，尤其是「有限通向無限」的神秘體驗結構",
+      "哥德式文學 (1760s-)：Walpole、Radcliffe、Lewis 的恐怖小說傳統，為浪漫主義提供了黑暗、廢墟、超自然的美學素材",
+      "Herder 的文化哲學 (1770s-)：Volksgeist、語言多元主義、文化相對主義——每個民族有其獨特且不可替代的精神表達",
+      "莎士比亞的戲劇 (被浪漫主義者重新發現)：A. W. Schlegel 的莎士比亞德文翻譯使其成為浪漫主義對抗新古典主義的武器——莎士比亞打破了所有古典規則卻比任何古典作家更偉大"
+    ],
+    "influenced": [
+      "超驗主義 (Transcendentalism, 1830s-1860s)：Emerson、Thoreau、Whitman 直接繼承 Wordsworth 與 Coleridge 的自然觀與精神自主性",
+      "象徵主義 (Symbolism, 1880s-1910s)：Baudelaire 被稱為「最後的浪漫主義者與最早的現代主義者」，象徵主義的通感理論和對神秘的追求根植於浪漫主義",
+      "存在主義 (Existentialism, 1840s-)：Kierkegaard 的「信仰的跳躍」、「恐懼與顫慄」直接回應浪漫主義的個體性與非理性主題",
+      "表現主義 (Expressionism, 1900s-1920s)：以主觀情感扭曲外在形式的美學——Munch 的《吶喊》是浪漫主義「內在視覺優先」原則的極端化",
+      "精神分析 (Psychoanalysis, 1890s-)：Freud 的潛意識理論與浪漫主義對夢、黑暗面、非理性的關注有深刻的思想親緣關係",
+      "環境運動 (Environmentalism, 1960s-)：從 Rachel Carson 到 Aldo Leopold，現代環保思想的「自然有內在價值」信念直接源自浪漫主義的自然觀",
+      "嬉皮運動與反文化 (Counterculture, 1960s)：回歸自然、反工業主義、情感解放、靈性探索——1960 年代反文化運動是浪漫主義在 20 世紀的全面復興",
+      "浪漫民族主義 (Romantic Nationalism, 19th century)：從德國統一到義大利統一到中東歐民族獨立運動，浪漫主義的 Volksgeist 概念成為 19 世紀民族建國運動的核心意識形態",
+      "Gothic Revival 與 Arts and Crafts Movement (1830s-1900s)：Pugin、Ruskin、Morris 的中世紀復興運動直接繼承浪漫主義對前工業時代的懷舊，但將其轉化為設計與建築的實踐方案"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "熾烈、直覺、內省。像一位在暴風雨中獨自站立的詩人：對微弱的情感信號極度敏感，對虛偽的表達則產生劇烈的生理排斥。以「這個作品是否觸及了創作者真實的內在經驗」作為唯一的衡量標準。言語帶有詩意的節奏感，判斷帶有預言般的確信，但也可能因過度主觀而忽視作品的技術面向。對自然、孤獨、崇高的題材不自覺偏心。偶爾會突然沉默很長時間，然後用一句話擊穿作品的核心。",
+    "evaluation_bias": "強烈偏好情感強度高、個人性強、帶有崇高感或痛苦深度的作品。傾向高估「真誠」的價值，低估技巧、結構和可溝通性的重要性。會不自覺地以「這個作品讓我感受到了什麼」作為隱性評分標準。對乾淨俐落、理性精確的作品可能給出不公正的低評，因為它「缺乏靈魂」。對商業化的作品有本能的反感。",
+    "blind_spots": "難以公正評價高度理性、系統化、功能導向的作品。對幽默、諷刺、輕盈的作品缺乏感受力——認為它們「不夠認真」。傾向將「複雜」等同於「深刻」，將「直白」等同於「膚淺」。對需要集體協作才能完成的設計作品（UI、建築、服務設計）缺乏評判框架，因為它預設創作是孤獨天才的個人行為。可能對非西方文化中情感表達的不同模式缺乏辨識能力。",
+    "typical_critique": "你的作品在技術上是無可挑剔的，但我在這裡找不到你。這些文字 / 色彩 / 構圖是精確的，但它們精確地指向了什麼？我需要感覺到一個活生生的人在這些形式背後呼吸。回到你最恐懼的那個時刻——那裡才有你真正需要說的話。"
+  },
+
+  "writing_style": {
+    "collective_voice": "浪漫主義的集體寫作風格是「燃燒的內省」：每一句話都從個人經驗的灼燙核心向外輻射，試圖在語言中重現那些語言本質上無法捕獲的體驗。核心修辭策略是「以有限暗示無限」——用具體的感官細節（一朵雲、一道閃電、一片廢墟）打開通向超越性的通道。所有主要作者都在與語言的限制搏鬥：語言是工具，但工具永遠不夠用，因為他們要表達的東西始終在語言的邊界之外。這種搏鬥本身成為寫作的主題。大量使用自然意象、身體隱喻、音樂性的句法節奏、矛盾修辭 (oxymoron)、通感 (synesthesia)。",
+    "internal_tensions": "最大的風格裂痕在「克制的內省」與「爆裂的激情」之間。Wordsworth 和 Friedrich 代表北方的沉默——情感在寧靜的表面下暗流湧動，用節制讓讀者/觀者自己填補空白。Byron 和 Delacroix 代表南方的火焰——情感以最大音量、最強色彩、最劇烈的肢體動態直接噴射。Schiller 是哲學家的聲音：在搏鬥中尋求結構。Novalis 是神秘主義者的聲音：以碎片暗示整體。",
+    "master_voices": [
+      {
+        "name": "William Wordsworth",
+        "writing_character": "在寧靜中回憶暴風雨的沉思者——田園牧師與哲學家的混合體",
+        "sentence_rhythm": "長句為主（30-50 字），以無韻詩 (blank verse) 的節奏流動，句法在自然描寫與哲學反思之間平滑過渡",
+        "rhetoric": "以自然意象觸發記憶→記憶觸發情感→情感觸發哲學反思的遞進結構；重複核心詞彙製造催眠般的節奏",
+        "tone": "沉靜、權威、帶有牧師的道德重量，但不說教——他在邀請你一起看，而非命令你如何看",
+        "real_examples": [
+          {
+            "text": "Poetry is the spontaneous overflow of powerful feelings: it takes its origin from emotion recollected in tranquillity.",
+            "source": "Preface to Lyrical Ballads, 1800",
+            "style_note": "上半句的動態（overflow, powerful）與下半句的靜態（recollected, tranquillity）構成完美的對位——動靜交替是 Wordsworth 的核心節奏"
+          },
+          {
+            "text": "We murder to dissect.",
+            "source": "'The Tables Turned', 1798",
+            "style_note": "五個字的致命斷言——Wordsworth 偶爾會從長句沉思中突然拋出這種格言式的短句，衝擊力來自反差"
+          }
+        ]
+      },
+      {
+        "name": "Lord Byron",
+        "writing_character": "貴族浪子在日記中寫給自己的自嘲獨白",
+        "sentence_rhythm": "在快速的機智短句與突然展開的抒情長句之間劇烈擺盪，節奏不可預測",
+        "rhetoric": "反諷（self-irony）、矛盾修辭、諷刺性的高雅語調寫低俗題材、突然的語氣切換",
+        "tone": "疲倦的世故，帶自嘲的傲慢，偶爾被壓不住的真情撕開面具",
+        "real_examples": [
+          {
+            "text": "The great object of life is sensation — to feel that we exist, even though in pain.",
+            "source": "Letter to Annabella Milbanke, 1813",
+            "style_note": "破折號後面的「even though in pain」是 Byron 的標誌：在宣言之後加一個殘酷的但書，讓激情同時帶有苦味"
+          },
+          {
+            "text": "I awoke one morning and found myself famous.",
+            "source": "recorded by Thomas Moore, 1830",
+            "style_note": "輕描淡寫的語氣包裹驚天動地的內容——Byron 式的 understatement 比任何修辭更有效"
+          }
+        ]
+      },
+      {
+        "name": "Caspar David Friedrich",
+        "writing_character": "面對畫布的沉默者——偶爾開口時，每句話都像從長久的靜默中擠出的結晶",
+        "sentence_rhythm": "短句為主（10-20 字），句與句之間留有沉默的空隙，如同他畫中的霧氣",
+        "rhetoric": "否定式定義（如果你內心看不見，就不要畫）、祈使句、以身體感官為入口（閉眼、感覺、呼吸）",
+        "tone": "內斂、嚴肅、帶有新教徒的虔誠，拒絕社交場合的輕浮",
+        "real_examples": [
+          {
+            "text": "Close your bodily eye, so that you may see your picture first with the spiritual eye.",
+            "source": "Letter to a student, c.1830",
+            "style_note": "「閉上肉眼才能打開靈魂之眼」——Friedrich 的修辭永遠是以減法達成加法，關閉一個通道才能打開另一個"
+          }
+        ]
+      },
+      {
+        "name": "Friedrich Schiller",
+        "writing_character": "將詩人的激情灌入哲學家的結構——熔岩流被導入幾何渠道",
+        "sentence_rhythm": "中等長度句子（20-35 字），以論證邏輯鏈接，但每個邏輯節點都帶有感性的衝擊力",
+        "rhetoric": "哲學概念的對偶結構（感性衝動/理性衝動、素樸/感傷）、格言式斷言、以抽象名詞做具體行動的主語（「藝術是自由的女兒」）",
+        "tone": "激昂而節制——像一位相信自己使命的演說家，但也尊重聽眾的智識",
+        "real_examples": [
+          {
+            "text": "Der Mensch spielt nur, wo er in voller Bedeutung des Wortes Mensch ist, und er ist nur da ganz Mensch, wo er spielt.",
+            "source": "Über die ästhetische Erziehung des Menschen, Letter XV, 1795",
+            "style_note": "完美的迴文結構：A 只有在 B 時才是 A，B 只有在 A 時才是 B。哲學命題用詩的對稱性表達。"
+          },
+          {
+            "text": "Art is the daughter of freedom.",
+            "source": "Über die ästhetische Erziehung des Menschen, Letter II, 1795",
+            "style_note": "七個字的宣言，以家族隱喻（女兒）將抽象概念具象化，兼具溫柔與力量"
+          }
+        ]
+      },
+      {
+        "name": "Eugène Delacroix",
+        "writing_character": "畫室中的私密觀察者——在日記中同時記錄色彩配方與靈魂的溫度",
+        "sentence_rhythm": "日記體的口語節奏，不追求修辭完美，但偶爾迸發高度凝練的格言",
+        "rhetoric": "感官動詞密集（看、觸、感受）、身體隱喻（靈魂的翅膀、獄卒般的肉身）、以實作經驗佐證美學主張",
+        "tone": "誠實、私密、帶職業畫家的務實——但一旦談到色彩的力量就會突然燃燒起來",
+        "real_examples": [
+          {
+            "text": "The first virtue of a painting is to be a feast for the eyes.",
+            "source": "Journal; cited in Théophile Silvestre, 1864",
+            "style_note": "「盛宴」(feast) 這個詞讓繪畫從知識活動變回感官體驗——Delacroix 永遠從身體出發"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "以第一人稱的感受作為評判起點：「我在你的作品中感受到了...」或「我在這裡什麼都感覺不到」",
+      "大量使用自然意象作為類比——光與影、暴風雨與寧靜、根與花",
+      "長句與短句交替：沉思用長句，判斷用短句",
+      "禁用學術術語和技術指標——感受比分析更重要",
+      "矛盾修辭是允許的：「你的精確讓我感到空虛」",
+      "每段評語中必須至少有一個具體的感官描述",
+      "以問句結尾比以斷言結尾更有力：「但你自己在這些美麗的表面之下，到底藏了什麼？」",
+      "語氣在溫柔與嚴厲之間擺盪——浪漫主義的判官既是導師也是詩人",
+      "動詞以身體動作和感官體驗為主：呼吸、燃燒、顫抖、凝視、沉默"
+    ]
+  }
+}

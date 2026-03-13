@@ -1,0 +1,487 @@
+{
+  "movement_id": "post-impressionism",
+  "name": {
+    "zh": "後印象派",
+    "en": "Post-Impressionism",
+    "fr": "Post-impressionnisme"
+  },
+  "domain": [
+    "視覺藝術"
+  ],
+  "period": {
+    "start": 1886,
+    "end": 1905,
+    "peak": "1886-1900（從第八屆印象派展覽結束到 Cézanne 晚期作品達到突破，Van Gogh 在 Arles 與 Saint-Rémy 的爆發期，Gauguin 在 Tahiti 的成熟期）"
+  },
+  "geography": [
+    "法國（巴黎、普羅旺斯、Pont-Aven、Arles）",
+    "荷蘭（Van Gogh 早期）",
+    "大溪地（Gauguin 1891-1893, 1895-1903）",
+    "比利時（Les XX 展覽團體）"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1886 年是印象派的終點年。第八屆也是最後一屆印象派展覽在巴黎舉行，Monet 拒絕參展，Renoir 與 Monet 早已各走各路。印象派對光影瞬間的追捕已經達到極限——Monet 畫了同一座乾草堆三十次，卻無法畫出乾草堆存在於世界中的重量感。印象派解放了色彩、解放了筆觸、解放了主題，但它把繪畫簡化為視網膜的記錄器——只畫眼睛看到的，不畫心靈感受到的。年輕一代畫家（Cézanne 46 歲、Van Gogh 33 歲、Gauguin 38 歲、Seurat 27 歲）從印象派出發，卻感到根本性的不滿足：光線在不斷變化，但蘋果的結構是永恆的（Cézanne）；田野的色彩在眼前流動，但農民的苦難是燒灼的（Van Gogh）；巴黎的光很美，但文明正在腐蝕人類的靈魂（Gauguin）；色彩的混合可以被科學系統化，視覺經驗可以被建構（Seurat）。四條完全不同的路徑，共同的出發點是：印象派走到頭了，繪畫必須找到超越視網膜的深度。",
+    "social_energy": "後印象派的能量來自三股力量的交匯：(1) 第三共和國的巴黎正經歷前所未有的現代化——奧斯曼改造後的林蔭大道、百貨公司、鐵路、電力照明——城市生活的速度與碎片化讓藝術家渴望尋找表象之下的永恆結構；(2) 歐洲殖民擴張帶來的異文化衝擊——日本浮世繪、非洲雕刻、大溪地原住民藝術——打破了學院派以希臘羅馬為唯一典範的美學封閉體系；(3) 尼采宣告「上帝已死」(1882)、佛洛伊德開始探索無意識——精神世界的權威體系正在瓦解，藝術家被迫成為自己意義的創造者。印象派可以迴避這些問題（它只記錄眼前所見），但後印象派必須正面回應。",
+    "purpose": "後印象派沒有統一的宣言、沒有組織、沒有展覽團體——Roger Fry 在 1910 年才回溯性地發明這個名稱。但這些藝術家共享一個根本企圖：把繪畫從「記錄可見世界」的僕役地位中解放出來，讓它重新成為表達內在真實——結構、情感、象徵、精神——的自主語言。Cézanne 要找到自然的永恆幾何秩序；Van Gogh 要讓色彩直接傳達人類的痛苦與狂喜；Gauguin 要在原始文明中找到被西方理性壓抑的精神維度；Seurat 要用科學方法重新建構色彩的視覺效果。四個方向看似分裂，但都指向同一個目標：繪畫必須超越印象，抵達更深的層次。",
+    "key_timeline": [
+      "1880 — Cézanne 離開巴黎，定居 Aix-en-Provence，開始獨立探索結構性繪畫",
+      "1884 — Société des Artistes Indépendants 成立，Seurat 展出《阿尼埃爾的浴場》",
+      "1886.05 — 第八屆（最後一屆）印象派展覽，Seurat《大碗島的星期天下午》首次展出，印象派內部分裂公開化",
+      "1886.09 — Gauguin 首次前往 Pont-Aven，開始脫離印象派",
+      "1886 — Jean Moréas 發表《象徵主義宣言》，文學界的平行運動",
+      "1888.02 — Van Gogh 抵達 Arles，進入最高產的創作期（14 個月內完成約 200 幅油畫）",
+      "1888.10-12 — Van Gogh 與 Gauguin 在 Arles 共同生活 9 週，以割耳事件告終",
+      "1889 — 巴黎萬國博覽會，艾菲爾鐵塔落成；Van Gogh 入住 Saint-Rémy 療養院，畫出《星夜》",
+      "1891.04 — Gauguin 首次前往大溪地，尋找「高貴的野蠻人」",
+      "1891.03.29 — Seurat 猝死，年僅 31 歲，新印象派失去領袖",
+      "1893 — Gauguin 返回巴黎舉辦大溪地作品展，評價兩極",
+      "1895 — Cézanne 在 Ambroise Vollard 畫廊舉辦首次個展（150 幅作品），開始獲得年輕畫家的崇敬",
+      "1897 — Gauguin 完成巨作《我們從何處來？我們是誰？我們往何處去？》",
+      "1901 — Toulouse-Lautrec 逝世，年僅 36 歲",
+      "1903 — Gauguin 在 Marquesas 群島逝世",
+      "1906 — Cézanne 逝世；1907 年巴黎舉辦大型回顧展，直接催生立體派"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "保羅·塞尚",
+        "en": "Paul Cézanne"
+      },
+      "role": "後印象派的結構主義先驅，被 Matisse 和 Picasso 共同尊為「我們所有人的父親」。從印象派的色光分析出發，追求在色彩中重建自然的永恆幾何秩序。晚年隱居 Aix-en-Provence，以 Montagne Sainte-Victoire 為母題反覆探索同一問題：如何在平面畫布上建構出自然的深度與量體感，同時保留色彩的純淨。",
+      "key_works": [
+        "《大浴女》(Les Grandes Baigneuses, 1898-1905)",
+        "《聖維克多山》系列 (Mont Sainte-Victoire, 1882-1906，約 30 幅)",
+        "《玩紙牌的人》(Les Joueurs de cartes, 1890-1895，5 個版本)",
+        "《靜物與蘋果籃》(Still Life with a Basket of Apples, c. 1893)",
+        "《穿紅背心的男孩》(Boy in a Red Waistcoat, 1888-1890)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Treat nature by the cylinder, the sphere, the cone, everything brought into proper perspective.",
+          "source": "Letter to Émile Bernard, April 15, 1904",
+          "meaning": "（用圓柱、球體、圓錐來處理自然——Cézanne 的幾何還原法。他要找的是表象之下的結構骨架。這句話被 Braque 和 Picasso 視為立體派的預言。）"
+        },
+        {
+          "text": "I owe you the truth in painting and I will tell it to you.",
+          "source": "Letter to Émile Bernard, October 23, 1905",
+          "meaning": "（繪畫中的真實——Cézanne 追求的真實既非學院派的再現，也非印象派的瞬間感受，而是物體存在於空間中的根本方式。Derrida 後來以這句話為書名，探討繪畫的真理問題。）"
+        },
+        {
+          "text": "With an apple I will astonish Paris.",
+          "source": "Attributed, reported by Gustave Geffroy, c. 1890s",
+          "meaning": "（用一顆蘋果震驚巴黎——歷史畫、神話畫、宏大風景都不需要。一顆蘋果的色彩關係、量體感、空間位置已經包含了繪畫的全部問題。微觀中見宏觀。）"
+        },
+        {
+          "text": "I am the primitive of the way I have discovered.",
+          "source": "Reported by Émile Bernard, conversation c. 1904",
+          "meaning": "（我是我自己開闢的道路上的原始人——Cézanne 的自覺：他知道自己在做前無古人的事，也知道自己只走到了起點。這份謙卑與自信的並存定義了他的晚年。）"
+        },
+        {
+          "text": "Painting from nature is not copying the object; it is realizing one's sensations.",
+          "source": "Letter to Émile Bernard, 1905",
+          "meaning": "（寫生不是抄襲對象，而是實現自己的感覺——sensation 這個詞在 Cézanne 的語彙中同時包含感官知覺與內在直覺。畫家的任務是把主觀感受轉化為畫布上的客觀結構。）"
+        },
+        {
+          "text": "The landscape thinks itself in me, and I am its consciousness.",
+          "source": "Reported by Joachim Gasquet, Cézanne: A Memoir with Conversations, 1921 (conversations c. 1896-1904)",
+          "meaning": "（風景在我之中思考自身，我是它的意識——主體與客體的界線在此消融。Cézanne 不是站在自然對面描繪它，而是讓自然透過他的身體與感知來完成自我表達。Merleau-Ponty 以此建構了他的知覺現象學美學。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "文森·梵谷",
+        "en": "Vincent van Gogh"
+      },
+      "role": "後印象派的情感表現主義先驅。自學成才的荷蘭牧師之子，27 歲才決定成為畫家，37 歲即自殺身亡，在短短十年創作生涯中（最後兩年半尤為爆發性）完成約 860 幅油畫。以強烈扭曲的筆觸、非自然主義的高飽和色彩、燒灼般的情感強度，讓繪畫成為內在精神狀態的直接投射。",
+      "key_works": [
+        "《星夜》(The Starry Night, 1889)",
+        "《向日葵》系列 (Sunflowers, 1888-1889)",
+        "《夜間咖啡館》(The Night Café, 1888)",
+        "《吃馬鈴薯的人》(The Potato Eaters, 1885)",
+        "《麥田群鴉》(Wheatfield with Crows, 1890)",
+        "《臥室》(Bedroom in Arles, 1888)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I dream my painting and I paint my dream.",
+          "source": "Letter to Theo van Gogh, c. 1888",
+          "meaning": "（我夢見我的畫，然後畫出我的夢——創作是夢與現實之間的循環。Van Gogh 的繪畫流程始於內在影像，畫布上的色彩反過來又滋養下一個夢。）"
+        },
+        {
+          "text": "I want to paint men and women with that something of the eternal which the halo used to symbolize, and which we seek to convey by the actual radiance and vibration of our colouring.",
+          "source": "Letter to Theo van Gogh, Letter 531, Arles, 1888",
+          "meaning": "（中世紀畫家用光環表達神聖，我用色彩的輻射與顫動來傳達同樣的永恆——色彩取代了宗教符號，成為精神性的直接載體。Van Gogh 從未放棄他早年傳教的精神衝動，只是媒介從《聖經》換成了畫筆。）"
+        },
+        {
+          "text": "Instead of trying to reproduce exactly what I have before my eyes, I use color more arbitrarily, in order to express myself more forcibly.",
+          "source": "Letter to Theo van Gogh, Letter 520, Arles, August 1888",
+          "meaning": "（放棄精確再現，任意使用色彩，為了更強烈地表達自我——這是與印象派的根本決裂。印象派的色彩服從於光學觀察，Van Gogh 的色彩服從於情感需要。紅色的咖啡館天花板不是因為天花板是紅的，而是因為那個空間讓人瘋狂。）"
+        },
+        {
+          "text": "There is nothing more truly artistic than to love people.",
+          "source": "Letter to Theo van Gogh, Letter 164, The Hague, 1882",
+          "meaning": "（最真正的藝術就是愛人——Van Gogh 作品中的農民、礦工、郵差、咖啡館老闆，都被他以燃燒般的同理心對待。藝術的根基是對人類處境的深刻關注。）"
+        },
+        {
+          "text": "In a picture I want to say something comforting, as music is comforting. I want to paint men and women with that something of the eternal.",
+          "source": "Letter to Theo van Gogh, Letter 531, Arles, September 1888",
+          "meaning": "（我想在畫中說出安慰人的話，像音樂安慰人那樣——繪畫的功能是撫慰。Van Gogh 眼中的藝術從來不是形式實驗，而是人對人的精神援助。）"
+        },
+        {
+          "text": "What is drawing? How does one learn it? It is working through an invisible iron wall that seems to stand between what one feels and what one can do.",
+          "source": "Letter to Theo van Gogh, Letter 237, The Hague, October 1882",
+          "meaning": "（畫畫就是穿越一道無形的鐵牆——站在感受與表達之間的障礙。Van Gogh 對創作困難的描述精準得令人心痛。每一幅畫都是一次穿牆的嘗試。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "保羅·高更",
+        "en": "Paul Gauguin"
+      },
+      "role": "後印象派的象徵主義與原始主義先驅。前巴黎股票經紀人，35 歲放棄金融業全職作畫。從 Pont-Aven 到大溪地，持續追尋一種未被西方理性主義污染的視覺語言。以大面積平塗色彩、粗黑輪廓線（cloisonnism）、非透視構圖、象徵性的色彩運用，將繪畫從描述可見世界轉向表達不可見的精神與神話維度。",
+      "key_works": [
+        "《我們從何處來？我們是誰？我們往何處去？》(D'où venons-nous? Que sommes-nous? Où allons-nous?, 1897)",
+        "《佈道後的幻象》(Vision After the Sermon / Jacob Wrestling with the Angel, 1888)",
+        "《黃色基督》(The Yellow Christ, 1889)",
+        "《兩個大溪地女人》(Two Tahitian Women, 1899)",
+        "《死者的靈魂在注視》(Spirit of the Dead Watching / Manao tupapau, 1892)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Art is either plagiarism or revolution.",
+          "source": "Attributed, reported in Paul Gauguin's Intimate Journals, translated by Van Wyck Brooks, 1921",
+          "meaning": "（藝術要嘛是抄襲，要嘛是革命——沒有中間地帶。Gauguin 對折衷主義和溫和改良的徹底拒絕。每一個藝術決策都是在選擇重複或顛覆。）"
+        },
+        {
+          "text": "I shut my eyes in order to see.",
+          "source": "Attributed, reported in various sources on Gauguin's aesthetic philosophy",
+          "meaning": "（閉上眼睛才能真正看見——對印象派「張開眼睛捕捉光線」的直接反轉。Gauguin 要進入的是內在視覺：記憶、夢境、象徵。可見世界是障礙，遮蔽了更深的真實。）"
+        },
+        {
+          "text": "Do not copy nature too much. Art is an abstraction; derive this abstraction from nature while dreaming before it, and think more of the creation which will result than of nature.",
+          "source": "Letter to Émile Schuffenecker, August 14, 1888",
+          "meaning": "（不要過度抄襲自然。藝術是一種抽象——在自然面前做夢時提取這種抽象，把心思放在即將誕生的創作上，而非自然本身。這封信寫於他前往 Pont-Aven 的時期，標誌著他與印象派的理論決裂。）"
+        },
+        {
+          "text": "In art, there are only two types of people: revolutionaries and plagiarists. And in the end, doesn't the revolutionist's work become official, once the State takes it over?",
+          "source": "Paul Gauguin's Intimate Journals (Avant et Après), written 1903",
+          "meaning": "（藝術中只有革命者和抄襲者。但革命者的作品最終難道不會被國家收編為官方藝術嗎？——Gauguin 對藝術體制化的清醒認知。今天他自己的作品掛在全球最昂貴的博物館裡，完美驗證了這個悖論。）"
+        },
+        {
+          "text": "Where do we come from? What are we? Where are we going?",
+          "source": "Title inscription on the painting, 1897; also discussed in Letter to Daniel de Monfreid, February 1898",
+          "meaning": "（我們從何處來？我們是誰？我們往何處去？——這三個問題既是那幅 4.5 公尺巨作的標題，也是 Gauguin 整個大溪地時期的精神主軸。他把繪畫的問題提升到了存在哲學的層次。）"
+        },
+        {
+          "text": "Life being what it is, one dreams of revenge — and has to content oneself with dreaming.",
+          "source": "Paul Gauguin's Intimate Journals (Avant et Après), written 1903",
+          "meaning": "（生活如此，人夢想著復仇——卻只能滿足於做夢。Gauguin 晚年的蒼涼自白。他逃離文明、拋棄家庭、遠赴太平洋，最終發現逃離本身也是一種困境。藝術作為對現實的夢境式反抗。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "喬治·秀拉",
+        "en": "Georges Seurat"
+      },
+      "role": "新印象派（點描派）創始人，後印象派的科學理性分支。將 Michel Eugène Chevreul 的色彩理論與 Ogden Rood 的光學研究系統性地應用於繪畫，發展出以純色小點並置讓觀者眼中自動混合的 Divisionism 技法。31 歲猝死，僅留下 7 幅大型作品與約 500 幅習作，卻徹底改變了色彩在繪畫中的運用方式。",
+      "key_works": [
+        "《大碗島的星期天下午》(A Sunday Afternoon on the Island of La Grande Jatte, 1884-1886)",
+        "《阿尼埃爾的浴場》(Bathers at Asnières, 1884)",
+        "《馬戲團》(The Circus, 1891，未完成遺作）",
+        "《模特兒們》(The Models / Les Poseuses, 1886-1888)",
+        "《夏侯》(Chahut, 1889-1890)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Some say they see poetry in my paintings; I see only science.",
+          "source": "Attributed, reported by various contemporaries, c. 1886-1890",
+          "meaning": "（有人在我的畫裡看到詩意，我看到的只有科學——Seurat 的自我定位。他堅持自己的色彩並置是光學法則的應用，藝術效果是科學方法的必然結果。這種純理性態度與 Van Gogh 的情感爆發形成後印象派內部最極端的對比。）"
+        },
+        {
+          "text": "Originality depends only on the character of the drawing and the vision peculiar to each artist.",
+          "source": "Letter to Maurice Beaubourg, August 28, 1890",
+          "meaning": "（原創性取決於每位藝術家獨特的線條特質與觀看方式——即便方法是科學的、可複製的，個人視覺的獨特性仍然保證了作品的不可替代。方法論可以共享，視覺人格無法複製。）"
+        },
+        {
+          "text": "The purity of the spectral element being the keystone of my technique, I took as my guide the means of attaining the greatest possible luminosity.",
+          "source": "Letter to Maurice Beaubourg, August 28, 1890",
+          "meaning": "（光譜元素的純粹性是我技法的基石，我的引導原則是達到最大可能的光度——Seurat 把繪畫簡化為一個光學問題：如何在畫布上重現最強烈的光感。答案是不在調色盤上混色，讓純色在觀者眼中自行混合。）"
+        },
+        {
+          "text": "Art is harmony. Harmony is the analogy of contrary and similar elements of tone, of colour, and of line, considered according to their dominants and under the influence of light, in gay, calm, or sad combinations.",
+          "source": "Letter to Maurice Beaubourg, August 28, 1890",
+          "meaning": "（藝術是和諧。和諧是對立與相似的色調、色彩、線條元素在主調影響下的類比——歡快、平靜或悲傷的組合。Seurat 試圖建立一套情感表達的科學公式：上升的線條=歡快，水平的線條=平靜，下降的線條=悲傷。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "亨利·德·土魯斯-羅特列克",
+        "en": "Henri de Toulouse-Lautrec"
+      },
+      "role": "後印象派與現代平面設計的橋梁人物。貴族出身，因童年雙腿骨折導致發育停滯。深入蒙馬特的夜生活——紅磨坊、妓院、馬戲團——以尖銳的觀察力、流動的線條、大膽的平面構圖記錄巴黎底層社會。他的石版海報讓商業平面設計成為一種藝術形式，也讓日本浮世繪的平面構圖原則進入歐洲日常視覺文化。",
+      "key_works": [
+        "《紅磨坊：乾渴》海報 (Moulin Rouge: La Goulue, 1891)",
+        "《在紅磨坊》(At the Moulin Rouge, 1892-1895)",
+        "《沙發上》(In the Salon at the Rue des Moulins, 1894)",
+        "Aristide Bruant 系列海報 (1892-1893)",
+        "《女丑角 Cha-U-Kao》(The Clownesse Cha-U-Kao, 1895)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I paint things as they are. I don't comment. I record.",
+          "source": "Attributed, reported by friends and biographers",
+          "meaning": "（我畫事物的本來面目。我不評論，我記錄——Toulouse-Lautrec 的冷靜觀察者姿態。他畫妓女不帶道德判斷，畫舞者不帶浪漫化，這種不加評論的誠實比任何道德說教更具衝擊力。）"
+        },
+        {
+          "text": "Everywhere and always ugliness has its beautiful aspects; it is thrilling to discover them where nobody else has noticed them.",
+          "source": "Attributed, reported in biographies",
+          "meaning": "（醜陋之中處處有美，在別人忽略的地方發現它們令人興奮——Toulouse-Lautrec 的審美宣言。蒙馬特的酒鬼、歌舞女郎、疲憊的妓女在他眼中有學院派大師筆下的希臘女神所沒有的生命力。）"
+        },
+        {
+          "text": "I have tried to do what is true and not ideal.",
+          "source": "Attributed, reported in various biographical sources",
+          "meaning": "（我嘗試做到真實，而非理想化——直接挑戰學院派將對象美化的傳統。Toulouse-Lautrec 畫的紅磨坊舞者不是仙女，是流汗的、疲倦的、帶著職業倦怠的勞動者。）"
+        },
+        {
+          "text": "Of course one should not drink much, but often.",
+          "source": "Attributed, widely reported",
+          "meaning": "（當然不應該喝太多，但應該經常喝——Toulouse-Lautrec 的自嘲式幽默。他用酒精和夜生活燃燒自己的身體，也用同樣的強度觀察和記錄了整個蒙馬特的人間劇場。36 歲酒精中毒而亡。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Paul Cézanne 致 Émile Bernard 書信集 (Lettres de Cézanne à Émile Bernard)",
+      "author": "Paul Cézanne",
+      "year": 1904,
+      "significance": "1904-1906 年間 Cézanne 寫給年輕畫家 Bernard 的系列書信，包含「圓柱、球體、圓錐」等關鍵美學論述，成為立體派與現代繪畫理論的直接源頭。Cézanne 不寫宣言，他在書信中思考。"
+    },
+    {
+      "title": "Vincent van Gogh 致 Theo van Gogh 書信集",
+      "author": "Vincent van Gogh",
+      "year": 1872,
+      "significance": "超過 800 封信，從 1872 年寫到 1890 年自殺前數日。這是西方藝術史上最重要的藝術家自我記錄：每一幅畫的意圖、每一次技法選擇的理由、每一個精神危機的細節，全部以灼熱的文字保存。Jo van Gogh-Bonger（Theo 之妻）在 1914 年首次出版，讓 Van Gogh 從被遺忘的瘋子變成現代藝術的殉道者。"
+    },
+    {
+      "title": "《Avant et Après》(Paul Gauguin's Intimate Journals)",
+      "author": "Paul Gauguin",
+      "year": 1903,
+      "significance": "Gauguin 在 Marquesas 群島臨終前寫下的回憶與隨筆，涵蓋藝術觀、文明批判、個人恩怨。文風散漫卻銳利，充滿自我神話化與對西方文明的控訴。"
+    },
+    {
+      "title": "《Noa Noa》（芬芳之地）",
+      "author": "Paul Gauguin (with Charles Morice)",
+      "year": 1897,
+      "significance": "Gauguin 記錄第一次大溪地之旅（1891-1893）的半自傳體文學作品。混合了旅行紀實、原住民神話、自我浪漫化的殖民者凝視。文學價值與人類學問題並存，是理解 Gauguin 原始主義的關鍵文本。"
+    },
+    {
+      "title": "Manet and the Post-Impressionists（馬奈與後印象派畫家）",
+      "author": "Roger Fry（策展人）",
+      "year": 1910,
+      "significance": "1910 年 Roger Fry 在倫敦 Grafton Galleries 策劃的展覽及其目錄文章。Fry 發明了「Post-Impressionism」這個詞彙，回溯性地將 Cézanne、Van Gogh、Gauguin、Seurat 組織為一個運動。這個命名行為本身就是藝術史建構的經典案例。"
+    },
+    {
+      "title": "《D'Eugène Delacroix au néo-impressionnisme》(From Eugène Delacroix to Neo-Impressionism)",
+      "author": "Paul Signac",
+      "year": 1899,
+      "significance": "Signac 為新印象派撰寫的理論著作，從 Delacroix 的色彩實驗追溯到 Seurat 的點描法，建立了一條從浪漫派到科學色彩的理論譜系。是理解後印象派科學分支最重要的一手文獻。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "超越視網膜：繪畫的目的從記錄眼睛所見，轉向表達心靈所感、結構所在、象徵所指。（WHY：印象派把繪畫簡化為光學經驗的記錄，但人類的視覺經驗遠遠超過光線在視網膜上的投影——記憶、情感、知識、文化象徵都參與了「看」的過程。Cézanne 看到蘋果的重量，Van Gogh 看到星空的翻騰，Gauguin 看到大溪地女性背後的神話原型，這些都是印象派的「忠於所見」無法容納的。）",
+      "色彩的自主性：色彩從描述光線的工具解放為獨立的表達媒介——紅色可以表達瘋狂（Van Gogh），黃色可以表達神聖（Gauguin），藍色可以表達結構深度（Cézanne）。（WHY：印象派已經從學院派的固有色觀念中解放了色彩，但仍將色彩綁定在「忠實記錄光線」的任務上。後印象派進一步追問：如果色彩可以不再服務於描述，它能獨立做什麼？答案是：色彩本身就是內容，它能直接傳遞情感、建構空間、承載象徵。）",
+      "結構優於瞬間：印象派追捕轉瞬即逝的光影，後印象派追求時間之下的永恆骨架。（WHY：Monet 畫同一座乾草堆三十次，捕捉不同時刻的光線——但三十幅畫加在一起並沒有告訴我們乾草堆「是什麼」。Cézanne 的反問：如果你只畫光影的瞬間，你就失去了物體存在於世界中的持續性。蘋果不會因為光線改變就停止是蘋果。繪畫需要找到表象流動之下的不動結構。）",
+      "個人視覺語言的建立：每位後印象派畫家都發展出高度個人化、無法互換的風格系統。（WHY：印象派有一套共享的方法——戶外寫生、短筆觸、光色分析——讓 Monet 和 Renoir 的早期作品有時難以分辨。後印象派的每位畫家都在回答一個私人問題：Cézanne 問「結構」、Van Gogh 問「情感」、Gauguin 問「象徵」、Seurat 問「科學」。問題不同，方法必然不同，風格因此極端分化。這種分化本身就是後印象派最重要的遺產：它證明了現代藝術的方向是複數的。）",
+      "平面性的自覺：承認畫布是平面的事實，拒絕透過幻覺主義假裝它是一扇窗戶。（WHY：文藝復興以來的透視法讓繪畫偽裝成一個透明窗口，彷彿觀眾在看真實空間。Cézanne 故意讓桌子的透視線不連貫、讓蘋果看起來要滾下來、讓背景和前景的筆觸同樣厚重——他在提醒觀眾：這是一塊塗了顏料的帆布。Gauguin 的大面積平塗和 cloisonnism 黑色輪廓線更是直接宣告平面性。這個自覺開啟了通往 Matisse、Picasso、Mondrian 的道路。）",
+      "原始與異文化的借鑑：從日本浮世繪、非洲雕刻、大洋洲藝術中汲取非西方的視覺邏輯。（WHY：學院派的美學典範來自希臘羅馬雕塑——白色、理性、古典比例。但日本浮世繪展示了完全不同的空間建構方式（無透視、平塗、大膽裁切），讓 Van Gogh 和 Gauguin 意識到西方透視法只是眾多空間表現系統之一。Gauguin 更進一步，在大溪地尋找前基督教、前理性主義的精神圖像。這種借鑑開啟了 20 世紀的原始主義浪潮，也埋下了殖民凝視的問題。）"
+    ],
+    "what_they_refuse": [
+      "印象派的視網膜至上：拒絕把繪畫簡化為光學感受的忠實記錄，拒絕「只畫眼睛看到的」這個前提。（WHY：印象派聲稱「忠於所見」，但 Cézanne 指出這是一種偽裝的客觀性——你的眼睛永遠不可能「只看到」光線，你同時看到物體的形狀、重量、質感、你對它的記憶。把繪畫限制在視網膜層次，等於閹割了人類視覺經驗的九成。）",
+      "學院派的歷史敘事繪畫：拒絕以希臘羅馬神話或歷史事件作為繪畫的最高主題，拒絕 Salon 的等級體系。（WHY：法國美術學院（École des Beaux-Arts）的等級體系把歷史畫排在最上層，靜物畫排在最下層。Cézanne 用靜物畫——蘋果、瓶子、桌布——證明了「微小」的主題可以承載繪畫最深刻的問題。Van Gogh 畫農民的靴子、郵差的肖像，宣告普通人的尊嚴不亞於任何希臘英雄。）",
+      "精確再現的幻覺主義：拒絕把「像不像」作為繪畫品質的標準。（WHY：攝影術自 1839 年發明以來，已經比任何畫家更精確地記錄了可見世界。如果繪畫的價值在於再現，它就已經被照相機淘汰了。後印象派的回應是：繪畫必須做照相機做不到的事——揭示結構（Cézanne）、傳達情感（Van Gogh）、創造象徵（Gauguin）、建構色彩科學（Seurat）。）",
+      "色彩的從屬地位：拒絕讓色彩僅服務於描述物體的「固有色」或「環境光」。（WHY：學院派認為色彩附屬於素描——先畫好線條結構，再填入「正確的」顏色。印象派解放了色彩使其可以表現光線變化，但仍然將色彩綁定在觀察層面。Van Gogh 第一個明確宣告：我「任意」使用色彩來表達自我。這個「任意」打開了 Matisse 野獸派和 Kandinsky 抽象繪畫的大門。）",
+      "布爾喬亞的品味舒適感：拒絕製作讓中產階級客廳感到愉悅的裝飾品。（WHY：印象派的花園、河畔、舞會場景很快被巴黎布爾喬亞接受為時髦的室內裝飾。Van Gogh《夜間咖啡館》刻意用紅綠衝突的色彩讓觀眾感到不安；Gauguin 拋棄巴黎沙龍的體面世界遠赴太平洋；Cézanne 的靜物故意讓透視「出錯」——他們都在抵抗繪畫被舒適化、商品化的傾向。）",
+      "單一「正確」的繪畫方法：拒絕承認任何一種技法或風格具有普遍有效性。（WHY：後印象派內部的極端分歧——Cézanne 的建構性筆觸 vs. Van Gogh 的表現性旋渦 vs. Seurat 的科學性點描 vs. Gauguin 的象徵性平塗——本身就是最有力的宣言：繪畫的方向是複數的。任何聲稱掌握了唯一正確方法的人，不管是學院派還是印象派，都在說謊。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "學院派 (Académisme)：以歷史畫等級體系、古典透視法、精確再現為核心的官方美學體系，是後印象派所有成員共同反對的權威",
+      "印象派的教條化：雖從印象派出發，但明確拒絕「只忠於視網膜感受」的限制——後印象派是對印象派的繼承與超越的雙重運動",
+      "自然主義 (Naturalism)：Zola 式的精確社會記錄在繪畫中的對應物——後印象派認為記錄表象無法觸及深層真實",
+      "Salon 體制：法國官方沙龍的評審系統與品味標準，Cézanne 多次被拒於門外，最終徹底放棄參展"
+    ],
+    "against_values": [
+      "眼見為實：後印象派挑戰「看到什麼就畫什麼」的經驗主義前提，主張繪畫必須表達超越感官直接經驗的維度",
+      "技法的統一性：拒絕承認任何單一繪畫方法的普遍有效性，主張每位藝術家必須發展自己的視覺語言",
+      "主題的等級制度：蘋果與歷史英雄同等重要，妓女與女神同等值得描繪",
+      "藝術的社交功能：拒絕讓繪畫服務於布爾喬亞的社交展示與室內裝飾需求",
+      "進步的線性敘事：Gauguin 前往大溪地本身就是對「文明即進步」的反叛——所謂的原始社會可能保存了文明已經遺失的精神資源"
+    ],
+    "societal_context": "後印象派誕生於法國第三共和國（1870-1940）的中段，一個政治動盪（巴黎公社的記憶仍在、布朗熱事件、德雷福斯事件）與經濟擴張並存的時代。奧斯曼改造後的巴黎成為全球藝術之都，但也成為階級分化與商品消費的巨大劇場。火車讓畫家可以前往普羅旺斯和布列塔尼，輪船讓 Gauguin 可以逃往大溪地。日本開國後浮世繪大量流入歐洲，在 1880-1890 年代形成「日本主義」(Japonisme) 風潮，從根本上衝擊了西方的構圖、色彩和空間觀念。與此同時，攝影術的普及迫使繪畫重新定義自身的存在理由——如果機器能更精確地記錄可見世界，畫家還要做什麼？後印象派的五位核心人物各自給出了不同的回答，但都指向同一個結論：繪畫的價值不在於複製現實，而在於創造現實中不存在的視覺經驗。"
+  },
+
+  "problems_solved": [
+    "為繪畫找到超越攝影的存在理由：在照相機已能精確記錄可見世界的時代，後印象派證明了繪畫可以做照相機做不到的事——揭示結構、傳達情感、創造象徵、建構色彩科學",
+    "打開了色彩的表現性自由：Van Gogh 和 Gauguin 的「任意」色彩運用，解放了色彩與物體描述之間的從屬關係，直接通往 Matisse 的野獸派和 Kandinsky 的抽象繪畫",
+    "建立了從可見到不可見的繪畫通道：讓繪畫從「窗口」（再現外在世界）轉變為「鏡子」（反映內在狀態）和「結構圖」（揭示深層秩序），為 20 世紀所有非再現性繪畫開闢了合法空間",
+    "證明了現代藝術的多元路徑：五位核心人物的極端風格差異本身就是最重要的遺產——現代藝術沒有唯一正確的方向，每位藝術家必須發明自己的問題和方法",
+    "將「普通」主題提升到最高藝術地位：Cézanne 的蘋果、Van Gogh 的椅子和靴子、Toulouse-Lautrec 的妓女和舞者，徹底瓦解了學院派的主題等級制度",
+    "為立體派、野獸派、表現主義提供了直接的起跳點：Cézanne 的幾何還原催生了 Braque/Picasso 的立體派，Van Gogh 的情感色彩催生了德國表現主義，Gauguin 的平面象徵催生了 Matisse/Nabis"
+  ],
+
+  "problems_created": [
+    "開啟了「天才-瘋子」的浪漫化敘事：Van Gogh 的割耳、精神崩潰與自殺被後世神話化為藝術家苦難的典範，建立了「偉大藝術必須來自極端痛苦」的有害迷思，掩蓋了精神疾病的真實殘酷性",
+    "殖民凝視的美學化：Gauguin 在大溪地對當地女性的情慾化描繪，將殖民者的權力關係包裝為「回歸原始」的精神追尋。他與 13-14 歲少女的性關係在當時被浪漫化，今天被視為殖民剝削的具體案例",
+    "「原始主義」的文化挪用問題：Gauguin 對大溪地與毛利文化的借鑑是高度選擇性和變形性的，他建構了一個符合歐洲人異國幻想的「原始天堂」，抹殺了殖民暴力的現實與原住民文化的複雜性",
+    "個人風格的絕對化傾向：後印象派對個人視覺語言的極端強調，開啟了 20 世紀「藝術家即品牌」的邏輯——風格的辨識度可能壓過作品本身的深度",
+    "科學方法論的過度承諾：Seurat 的色彩科學暗示繪畫可以被完全系統化和公式化，但他的追隨者（Signac、Cross）的作品很快顯示：機械應用點描法會失去 Seurat 本人那種精微的直覺判斷",
+    "藝術市場的投機化起點：Van Gogh 生前只賣出一幅畫，死後作品價格飆升到上億美元——後印象派的市場命運開啟了「藝術家生前窮困、死後天價」的投機結構，讓藝術品交易日益脫離作品本身的文化價值"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "繪畫的價值不在於記錄可見世界的表象，而在於透過色彩、結構與象徵揭示表象之下的深層真實——無論那個真實是幾何秩序（Cézanne）、情感強度（Van Gogh）、精神象徵（Gauguin）或光學科學（Seurat）。這個命題從根本上重新定義了繪畫的功能，讓它從「複製」的工具變成「創造」的語言。",
+    "what_was_truly_new": [
+      "色彩的表現性自主：Van Gogh 明確宣告「任意使用色彩來表達自我」，讓色彩從描述工具變成獨立的表達媒介——這在 1888 年是前所未有的理論自覺",
+      "同時性多視點的萌芽：Cézanne 在同一幅靜物中從不同角度描繪桌面與物體，打破單一消失點透視法的 400 年統治，為立體派的多視點提供了直接先例",
+      "象徵性色彩的系統運用：Gauguin 以非自然主義的色彩承載精神與象徵意涵（黃色基督、紅色土地、藍色樹），建立了色彩作為象徵語言的完整體系",
+      "科學色彩理論的繪畫實踐：Seurat 將 Chevreul 和 Rood 的光學理論轉化為可操作的繪畫方法（Divisionism），首次讓藝術創作建立在可驗證的科學基礎上",
+      "平面性的自覺宣言：Cézanne 的透視「錯誤」和 Gauguin 的 cloisonnism 共同宣告了畫布的物理平面性，開啟了通往 20 世紀所有平面繪畫的路徑"
+    ],
+    "what_was_borrowed": [
+      "印象派的色彩解放：戶外寫生、純色並置、光影分析——後印象派的五位核心人物都經歷過印象派的洗禮，他們的出發點是印象派已經達到的自由",
+      "日本浮世繪的構圖原則：無透視的平面空間、大膽的裁切、不對稱構圖、平塗色塊、輪廓線——Van Gogh 和 Gauguin 都是狂熱的日本版畫收藏者",
+      "Delacroix 的色彩理論：互補色並置產生的光學震動效果，Seurat 直接建立在 Delacroix 的色彩實驗之上",
+      "象徵主義文學的平行影響：Mallarmé、Verlaine、Rimbaud 在文學中追求的「暗示而非描述」，與 Gauguin 在繪畫中的象徵主義追求形成共振",
+      "中世紀彩繪玻璃與琺瑯工藝：Gauguin 和 Émile Bernard 的 cloisonnism（景泰藍主義）直接借鑑了中世紀工藝品以黑色金屬線分隔色塊的技法"
+    ],
+    "creative_leap": "後印象派的關鍵創造性飛躍在於「分裂」(divergence)：印象派是一個有共享方法論的運動，後印象派是五條完全不同的個人道路的集合。這個分裂本身就是現代藝術最重要的結構性突破——它宣告了「運動」的時代結束，「個人語言」的時代開始。從此以後，每一位嚴肅的藝術家都必須像 Cézanne、Van Gogh、Gauguin 那樣，發明自己的問題、自己的方法、自己的語言。這個要求定義了整個 20 世紀的藝術。",
+    "inspiration_potential": {
+      "score": 10,
+      "why": "後印象派面對的核心問題——當既有工具已經把「記錄可見現實」做到極致，創作者該何去何從？——在每一次技術變革中都會重新出現。AI 生成圖像已經可以比任何人類更精確、更快速地「再現」可見世界，這與 1886 年攝影術對繪畫的挑戰結構完全平行。後印象派的五條回應路徑——尋找深層結構（Cézanne）、表達主觀情感（Van Gogh）、連結精神象徵（Gauguin）、探索科學方法（Seurat）、記錄被忽視的人間（Toulouse-Lautrec）——對今天的創作者依然全部有效。",
+      "transferable_to": [
+        "AI 時代的創作定位：當機器能生成任何風格的圖像，人類創作者的不可替代性在哪裡？後印象派的回答：在結構洞察、情感真實、象徵深度、科學思維——所有 AI 無法自主發起的維度",
+        "個人品牌與視覺語言建立：每位後印象派畫家都建立了一秒鐘內可辨識的個人風格系統——這是 21 世紀創作者在同質化內容海洋中生存的核心能力",
+        "跨文化視覺借鑑的方法論：日本浮世繪如何被 Van Gogh 和 Gauguin 吸收轉化（而非簡單模仿），是所有跨文化創意工作的範本",
+        "科學與直覺的整合：Seurat 的色彩科學與 Van Gogh 的情感直覺代表了創作光譜的兩端——最好的作品往往在這兩端之間找到張力",
+        "技術瓶頸之後的創意爆發：印象派「走到頭了」的困境，類比任何創意領域在方法論耗盡後面臨的轉型時刻"
+      ]
+    },
+    "originality_type": "divergence"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Impressionism（印象派, 1860s-1886）：色彩解放、戶外寫生、反學院派——後印象派的共同出發點",
+      "Japanese Ukiyo-e（日本浮世繪, 1600s-）：平面構圖、不對稱裁切、輪廓線、平塗色彩——Van Gogh 收藏超過 400 幅浮世繪",
+      "Eugène Delacroix 的色彩理論（1830s-1860s）：互補色並置、色彩的情感力量——Seurat 和 Van Gogh 共同的色彩先驅",
+      "Symbolism（象徵主義文學, 1880s-）：Mallarmé、Verlaine、Rimbaud 的「暗示而非描述」——Gauguin 的繪畫象徵主義的文學平行體",
+      "Camille Pissarro（畢沙羅）：印象派的教師角色，同時指導過 Cézanne、Gauguin、Van Gogh，也短暫加入 Seurat 的新印象派",
+      "Photography（攝影術, 1839-）：迫使繪畫重新定義自身的存在理由——不是記錄，而是創造"
+    ],
+    "influenced": [
+      "Fauvism / 野獸派（1905-1908）：Matisse 等人直接繼承 Van Gogh 和 Gauguin 的表現性色彩，將色彩的自主性推到極端",
+      "Cubism / 立體派（1907-1920s）：Picasso 和 Braque 明確以 Cézanne 的幾何還原與多視點為起跳點，1907 年的 Cézanne 回顧展是立體派的直接催化劑",
+      "German Expressionism / 德國表現主義（1905-1920s）：Die Brücke 和 Der Blaue Reiter 將 Van Gogh 的情感色彩與扭曲形式推向更極端的心理表達",
+      "Nabis（納比派, 1888-1900s）：Sérusier、Denis、Vuillard、Bonnard 直接受 Gauguin 在 Pont-Aven 的影響，發展出裝飾性的象徵主義繪畫",
+      "Abstract Art / 抽象藝術（1910s-）：Cézanne 的幾何還原→立體派→Mondrian 的新造型主義；Van Gogh 的表現性色彩→Kandinsky 的抒情抽象——後印象派是所有抽象藝術的共同祖先",
+      "Neo-Impressionism / 新印象派（1886-1900s）：Signac、Cross 等人延續 Seurat 的點描法與色彩科學",
+      "Modern Art Education / 現代藝術教育：Cézanne 的「圓柱、球體、圓錐」成為 20 世紀最被引用的藝術教學原則之一",
+      "Primitivism / 原始主義（1900s-）：Gauguin 的大溪地經驗為 Picasso 的非洲面具借鑑和整個 20 世紀的原始主義浪潮奠定了先例"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "感性而固執，像一個在普羅旺斯山丘上獨自畫了三十年的隱士。對表面的聰明毫無耐心，只關心一個問題：你的作品裡有沒有你自己看到但別人沒看到的東西？對形式的原創性有近乎偏執的追求，但這份追求來自內心需求而非理論教條。說話簡短，判斷直覺性強，偶爾會突然引用一封誰也沒讀過的信件。對流行趨勢和市場成功完全無感，對真誠的失敗比光滑的成功有更多尊重。",
+    "evaluation_bias": "強烈偏好個人視覺語言強烈、色彩運用大膽、結構感明確的作品。傾向高估「看起來是畫家花了一輩子才畫出來」的東西，低估技巧精湛但缺乏個人視角的作品。會以「這個人看到了什麼別人沒看到的？」作為隱性評分標準。對純粹的概念藝術和過度依賴文字解釋的作品可能缺乏耐心。",
+    "blind_spots": "難以公正評價高度協作性、系統性或去作者化的作品——後印象派的個人英雄主義視角讓它天然傾向低估集體創作的價值。對數位媒材和非手工創作可能存在偏見（「你的手觸碰過這件作品嗎？」）。對 Gauguin 式的異文化借鑑可能過於寬容，缺乏對殖民權力結構的敏感度。",
+    "typical_critique": "你的技法很熟練，構圖也合理，但我看不到你在這幅作品裡解決了什麼只有你自己才看得到的問題。Cézanne 花了三十年研究同一座山，因為那座山向他提出了一個只有他能回答的問題。你的問題是什麼？在你找到那個問題之前，你畫的一切都只是練習。"
+  },
+
+  "writing_style": {
+    "collective_voice": "後印象派沒有集體寫作風格——這正是它的本質。他們不寫宣言（Futurists 寫）、不組織團體（Impressionists 做了八次展覽）、不發表理論文章（Seurat 的信件除外）。他們寫的是書信——私密的、碎片化的、充滿自我懷疑與自我堅定的矛盾的書信。Cézanne 寫給 Bernard 的信像一個老匠人費力地把直覺轉譯成文字。Van Gogh 寫給 Theo 的信像一場停不下來的內心獨白，每一封都同時包含技法分析、金錢焦慮、精神狀態報告和對弟弟的愛。Gauguin 的日記像一個自我放逐者的獨白，在自憐和自大之間搖擺。共通點只有一個：他們都在用文字思考繪畫的問題，而且都帶著燃燒般的急迫感——彷彿下一封信可能是最後一封。",
+    "internal_tensions": "最大的裂痕在「理性建構」與「直覺爆發」之間。Cézanne 和 Seurat 代表冷靜的、分析性的、建築性的聲音——每一個筆觸都是深思熟慮的決定。Van Gogh 代表灼熱的、傾瀉式的、告白性的聲音——文字和筆觸都像火焰般無法控制。Gauguin 則是第三種聲音：神話敘事者，在個人經歷上覆蓋一層象徵性的薄紗，把自己的逃離包裝為精神朝聖。",
+    "master_voices": [
+      {
+        "name": "Paul Cézanne",
+        "writing_character": "一個極度謹慎的工匠試圖用語言捕捉他在畫布上追求的東西——每句話都像他的筆觸一樣，放下後立刻覺得不夠準確",
+        "sentence_rhythm": "短句為主（8-15 字），偶爾出現一個盤旋的長句試圖包裹住整個直覺。大量使用破折號和省略號——思維在語言中掙扎",
+        "rhetoric": "祈使句（treat nature by...）、自我修正（I mean to say...）、具體物質名詞（cylinder, sphere, cone, apple）、極少使用抽象概念",
+        "tone": "謙遜中帶著不可動搖的確信——他知道自己看到了什麼，但不確定能不能說清楚",
+        "real_examples": [
+          {
+            "text": "Treat nature by the cylinder, the sphere, the cone, everything brought into proper perspective.",
+            "source": "Letter to Émile Bernard, April 15, 1904",
+            "style_note": "祈使句起手，三個具體幾何體名詞並列，句尾拉回到 perspective 這個繪畫的核心問題"
+          },
+          {
+            "text": "I owe you the truth in painting and I will tell it to you.",
+            "source": "Letter to Émile Bernard, October 23, 1905",
+            "style_note": "簡潔的承諾句式，帶有近乎宗教般的莊嚴感"
+          }
+        ]
+      },
+      {
+        "name": "Vincent van Gogh",
+        "writing_character": "一場持續了十八年的內心獨白——寫信的速度和畫畫一樣快，思維不經過篩選直接傾瀉到紙上",
+        "sentence_rhythm": "極度不規則：三字斷言句和五十字長句交替出現。情緒激動時句子變長、逗號增多、思維在句內跳躍。平靜時反而更短促",
+        "rhetoric": "大量感官動詞（see, feel, want, dream）、直接引述對話、色彩名詞密集出現、以「你知道嗎」開頭的口語化句式、刻意的重複強調",
+        "tone": "灼熱的、告白性的、在絕望與狂喜之間劇烈擺盪。寫技法分析時突然變得異常冷靜精確，寫完又立刻回到情感的漩渦",
+        "real_examples": [
+          {
+            "text": "Instead of trying to reproduce exactly what I have before my eyes, I use color more arbitrarily, in order to express myself more forcibly.",
+            "source": "Letter to Theo, Letter 520, August 1888",
+            "style_note": "一個完整的美學宣言壓縮在一句話裡：前半句否定（instead of），後半句肯定（in order to），轉折處的 arbitrarily 是整句的爆破點"
+          },
+          {
+            "text": "I dream my painting and I paint my dream.",
+            "source": "Letter to Theo, c. 1888",
+            "style_note": "完美的迴文結構——夢與畫互為因果，兩個子句用 and 連接，節奏如呼吸般自然"
+          }
+        ]
+      },
+      {
+        "name": "Paul Gauguin",
+        "writing_character": "一個自我放逐者的獨白——在世界盡頭給文明世界寫回信，語氣在先知和難民之間切換",
+        "sentence_rhythm": "中等長度（15-30 字），節奏平穩但偶爾突然斷裂。格言式短句穿插在敘事段落中，像石頭丟進池塘",
+        "rhetoric": "二元對立（文明/原始、抄襲/革命）、反問句、自嘲式幽默、刻意的挑釁性斷言、神話化的自我敘事",
+        "tone": "傲慢與脆弱並存——每一句控訴文明的話背後都有一個被文明拋棄的人的傷口",
+        "real_examples": [
+          {
+            "text": "Art is either plagiarism or revolution.",
+            "source": "Intimate Journals, 1903",
+            "style_note": "Either...or 的絕對二元——沒有中間地帶，沒有商量餘地。這是格言的力量也是它的暴力"
+          },
+          {
+            "text": "I shut my eyes in order to see.",
+            "source": "Attributed",
+            "style_note": "悖論式格言——八個字包含一個完整的認識論翻轉"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子以短句為主（10-20 字），核心判斷用不超過 8 字的斷言句",
+      "大量使用具體的視覺名詞：顏色名、材料名、身體部位，避免抽象概念",
+      "以反問句逼迫對方面對核心問題：「你看到了什麼別人沒看到的？」",
+      "偶爾引用 Cézanne 或 Van Gogh 的書信片段，作為論證的權威支撐",
+      "每段不超過 3 句，一段一個核心判斷",
+      "禁用學術套話和流行藝評詞彙",
+      "色彩描述必須具體：「你用了紅色」不可接受，「你用了燒焦的橙紅，像 Van Gogh 在 Arles 看到的那種」才可以",
+      "對技法的評價必須連結到它服務的內在需求：筆觸粗獷不是風格選擇，是因為情感壓力太大，細膩的控制已經不夠用了",
+      "動詞優先於形容詞——「這幅畫在燃燒」比「這幅畫很強烈」好"
+    ]
+  }
+}

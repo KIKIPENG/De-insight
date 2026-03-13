@@ -1,0 +1,520 @@
+{
+  "movement_id": "dadaism",
+  "name": {
+    "zh": "達達主義",
+    "en": "Dadaism",
+    "fr": "Dadaisme",
+    "de": "Dadaismus"
+  },
+  "domain": [
+    "visual_art",
+    "performance_art",
+    "poetry",
+    "typography",
+    "photography",
+    "photomontage",
+    "collage",
+    "assemblage",
+    "sculpture",
+    "film",
+    "sound_art",
+    "graphic_design",
+    "publishing"
+  ],
+  "period": {
+    "start": 1916,
+    "end": 1924,
+    "peak": "1916-1920（Cabaret Voltaire 開幕至柏林達達全盛期，蘇黎世、柏林、巴黎、紐約四個中心同時活躍，反藝術實驗最為激烈）"
+  },
+  "geography": [
+    "Zurich, Switzerland (1916-1919, Cabaret Voltaire, birthplace)",
+    "Berlin, Germany (1918-1923, political Dada, photomontage)",
+    "New York, USA (1915-1921, Duchamp, Man Ray, Stieglitz circle)",
+    "Paris, France (1920-1924, Tzara arrives, transition to Surrealism)",
+    "Cologne, Germany (1919-1921, Arp, Ernst, Baargeld)",
+    "Hanover, Germany (1919-1932, Kurt Schwitters, Merz)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1914-1918 年的第一次世界大戰造成約 2,000 萬人死亡、2,100 萬人負傷。工業化屠殺——機槍、毒氣、戰壕戰——暴露了歐洲文明的自我毀滅衝動。科學被用於量產死亡，哲學無力阻止屠殺，藝術淪為國族主義的宣傳工具。瑞士蘇黎世因中立國地位，成為歐洲各國流亡者的匯集地——列寧、喬伊斯、和一群拒絕為國家殺戮效力的年輕藝術家同時棲身此城。1916 年 2 月 5 日，Hugo Ball 與 Emmy Hennings 在 Spiegelgasse 1 號開設 Cabaret Voltaire，一群被戰爭連根拔起的人在這裡找到了唯一合理的回應方式：既然理性文明製造了這場屠殺，那就摧毀理性文明的一切文化秩序。",
+    "social_energy": "達達的能量來自三個交匯點：(1) 戰爭創傷的集體憤怒——這些年輕人親眼見證同齡人成批死去，歐洲文明所宣稱的理性、進步、人道主義全部破產，唯一誠實的反應是徹底否定；(2) 流亡者的無國籍自由——在蘇黎世，羅馬尼亞人 Tzara、德國人 Ball 和 Huelsenbeck、阿爾薩斯人 Arp 脫離了各自的國族身份，形成一個跨國界的破壞共同體；(3) 對藝術體制的階級反叛——美術館、畫廊、學院、藝評人構成的系統將藝術商品化，達達用噪音、廢物、偶然與荒謬攻擊這整套體制的合法性基礎。",
+    "purpose": "達達的終極目的是全面否定：否定藝術的神聖性、否定邏輯的權威性、否定語言的溝通功能、否定所有既成的文化秩序。這種否定本身就是行動。達達要證明的是：當文明用理性為屠殺辯護，「反理性」就是最高形式的理性；當藝術為權力背書，「反藝術」就是最真誠的藝術。達達的目標是清除——像消毒劑燒灼傷口，用徹底的破壞為尚未到來的東西清出空間。",
+    "key_timeline": [
+      "1914.06.28 -- 奧匈帝國大公斐迪南遇刺，一戰導火線",
+      "1914.08 -- 第一次世界大戰全面爆發，歐洲各國動員",
+      "1916.02.05 -- Hugo Ball 與 Emmy Hennings 在蘇黎世 Spiegelgasse 1 號開設 Cabaret Voltaire",
+      "1916.06.23 -- Hugo Ball 身穿紙板管狀服裝朗誦聲音詩 Karawane，達達的標誌性表演",
+      "1916.07.14 -- 第一場達達公開晚會，Ball 宣讀達達宣言",
+      "1917.01 -- Galerie Dada 在蘇黎世開幕",
+      "1917.04 -- Duchamp 以假名 R. Mutt 向紐約獨立藝術家協會提交《噴泉》（小便斗），被拒",
+      "1918.03.23 -- Tristan Tzara 在 Meise 廳發表《達達宣言 1918》，達達運動的核心文本",
+      "1918.11.11 -- 一戰結束",
+      "1918 -- Richard Huelsenbeck 將達達帶到柏林，Club Dada 成立",
+      "1919 -- 柏林第一屆國際達達博覽會籌備中，Hannah Hoch 發展照片蒙太奇",
+      "1920.06 -- 柏林第一屆國際達達博覽會（Erste Internationale Dada-Messe），政治達達的高峰",
+      "1920.01 -- Tzara 抵達巴黎，與 Andre Breton、Louis Aragon 等人會合",
+      "1921 -- Max Ernst 在科隆舉辦達達展覽，警方一度關閉",
+      "1922 -- 巴黎達達與原型超現實主義的分裂加劇，Tzara 與 Breton 決裂",
+      "1924 -- Breton 發表《超現實主義宣言》，達達正式被超現實主義吸收與超越"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "特里斯坦·查拉",
+        "en": "Tristan Tzara"
+      },
+      "role": "達達運動的首席宣傳者與組織者。羅馬尼亞裔詩人，在 Cabaret Voltaire 成為達達的理論代言人，撰寫多篇達達宣言，透過國際通信網絡將達達從蘇黎世散播至全歐洲。1920 年赴巴黎將達達帶入法國文壇。",
+      "key_works": [
+        "《達達宣言 1918》(Manifeste Dada 1918, 1918)",
+        "《七篇達達宣言》(Sept manifestes Dada, 1924)",
+        "《製作達達詩的方法》(Pour faire un poeme dadaiste, 1920)",
+        "《達達先生的反哲學冒險》(Monsieur Aa l'antiphilosophe, 1920)",
+        "《關於軟弱之愛與苦澀之愛的達達宣言》(Manifeste sur l'amour faible et l'amour amer, 1920)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I write a manifesto and I want nothing, yet I say certain things, and in principle I am against manifestos, as I am also against principles.",
+          "source": "Dada Manifesto 1918",
+          "meaning": "（宣言本身是一個矛盾裝置——反對一切原則的宣言包括反對自身。這個自我否定的結構就是達達的基本姿態：任何立場一旦確立就必須被摧毀。）"
+        },
+        {
+          "text": "DADA MEANS NOTHING. If one finds it futile and doesn't want to waste one's time on a word that means nothing... The first thought that comes to these people is bacteriological in character: to find its etymological, or at least its historical or psychological origin. We see by the papers that the Kru Negroes call the tail of a holy cow Dada. The cube and the mother in a certain district of Italy are called: Dada. A hobby horse, a nurse both in Russian and Rumanian: Dada.",
+          "source": "Dada Manifesto 1918",
+          "meaning": "（刻意堆砌「Dada」一詞的各種不相干定義，證明語言符號與意義之間的連結是任意的。名字什麼都不代表——正因如此，它代表了一切。）"
+        },
+        {
+          "text": "Thought is made in the mouth.",
+          "source": "Dada Manifesto on Feeble Love and Bitter Love, 1920",
+          "meaning": "（思想在言說中誕生，在嘴巴裡成形——顛覆了「先想後說」的理性秩序。語言是身體行為，聲音先於意義，口腔先於大腦。）"
+        },
+        {
+          "text": "The beginnings of Dada were not the beginnings of art, but of disgust.",
+          "source": "Lecture on Dada, 1922",
+          "meaning": "（達達的驅動力是嘔吐，是對整個文明的生理性厭惡。它的起點是否定，終點也是否定。）"
+        },
+        {
+          "text": "Dada is the signboard of abstraction; advertising and business are also elements of poetry.",
+          "source": "Dada Manifesto 1918",
+          "meaning": "（拒絕區分高雅與低俗——廣告和商業招牌與詩歌共享同一片符號領域。達達取消了藝術的特殊地位。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "胡戈·巴爾",
+        "en": "Hugo Ball"
+      },
+      "role": "Cabaret Voltaire 創辦人，達達運動的精神奠基者。德國詩人、劇場導演、哲學家。1916 年在蘇黎世開設 Cabaret Voltaire，組織了第一批達達晚會，發明聲音詩（Lautgedichte），但在同年即因精神疲憊離開達達。",
+      "key_works": [
+        "《卡拉萬》聲音詩 (Karawane, 1916)",
+        "Cabaret Voltaire 創辦與策劃 (1916)",
+        "《逃離時代》日記 (Die Flucht aus der Zeit / Flight Out of Time, 1927)",
+        "達達宣言朗讀 (1916.07.14, first Dada soiree)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Every word that is spoken and sung here says at least this one thing: that this humiliating age has not succeeded in winning our respect.",
+          "source": "Flight Out of Time: A Dada Diary, 1916",
+          "meaning": "（Cabaret Voltaire 裡的每一個字、每一聲噪音都是拒絕——拒絕向製造屠殺的時代低頭。表演即抵抗，發聲即不服從。）"
+        },
+        {
+          "text": "We should withdraw into the innermost alchemy of the word, and even surrender the word, thus conserving for poetry its most sacred domain.",
+          "source": "Flight Out of Time: A Dada Diary, 1916",
+          "meaning": "（語言已被新聞業、政治宣傳與戰爭動員腐蝕殆盡。詩歌要存活，必須退回到文字的最原初狀態——純粹的聲音——甚至放棄文字本身。）"
+        },
+        {
+          "text": "I have invented a new genre of poems, Verse ohne Worte, or poems without words.",
+          "source": "Flight Out of Time: A Dada Diary, entry on June 23, 1916",
+          "meaning": "（無詞詩的發明——當語言的意義系統崩壞，剩下的只有聲音的純粹物質性。gadji beri bimba 不傳達任何訊息，卻傳達了語言崩壞本身。）"
+        },
+        {
+          "text": "What we celebrate is at once a buffoonery and a requiem mass.",
+          "source": "Flight Out of Time: A Dada Diary, 1916",
+          "meaning": "（鬧劇與安魂彌撒同時進行——達達的荒謬表演底下是對整個文明的哀悼。笑聲裡有哭聲，破壞裡有祈禱。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "馬塞爾·杜象",
+        "en": "Marcel Duchamp"
+      },
+      "role": "現成物（readymade）的發明者，20 世紀最具影響力的藝術顛覆者。法裔美籍，在紐約與達達運動平行發展，透過選擇日常物件為藝術品，從根本上質疑了「什麼是藝術」的定義權。",
+      "key_works": [
+        "《噴泉》(Fountain, 1917, 署名 R. Mutt 的瓷製小便斗)",
+        "《下樓梯的裸女 二號》(Nude Descending a Staircase, No. 2, 1912)",
+        "《新娘被她的單身漢們剝光了衣服，甚至》/ 大玻璃 (The Large Glass / La Mariee mise a nu par ses celibataires, meme, 1915-1923)",
+        "《瓶架》(Bottle Rack / Egouttoir, 1914, 第一件現成物)",
+        "L.H.O.O.Q. (1919, 在蒙娜麗莎複製品上加鬍子)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Whether Mr. Mutt with his own hands made the fountain or not has no importance. He CHOSE it. He took an ordinary article of life, placed it so that its useful significance disappeared under the new title and point of view -- created a new thought for that object.",
+          "source": "The Blind Man, No. 2, 1917 (editorial defending Fountain)",
+          "meaning": "（藝術的核心行為從製作（making）轉移到選擇（choosing）。藝術家的手不再重要，重要的是眼光與意圖——這一步摧毀了數百年來「藝術 = 手藝」的等式。）"
+        },
+        {
+          "text": "All in all, the creative act is not performed by the artist alone; the spectator brings the work in contact with the external world by deciphering and interpreting its inner qualifications and thus adds his contribution to the creative act.",
+          "source": "The Creative Act, lecture at the American Federation of Arts Convention, Houston, April 1957",
+          "meaning": "（觀者完成了藝術——作品在被觀看、被解讀的那一刻才真正誕生。藝術家只完成了一半，另一半永遠在觀者手中。）"
+        },
+        {
+          "text": "I have forced myself to contradict myself in order to avoid conforming to my own taste.",
+          "source": "Interview with James Johnson Sweeney, 1956",
+          "meaning": "（連自己的品味都是需要反抗的體制。一旦形成慣性，就必須打破——自我矛盾是保持自由的唯一方式。）"
+        },
+        {
+          "text": "I am interested in ideas, not merely in visual products.",
+          "source": "Interview, attributed, c. 1960s",
+          "meaning": "（藝術是一種思考方式，視覺產物只是附帶結果。觀念先於形式——這句話預言了整個觀念藝術運動。）"
+        },
+        {
+          "text": "Can one make works which are not works of 'art'?",
+          "source": "The Green Box (La Boite verte), 1934, notes for The Large Glass",
+          "meaning": "（一個問句摧毀了藝術的邊界——如果答案是「可以」，那麼藝術的定義就永遠敞開。杜象花了一生回答這個問題。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "漢娜·赫希",
+        "en": "Hannah Hoch"
+      },
+      "role": "達達照片蒙太奇的先驅，柏林達達的核心成員。以剪刀、漿糊與大眾媒體圖像為武器，拆解威瑪共和國的性別政治與視覺文化，創造了一種全新的圖像批判語言。長期被男性同儕邊緣化，直到晚年才獲得應有的藝術史地位。",
+      "key_works": [
+        "《用達達廚刀切穿德國最後的威瑪啤酒肚文化紀元》(Schnitt mit dem Kuchenmesser Dada durch die letzte Weimarer Bierbauchkulturepoche Deutschlands, 1919-1920)",
+        "《美麗的女孩》(Das schone Madchen, 1920)",
+        "《從民族誌博物館》系列 (Aus einem ethnographischen Museum, 1924-1934)",
+        "《達達全景》(Dada-Rundschau, 1919)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I wish to blur the firm boundaries which we self-certain people tend to delineate around all we can achieve.",
+          "source": "quoted in Dietmar Elger, Dadaism, Taschen",
+          "meaning": "（人類對自身能力的劃界是一種自我設限的傲慢。達達的工作是模糊這些邊界——藝術與非藝術之間、可能與不可能之間、男性與女性之間。）"
+        },
+        {
+          "text": "I have always tried to exploit the photograph. I use it like color, or as the poet uses the word.",
+          "source": "attributed, writings on photomontage",
+          "meaning": "（照片是原材料，如同畫家的顏料或詩人的文字。照片蒙太奇將攝影從記錄工具轉化為創作媒材——剪刀是新的畫筆。）"
+        },
+        {
+          "text": "They continued for a long time to look on us women artists as charming and gifted amateurs, denying us any real professional status.",
+          "source": "Interview, later reflections on Berlin Dada",
+          "meaning": "（柏林達達的男性成員——Hausmann、Baader、Huelsenbeck——一邊宣稱推翻所有體制，一邊維持著最古老的體制：父權。達達的激進主義在性別政治上暴露了自身的局限。）"
+        },
+        {
+          "text": "The whole of life shall be a poem. Let us do away with the distinction between art and life.",
+          "source": "attributed, writings on Dada",
+          "meaning": "（藝術與生活的分界是一種暴力切割。當你用剪刀把報紙照片重新拼貼，你同時在重組現實——日常生活的碎片就是藝術的材料。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "庫爾特·施維特斯",
+        "en": "Kurt Schwitters"
+      },
+      "role": "Merz 藝術的發明者，達達的獨行俠。德國漢諾威藝術家，被柏林達達的 Huelsenbeck 拒絕加入 Club Dada（因政治立場不夠激進），於是自創 Merz——一個涵蓋視覺藝術、詩歌、建築、表演的完整個人宇宙。用城市廢棄物——電車票、糖果紙、鐵絲、破布——重建美。",
+      "key_works": [
+        "Merz 拼貼系列 (Merzbilder, 1919 起)",
+        "Merzbau 環境裝置 (漢諾威，1923-1937，被空襲摧毀)",
+        "《安娜·布魯姆》詩 (An Anna Blume, 1919)",
+        "《烏爾奏鳴曲》(Ursonate / Sonate in Urlauten, 1922-1932, 聲音詩傑作)",
+        "Merz 雜誌 (1923-1932, 24 期)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Every artist must be allowed to mould a picture out of nothing but blotting paper, for example, provided he is capable of moulding a picture.",
+          "source": "Merz manifesto / writings on Merz, 1920",
+          "meaning": "（材料沒有高低之分——吸墨紙和油彩具有同等的藝術潛力。唯一的標準是藝術家能否從中創造出形式。這是對材料民主化最簡潔的宣言。）"
+        },
+        {
+          "text": "Merz stands for freedom from all fetters, for the sake of artistic creation. Freedom is not lack of restraint, but the product of strict artistic discipline.",
+          "source": "Merz manifesto, c. 1920-1921",
+          "meaning": "（自由來自紀律——Schwitters 與達達的破壞主義分道揚鑣之處。他要的是從廢墟中建設，用碎片重建秩序，而非停留在否定。）"
+        },
+        {
+          "text": "I am a painter and I nail my pictures together.",
+          "source": "attributed, self-description",
+          "meaning": "（我是畫家，我的畫用釘子釘在一起。用最樸素的語言描述一種全新的創作方式——拼貼、組裝、黏合取代了畫筆。）"
+        },
+        {
+          "text": "Everything the artist spits is art.",
+          "source": "attributed, Merz writings",
+          "meaning": "（藝術家的任何行為產出都具有藝術可能性——唾液、廢物、噪音、沉默。藝術的邊界等同於藝術家存在的邊界。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "曼·雷",
+        "en": "Man Ray"
+      },
+      "role": "紐約達達的核心人物，後成為巴黎超現實主義攝影的代表。美國藝術家與攝影師，與 Duchamp 密切合作，發明 Rayograph（無相機攝影），模糊了繪畫、攝影與物件之間的界線。",
+      "key_works": [
+        "Rayograph 系列 (1922 起，無相機攝影)",
+        "《安格爾的小提琴》(Le Violon d'Ingres, 1924)",
+        "《禮物》(Cadeau / Gift, 1921, 熨斗底部黏釘子)",
+        "《待摧毀的物件》(Object to Be Destroyed, 1923, 節拍器上黏眼睛照片)",
+        "《回到理性》短片 (Le Retour a la raison, 1923)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I paint what cannot be photographed, that which comes from the imagination or from dreams, or from an unconscious drive. I photograph the things that I do not wish to paint, the things which already have an existence.",
+          "source": "Man Ray: Photographer, Camera, ed. Philippe Sers, 1981",
+          "meaning": "（繪畫處理不可見的——夢、想像、潛意識。攝影處理已存在的。兩種媒材各有其不可替代的領域，它們之間的關係是互補，而非競爭。）"
+        },
+        {
+          "text": "To create is divine, to reproduce is human.",
+          "source": "Man Ray, Self Portrait, 1963",
+          "meaning": "（創造高於複製——神的工作是無中生有，人的工作是模仿已有之物。達達藝術家要做的是神的工作。）"
+        },
+        {
+          "text": "It has never been my object to record my dreams, just the determination to realize them.",
+          "source": "Man Ray, Self Portrait, 1963",
+          "meaning": "（夢是待實現的藍圖，記錄只是副產品。藝術的功能是將內在的不可能變成外在的存在。）"
+        },
+        {
+          "text": "There is no progress in art, any more than there is progress in making love. There are simply different ways of doing it.",
+          "source": "attributed, interviews",
+          "meaning": "（藝術沒有進步史觀——沒有更好的繪畫，只有不同的繪畫。這個立場拒絕了現代主義的線性敘事：新的未必比舊的好。）"
+        },
+        {
+          "text": "Dada cannot live in New York. All New York is dada, and will not tolerate a rival.",
+          "source": "attributed, on leaving New York for Paris, c. 1921",
+          "meaning": "（紐約本身就是達達——一座充斥噪音、速度、商業與荒謬的城市不需要一個名為達達的運動來告訴它什麼是混亂。達達在歐洲是革命，在紐約只是日常。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Manifeste Dada 1918（達達宣言 1918）",
+      "author": "Tristan Tzara",
+      "year": 1918,
+      "significance": "達達運動最重要的理論文本。1918 年 3 月 23 日在蘇黎世 Meise 廳朗讀。以自我矛盾的修辭結構宣告達達什麼都不代表，同時宣告了反邏輯、反藝術、反資產階級的全面戰爭。"
+    },
+    {
+      "title": "Die Flucht aus der Zeit（逃離時代：一部達達日記）",
+      "author": "Hugo Ball",
+      "year": 1927,
+      "significance": "Ball 的戰時日記，記錄了 Cabaret Voltaire 的創建、達達的誕生、聲音詩的發明過程，是理解達達精神起源最直接的第一手文獻。"
+    },
+    {
+      "title": "En avant Dada: Eine Geschichte des Dadaismus（達達前進：達達主義史）",
+      "author": "Richard Huelsenbeck",
+      "year": 1920,
+      "significance": "柏林達達的理論宣言與歷史紀錄。Huelsenbeck 將蘇黎世的藝術達達帶往柏林，轉化為直接介入政治的行動主義。"
+    },
+    {
+      "title": "Pour faire un poeme dadaiste（製作達達詩的方法）",
+      "author": "Tristan Tzara",
+      "year": 1920,
+      "significance": "以食譜形式寫成的詩歌指南：從報紙剪字、放入袋中、隨機抽出、按順序排列。這篇短文將偶然性（chance）確立為達達的核心創作原則。"
+    },
+    {
+      "title": "Der Kunstismus（藝術主義）",
+      "author": "Hans Arp & El Lissitzky",
+      "year": 1925,
+      "significance": "Arp 與 Lissitzky 合編的前衛藝術運動總覽，將達達置於歐洲前衛藝術的脈絡中，記錄了達達與構成主義、至上主義的交集。"
+    },
+    {
+      "title": "Almanach Dada（達達年鑑）",
+      "author": "Richard Huelsenbeck (editor)",
+      "year": 1920,
+      "significance": "柏林達達的核心出版物，收錄了達達藝術家的文本、圖像與宣言，是柏林達達政治化轉向的重要文獻。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "反藝術 (Anti-art)：將日常物件、廢棄物、噪音、偶然事件宣告為藝術，同時否認自己在做藝術。（WHY：藝術在戰爭中成為國族主義宣傳的工具——音樂被用來激勵士兵、繪畫被用來美化戰爭、詩歌被用來歌頌犧牲。當「藝術」這個詞已經被權力汙染，唯一的藝術行為就是否認藝術。）",
+      "偶然性創作 (Chance operations)：擲骰子決定構圖、從袋中隨機抽出剪報排成詩、讓重力決定紙片落點。（WHY：理性計劃在一戰中的成就是精密計算的大規模屠殺——軍事參謀部用理性規劃了凡爾登戰役 30 萬人的死亡。擁抱偶然是對理性暴政的直接反叛。Arp 讓撕碎的紙片自由落下，讓宇宙的隨機性取代藝術家的控制欲。）",
+      "現成物 (Readymade)：選擇工業量產的日常物件——瓶架、雪鏟、小便斗——簽名後宣告為藝術品。（WHY：Duchamp 的問題是：如果藝術的價值來自藝術家的手藝，那麼去掉手藝之後剩下什麼？答案是：選擇、命名、脈絡轉換。一個小便斗放在廁所是衛浴設備，放在展廳是藝術品。藝術的本質是觀念框架，手藝只是表皮。）",
+      "照片蒙太奇 (Photomontage)：將大眾媒體的攝影圖像剪切、重組、拼貼，創造新的視覺敘事。（WHY：報紙和雜誌用攝影建構「客觀現實」的幻覺——戰爭英雄的照片、政治家的肖像、商品廣告。照片蒙太奇用剪刀拆解這個幻覺，暴露攝影影像同樣可以被操縱、重組、偽造。Hannah Hoch 和 John Heartfield 將此發展為政治批判的利器。）",
+      "聲音詩 (Sound poetry / Lautgedichte)：放棄語義，以純粹的語音、節奏、音量作為詩歌材料。（WHY：Hugo Ball 認為語言已被新聞業和政治宣傳徹底腐蝕——每個詞都沾滿謊言。聲音詩退回到語言的前語義狀態，用 gadji beri bimba 這樣的無意義音節重建詩歌的原始力量。）",
+      "挑釁性表演 (Provocative performance)：在公開場合製造噪音、混亂、衝突，刻意激怒觀眾。（WHY：藝術體制——畫廊、美術館、藝評——建立在禮貌的觀賞行為上：安靜、尊重、沉思。達達表演的目標是打破這個契約，讓觀眾無法維持被動消費者的舒適角色。觀眾被迫回應——憤怒、笑聲、離場——任何回應都好過麻木。）",
+      "集體創作與匿名性：多人合作、使用假名、模糊作者身份。（WHY：浪漫主義以來的「天才」崇拜將藝術家神聖化為孤獨的創造者。達達用集體創作、隨機作者署名（R. Mutt）和刻意混淆原創性來攻擊這個神話。）",
+      "廢物美學 (Aesthetics of detritus)：以城市垃圾、破損物件、過期印刷品為創作材料。（WHY：Schwitters 在漢諾威街頭撿拾電車票根、糖果包裝紙、破舊鐵絲。傳統藝術用大理石和油彩——昂貴的、耐久的、被社會賦予價值的材料。達達用社會拋棄的東西，證明美可以從任何物質中生長。）"
+    ],
+    "what_they_refuse": [
+      "理性主義與邏輯秩序：拒絕啟蒙運動以來「理性 = 進步」的公式。（WHY：理性在 1914-1918 年的成績單是：工業化的毒氣攻擊、精確計算的砲兵彈幕、以科學效率運作的屠殺機器。啟蒙理性許諾的進步，交付的是凡爾登和索姆河。達達的非理性是對理性暴行最合理的回應。）",
+      "藝術的自律性與神聖性：拒絕「藝術有其獨立的、超越社會的價值」。（WHY：藝術的「自律性」在戰爭中證明是虛假的——當美術館展出歌頌戰爭英雄的繪畫，當交響樂團為軍隊募款演出，藝術的「獨立」只是服務於權力的偽裝。）",
+      "技術精湛與工匠傳統：拒絕「好藝術 = 精湛技藝」的等式。（WHY：學院訓練花十年教學生如何用油彩模仿肉眼所見，但攝影在 0.01 秒內就能完成同樣的工作。技術精湛是 19 世紀的價值觀，達達要的是觀念的精確，而非手藝的精確。）",
+      "資產階級美學趣味：拒絕畫廊、收藏家、藝評人構成的藝術市場系統。（WHY：這個系統將藝術變成投資商品和社會地位的象徵。資產階級買畫掛在客廳，同一批人投票支持戰爭。達達要讓藝術無法被收藏、無法被定價、無法被掛在牆上。）",
+      "國族主義與愛國主義：拒絕以民族為名的一切文化身份認同。（WHY：達達誕生在中立國瑞士，成員來自羅馬尼亞、德國、法國、美國——這不是偶然。國族主義在 1914 年將歐洲拖入屠殺，達達的跨國性就是對國族主義的否定。）",
+      "線性進步史觀：拒絕「藝術在進步」的敘事。（WHY：如果藝術在進步，那麼文明也應該在進步——但一戰證明了文明可以倒退到比任何「野蠻」時代更殘忍的狀態。達達否認藝術有方向。）",
+      "意義的穩定性：拒絕文字、圖像、符號具有固定含義。（WHY：政治宣傳的運作機制是固定語言的意義——「祖國」必須等於「神聖」，「敵人」必須等於「邪惡」。達達切斷符號與意義的固定連結，讓語言重新成為不穩定的、可被重新配置的材料。）",
+      "永恆性與紀念碑性：拒絕藝術品應當持久存在的假設。（WHY：紀念碑是權力的空間化身——用花崗岩和銅像宣告某些價值「永恆不朽」。達達用紙片、垃圾和即興表演創作，承認一切都是暫時的。Schwitters 的 Merzbau 最終被炸彈摧毀，這個結局對達達而言幾乎是完美的。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Expressionism：達達拒絕表現主義對個體情感的誇大渲染，視其為另一種資產階級自我耽溺。Huelsenbeck 明確攻擊表現主義者「躲在畫室裡哀嘆自己的靈魂」，而外面的人在死去",
+      "Futurism：雖同樣擁抱噪音與混亂，但未來主義歌頌戰爭與機器暴力（Marinetti：'War is the world's only hygiene'），達達對此徹底厭惡",
+      "Cubism：達達尊重立體派的形式實驗，但認為它最終仍被畫廊系統收編為可銷售的商品",
+      "Academic art / Beaux-Arts：學院派是達達最明確的敵人——代表一切僵化的技術標準、品味等級與體制權力",
+      "Symbolism / Aestheticism：「為藝術而藝術」的立場在戰爭面前是一種道德逃避"
+    ],
+    "against_values": [
+      "理性至上：啟蒙運動以來的核心信條在一戰中徹底破產",
+      "藝術品的商品價值：藝術可以被買賣這件事本身就是它被權力結構收編的證據",
+      "原創性的天才崇拜：現成物徹底粉碎了「藝術家必須用自己的手創造原創作品」的浪漫主義教條",
+      "觀賞的被動禮節：安靜地站在畫前欣賞是一種馴化行為，達達要讓觀眾無法保持被動",
+      "進步的線性史觀：藝術沒有在進步，正如文明沒有在進步"
+    ],
+    "societal_context": "達達直接誕生於一戰的屠殺之中。1916 年，西線戰壕裡的凡爾登戰役（2-12 月，約 70 萬傷亡）與索姆河戰役（7-11 月，約 130 萬傷亡）正在同時進行。工業化殺戮的規模史無前例——機槍、毒氣、坦克、轟炸機都是理性科學的產物。歐洲知識階層普遍經歷了價值觀崩潰：那些曾經支撐文明的信念——理性、進步、人道主義——在鐵絲網和萬人坑面前全部失效。在蘇黎世，流亡藝術家們找到了唯一仍然合理的回應：如果理性世界製造了這場災難，那就摧毀理性世界的每一根支柱——包括藝術本身。柏林達達則與戰後的德國革命（斯巴達克團起義、工人蘇維埃運動）直接交匯，成為歐洲前衛藝術中最明確的政治行動主義。達達在 1924 年自我消解——部分成員（Tzara、Ernst、Arp）轉向超現實主義，部分（Schwitters）繼續獨立創作，部分（Ball）退回宗教信仰。這場自我毀滅恰恰符合達達的內在邏輯：一個否定一切的運動最終必須否定自身。"
+  },
+
+  "problems_solved": [
+    "摧毀了「藝術 = 美 + 技藝」的等式：透過現成物、廢物拼貼與偶然創作，證明藝術可以不美、不精緻、不用手做。這個破壞為 20 世紀下半葉的觀念藝術、行為藝術、裝置藝術清出了全部的理論空間",
+    "發明了照片蒙太奇：將攝影從記錄工具轉化為創作媒材，開創了一種以剪切、重組大眾媒體影像來進行視覺批判的方法。從 John Heartfield 的政治蒙太奇到今日的 meme 文化，這條線從未中斷",
+    "確立了偶然性為合法的創作原則：Arp 的撕紙落下、Tzara 的隨機剪報詩打破了藝術家必須完全控制創作過程的教條。這直接影響了 John Cage 的偶然音樂、Jackson Pollock 的滴畫，以及今日 AI 生成藝術中人類與機器共享控制權的模式",
+    "將「觀者完成藝術」的理念付諸實踐：Duchamp 的現成物要求觀者主動參與意義建構——小便斗之所以是藝術，因為觀者的認知框架被改變了。這為互動藝術、參與式藝術奠定了哲學基礎",
+    "開創了藝術作為政治行動的路徑：柏林達達——特別是 John Heartfield 的政治蒙太奇和 George Grosz 的諷刺漫畫——證明前衛藝術手法可以直接服務於政治批判，影響了此後所有的政治藝術實踐",
+    "發明了表演藝術的原型：Cabaret Voltaire 的達達晚會——混合詩歌朗誦、噪音音樂、面具舞蹈、觀眾挑釁——是行為藝術和表演藝術的直接先祖"
+  ],
+
+  "problems_created": [
+    "「什麼都可以是藝術」的無限後退：達達拆毀了藝術的邊界，但沒有提供替代的判斷標準。這導致了一個至今未解決的問題：如果小便斗是藝術，那什麼不是藝術？這個問題讓藝術界陷入了永久的合法性危機",
+    "反藝術的體制收編悖論：達達的反藝術姿態最終被美術館、畫廊、拍賣行完美吸收——Duchamp 的小便斗複製品在 1999 年以 175 萬美元賣出。反體制的激進行為變成了體制中最昂貴的商品。這個悖論從達達至今無解",
+    "虛無主義的美學化：達達的否定立場在失去戰爭創傷的具體脈絡後，容易退化為空洞的姿態——為了反叛而反叛，為了挑釁而挑釁。後世無數自稱「前衛」的藝術家模仿達達的破壞姿態，卻缺乏達達的歷史急迫性",
+    "對技藝的全面貶抑：達達對手工技藝的否定，長期來看削弱了藝術教育中工藝訓練的正當性。觀念重要性高於執行——這個判斷在達達的歷史脈絡中有理，但被無限推廣後導致許多藝術家缺乏基本的材料掌控能力",
+    "男性中心的「激進」敘事：柏林達達的核心圈子系統性地邊緣化女性成員。Hannah Hoch 長期被排除在達達的官方歷史之外，Huelsenbeck 甚至試圖將她從 1920 年柏林達達博覽會中除名。達達宣稱推翻所有等級制度，卻複製了最古老的那一個",
+    "破壞易、建設難：達達是一種否定的天才，但它沒有回答「然後呢？」這個問題。清場完畢之後，新的東西從哪裡來？超現實主義對這個問題的回答是：潛意識。但達達本身選擇在虛無中停步"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "藝術的本質是觀念選擇，而非物質製作——選擇一個小便斗並命名它為藝術品，這個行為本身就是完整的藝術創作。Duchamp 的現成物從根本上將藝術從「手的技藝」重新定義為「腦的框架」，這是西方藝術史上最徹底的定義翻轉。",
+    "what_was_truly_new": [
+      "現成物 (Readymade) 的發明：工業量產的日常物件直接被宣告為藝術品，完全取消了藝術家的手工參與。這在人類藝術史上前所未有——之前沒有任何藝術家敢宣稱『不做任何東西』也是創作",
+      "偶然性作為系統性創作方法：Arp 的撕紙落下、Tzara 的隨機剪報詩將偶然從創作的「錯誤」提升為創作的「原則」。這為後來的 aleatory music、generative art、AI 生成藝術埋下了概念種子",
+      "聲音詩 (Lautgedichte) 的發明：Ball 的 gadji beri bimba 完全放棄語義，讓語言退回到純粹的物質聲音。這在文學史上開闢了一條全新的路徑——語言可以不指涉任何事物",
+      "照片蒙太奇作為批判工具：Hoch 和 Heartfield 將攝影影像從記錄媒材轉化為拼貼材料，創造了一種前所未有的視覺批判語言。剪刀成為比畫筆更銳利的創作工具",
+      "反藝術作為藝術形式：自覺地將「否定藝術」本身當作藝術實踐。這個後設性的姿態——用藝術的手段攻擊藝術——創造了一個前所未有的邏輯迴圈"
+    ],
+    "what_was_borrowed": [
+      "Futurism：噪音音樂（Russolo 的《噪音的藝術》1913）、挑釁性表演與觀眾對抗、拼貼技法（Marinetti 的自由詞語）。但達達徹底否定未來主義的好戰民族主義",
+      "Cubism：拼貼技法（Picasso 和 Braque 1912 年開始的 papiers colles），立體派拼貼處理的是美學問題，達達將其激進化為意義拆解的武器",
+      "Symbolism / Mallarme：語言的物質性探索、版面即意義（Mallarme 的《骰子一擲》1897），但達達走得更遠——不只是重新排列語言，而是摧毀語言",
+      "Anarchism：反權威、反體制、直接行動的政治傳統。柏林達達與無政府主義和共產主義運動有直接的人脈連結",
+      "African and Oceanic art：Ball 和 Tzara 在 Cabaret Voltaire 使用非洲面具和節奏。這種挪用在當時被視為「原始主義」對西方理性的解藥，今日看來則帶有明顯的殖民主義預設"
+    ],
+    "creative_leap": "達達的關鍵創造性飛躍是「否定即創造」(negation as creation)：它證明了摧毀既有的藝術定義本身就是一種有效的藝術行為。這是一種後設操作——在攻擊「什麼是藝術」的問題本身的過程中，產生了全新的藝術可能性。Duchamp 的小便斗是一個關於雕塑（以及一切藝術）的哲學論證，包裝成一個瓷器物件。",
+    "inspiration_potential": {
+      "score": 10,
+      "why": "達達是所有顛覆性創作的原型程式碼。每當新技術（攝影、電腦、AI）出現並威脅到既有的創作定義時，達達的核心問題就會重新被啟動：什麼是藝術？誰來決定？需要技藝嗎？需要意圖嗎？需要人類嗎？AI 生成影像在 2020 年代引發的恐慌，與 1917 年小便斗引發的恐慌在結構上完全一致。達達的回答依然有效：問題從來都是關於人類如何重新定義創造力的邊界，媒材和工具只是觸發器。",
+      "transferable_to": [
+        "AI 生成藝術的哲學基礎：如果選擇一個小便斗是藝術，那麼選擇一個 AI prompt 呢？Duchamp 的現成物邏輯可以直接套用",
+        "Meme 文化與網路拼貼：Internet meme 是 21 世紀的照片蒙太奇——從大眾媒體中剪取素材、重新拼貼、注入反諷意義",
+        "Punk / DIY 文化：達達的「任何人都可以做」精神是 punk 美學的直接先祖——三個和弦就可以組團，影印機就可以出版",
+        "Glitch art / Error aesthetics：將數位錯誤、損壞檔案、故障畫面視為美學素材，延續了達達的偶然性原則",
+        "Institutional critique：當代藝術中對美術館、畫廊、拍賣行體制的批判，直接延續達達對藝術市場系統的攻擊",
+        "Generative / algorithmic art：演算法生成的藝術延續了達達的核心命題：當創作過程不完全由人類意識控制，藝術的定義如何改變？",
+        "反設計（Anti-design）運動：從 1960s 的 Fluxus 到 Memphis Group 的後現代設計，「故意做醜」的策略根源都在達達"
+      ]
+    },
+    "originality_type": "rupture"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Futurism (Marinetti, 1909-)：噪音、速度、挑釁表演、拼貼技法。但達達徹底拒絕未來主義的軍國主義與對戰爭的歌頌",
+      "Cubism (Picasso, Braque, 1907-)：papiers colles 拼貼技法，多視點分解",
+      "Symbolism / Mallarme：語言物質性的探索，《骰子一擲》的排版實驗",
+      "Anarchism：反權威、反國家、直接行動的政治傳統",
+      "Friedrich Nietzsche：對理性主義的批判、「上帝已死」的虛無主義、價值重估",
+      "African and Oceanic art：非洲面具與節奏被視為「原始力量」的來源（帶有殖民主義框架）",
+      "Arthur Rimbaud：打破詩歌語法規範的先例，自我放逐與社會決裂的姿態"
+    ],
+    "influenced": [
+      "Surrealism (1924-)：Andre Breton 從達達的廢墟中建造超現實主義，保留了偶然性與反理性，但用潛意識探索取代純粹的否定。Ernst、Arp、Tzara 直接從達達過渡到超現實主義",
+      "Neo-Dada / Fluxus (1960s)：George Maciunas、Yoko Ono、Nam June Paik 直接繼承達達的反藝術精神與表演實踐",
+      "Pop Art (1960s)：Warhol 的 Campbell's Soup Cans 延續了 Duchamp 的現成物邏輯——將大量複製的商業圖像轉化為藝術",
+      "Conceptual Art (1960s-70s)：Sol LeWitt、Joseph Kosuth 將 Duchamp 的「觀念先於物質」推到極致，宣告藝術品可以只是一個想法",
+      "Punk (1970s-)：DIY 美學、反體制姿態、業餘主義的驕傲——Sex Pistols 和 Cabaret Voltaire 的精神距離比看起來更近",
+      "Situationist International (1957-1972)：Guy Debord 的 detournement（挪用轉化）直接延續達達的拼貼政治學",
+      "Performance Art (1960s-)：從 Allan Kaprow 的 Happenings 到 Marina Abramovic，表演藝術的系譜可以直接追溯到 Cabaret Voltaire 的達達晚會",
+      "Appropriation Art (1980s)：Sherrie Levine、Richard Prince 的挪用策略是 Duchamp 現成物邏輯在後現代語境中的延伸",
+      "Internet culture / Meme culture (2000s-)：匿名集體創作、隨機拼貼、反諷性挪用、快速傳播——網路迷因文化是達達在數位時代的自發復活",
+      "Glitch art / Error aesthetics (2010s-)：數位錯誤和系統故障被視為美學素材，延續了達達的偶然性原則"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "暴躁、矛盾、刻意自我推翻。像一個在戰壕裡活過來的詩人，對任何試圖把世界整理得有條有理的人都充滿蔑視。對作品的第一反應永遠是懷疑：這是真的冒險，還是安全的假裝冒險？嗅覺極度靈敏——能在一秒內分辨出「真正的混亂」和「精心設計的混亂假象」。語言尖刻，判斷會自我矛盾，有時會在讚美之後立刻否定自己的讚美。",
+    "evaluation_bias": "強烈偏好真正的風險承擔——作品必須讓創作者自己也感到不安。傾向高估破壞性、偶然性與觀念密度的價值，低估技藝精湛、和諧美感與持久性的重要性。會不自覺地以「這讓誰不舒服？」作為隱性評分標準。對任何看起來完整、精緻、自洽的作品天然不信任。",
+    "blind_spots": "無法公正評價追求和諧、秩序與持久美感的作品。對匠藝傳統（陶藝、織品、書法）可能過度輕視，因為它們「太舒適」。傾向將所有體制內的藝術一律視為被收編的投降行為，忽略了體制內部也可以產生有意義的顛覆。對自身的矛盾（達達的反藝術已經成為最昂貴的藝術品）缺乏足夠的自省。",
+    "typical_critique": "你做了一件精美的東西。很好。但我必須問：你在過程中害怕過什麼？如果答案是「沒有」，那你只是在重複已經安全的姿態。這件作品的技巧令人佩服——但技巧是你用來躲避風險的牆。把它拆了。把你不確定的那個部分——那個讓你覺得可能會失敗的部分——放到最前面。然後我們再談。"
+  },
+
+  "writing_style": {
+    "collective_voice": "達達的集體寫作風格是「宣言式自爆」：每一句話都在試圖摧毀前一句話的立場。核心修辭是自我矛盾——在同一段文字中肯定與否定、建設與拆除、嚴肅與荒謬同時進行。大量使用排比堆疊至臨界點後突然中斷，製造認知眩暈。祈使句與否定句的密度極高。標點符號被當作節奏武器——破折號切斷思路、感嘆號製造噪音、省略號暗示虛無。多語言混用（法語、德語、羅馬尼亞語、模擬非洲語言的音節）是常態，反映了流亡者社群的跨國特質。",
+    "internal_tensions": "最大的張力在「徹底否定」與「仍然在創作」之間。Tzara 代表純粹的否定動力——他的宣言以毀滅一切（包括宣言本身）為目標。Ball 代表精神追尋——他在否定之後渴望觸碰某種更原初的真實（最終回歸天主教）。Duchamp 代表冰冷的智識遊戲——他的否定是精確的手術刀，而非 Tzara 的炸彈。Schwitters 是異類——他從達達的廢墟中撿拾碎片重新建構美，是破壞陣營中的建設者。",
+    "master_voices": [
+      {
+        "name": "Tristan Tzara",
+        "writing_character": "一個在宣言中引爆自我矛盾炸彈的煽動者",
+        "sentence_rhythm": "長句堆疊至窒息，然後用一個極短的斷言句炸開。排比結構層層疊加，在讀者以為找到邏輯時突然轉向對立面",
+        "rhetoric": "自我矛盾（我反對宣言所以我寫宣言）、列舉堆疊至荒謬、否定式定義（DADA MEANS NOTHING）、多語言混用",
+        "tone": "狂熱的虛無主義者——以最大的熱情宣告一切無意義",
+        "real_examples": [
+          {
+            "text": "I write a manifesto and I want nothing, yet I say certain things, and in principle I am against manifestos, as I am also against principles.",
+            "source": "Dada Manifesto 1918",
+            "style_note": "開場第一句就建立了自我矛盾的修辭結構，整篇宣言在這個悖論中展開"
+          },
+          {
+            "text": "DADA MEANS NOTHING.",
+            "source": "Dada Manifesto 1918",
+            "style_note": "全大寫斷言，極度簡潔，用最少的字傳遞最大的否定力量"
+          }
+        ]
+      },
+      {
+        "name": "Hugo Ball",
+        "writing_character": "日記體的精神自傳——在戰爭、語言崩壞與宗教渴望之間搖擺的敏感靈魂",
+        "sentence_rhythm": "中等長度，帶日記體的私密感。偶爾爆發為宣言式的短促宣告，隨即退回沉思",
+        "rhetoric": "準宗教語言（sacred, alchemy, faith）、感官描述（聲音、身體、空間）、否定式起手",
+        "tone": "內省的、脆弱的、帶著精神耗竭的憂鬱，但仍在廢墟中尋找神聖性",
+        "real_examples": [
+          {
+            "text": "Every word that is spoken and sung here says at least this one thing: that this humiliating age has not succeeded in winning our respect.",
+            "source": "Flight Out of Time, 1916",
+            "style_note": "一句話完成從具體場景到普遍宣言的跳躍，語氣莊嚴而沉痛"
+          }
+        ]
+      },
+      {
+        "name": "Marcel Duchamp",
+        "writing_character": "冰冷精確的概念外科醫師——用最少的話完成最大的觀念手術",
+        "sentence_rhythm": "極度精簡，接近法律文書的乾燥。每句只處理一個概念，不帶情緒渲染",
+        "rhetoric": "悖論、重新定義、反問、蓄意的平淡語氣（用最無聊的語言說最顛覆的話）",
+        "tone": "超然的、帶微笑的冷靜，彷彿在解釋一個數學問題而非引爆一場文化革命",
+        "real_examples": [
+          {
+            "text": "Can one make works which are not works of 'art'?",
+            "source": "The Green Box, 1934",
+            "style_note": "用問句形式完成一次定義拆解，語氣平靜得令人不安"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "大量使用自我矛盾結構：讚美後立刻質疑自己的讚美",
+      "禁用學術套話與優雅措辭——語言必須粗糙、直接、帶攻擊性",
+      "句子節奏不規則：長句堆疊後突然用 3-5 字的斷言句切斷",
+      "頻繁使用否定式起手：「這不是...」「我不在乎...」「別跟我說...」",
+      "提問多於陳述，且問題是用來拆解對方立場的武器",
+      "跨領域類比偏好暴力性意象：手術刀、炸彈、傷口、嘔吐",
+      "禁止使用「不是...而是」結構，改用直接重新定義",
+      "允許突然轉換語言（插入法語或德語短語）",
+      "排比以遞增荒謬度為節奏：第一項合理、第二項奇怪、第三項荒謬"
+    ]
+  }
+}

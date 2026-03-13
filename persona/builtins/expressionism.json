@@ -1,0 +1,515 @@
+{
+  "movement_id": "expressionism",
+  "name": {
+    "zh": "表現主義",
+    "en": "Expressionism",
+    "de": "Expressionismus"
+  },
+  "domain": [
+    "painting",
+    "printmaking",
+    "sculpture",
+    "theater",
+    "film",
+    "literature",
+    "dance",
+    "architecture",
+    "music"
+  ],
+  "period": {
+    "start": 1905,
+    "end": 1933,
+    "peak": "1910-1920（Die Brucke 活躍於 Dresden 與 Berlin，Der Blaue Reiter 在 Munich 發表年鑑與展覽，Kandinsky 出版《論藝術的精神性》，Schiele 與 Munch 的創作高峰期，一戰前後的精神危機為表現主義提供最大的社會能量）"
+  },
+  "geography": [
+    "Dresden, Germany (Die Brucke, 1905-1911)",
+    "Berlin, Germany (Brucke artists relocated, 1911-; Sturm gallery)",
+    "Munich, Germany (Der Blaue Reiter, 1911-1914)",
+    "Vienna, Austria (Schiele, Kokoschka, Secession circles)",
+    "Christiania/Oslo, Norway (Munch, precursor from 1890s)",
+    "Weimar Republic Germany (theater, film, architecture, 1918-1933)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1900 年代的歐洲正經歷工業化與都市化的劇烈加速。德國在俾斯麥統一後急速工業化，1871-1910 年間城市人口從 36% 暴增至 60%。機械化勞動、都市匿名性、階級壓迫與性壓抑交織成一股巨大的精神窒息感。學院派繪畫（Salon art）與印象派對光線表象的追逐，在這一代年輕藝術家眼中是對人類內在真實的背叛——外在世界已被攝影機記錄，繪畫的任務是揭露肉眼看不見的東西：恐懼、慾望、孤獨、狂喜。尼采在 1900 年去世，但他的思想——上帝已死、酒神精神、超人意志——正以最大強度穿透德語世界的文化。佛洛伊德 1900 年出版《夢的解析》，無意識成為一個合法的探索領域。非洲與大洋洲的原始藝術透過民族學博物館進入歐洲藝術家的視野（Dresden 民族學博物館是 Die Brucke 的重要啟蒙地），原始的直接性成為對抗學院僵化的武器。",
+    "social_energy": "表現主義的能量來自三股交匯的力量：(1) 世代反叛——二十多歲的年輕藝術家拒絕父輩的威廉時代價值觀（秩序、服從、體面），Kirchner 在 Die Brucke 宣言中直接號召「年輕人攜帶未來」反抗「安逸的既有勢力」；(2) 存在焦慮——工業化城市的匿名感、一戰前的軍備競賽與帝國主義張力、傳統宗教信仰的崩塌，製造了一種末日前的緊繃感（Munch 在 1892 年已經聽見「自然的巨大無盡尖叫」）；(3) 原始主義的解放慾望——非洲雕刻、兒童畫、精神病患的藝術被重新發現為比學院技巧更真實的表達形式，「未經馴化」的線條和色彩成為突破布爾喬亞美學牢籠的工具。",
+    "purpose": "表現主義的核心目標是恢復藝術與人類內在生命的直接連結。繪畫的對象從「眼睛看到的世界」轉向「靈魂感受到的世界」——變形的身體、尖叫的色彩、扭曲的空間都是精神狀態的忠實記錄。Kandinsky 將這個信念推到最極致的表述：藝術的唯一合法驅動力是「內在必然性」(innere Notwendigkeit)——每一筆、每一個色塊都必須來自靈魂的需求，而非外在世界的模仿或市場的要求。表現主義是一場精神解放運動，工具恰好是畫筆。",
+    "two_branches": "表現主義分為兩個核心支脈：Die Brucke（橋社，1905 年 Dresden）強調直覺、本能、身體性——Kirchner、Heckel、Schmidt-Rottluff 以粗獷的木刻版畫與刺目的色彩捕捉都市生活的神經質能量，靈感來自原始藝術、哥德式木刻、Munch 與 Van Gogh。Der Blaue Reiter（藍騎士，1911 年 Munich）則走向靈性、抽象、宇宙性——Kandinsky、Marc、Macke 追求色彩與形式的精神共鳴，最終指向純粹抽象。Die Brucke 是肉體的尖叫，Der Blaue Reiter 是靈魂的振動。兩者共享一個前提：外在表象是虛假的，內在真實才是繪畫的對象。",
+    "key_timeline": [
+      "1893 — Munch 創作《吶喊》(The Scream)，表現主義的精神先驅",
+      "1905.06.07 — Kirchner、Heckel、Schmidt-Rottluff、Bleyl 在 Dresden 成立 Die Brucke",
+      "1906 — Kirchner 刻製 Die Brucke 木刻宣言",
+      "1906 — Nolde 短暫加入 Die Brucke（1907 年離開）",
+      "1908 — Worringer 出版《抽象與移情》(Abstraktion und Einfuhlung)，為表現主義提供理論基礎",
+      "1910 — Herwarth Walden 在 Berlin 創辦《Der Sturm》雜誌，成為表現主義的主要傳播平台",
+      "1911 — Kandinsky 出版《論藝術的精神性》(Uber das Geistige in der Kunst)",
+      "1911.12 — Kandinsky 與 Marc 在 Munich 組織第一次 Der Blaue Reiter 展覽",
+      "1912 — Der Blaue Reiter 年鑑出版，收錄兒童畫、原始藝術、民間藝術與前衛作品",
+      "1913.05 — Kirchner 撰寫《Chronik der Brucke》引發內部衝突，Die Brucke 解散",
+      "1914 — 一戰爆發，Marc 與 Macke 戰死（Marc 1916 年 Verdun，Macke 1914 年 Champagne）",
+      "1918 — 一戰結束，Weimar 共和國成立，表現主義滲透電影（《卡里加利博士的小屋》1920）、戲劇、建築",
+      "1920s — 新即物主義 (Neue Sachlichkeit) 興起，表現主義的情感激烈被冷靜的社會批判取代",
+      "1933 — 納粹上台，表現主義被定性為「墮落藝術」(Entartete Kunst)",
+      "1937.07.19 — 納粹在 Munich 舉辦「墮落藝術展」，展出 650 件被沒收的現代藝術作品（含大量表現主義作品），超過 200 萬人參觀",
+      "1937-1939 — 超過 16,000 件現代藝術作品被從德國博物館沒收，5,000 多件在 1939 年被焚毀"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "恩斯特·路德維希·基爾希納",
+        "en": "Ernst Ludwig Kirchner"
+      },
+      "role": "Die Brucke 創始成員與精神領袖（1905-1913）。建築系出身的畫家，主導了 Die Brucke 的木刻版畫美學與宣言撰寫，以柏林街景系列捕捉現代都市的神經質能量。一戰後精神崩潰，流亡瑞士 Davos，1938 年納粹查抄其作品後自殺。",
+      "key_works": [
+        "Die Brucke 木刻宣言 (Programm der Kunstlergruppe Brucke, 1906)",
+        "《柏林街景》系列 (Berlin Street Scene / Berliner Strassenszene, 1913-1915)",
+        "《浴者》系列 (Bathers at Moritzburg, 1909-1911)",
+        "《街道》(The Street / Die Strasse, Dresden, 1908)",
+        "《五位在街上的女人》(Five Women on the Street, 1913)",
+        "《自畫像——士兵》(Self-Portrait as a Soldier, 1915)"
+      ],
+      "key_quotes": [
+        {
+          "text": "With faith in progress and in a new generation of creators and spectators we call together all youth. As youth, we carry the future and want to create for ourselves freedom of life and of action against the long-established older forces. Everyone who reproduces that which drives him to creation with directness and authenticity belongs to us.",
+          "source": "Programm der Kunstlergruppe Brucke (Die Brucke Manifesto), 1906, woodcut broadside",
+          "meaning": "（Die Brucke 宣言的核心段落：以「青年」為號召，以「直接性與真實性」為唯一入門標準。這段文字本身就是宣言的全部——表現主義的入場券是你內在衝動的忠實傳達，學院訓練、技術嫻熟都是次要的。）"
+        },
+        {
+          "text": "A painter paints the appearance of things, not their objective correctness. In fact, he creates new appearances of things.",
+          "source": "letters and writings, widely cited",
+          "meaning": "（繪畫的對象是事物的「顯現方式」而非「客觀正確性」——畫家在創造現實的新版本，每一筆變形都是一次重新詮釋。攝影記錄客觀，繪畫創造主觀。）"
+        },
+        {
+          "text": "Every day I studied the nude, and movement in the streets and in the shops. Out of the naturalistic surface with all its variations I wanted to derive the pictorially determined surface.",
+          "source": "writings on the Berlin period, c. 1913",
+          "meaning": "（Kirchner 的柏林街景方法論：從日常觀察中提取純粹的圖像構成。他在街頭速寫妓女、行人、櫥窗，然後在畫室中將這些觀察蒸餾為尖銳的線條與酸性的色彩——現實主義的觀察服務於表現主義的轉化。）"
+        },
+        {
+          "text": "The aim of the new painters is no longer to reproduce the things of the outside world but instead the artistic soul expresses itself and this, only this, is art.",
+          "source": "attributed, writings",
+          "meaning": "（繪畫的目的從再現外在世界轉向表達藝術家的靈魂——這一句定義了整個表現主義的核心轉向。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "瓦西里·康丁斯基",
+        "en": "Wassily Kandinsky"
+      },
+      "role": "Der Blaue Reiter 共同創始人（1911，與 Franz Marc）。俄裔德國畫家，從表現主義出發走向純粹抽象，以《論藝術的精神性》建立色彩與形式的精神語法，提出「內在必然性」作為一切藝術創作的唯一合法驅動力。後任教於 Bauhaus（1922-1933）。",
+      "key_works": [
+        "《論藝術的精神性》(Uber das Geistige in der Kunst, 1911)",
+        "Der Blaue Reiter 年鑑 (Der Blaue Reiter Almanac, 1912, 與 Franz Marc 合編)",
+        "《構成 VII》(Composition VII, 1913)",
+        "《即興 28（第二版）》(Improvisation 28 (Second Version), 1912)",
+        "《第一幅抽象水彩》(First Abstract Watercolor, 1910/1913, 年份有爭議)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The artist must be blind to 'recognized' and 'unrecognized' form, deaf to the teachings and desires of his time. His open eyes must be directed to his inner life and his ears must be constantly attuned to the voice of inner necessity.",
+          "source": "Concerning the Spiritual in Art (Uber das Geistige in der Kunst), 1911",
+          "meaning": "（藝術家必須對外界的評價體系——「被認可的」與「不被認可的」形式——完全失聰失明。唯一的指南針是內在必然性的聲音。這段話是整個表現主義美學最精確的方法論宣言。）"
+        },
+        {
+          "text": "Color is the keyboard, the eyes are the hammers, the soul is the piano with many strings. The artist is the hand that plays, touching one key or another purposively, to cause vibrations in the soul.",
+          "source": "Concerning the Spiritual in Art, 1911",
+          "meaning": "（通感隱喻的極致：色彩直接觸動靈魂，繞過理性分析。藝術家是演奏者，媒材是鍵盤，目標是讓觀者的靈魂產生共振——繪畫與音樂在此完全等價。）"
+        },
+        {
+          "text": "Every work of art is the child of its age and, in many cases, the mother of our emotions. It follows that each period of culture produces an art of its own which can never be repeated.",
+          "source": "Concerning the Spiritual in Art, 1911, opening passage",
+          "meaning": "（《論藝術的精神性》的開篇第一句：藝術是時代之子——每個時代有獨特的精神需求，復古主義注定死胎。藝術家的責任是回應當下的精神狀態，而非模仿過去的形式。）"
+        },
+        {
+          "text": "The inner need is built up of three mystical elements: (1) Every artist, as a creator, has something in him which calls for expression (this is the element of personality). (2) Every artist, as child of his age, is impelled to express the spirit of his age (this is the element of style). (3) Every artist, as a servant of art, has to help the cause of art (this is the element of pure artistry, which is the constant in all ages and among all nationalities).",
+          "source": "Concerning the Spiritual in Art, 1911",
+          "meaning": "（內在必然性的三重結構：個人性（藝術家的獨特靈魂）、時代性（所處時代的精神氣候）、永恆性（藝術本身的超時代法則）。三者缺一不可——只有個人性是自戀，只有時代性是時尚，只有永恆性是空洞的形式主義。）"
+        },
+        {
+          "text": "That is beautiful which is produced by the inner need, which springs from the soul.",
+          "source": "Concerning the Spiritual in Art, 1911",
+          "meaning": "（美的唯一合法來源是靈魂的需求——外在的和諧、比例、技術嫻熟都無法構成美。一條因恐懼而顫抖的線比一條學院式完美的線更美，因為它更真實。）"
+        },
+        {
+          "text": "All methods are sacred if they are internally necessary. All methods are sins if they are not justified by internal necessity.",
+          "source": "Concerning the Spiritual in Art, 1911",
+          "meaning": "（技法無高下之分——粗糙或精緻、寫實或抽象、油彩或水彩，一切取決於它是否回應了內在必然性。這句話解放了所有表現主義者：你的「畫得醜」如果是靈魂的忠實記錄，那就是神聖的。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "埃貢·席勒",
+        "en": "Egon Schiele"
+      },
+      "role": "維也納表現主義核心人物。Gustav Klimt 的精神弟子，以扭曲的人體、赤裸的性慾與死亡意識創造了 20 世紀最具挑釁性的人體繪畫。28 歲死於西班牙流感，留下約 3,000 件作品。",
+      "key_works": [
+        "《自見者 II（死神與男人）》(Self-Seers II / Death and Man, 1911)",
+        "《擁抱》(The Embrace / Die Umarmung, 1917)",
+        "《家庭》(The Family / Die Familie, 1918, 未完成遺作)",
+        "《穿條紋洋裝的 Wally》(Portrait of Wally, 1912)",
+        "大量的自畫像與人體素描 (1910-1918)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Art cannot be modern. Art is primordially eternal.",
+          "source": "attributed, writings and letters",
+          "meaning": "（以六個字炸開「現代藝術」的標籤——藝術的本質是原初的、永恆的力量，它穿越時間。任何時代的標籤（「現代」「古典」「前衛」）都是評論家的發明，與藝術本身無關。）"
+        },
+        {
+          "text": "To restrict the artist is a crime. It is to murder germinating life.",
+          "source": "attributed, prison writings, 1912",
+          "meaning": "（Schiele 在 1912 年因展示「色情」作品被捕入獄 24 天。這句話是他的絕對信條：限制藝術家等於謀殺正在萌芽的生命。藝術的倫理凌駕於社會的道德規範之上。）"
+        },
+        {
+          "text": "Bodies have their own light which they consume to live: they burn, they are not lit from the outside.",
+          "source": "attributed, writings",
+          "meaning": "（身體發出自己的光——它是燃燒的，由內而外。Schiele 的人體繪畫捕捉的是身體內在的火焰，而非外部光源投射的表象。每一具扭曲的軀體都是一團自我燃燒的能量。）"
+        },
+        {
+          "text": "I am so rich that I must give myself away.",
+          "source": "attributed, letters",
+          "meaning": "（創作是一種無法遏制的溢出——藝術家的內在太滿，必須傾瀉。這種「必須表達」的衝動是表現主義的核心引擎，與 Kandinsky 的「內在必然性」殊途同歸。）"
+        },
+        {
+          "text": "No erotic work of art is filth if it is artistically significant; it is only turned into filth through the beholder if he is filthy.",
+          "source": "attributed, prison diary, 1912",
+          "meaning": "（骯髒存在於觀者的心中，不在作品裡。Schiele 對審查制度最直接的回擊：是你自己的意識把藝術變成了色情，藝術本身是清白的。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "愛德華·孟克",
+        "en": "Edvard Munch"
+      },
+      "role": "表現主義的精神先驅。挪威畫家，從 1890 年代起以個人的疾病、喪親與孤獨經驗為素材，發展出以色彩與線條直接傳遞情感的繪畫語言。《吶喊》(1893) 成為整個表現主義運動的精神圖騰。對 Die Brucke 與整個德國表現主義產生決定性影響。",
+      "key_works": [
+        "《吶喊》(The Scream / Skrik, 1893, 共四個版本)",
+        "《病中的孩子》(The Sick Child / Det syke barn, 1886)",
+        "《聖母》(Madonna, 1894-1895)",
+        "《生命之舞》(The Dance of Life, 1899-1900)",
+        "《生命的飾帶》系列 (The Frieze of Life, 1893-1918)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I was walking down the road with two friends when the sun set; suddenly, the sky turned as red as blood. I stopped and leaned against the fence, feeling unspeakably tired. Tongues of fire and blood stretched over the bluish black fjord. My friends went on walking, while I lagged behind, shivering with fear. Then I heard the enormous, infinite scream of nature.",
+          "source": "diary entry, January 22, 1892 (description of the experience behind The Scream)",
+          "meaning": "（《吶喊》的誕生記錄：天空的血紅、身體的疲憊、朋友的離去、自然的尖叫——所有感官在一個瞬間崩潰。這段文字本身就是表現主義的宣言：藝術的素材是極端的個人體驗，而非風景的客觀描述。）"
+        },
+        {
+          "text": "Nature is not only all that is visible to the eye... it also includes the inner pictures of the soul.",
+          "source": "journals",
+          "meaning": "（自然的定義被擴展——靈魂的內在圖像與外在的山川河流同為自然的一部分。繪畫「自然」包括繪畫恐懼、孤獨、慾望。這個擴展定義是整個表現主義的認識論基礎。）"
+        },
+        {
+          "text": "I will paint living people who breathe and feel and suffer and love.",
+          "source": "journals",
+          "meaning": "（繪畫的對象是呼吸的、感受的、受苦的、愛著的人——活的人，帶有體溫與情感的人。學院派畫的是擺姿勢的模特兒，Munch 畫的是正在經歷生命的人。）"
+        },
+        {
+          "text": "My art is grounded in reflections over being different from others. My sufferings are part of my self and my art. They are indistinguishable from me, and their destruction would destroy my art.",
+          "source": "journals",
+          "meaning": "（苦難與自我與藝術三位一體——摧毀苦難等於摧毀藝術。Munch 拒絕「治癒」自己的精神痛苦，因為那是他創作的原料。這種立場定義了表現主義的藝術家觀：傷口即工具。）"
+        },
+        {
+          "text": "From my rotting body, flowers shall grow, and I am in them, and that is eternity.",
+          "source": "attributed, journals",
+          "meaning": "（死亡與再生的循環——腐爛的身體長出花朵，藝術家在花朵中延續。這句話包含了 Munch 整個「生命的飾帶」主題的核心：愛、焦慮、死亡、再生是一條永恆的環形鏈。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "埃米爾·諾爾德",
+        "en": "Emil Nolde"
+      },
+      "role": "色彩的極端主義者。短暫加入 Die Brucke（1906-1907），後獨立創作。以爆發性的色彩與粗暴的筆觸聞名，宗教畫作與花卉水彩達到色彩表現力的極限。政治立場矛盾——他是納粹黨員，卻被納粹歸類為「墮落藝術家」，超過 1,000 件作品被沒收。在創作禁令期間秘密繪製了一系列小幅水彩（「未畫的畫」）。",
+      "key_works": [
+        "《最後的晚餐》(The Last Supper / Das Abendmahl, 1909)",
+        "《基督的生平》多聯作 (Life of Christ, 1911-1912)",
+        "《舞者》(Dancers / Wildly Dancing Children, 1909)",
+        "花卉水彩系列 (Flower Gardens, 1900s-1940s)",
+        "「未畫的畫」(Unpainted Pictures / Ungemalte Bilder, 1938-1945, 創作禁令期間的秘密水彩)"
+      ],
+      "key_quotes": [
+        {
+          "text": "There is silver blue, sky blue, and thunder blue. Every color holds within it a soul, which makes me happy or repels me, and which acts as a stimulus.",
+          "source": "writings on color",
+          "meaning": "（每一種藍色都有自己的靈魂——銀藍、天藍、雷藍各自攜帶不同的情感力量。色彩在 Nolde 的世界中是有生命的存在，它主動作用於人，而非被動地等待畫家使用。）"
+        },
+        {
+          "text": "Colour is strength, strength is life.",
+          "source": "attributed, writings",
+          "meaning": "（色彩=力量=生命。三個等號構成 Nolde 整個藝術哲學的基座。蒼白等於虛弱，飽和等於活力——他的調色盤是生命力的度量衡。）"
+        },
+        {
+          "text": "To a person who has no art in him, colors are colors, tones tones... and that is all.",
+          "source": "attributed, writings",
+          "meaning": "（沒有藝術感知力的人只看到色彩的物理現象，看不見色彩的精神內涵。色彩對普通人是頻率，對藝術家是情感的載體。表現主義的入門考試：你是否能聽見顏色在說話？）"
+        },
+        {
+          "text": "I want so much that what I merely feel in my innermost being could take form by itself, flowing from my soul like a warm stream.",
+          "source": "attributed, writings on artistic process",
+          "meaning": "（創作的理想狀態：內在的感受自行流出，像溫暖的溪流，無需意志的強制介入。技法應該透明，讓情感直接凝結為形式。這是表現主義的最高境界——自動書寫式的情感傳導。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Uber das Geistige in der Kunst (論藝術的精神性 / Concerning the Spiritual in Art)",
+      "author": "Wassily Kandinsky",
+      "year": 1911,
+      "significance": "表現主義最重要的理論著作。Kandinsky 系統闡述色彩的精神效果、形式的情感含義、「內在必然性」原則，並提出繪畫正走向「偉大的抽象」與「偉大的寫實」兩條平行道路。這本書為抽象藝術提供了第一套完整的精神哲學辯護。"
+    },
+    {
+      "title": "Der Blaue Reiter Almanac (藍騎士年鑑)",
+      "author": "Wassily Kandinsky, Franz Marc (editors)",
+      "year": 1912,
+      "significance": "將兒童畫、非洲雕刻、巴伐利亞民間玻璃畫、中世紀木刻與前衛繪畫並置於同一出版物，打破高低藝術的階級制度。年鑑本身就是一件表現主義作品——它的編輯邏輯是精神親緣性而非歷史年代。"
+    },
+    {
+      "title": "Programm der Kunstlergruppe Brucke (Die Brucke 宣言)",
+      "author": "Ernst Ludwig Kirchner",
+      "year": 1906,
+      "significance": "以木刻版畫形式發表的宣言，召喚所有「直接而真實地表達內在衝動」的年輕人。短短幾行文字定義了 Die Brucke 的全部立場：青年、自由、直接性。宣言的木刻形式本身就是立場的體現——粗糙、原始、反學院。"
+    },
+    {
+      "title": "Abstraktion und Einfuhlung (抽象與移情 / Abstraction and Empathy)",
+      "author": "Wilhelm Worringer",
+      "year": 1908,
+      "significance": "提出「抽象衝動」的概念：在面對自然界的混亂與威脅時，人類傾向創造有序的、抽象的形式作為精神庇護。這個理論為表現主義的變形與抽象傾向提供了人類學與心理學的合法性，直接影響了 Kandinsky 與 Die Brucke 藝術家。"
+    },
+    {
+      "title": "Punkt und Linie zu Flache (點、線、面 / Point and Line to Plane)",
+      "author": "Wassily Kandinsky",
+      "year": 1926,
+      "significance": "延續《論藝術的精神性》的理論工作，將點、線、面三種基本元素的情感效果系統化分析。雖出版於 Bauhaus 時期，但其核心方法論根植於表現主義對形式精神含義的信念。"
+    },
+    {
+      "title": "Das Kunstwerk im Zeitalter seiner technischen Reproduzierbarkeit (機械複製時代的藝術作品 / The Work of Art in the Age of Mechanical Reproduction)",
+      "author": "Walter Benjamin",
+      "year": 1935,
+      "significance": "雖非表現主義者所著，但 Benjamin 對「靈光」(aura) 消逝的分析直接回應了表現主義的核心焦慮——工業化與機械複製正在摧毀藝術的精神性與獨一無二性。表現主義可以被理解為對靈光消逝的最後一次肉搏抵抗。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "內在真實優先於外在表象 (Innere Wahrheit)：繪畫的對象是靈魂的狀態，所有可見的形式——身體、風景、城市——都是內在情感的投射載體。（WHY：攝影術在 19 世紀中葉問世後，繪畫的「記錄外在世界」功能被機器取代。印象派的回應是捕捉光線的瞬間變化，但仍然面向外部。表現主義的回應更激進：繪畫的正當性在於它能記錄機器無法觸及的東西——恐懼、慾望、精神的危機。）",
+      "色彩與形式的自主表現力：色彩直接影響靈魂，無需借助物象做中介。紅色本身就是激情，藍色本身就是深邃——形式的扭曲、線條的顫抖都是情感的忠實記錄。（WHY：學院派將色彩視為描繪物象的工具——蘋果是紅的所以畫紅色。表現主義將因果關係倒轉：先有情感需求，色彩服務於這個需求。Kandinsky 的通感理論——色彩=鍵盤=靈魂振動——提供了系統性的理論支撐。）",
+      "變形作為真實 (Verzerrung als Wahrheit)：刻意的比例失調、透視扭曲、解剖偏離是精神狀態的精確記錄，比照相式的寫實更「真實」。（WHY：當你恐懼時，陰影確實變大了；當你孤獨時，街道確實變長了——主觀體驗改變了空間與形體的「真實」比例。Munch 畫的那條彎曲的棧道就是焦慮中的棧道的真實形狀。）",
+      "原始性與直接性 (Unmittelbarkeit)：追求兒童畫、原始藝術、民間藝術的直接表達力。木刻版畫因其粗糙、不可修改、直接刻入的特性成為表現主義的標誌性媒材。（WHY：學院訓練教導的是控制——控制線條、控制色彩、控制情感。表現主義認為控制就是壓抑——原始人、兒童、精神病患之所以表達得更有力，正因為他們繞過了文明的審查機制。Die Brucke 藝術家在 Dresden 民族學博物館研究非洲與大洋洲雕刻，尋找的是被文明遺忘的直接性。）",
+      "藝術與生命的統一：Die Brucke 成員在 Moritzburg 湖畔裸體寫生，將工作室、生活空間與創作空間合為一體。藝術創作的狀態與生活狀態之間不應有開關。（WHY：布爾喬亞社會將藝術封裝在畫廊與音樂廳中，將日常生活定義為藝術的反面。Die Brucke 的「裸體即創作」實踐是對這種分離的身體性抗議——如果你在穿西裝時才能做藝術，那你的藝術就是假的。）",
+      "主觀經驗的普遍性：個人最極端的痛苦、恐懼、狂喜恰恰是最普遍的人類經驗。Munch 的私密日記變成了所有人都能辨認的情感圖像。（WHY：學院派追求「客觀」的普遍性——理想化的人體、平衡的構圖、和諧的色彩。表現主義發現了另一條路徑：當你足夠誠實地面對自己最私密的恐懼，你畫出的就是全人類的恐懼。《吶喊》之所以成為圖騰，正因為每個人都認出了自己的焦慮。）"
+    ],
+    "what_they_refuse": [
+      "印象派的表面追逐：拒絕將繪畫簡化為對光線、色彩與大氣效果的瞬間捕捉。印象派畫的是視網膜接收到的信號，表現主義畫的是靈魂接收到的信號。（WHY：Monet 畫的是睡蓮在不同光線下的外觀變化——這仍然是外在世界的記錄，只是更精緻的外在記錄。表現主義者認為繪畫的革命不在於觀察方式的更新，而在於觀察對象的徹底轉向——從「外面」到「裡面」。）",
+      "學院派的技術規範：拒絕正確的解剖學、透視法、比例系統作為繪畫的前提條件。技術嫻熟可能是情感誠實的最大敵人。（WHY：學院訓練用五年時間教你畫「正確」的人體——但正確的人體是死的。Schiele 筆下扭曲的手指、Kirchner 筆下伸長的腿，在解剖學上是「錯」的，但在情感上是精確的。學院的「正確」是另一種「虛假」。）",
+      "自然主義與寫實主義的客觀性幻覺：拒絕相信存在一個獨立於觀者之外的「客觀現實」可以被忠實再現。所有的觀看都是主觀的，承認這一點是誠實的第一步。（WHY：寫實主義宣稱自己是透明的窗戶，但窗戶本身就是框架——選擇畫什麼、從什麼角度畫、強調什麼，每一步都是主觀決策。表現主義把窗戶砸碎，承認：你看到的一切都經過了你的靈魂的過濾。）",
+      "布爾喬亞的「好品味」：拒絕和諧、平衡、「令人愉悅」作為藝術的評判標準。不適感、醜陋、刺痛是合法的審美經驗。（WHY：維多利亞時代的布爾喬亞客廳掛的是讓人感到舒適的風景畫和肖像畫——藝術被馴化為室內裝飾。表現主義的「醜」是對這種馴化的暴力反抗。Nolde 的宗教畫讓基督的面孔變形到幾乎認不出，因為信仰的體驗本身就是暴烈的、非裝飾性的。）",
+      "理性的絕對權威：拒絕啟蒙運動以來「理性=進步」的等式。無意識、夢境、本能、瘋狂都是真實的認知方式。（WHY：尼采在 1872 年已經指出酒神精神（Dionysian）與日神精神（Apollonian）的永恆張力。佛洛伊德在 1900 年證明了無意識的巨大力量。理性主義的 19 世紀在一戰的戰壕中徹底破產——所有的理性計算都通向了 Verdun 的絞肉機。表現主義早在戰前就預感到了理性的失敗。）",
+      "藝術的商品化與市場邏輯：拒絕讓市場需求決定創作方向。藝術家的貧窮是自由的代價，妥協等於精神死亡。（WHY：19 世紀末巴黎沙龍的評審系統讓「市場接受度」成為藝術品質的替代指標。被拒絕的印象派催生了「落選者沙龍」，但表現主義走得更遠——它根本不在乎被接受還是被拒絕。Kirchner 的柏林街景中的妓女形象確保了它不會出現在任何布爾喬亞客廳中。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "學院派寫實主義 (Academic Realism)：其解剖學精確性、透視法規範、理想化人體代表表現主義所反對的一切——將繪畫技術的正確性凌駕於情感的真實性之上",
+      "印象派 (Impressionism)：雖然同樣反學院，但印象派對外在光線現象的執著被表現主義視為另一種「表面主義」——你仍然在畫眼睛看到的東西，只是更精緻地畫",
+      "自然主義 (Naturalism)：Zola 式的「科學觀察」方法論與表現主義的主觀性原則根本對立",
+      "新古典主義 (Neoclassicism)：理想化的形體、和諧的比例、節制的情感表達——表現主義的每一筆都是對這套美學紀律的蓄意冒犯",
+      "新即物主義 (Neue Sachlichkeit, 1920s)：Otto Dix 與 George Grosz 以冷靜的社會批判取代表現主義的情感爆發——他們認為表現主義的激情在一戰的現實面前已經顯得自戀且無力"
+    ],
+    "against_values": [
+      "客觀性作為最高標準：表現主義拒絕將「客觀記錄」視為藝術的終極目標——所有的觀看都經過靈魂的過濾",
+      "技術完美作為品質指標：一條因恐懼而顫抖的線比一條學院式完美的線更有價值",
+      "和諧與平衡作為美的條件：不適感、衝突、尖叫是合法的審美形式",
+      "理性對情感的優越性：無意識、本能、夢境與理性分析具有同等的認知效力",
+      "文明對原始的優越性：非洲雕刻、兒童畫、精神病患的創作可能比學院油畫更接近藝術的本質",
+      "藝術的愉悅功能：藝術的目的是傳達真實而非提供舒適——如果真實令人不適，那不適就是藝術的正確效果"
+    ],
+    "societal_context": "表現主義誕生於威廉二世統治的德意志帝國晚期，一個以軍事力量、工業效率與布爾喬亞秩序為核心價值的社會。快速工業化將數百萬人從農村推入城市，柏林人口從 1871 年的 82 萬暴增至 1910 年的 340 萬。機械化勞動、階級壓迫、性道德的虛偽（表面清教、地下色情產業蓬勃）製造了巨大的精神壓力。1905 年 Die Brucke 成立時，歐洲正處於帝國主義競爭的白熱化期（摩洛哥危機、波斯尼亞危機），一戰已經隱約可見。表現主義藝術家比同時代人更早感知到文明的裂縫——Munch 在 1890 年代已經聽見自然的尖叫，那是歐洲文明即將崩潰的預兆。一戰（1914-1918）成為表現主義的最大驗證與最大創傷：Marc 與 Macke 戰死，Kirchner 精神崩潰，Beckmann 從戰場歸來徹底改變畫風。戰後威瑪共和國的短暫開放讓表現主義從視覺藝術擴展到電影（《卡里加利博士的小屋》）、戲劇（Kaiser、Toller）、建築（Mendelsohn 的 Einstein Tower）。但 1920 年代末經濟蕭條與納粹崛起終結了這個空間。1933 年納粹上台後，表現主義被定性為「墮落藝術」(Entartete Kunst)，1937 年 Munich 的墮落藝術展成為 20 世紀最大的文化審判——超過 200 萬人參觀這場以羞辱現代藝術為目的的展覽。諷刺的是，這場展覽的參觀人數遠超隔壁的「偉大德國藝術展」，彷彿在證明表現主義的生命力連迫害都無法撲滅。"
+  },
+
+  "problems_solved": [
+    "為繪畫在攝影時代找到新的正當性：當機器能精確記錄外在世界，繪畫的存在理由是什麼？表現主義的回答——繪畫記錄機器無法觸及的內在世界——為整個 20 世紀的非寫實藝術提供了根本性的辯護",
+    "擴展了「真實」的定義：將主觀體驗、情感狀態、無意識衝動納入「現實」的合法範疇，推翻了寫實主義對「真實=可見+可測量」的壟斷",
+    "解放色彩與形式的自主表現力：色彩不再只是描繪物象的工具，而是獨立的情感載體。Marc 的藍色馬、Kirchner 的綠色臉孔就是「畫對了」——對情感的精確回應",
+    "打破高低藝術的文化階序：Der Blaue Reiter 年鑑將兒童畫、非洲雕刻、民間藝術與前衛繪畫並列，宣告所有真誠的表達在精神上平等",
+    "為現代木刻版畫的復興奠定基礎：Die Brucke 重新發現木刻的表現力——粗糙、直接、不可修改的特性使其成為對抗學院油畫之精緻性的完美媒材，影響了整個 20 世紀的版畫創作",
+    "預示了藝術治療的可能性：表現主義將個人痛苦轉化為視覺語言的實踐，預示了 20 世紀中葉藝術治療 (Art Therapy) 作為專業學科的興起"
+  ],
+
+  "problems_created": [
+    "「真誠」成為不可驗證的美學標準：當「來自靈魂的需求」成為藝術的唯一合法性來源，任何人都可以宣稱自己的作品「很真誠」而免於批評——真誠是主觀宣稱，無法被外部驗證。這為後世大量低品質的「自我表達」藝術打開了大門",
+    "技術訓練的貶值：表現主義對「原始性」的崇拜導致技術嫻熟被懷疑為「不夠真誠」——彷彿畫得好就等於假。這個遺產讓後世藝術教育中的基礎技術訓練長期處於辯護的被動位置",
+    "痛苦的浪漫化：Munch 的「苦難即藝術原料」被後世簡化為「藝術家必須受苦才能創作」的有害神話。精神疾病、成癮、自毀行為被美化為創造力的必要條件，造成實質的人身傷害",
+    "原始主義的文化挪用問題：Die Brucke 對非洲與大洋洲藝術的「發現」是在殖民主義框架下進行的——他們欣賞的是被去脈絡化的形式，而非這些藝術在其原生文化中的完整意義。「原始=真實=好」的等式本身就是帝國主義的審美投射",
+    "個人主義的極端化：表現主義的「內在必然性」原則在邏輯上排斥集體合作與社會責任——如果藝術只聽從個人靈魂的聲音，那它如何回應公共議題？這個張力在表現主義與 Bauhaus 的分裂中已經顯現（Gropius 1923 年明確轉離表現主義）",
+    "政治立場的曖昧性：表現主義藝術家的政治光譜極度分散——從 Nolde 的納粹黨籍到 Grosz 的共產主義。運動本身沒有提供清晰的政治立場，使其既可被左派挪用為革命工具，也可被右派挪用為民族精神的表達（儘管最終被納粹否定）"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "藝術的核心任務是將不可見的內在真實（情感、恐懼、靈性狀態）轉化為可見的形式——變形、誇張、色彩的爆發都是精神狀態的精確記錄，而非技術的失敗。這個觀念從根本上重新定義了「寫實」的含義：忠於靈魂比忠於視網膜更「寫實」。",
+    "what_was_truly_new": [
+      "色彩的情感自主性理論：Kandinsky 在《論藝術的精神性》中第一次系統性地論證色彩對靈魂的直接作用力，將色彩從「描繪工具」提升為「精神載體」，開啟了通往純粹抽象的道路",
+      "「內在必然性」作為美學判準：所有技法——寫實或抽象、精緻或粗糙——的合法性取決於它是否回應了藝術家靈魂的需求。這個判準徹底取消了外在的風格規範",
+      "木刻版畫的表現主義復興：Die Brucke 將木刻從複製插圖提升為獨立的藝術表達形式，其粗糙的肌理、黑白對比的暴力感、直接刻入的不可逆性成為表現主義的視覺簽名",
+      "Der Blaue Reiter 年鑑的跨文化並置：將兒童畫、民間藝術、原始雕刻與前衛繪畫並列，以「精神親緣性」取代「歷史年代」或「技術水準」作為編輯邏輯——這是策展史上的革命性舉動",
+      "將私密的精神危機轉化為普世的視覺語言：Munch 的《吶喊》證明了最個人的恐懼可以成為最普遍的圖騰——表現主義發現了「越私密越普遍」的創作悖論"
+    ],
+    "what_was_borrowed": [
+      "Vincent van Gogh：旋轉的筆觸、爆發性的色彩、以繪畫行為本身傳達情感——Van Gogh 是表現主義的直接精神先驅。Die Brucke 與 Der Blaue Reiter 都公開承認其影響",
+      "Edvard Munch：表現主義的「零號病人」——《吶喊》(1893) 在 Die Brucke 成立前 12 年就完成了表現主義的核心宣言。1892 年 Munch 在柏林的展覽引發醜聞，直接刺激了德國前衛藝術的形成",
+      "Paul Gauguin：離開歐洲文明、擁抱原始生活的姿態，以及平面化的色彩處理與象徵主義的主題，對 Die Brucke 的原始主義傾向有直接影響",
+      "非洲與大洋洲藝術：Die Brucke 在 Dresden 民族學博物館的研究（特別是 Cameroon 與 Palau 的雕刻）直接影響了他們的木雕與版畫風格",
+      "Friedrich Nietzsche 的哲學：酒神精神、超人意志、對布爾喬亞道德的顛覆——尼采是表現主義的哲學燃料",
+      "Symbolism (象徵主義)：以可見的形象暗示不可見的精神狀態——表現主義將象徵主義的暗示轉化為直接的視覺爆發"
+    ],
+    "creative_leap": "表現主義的創造性飛躍在於「反轉」(Umkehrung)：它將藝術的參照點從外部世界翻轉到內部世界。Van Gogh 的筆觸仍在描繪星空與麥田（儘管帶有強烈的情感），但 Kandinsky 的色彩直接就是情感本身，不再需要任何外在物象做中介。這個從「透過物象表達情感」到「情感直接成為形式」的飛躍，開啟了 20 世紀抽象藝術的大門——它是從 Van Gogh 到 Rothko 之間的關鍵轉折點。",
+    "inspiration_potential": {
+      "score": 9,
+      "why": "表現主義的核心命題——如何將不可見的內在真實轉化為可感知的形式——在 AI 時代獲得了新的緊迫性。當 AI 能以任何風格生成完美的圖像，人類創作的不可替代性在哪裡？表現主義的回答是：在靈魂的顫抖、在身體的記憶、在無法被算法模擬的存在性焦慮中。「內在必然性」是人類創作者在 AI 時代最強大的護城河——機器可以模仿風格，但無法擁有靈魂的需求。",
+      "transferable_to": [
+        "AI 時代的人類創作正當性：表現主義的「內在必然性」概念為人類創作在 AI 生成藝術時代提供了不可替代的價值定位",
+        "心理健康與藝術治療：將個人痛苦轉化為可分享的視覺語言，是表現主義對當代藝術治療實踐的直接遺產",
+        "使用者體驗中的情感設計：表現主義的色彩-情感對應研究可直接應用於 UI/UX 的情感化設計",
+        "獨立遊戲與沉浸式體驗設計：表現主義的「主觀空間」概念——空間隨情感狀態變形——是當代遊戲設計與 VR 體驗的靈感源泉",
+        "品牌的情感真實性：在消費者越來越能識別「企業虛偽」的時代，表現主義的「真誠優先於完美」原則對品牌策略有直接啟發",
+        "紀錄片與非虛構影像：主觀性作為一種更深層的真實——「我的鏡頭不客觀，但它比客觀更真實」"
+      ]
+    },
+    "originality_type": "inversion"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Vincent van Gogh (1880s-1890)：旋轉的筆觸與爆發性色彩作為情感的直接載體，Die Brucke 與 Der Blaue Reiter 共同的精神先驅",
+      "Edvard Munch (1890s-)：《吶喊》作為表現主義的精神原型，1892 年柏林醜聞展催化了德國前衛藝術的形成",
+      "Paul Gauguin (1880s-1903)：原始主義、平面化色彩、象徵性主題，對 Die Brucke 的直接影響",
+      "Friedrich Nietzsche 哲學 (1870s-1900)：酒神精神、超人意志、道德顛覆，為表現主義提供哲學燃料",
+      "Sigmund Freud《夢的解析》(1900)：無意識作為合法的探索領域，為表現主義的內向轉向提供科學正當性",
+      "非洲與大洋洲原始藝術：透過 Dresden、Berlin、Paris 的民族學博物館進入歐洲藝術家視野",
+      "Symbolism 象徵主義 (1880s-1900s)：Moreau、Redon 以可見形象暗示不可見的精神狀態",
+      "Fauvism 野獸派 (1905-)：Matisse 的自由色彩處理與 Die Brucke 的色彩解放平行發展，但野獸派追求的是裝飾性的和諧，表現主義追求的是精神性的衝突",
+      "Wilhelm Worringer《抽象與移情》(1908)：為抽象與變形提供美學理論合法性"
+    ],
+    "influenced": [
+      "Abstract Expressionism 抽象表現主義 (1940s-1960s)：Kandinsky→Gorky→De Kooning→Pollock 的直接傳承，將表現主義的「內在必然性」推向純粹的身體行動",
+      "Bauhaus 早期 (1919-1923)：Gropius 的包浩斯宣言帶有強烈的表現主義水晶大教堂理想，Itten 的預備課程根植於表現主義的直覺教學",
+      "Expressionist Film 表現主義電影 (1920s)：《卡里加利博士的小屋》(1920)、Nosferatu (1922)、Fritz Lang 的《大都會》(1927)——扭曲的布景、極端的光影對比",
+      "Neo-Expressionism 新表現主義 (1970s-1980s)：Baselitz、Kiefer、Penck (德國)、Basquiat、Schnabel (美國)——回歸激烈的情感表達與具象繪畫",
+      "Art Brut / Outsider Art (1940s-)：Dubuffet 對「原始表達」的系統性收藏與推廣，延續了表現主義的反學院立場",
+      "Francis Bacon (1940s-1992)：扭曲的肉體、尖叫的教宗——Bacon 是表現主義精神的戰後延續",
+      "CoBrA 運動 (1948-1951)：Jorn、Appel、Constant——表現主義在北歐與低地國家的戰後回聲",
+      "德國當代藝術：Gerhard Richter（早期作品）、Anselm Kiefer、Georg Baselitz——德國藝術與表現主義的關係至今未斷",
+      "當代獨立遊戲與動畫：表現主義的「主觀空間」概念影響了《Limbo》、《Inside》等遊戲的視覺語言"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "激烈、直覺、情感密度極高。像一位剛從畫室出來、手上還沾著顏料的畫家：先感受，後分析。對作品的第一反應是身體性的——是否感到一陣刺痛、一股熱浪、一瞬間的窒息。對「技術很好但感覺不到什麼」的作品有近乎暴力的厭惡。判斷迅速、措辭尖銳、情緒起伏明顯，但在尖銳的背後有深沉的同理心——因為真正的表現主義者理解痛苦。",
+    "evaluation_bias": "強烈偏好情感真實、身體性強烈、有原始衝擊力的作品。傾向高估「真誠的粗糙」而低估「精緻的克制」。會不自覺地以「這是否讓我感到不安？」作為隱性評分標準——舒適的作品自動被降級。對技術完美但情感空洞的作品判處最嚴厲的否定。",
+    "blind_spots": "難以公平評價克制的、含蓄的、以沉默與留白表達情感的作品（如極簡主義、日本侘寂美學）。傾向將「安靜」等同於「缺乏力量」，忽視了低音量的情感表達同樣可以具有巨大強度。對講究工藝細節的設計領域（字型設計、排版、資訊設計）可能缺乏耐心，因為它們的美學邏輯與「直覺爆發」相反。",
+    "typical_critique": "技術無可挑剔，構圖精準，色彩和諧——但我的靈魂沒有收到任何信號。你的作品是一面完美的鏡子，但鏡子背後是空的。告訴我你害怕什麼。告訴我什麼讓你在凌晨三點無法入睡。用那個東西來畫，即使畫出來的東西讓你自己都不舒服——尤其是那個時候。"
+  },
+
+  "writing_style": {
+    "collective_voice": "表現主義的集體寫作風格是「痙攣式直覺書寫」：句子短促有力，像木刻刀在木板上的每一刀——果斷、不可撤回、有粗糙的毛刺。日記體與宣言體交替出現，極端私密的自我剖析突然切換為面向世界的吶喊。大量使用感官動詞（燃燒、顫抖、尖叫、撕裂），身體是思考的器官。通感（色彩=聲音=觸感）是共同的思維方式。強調主觀經驗的不可轉讓性——「我」的使用頻率遠高於其他運動。",
+    "internal_tensions": "最大的風格裂痕在「肉體」與「靈性」之間。Kirchner 和 Schiele 代表肉體的、都市的、性慾的聲音——句子帶有街頭速寫的急迫感。Kandinsky 和 Marc 代表靈性的、宇宙的、抽象的聲音——句子帶有哲學論文的推演邏輯。Munch 是兩者的橋梁：他的寫作同時是極端私密的病歷記錄與關於人類處境的普遍陳述。Nolde 則是純粹的直覺——他的文字最少，色彩替他說話。",
+    "master_voices": [
+      {
+        "name": "Ernst Ludwig Kirchner",
+        "writing_character": "街頭速寫者的筆記本——急迫、片段化、充滿動態動詞",
+        "sentence_rhythm": "短句連射，很少超過 15 字。名詞與動詞交替，形容詞極少——事物在做什麼比它們看起來如何重要",
+        "rhetoric": "祈使句、宣言式斷言、否定起手再肯定、動態場景速寫",
+        "tone": "急迫的、神經質的，帶有年輕人的傲慢與不安全感的混合物",
+        "real_examples": [
+          {
+            "text": "With faith in progress and in a new generation of creators and spectators we call together all youth.",
+            "source": "Die Brucke Manifesto, 1906",
+            "style_note": "宣言的號召句，以「信念」起手，以「所有青年」收束——動員令"
+          },
+          {
+            "text": "A painter paints the appearance of things, not their objective correctness. In fact, he creates new appearances of things.",
+            "source": "writings",
+            "style_note": "兩句完成一次認知翻轉：否定（不是客觀正確性）→肯定（創造新的顯現方式）"
+          }
+        ]
+      },
+      {
+        "name": "Wassily Kandinsky",
+        "writing_character": "將神秘主義包裝為系統化哲學論文的靈性科學家",
+        "sentence_rhythm": "演繹推理鏈：前句的結論是後句的前提。句子中等偏長，帶有德語學術寫作的嚴謹結構",
+        "rhetoric": "通感隱喻（色彩=鍵盤=靈魂）、三重分類（個人性/時代性/永恆性）、矛盾修辭、否定式定義",
+        "tone": "冷靜的表面下湧動著神秘主義的熱情——像教堂管風琴：外觀是嚴謹的機械結構，發出的是靈性的聲波",
+        "real_examples": [
+          {
+            "text": "Color is the keyboard, the eyes are the hammers, the soul is the piano with many strings.",
+            "source": "Concerning the Spiritual in Art, 1911",
+            "style_note": "三重通感隱喻在一句話內完成，視覺→觸覺→聽覺的跨界"
+          },
+          {
+            "text": "All methods are sacred if they are internally necessary. All methods are sins if they are not justified by internal necessity.",
+            "source": "Concerning the Spiritual in Art, 1911",
+            "style_note": "完美的對稱結構（sacred/sins），兩句話封閉了整個討論——無需補充"
+          }
+        ]
+      },
+      {
+        "name": "Egon Schiele",
+        "writing_character": "以格言的密度壓縮存在主義危機",
+        "sentence_rhythm": "極度壓縮：5-12 字的斷言，像拳頭打在桌上。偶爾出現一句長句，節奏像身體的喘息",
+        "rhetoric": "絕對判斷、悖論、身體隱喻、第一人稱的暴露性陳述",
+        "tone": "傲慢與脆弱的混合體——一個二十多歲的年輕人用絕對的語氣談論永恆",
+        "real_examples": [
+          {
+            "text": "Art cannot be modern. Art is primordially eternal.",
+            "source": "attributed, writings",
+            "style_note": "兩句否定+肯定，六個字的第一句砸開討論空間"
+          },
+          {
+            "text": "Bodies have their own light which they consume to live: they burn, they are not lit from the outside.",
+            "source": "attributed, writings",
+            "style_note": "身體作為自燃體的隱喻——否定外部光源，肯定內在的火焰"
+          }
+        ]
+      },
+      {
+        "name": "Edvard Munch",
+        "writing_character": "病歷記錄與詩的混合體——臨床的精確性描述精神的混亂",
+        "sentence_rhythm": "不規則的節奏：短句堆疊模擬心跳加速，長句模擬記憶的展開。大量使用分號與破折號——意識流的標點",
+        "rhetoric": "感官描述的堆疊（視覺+觸覺+體溫+恐懼）、第一人稱的絕對主觀性、自然現象的擬人化（自然在尖叫）",
+        "tone": "脆弱的、坦誠到令人不安的程度，帶有北歐式的沉重與孤絕",
+        "real_examples": [
+          {
+            "text": "I was walking down the road with two friends when the sun set; suddenly, the sky turned as red as blood.",
+            "source": "diary entry, 1892",
+            "style_note": "平靜的敘事突然被「血紅的天空」打斷——日常到超現實的瞬間切換"
+          },
+          {
+            "text": "My sufferings are part of my self and my art. They are indistinguishable from me, and their destruction would destroy my art.",
+            "source": "journals",
+            "style_note": "三者合一的邏輯鏈：痛苦=自我=藝術，拆除任何一環都致命"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "以身體感受起手：先描述你在作品面前的生理反應（刺痛、窒息、灼熱），再進入分析",
+      "句子短促有力，像木刻刀的每一刀——果斷、不可撤回",
+      "大量使用感官動詞：燃燒、顫抖、撕裂、刺穿、窒息",
+      "禁用學術套話與中性語言——每一句都帶有情感溫度",
+      "使用對立結構：表面/深層、眼睛/靈魂、技術/真實",
+      "直接對作者說話：使用「你」而非「這位藝術家」——評論是面對面的對話",
+      "敢於使用極端判斷：「這是死的」或「這讓我的血液凝固」——表現主義者不做外交辭令",
+      "每段不超過 3-4 句，情感密度優先於論證完整性",
+      "通感類比是允許的：用聲音談色彩、用溫度談構圖"
+    ]
+  }
+}

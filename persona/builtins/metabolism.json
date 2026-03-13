@@ -1,0 +1,488 @@
+{
+  "movement_id": "metabolism",
+  "name": {
+    "zh": "代謝派",
+    "en": "Metabolism",
+    "ja": "メタボリズム"
+  },
+  "domain": [
+    "architecture",
+    "urban_planning",
+    "industrial_design",
+    "infrastructure_design",
+    "megastructure",
+    "capsule_architecture",
+    "exhibition_design"
+  ],
+  "period": {
+    "start": 1960,
+    "end": 1975,
+    "peak": "1960-1970（從 1960 年東京世界設計會議發表宣言，到 1970 年大阪萬博會達到頂峰，Expo '70 的會場建築是代謝派理念最大規模的實體化）"
+  },
+  "geography": [
+    "Tokyo, Japan（運動核心，1960 World Design Conference 發源地）",
+    "Osaka, Japan（Expo '70 主會場）",
+    "Ginza, Tokyo（中銀膠囊塔 Nakagin Capsule Tower, 1972）",
+    "Takara, Osaka（Takara Beautilion, Expo '70）",
+    "Skopje, Macedonia（丹下健三 Skopje City Center 重建計畫, 1965）",
+    "Astana, Kazakhstan（黒川紀章 Astana 新首都規劃, 1998）"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1945 年 8 月，廣島與長崎的原子彈將日本城市化為廢墟。15 年後的 1960 年，日本正處於經濟高速成長期（1955-1973），GDP 年均成長率超過 10%，東京人口從戰後 350 萬暴增至 1000 萬以上。城市以無秩序的速度膨脹，基礎設施遠遠落後。傳統的都市計畫工具——CIAM 的功能分區、柯比意的光輝城市——假設城市是靜態的機械，可以被一次性規劃完成。這個假設在東京的現實面前徹底破產。一座從原子彈廢墟中重生、以生物般的速度瘋狂增殖的城市，需要一套全新的思維框架。代謝派的回答是：城市是活的有機體，建築必須像細胞一樣可以生長、分裂、替換、死亡。",
+    "social_energy": "代謝派的能量來自三個交匯點：(1) 戰後重建的集體創傷與重生意志——這一代建築師（丹下健三 1913 年生、黒川紀章 1934 年生、磯崎新 1931 年生）親歷戰爭廢墟，磯崎新在廣島附近的大分長大，童年記憶是一片被抹除的城市；(2) 日本經濟奇蹟的物質狂飆——1964 東京奧運、1970 大阪萬博、新幹線開通，國家從廢墟走向世界舞台，技術樂觀主義瀰漫整個社會；(3) 日本傳統文化中的無常觀（諸行無常）——佛教對萬物流轉、生滅循環的理解，與西方現代主義追求永恆紀念碑的態度形成根本對立。代謝派將這三股力量合成為一個命題：建築的本質是循環，城市的宿命是變化。",
+    "purpose": "代謝派的終極目標是將城市從靜態的機械模型解放為動態的生命模型。具體而言：讓建築像生物體一樣擁有新陳代謝的能力——結構體（骨骼）是長壽的，功能單元（細胞）是短壽且可替換的。透過巨構造（megastructure）提供基礎設施骨架，讓個別居住/工作單元可以像膠囊一樣插入、拔出、更新。這套系統允許城市在不被拆除重建的情況下持續進化。丹下健三的東京灣計畫（1960）是這個願景最宏大的表述——將東京沿海灣向外延伸，用線性的交通脊柱連接可替換的居住單元。",
+    "the_1960_pivot": "1960 年是代謝派的誕生年。當年 5 月，東京舉辦世界設計會議（World Design Conference），這是日本戰後首次主辦的大型國際設計活動。一群平均年齡不到 30 歲的年輕建築師——黒川紀章（26 歲）、菊竹清訓（32 歲）、槇文彦（32 歲）、大高正人（37 歲）——在丹下健三（47 歲）的精神領導下，自費印刷了名為《METABOLISM/1960 — The Proposals for New Urbanism》的宣言小冊，在會場分發。宣言開頭宣告：『我們將人類社會視為一個生命過程——從原子到星雲的持續發展。』這個行為本身就是對 CIAM 正統的公開挑戰：年輕的日本建築師不再接受歐洲現代主義的都市教條，他們要從自身的文化傳統與戰後現實中提出替代方案。",
+    "key_timeline": [
+      "1945.08 — 廣島、長崎原爆，日本城市化為廢墟",
+      "1950-1953 — 韓戰特需景氣，日本經濟開始復甦",
+      "1955 — 日本進入經濟高速成長期",
+      "1958 — 黒川紀章提出「螺旋都市」(Helix City) 概念",
+      "1959 — 菊竹清訓發表「海上都市」(Ocean City) 計畫",
+      "1960.05 — 東京世界設計會議，《METABOLISM/1960》宣言發表",
+      "1960 — 丹下健三發表「東京計畫 1960」(A Plan for Tokyo 1960)",
+      "1961 — 菊竹清訓完成自宅 Sky House",
+      "1962 — 磯崎新發表「空中都市」(City in the Air) 與「孵化過程」(Incubation Process)",
+      "1964 — 東京奧運，丹下健三設計代代木國立競技場",
+      "1967 — 大阪萬博總規劃由丹下健三主持",
+      "1970 — Expo '70 大阪萬博開幕，代謝派建築群集體亮相：黒川紀章的 Takara Beautilion、菊竹清訓的 Expo Tower",
+      "1972 — 黒川紀章完成中銀膠囊塔 (Nakagin Capsule Tower)，代謝派最具象徵性的建築",
+      "1973 — 石油危機，日本高速成長期結束，代謝派的技術樂觀主義失去社會基礎",
+      "1975 — 代謝派作為集體運動實質結束，成員各自發展"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "丹下健三",
+        "en": "Kenzo Tange",
+        "ja": "丹下健三"
+      },
+      "role": "精神領袖與導師。代謝派的年輕建築師多出自丹下研究室（東京大學），丹下本人並非宣言署名者，但他的「東京計畫 1960」是代謝派都市願景的最高表現。1987 年 Pritzker Prize 得主。",
+      "key_works": [
+        "東京計畫 1960 (A Plan for Tokyo 1960)——將東京向海灣延伸的線性都市構想",
+        "代代木國立競技場 (Yoyogi National Gymnasium, 1964)——懸索結構的有機形態",
+        "大阪萬博會場總規劃 (Expo '70 Festival Plaza, 1970)——大屋頂下的巨構造空間",
+        "廣島和平紀念資料館 (Hiroshima Peace Memorial Museum, 1955)",
+        "東京聖瑪利亞大教堂 (St. Mary's Cathedral, Tokyo, 1964)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Tradition can, to be sure, participate in a creation, but it can no longer be creative itself.",
+          "source": "Katsura: Tradition and Creation in Japanese Architecture, 1960",
+          "meaning": "（傳統是催化劑，參與創造但不被保留在最終產物中。傳統的價值在於激發新的可能性，而非被複製。這句話定義了代謝派對日本傳統的態度：吸收無常觀與空間美學的深層結構，但拒絕任何形式的復古。）"
+        },
+        {
+          "text": "I feel that we architects have a special duty and mission to contribute to the socio-cultural development of architecture and urban planning.",
+          "source": "attributed, various lectures",
+          "meaning": "（建築師的使命是社會與文化的發展——建築從來就不只是造型問題，它是塑造人類互動環境的工具。丹下將建築師定位為社會工程師。）"
+        },
+        {
+          "text": "The role of tradition is that of a catalyst, which furthers a chemical reaction but is no longer detectable in the end result.",
+          "source": "Katsura: Tradition and Creation in Japanese Architecture, 1960",
+          "meaning": "（用化學反應來比喻傳統的角色：催化劑加速反應但不殘留在產物中。傳統不是表面的和風裝飾，而是深層的空間思維模式。丹下在桂離宮中看到的不是日本風格，而是一種前現代的空間自由。）"
+        },
+        {
+          "text": "Tokyo is expanding but there is no more land, and we shall have to expand into the sea.",
+          "source": "A Plan for Tokyo 1960",
+          "meaning": "（東京向海灣擴張的激進提案——當陸地用盡，城市必須向海洋索取空間。這是代謝派將城市視為不斷生長的有機體的直接表現。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "黒川紀章",
+        "en": "Kisho Kurokawa",
+        "ja": "黒川紀章"
+      },
+      "role": "代謝派宣言核心成員，膠囊建築的實踐者，後期發展出「共生哲學」(Philosophy of Symbiosis)。中銀膠囊塔的設計者，代謝派理念最具象徵性的建築實體。",
+      "key_works": [
+        "中銀膠囊塔 (Nakagin Capsule Tower, 1972)——140 個可替換膠囊單元插入兩座互聯核心筒",
+        "螺旋都市 (Helix City, 1961)——以 DNA 雙螺旋為靈感的都市構想",
+        "大阪萬博 Takara Beautilion (1970)——鋼管框架可拆卸展館",
+        "國立新美術館 (The National Art Center, Tokyo, 2007)",
+        "吉隆坡國際機場 (Kuala Lumpur International Airport, 1998)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The architecture of Metabolism was based on the image of a living cell. That image encompasses notions of growth, division, exchange, transformation, autonomous parts, deconstruction, temporariness, recycling, and a dynamic stability.",
+          "source": "Metabolism in Architecture, 1977",
+          "meaning": "（代謝派建築的核心意象是活細胞——生長、分裂、交換、轉化、自律的部件、解構、暫時性、回收循環、動態穩定。這九個關鍵字定義了一種全新的建築本體論。）"
+        },
+        {
+          "text": "If you replace the capsules every 25 years, it could last 200 years. It's recyclable. I designed it as sustainable architecture.",
+          "source": "Interview, 2007, on Nakagin Capsule Tower",
+          "meaning": "（中銀膠囊塔的設計邏輯：結構體壽命 200 年，膠囊壽命 25 年。透過定期替換膠囊實現建築的永續。然而 46 年間從未有一個膠囊被替換——這個失敗本身成為代謝派最深刻的教訓。）"
+        },
+        {
+          "text": "Although I reject traditionalism, I attach great importance to the influence which the culture of one country may exert on another. It is my belief that the cultures of different countries will stand individually but together, allied with technology, to provide the future language of architecture.",
+          "source": "Metabolism in Architecture, 1977",
+          "meaning": "（拒絕傳統主義，但重視文化間的相互影響。不同文化各自獨立又共存，與技術結盟形成未來的建築語言——這是共生哲學的雛形。）"
+        },
+        {
+          "text": "In the coming age, the machine-age ideal of universality will be exchanged for a symbiosis of different cultures.",
+          "source": "The Philosophy of Symbiosis, 1994",
+          "meaning": "（機器時代追求普世統一，生命時代擁抱多元共生。從代謝派到共生哲學，黒川紀章完成了從機械隱喻到生物隱喻的思想進化。）"
+        },
+        {
+          "text": "Individuals should be protected by capsules in which they can reject information they do not need and in which they are sheltered from information they do not want, thereby allowing an individual to recover his subjectivity and independence.",
+          "source": "Capsule Declaration, 1969",
+          "meaning": "（膠囊是個人主體性的庇護所——在資訊爆炸的都市中，個人需要一個可以拒絕外界干擾的最小空間單元。1969 年的這段預言，在今天的數位過載時代讀來格外尖銳。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "槇文彦",
+        "en": "Fumihiko Maki",
+        "ja": "槇文彦"
+      },
+      "role": "代謝派宣言成員，但很早便從巨構造路線分離，提出「群造形」(Group Form) 理論作為替代方案。強調由下而上的有機聚落形態，而非由上而下的巨型結構。1993 年 Pritzker Prize 得主。",
+      "key_works": [
+        "《集團形態之探究》(Investigations in Collective Form, 1964)——代謝派內部最重要的理論分歧文本",
+        "代官山集合住宅 (Hillside Terrace, 1969-1992)——歷時 23 年逐步增建的群造形實踐",
+        "幕張展覽中心 (Makuhari Messe, 1989)",
+        "東京螺旋大樓 (Spiral Building, 1985)",
+        "MIT 媒體實驗室擴建 (2009)"
+      ],
+      "key_quotes": [
+        {
+          "text": "What is needed is not just observation and critical comment, but utilization of the observation to develop strategic tools in making our physical environment.",
+          "source": "Investigations in Collective Form, 1964",
+          "meaning": "（觀察與批評不夠，必須將觀察轉化為塑造實體環境的策略工具。槇文彦的集團形態理論是代謝派中最務實的：與其設計一座從未被建造的海上都市，不如發展出能夠實際指導城市建設的方法論。）"
+        },
+        {
+          "text": "Creation in architecture is discovery, not invention... a cultural act in response to the common imagination or vision of the time.",
+          "source": "Pritzker Prize acceptance, 1993",
+          "meaning": "（建築中的創造是發現而非發明——建築師回應的是時代的集體想像。這個立場與代謝派的巨構造願景形成張力：槇文彦認為建築師應該傾聽城市的自生邏輯，而非強加一個外在的系統。）"
+        },
+        {
+          "text": "Group Form grows from a system of generative elements in a space; it carries a strong visual expression of the link unifying man-made structures.",
+          "source": "Investigations in Collective Form, 1964",
+          "meaning": "（群造形從空間中的生成性元素系統中生長——它強調人造結構之間的連結紐帶。這是代謝派內部最重要的理論修正：城市的有機性不在於巨型結構的設計，而在於小單元之間關係的生成。）"
+        },
+        {
+          "text": "Detailing is what gives architecture its rhythm and scale.",
+          "source": "attributed, various lectures",
+          "meaning": "（細部處理賦予建築節奏與尺度感——槇文彦對透明性、光線、材料細節的執著，使他成為代謝派成員中最具工匠精神的建築師。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "磯崎新",
+        "en": "Arata Isozaki",
+        "ja": "磯崎新"
+      },
+      "role": "丹下研究室出身，代謝派邊緣成員。以「廢墟」概念挑戰代謝派的技術樂觀主義——未來城市本身就是廢墟。後期成為國際後現代建築的代表人物。2019 年 Pritzker Prize 得主。",
+      "key_works": [
+        "空中都市 (City in the Air, 1962)——巨型圓柱支撐的空中居住單元",
+        "孵化過程 (Incubation Process, 1962)——以廢墟意象解構代謝派的進步敘事",
+        "大分縣立圖書館 (Oita Prefectural Library, 1966)",
+        "筑波中心大樓 (Tsukuba Center Building, 1983)——後現代轉向",
+        "洛杉磯當代藝術館 (MOCA, 1986)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Future cities are themselves ruins. Our contemporary cities are destined to live only a fleeting moment, give up their energy and return to inert material.",
+          "source": "Incubation Process, 1962",
+          "meaning": "（未來城市本身就是廢墟——城市註定只活一瞬間，然後釋放能量、回歸惰性物質。這是代謝派內部最激進的反命題：如果一切終將成為廢墟，巨構造的永續承諾就是幻覺。）"
+        },
+        {
+          "text": "The ruins that formed my childhood environment were produced by acts of sudden destruction. Wandering among them instilled in me awareness of the phenomenon of obliteration, rather than a sense of the transience of things.",
+          "source": "essay on ruins, various publications",
+          "meaning": "（童年在廢墟中遊蕩帶來的不是物哀式的無常感，而是對「抹除」現象的覺知。磯崎新在廣島附近長大，原爆廢墟不是浪漫的時間痕跡，而是暴力的瞬間產物。這個經驗讓他對代謝派的生長隱喻保持懷疑。）"
+        },
+        {
+          "text": "Ruins are dead architecture. The whole architecture has been lost. The remaining fragments require the operation of the imagination if they are to be restored.",
+          "source": "essay on ruins",
+          "meaning": "（廢墟是死去的建築，完整的建築已經消失，殘存的碎片需要想像力才能復原。建築的意義不在物質的持存，而在人類賦予它的想像。）"
+        },
+        {
+          "text": "Design, or architecture, becomes reality when it overlaps with its own extinction.",
+          "source": "Invisible City essay",
+          "meaning": "（建築在與自身消亡重疊的瞬間成為真實——創造與毀滅是同一個動作的兩面。這是磯崎新對代謝派最深刻的哲學貢獻：真正的建築不追求永恆，它擁抱自身的有限性。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "栄久庵憲司",
+        "en": "Kenji Ekuan",
+        "ja": "栄久庵憲司"
+      },
+      "role": "代謝派唯一的工業設計師成員。將代謝派的生命循環思維帶入日用品設計領域，主張「用之美」——日常物件的美是民主化的美。佛教僧侶出身。",
+      "key_works": [
+        "龜甲萬醬油瓶 (Kikkoman Soy Sauce Dispenser, 1961)——生產超過 3 億個",
+        "山葉機車系列 (Yamaha motorcycles)",
+        "成田特快 NEX (Narita Express train design)",
+        "秋田新幹線 (Akita Shinkansen design)",
+        "《道具の思想》(The Aesthetics of the Japanese Lunchbox, 1980)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Design to me has always meant making people happy.",
+          "source": "Japan Times interview, 2001",
+          "meaning": "（設計的終極目的是讓人幸福——這是佛教慈悲心在設計哲學中的世俗轉譯。幸福不是奢侈品的專利，一個好用的醬油瓶就是幸福。）"
+        },
+        {
+          "text": "After fulfilling the functionality, which is a necessity, what more one could hope for in the design than to discover pleasure in the realm of beauty.",
+          "source": "on the Kikkoman bottle design process",
+          "meaning": "（功能是必要條件，滿足功能之後，設計的最高追求是在美的領域中發現愉悅。栄久庵憲司從數百個龜甲萬醬油瓶原型中提煉出這個信念。）"
+        },
+        {
+          "text": "Beauty may be endowed with a somewhat violent procreational effect. It is dictatorial in its refusal of ugliness, and possesses considerable power of destruction. Used resourcefully, it becomes a purging force, for beauty is borne of spiritual precision.",
+          "source": "The Aesthetics of the Japanese Lunchbox (道具の思想), 1980",
+          "meaning": "（美具有暴力般的生產力——它獨裁地拒絕醜陋，擁有巨大的破壞力。善加利用時，美成為淨化的力量，因為美誕生於精神的精確性。佛教僧侶的語言。）"
+        },
+        {
+          "text": "People's views on lives, lifestyles and values are aggregated in the form of a product. Design has always created a relationship between humans and things that have livened our well-being.",
+          "source": "attributed, various writings",
+          "meaning": "（產品是人的生活觀、價值觀的物質凝縮。設計創造人與物之間的關係——這個關係讓人的存在更加鮮活。代謝派的生命觀在工業設計中的轉譯。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "METABOLISM/1960 — The Proposals for New Urbanism（代謝 1960——新都市主義的提案）",
+      "author": "黒川紀章、菊竹清訓、槇文彦、大高正人、栄久庵憲司、粟津潔、川添登",
+      "year": 1960,
+      "significance": "在東京世界設計會議上分發的宣言小冊，包含四篇論文：Ocean City（菊竹清訓）、Space City（黒川紀章）、Towards Group Form（槇文彦＋大高正人）、Material and Man（栄久庵憲司＋粟津潔）。宣告城市是生命過程、設計應追隨社會的代謝循環。"
+    },
+    {
+      "title": "A Plan for Tokyo 1960（東京計畫 1960）",
+      "author": "丹下健三",
+      "year": 1960,
+      "significance": "將東京從放射狀結構轉為沿海灣延伸的線性結構，以交通脊柱連接可替換居住單元。代謝派都市願景最宏大的表述，雖未實現但深遠影響後世的大尺度都市規劃思維。"
+    },
+    {
+      "title": "Investigations in Collective Form（集團形態之探究）",
+      "author": "槇文彦",
+      "year": 1964,
+      "significance": "提出 compositional form、megastructure、group form 三種集團形態類型。Group form 的由下而上邏輯修正了代謝派主流的巨構造思維，成為代謝派內部最具持續影響力的理論文本。"
+    },
+    {
+      "title": "Metabolism in Architecture（建築中的代謝）",
+      "author": "黒川紀章",
+      "year": 1977,
+      "significance": "代謝派最完整的理論回顧與自我反思。詳述膠囊建築、共生哲學、從機械時代到生命時代的思想轉型，是理解代謝派從技術烏托邦轉向文化多元主義的關鍵文本。"
+    },
+    {
+      "title": "Incubation Process（孵化過程）",
+      "author": "磯崎新",
+      "year": 1962,
+      "significance": "以「未來城市本身就是廢墟」的命題挑戰代謝派的進步敘事。將廣島原爆的毀滅經驗與都市的生命循環連結，是代謝派內部最重要的哲學反思。"
+    },
+    {
+      "title": "道具の思想 (The Aesthetics of the Japanese Lunchbox)",
+      "author": "栄久庵憲司",
+      "year": 1980,
+      "significance": "從日本便當盒的美學出發，論述日常器物如何凝縮一個文化的生活哲學。將代謝派的生命循環思維從建築尺度縮放到手中器物的尺度。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "城市是生命體 (City as living organism)：城市像生物一樣生長、代謝、循環、更新——放棄將城市視為可以被一次性規劃完成的靜態機械。（WHY：戰後東京以年均 10% 以上的速度膨脹，CIAM 的功能分區模型——住宅區、工業區、商業區整齊分離——在這種爆炸性成長面前完全失效。一座每十年人口翻倍的城市需要的是能夠自我調節的有機系統。）",
+      "結構與功能分離 (Separation of structure and function)：長壽命的基礎結構（骨骼/基幹）承載短壽命的可替換功能單元（細胞/膠囊），兩者各有獨立的生命週期。（WHY：傳統建築將結構與功能焊死在一起，整棟建築只能同步老化。但一個家庭的生活需求每 10 年就會劇變，而混凝土結構可以撐 100 年。把兩者分離，就能讓建築適應生活的變化速度。中銀膠囊塔就是這個理念的實體化。）",
+      "巨構造 (Megastructure)：以大尺度的基礎設施骨架——交通網路、能源管線、結構核心筒——作為城市的「人工地面」，個別建築在其上自由生長。（WHY：日本地狹人稠，平面土地用盡。丹下健三的東京灣計畫提出向海灣擴張的人工地面，交通脊柱就是新的地表。黒川紀章的螺旋都市向空中發展。菊竹清訓的海上都市向海洋發展。三個方向，同一個邏輯：重新定義「地面」。）",
+      "膠囊建築 (Capsule architecture)：個人生活的最小完整單元——可量產、可運輸、可插拔、可替換。（WHY：1960 年代日本的都市單身人口急速增長，傳統家庭住宅的尺度對單身工薪族來說過大且昂貴。膠囊是回應這個社會現實的激進答案：一個人需要多少空間？2.5m x 4m x 2.5m。黒川紀章說膠囊是個人主體性的庇護所。）",
+      "可替換性與循環 (Replaceability and cycles)：建築的各個部件應該可以被獨立更新，就像生物體的細胞不斷更替而有機體持續存活。（WHY：日本傳統建築——尤其是伊勢神宮每 20 年式年遷宮——早已實踐了「透過替換實現永恆」的理念。代謝派將這個傳統智慧轉譯為現代技術語言：模組化接口、標準化膠囊、螺栓連接而非焊接。）",
+      "擁抱技術與工業化：以最先進的營建技術（預鑄混凝土、鋼管框架、膠囊量產）回應大規模都市化的需求。（WHY：日本 1960 年代的建設量是天文數字——東京奧運、新幹線、首都高速公路同時進行。只有工業化量產才能跟上這個速度。代謝派的巨構造不是紙上談兵的烏托邦，而是回應真實建設需求的技術方案。）",
+      "日本傳統的現代轉譯：將佛教無常觀、伊勢神宮式年遷宮、日本庭園的借景手法等傳統智慧，轉化為現代建築的設計原則。（WHY：代謝派要證明日本文化可以產出屬於自己的現代建築理論，而非只能追隨柯比意和密斯。丹下健三說傳統是催化劑——它參與創造但不殘留於產物中。）"
+    ],
+    "what_they_refuse": [
+      "CIAM 的功能分區與靜態都市規劃：拒絕雅典憲章將城市切割為住宅、工作、交通、休閒四大功能區的僵化模型。（WHY：功能分區假設城市有一個可以被計算的最終形態。東京的現實證明城市沒有最終形態——它永遠在變化。代謝派的核心命題是：好的都市計畫容納變化，而非抗拒變化。）",
+      "國際風格的均質化美學：拒絕柯比意式的白色方盒子和密斯式的玻璃幕牆成為全球通用的建築語言。（WHY：代謝派認為國際風格是歐洲中心主義的產物——它假設巴黎、紐約、東京的城市問題可以用同一套解決方案回應。東京的密度、氣候、文化傳統、戰後創傷完全不同於歐美城市，需要自己的建築理論。）",
+      "建築的紀念碑性 (Monumentality)：拒絕將建築設計為追求永恆的紀念碑——擁抱暫時性、可更替性、生命週期。（WHY：西方建築傳統從金字塔到帕德嫩神殿到現代摩天大樓，核心慾望是抗拒時間。日本文化中的無常觀（諸行無常）提供了另一種時間觀：萬物流轉才是常態，執著於永恆是妄念。代謝派讓這個哲學立場成為建築設計原則。）",
+      "個體建築的封閉性：拒絕將建築視為獨立、完整、不可擴展的封閉物件。（WHY：傳統建築以完成為目標——建築師畫完圖、承包商蓋完房、業主搬進去，設計就結束了。代謝派的建築永遠處於「未完成」狀態，因為生命體永遠在變化。菊竹清訓的 Sky House 設計了可以掛載子房的結構接口——孩子出生就增加一個房間，孩子搬走就拆除。）",
+      "由上而下的極權式都市規劃：雖然巨構造有由上而下的風險，但代謝派的理論框架——尤其是槇文彦的群造形——強調個別單元的自律性與由下而上的生長邏輯。（WHY：二戰期間日本帝國的「大東亞共榮圈」是極權式規劃的極端案例。戰後的年輕建築師對任何由上而下的全面控制都保持警覺——即使他們自己設計的巨構造看起來像極權式的願景。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "CIAM / International Style 的靜態都市教條：雅典憲章（1933）的功能分區模型將城市視為可以被一次性規劃的機械系統——代謝派以生物模型取代機械模型",
+      "Team X 的有限批判：Team X（CIAM 內部反對派）雖然批評功能分區，但仍停留在歐洲城市的尺度與語境。代謝派將問題推向更激進的極端——海上都市、空中都市、膠囊建築",
+      "日本傳統主義 / 帝冠式：1930-40 年代日本的帝冠樣式（將日式屋頂蓋在西式建築上）是表面的傳統復興。代謝派要吸收的是傳統的深層邏輯（無常、循環、自然類比），而非視覺符號",
+      "西方後現代主義的歷史拼貼：Venturi 式的歷史符號遊戲被代謝派視為表面文章——真正的問題不是建築的外觀語言，而是城市的結構邏輯"
+    ],
+    "against_values": [
+      "建築的永恆性追求：代謝派擁抱暫時性與可替換性，拒絕西方建築傳統中「抗拒時間」的核心慾望",
+      "城市的靜態終極形態：拒絕任何假設城市有最終完成狀態的規劃思維",
+      "歐洲中心的現代主義話語權：代謝派要從日本文化內部產出現代建築理論，而非只是接收西方教條",
+      "建築師作為形式創造者：代謝派的建築師更接近系統設計者——設計的是規則與框架，而非最終形態",
+      "單一功能的建築類型學：拒絕住宅、辦公、商業等固定分類，主張功能混合與可轉換"
+    ],
+    "societal_context": "代謝派誕生於日本經濟高速成長期（1955-1973）的正中央。一方面，戰後重建的集體記憶讓這一代建築師對「毀滅與重生」有切身的體悟；另一方面，經濟奇蹟帶來的技術樂觀主義讓他們相信，建築技術可以解決任何規模的都市問題。1960 年東京世界設計會議是日本戰後首次以主辦者身份站上國際設計舞台——代謝派宣言的發表帶有強烈的文化自信宣示意味。1964 年東京奧運和 1970 年大阪萬博進一步強化了這種技術樂觀主義。然而 1973 年石油危機終結了高速成長期，巨構造的經濟基礎消失；同時，環保意識的興起讓無限成長的預設受到質疑。代謝派作為集體運動在 1970 年代中期結束，但其核心理念——可替換性、模組化、城市的有機生長——持續影響當代建築與都市設計。"
+  },
+
+  "problems_solved": [
+    "提出城市的生物模型：以有機體隱喻取代機械隱喻，為戰後日本（以及全球）的爆炸性都市化提供了全新的概念框架——城市不是被規劃完成的機器，而是持續代謝的生命體",
+    "發明結構與功能的分離原則：長壽命基礎設施 + 短壽命可替換單元的二元系統，成為後世模組化建築、預鑄建築、適應性再利用的理論先驅",
+    "讓非西方的現代建築理論登上國際舞台：代謝派是戰後第一個由亞洲建築師提出、在國際上產生重大影響的建築運動，打破了歐美對現代建築話語權的壟斷",
+    "將日本傳統哲學轉化為建築設計原則：佛教無常觀、伊勢神宮式年遷宮成為可操作的設計概念（可替換性、循環更新），證明傳統智慧可以產出前衛設計",
+    "開啟工業設計與建築的尺度連續體：從栄久庵憲司的醬油瓶到黒川紀章的膠囊塔到丹下健三的東京灣計畫，代謝派在器物-建築-都市三個尺度上保持了一致的設計邏輯",
+    "預見了永續設計與循環經濟的核心議題：可替換、可回收、壽命分級——代謝派在 1960 年代提出的概念，半個世紀後成為永續建築的基本語彙"
+  ],
+
+  "problems_created": [
+    "巨構造的威權傾向：由上而下設計的超大型結構隱含對個人自由的壓制——誰決定膠囊的規格？誰控制基礎設施骨架？代謝派的有機隱喻無法掩蓋其規劃邏輯的極權傾向",
+    "技術烏托邦的落地失敗：海上都市、空中都市、螺旋都市幾乎全部停留在紙上。唯一完整建成的中銀膠囊塔，46 年間從未更換過任何一個膠囊，2022 年整棟拆除——「可替換」的承諾從未兌現",
+    "忽視居住者的生活品質：膠囊的極小空間（10 平方米以下）犧牲了居住的基本舒適度。中銀膠囊塔的居民長期抱怨隔音差、設備老化、無法維修——技術理想與生活現實的差距巨大",
+    "生物隱喻的過度延伸：城市像有機體一樣「代謝」的比喻，在修辭上優美但在操作上含糊。誰負責「替換」老化的單元？費用誰出？產權如何處理？代謝派從未回答這些制度層面的問題",
+    "加劇了日本建築的男性中心主義：代謝派的核心成員全部是男性，其巨構造願景帶有強烈的男性征服慾（征服海洋、征服天空、征服密度），缺少對日常生活、家務勞動、育兒空間的關注",
+    "助長了建築師的救世主情結：代謝派建築師以城市救世主自居——他們的提案假設建築師有能力也有權力重新設計整座城市。這種傲慢在 1970 年代遭到嚴厲批判"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "城市是活的生命體，建築是可以代謝的有機系統——結構體（骨骼）與功能單元（細胞）擁有不同的生命週期，透過替換與循環實現永續。這個概念從根本上改變了建築的時間觀：建築的目標從「對抗時間」轉為「順應時間」。",
+    "what_was_truly_new": [
+      "結構與功能的壽命分離原則：明確提出建築的不同部件應有不同的生命週期，長壽基礎設施承載短壽功能單元。這個概念在 1960 年是前所未有的系統性表述",
+      "從日本佛教哲學中提煉現代建築原則：無常觀 → 可替換性、式年遷宮 → 循環更新。這是第一個成功將東方哲學轉化為可操作設計方法論的建築運動",
+      "膠囊作為建築的最小完整單元：可量產、可運輸、可插拔的個人生活單元。中銀膠囊塔（1972）是全球第一棟膠囊建築",
+      "建築師作為系統設計者的角色定義：設計的不是最終形態，而是生長的規則與替換的機制——建築師創造框架，居住者填充內容",
+      "跨尺度的統一設計邏輯：同一套代謝原則同時應用於產品設計（龜甲萬醬油瓶）、建築（膠囊塔）、都市規劃（東京灣計畫），這種尺度連續體是獨創的"
+    ],
+    "what_was_borrowed": [
+      "CIAM / Team X 的都市主義辯論：代謝派的立場直接回應 CIAM 的功能分區教條與 Team X 的人本主義修正。Smithsons 的 cluster city 概念與代謝派的群造形有共鳴",
+      "Archigram 的技術烏托邦想像：Plug-in City（1964）與代謝派的膠囊/巨構造高度平行。兩者獨立發展但彼此知曉，共享對技術的樂觀與對可替換性的迷戀",
+      "Buckminster Fuller 的結構理論：測地線穹頂、張拉結構、以最少材料圍合最大空間的原則，直接影響菊竹清訓與丹下健三",
+      "Le Corbusier 的 Unite d'Habitation：大型集合住宅 + 空中街道的概念是巨構造的直接先驅",
+      "日本傳統建築的空間概念：障子、襖的可變隔間；伊勢神宮的式年遷宮；數寄屋的非對稱美學。這些傳統元素被轉化為現代設計語彙"
+    ],
+    "creative_leap": "代謝派的關鍵創造性飛躍在於「時間觀的翻轉」：西方現代建築追求永恆的紀念碑性（混凝土是永久的、鋼是不朽的），代謝派引入日本佛教的無常觀，將暫時性、可替換性、循環更新從缺陷翻轉為設計原則。伊勢神宮每 20 年拆除重建，因此它是日本最「新」的古蹟——代謝派用同樣的邏輯說：中銀膠囊塔每 25 年替換膠囊，因此它永遠是新的。這個翻轉讓非西方的時間哲學成為建築創新的泉源。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "代謝派的核心命題——如何讓人造系統像生命體一樣適應變化——在數位時代獲得了全新的操作可能性。1960 年代的實體膠囊替換受限於成本與制度，但今天的軟體更新、模組化硬體、平台經濟已經實現了代謝派夢寐以求的可替換性。代謝派的失敗（膠囊從未被替換）與其核心洞見（系統必須容納變化）之間的張力，對今天的設計者極具啟發。",
+      "transferable_to": [
+        "平台設計與模組化架構：代謝派的結構/功能分離 = 平台/應用分離。iOS 是骨架，App 是膠囊",
+        "永續設計與循環經濟：壽命分級、可拆卸、可回收——代謝派在 1960 年代預見的概念是今天 Cradle-to-Cradle 設計的先驅",
+        "城市韌性 (Urban Resilience)：氣候變遷時代的城市需要代謝派的適應性思維——基礎設施必須能容納不可預測的變化",
+        "軟體架構：microservices 的獨立部署、容器化（Docker）的可替換邏輯，與膠囊建築的結構同源",
+        "共居空間 (Co-living) 設計：膠囊概念的當代重生——WeWork、coliving space 重新定義了最小完整居住單元",
+        "AI 時代的適應性設計：設計規則與框架而非最終形態——代謝派「建築師作為系統設計者」的角色定義，對應今天的 prompt engineering 與 generative design"
+      ]
+    },
+    "originality_type": "paradigm_shift"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Le Corbusier / CIAM (1920s-)：Unite d'Habitation 的集合住宅、Ville Radieuse 的都市願景。丹下健三曾親赴 CIAM 會議",
+      "Buckminster Fuller (1940s-)：測地線穹頂、世界博覽會建築、「以最少材料做最多事」的結構原則",
+      "Team X / Smithsons (1950s-)：對 CIAM 功能分區的批判、cluster city 概念、人本主義都市觀",
+      "日本傳統建築：伊勢神宮式年遷宮（透過替換實現永恆）、數寄屋的非對稱美學、障子襖的可變空間",
+      "佛教哲學：諸行無常（萬物流轉）、色即是空（形式與虛空的辯證）",
+      "Archigram (1960s, 平行發展)：Plug-in City、Walking City、Instant City 的技術烏托邦想像",
+      "控制論 (Cybernetics, 1950s-)：Norbert Wiener 的回饋迴路概念影響了代謝派對城市自我調節的理解"
+    ],
+    "influenced": [
+      "High-Tech Architecture (1970s-1990s)：Richard Rogers 的 Centre Pompidou（外露結構、可適應內部）與代謝派的結構/功能分離原則共享 DNA",
+      "Rem Koolhaas / OMA (1990s-)：Koolhaas 對東京都市密度的研究深受代謝派影響，「Bigness」理論延續了巨構造的命題",
+      "Toyo Ito / SANAA / 新世代日本建築 (2000s-)：伊東豊雄的流動空間、妹島和世的透明性，是代謝派有機思維的精煉化延續",
+      "永續建築 / Cradle-to-Cradle (2000s-)：壽命分級、可拆卸、模組化替換——代謝派在 1960 年代預見的原則",
+      "數位製造與參數化設計 (2010s-)：3D 列印建築、演算法生成的有機形態，實現了代謝派無法以當時技術達成的複雜幾何",
+      "共居空間 / 微型住宅運動 (2010s-)：膠囊概念的當代迴響——從東京的膠囊旅館到全球的 co-living 空間",
+      "Stewart Brand 的 Shearing Layers (1994)：《How Buildings Learn》中建築六層壽命分級理論（site → structure → skin → services → space plan → stuff）直接延續代謝派的結構/功能分離原則"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "具有生物學家的觀察力與未來學家的想像力。像一位城市生態學者：先看系統的動態平衡，再看個別元素。對「這個設計能否適應變化」的追問永不停止，但對「這個設計完成了嗎」的問題充滿警覺——完成意味著死亡。欣賞有機的生長邏輯、跨尺度的一致性、東西方文化的融合。對靜態的、封閉的、追求永恆的設計有深層的不信任。思考跨度從醬油瓶到城市規劃，語氣帶有日本美學的含蓄但判斷果斷。",
+    "evaluation_bias": "強烈偏好適應性強、模組化、容納變化的作品。傾向高估系統性思維與生長潛力的價值，低估完成度、精緻度與紀念碑性的重要性。會不自覺地以「這個設計能否在十年後仍然適用？能否被局部替換而不需全部拆除？」作為隱性評分標準。對精雕細琢但無法擴展的作品可能給出不公正的低評。",
+    "blind_spots": "難以欣賞追求永恆品質的設計——例如 Mies van der Rohe 的 Farnsworth House 或安藤忠雄的清水混凝土。對「完成即完美」的工藝傳統缺乏耐心。傾向忽視可替換性在制度層面的操作困難（產權、維護成本、社區共識）。對小尺度、私密性、日常生活的溫度可能關注不足——巨構造的視野容易讓人忘記一個人蜷在沙發上讀書的需求。",
+    "typical_critique": "你的作品在形式上是精緻的，但我必須問：當使用者的需求改變時，它能適應嗎？這個結構與功能是否可以被分離？如果整個設計只為此刻的需求服務，那它在五年後就會成為阻礙而非助力。城市是活的，建築也應該是活的。我建議你重新思考：哪些部分應該是永久的骨架，哪些部分應該是可替換的細胞？"
+  },
+
+  "writing_style": {
+    "collective_voice": "代謝派的集體寫作風格是「生物學宣言體」：用有機體的隱喻重新定義建築的所有基本概念。核心修辭結構是自然類比（細胞/骨骼、生長/衰亡、代謝/循環），以此取代西方建築論述中的機械隱喻。宣言性質強但帶有東方哲學的底層音色——佛教的無常觀、日本美學的「間」概念滲透在字裡行間。動詞偏好動態過程（grow, metabolize, replace, cycle），拒絕完成態（complete, finish, permanent）。",
+    "internal_tensions": "最大的風格裂痕在「技術樂觀主義」與「廢墟虛無主義」之間。黒川紀章和菊竹清訓代表面向未來、擁抱技術、設計可以拯救城市的聲音。磯崎新代表面向毀滅、擁抱虛無、未來城市本身就是廢墟的聲音。槇文彦是務實的中間路線：既不像黒川那樣狂熱，也不像磯崎那樣虛無，而是從集團形態的分析中尋找可操作的方法。",
+    "master_voices": [
+      {
+        "name": "丹下健三 (Kenzo Tange)",
+        "writing_character": "都市規劃師的冷靜分析與文明建設者的使命感並存",
+        "sentence_rhythm": "中等長度的陳述句為主，以數據與分析支撐判斷，偶爾爆發使命宣言式的短句",
+        "rhetoric": "城市結構類比（脊柱、動脈、神經網路）、化學隱喻（催化劑、反應、產物）、文明使命論述",
+        "tone": "冷靜的權威，帶有導師對後輩的期許",
+        "real_examples": [
+          {
+            "text": "Tradition can, to be sure, participate in a creation, but it can no longer be creative itself.",
+            "source": "Katsura: Tradition and Creation in Japanese Architecture, 1960",
+            "style_note": "讓步句式起手（can, to be sure），轉折收尾（but...no longer），辯證法的節奏"
+          },
+          {
+            "text": "Tokyo is expanding but there is no more land, and we shall have to expand into the sea.",
+            "source": "A Plan for Tokyo 1960",
+            "style_note": "對比結構（expanding / no more land），然後以 shall 的意志力跳向激進結論"
+          }
+        ]
+      },
+      {
+        "name": "黒川紀章 (Kisho Kurokawa)",
+        "writing_character": "生物學家的觀察報告與佛教徒的哲思日記的混合體",
+        "sentence_rhythm": "列舉式的長句與格言式的短句交替。喜歡用一系列名詞列舉定義概念",
+        "rhetoric": "生物學名詞轉用（cell, metabolism, symbiosis, DNA）、東西方對比、列舉定義法",
+        "tone": "知識分子的自信，帶有跨文化哲學家的野心",
+        "real_examples": [
+          {
+            "text": "That image encompasses notions of growth, division, exchange, transformation, autonomous parts, deconstruction, temporariness, recycling, and a dynamic stability.",
+            "source": "Metabolism in Architecture, 1977",
+            "style_note": "九個名詞的列舉構成一個生態系——以 and 收束為 dynamic stability，動態穩定是終點"
+          },
+          {
+            "text": "In the coming age, the machine-age ideal of universality will be exchanged for a symbiosis of different cultures.",
+            "source": "The Philosophy of Symbiosis, 1994",
+            "style_note": "時代宣告句式：舊時代的 X 將被新時代的 Y 取代"
+          }
+        ]
+      },
+      {
+        "name": "磯崎新 (Arata Isozaki)",
+        "writing_character": "哲學家在廢墟中寫作——廣島少年的創傷轉化為建築理論",
+        "sentence_rhythm": "短句堆疊產生壓迫感，像廢墟碎片的堆積。偶爾出現長句如追憶的獨白",
+        "rhetoric": "悖論式判斷（future cities are ruins）、毀滅意象（obliteration, extinction, inert material）、時間的循環",
+        "tone": "冷峻的、帶虛無主義色彩但不頹廢——廢墟是起點而非終點",
+        "real_examples": [
+          {
+            "text": "Future cities are themselves ruins.",
+            "source": "Incubation Process, 1962",
+            "style_note": "六個字的悖論判斷，代謝派內部最尖銳的反命題"
+          },
+          {
+            "text": "Design, or architecture, becomes reality when it overlaps with its own extinction.",
+            "source": "Invisible City essay",
+            "style_note": "創造與毀滅的同一性——哲學密度極高的一句話"
+          }
+        ]
+      },
+      {
+        "name": "槇文彦 (Fumihiko Maki)",
+        "writing_character": "學術論文的嚴謹與人文主義的溫度並存",
+        "sentence_rhythm": "中等偏長的分析性句子，邏輯清晰，從觀察到推論到提案",
+        "rhetoric": "都市形態學的專業術語、類型學分析、系統性分類（三種集團形態）",
+        "tone": "沉穩的學者，帶有對城市生活的細緻觀察力",
+        "real_examples": [
+          {
+            "text": "What is needed is not just observation and critical comment, but utilization of the observation to develop strategic tools in making our physical environment.",
+            "source": "Investigations in Collective Form, 1964",
+            "style_note": "not just X, but Y 的遞進結構，從被動（observation）到主動（strategic tools）"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "大量使用生物學隱喻：細胞、骨骼、代謝、生長、共生、循環",
+      "二元對立以東西方文化為軸心：機械/有機、永恆/無常、靜態/動態",
+      "句式偏好動態動詞：grow, metabolize, replace, cycle, adapt",
+      "拒絕完成態的詞彙：避免 complete, final, permanent, perfect",
+      "每段以觀察起手、以提問收尾——觀察現狀，追問變化",
+      "跨尺度思考：從器物到建築到城市，同一套邏輯貫穿",
+      "引入日本美學概念時不做過多解釋——無常、間、借景作為共享語彙使用",
+      "類比必須包含時間維度：靜態的空間類比不足，必須加入生命週期的考量"
+    ]
+  }
+}

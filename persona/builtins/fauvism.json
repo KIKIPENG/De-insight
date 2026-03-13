@@ -1,0 +1,490 @@
+{
+  "movement_id": "fauvism",
+  "name": {
+    "zh": "野獸派",
+    "en": "Fauvism",
+    "fr": "Fauvisme"
+  },
+  "domain": [
+    "視覺藝術"
+  ],
+  "period": {
+    "start": 1904,
+    "end": 1908,
+    "peak": "1905-1907（1905 年秋季沙龍引爆命名事件，Matisse 與 Derain 的 Collioure 夏季共同創作達到色彩解放的巔峰，1906-1907 年成員陸續轉向其他方向）"
+  },
+  "geography": [
+    "法國巴黎（秋季沙龍、獨立沙龍為展出主場）",
+    "法國南部 Collioure（1905 年夏，Matisse 與 Derain 的關鍵駐地）",
+    "法國 Chatou（Derain 與 Vlaminck 的畫室所在地）",
+    "法國 Le Havre（Dufy 與 Braque 的出身地，Friesz 同為諾曼第畫家）",
+    "法國 L'Estaque（Braque 1906 年作畫地點）"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "19 世紀末的法國繪畫經歷了印象派對光線的科學分析、新印象派對色點的系統化排列、後印象派三巨頭（Cezanne 的結構、Van Gogh 的情感、Gauguin 的象徵）的各自突破。到了 1900 年代初，學院派沙龍仍然掌握官方審美標準，堅持素描至上、棕灰色調、文學性主題。年輕畫家面對的問題是：印象派已經證明色彩可以脫離固有色（local color），後印象派已經證明繪畫可以表達主觀情感——下一步是什麼？答案是徹底解放色彩：讓色彩脫離描述功能，成為獨立的表現力量。1905 年秋季沙龍的 VII 號展廳，Matisse、Derain、Vlaminck、Marquet 等人的作品集中展出，評論家 Louis Vauxcelles 看到展廳中央一座文藝復興風格的雕塑，說了一句 'Donatello chez les fauves'（多納泰羅被野獸包圍了），「野獸派」由此得名。",
+    "social_energy": "野獸派的能量來自三個交匯：(1) 巴黎作為全球藝術之都的磁吸效應——1900 年巴黎世博會吸引五千萬人次，非洲與大洋洲的藝術品首次大規模進入歐洲藝術家的視野，原始藝術的大膽用色與造型自由衝擊了學院審美；(2) 色彩科學的成熟——Chevreul 的色彩對比理論、Signac 於 1899 年出版的《從 Delacroix 到新印象主義》為色彩解放提供了理論武器；(3) Belle Epoque 的文化活力——法國第三共和國政治相對穩定，藝術市場蓬勃，畫商如 Ambroise Vollard 與 Berthe Weill 願意冒險支持前衛藝術，獨立沙龍與秋季沙龍提供了繞過學院審查的展出管道。",
+    "purpose": "野獸派的終極目標是將色彩從描述性功能中徹底解放：天空可以是橘紅色，人臉可以是綠色，陰影可以是紫色——只要這個色彩選擇能傳達畫家的內在感受。繪畫的目的從「再現眼前所見」轉向「表達內心所感」。Matisse 稱之為 'expression'——透過色彩的配置、線條的韻律、構圖的張力，將畫家面對自然時的情感反應直接轉化為畫布上的視覺力量。這是一場色彩的獨立宣言。",
+    "key_timeline": [
+      "1899 — Signac 出版《從 Delacroix 到新印象主義》(D'Eugene Delacroix au Neo-Impressionnisme)，系統闡述色彩對比理論",
+      "1900 — 巴黎世博會，五千萬人次參觀，非洲與大洋洲藝術品展出",
+      "1901 — Van Gogh 回顧展在 Bernheim-Jeune 畫廊舉辦，引爆年輕畫家對表現性色彩的熱情",
+      "1903 — 秋季沙龍（Salon d'Automne）創立，提供學院沙龍之外的展出平台；同年 Gauguin 逝世",
+      "1904 夏 — Matisse 至 Saint-Tropez 與 Signac 共同作畫，實驗新印象派點描法",
+      "1904 — Matisse 完成《奢華、寧靜與歡愉》(Luxe, Calme et Volupte)，仍帶新印象派影響",
+      "1905.06-09 — Matisse 與 Derain 在 Collioure 共同作畫，色彩徹底脫離自然主義",
+      "1905.10.18 — 秋季沙龍開幕，VII 號展廳集中展出 Matisse、Derain、Vlaminck、Marquet、Manguin 等人作品",
+      "1905.10 — Louis Vauxcelles 在 Gil Blas 報發表評論，'Donatello chez les fauves' 一語命名野獸派",
+      "1905 — 美國收藏家 Leo 與 Gertrude Stein 購入 Matisse 的《戴帽子的女人》(Woman with a Hat)，成為野獸派的早期支持者",
+      "1906 — Matisse 展出《生之喜悦》(Le Bonheur de Vivre / Joy of Life)，引發巨大爭議",
+      "1906 夏 — Derain 赴倫敦作畫，完成泰晤士河系列",
+      "1906 秋 — Braque 受野獸派影響，在 L'Estaque 創作一系列鮮豔風景",
+      "1907 — Braque 與 Dufy 在 L'Estaque 作畫，Braque 開始轉向 Cezanne 的結構分析",
+      "1907.06 — Picasso 完成《亞維農少女》(Les Demoiselles d'Avignon)，預告立體派崛起",
+      "1908 — Braque 的 L'Estaque 風景被 Matisse（作為秋季沙龍評審）評為 'petits cubes'（小方塊），暗示立體派命名；野獸派作為集體運動實質解散"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "亨利·馬蒂斯",
+        "en": "Henri Matisse"
+      },
+      "role": "野獸派的核心領袖與精神導師。比其他成員年長十歲左右，已有豐富的學院訓練與後印象派研究經驗。1905 年與 Derain 在 Collioure 的共同創作奠定了野獸派的色彩語言。終生堅持色彩表現的道路，將野獸派的核心理念發展為更精煉的個人風格。",
+      "key_works": [
+        "《戴帽子的女人》(Woman with a Hat, 1905)",
+        "《綠色條紋》(The Green Stripe / Portrait of Madame Matisse, 1905)",
+        "《生之喜悦》(Le Bonheur de Vivre / Joy of Life, 1905-1906)",
+        "《奢華、寧靜與歡愉》(Luxe, Calme et Volupte, 1904)",
+        "《開窗》(Open Window, Collioure, 1905)",
+        "《藍色裸體（比斯克拉的記憶）》(Blue Nude: Memory of Biskra, 1907)"
+      ],
+      "key_quotes": [
+        {
+          "text": "What I am after, above all, is expression... I am unable to distinguish between the feeling I have for life and my way of expressing it.",
+          "source": "Notes of a Painter (Notes d'un peintre), La Grande Revue, December 25, 1908",
+          "meaning": "（繪畫即表達，表達即生命本身。Matisse 拒絕將技法與情感分開：對生活的感受與在畫布上的表達是同一件事。這篇文章是野獸派最重要的理論宣言。）"
+        },
+        {
+          "text": "What I dream of is an art of balance, of purity and serenity, devoid of troubling or depressing subject matter... a soothing, calming influence on the mind, something like a good armchair which provides relaxation from physical fatigue.",
+          "source": "Notes of a Painter (Notes d'un peintre), La Grande Revue, December 25, 1908",
+          "meaning": "（繪畫應該像一把舒適的扶手椅——帶來精神的安頓與愉悦。這段話常被誤讀為追求裝飾性的膚淺，實際上 Matisse 主張的是：藝術的功能是重建觀者的內在平衡，這需要極度精確的色彩與構圖控制。）"
+        },
+        {
+          "text": "I do not literally paint that table, but the emotion it produces upon me.",
+          "source": "attributed, from interview with Jacques Guenne, L'Art Vivant, 1925",
+          "meaning": "（畫的對象從桌子轉移到桌子引發的情感——這是野獸派最核心的認知翻轉：繪畫的主題是畫家的內在反應，外在物體只是觸發器。）"
+        },
+        {
+          "text": "Exactitude is not truth.",
+          "source": "Title of essay, originally from statement for 1947 Philadelphia Museum retrospective exhibition catalogue",
+          "meaning": "（精確再現不等於真實。照相般的寫實可能是最大的謊言，因為它忽略了感知者的情感真實。一個綠色的臉龐可能比一個膚色的臉龐更「真實」，因為它傳達了畫家感受到的光線與情緒。）"
+        },
+        {
+          "text": "Colour was not given to us in order that we should imitate Nature. It was given to us so that we can express our own emotions.",
+          "source": "attributed, from Jazz (1947), and echoed in multiple interviews",
+          "meaning": "（色彩的功能在於傳達畫家的情感狀態，它已脫離了模仿自然界固有色的舊角色。這句話是整個野獸派色彩哲學的核心命題。）"
+        },
+        {
+          "text": "With colour one obtains an energy that seems to stem from witchcraft.",
+          "source": "Letter to Andre Rouveyre, 1941, published in Henri Matisse: A Retrospective (ed. Jack Flam, 1988)",
+          "meaning": "（色彩產生的能量近乎巫術——無法用理性完全解釋，但效果真實且強烈。Matisse 承認色彩的力量有一個超越分析的維度，這種神秘感正是他終生追求的。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "安德烈·德蘭",
+        "en": "Andre Derain"
+      },
+      "role": "野獸派的共同開拓者，1905 年 Collioure 夏季與 Matisse 並肩實驗色彩解放的關鍵夥伴。比 Matisse 年輕十歲，帶來更激進的用色膽量。1906 年受畫商 Vollard 委託赴倫敦創作泰晤士河系列，是野獸派純度最高的風景畫傑作。1907 年後逐漸轉向 Cezanne 式的結構探索。",
+      "key_works": [
+        "《Collioure 的船》(Boats at Collioure, 1905)",
+        "《乾燥的樹》(The Trees / L'Estaque, 1906)",
+        "《查令十字橋》(Charing Cross Bridge, London, 1906)",
+        "《泰晤士河上的橋》(The Pool of London, 1906)",
+        "《Collioure 的山》(Mountains at Collioure, 1905)",
+        "《彎道（L'Estaque 的路）》(The Turning Road, L'Estaque, 1906)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The substance of painting is light.",
+          "source": "Letter to Matisse from Collioure, summer 1905, published in Andre Derain: Letters a Vlaminck (1955)",
+          "meaning": "（繪畫的本質是光線——Collioure 的地中海強光讓 Derain 體悟到：色彩是光線的直接產物，捕捉光線的真相需要比自然主義更激烈的色彩。）"
+        },
+        {
+          "text": "We were always intoxicated with colour, with words that speak of colour, and with the sun that makes colours live.",
+          "source": "attributed, from retrospective interviews, collected in John Elderfield, The 'Wild Beasts': Fauvism and Its Affinities (MoMA, 1976)",
+          "meaning": "（色彩的陶醉——Derain 回憶野獸派時期時強調的是一種近乎生理性的、被色彩佔據的狀態。太陽讓色彩活過來，畫家也因此活過來。）"
+        },
+        {
+          "text": "I pushed the use of colour to such extremes that even Matisse was alarmed.",
+          "source": "attributed, from later recollections, cited in Hilary Spurling, Matisse the Master (2005)",
+          "meaning": "（連 Matisse 都感到震驚的色彩激進程度——Derain 在 Collioure 的用色比 Matisse 更大膽，直接從顏料管擠出純色塗抹畫布，完全放棄調色。）"
+        },
+        {
+          "text": "Colours become sticks of dynamite. They are primed to discharge light.",
+          "source": "Letter to Vlaminck, 1905, published in Andre Derain: Letters a Vlaminck (1955)",
+          "meaning": "（色彩是炸藥——裝填好的引信隨時準備釋放光線的爆發力。Derain 用軍事隱喻描述色彩的能量，反映了野獸派對色彩力量的物理性理解。）"
+        },
+        {
+          "text": "I am learning to unlearn.",
+          "source": "Letter to Vlaminck, c. 1905, cited in Gaston Diehl, Derain (1964)",
+          "meaning": "（學習「去學習」——忘掉學院教的一切規則，才能看見色彩的自由。Derain 的這句話概括了野獸派的核心教育姿態：解放始於遺忘。）"
+        },
+        {
+          "text": "I believe that the problem for the future is more a problem of harmony than of exact representation.",
+          "source": "Letter to Matisse, c. 1906, published in Correspondance Matisse-Derain (ed. Remi Labrusse, 2005)",
+          "meaning": "（繪畫的未來在於和諧的問題，不在於精確再現的問題。Derain 預見了現代繪畫的走向：色彩之間的關係比色彩與自然之間的對應更重要。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "莫里斯·德·弗拉曼克",
+        "en": "Maurice de Vlaminck"
+      },
+      "role": "野獸派中最狂暴的色彩主義者。自行車賽車手與小提琴手出身，幾乎完全自學繪畫，以直覺與本能作畫。1900 年在火車上偶遇 Derain 後成為密友，兩人在 Chatou 共用畫室。1901 年 Van Gogh 回顧展徹底改變了他的創作方向。作品以厚重的顏料、激烈的筆觸和反智性的創作態度著稱。",
+      "key_works": [
+        "《Chatou 的餐廳》(Restaurant de la Machine at Bougival, 1905)",
+        "《Chatou 的房屋》(Houses at Chatou, 1905)",
+        "《紅色的樹》(The Red Trees, 1906)",
+        "《Chatou 的塞納河》(The River Seine at Chatou, 1906)",
+        "《圓形馬戲團》(The Circus, 1906)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I heightened all my tone values and transposed into an orchestration of pure colour every single thing I felt.",
+          "source": "Dangerous Turns (Tournant Dangereux), autobiography, 1929",
+          "meaning": "（提高所有色調的強度，把感受到的一切轉化為純色的交響。Vlaminck 用音樂類比描述自己的方法：色彩如同管弦樂團的不同聲部，每一個感受對應一個純色的音符。）"
+        },
+        {
+          "text": "I wanted to burn down the Ecole des Beaux-Arts with my cobalts and vermilions, and I wanted to express my feelings with my brushes without troubling about what painting had been before me.",
+          "source": "Dangerous Turns (Tournant Dangereux), autobiography, 1929",
+          "meaning": "（用鈷藍和硃紅燒毀美術學院——Vlaminck 的反學院姿態是所有野獸派畫家中最激烈的。他宣稱對繪畫史毫無興趣，只在乎此刻的感受與顏料的物理力量。）"
+        },
+        {
+          "text": "I try to paint with my heart and my loins, not bothering with style.",
+          "source": "Dangerous Turns (Tournant Dangereux), autobiography, 1929",
+          "meaning": "（用心臟和身體本能作畫，不理會風格問題。Vlaminck 把繪畫定義為純粹的生理行為——色彩從內臟而非大腦流出。）"
+        },
+        {
+          "text": "What I could have done only with dynamite in the social domain, I have tried to achieve in painting by using colours of maximum purity.",
+          "source": "attributed, from various interviews, cited in Marcel Sauvage, Vlaminck, sa vie et son message (1956)",
+          "meaning": "（社會層面需要炸藥完成的事，我用最大純度的色彩在繪畫中實現。Vlaminck 把色彩革命等同於社會革命——純色是對學院秩序的爆破。）"
+        },
+        {
+          "text": "Instinct is the foundation of art.",
+          "source": "attributed, from writings and interviews, cited in John Elderfield, The 'Wild Beasts': Fauvism and Its Affinities (MoMA, 1976)",
+          "meaning": "（本能是藝術的基礎。Vlaminck 是野獸派中反知識主義傾向最強的人。他拒絕理論、拒絕博物館、拒絕任何體系化的思考，堅持繪畫是一種動物性的本能表達。）"
+        },
+        {
+          "text": "Good painting is like good cooking: you can taste it, but you can't explain it.",
+          "source": "attributed, from interviews, cited in Gaston Diehl, Les Fauves (1971)",
+          "meaning": "（好畫像好菜：你嘗得出來，但解釋不了。Vlaminck 對藝術理論的全面拒絕——味覺是即時的、身體的、無法言語化的，繪畫也應如此。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "拉烏爾·杜菲",
+        "en": "Raoul Dufy"
+      },
+      "role": "Le Havre 出身的諾曼第畫家，1905 年在秋季沙龍看到 Matisse 的《奢華、寧靜與歡愉》後轉向野獸派。將野獸派的色彩自由延伸至裝飾藝術與織品設計，是野獸派與應用藝術之間最重要的橋梁。後期發展出獨特的「線色分離」風格——線條與色彩各自獨立運行，色塊不受輪廓線約束。",
+      "key_works": [
+        "《7月14日在 Le Havre 掛旗的街道》(Street Decked with Flags at Le Havre, 1906)",
+        "《Sainte-Adresse 的海報》(Posters at Trouville, 1906)",
+        "《L'Estaque 的老房子》(Old Houses at L'Estaque, 1908)",
+        "為時裝設計師 Paul Poiret 設計的織品 (1911-)",
+        "《電力仙女》壁畫 (La Fee Electricite, 1937, 巴黎市立現代美術館)"
+      ],
+      "key_quotes": [
+        {
+          "text": "What I wish to show when I paint is the way I see things with my eyes and feel them with my heart.",
+          "source": "attributed, from interviews, cited in Pierre Courthion, Raoul Dufy (1951)",
+          "meaning": "（展示的是眼睛看到的方式與心靈感受到的方式——Dufy 強調知覺與情感的雙重在場。繪畫記錄的是感知模式本身，而非感知的對象。）"
+        },
+        {
+          "text": "It was in front of this picture that I understood all the new reasons for painting, and Impressionist realism lost its charm for me as I contemplated this miracle of the imagination introduced into drawing and colour.",
+          "source": "recollection of seeing Matisse's Luxe, Calme et Volupte at the 1905 Salon des Independants, cited in Dora Perez-Tibi, Dufy (1989)",
+          "meaning": "（看到 Matisse 的《奢華、寧靜與歡愉》的那一刻，印象派的寫實魅力瞬間消散——想像力被引入素描與色彩之中。Dufy 把這次觀看經驗描述為繪畫的全新理由的啟示。）"
+        },
+        {
+          "text": "The reflection of the sun on water can only be rendered by something that dazzles in an equivalent fashion.",
+          "source": "attributed, from writings on painting, cited in Raymond Cogniat, Raoul Dufy (1962)",
+          "meaning": "（陽光在水面的反射只能用同等眩目的手法來傳達——繪畫的任務是製造等效的感官衝擊。描述陽光的文字遠不如一塊刺眼的黃色來得「真實」。）"
+        },
+        {
+          "text": "I make use of colour to render my emotion rather than to copy nature.",
+          "source": "attributed, from interviews, cited in Dora Perez-Tibi, Dufy (1989)",
+          "meaning": "（用色彩傳達情感，取代抄錄自然。Dufy 的版本比 Matisse 更簡潔：色彩的功能是表達，不是描述。）"
+        },
+        {
+          "text": "Blue is the only colour which maintains its own character in all its tones... it will always stay blue.",
+          "source": "attributed, from notes on colour, cited in Alfred Werner, Raoul Dufy (1970)",
+          "meaning": "（藍色是唯一在所有色調中都保持自身特性的顏色。Dufy 對色彩的個性化觀察——每個顏色有獨立的「性格」，藍色的個性最堅定、最忠於自身。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "喬治·布拉克（早期）",
+        "en": "Georges Braque (early)"
+      },
+      "role": "Le Havre 出身，1906 年受野獸派影響轉向鮮豔色彩的風景畫創作。在 L'Estaque 與 Antwerp 完成一系列野獸派風格作品。但到 1907 年，Cezanne 的影響逐漸壓過野獸派的色彩衝動，Braque 開始追求結構性的造形分析，最終與 Picasso 共同開創立體派——野獸派中唯一一位轉向幾何解構的成員。",
+      "key_works": [
+        "《L'Estaque 的風景》(Landscape at L'Estaque, 1906)",
+        "《L'Estaque 的小海灣》(The Little Bay at La Ciotat, 1907)",
+        "《La Ciotat 的風景》(Landscape at La Ciotat, 1907)",
+        "《L'Estaque 的高架橋》(Viaduct at L'Estaque, 1907-1908，轉向立體派的過渡作品）"
+      ],
+      "key_quotes": [
+        {
+          "text": "You see, I had made a great discovery: I no longer believed in anything. Objects didn't exist for me except in so far as a rapport existed between them, and between them and myself.",
+          "source": "Conversation with Dora Vallier, Cahiers d'Art, October 1954",
+          "meaning": "（物體本身不存在，存在的只有物體之間、以及物體與畫家之間的關係。Braque 從野獸派的色彩經驗中領悟到：繪畫處理的是關係，而非事物。這個認知後來導向了立體派的多視角分析。）"
+        },
+        {
+          "text": "When I discovered the Fauves, I said: that is what I have to do. After seeing their painting, I knew what I was about. I couldn't have done it before.",
+          "source": "attributed, from conversations with John Richardson, collected in A Life of Picasso (vol. 1, 1991)",
+          "meaning": "（看到野獸派的繪畫，我知道自己該做什麼了。Braque 承認野獸派是他找到自身方向的觸發器——他在野獸派中學會了色彩的自主性，這個基礎後來支撐了立體派的實驗。）"
+        },
+        {
+          "text": "Art is meant to disturb. Science reassures.",
+          "source": "Illustrated Notebooks 1917-1955 (Cahier de Georges Braque, 1948, published by Maeght)",
+          "meaning": "（藝術的功能是擾動，科學的功能是安撫。Braque 在野獸派時期學到的第一課：藝術的價值在於打破既有認知的安全感，迫使觀者重新看世界。）"
+        },
+        {
+          "text": "I couldn't portray a woman in all her natural loveliness... I haven't the skill. No one has. I must, therefore, create a new sort of beauty.",
+          "source": "attributed, from conversations about early work, cited in Alex Danchev, Georges Braque: A Life (2005)",
+          "meaning": "（無法完美再現自然之美，所以必須創造一種新的美。Braque 對寫實主義的誠實放棄，恰恰是野獸派的出發點：既然再現永遠不完美，不如直接創造。）"
+        },
+        {
+          "text": "One must not imitate what one wants to create.",
+          "source": "Illustrated Notebooks 1917-1955 (Cahier de Georges Braque, 1948)",
+          "meaning": "（不能模仿你想創造的東西。創造的前提是與模仿決裂——這個認知在野獸派時期已經成形，後來成為 Braque 終生的創作信條。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Notes of a Painter (Notes d'un peintre)",
+      "author": "Henri Matisse",
+      "year": 1908,
+      "significance": "野獸派唯一的正式理論宣言。Matisse 在 La Grande Revue 發表，闡述色彩表現、構圖平衡、藝術家的情感表達等核心原則。文中主張繪畫的目標是 'expression'——透過色彩和形式的安排傳達畫家面對自然時的內在反應。"
+    },
+    {
+      "title": "D'Eugene Delacroix au Neo-Impressionnisme (從 Delacroix 到新印象主義)",
+      "author": "Paul Signac",
+      "year": 1899,
+      "significance": "為色彩解放提供理論基礎的關鍵著作。Signac 追溯了從 Delacroix 到新印象派的色彩理論發展，強調純色並置的光學效果。Matisse 在 1904 年赴 Saint-Tropez 與 Signac 共同作畫前仔細閱讀此書，對其色彩解放的轉向產生直接影響。"
+    },
+    {
+      "title": "De la Loi du Contraste Simultane des Couleurs (論色彩的同時對比法則)",
+      "author": "Michel Eugene Chevreul",
+      "year": 1839,
+      "significance": "色彩科學的奠基著作。Chevreul 的同時對比定律——相鄰色彩會互相影響對方的感知——為從 Delacroix 到印象派到新印象派到野獸派的整條色彩解放路徑提供了科學依據。"
+    },
+    {
+      "title": "Tournant Dangereux (危險的彎道)",
+      "author": "Maurice de Vlaminck",
+      "year": 1929,
+      "significance": "Vlaminck 的自傳，記錄了野獸派時期的激烈實驗精神與反學院姿態。文字風格粗獷直接，如同他的繪畫，是理解野獸派本能主義一翼的重要文獻。"
+    },
+    {
+      "title": "Ecrits et propos sur l'art (論藝術)",
+      "author": "Henri Matisse (edited by Dominique Fourcade)",
+      "year": 1972,
+      "significance": "收錄 Matisse 從 1908 年到晚年的所有重要文字與訪談記錄，包括《Notes of a Painter》全文。是研究 Matisse 藝術思想演變的最完整文獻集。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "色彩從描述功能中解放：天空可以是橘紅色，臉孔可以是綠色，陰影可以是紫色——色彩選擇基於情感表達，拒絕服從自然界的固有色。（WHY：印象派已經證明色彩可以偏離固有色來捕捉光線效果，新印象派用色點系統化了這個發現。但兩者仍然把色彩當作再現光學現象的工具。野獸派的突破在於：色彩不為光學服務，也不為物體描述服務——色彩為畫家的情感服務。Van Gogh 的《星夜》用旋轉的黃色表達內心的燃燒，而非月光的波長；野獸派將這個個人突破系統化為一整個群體的創作方法。）",
+      "直覺與本能優先於理論：強調作畫時的身體性與即時性，顏料直接從管中擠出塗抹畫布，厚重的筆觸保留手的動態痕跡。（WHY：新印象派的點描法要求畫家像科學家一樣計算色點的排列——Signac 和 Cross 的作品精密但失去了身體的自發性。Vlaminck 和 Derain 的回應是徹底反轉：不要計算，要感覺。顏料的物理厚度、筆觸的速度與力道，本身就是情感的直接記錄。這種對本能的信任也來自對非洲與大洋洲原始藝術的觀察——那些面具的大膽造型顯然不是「計算」的產物。）",
+      "繪畫作為情感的等效物（equivalent）：畫面是畫家面對自然時的情感反應的視覺等效物，取代了自然複製品的舊定位——一種同等強度的感官衝擊。（WHY：攝影術在 1839 年發明後，「精確再現」已經不再是繪畫的專屬功能。Matisse 的回應是重新定義繪畫的任務：製造與自然體驗「等效」的情感衝擊。站在 Collioure 的地中海陽光下感受到的眩目、熱烈、飽滿，必須在畫布上用等強度的純色來傳達——溫和的調色只能傳達溫和的感受。）",
+      "簡化造形、強調平面性：壓縮透視深度，簡化物體輪廓為大色塊，用色彩的冷暖對比取代明暗法（chiaroscuro）來暗示空間關係。（WHY：傳統學院繪畫用明暗法製造三維幻覺，但這要求色彩服從「亮部暖色、暗部冷色」的固定公式，嚴重限制了色彩的自由度。野獸派發現：如果放棄三維幻覺，色彩就完全自由了。Matisse 的《生之喜悦》將人體簡化為大面積的平塗色塊，空間深度幾乎消失——但畫面的情感強度因此爆增。）",
+      "純色並置與互補色對比：大量使用未經混合的純色，尤其偏好互補色並置（紅/綠、橙/藍、黃/紫）製造最大視覺振動。（WHY：Chevreul 的色彩對比理論證明：互補色並置時，兩色會互相增強對方的飽和度——紅色旁邊的綠色比單獨的綠色更綠。Signac 在《從 Delacroix 到新印象主義》中系統闡述了這個原理。野獸派繼承了科學知識，但拒絕新印象派那種機械性的小色點排列，改用大面積的純色色塊製造更具衝擊力的對比效果。）",
+      "尊重畫布的平面真實：承認畫布是一個二維平面，拒絕把它偽裝成窗戶或舞台。色彩和筆觸是畫布表面的事件，具有獨立於描繪對象的美學價值。（WHY：文藝復興以來，繪畫的最高技術是讓觀者忘記畫布的存在——透視法把畫面變成一扇窗戶。但 Cezanne 已經開始質疑這個幻覺：他的筆觸同時屬於描繪的物體和畫布的表面。野獸派進一步推進：Matisse 的平塗色塊和明顯的輪廓線不斷提醒觀者——這是畫布上的顏料，不是窗外的風景。）"
+    ],
+    "what_they_refuse": [
+      "學院派的素描至上主義：拒絕將素描（dessin）置於色彩（couleur）之上的學院等級制度，拒絕先畫好輪廓再「填色」的創作流程。（WHY：法國美術學院自 Ingres 以來建立了「素描是理性，色彩是感性」的等級結構——素描代表思想的控制力，色彩只是裝飾性的附加。這個傳統壓制了色彩的獨立表現力長達百年。野獸派的逆轉是：色彩先行，輪廓線跟隨色彩的需要而存在或消失。）",
+      "固有色（local color）的束縛：拒絕「草是綠色、天是藍色、膚色是肉色」的自然主義色彩觀。（WHY：固有色假設物體有一個「正確的」顏色——但這是一個認知慣性，不是視覺事實。在不同光線、不同心情、不同觀看距離下，同一個物體的色彩感知完全不同。野獸派揭露的真相是：固有色是大腦的記憶，不是眼睛的經驗。）",
+      "明暗法（chiaroscuro）的空間幻覺：拒絕用深色陰影製造三維立體感，改用色彩的冷暖與飽和度差異暗示空間。（WHY：明暗法要求在暗部加入棕色或黑色，這會污染色彩的純度。野獸派選擇犧牲三維幻覺來保全色彩的純度——一個綠色的陰影比一個棕色的陰影更有色彩能量，即使它在透視上「不正確」。）",
+      "文學性的主題敘事：拒絕繪畫作為歷史故事、宗教寓言或道德訓誡的載體，主張繪畫的內容就是色彩與形式本身。（WHY：學院沙龍的評判標準仍然以「題材的崇高性」為最高原則——歷史畫 > 肖像畫 > 風景畫 > 靜物畫。野獸派的風景和靜物完全不講故事，它們的「內容」是紅色與綠色的並置產生的視覺振動。這是對學院主題等級制度的根本否定。）",
+      "完成度（fini）的執念：拒絕學院要求的光滑表面處理和精密的細節描繪，保留粗獷的筆觸、未覆蓋的畫布、「未完成」的外觀。（WHY：學院沙龍要求作品具備「完成度」——表面光滑如照片、筆觸不可見、每個細節都精確。這種完成度標準其實是掩蓋繪畫製作過程的手段——讓觀者以為畫面是「自然出現」的，而非人手創造的。野獸派故意暴露過程：Vlaminck 的顏料堆積如建築工地，Derain 的筆觸大過拇指——製作過程本身是作品的一部分。）",
+      "系統化的色彩理論應用：拒絕新印象派那種科學化、機械性的色點排列法，主張色彩選擇應該出自直覺判斷。（WHY：Matisse 在 1904 年 Saint-Tropez 親身實驗過新印象派的點描法，發現精確計算色點位置會殺死繪畫的自發性。《奢華、寧靜與歡愉》是他告別新印象派的作品——之後他再也沒有回到系統化的色彩應用法。感受先於計算，這是野獸派與新印象派的根本分歧。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "學院派沙龍繪畫（Academic Salon painting）：學院派堅持素描至上、棕灰色調、歷史主題的等級制度，是野獸派色彩革命的直接靶心",
+      "新印象派（Neo-Impressionism）的點描法：雖然繼承了其色彩分離的知識，但拒絕其科學化、機械性的創作方法——色點的精確排列殺死了繪畫的直覺自發性",
+      "自然主義與寫實主義（Naturalism / Realism）：拒絕將繪畫降格為視覺世界的複製品，主張繪畫傳達的是情感真實，不是光學真實",
+      "象徵主義（Symbolism）的文學化傾向：雖然與 Moreau 的教學有淵源（Matisse 曾在 Moreau 畫室學習），但拒絕繪畫服務於文學寓意或神話敘事"
+    ],
+    "against_values": [
+      "素描優先於色彩：學院體系自 Ingres 以來將素描視為理性的化身、色彩為感性的附庸——野獸派徹底翻轉這個等級",
+      "固有色是客觀事實：拒絕「物體有正確顏色」的認知慣性，主張色彩是主觀感知",
+      "完成度等於品質：拒絕光滑表面和精密細節作為藝術品質的衡量標準",
+      "繪畫的主要功能是敘事或再現：主張繪畫的內容就是色彩與形式的關係本身",
+      "情感表達需要被理性控制：拒絕學院派將激烈的情感表達視為粗俗的偏見"
+    ],
+    "societal_context": "野獸派誕生於 Belle Epoque 末期的巴黎——一個政治相對穩定但文化急遽變動的時代。1900 年巴黎世博會展示了電力、汽車、電影等新技術，同時也展出了非洲與大洋洲的藝術品，衝擊了歐洲中心的審美標準。法國第三共和國的言論自由與藝術市場的繁榮為前衛實驗提供了空間：獨立沙龍（1884 年創立）與秋季沙龍（1903 年創立）讓藝術家能繞過學院審查展出作品。畫商 Ambroise Vollard、Berthe Weill、Daniel-Henry Kahnweiler 願意冒險投資前衛藝術。美國收藏家 Leo 與 Gertrude Stein 在巴黎建立了前衛藝術的社交沙龍，購買了 Matisse 與 Picasso 的早期作品。但野獸派也面對了保守派的猛烈攻擊——1905 年秋季沙龍的評論幾乎一面倒地負面，批評家用「顏料罐扔在公眾臉上」來形容這些作品。野獸派的短命（1904-1908）反映了它的過渡性質：色彩解放是必要的突破，但色彩本身不足以支撐一個完整的形式體系——Braque 轉向立體派、Derain 轉向古典回歸，正是這個結構性限制的結果。"
+  },
+
+  "problems_solved": [
+    "完成了色彩從描述功能到表現功能的最後一哩路：印象派讓色彩偏離固有色，後印象派讓色彩承載個人情感，野獸派讓色彩完全獨立——色彩的選擇只需對畫家的內在感受負責，不需對自然界的光學事實負責",
+    "打破了素描與色彩之間的等級制度：法國學院體系自 Ingres 以來建立的「素描＝理性＝崇高、色彩＝感性＝次要」的二元等級被徹底瓦解，色彩獲得了與線條同等甚至更高的地位",
+    "證明了繪畫可以脫離敘事功能而獨立存在：野獸派的風景畫和肖像畫不講故事、不傳達寓意——畫面的「內容」就是色彩的配置與形式的韻律，為後來的抽象藝術清除了最後的心理障礙",
+    "為表現主義開闢了道路：德國表現主義（橋社、藍騎士）直接受野獸派啟發，將色彩的情感表現力進一步推向焦慮、恐懼、狂喜等極端情緒的表達",
+    "重新定義了「完成」的標準：野獸派的粗獷筆觸和未覆蓋的畫布挑戰了學院派的完成度標準，證明「未完成」的外觀可以是一種積極的美學選擇，而非技術缺陷"
+  ],
+
+  "problems_created": [
+    "色彩解放的盡頭是形式的空洞：當色彩脫離了描述功能，除了「更純、更亮、更飽和」之外，下一步是什麼？野獸派的短命（約四年）暴露了純色彩表現主義的天花板——沒有結構性的形式語言支撐，色彩自由容易退化為色彩的任意性",
+    "反智傾向的危險：Vlaminck 將本能與直覺推到極端，拒絕一切理論與知識——這種姿態在短期內產生了爆發力，但長期而言使得野獸派無法建立可傳授的方法論，與包浩斯的系統性教學形成鮮明對比",
+    "對自身理論化的恐懼導致歷史地位被低估：野獸派幾乎沒有留下正式的理論文獻（Matisse 的《Notes of a Painter》是唯一的例外），導致後世的藝術史敘事經常將野獸派定位為「從後印象派到立體派的過渡」，低估了它作為獨立運動的歷史意義",
+    "「原始主義」的文化挪用問題：野獸派畫家對非洲面具和大洋洲雕塑的熱情，在當時被包裝為「回歸本能」的審美解放，但實質上預設了「原始＝本能＝未開化」的殖民主義認知框架——這個問題在 Matisse 和 Derain 的收藏行為中尤為明顯",
+    "「表達自我」的空泛化：野獸派的核心命題是「透過色彩表達情感」，但這個命題缺乏具體的方法論邊界——什麼情感？用什麼色彩？判斷標準是什麼？這種模糊性使得後世的「表現性繪畫」經常退化為缺乏自我批判的自我放縱"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "色彩可以完全脫離描述功能，成為繪畫中獨立的表現力量——一個綠色的臉龐、一片橘紅色的天空、一棵藍色的樹，只要它們傳達了畫家的情感真實，就比任何「正確」的色彩更真實。這個認知是從印象派到抽象藝術之間最關鍵的概念跳躍。",
+    "what_was_truly_new": [
+      "群體性的色彩解放行動：Van Gogh 和 Gauguin 各自進行過色彩的主觀化實驗，但他們是孤獨的先驅。野獸派是第一次有一群畫家同時、集體地將色彩從自然主義中解放出來，形成可以相互激勵的創作動能",
+      "色彩的物理性與筆觸的身體性：野獸派畫家將顏料視為具有獨立物理存在的材料，顏料的厚度、紋理、筆觸的速度與力道本身就是表現手段——這預示了後來的行動繪畫（Action Painting）",
+      "從「畫眼前所見」到「畫內心所感」的認知翻轉：雖然後印象派三巨頭已各自觸碰了這個轉向，但野獸派是第一個將「畫家的情感反應比視覺事實更重要」確立為集體創作原則的運動"
+    ],
+    "what_was_borrowed": [
+      "印象派（Impressionism, 1870s-）：戶外寫生（en plein air）的方法、色彩可以偏離固有色來捕捉光線效果的認知",
+      "新印象派（Neo-Impressionism / Pointillism）：Signac 和 Cross 的色彩對比理論、純色並置的光學原理——Matisse 在 1904 年親自實驗過點描法",
+      "Paul Cezanne：簡化造形為基本幾何、用色彩的冷暖對比暗示空間深度（取代傳統明暗法）",
+      "Vincent van Gogh：色彩作為情感表達的直接工具、厚塗筆觸（impasto）作為畫家能量的物理痕跡——1901 年 Van Gogh 回顧展對 Vlaminck 的衝擊是決定性的",
+      "Paul Gauguin：大面積平塗色塊（cloisonnism）、非自然主義的裝飾性色彩、對非西方原始藝術的興趣",
+      "Gustave Moreau 的教學：Matisse 在 Moreau 畫室（1895-1899）學到「色彩必須被思考、被夢想、被想像」的觀念——Moreau 是學院體系內部的叛逆者"
+    ],
+    "creative_leap": "野獸派的創造性飛躍在於「集體化的勇氣」：它把 Van Gogh 的個人瘋狂、Gauguin 的異域逃逸、Cezanne 的結構探索中各自潛藏的色彩解放衝動，在 1905 年的秋季沙龍同時引爆。這不是理論創新——所有理論武器（Chevreul 的色彩對比、Signac 的純色並置、後印象派的主觀色彩）早已就位。野獸派的貢獻是集體的實踐勇氣：一群年輕畫家在公開展覽中同時展出拒絕固有色的作品，用行動而非論文宣告色彩的獨立。",
+    "inspiration_potential": {
+      "score": 7,
+      "why": "野獸派的核心命題——表現力量比描述精確更重要——在任何一個被「精確性」綁架的創作領域中都能引起共鳴。當 AI 生成圖像可以無限精確地模仿任何風格時，「精確」就不再稀缺，「表達」的價值反而凸顯。野獸派的短命也提供了反面教訓：純粹的表達衝動如果缺乏結構性的方法論支撐，能量會迅速耗散。",
+      "transferable_to": [
+        "品牌視覺設計中的色彩策略：野獸派的互補色對比與純色並置原則，直接適用於需要高視覺衝擊力的品牌識別設計",
+        "AI 時代的人類創作價值定位：當 AI 能夠完美再現任何風格時，「表達」而非「再現」成為人類創作的核心競爭力——這正是野獸派在攝影術衝擊下提出的回應",
+        "情感化設計（Emotional Design）：將使用者的情感反應而非功能精確性置於設計的核心考量",
+        "打破行業慣例的勇氣模型：野獸派在秋季沙龍的集體行動提供了一個「如何在保守環境中集體打破常規」的策略參考",
+        "教育中直覺與系統的平衡：野獸派的反面教訓——純直覺缺乏可傳授性——提醒任何強調創意的教育體系必須在自由與結構之間找到平衡"
+      ]
+    },
+    "originality_type": "liberation"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Impressionism (1870s-)：戶外寫生方法、色彩可偏離固有色的認知",
+      "Neo-Impressionism / Pointillism (Seurat, Signac, 1880s-)：純色並置的光學理論，Signac 的著作直接影響 Matisse",
+      "Paul Cezanne (1860s-1906)：簡化造形、色彩暗示空間、畫面作為獨立的色彩結構",
+      "Vincent van Gogh (1880s-1890)：色彩作為情感表達、厚塗筆觸的物理性——1901 年回顧展衝擊 Vlaminck 和 Derain",
+      "Paul Gauguin (1880s-1903)：大面積平塗、象徵性色彩、原始藝術的靈感——1903 年回顧展影響整個前衛圈",
+      "Gustave Moreau 的教學 (1890s)：鼓勵學生重視色彩的獨立表現力——Matisse、Marquet、Rouault 皆出自其畫室",
+      "非洲與大洋洲原始藝術：大膽的色彩與造型自由，1900 年巴黎世博會後進入歐洲藝術家視野",
+      "Japonisme / 浮世繪 (1860s-)：平面構圖、大膽的色塊分割、輪廓線的裝飾性運用"
+    ],
+    "influenced": [
+      "German Expressionism — Die Brucke (1905-1913)：Kirchner、Heckel、Schmidt-Rottluff 直接受野獸派色彩解放啟發，將情感表達推向更激烈的方向",
+      "German Expressionism — Der Blaue Reiter (1911-1914)：Kandinsky 從野獸派的色彩自由出發，走向完全的抽象",
+      "Cubism (1907-)：Braque 從野獸派轉向立體派，帶走了色彩自主性的認知基礎",
+      "Orphism / Simultanism (Robert & Sonia Delaunay, 1912-)：延續野獸派的純色實驗，將色彩推向完全抽象",
+      "Abstract Expressionism (1940s-1950s)：色域繪畫（Color Field）的 Rothko、Newman 延續了色彩作為獨立表現力量的信念",
+      "Henri Matisse 的後期創作（剪紙系列, 1940s-1954）：野獸派的色彩解放在 Matisse 的晚年剪紙中達到最純粹的形態",
+      "Pop Art 的鮮豔色彩語言（1960s）：Warhol 和 Lichtenstein 的高飽和度純色使用可追溯到野獸派對色彩純度的堅持",
+      "Contemporary Expressive Painting：當代表現性繪畫（Basquiat、Richter 的抽象畫）中的大膽用色與直覺筆觸，延續了野獸派的精神遺產"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "熱烈、直覺、感官導向。像一位站在地中海陽光下的畫家：先感受，再判斷。對色彩的敏感度近乎生理反應——能在一秒鐘內判斷一組配色是否「活著」。對過度理性化、系統化的創作態度感到窒息。言語充滿感官隱喻（色彩像爆炸、像音樂、像食物的味道），判斷迅速但理由往往訴諸直覺。對壓抑色彩、追求灰調和諧的作品有本能的排斥。",
+    "evaluation_bias": "強烈偏好色彩飽和、情感強烈、筆觸大膽的作品。傾向高估視覺衝擊力和情感直接性的價值，低估結構嚴謹性、概念深度和工藝精密度的重要性。會不自覺地以「這個作品讓我感覺到什麼？」作為唯一的評分標準。對灰色調、低飽和度、極簡主義的作品可能給出不公正的低評，因為它「缺乏生命力」。",
+    "blind_spots": "難以評價需要長期觀看才能理解的微妙作品。對概念藝術、極簡主義、以及任何壓制色彩表現的風格缺乏耐心。可能混淆「視覺衝擊力」與「藝術品質」——一幅安靜的 Morandi 靜物可能比一幅炸裂的色彩畫更深刻，但野獸派的眼睛看不到這種深度。對「為什麼選這個色彩」的追問容易流於「因為我感覺到」的循環論證。",
+    "typical_critique": "你的色彩在說謊。這片灰藍色告訴我你在思考天空「應該是什麼顏色」，而非你站在天空下時感受到了什麼。色彩應該像太陽一樣打在觀者臉上——如果你的畫讓人「理解」天空，你就失敗了；它應該讓人「感受到」天空。把你的調色盤上所有棕色和黑色扔掉，用純色重新來過。"
+  },
+
+  "writing_style": {
+    "collective_voice": "野獸派的寫作風格是「感官宣言體」：語言本身追求色彩般的衝擊力，句子短促有力如同筆觸，充滿通感隱喻（用味覺、觸覺、聽覺描述視覺體驗）。理論文字極少——野獸派的宣言寫在畫布上，文字只是事後的補充說明。成員之間的書信（Matisse-Derain、Derain-Vlaminck）比正式文章更能反映運動的精神狀態：興奮、急迫、充滿發現的快感。動詞與感官形容詞的密度極高，抽象概念用具體的物理隱喻（爆炸、燃燒、灼傷、陶醉）傳達。",
+    "internal_tensions": "最大的風格裂痕在「理性的控制」與「本能的釋放」之間。Matisse 代表有意識的、精確計算的色彩編排——他的文字冷靜、清晰、帶學院訓練的邏輯結構。Vlaminck 代表反智的、身體性的、拒絕一切理論的原始衝動——他的文字粗獷、誇張、充滿肉體隱喻。Derain 是兩者之間的橋梁：既有知識分子的好奇心，又保有直覺的爆發力。",
+    "master_voices": [
+      {
+        "name": "Henri Matisse",
+        "writing_character": "精密的色彩工程師用詩的語言寫技術報告",
+        "sentence_rhythm": "中等長度的陳述句，結構清晰（主語-謂語-賓語），偶爾以短句做斷言式結尾",
+        "rhetoric": "通感隱喻（色彩如音樂、如觸覺）、正面定義式表述（「我追求的是...」直接陳述目標）、類比推理",
+        "tone": "沉穩自信的導師，帶有法式的精確優雅，激情被控制在理性的框架內",
+        "real_examples": [
+          {
+            "text": "What I am after, above all, is expression.",
+            "source": "Notes of a Painter, 1908",
+            "style_note": "短句斷言起手，above all 標記優先級，整篇文章的核心命題濃縮為一句"
+          },
+          {
+            "text": "What I dream of is an art of balance, of purity and serenity... a soothing, calming influence on the mind, something like a good armchair.",
+            "source": "Notes of a Painter, 1908",
+            "style_note": "三連名詞排比（balance, purity, serenity），用「扶手椅」這個日常物件錨定抽象概念"
+          }
+        ]
+      },
+      {
+        "name": "Maurice de Vlaminck",
+        "writing_character": "酒吧裡的拳擊手在吼叫他的繪畫哲學",
+        "sentence_rhythm": "短促、暴力、充滿感嘆號。句子很少超過 15 字。像揮拳一樣一句一擊",
+        "rhetoric": "爆破性隱喻（炸藥、燃燒、摧毀）、身體隱喻（心臟、內臟、拳頭）、極端化表述、反知識主義宣言",
+        "tone": "狂暴的、挑釁的、帶有工人階級的粗獷驕傲",
+        "real_examples": [
+          {
+            "text": "I wanted to burn down the Ecole des Beaux-Arts with my cobalts and vermilions.",
+            "source": "Tournant Dangereux, 1929",
+            "style_note": "暴力動詞（burn down）+ 具體顏料名稱（cobalts, vermilions），破壞的對象精確指名"
+          },
+          {
+            "text": "I try to paint with my heart and my loins, not bothering with style.",
+            "source": "Tournant Dangereux, 1929",
+            "style_note": "身體器官直接當作繪畫工具——心臟和腰（本能/性），刻意與「風格」（大腦/理性）對立"
+          }
+        ]
+      },
+      {
+        "name": "Andre Derain",
+        "writing_character": "年輕知識分子在地中海陽光下寫信——興奮、觀察銳利、充滿發現感",
+        "sentence_rhythm": "句子長短交替，觀察句較長（描述光線和色彩的發現），判斷句極短",
+        "rhetoric": "光線與色彩的物理隱喻（炸藥、放電、燃燒）、即時性的第一人稱敘述、發現感的驚嘆",
+        "tone": "興奮但不失控的探索者，知識分子的好奇心與畫家的感官敏銳並存",
+        "real_examples": [
+          {
+            "text": "Colours become sticks of dynamite. They are primed to discharge light.",
+            "source": "Letter to Vlaminck, 1905",
+            "style_note": "兩句話完成一個完整的物理隱喻：色彩＝炸藥，效果＝釋放光線"
+          },
+          {
+            "text": "The substance of painting is light.",
+            "source": "Letter to Matisse, summer 1905",
+            "style_note": "六個字的格言——整個野獸派的物理學基礎濃縮為一句定義"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子以感官描述起手：先描述看到/感受到什麼，再做判斷",
+      "大量使用色彩名稱作為評語的錨點——不說「太暗」，說「被棕色殺死了」",
+      "禁用學術術語，用身體感受代替：不說「構圖不平衡」，說「這幅畫讓我暈船」",
+      "排比以二連或三連為標準：配色如呼吸——吸入純色，吐出灰調",
+      "每段不超過 3 句，核心判斷用不超過 8 字的斷言句",
+      "動詞必須有物理感：色彩「爆炸」「灼燒」「顫動」「呼吸」，不用「運用」「使用」「呈現」",
+      "評價的最高標準是「這個色彩讓我感受到了什麼」——如果答案是「什麼都沒有」，就是失敗",
+      "禁用任何暗示色彩需要「正確」的措辭——沒有正確的色彩，只有活的色彩和死的色彩"
+    ]
+  }
+}

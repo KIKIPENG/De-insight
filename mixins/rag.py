@@ -109,7 +109,9 @@ class RAGMixin:
             source_type = "url"
         else:
             source = self._clean_file_path(source)
-            if source.lower().endswith(".txt"):
+            if source.lower().endswith(".json"):
+                source_type = "movement_json"
+            elif source.lower().endswith(".txt"):
                 source_type = "txt"
             elif source.lower().endswith(".md"):
                 source_type = "md"
@@ -176,21 +178,26 @@ class RAGMixin:
                 source_type = "url"
             else:
                 source = self._clean_file_path(source)
-                if source.lower().endswith(".txt"):
+                if source.lower().endswith(".json"):
+                    source_type = "movement_json"
+                elif source.lower().endswith(".txt"):
                     source_type = "txt"
                 elif source.lower().endswith(".md"):
                     source_type = "md"
                 elif source.lower().endswith(".pdf"):
                     source_type = "pdf"
                 else:
-                    self.notify("僅支援 PDF、TXT 或 MD 檔案", severity="warning", timeout=3)
+                    self.notify("僅支援 PDF、TXT、MD 或 JSON 檔案", severity="warning", timeout=3)
                     return
 
             try:
                 svc = self._get_ingestion_service()
                 await svc.submit(_pid, source, source_type, title=title)
                 self.state.last_imported_source = source
-                self.notify("已排入建圖佇列")
+                if source_type == "movement_json":
+                    self.notify("已排入建圖佇列（流派知識 + 批評視角）")
+                else:
+                    self.notify("已排入建圖佇列")
             except Exception as e:
                 self.notify(f"排入佇列失敗: {e}")
         finally:

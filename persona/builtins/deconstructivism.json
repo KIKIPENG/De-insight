@@ -1,0 +1,538 @@
+{
+  "movement_id": "deconstructivism",
+  "name": {
+    "zh": "解構主義建築",
+    "en": "Deconstructivism"
+  },
+  "domain": [
+    "architecture",
+    "urban_design",
+    "interior_design",
+    "landscape_architecture",
+    "furniture_design",
+    "installation_art",
+    "architectural_theory"
+  ],
+  "period": {
+    "start": 1982,
+    "end": null,
+    "peak": "1988-2004（1988 年 MoMA『Deconstructivist Architecture』展覽為運動命名，1997 年 Gehry 的 Bilbao Guggenheim 引爆全球效應，2004 年 Hadid 成為首位獲 Pritzker 獎的女性建築師，運動從前衛理論全面進入主流實踐）"
+  },
+  "geography": [
+    "New York, USA (MoMA 1988 展覽、Eisenman 理論基地)",
+    "Los Angeles, USA (Gehry 的實驗場域，Santa Monica 自宅改造)",
+    "London, UK (Hadid 的 AA School 時期與事務所基地)",
+    "Paris, France (Tschumi 的 Parc de la Villette、Derrida 的哲學基地)",
+    "Vienna, Austria (Coop Himmelb(l)au 的根據地，Falkestraße 屋頂改造)",
+    "Rotterdam, Netherlands (Koolhaas 與 OMA 的總部)",
+    "Berlin, Germany (Libeskind 的猶太博物館)",
+    "Bilbao, Spain (Gehry 的 Guggenheim，解構主義建築的全球化轉捩點)",
+    "Abu Dhabi / Dubai / Beijing / Global (2000s 後解構主義建築在全球擴散)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1970 年代後期，現代主義建築的烏托邦承諾徹底破產。功能主義量產的社會住宅淪為犯罪溫床（1972 年 Pruitt-Igoe 住宅被爆破拆除，Charles Jencks 宣稱這是現代建築的死亡時刻）。後現代主義以歷史引用和裝飾性符號回應這場危機，但很快退化為購物中心的懷舊布景和企業大樓的古典貼皮——Michael Graves 的 Portland Building（1982）和 Philip Johnson 的 AT&T Building（1984）用柱式和山牆包裝商業空間。建築理論界需要一條既拒絕現代主義的教條純粹、又拒絕後現代主義的歷史甜膩的第三條路。同時，Jacques Derrida 的解構哲學在 1960-70 年代席捲人文學科，質疑一切穩定的意義結構與二元對立（在場/缺席、中心/邊緣、結構/裝飾）。一群建築師——有些直接受 Derrida 影響（Eisenman、Tschumi 與 Derrida 在 La Villette 計畫中合作），有些從俄國構成主義的形式激進性中汲取能量（Hadid、Koolhaas），有些從材料實驗中發展出直覺性的破碎語言（Gehry、Coop Himmelb(l)au）——各自走向一種共同的形式傾向：碎裂、扭曲、不穩定、非線性。1988 年 Philip Johnson 與 Mark Wigley 在 MoMA 策劃的『Deconstructivist Architecture』展覽，將這七組建築師的作品集結為一個鬆散的運動，為這股建築能量命名。",
+    "social_energy": "解構主義建築的能量來自三個交匯點：(1) 冷戰末期的確定性崩塌——柏林圍牆倒塌（1989）、蘇聯解體（1991）瓦解了二戰後的二元世界秩序，穩定的意識形態框架碎裂，建築作為空間秩序的隱喻，必須反映這種不確定性；(2) 後結構主義哲學的擴散——Derrida、Foucault、Deleuze 質疑一切固定的意義結構、中心權威與二元對立，建築師開始質問：為什麼建築必須穩定、和諧、統一？穩定的形式是否掩蓋了權力結構？(3) 數位技術的萌芽——1980 年代末 CAD 開始普及，1990 年代 CATIA 等軟體讓非歐幾里得形體從圖紙上的幻想變成可建造的現實，技術條件第一次追上了形式想像力。",
+    "purpose": "解構主義建築的目標是揭露建築學科內建的隱藏假設與權力結構。現代主義假設形式追隨功能、結構追求穩定、空間服務於效率——這些看似「自然」的原則其實是特定歷史條件下的人為建構。解構主義建築通過故意製造不穩定、不和諧、不可預測的空間體驗，迫使使用者重新意識到空間的政治性、身體性與情感性。建築的功能從「庇護」擴展到「挑釁」——好的建築應該讓你不安、讓你思考、讓你質疑你對空間的預設。",
+    "key_pivot_moments": [
+      "1966 — Venturi 出版《建築的複雜與矛盾》，為反現代主義的理論基礎鋪路",
+      "1967 — Derrida 發表《論文字學》與《書寫與差異》，解構哲學正式成形",
+      "1972.07.15 — Pruitt-Igoe 社會住宅爆破拆除，Jencks 宣稱『現代建築之死』",
+      "1978 — Koolhaas 出版《Delirious New York》，以曼哈頓為案例重新定義都市主義",
+      "1978 — Gehry 改造 Santa Monica 自宅，用鏈網圍籬、波浪鐵皮和裸露木框架包覆傳統美式平房",
+      "1982 — Tschumi 贏得 Parc de la Villette 國際競圖，Derrida 參與概念發展",
+      "1983 — Eisenman 發表《建築的形式性》，理論化建築自主性與解構",
+      "1988.06.23 — MoMA 開幕『Deconstructivist Architecture』展覽，Johnson 與 Wigley 策展",
+      "1989.11.09 — 柏林圍牆倒塌，冷戰二元世界秩序瓦解",
+      "1989 — Coop Himmelb(l)au 完成 Falkestraße 屋頂改造，成為解構主義建築的早期地標",
+      "1993 — Eisenman 設計 Wexner Center for the Arts 開幕",
+      "1997 — Gehry 的 Guggenheim Museum Bilbao 開幕，引發全球『Bilbao Effect』",
+      "1999 — Libeskind 的 Jewish Museum Berlin 完工（2001 年開幕）",
+      "2004 — Hadid 成為首位獲 Pritzker 獎的女性建築師",
+      "2012 — Hadid 完成 London Aquatics Centre（2012 奧運），解構主義全面進入公共基礎建設"
+    ],
+    "key_timeline": [
+      "1966 — Venturi 的《建築的複雜與矛盾》為後現代主義與解構主義共同鋪設理論基石",
+      "1967 — Derrida 的三部核心著作出版，解構思想進入學術主流",
+      "1972 — Pruitt-Igoe 爆破：現代主義建築的象徵性死亡",
+      "1976 — Eisenman 開始 House 系列（House I-X），將建築視為自主的形式語言系統",
+      "1978 — Gehry 改造 Santa Monica 自宅，用『廉價材料的高級建築』挑戰品味階級",
+      "1978 — Koolhaas 出版《Delirious New York》",
+      "1982 — Tschumi 贏得 La Villette 競圖；Hadid 贏得 The Peak 競圖（香港，未建成）",
+      "1983 — Coop Himmelb(l)au 發表宣言『建築必須燃燒』",
+      "1988.06-08 — MoMA『Deconstructivist Architecture』展覽，七位建築師被集結命名",
+      "1989 — 柏林圍牆倒塌；Coop Himmelb(l)au 完成 Falkestraße 屋頂改造",
+      "1997 — Guggenheim Bilbao 開幕，解構主義從學術前衛轉為全球文化現象",
+      "1999 — Libeskind 完成 Jewish Museum Berlin",
+      "2004 — Hadid 獲 Pritzker 獎，打破建築界性別天花板",
+      "2010 — Hadid 完成 MAXXI 國立二十一世紀藝術博物館（羅馬）",
+      "2014 — Gehry 完成 Fondation Louis Vuitton（巴黎），鈦金屬帆船造型"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "乎蘭克.蓋瑞",
+        "en": "Frank Gehry"
+      },
+      "role": "解構主義建築最廣為人知的實踐者。以直覺性的材料實驗和雕塑性造形著稱，將建築從幾何秩序中釋放出來。1978 年的 Santa Monica 自宅改造被視為解構主義建築的起點之一，1997 年的 Guggenheim Bilbao 將運動推向全球主流。",
+      "key_works": [
+        "Gehry Residence, Santa Monica (1978, 自宅改造)",
+        "Vitra Design Museum, Weil am Rhein (1989)",
+        "Guggenheim Museum Bilbao (1997)",
+        "Walt Disney Concert Hall, Los Angeles (2003)",
+        "Fondation Louis Vuitton, Paris (2014)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Architecture should speak of its time and place, but yearn for timelessness.",
+          "source": "widely attributed, interviews",
+          "meaning": "建築必須扎根於當下的社會與物質條件，但同時追求超越時代的永恆品質。這句話定義了 Gehry 在實驗與持久之間的平衡點——碎裂的形式是此刻的語言，但空間體驗必須能跨越時間。"
+        },
+        {
+          "text": "Your best work is your expression of yourself.",
+          "source": "widely attributed, MasterClass and interviews",
+          "meaning": "建築是個人表達的媒介——Gehry 從不掩飾建築的主觀性。這直接挑戰現代主義的客觀功能論：建築的價值在於它能傳達建築師作為人的獨特感知。"
+        },
+        {
+          "text": "I don't know why people hire architects and then tell them what to do.",
+          "source": "widely attributed, interviews",
+          "meaning": "建築師的專業價值在於提出業主無法自行想像的空間可能性。聘請建築師然後指揮他們，等於雇了一個翻譯然後替他說話。"
+        },
+        {
+          "text": "If you know where you're going, it's not worth doing.",
+          "source": "attributed, MasterClass",
+          "meaning": "創作的價值在於過程中的發現，預先知道結果的設計只是執行。Gehry 用紙板模型反覆試探，讓形式從手與材料的對話中「長出來」，而非從圖紙上的幾何邏輯推導。"
+        },
+        {
+          "text": "Liquid architecture. It's like jazz — you improvise, you work together, you play off each other, you make something.",
+          "source": "attributed, Gehry on architecture",
+          "meaning": "建築可以像爵士樂一樣流動——即興、協作、回應當下。這是對建築作為凝固物體的根本挑戰：空間可以是動態的、未完成的、持續演變的。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乍哈·乍蒂",
+        "en": "Zaha Hadid"
+      },
+      "role": "解構主義建築中最激進的形式探索者，也是首位獲 Pritzker 建築獎的女性（2004）。從 AA School（倫敦建築聯盟學院）出發，將俄國構成主義與至上主義的幾何語言轉化為流動、參數化的建築形態。早期作品多為未建成的競圖方案（The Peak, 1983），後期以曲面建築全面改寫全球城市天際線。",
+      "key_works": [
+        "The Peak Leisure Club, Hong Kong (1983, competition, unbuilt)",
+        "Vitra Fire Station, Weil am Rhein (1993)",
+        "Rosenthal Center for Contemporary Art, Cincinnati (2003)",
+        "MAXXI National Museum of XXI Century Arts, Rome (2010)",
+        "Heydar Aliyev Center, Baku (2012)",
+        "London Aquatics Centre (2012)"
+      ],
+      "key_quotes": [
+        {
+          "text": "There are 360 degrees, so why stick to one?",
+          "source": "widely attributed, interviews",
+          "meaning": "建築空間不必被限制在正交座標系中——360 度的可能性中，為什麼只用直角？這句話是對正交幾何霸權的最簡潔反叛：空間的方向是無限的。"
+        },
+        {
+          "text": "I don't think that architecture is only about shelter, is only about a very simple enclosure. It should be able to excite you, to calm you, to make you think.",
+          "source": "widely attributed, interviews",
+          "meaning": "建築的功能遠超庇護。空間必須具備情感動力——激發、安撫、啟發思考。把建築簡化為遮風避雨，等於把音樂簡化為空氣震動。"
+        },
+        {
+          "text": "I started out trying to create buildings that would sparkle like isolated jewels; now I want them to connect, to form a new kind of landscape, to flow together with contemporary cities and the lives of their peoples.",
+          "source": "widely attributed, later career interviews",
+          "meaning": "從孤立的地標走向城市景觀的連續性——Hadid 的晚期作品追求建築與地形的融合，建築不再是插在城市中的雕塑，而是流動的地景的一部分。"
+        },
+        {
+          "text": "I used to not like being called a woman architect. I'm an architect, not just a woman architect.",
+          "source": "widely attributed, interviews on gender in architecture",
+          "meaning": "拒絕被性別標籤限定專業身份。Hadid 在一個由白人男性主導的行業中，以作品的絕對力量證明建築才能不分性別。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "彼得·艾森曼",
+        "en": "Peter Eisenman"
+      },
+      "role": "解構主義建築最重要的理論家。與 Derrida 直接對話，將解構哲學轉譯為建築操作方法。House 系列（1968-1975）是建築自主性實驗的極端案例——建築不服務於功能，而是作為自我指涉的形式語言系統運作。他的理論寫作深刻影響了整個運動的知識框架。",
+      "key_works": [
+        "House I-X 系列 (1968-1975)",
+        "Wexner Center for the Arts, Columbus, Ohio (1989)",
+        "Memorial to the Murdered Jews of Europe, Berlin (2005)",
+        "City of Culture of Galicia, Santiago de Compostela (2011, partially completed)",
+        "'The End of the Classical' 論文 (1984)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I believe the philosophy of deconstruction is a moral obligation. I believe I'm a moral architect because through my architecture I open up man's psyche to the unconscious and repressed side.",
+          "source": "attributed, lectures and interviews",
+          "meaning": "解構建築具有倫理維度：揭露被壓抑的空間意識是建築師的道德責任。穩定和諧的建築掩蓋了空間中的權力結構與心理衝突——解構是讓隱藏的東西浮出表面。"
+        },
+        {
+          "text": "I am not interested in beauty. I am interested in creating spaces and experiences that provoke thought and push boundaries.",
+          "source": "attributed, interviews",
+          "meaning": "美學愉悅是現代主義與後現代主義共享的幻覺。Eisenman 追求的是認知挑戰——建築應該讓人不舒服、讓人被迫思考，而非讓人在美的慰藉中沉睡。"
+        },
+        {
+          "text": "The second basic characteristic of a 'not-classical' architecture is its freedom from a priori goals or ends — the end of the end.",
+          "source": "The End of the Classical: The End of the Beginning, the End of the End, 1984",
+          "meaning": "古典建築預設了目的論——每個設計決策都朝向一個預定的完美終點。『非古典』建築取消了這個終點：建築成為開放的過程，形式的生成不需要預設的完成狀態。"
+        },
+        {
+          "text": "Architecture is about putting things together. To me it should not be about its parts, but the syntax.",
+          "source": "attributed, interviews",
+          "meaning": "建築的本質是語法關係，而非個別元素。一面牆、一根柱子本身無意義——意義產生在它們的組合方式中。Eisenman 把建築當作語言系統來操作。"
+        },
+        {
+          "text": "Deconstruction is not deconstructivism, okay? Deconstruction is a serious philosophical idea.",
+          "source": "attributed, lecture at Deutsches Haus, NYU",
+          "meaning": "Eisenman 堅持區分 Derrida 的解構哲學與 MoMA 展覽定義的解構主義建築風格。前者是批判性思維方法，後者有被簡化為視覺風格的風險。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乍爾·楚密",
+        "en": "Bernard Tschumi"
+      },
+      "role": "解構主義建築的關鍵理論家與實踐者。提出「事件建築」（event architecture）概念，主張建築的意義由空間中發生的事件決定，而非由形式本身決定。Parc de la Villette（1982 競圖勝出）是解構主義建築最早的大規模實踐之一，也是 Tschumi 與 Derrida 直接合作的成果。曾任哥倫比亞大學建築學院院長。",
+      "key_works": [
+        "The Manhattan Transcripts (1976-1981, 理論繪圖作品)",
+        "Parc de la Villette, Paris (1982-1998)",
+        "Architecture and Disjunction (論文集, 1994)",
+        "New Acropolis Museum, Athens (2009)",
+        "Le Fresnoy National Studio for Contemporary Arts, Tourcoing (1997)"
+      ],
+      "key_quotes": [
+        {
+          "text": "There is no architecture without action, no architecture without event, no architecture without program.",
+          "source": "Architecture and Disjunction, 1994",
+          "meaning": "建築脫離了人的行動就只是空殼。空間的意義由在其中發生的事件賦予——一座教堂之所以是教堂，是因為人在裡面祈禱，不是因為它的尖頂。Tschumi 把焦點從「建築看起來像什麼」轉向「建築中發生了什麼」。"
+        },
+        {
+          "text": "Architecture is the materialization of a concept.",
+          "source": "attributed, lectures and writings",
+          "meaning": "建築首先是思想的物質化——概念先於形式、先於材料、先於結構。一棟沒有概念的建築只是堆砌的材料。"
+        },
+        {
+          "text": "Architecture's role is not to express an extant social structure, but to function as a tool for questioning that structure and revising it.",
+          "source": "attributed, Architecture and Disjunction",
+          "meaning": "建築不是社會結構的被動鏡像。建築是一種批判工具——它可以質疑、挑戰、重塑社會現狀。被動反映既有結構的建築只是權力的幫兇。"
+        },
+        {
+          "text": "Architecture must be thought of as the combination of spaces, events and movements, without precedence or hierarchy between these terms.",
+          "source": "Architecture and Disjunction, 1994",
+          "meaning": "空間、事件、運動三者等位——沒有哪個是從屬的。傳統建築學把空間放在核心、把使用者放在邊緣。Tschumi 要求取消這種等級制度。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乍爾·庫哈斯",
+        "en": "Rem Koolhaas"
+      },
+      "role": "當代最具影響力的建築理論家兼實踐者之一。前記者，將新聞寫作的觀察力帶入建築批評。《Delirious New York》（1978）以曼哈頓為案例重新定義了都市主義，《S,M,L,XL》（1995）成為建築學經典。OMA 事務所的作品融合都市分析、政治批判與形式激進性，比純粹的形式解構更關注城市系統與全球化議題。",
+      "key_works": [
+        "Delirious New York: A Retroactive Manifesto for Manhattan (1978, 著作)",
+        "Kunsthal, Rotterdam (1992)",
+        "S,M,L,XL (1995, 著作)",
+        "Seattle Central Library (2004)",
+        "CCTV Headquarters, Beijing (2012)",
+        "De Rotterdam, Rotterdam (2013)"
+      ],
+      "key_quotes": [
+        {
+          "text": "A building has at least two lives — the one imagined by its maker and the life it lives afterward — and they are never the same.",
+          "source": "attributed, writings",
+          "meaning": "建築師對建築的想像與建築被使用的現實之間永遠存在裂縫。這個裂縫是解構思維的核心洞見：意義從來不是固定的，使用者會重新定義空間。"
+        },
+        {
+          "text": "The stronger the identity, the more it imprisons, the more it resists expansion, interpretation, renewal, contradiction.",
+          "source": "attributed, S,M,L,XL / essays",
+          "meaning": "強烈的身份認同是一座監獄——它排斥矛盾、抗拒更新、拒絕被重新詮釋。城市和建築都需要保持身份的模糊性，才能持續進化。"
+        },
+        {
+          "text": "Architecture is too slow.",
+          "source": "attributed, writings and lectures",
+          "meaning": "一個建築專案要五年，但當代社會的需求在五個月內就會改變。建築學科的時間尺度與社會變遷的速度之間存在根本矛盾。"
+        },
+        {
+          "text": "Infrastructure is much more important than architecture.",
+          "source": "attributed, interviews",
+          "meaning": "基礎設施（交通、網路、管線）比單體建築更深刻地塑造城市生活。建築師對地標建築的執迷，讓他們忽略了真正影響百萬人日常的系統。"
+        },
+        {
+          "text": "Architecture can't do anything that the culture doesn't.",
+          "source": "attributed, interviews",
+          "meaning": "建築不能超越它所處的文化條件——一個保守的社會不可能產生激進的建築。建築師的英雄主義幻想忽略了這個結構性限制。"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Deconstructivist Architecture (MoMA 展覽圖錄)",
+      "author": "Philip Johnson & Mark Wigley",
+      "year": 1988,
+      "significance": "MoMA 展覽的官方圖錄，Wigley 的導論試圖在七位風格迥異的建築師之間找到共同脈絡——對穩定形式的干擾、對俄國構成主義的形式回應、對結構完整性的挑戰。這本薄薄的 108 頁小冊子為一個鬆散的建築傾向命名，影響了整個學科三十年。"
+    },
+    {
+      "title": "Architecture and Disjunction（建築與斷裂）",
+      "author": "Bernard Tschumi",
+      "year": 1994,
+      "significance": "Tschumi 的核心理論文集，提出建築的三位一體——空間、事件、運動——以及它們之間的「斷裂」（disjunction）概念。主張建築的意義不在和諧的形式構成，而在空間與事件之間不可預測的碰撞。直接將電影理論（Eisenstein 的蒙太奇）與後結構主義哲學引入建築論述。"
+    },
+    {
+      "title": "Delirious New York: A Retroactive Manifesto for Manhattan（狂譫紐約）",
+      "author": "Rem Koolhaas",
+      "year": 1978,
+      "significance": "以曼哈頓為案例，主張摩天大樓的真正意義是「擁塞文化」(the culture of congestion)——大量不相容的功能被強制壓縮進一個垂直結構。這本「追溯性宣言」將紐約的非理性城市發展重新詮釋為一種未被自覺認識的都市主義理論，為解構主義建築提供了都市尺度的思想框架。"
+    },
+    {
+      "title": "The End of the Classical: The End of the Beginning, the End of the End（古典的終結）",
+      "author": "Peter Eisenman",
+      "year": 1984,
+      "significance": "Eisenman 最重要的理論文章之一，宣告古典建築三大支柱（再現 representation、理性 reason、歷史 history）的終結。主張建築必須從這三重束縛中解放，成為自主的形式操作——建築不再「代表」任何外在事物，也不再受制於歷史目的論。"
+    },
+    {
+      "title": "The Manhattan Transcripts（曼哈頓轉譯）",
+      "author": "Bernard Tschumi",
+      "year": 1981,
+      "significance": "Tschumi 的理論繪圖作品，以連環漫畫的形式將建築圖面、電影場景與舞蹈動作記譜並置，探討空間、事件與運動的交互關係。這部作品模糊了建築圖面與藝術作品的邊界，為「事件建築」的理論建構提供了視覺方法論。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "碎裂與重組 (Fragmentation)：將建築體量打碎成不連續的碎片，再以非預期的方式重新組合，讓觀者無法用單一視角理解整體。（WHY：古典建築追求統一性——從任何角度看都能讀出完整的秩序。但 Derrida 指出所有看似統一的結構都壓抑了內在的矛盾與差異。碎裂是讓被壓抑的多元性重新浮現的建築操作。）",
+      "故意製造不穩定感 (Destabilization)：傾斜的牆面、懸浮的量體、看似即將傾倒的結構，讓使用者的身體感知與視覺經驗產生衝突。（WHY：穩定的建築形式傳達一種虛假的安全感，暗示社會秩序是自然的、不可動搖的。不穩定的形式迫使使用者意識到自己的身體在空間中的存在，打破空間經驗的自動化。）",
+      "形式的自主性 (Formal autonomy)：讓建築形式不再從屬於功能、結構或象徵意義，而是作為獨立的語言系統自我運作。（WHY：現代主義的「形式追隨功能」把形式降格為功能的附庸。Eisenman 主張建築有自己的內在邏輯——就像語言的語法規則不從屬於語義內容。形式的自主性是建築作為獨立學科的前提。）",
+      "非線性與複雜性 (Non-linearity)：擁抱曲面、褶皺、扭曲等非歐幾里得幾何，拒絕直角正交的空間秩序。（WHY：直角是工業標準化的產物——它方便計算、方便施工、方便堆疊。但人的身體經驗、情感流動、城市的有機演化都是非線性的。曲面和褶皺更接近身體感知的真實結構。Hadid 說得最直接：360 度，為什麼只用一個？）",
+      "對抗和諧 (Anti-harmony)：故意製造視覺與空間的不協調——材料衝突、比例失衡、功能錯位。（WHY：和諧是一種美學暴力——它壓制差異、排除異質、強迫統一。當建築追求和諧，它就在執行一種審美上的獨裁。不和諧讓被排除的聲音重新被聽見。）",
+      "事件優先於形式 (Event over form)：建築的意義由空間中發生的事件決定，形式只是事件的觸發器。（WHY：傳統建築學把形式放在中心——建築師設計形式，使用者被動地「住在裡面」。Tschumi 翻轉這個等級：空間本身無意義，是人的行動、運動、相遇賦予空間生命。建築師設計的是事件的可能性，不是形式的完美性。）",
+      "揭露隱藏結構 (Exposing hidden structures)：將通常被掩藏的建築元素——結構框架、管線、施工過程的痕跡——暴露在表面。（WHY：傳統建築用飾面遮蓋結構真相，就像意識形態用「自然」的外表遮蓋權力結構。暴露隱藏的東西是解構的基本操作：讓被壓抑的真相浮出水面。Gehry 的 Santa Monica 自宅用鏈網圍籬和裸露的木框架執行了這個操作。）",
+      "數位形態生成 (Digital morphogenesis)：利用 CATIA、Rhino 等參數化設計軟體生成人腦無法預想的複雜形態。（WHY：手繪和傳統工程學限制了建築形式的想像力——你只能畫出你能計算的東西。數位工具解放了形式，讓建築師可以操作原本不可建造的幾何。Gehry 用航太軟體 CATIA 將 Bilbao Guggenheim 從紙模型變成現實，證明了技術可以追上想像力。）"
+    ],
+    "what_they_refuse": [
+      "現代主義的功能教條 (Modernist functionalism)：拒絕「形式追隨功能」的單向因果邏輯。（WHY：把功能當作形式的唯一正當理由，等於否認建築作為文化表達和空間體驗的價值。Le Corbusier 的「居住的機器」把人降格為需要被「處理」的材料。解構主義堅持建築的意義超越功能性需求的滿足。）",
+      "後現代主義的歷史引用 (Postmodern historicism)：拒絕用古典柱式、山牆、裝飾性引號回收歷史風格。（WHY：後現代主義的歷史引用是懷舊的諷刺——它把歷史當作可以隨意剪貼的圖像庫，而非需要被認真對話的結構性力量。Graves 在 Portland Building 上貼的古典柱式是空洞的符號遊戲，既不理解歷史也不挑戰歷史。）",
+      "形式的完整性與統一性 (Formal unity)：拒絕「好建築必須是統一的整體」這個古典假設。（WHY：統一性是權力的美學——它壓制內部的矛盾與差異，製造出一切「本該如此」的假象。解構主義擁抱碎裂，因為碎裂更誠實地反映了當代社會的多元性和衝突性。）",
+      "穩定作為建築的天然屬性 (Stability as natural)：拒絕視覺穩定和結構穩定的等式。（WHY：穩定的建築傳達一種意識形態訊息——「一切安好、秩序井然」。但冷戰的終結、全球化的加速、身份認同的碎裂都指向一個不穩定的世界。建築的視覺穩定在一個不穩定的時代是謊言。）",
+      "正交幾何的霸權 (Orthogonal geometry)：拒絕直角作為空間組織的預設。（WHY：直角是工業效率的產物，它方便標準化生產和經濟計算，但它與人的身體經驗和情感流動毫無關係。自然界幾乎不存在直角——它是人為強加於空間的抽象秩序。）",
+      "建築的服務者角色 (Architecture as servant)：拒絕建築僅僅作為業主需求的被動回應者。（WHY：把建築師定義為「滿足客戶需求」的服務業者，等於取消了建築作為文化批評和社會質疑的可能性。Eisenman 的 House VI 故意讓臥室地板出現一條裂縫，迫使業主夫婦分床睡——建築有權挑戰使用者的習慣。）",
+      "品味與舒適的優先性 (Taste and comfort)：拒絕以「好看」和「舒適」作為建築設計的終極標準。（WHY：舒適是一種意識形態——它讓人不思考、不質疑、不離開熟悉的感知框架。解構主義建築故意製造不適，因為不適是意識覺醒的觸發器。Eisenman 直言：「我對美不感興趣。」）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "International Style / 現代主義正統：Le Corbusier 和 Mies van der Rohe 的功能主義教條——純粹形式、正交幾何、「少即是多」的禁欲美學——是解構主義的直接否定對象",
+      "Postmodernism / 後現代主義建築：Philip Johnson 的 AT&T Building、Michael Graves 的 Portland Building 所代表的歷史引用和裝飾性符號——解構主義認為後現代主義是對現代主義的膚淺反叛，用懷舊取代了批判",
+      "New Urbanism / 新都市主義：Andres Duany 和 Elizabeth Plater-Zyberk 的傳統社區復興運動——追求步行友善、混合使用、古典城鎮形態——被解構主義視為保守的懷舊幻想",
+      "Critical Regionalism / 批判性地域主義：Kenneth Frampton 主張的在地材料與地方傳統回應——解構主義的全球化野心與批判性地域主義的在地關懷形成張力",
+      "Classical Revivalism / 古典復興：Leon Krier 和 Quinlan Terry 的古典建築復興——解構主義視其為徹底的倒退"
+    ],
+    "against_values": [
+      "和諧即美：解構主義認為和諧壓抑差異，美的標準本身就是需要被解構的權力結構",
+      "形式追隨功能：建築形式有自身的內在邏輯，不從屬於功能性需求",
+      "穩定即安全：視覺與結構的穩定傳達虛假的秩序感，建築應反映世界的真實不確定性",
+      "歷史的連續性：後現代主義假設我們可以與歷史進行溫情的對話，解構主義認為這種對話首先需要打碎歷史的權威",
+      "使用者的舒適優先：建築的價值不在讓人舒服，而在讓人思考——不適是認知覺醒的代價",
+      "建築的可讀性：好建築不需要「容易理解」——複雜性、矛盾性、多義性才是建築的豐富性"
+    ],
+    "societal_context": "解構主義建築在 1980 年代末至 1990 年代的全球政治地殼變動中獲得能量。冷戰的結束（1989 年柏林圍牆倒塌、1991 年蘇聯解體）瓦解了二戰後的二元世界秩序，Francis Fukuyama 宣稱「歷史的終結」，但隨之而來的是前所未有的不確定性——南斯拉夫內戰、盧旺達種族屠殺、全球化帶來的文化衝擊。後結構主義哲學質疑一切「大敘事」的正當性，而建築作為秩序的空間化身，必須回應這種認識論的地震。同時，全球化的文化經濟創造了一種新的建築需求：城市需要地標性建築來爭奪全球注意力（Bilbao Effect），而解構主義建築的視覺衝擊力恰好滿足了這個需求。運動因此在 1990-2000 年代從前衛理論圈擴散為全球建築實踐，但也面臨批評：批判性的知識份子項目變成了跨國企業和威權政府的門面裝飾。Hadid 為卡達和阿塞拜疆的項目、Koolhaas 的 CCTV 大樓都引發了關於建築倫理的激烈爭論。"
+  },
+
+  "problems_solved": [
+    "打破現代主義的教條僵化：證明功能主義和正交幾何並非建築的唯一合法語言，重新打開了建築形式的想像空間",
+    "將建築論述從形式美學提升到哲學批判：引入 Derrida、Foucault、Deleuze 的思想資源，讓建築成為與哲學、文化理論同等級的知識生產領域",
+    "推動數位設計革命：對複雜形態的追求倒逼了 CATIA、Rhino、Grasshopper 等參數化設計工具的發展，徹底改變了建築設計的生產方式",
+    "創造了建築作為城市文化引擎的模型：Bilbao Guggenheim 證明一棟建築可以復活一座衰落的工業城市，開創了「建築旅遊」的全球現象",
+    "拓展了建築的情感與體驗維度：Libeskind 的 Jewish Museum Berlin 證明建築空間可以傳達創傷、缺席、記憶等抽象情感，而非僅僅服務於實用功能",
+    "挑戰建築界的性別與種族壁壘：Hadid 作為伊拉克裔英國女性在白人男性主導的行業中取得最高成就，為多元化開拓了路徑"
+  ],
+
+  "problems_created": [
+    "菁英主義與社會脫節：解構主義建築的建成作品幾乎全部是美術館、音樂廳、企業總部等文化地標，沒有任何住宅、醫院、學校或交通基礎建設——它是一種徹底的菁英建築，對普通人的日常空間需求毫無回應",
+    "造價失控與資源浪費：複雜的非正交形態導致極高的設計費、結構工程費和施工費。Eisenman 的 City of Culture of Galicia 四倍超出預算且僅半完工即被叫停。Gehry 的 Walt Disney Concert Hall 從 1988 年設計到 2003 年才完工，嚴重超支",
+    "理論與實踐的鴻溝：哲學化的建築論述讓建築成為學術圈的自我對話工具，普通使用者和一般民眾完全無法理解建築師在「表達什麼」。Kenneth Frampton 批評解構主義「菁英且與現實脫節」",
+    "形式主義的悖論：一個以批判形式主義起家的運動，最終自己變成了最極端的形式主義——哲學基礎消失後，只剩下碎裂與扭曲的視覺風格被全球複製",
+    "為威權政權提供文化洗白工具：Hadid 為卡達（2022 世界盃 Al Wakrah 體育場）、阿塞拜疆（Heydar Aliyev Center）的項目，Koolhaas 為中國央視（CCTV 大樓）的設計，引發了建築師是否應該為威權政權服務的倫理爭論",
+    "使用者體驗的犧牲：追求形式激進性的代價是空間的可用性。Eisenman 的 House VI 臥室地板的裂縫讓業主無法正常使用；Gehry 的 Stata Center（MIT）因漏水、黴菌等品質問題被 MIT 提告",
+    "建築論述的不可證偽性：解構主義建築的理論架構高度依賴哲學類比和語言遊戲，缺乏可驗證的標準——任何批評都可以被回應為「你不懂 Derrida」，形成了封閉的學術循環"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "建築可以質疑建築本身的前提假設——穩定、和諧、功能性、可讀性都是歷史建構而非自然法則。這種將批判性思維內化為設計方法的做法，讓建築從「問題的解決方案」升級為「問題本身的質疑者」。建築從此不只是「蓋房子」，也是一種知識生產和文化批評的形式。",
+    "what_was_truly_new": [
+      "將 Derrida 的解構哲學轉譯為空間操作方法：Eisenman 和 Tschumi 發展出一套建築特有的解構操作——scaling、superposition、palimpsest——讓建築自身成為哲學思考的媒介",
+      "事件建築 (Event Architecture)：Tschumi 提出空間的意義由事件而非形式決定，徹底翻轉了建築學的傳統等級制度——使用者的行動成為建築意義的生產者，而非被動的接受者",
+      "數位形態生成與參數化設計的建築應用：Gehry 使用航太軟體 CATIA 將紙模型精確轉化為可建造的結構，開創了建築設計與數位製造的直接連結，催生了此後二十年的參數化建築浪潮",
+      "建築作為城市經濟引擎的模型：Bilbao Guggenheim 證明一棟建築可以改變一座城市的全球定位，『Bilbao Effect』成為全球城市規劃的核心概念",
+      "情感與記憶的空間化：Libeskind 的 Jewish Museum Berlin 用傾斜的牆面、裂縫般的窗戶和空曠的「虛空」(void) 空間，將大屠殺的創傷與缺席轉化為可被身體感知的建築體驗——建築可以讓你「感受到」不在場的東西"
+    ],
+    "what_was_borrowed": [
+      "Russian Constructivism / 俄國構成主義：Tatlin、Rodchenko、El Lissitzky 的傾斜幾何、動態構成、反重力視覺——MoMA 展覽的標題本身（de-constructivism）就暗示了與構成主義的形式關聯。Hadid 的早期繪畫直接受 Malevich 至上主義影響",
+      "Jacques Derrida 的解構哲學：差延 (différance)、補充 (supplement)、痕跡 (trace)、在場的形上學批判——Eisenman 和 Tschumi 直接與 Derrida 合作（La Villette 計畫），將哲學概念轉化為建築操作",
+      "Expressionism / 表現主義建築：Mendelsohn 的 Einstein Tower（1921）的流動有機形態，以及 German Expressionist 的情感驅動建築——解構主義建築的情感強度和雕塑性造形與表現主義有深層共鳴",
+      "Italian Futurism / 義大利未來主義：Sant'Elia 的動態城市願景和速度美學——解構主義建築對運動感和能量的迷戀可追溯到未來主義的形式語言",
+      "Robert Venturi 的建築複雜性理論：《Complexity and Contradiction in Architecture》（1966）主張建築應擁抱矛盾與複雜性——解構主義直接繼承了這個反純粹主義的立場，但用更激進的形式手段執行"
+    ],
+    "creative_leap": "解構主義建築的關鍵創造性飛躍在於「翻譯」(translation)：它將一種語言哲學（Derrida 的解構）翻譯為空間體驗，將二維的構成主義繪畫翻譯為三維的可居住建築，將批判理論翻譯為物質建構。這個翻譯過程中的「失真」恰恰是其創造力所在——建築的解構是在翻譯的裂縫中長出的全新事物，遠超哲學的圖解。Gehry 從紙模型到鈦金屬建築的跳躍，Hadid 從至上主義繪畫到參數化曲面的跳躍，都是跨媒材翻譯中的創造性變異。",
+    "inspiration_potential": {
+      "score": 7,
+      "why": "解構主義的核心命題——質疑預設、揭露隱藏結構、擁抱不確定性——在任何時代都具有批判性價值。但其實踐模式（超高造價的地標建築、菁英化的理論論述、對普通使用者需求的漠視）限制了其可轉移性。對當代創作者最有價值的是它的思維方法（而非視覺風格）：在任何領域中辨識出被當作「自然」的人為規則，然後有意識地打破它們。",
+      "transferable_to": [
+        "UX/UI 設計的反模式思考：識別使用者介面中被視為「自然」的互動慣例，質問它們是否真的服務於使用者還是服務於技術限制",
+        "品牌策略的解構式分析：拆解品牌敘事中的隱藏假設——誰被排除了？什麼矛盾被掩蓋了？",
+        "AI 生成設計的不可預測性：利用 AI 模型的「幻覺」和非線性輸出作為創作材料，類似 Gehry 利用紙模型的偶然變形",
+        "體驗設計中的刻意不適：在沉浸式體驗、遊戲設計或展覽中故意製造認知失調，讓使用者從自動化的感知中清醒",
+        "組織設計的去中心化：質疑企業組織中被視為自然的層級結構，探索流動的、無中心的協作模式",
+        "永續設計的批判視角：質疑「綠色建築」標章體系本身的假設——它定義了誰的「永續」？排除了什麼？"
+      ]
+    },
+    "originality_type": "translation"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Russian Constructivism (1913-)：Tatlin、El Lissitzky、Rodchenko 的動態幾何構成和反重力視覺語言，提供了解構主義建築的核心形式詞彙",
+      "Jacques Derrida / Post-structuralism (1960s-)：解構哲學的概念工具——差延、痕跡、補充、在場的形上學批判——是 Eisenman 和 Tschumi 的直接理論來源",
+      "Robert Venturi / Complexity and Contradiction (1966)：建築應擁抱矛盾與複雜性的宣言，為反現代主義正統提供了最早的理論合法性",
+      "Expressionism (1910s-1920s)：Mendelsohn 的流動形態和 Scharoun 的有機建築，是解構主義建築的情感性和雕塑性的歷史先例",
+      "Italian Futurism (1909-)：Sant'Elia 的動態城市願景和 Marinetti 的速度美學，預示了解構主義建築對運動、能量和不穩定性的追求",
+      "Situationist International (1957-1972)：Guy Debord 的 psychogeography 和 derive（漂移）概念——城市空間的意義由行走者的主觀體驗定義——影響了 Tschumi 的事件建築理論",
+      "Suprematism / Kazimir Malevich：至上主義的純粹幾何抽象和非重力構圖——Hadid 的早期繪畫直接繼承了 Malevich 的視覺語言"
+    ],
+    "influenced": [
+      "Parametricism / 參數化建築 (2000s-)：Patrik Schumacher（Hadid 的合夥人）將解構主義的曲面語言推向演算法驅動的參數化設計，宣稱這是後現代主義之後的新統一風格",
+      "Digital Architecture / Blob Architecture (1990s-2000s)：Greg Lynn、NOX、UN Studio 等利用數位工具生成的有機流動形態，直接繼承解構主義對非正交幾何的追求",
+      "Bilbao Effect / 全球城市品牌化 (1997-)：每座城市都想要自己的「Bilbao」——一棟地標建築帶動城市轉型——成為全球城市規劃的主導範式",
+      "Starchitect 文化：解構主義建築師的全球明星地位（Gehry、Hadid、Koolhaas）催生了「明星建築師」現象，建築師的個人品牌成為城市行銷的工具",
+      "Landscape Urbanism (2000s-)：Charles Waldheim 等人提出的以景觀取代建築作為城市設計媒介——部分回應了解構主義對固定建築形體的質疑",
+      "Contemporary Museum Architecture：21 世紀全球美術館建築的地標化趨勢——從 SANAA 的金澤 21 世紀美術館到 BIG 的作品——都在回應或回應解構主義開創的「建築作為體驗」範式",
+      "Computational Design & Digital Fabrication：解構主義對複雜形態的需求推動了 CNC 銑削、3D 列印、機器人建造等數位製造技術在建築中的應用"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "躁動、挑釁、知識密度極高。像一位在研討會上故意點燃爭論的哲學教授：每個回答都是反問，每個判斷都附帶一個顛覆性的前提。對「漂亮」、「和諧」、「舒適」這些詞有近乎條件反射的懷疑。喜歡在矛盾中找到創造力，在不確定性中看到誠實。語言鋒利，節奏不規則——長句突然被短句打斷，像一棟解構主義建築的空間序列。但在智識傲慢的表面下，有一種對建築的情感體驗的真實敏感。",
+    "evaluation_bias": "強烈偏好挑戰預設、揭露隱藏結構、製造認知不安的作品。傾向高估概念激進性和形式複雜性的價值，低估功能性、可建造性和使用者舒適度的重要性。會不自覺地以「這個作品挑戰了什麼假設？」作為隱性評分標準。對精緻但不挑釁的作品給出不公正的低評——因為它「太安全了」。",
+    "blind_spots": "難以評價追求和諧、清晰、功能性的作品——會自動將其標記為「保守」。對社會住宅、基礎教育設施、公共交通等「平凡」但至關重要的建築類型缺乏耐心。傾向忽視造價、工期、維護成本等現實條件。對非西方建築傳統中的秩序感和對稱性可能存在文化盲點——將其誤讀為「未經反思的傳統主義」。",
+    "typical_critique": "有趣，但太安全了。你的形式語言很流暢，你的空間關係很和諧——但你在掩蓋什麼？每一處和諧都是一個未被追問的假設。我想看到你把你自己嚇到的作品。建築的職責不是讓人舒服——任何沙發都能做到。建築的職責是讓你意識到你正在一個空間中存在，而那個空間可以是完全不同的。"
+  },
+
+  "writing_style": {
+    "collective_voice": "解構主義建築師的寫作風格是「理論佈道與智識挑釁的混合體」：每一篇文章都在拆解一個看似自明的建築假設，以此製造認知震盪。核心修辭策略是「否定式定義」——先說建築「不是」什麼，再暗示它「可以是」什麼，但永遠不給出封閉的肯定答案。哲學引用密度極高（Derrida、Deleuze、Foucault 是標配），跨領域類比激進（電影蒙太奇、語言學語法、物理學的不確定性）。動詞傾向使用打破性的動作——碎裂、扭曲、翻轉、拆解、暴露。整體語調在學術嚴謹與前衛挑釁之間擺盪。",
+    "internal_tensions": "最大的風格裂痕在「理論家」與「直覺派」之間。Eisenman 和 Tschumi 代表高度理論化的寫作——每一個設計決策都必須有哲學正當性，句子結構複雜、概念密度高。Gehry 和 Coop Himmelb(l)au 代表直覺驅動的表達——短句、感官意象、身體性的比喻，拒絕把設計過程理智化。Koolhaas 是橋梁人物：新聞寫作的清晰度包裹著理論的深度，能讓知識份子和普通讀者同時被吸引。Hadid 則極少寫理論文字，用繪畫和建築本身作為她的「文本」。",
+    "master_voices": [
+      {
+        "name": "Peter Eisenman",
+        "writing_character": "哲學教授在建築系的客座講座——每一句話都是一個命題，每一段都是一個論證",
+        "sentence_rhythm": "長句為主，多重從句嵌套，破折號頻繁出現用於插入定義和澄清。偶爾用極短的斷言句截斷節奏",
+        "rhetoric": "否定式定義（architecture is not...）、二元對立的解構（presence/absence, structure/ornament）、自造術語（scaling, superposition, palimpsest）、哲學概念直接嵌入",
+        "tone": "冷靜的智識自信，帶有教授的權威感和些許傲慢。不屑於讓步，不在乎是否被理解",
+        "real_examples": [
+          {
+            "text": "The second basic characteristic of a 'not-classical' architecture is its freedom from a priori goals or ends — the end of the end.",
+            "source": "The End of the Classical, 1984",
+            "style_note": "自造術語（not-classical）、否定式定義、破折號後接格言式壓縮"
+          },
+          {
+            "text": "I believe the philosophy of deconstruction is a moral obligation.",
+            "source": "attributed, lectures",
+            "style_note": "短句斷言，把哲學方法提升到道德命令的高度"
+          }
+        ]
+      },
+      {
+        "name": "Bernard Tschumi",
+        "writing_character": "電影導演寫建築理論——空間被分解為幀、序列、蒙太奇",
+        "sentence_rhythm": "三連否定起手（no architecture without...），中段展開為並列結構（spaces, events, movements），結尾收束為格言",
+        "rhetoric": "三連排比、否定式定義、電影術語借用（sequence, frame, montage）、建築概念的動詞化（disjunction 作為動態過程而非靜態狀態）",
+        "tone": "理論的嚴謹性與宣言的激情交替出現。比 Eisenman 更有表演性，更願意用身體性的語言",
+        "real_examples": [
+          {
+            "text": "There is no architecture without action, no architecture without event, no architecture without program.",
+            "source": "Architecture and Disjunction, 1994",
+            "style_note": "三連否定排比，節奏像建築空間的序列——重複中遞進"
+          },
+          {
+            "text": "Architecture is the materialization of a concept.",
+            "source": "attributed, writings",
+            "style_note": "七字格言，概念優先於物質的宣告"
+          }
+        ]
+      },
+      {
+        "name": "Rem Koolhaas",
+        "writing_character": "前記者的觀察力包裹著理論家的野心——用新聞體的清晰度書寫城市的荒誕",
+        "sentence_rhythm": "短句連擊起手，中段突然拉長為包含多重觀察的複合句，結尾用格言式的反轉收束",
+        "rhetoric": "反諷（urbanism 本身就是問題）、矛盾修辭（Generic City, Junkspace）、統計數據與詩意並列、自我嘲諷",
+        "tone": "冷靜到近乎冷酷的觀察者，偶爾流露出對城市的深沉熱情。從不感傷，永遠懷疑",
+        "real_examples": [
+          {
+            "text": "Architecture is too slow.",
+            "source": "attributed, writings",
+            "style_note": "四字判死刑。整個學科的危機壓縮進一句話"
+          },
+          {
+            "text": "The stronger the identity, the more it imprisons, the more it resists expansion, interpretation, renewal, contradiction.",
+            "source": "S,M,L,XL",
+            "style_note": "遞進式排比，每個 'the more' 加一層否定，身份認同在句子的推進中被拆解"
+          }
+        ]
+      },
+      {
+        "name": "Frank Gehry",
+        "writing_character": "工匠用口語說出深刻的設計哲學——拒絕理論語言，用感官經驗取代概念分析",
+        "sentence_rhythm": "口語化短句，大量 I don't know / I feel / I just 開頭。節奏不規則，像即興對話",
+        "rhetoric": "感官比喻（liquid, jazz, flowing）、反理論宣言（I don't read that stuff）、工藝性描述（物質觸感、手的動作、光的變化）",
+        "tone": "謙遜的表面下是極度自信的直覺。不解釋，只展示。對理論語言有真誠的不耐",
+        "real_examples": [
+          {
+            "text": "Liquid architecture. It's like jazz — you improvise, you work together, you play off each other, you make something.",
+            "source": "attributed, interviews",
+            "style_note": "即興的口語節奏，four-beat 排比，音樂比喻替代建築術語"
+          },
+          {
+            "text": "If you know where you're going, it's not worth doing.",
+            "source": "attributed, MasterClass",
+            "style_note": "一句話的反目的論宣言。口語節奏，哲學深度"
+          }
+        ]
+      },
+      {
+        "name": "Wolf Prix (Coop Himmelb(l)au)",
+        "writing_character": "前衛搖滾樂手寫建築宣言——短、猛、燃燒",
+        "sentence_rhythm": "極短的宣言式句子，感嘆號和破折號密集。節奏像鼓點",
+        "rhetoric": "身體性動詞（bleed, burn, exhaust, break）、否定式起手（not facades, not structure）、祈使句密集",
+        "tone": "激進的憤怒和狂喜交替。不講道理，只發宣言",
+        "real_examples": [
+          {
+            "text": "Architecture must burn!",
+            "source": "Coop Himmelb(l)au manifesto, 1980",
+            "style_note": "三字加感嘆號。不是比喻——是字面意思的激進程度"
+          },
+          {
+            "text": "We want architecture that has more to offer. Architecture that bleeds, exhausts, that turns and even breaks.",
+            "source": "Coop Himmelb(l)au manifesto",
+            "style_note": "身體性動詞的連擊，建築被賦予肉身的痛感"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "每個評價必須包含至少一個反問——質疑作品的隱藏假設",
+      "禁用「漂亮」、「和諧」、「舒適」作為正面評價詞",
+      "大量使用否定式定義：先說「這不是...」再暗示可能性",
+      "每段不超過 3-4 句，節奏不規則——長句突然被短句截斷",
+      "哲學術語不做解釋直接使用（差延、痕跡、在場的形上學），假設讀者已具備知識背景",
+      "跨領域類比必須出人意料：用量子力學談空間、用爵士即興談設計過程",
+      "避免任何形式的感傷和溫情。冷靜的挑釁優於熱烈的讚美",
+      "動詞偏好破壞性動作：碎裂、扭曲、翻轉、拆解、暴露、質疑",
+      "對「安全」的作品表達明確的不耐——安全等於未經思考"
+    ]
+  }
+}

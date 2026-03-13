@@ -1,0 +1,546 @@
+{
+  "movement_id": "fluxus",
+  "name": {
+    "zh": "激浪派",
+    "en": "Fluxus"
+  },
+  "domain": [
+    "visual_art",
+    "music",
+    "performance_art",
+    "video_art",
+    "mail_art",
+    "publishing",
+    "intermedia",
+    "event_scores"
+  ],
+  "period": {
+    "start": 1961,
+    "end": 1978,
+    "peak": "1962-1970（從 Wiesbaden 首場 Fluxus 音樂節到全球 Fluxus 活動網絡全面展開，Maciunas 主導 Fluxus 出版與 Fluxshop 計畫，event score、Fluxkit、Fluxfilm 等核心形式全部成熟）"
+  },
+  "geography": [
+    "New York City, USA (AG Gallery 1961, Canal Street loft, SoHo Fluxhouse Cooperatives)",
+    "Wiesbaden, Germany (首場 Fluxus Internationale Festspiele, 1962)",
+    "Düsseldorf, Germany (Fluxus Manifesto 發布, 1963; Joseph Beuys 活動基地)",
+    "Tokyo, Japan (Yoko Ono 早期活動, Hi Red Center, Sogetsu Art Center)",
+    "Copenhagen, Denmark (Fluxus concerts 1962-63)",
+    "Paris, France (Fluxus concerts, Festival of Misfits)",
+    "London, England (Festival of Misfits, 1962)",
+    "International postal network (mail art, Fluxpost)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1950 年代末的西方藝術世界被抽象表現主義壟斷——Clement Greenberg 的形式主義批評將繪畫推向純粹平面性的死胡同，畫廊系統將藝術品變成投資商品，藝術家被推上天才祭壇。與此同時，John Cage 在 1952 年發表《4'33\"》，用沉默爆破了音樂的定義邊界，他在 New School for Social Research 的實驗作曲課程（1957-1959）聚集了 George Brecht、Dick Higgins、Al Hansen、Allan Kaprow 等未來的 Fluxus 核心人物。冷戰對峙中，核戰陰影籠罩全球，1961 年柏林圍牆建起，1962 年古巴飛彈危機將人類推到毀滅邊緣。George Maciunas 這個立陶宛流亡者，在紐約開了一間賠錢的 AG Gallery，然後逃到德國躲債，在美軍基地當平面設計師——就在歐洲的美軍基地裡，他開始策劃一場要消滅『藝術』這個概念的國際運動。Fluxus 誕生於藝術體制的飽和點與冷戰焦慮的交匯處：當藝術已經無處可去，生活本身成為唯一的出口。",
+    "social_energy": "Fluxus 的能量來自三個匯流：(1) John Cage 的衝擊波——他證明了沉默是音樂、偶然是方法、日常是素材，Cage 在 New School 的課堂成為 Fluxus 的孵化器；(2) 戰後國際主義的人際網絡——Maciunas 是立陶宛人在紐約，Paik 是韓國人在德國，Ono 是日本人在紐約，Vostell 是德國人受西班牙影響，Patterson 是非裔美國人在歐洲巡演——這些流亡者、移民、跨國旅行者組成的鬆散聯盟天然抗拒任何單一文化中心；(3) 1960 年代初期的反文化能量——民權運動、反戰運動、女性主義、反消費主義同時爆發，Fluxus 的反藝術姿態與這股社會解放力量共振。",
+    "purpose": "Fluxus 的終極目標是取消藝術與生活的邊界。Maciunas 在 1963 年宣言中將這個目標分為三個動作：PURGE（清洗布爾喬亞文化病——抽象藝術、幻覺主義藝術、職業化文化）、PROMOTE（推廣活的藝術、反藝術、所有人都能掌握的非藝術現實）、FUSE（將文化、社會、政治革命者的力量融合為統一戰線）。這個三段式綱領既是美學宣言也是政治號召——Fluxus 要讓每個人都成為藝術家，讓每個日常動作都成為藝術事件，讓藝術從畫廊的白牆上走進廚房、街頭、郵筒。",
+    "key_timeline": [
+      "1952 — John Cage 在 Woodstock 首演《4'33\"》，沉默作為音樂的觀念震撼藝術界",
+      "1957-1959 — Cage 在 New School for Social Research 開設實驗作曲課程，Brecht、Higgins、Hansen、Kaprow、Mac Low 等人參加",
+      "1961.01 — La Monte Young 編輯《An Anthology of Chance Operations》，收錄未來 Fluxus 成員的 event scores（1963 年由 Maciunas 出版）",
+      "1961.06-07 — Maciunas 與 Salcius 在紐約 Madison Avenue 開設 AG Gallery，舉辦 Yoko Ono 的 Instruction Paintings 展覽及系列前衛音樂活動",
+      "1961.11 — AG Gallery 因財務問題關閉，Maciunas 前往 Wiesbaden 美軍基地任職，開始策劃歐洲 Fluxus 活動",
+      "1962.06.09 — Maciunas 在 Wuppertal Galerie Parnass 的 Apres John Cage 活動上首次使用 Fluxus 一詞，由 Caspari 朗讀 Neo-Dada in Music, Theater, Poetry, Art",
+      "1962.09.01-23 — 首場 Fluxus Internationale Festspiele Neuester Musik 在 Wiesbaden 市立博物館舉行，觀眾與媒體譁然",
+      "1963.02 — Maciunas 在 Dusseldorf Festum Fluxorum Fluxus 上散發 Fluxus Manifesto（PURGE / PROMOTE / FUSE）",
+      "1963.03.11-20 — Nam June Paik 在 Wuppertal Galerie Parnass 舉辦 Exposition of Music - Electronic Television，12 台改裝電視機宣告 video art 誕生",
+      "1963 — Dick Higgins 創立 Something Else Press，出版 Fluxus 及前衛藝術文獻",
+      "1964.03 — Yoko Ono 在京都山一講堂首演 Cut Piece",
+      "1964 — Yoko Ono 在東京出版《Grapefruit》初版，收錄逾 150 件 instruction works",
+      "1964-1965 — Fluxus 1（Maciunas 編輯的年鑑合集）終於出版，內含大量 event scores 與 multiples",
+      "1966 — Dick Higgins 在 Something Else Newsletter 第一期發表 Intermedia 一文，提出跨媒介理論",
+      "1966-1975 — Maciunas 在紐約 SoHo 推動 Fluxhouse Cooperatives，將廢棄工業建築改造為藝術家合作住宅，成為 SoHo 藝術區先驅"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "喬治·馬秋納斯",
+        "en": "George Maciunas"
+      },
+      "role": "Fluxus 創始人、組織者、設計師（1931-1978）。立陶宛裔美國人，以平面設計師身份在美軍基地工作的同時策劃了整個 Fluxus 國際網絡。設計所有 Fluxus 出版物、Fluxkit、Fluxshop，並在紐約 SoHo 推動 Fluxhouse 藝術家合作住宅。",
+      "key_works": [
+        "Fluxus Manifesto (1963)",
+        "Fluxus 1 年鑑 (1964)",
+        "Neo-Dada in Music, Theater, Poetry, Art 講稿 (1962)",
+        "Fluxkit 盒裝作品集 (1964-)",
+        "Fluxhouse Cooperatives, SoHo, New York (1966-1975)",
+        "Flux Year Box 2 (1967)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Purge the world of bourgeois sickness, 'intellectual', professional & commercialized culture. PURGE the world of dead art, imitation, artificial art, abstract art, illusionistic art, mathematical art.",
+          "source": "Fluxus Manifesto, 1963（於 Dusseldorf Festum Fluxorum Fluxus 散發）",
+          "meaning": "（Manifesto 第一段直接點名要清洗的對象——布爾喬亞文化病的全部症狀。從知識份子文化到商業化文化，從死藝術到抽象藝術，Maciunas 的清洗名單幾乎涵蓋了 1960 年代藝術世界的所有主流形式。這張清單的激進程度讓許多 Fluxus 成員自己都不同意。）"
+        },
+        {
+          "text": "PROMOTE A REVOLUTIONARY FLOOD AND TIDE IN ART. Promote living art, anti-art, promote NON ART REALITY to be grasped by all peoples, not only critics, dilettantes and professionals.",
+          "source": "Fluxus Manifesto, 1963",
+          "meaning": "（Manifesto 第二段從清洗轉向建設——推廣的目標是『非藝術現實』，受眾是所有人。Maciunas 用大寫字母強調：藝術的觀眾群體必須從批評家和專業人士擴展到全人類。Fluxus 的民主主義在這句話裡表述得最明確。）"
+        },
+        {
+          "text": "FUSE the cadres of cultural, social & political revolutionaries into united front & action.",
+          "source": "Fluxus Manifesto, 1963",
+          "meaning": "（Manifesto 第三段揭示 Fluxus 的政治野心——文化革命、社會革命、政治革命的力量要融合為統一行動。Maciunas 的馬克思主義傾向在這句話裡最為直白，也因此引發 Fluxus 內部關於藝術與政治關係的長期辯論。）"
+        },
+        {
+          "text": "Fluxus is definitely against art-object as non-functional commodity — to be sold and to make livelihood for an artist. It could temporarily have the pedagogical function of teaching people the needlessness of art including the eventual needlessness of itself.",
+          "source": "Letter to Tomas Schmit, January 1964（收錄於 Jon Hendricks, Fluxus Codex, 1988）",
+          "meaning": "（Maciunas 在私信中坦承 Fluxus 的終極悖論：一個反對藝術的藝術運動，最終目標是教會人們藝術的不必要性——包括 Fluxus 自身的不必要性。這種自我取消的邏輯是 Fluxus 最獨特的思想結構。）"
+        },
+        {
+          "text": "In the art of the future, the professional artist will have to step down from his ego-trip and learn to be one of the crowd.",
+          "source": "George Maciunas, Fluxus Newsletter, March 1963",
+          "meaning": "（專業藝術家必須從自我膨脹的神壇上走下來，學習成為群眾中的一員。這句話將 Fluxus 的反精英立場濃縮為一個行動指令：藝術家身份的消解是 Fluxus 計畫的前提條件。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "小野洋子",
+        "en": "Yoko Ono"
+      },
+      "role": "概念藝術與 event score 先驅。在 Fluxus 正式命名之前就已發展出 instruction-based art（指令式藝術），1961 年在 AG Gallery 舉辦 Instruction Paintings 展覽，1964 年出版《Grapefruit》。她的 event scores 將想像力本身定義為藝術媒材。",
+      "key_works": [
+        "Instruction Paintings 展覽, AG Gallery (1961)",
+        "《Grapefruit: A Book of Instructions and Drawings》(1964, Tokyo 初版；1970, Simon & Schuster 再版)",
+        "Cut Piece 行為表演 (1964, 京都山一講堂首演)",
+        "Painting to Be Stepped On (1960/1961)",
+        "Cloud Piece (1963)",
+        "Lighting Piece (1955)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Imagine the clouds dripping. Dig a hole in your garden to put them in.",
+          "source": "Cloud Piece, 收錄於 Grapefruit, 1964（Spring 1963）",
+          "meaning": "（三句話完成一件藝術作品：想像、行動、完成。不需要畫布、顏料、畫廊——你的花園和天空就是全部的材料。這首 event score 證明了藝術可以只存在於讀者的想像行為中。）"
+        },
+        {
+          "text": "A dream you dream alone is only a dream. A dream you dream together is reality.",
+          "source": "Grapefruit: A Book of Instructions and Drawings, 1964",
+          "meaning": "（集體想像的力量大於個人幻想——當所有人共享同一個夢境，夢境就變成了現實。這句話是 Fluxus 參與式藝術的哲學基礎：藝術的完成需要所有人的參與。）"
+        },
+        {
+          "text": "Performer sits on stage with a pair of scissors in front of him. It is announced that members of the audience may come on stage — one at a time — to cut a small piece of the performer's clothing to take with them. Performer remains motionless throughout the piece.",
+          "source": "Cut Piece event score, 1964（收錄於 Grapefruit 增訂版, 1970）",
+          "meaning": "（Cut Piece 的指令文本本身就是作品——冷靜、精確、不帶情感的指令語言，描述一個充滿暴力張力的情境。表演者的被動與觀眾的主動形成權力關係的翻轉：藝術作品的完成取決於觀眾的行為選擇。）"
+        },
+        {
+          "text": "Light a match and watch till it goes out.",
+          "source": "Lighting Piece, 1955（收錄於 Grapefruit, 1964）",
+          "meaning": "（Ono 最早的 event score 之一：點燃一根火柴，看著它燃盡。整件作品就是注意力本身——對一個微小、短暫、日常事件的全然專注。這是 Fluxus 將日常動作提升為美學經驗的原型。）"
+        },
+        {
+          "text": "The natural state of life is receiving and giving — if we want to receive and give in an unblocked way, it is best to be a clean, open vessel for life.",
+          "source": "To the Wesleyan People (essay), 收錄於 Grapefruit, 1964",
+          "meaning": "（藝術家的理想狀態是成為一個乾淨、開放的容器——接收與給予生命的流動，而非用技巧和理論去控制它。這段話定義了 Ono 的藝術觀：藝術是生命能量的自然流通，技術只會堵塞這個管道。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "白南準",
+        "en": "Nam June Paik"
+      },
+      "role": "Video art 之父。從古典音樂訓練（Stockhausen 門生）轉向電子媒體實驗，1963 年在 Wuppertal 用 12 台改裝電視機宣告 video art 誕生，1974 年預言 electronic superhighway，將電視從被動接收裝置改造為藝術家的畫布。",
+      "key_works": [
+        "Exposition of Music - Electronic Television, Galerie Parnass, Wuppertal (1963)",
+        "Zen for Film (1964)",
+        "Paik-Abe Video Synthesizer (1969, 與 Shuya Abe 合作)",
+        "TV Buddha (1974)",
+        "Electronic Superhighway: Continental U.S., Alaska, Hawaii (1995)",
+        "Media Planning for the Postindustrial Society (1974, Rockefeller Foundation 報告)"
+      ],
+      "key_quotes": [
+        {
+          "text": "As collage technique replaced oil paint, the cathode ray tube will replace the canvas.",
+          "source": "Afterlude to the Exposition of Experimental Television, Fluxus ccfiVeTHReE, June 1964",
+          "meaning": "（一句話預告了 video art 的整個歷史：陰極射線管（電視螢幕）取代畫布，正如拼貼技術取代了油畫。媒材革命決定藝術形式革命——Paik 用藝術史的邏輯為電子媒體的合法性辯護。）"
+        },
+        {
+          "text": "The real issue implied in 'Art and Technology' is not to make another scientific toy, but how to humanize the technology and the electronic medium.",
+          "source": "Versatile Color TV Synthesizer, 1969（收錄於 Judson Rosenbush 編 Nam June Paik: Videa 'n' Videology, Everson Museum, 1974）",
+          "meaning": "（藝術與技術的真正議題是人性化——技術本身只是科學玩具，藝術家的任務是讓冰冷的電子媒體承載人的溫度。Paik 在此將自己與單純的技術樂觀主義區分開來。）"
+        },
+        {
+          "text": "I am a poor man from a poor country, so I have to be entertaining every second.",
+          "source": "Beuys Vox, 1961（收錄於 Nam June Paik: Videa 'n' Videology, Everson Museum, 1974）",
+          "meaning": "（自嘲中藏著方法論：作為來自韓國的亞洲人在歐美藝術界生存，Paik 選擇用幽默與娛樂性作為武器。這句話解釋了 Fluxus 表演中那種嘉年華般的喧鬧為何對 Paik 既是美學選擇也是生存策略。）"
+        },
+        {
+          "text": "The building of new electronic superhighways will become an even huger enterprise. Assuming we connect New York with Los Angeles by means of an electronic telecommunication network... the result will be a 'broad-band communication network.'",
+          "source": "Media Planning for the Postindustrial Society, 1974（Rockefeller Foundation 報告）",
+          "meaning": "（1974 年預言了 Internet 的到來——Paik 用 electronic superhighway 這個詞描述一個將橫跨美國的寬頻通訊網絡。這個預見力讓 Paik 從 Fluxus 的行為藝術家躍升為媒體理論的先驅。）"
+        },
+        {
+          "text": "I use technology in order to hate it properly.",
+          "source": "Interview, 收錄於 Nam June Paik: Fluxus/Video, 1999（Kunsthalle Bremen 展覽圖錄）",
+          "meaning": "（擁抱技術的目的是為了正確地批判它——只有深入理解電視的運作方式，才能有效地顛覆它的控制邏輯。Paik 的藝術實踐是一種內部顛覆：用電視機反對電視。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "迪克·乾金斯",
+        "en": "Dick Higgins"
+      },
+      "role": "Fluxus 理論家與出版者。John Cage 在 New School 的學生，1963 年創立 Something Else Press 出版 Fluxus 及前衛藝術文獻，1966 年提出 Intermedia 概念，為跨媒介藝術提供理論框架。",
+      "key_works": [
+        "Something Else Press (1963-1974, 出版社)",
+        "Intermedia 論文 (Something Else Newsletter No.1, 1966)",
+        "Jefferson's Birthday / Postface (1964)",
+        "A Child's History of Fluxus (1979)",
+        "Danger Music 系列 event scores (1961-1963)",
+        "Graphis 系列 (1958-)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Much of the best work being produced today seems to fall between media. This is no accident.",
+          "source": "Intermedia, Something Else Newsletter No.1, February 1966",
+          "meaning": "（Intermedia 論文的開場白——當代最好的作品落在既有媒材分類之間。Higgins 觀察到 Fluxus 的實踐無法被歸入繪畫、雕塑、音樂、戲劇任何一個類別，因此需要一個新的概念框架。Intermedia 這個詞至今仍是跨領域藝術研究的核心術語。）"
+        },
+        {
+          "text": "The concept of the separation between media arose in the Renaissance. The idea that a painting is made of paint on canvas or that a sculpture should not be painted seems characteristic of the kind of social thought — categorizing and dividing society into nobility... serfs and landless workers — which we call the feudal conception of the Great Chain of Being.",
+          "source": "Intermedia, Something Else Newsletter No.1, February 1966",
+          "meaning": "（媒材分類的歷史根源是封建社會的階級分類——繪畫與雕塑的分離對應著貴族與農奴的分離。Higgins 用社會史解釋藝術史，指出打破媒材邊界同時也是打破社會等級的行為。）"
+        },
+        {
+          "text": "A composer is a dead man unless he composes for all the media and for his world.",
+          "source": "Statement on Intermedia, 1966（收錄於 Intermedia, Fluxus and the Something Else Press: Selected Writings, Siglio, 2018）",
+          "meaning": "（只為單一媒材創作的作曲家已經死了——藝術家必須為所有媒材、為他所處的整個世界創作。這句話將 Intermedia 從理論描述推進為倫理命令。）"
+        },
+        {
+          "text": "They did 'concerts' of everyday living; and they gave exhibitions of what they found, where they shared the things that they liked best with whoever would come.",
+          "source": "A Child's History of Fluxus, 收錄於 Lightworks, No. 11-12, Fall 1979",
+          "meaning": "（用童話故事的語氣描述 Fluxus 的本質：日常生活的音樂會、拾得物的展覽、與所有來的人分享喜歡的事物。Higgins 刻意用最簡單的語言捕捉 Fluxus 最深層的精神——藝術就是分享。）"
+        },
+        {
+          "text": "Having discovered the intermedia, the central problem is now not only the new formal one of learning to use them, but the new and more social one of what to use them for.",
+          "source": "Statement on Intermedia, 1966（收錄於 Intermedia, Fluxus and the Something Else Press: Selected Writings, Siglio, 2018）",
+          "meaning": "（發現了跨媒介之後，核心問題從形式轉向社會：學會使用新媒介只是起點，真正的挑戰是用它來做什麼。Higgins 將 Fluxus 的關懷從美學拉向倫理。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "約瑟夫·乾伊斯",
+        "en": "Joseph Beuys"
+      },
+      "role": "Fluxus 的擴張者與異端。德國藝術家，1962 年加入 Fluxus 活動但始終保持獨立路線，將 Fluxus 的反藝術能量轉化為「社會雕塑」的宏大理論——每個人都是藝術家，社會本身是最大的藝術品。1973 年創立 Free International University。",
+      "key_works": [
+        "How to Explain Pictures to a Dead Hare 行為表演 (1965)",
+        "Fat Chair (Fettstuhl, 1964)",
+        "7000 Oaks, documenta 7, Kassel (1982)",
+        "I Like America and America Likes Me (Coyote) 行為表演 (1974)",
+        "Honey Pump at the Workplace (Honigpumpe am Arbeitsplatz), documenta 6 (1977)",
+        "Free International University 宣言 (1973, 與 Heinrich Boll 合撰)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Every human being is an artist, a freedom being, called to participate in transforming and reshaping the conditions, thinking and structures that shape and inform our lives.",
+          "source": "Public dialogue at the Ulster Museum, Belfast, 1974（記錄於 Caroline Tisdall, Art Into Society, Society Into Art, ICA London, 1974, p.48）",
+          "meaning": "（Beuys 最被引用也最常被誤解的一句話——他的意思是每個人都擁有塑造社會的創造力，而非每個人都能畫畫。artist 在此指的是自由的存在者，art 指的是改造生活條件的一切行為。）"
+        },
+        {
+          "text": "Only art is capable of dismantling the repressive effects of a senile social system that continues to totter along the deathline: to dismantle in order to build A SOCIAL ORGANISM AS A WORK OF ART.",
+          "source": "I Am Searching for Field Character, 1973（英譯收錄於 Caroline Tisdall, Art Into Society, Society Into Art, ICA London, 1974）",
+          "meaning": "（Beuys 的社會雕塑宣言——只有藝術能拆解衰老社會體制的壓迫效果，拆解是為了重建：將整個社會有機體塑造為一件藝術作品。大寫字母強調這是 Beuys 理論的最終目標。）"
+        },
+        {
+          "text": "THINKING FORMS — how we mould our thoughts, or SPOKEN FORMS — how we shape our thoughts into words, or SOCIAL SCULPTURE — how we mould and shape the world in which we live: SCULPTURE AS AN EVOLUTIONARY PROCESS; EVERYONE IS AN ARTIST.",
+          "source": "Joseph Beuys: Public Dialogues, 1974（記錄於 Caroline Tisdall, Joseph Beuys, Solomon R. Guggenheim Museum, 1979）",
+          "meaning": "（社會雕塑的完整定義：從思維的塑形，到語言的塑形，到世界的塑形——雕塑是一個進化過程，每個人都在其中扮演藝術家的角色。Beuys 將雕塑的概念從物質擴展到社會的全部維度。）"
+        },
+        {
+          "text": "The silence of Marcel Duchamp is overrated.",
+          "source": "Action 'The Silence of Marcel Duchamp is Overrated', transmitted live on ZDF German television, December 11, 1964",
+          "meaning": "（Beuys 在德國電視台直播的行為藝術中喊出這句話——Duchamp 選擇沉默並退出藝術界，Beuys 認為這種退出是被高估的姿態。藝術家的責任是投入社會，而非以沉默的優雅姿態旁觀。）"
+        },
+        {
+          "text": "We demand a radical change in society's concept of art. Today, it is still the specialists who create works of art. In the future, everyone will determine the contents and the form of his own environment.",
+          "source": "Aufruf zur Alternative (Appeal for an Alternative), Frankfurter Rundschau, 1978 年 12 月 23 日",
+          "meaning": "（1978 年在法蘭克福日報發表的公開呼籲——藝術仍由專家壟斷，但未來每個人都將決定自己生活環境的內容與形式。這段話是 Beuys 從 Fluxus 走向綠黨政治的思想橋樑。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Fluxus Manifesto",
+      "author": "George Maciunas",
+      "year": 1963,
+      "significance": "1963 年 2 月在 Dusseldorf 散發的三段式宣言（PURGE / PROMOTE / FUSE），以拼貼字典定義的視覺形式宣告 Fluxus 的綱領：清洗布爾喬亞文化、推廣非藝術現實、融合革命力量。"
+    },
+    {
+      "title": "Grapefruit: A Book of Instructions and Drawings",
+      "author": "Yoko Ono",
+      "year": 1964,
+      "significance": "概念藝術的原型文本。收錄逾 150 件 instruction works（event scores），將藝術品從物質對象轉化為讀者腦中的想像行為。分為 Music、Painting、Event、Poetry、Object 五個章節。"
+    },
+    {
+      "title": "An Anthology of Chance Operations",
+      "author": "La Monte Young & Jackson Mac Low (編輯), George Maciunas (設計)",
+      "year": 1963,
+      "significance": "收錄 George Brecht、John Cage、Yoko Ono、Dick Higgins 等人的 event scores 與偶然操作實驗，是 Fluxus 尚未命名之前的核心文獻集。Maciunas 設計的版面本身就是平面設計的激進實驗。"
+    },
+    {
+      "title": "Intermedia",
+      "author": "Dick Higgins",
+      "year": 1966,
+      "significance": "發表於 Something Else Newsletter 第一期，提出 Intermedia 概念——最好的當代作品落在既有媒材分類之間。將媒材分類追溯到文藝復興的封建社會結構，為跨領域藝術提供了至今仍被引用的理論框架。"
+    },
+    {
+      "title": "Neo-Dada in Music, Theater, Poetry, Art",
+      "author": "George Maciunas",
+      "year": 1962,
+      "significance": "1962 年 6 月在 Wuppertal 朗讀的講稿，是 Fluxus 命名之前的理論藍圖。將 Fluxus 的實踐定位為 Neo-Dada——從時間藝術到空間藝術的連續光譜上的各種實驗。"
+    },
+    {
+      "title": "I Am Searching for Field Character",
+      "author": "Joseph Beuys",
+      "year": 1973,
+      "significance": "Beuys 的社會雕塑核心宣言，宣告只有藝術能拆解壓迫性社會體制、重建社會有機體為藝術作品。將 Fluxus 的反藝術立場擴展為全面的社會改造理論。"
+    },
+    {
+      "title": "Media Planning for the Postindustrial Society",
+      "author": "Nam June Paik",
+      "year": 1974,
+      "significance": "提交 Rockefeller Foundation 的報告，預言 electronic superhighway（電子超級公路）——橫跨美國的寬頻通訊網絡。這份報告使 Paik 從 Fluxus 行為藝術家的身份躍升為媒體理論先驅。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "消解藝術與生活的邊界：任何日常行為——刷牙、走路、呼吸、微笑——都可以是藝術事件，只要你決定它是。（WHY：1950 年代的藝術世界將藝術品封閉在畫廊白牆內，Abstract Expressionism 把藝術推向只有專家才能辨別的抽象高度。John Cage 的《4'33\"》在 1952 年爆破了這個封閉系統——沉默是音樂，那麼日常的聲音當然也是。Fluxus 將 Cage 的突破從音樂推廣到所有藝術領域。）",
+      "Event score 作為核心形式：用簡短的文字指令取代傳統的藝術物件——藝術品是一組指令，每個人都能在自己的時間與空間中執行。（WHY：George Brecht 在 Cage 的 New School 課堂上發展出 event score——一張小卡片上幾個字就是一件完整的作品。這解決了 Fluxus 的核心矛盾：如何在反對藝術商品化的同時仍然創作？答案是創作不可被商品化的東西——一組指令、一個動作、一段時間。）",
+      "反對藝術精英主義，主張人人都是藝術家：所有人都有能力創造、感知、參與藝術，專業訓練是藝術的障礙而非前提。（WHY：1960 年代的藝術界是封閉的階級系統——MFA 學位、畫廊代理、評論家背書構成的准入門檻，將絕大多數人排除在『藝術家』身份之外。Maciunas 和 Beuys 從不同方向攻擊這個系統：Maciunas 要取消藝術家這個職業，Beuys 要把這個職業擴展到所有人。）",
+      "Intermedia 跨媒介實踐：拒絕在音樂、視覺藝術、戲劇、文學之間劃定固定邊界，作品存在於媒材之間的灰色地帶。（WHY：Dick Higgins 在 1966 年指出，媒材分類的歷史根源是文藝復興以降的封建社會結構——繪畫與雕塑的分離對應著貴族與農奴的階級劃分。打破媒材邊界同時就是打破社會等級。Fluxus 的 event、happening、mail art 都無法歸入任何既有類別。）",
+      "幽默、遊戲、嘉年華精神：Fluxus 表演充滿荒謬、戲耍、惡作劇——用笑聲瓦解藝術的莊嚴。（WHY：戰後前衛藝術陷入兩個極端——抽象表現主義的存在主義苦悶與極簡主義的冷峻嚴肅。Fluxus 認為嚴肅本身就是布爾喬亞體制的權力工具：讓你覺得藝術是神聖的，你就不敢質疑它。笑聲是最有效的去神聖化武器。）",
+      "郵件藝術與國際網絡：通過郵政系統建立去中心化的藝術交流網絡，Fluxpost 打破了畫廊的空間壟斷。（WHY：冷戰鐵幕將世界切成兩半，畫廊系統將藝術品困在紐約和巴黎。郵件藝術只需要一個信封和一張郵票——它繞過所有守門人，讓東京的藝術家可以直接與紐約的藝術家交換作品。Fluxus 成員分布在全球各地，郵政網絡是他們唯一的基礎設施。）",
+      "廉價複製品取代獨一無二的原作：Fluxkit、Fluxbox 等 multiples 以工業生產的邏輯大量製作廉價藝術品，刻意對抗藝術品的稀有性。（WHY：藝術市場的價值邏輯建立在稀缺性之上——原作只有一件，所以值錢。Maciunas 用 offset 印刷和量產盒子顛覆這個邏輯：如果一件藝術品可以被無限複製且售價一美元，藝術市場的整個價值體系就崩潰了。）"
+    ],
+    "what_they_refuse": [
+      "藝術品作為可交易商品：拒絕讓藝術品成為投資工具和地位象徵，拒絕畫廊系統的商業邏輯。（WHY：1960 年代紐約藝術市場急速膨脹，Robert Scull 等收藏家在拍賣會上以天價炒作 Abstract Expressionism 和 Pop Art。藝術品從精神產物變成金融資產，藝術家從創作者變成品牌。Maciunas 在 1964 年寫信給 Schmit 說 Fluxus 明確反對作為非功能性商品的藝術物件。）",
+      "藝術家的天才神話與專業壟斷：拒絕將藝術家定義為擁有特殊天賦的精英群體。（WHY：從浪漫主義到 Abstract Expressionism，西方藝術史將藝術家建構為孤獨天才——Jackson Pollock 在穀倉裡痛苦地揮灑顏料的形象是這個神話的頂峰。這個神話服務於藝術市場：天才的作品值得天價。Fluxus 要拆毀這個神話——藝術家只是一個決定把日常動作稱為藝術的普通人。）",
+      "媒材純粹性與學科邊界：拒絕音樂只能是聲音、繪畫只能在畫布上、雕塑只能是三維物體的限制。（WHY：Clement Greenberg 的形式主義批評在 1950 年代主導了美國藝術界，要求每個藝術門類回歸其媒材的『本質』——繪畫的本質是平面性，雕塑的本質是三維性。Fluxus 從根本上拒絕這個分類系統：Paik 用電視做雕塑，Ono 用文字做音樂，Beuys 用脂肪做政治。）",
+      "藝術的永恆性訴求：拒絕追求不朽的紀念碑式藝術，擁抱短暫、偶然、一次性的藝術事件。（WHY：西方藝術傳統以永恆為最高價值——金字塔、大教堂、博物館收藏都服務於對抗時間的幻覺。Fluxus 翻轉這個價值觀：一場持續三分鐘的 event、一根燃盡的火柴、一封寄出去就消失的信件，短暫性本身就是美學品質。Cage 的《4'33\"》已經證明：最強大的音樂是消失的音樂。）",
+      "觀眾的被動接收地位：拒絕藝術家創作、觀眾觀看的單向關係，要求觀眾成為共同創作者。（WHY：畫廊和音樂廳的空間設計強化了創作者與接收者的權力不對稱——舞台在上面，觀眾席在下面。Fluxus 的 event score 把創作權交給每一個讀者：你讀到『想像雲在滴水』，你在腦中完成這件作品，你就是藝術家。）",
+      "嚴肅作為藝術的預設語氣：拒絕將藝術體驗等同於莊嚴肅穆的情感狀態。（WHY：藝術體制用嚴肅性維護自己的權威——博物館裡不能笑、音樂廳裡不能動、畫廊裡不能摸。Fluxus 認為笑聲、荒謬、戲耍是合法的美學模式，嚴肅性的壟斷是布爾喬亞文化的控制手段。Ben Vautier 在表演中把自己裝在箱子裡、Paik 在演奏會上拉著小提琴在地上拖行——這些荒謬行為是對嚴肅性體制的直接攻擊。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Abstract Expressionism：其天才神話、存在主義苦悶、畫布上的英雄主義姿態代表 Fluxus 所反對的一切——藝術家作為孤獨天才的形象",
+      "Greenbergian Formalism：Clement Greenberg 要求每個藝術門類回歸媒材本質（繪畫=平面性）的教條，與 Fluxus 的 Intermedia 立場根本對立",
+      "藝術市場體制（Gallery-Collector-Critic triad）：商業畫廊、收藏家、批評家構成的封閉系統，將藝術品變成投資商品",
+      "學院派前衛主義（Institutional Avant-Garde）：MoMA 等機構將前衛藝術收編為美術館收藏的過程，Fluxus 稱之為活藝術的博物館化（死亡）",
+      "Serialist Music（序列音樂）：Stockhausen 和 Boulez 的總體序列主義將音樂推向極端理性控制，Cage（進而 Fluxus）以偶然和日常聲音反對這種控制"
+    ],
+    "against_values": [
+      "原作的唯一性與稀有性：藝術品的價值建立在它的不可複製性上，Fluxus 用 multiples 和 event scores 瓦解這個基礎",
+      "專業技巧作為准入門檻：傳統藝術教育將技巧訓練視為創作的前提，Fluxus 認為技巧是感知的障礙",
+      "藝術體驗的神聖性：博物館式的肅穆氛圍將藝術體驗與日常生活隔離，Fluxus 用幽默與荒謬打破這個結界",
+      "藝術的永恆價值：西方美學傳統以不朽為最高評價標準，Fluxus 擁抱短暫性與偶然性",
+      "創作者與觀者的階級區分：藝術家在台上、觀眾在台下的單向關係，Fluxus 要求觀眾成為共同創作者"
+    ],
+    "societal_context": "Fluxus 誕生於冷戰最緊張的時期（1961 柏林圍牆、1962 古巴飛彈危機）與 1960 年代反文化運動的起點。美國民權運動、反越戰運動、女性主義第二波浪潮同時爆發，整個西方社會的權威結構（國家、教會、學院、家庭）都受到挑戰。藝術世界的權威結構——Abstract Expressionism 的天才崇拜、Greenberg 的形式主義批評、MoMA-Castelli-Scull 構成的紐約藝術市場——是這個更大的權威危機的一部分。Fluxus 的國際性格反映了戰後流離失所的現實：Maciunas（立陶宛流亡者）、Paik（韓戰後離開的韓國人）、Ono（戰後日本移民美國）、Patterson（非裔美國人在歐洲尋找自由）——這些人在任何國家的國族敘事中都是邊緣人，他們組成的鬆散聯盟天然地反對任何形式的中心主義。Fluxus 的遺產在 1978 年 Maciunas 去世後逐漸從激進運動轉化為藝術史論述的一部分——這正是 Maciunas 最不想看到的結果。"
+  },
+
+  "problems_solved": [
+    "發明了 event score 這種極簡藝術形式：一張卡片、幾個字、一組指令就是一件完整的藝術作品——打破了藝術必須是物質對象的千年預設，為概念藝術開闢了道路",
+    "建立了跨媒介（Intermedia）的理論框架：Dick Higgins 的 Intermedia 概念為落在既有類別之間的藝術實踐提供了合法性論述，至今仍是媒體藝術、數位藝術、行為藝術的核心參照",
+    "創造了 video art 這個全新的藝術門類：Nam June Paik 用改裝電視機開啟了 video art 的歷史，證明電子媒體可以成為藝術家的畫布",
+    "示範了藝術的去商品化路徑：Fluxkit、mail art、event score 等形式證明藝術可以繞過畫廊系統、以極低成本流通，為後來的獨立出版、zine culture、網路藝術提供了先例",
+    "將觀眾從被動接收者提升為共同創作者：Ono 的 Instruction Paintings、Beuys 的 social sculpture 都要求觀眾的主動參與才能完成作品，這個模式深遠影響了互動藝術、參與式藝術、relational aesthetics",
+    "建立了去中心化的國際藝術網絡：通過郵件藝術和國際巡演，Fluxus 在冷戰時期建立了繞過國族邊界和藝術市場的直接交流管道，成為後來網路藝術社群的精神先驅"
+  ],
+
+  "problems_created": [
+    "反藝術的體制化悖論：Fluxus 作品最終被 MoMA、Tate 等大型美術館收藏，event scores 被裝裱在牆上展出——反對藝術體制的運動自身成為體制的收藏品。Maciunas 設計的廉價 Fluxkit 如今在拍賣市場上價值數萬美元",
+    "品質判斷的真空：當任何日常動作都可以是藝術，如何區分好的 Fluxus 作品與差的 Fluxus 作品？取消評價標準的同時也取消了品質追求的可能性，導致大量平庸的模仿作品以反藝術之名逃避批評",
+    "組織者的威權悖論：Maciunas 一方面宣揚去中心化與集體主義，另一方面以獨裁者姿態控制 Fluxus 的品牌——開除不服從的成員、發布排斥名單。Henry Flynt 和 La Monte Young 都曾被 Maciunas 公開逐出",
+    "Intermedia 理論的濫用：Higgins 的 Intermedia 概念被後世用來為一切缺乏技巧的混搭作品辯護——原本用來描述媒材之間的創造性張力的概念，退化為模糊與懶惰的遮羞布",
+    "社會雕塑的空洞化：Beuys 將藝術擴展到社會的全部維度，但這個擴展也讓『藝術』一詞失去了任何具體內涵——如果一切都是藝術，那麼沒有任何東西是藝術",
+    "性別政治的盲點：儘管 Yoko Ono、Alison Knowles、Mieko Shiomi 等女性藝術家是 Fluxus 的核心成員，Fluxus 的歷史書寫長期以 Maciunas 和 Beuys 等男性為中心。Ono 的貢獻直到近年才被重新評價，而非僅被當作『John Lennon 的妻子』"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "藝術品可以只是一組指令——一句話、一個動作、一段時間——不需要任何物質載體，由任何人在任何地點執行即完成。這個觀念從根本上重新定義了『藝術品是什麼』以及『誰可以是藝術家』，其影響力遠超 Fluxus 本身，滲透到概念藝術、行為藝術、互動藝術、網路藝術的所有後續發展。",
+    "what_was_truly_new": [
+      "Event score 作為獨立的藝術形式：George Brecht 和 Yoko Ono 將幾個字的文字指令提升為完整的藝術作品，這在藝術史上是全新的——指令本身（而非執行的結果）就是作品",
+      "Video art 的發明：Nam June Paik 在 1963 年用改裝電視機創造了一個全新的藝術門類，電子影像從被動的傳播媒介變成藝術家的創作媒材",
+      "Intermedia 概念的理論化：Dick Higgins 為落在既有藝術類別之間的作品命名並提供了理論框架，這個概念至今仍是跨領域藝術研究的基礎",
+      "郵件藝術作為去中心化的藝術網絡：Fluxus 系統性地利用郵政系統建立了繞過畫廊、博物館、批評家的直接藝術交流管道",
+      "藝術家合作住宅模式：Maciunas 在紐約 SoHo 推動的 Fluxhouse Cooperatives 將廢棄工業建築改造為藝術家合作住宅，開創了藝術家主導的城市空間改造先例"
+    ],
+    "what_was_borrowed": [
+      "Dada (1916-)：反藝術姿態、偶然性操作、拼貼、現成品——Maciunas 自稱 Fluxus 為 Neo-Dada，Hugo Ball 和 Tristan Tzara 的蘇黎世 Cabaret Voltaire 是直接的精神先祖",
+      "John Cage 的偶然音樂與禪宗美學 (1950s-)：《4'33\"》的沉默美學、I Ching 的偶然操作、日常聲音作為音樂素材——Cage 是 Fluxus 的教父，多位核心成員是他的直接學生",
+      "Marcel Duchamp 的現成品概念 (1913-)：日常物件進入藝術脈絡即成為藝術品——Fluxus 將 Duchamp 的個人姿態擴展為集體運動",
+      "Zen Buddhism 禪宗美學：Cage 透過 D.T. Suzuki 的禪學影響了整個 Fluxus 圈子——空、無、偶然、日常即道——Paik 的 Zen for Film 直接以禪命名",
+      "Futurism 的噪音藝術 (Luigi Russolo, 1913)：Russolo 的《噪音的藝術》宣告日常噪音是音樂素材，Fluxus 的 noise music 和 event 表演延續了這個傳統",
+      "Lettrism / Situationism (1950s-)：Guy Debord 的景觀社會批評和 derive（漫遊）概念與 Fluxus 的反商品化立場和日常介入策略有深層共鳴"
+    ],
+    "creative_leap": "Fluxus 的關鍵創造性飛躍在於『極端民主化的激進簡化』：它將 Dada 的反藝術姿態、Cage 的偶然美學、Duchamp 的概念操作合成為一種任何人都能實踐的極簡形式——event score。一張卡片上的一句話就是一件藝術品，任何人在任何地方都能執行。這個簡化是徹底的：不需要技巧、不需要材料、不需要場地、不需要觀眾——甚至不需要執行。這是從『任何東西都可以是藝術』到『每個人都已經是藝術家』的飛躍。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "Fluxus 的核心命題——如何用最簡單的形式讓最多的人參與創作——在社群媒體和 AI 生成式工具的時代獲得了全新的相關性。當每個人都能用手機拍影片、用 AI 生圖，『人人都是藝術家』從 Beuys 的烏托邦口號變成了日常現實。Fluxus 的 event score 邏輯（一組指令 + 個人執行 = 獨特的藝術體驗）是所有互動式數位體驗的精神原型。",
+      "transferable_to": [
+        "UGC（使用者生成內容）平台設計：TikTok 的 challenge 本質上就是 event score——一組指令，每個人用自己的方式執行",
+        "參與式設計（Participatory Design）：Fluxus 將觀眾變成共創者的方法論直接對應今天的 co-design 和 community-driven design",
+        "AI prompt 設計：prompt 是 event score 的數位版本——一段文字指令產生無限變異的結果",
+        "開源文化與 Creative Commons：Fluxus 的反版權、反原作唯一性立場是開源運動的精神先驅",
+        "社會設計（Social Design）：Beuys 的社會雕塑概念直接對應今天的 Design for Social Innovation",
+        "去中心化組織（DAO）：Fluxus 的鬆散國際網絡——沒有總部、沒有會費、成員自行決定是否參與——是 DAO 組織形式的原型"
+      ]
+    },
+    "originality_type": "radical_democratization"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Dada (1916-)：反藝術姿態、偶然性操作、拼貼、現成品、Cabaret Voltaire 的表演傳統",
+      "John Cage (1950s-)：偶然音樂、《4'33\"》的沉默美學、New School 實驗作曲課程直接孵化了 Fluxus 核心成員",
+      "Marcel Duchamp (1913-)：現成品概念、反美學姿態、藝術家作為選擇者而非創造者的觀念",
+      "Zen Buddhism 禪宗 (via D.T. Suzuki → Cage → Fluxus)：空、無、偶然、日常即道的精神框架",
+      "Futurism / Luigi Russolo 噪音藝術 (1913-)：日常噪音作為音樂素材的宣言與實踐",
+      "Lettrism / Situationist International (1950s-)：Guy Debord 的景觀社會批評、derive 漫遊、反商品化美學",
+      "Gutai Group 具體美術協會 (1954-, Japan)：Jiro Yoshihara 的「做從未做過的事」宣言、身體作為藝術媒材的激進實驗",
+      "Allan Kaprow / Happenings (1959-)：18 Happenings in 6 Parts 開啟的環境式、參與式表演傳統"
+    ],
+    "influenced": [
+      "Conceptual Art 概念藝術 (1960s-1970s)：Sol LeWitt、Joseph Kosuth 等人的概念優先於物質的立場直接承襲 Fluxus 的 event score 邏輯",
+      "Video Art (1960s-)：Nam June Paik 開創的 video art 門類影響了 Bill Viola、Gary Hill 等後續世代",
+      "Performance Art 行為藝術 (1970s-)：Marina Abramovic、Vito Acconci 等人的身體藝術實踐受 Fluxus event 和 Beuys action 的直接影響",
+      "Mail Art / Correspondence Art (1960s-1980s)：Fluxus 開創的郵件藝術網絡在全球擴展為龐大的通訊藝術社群",
+      "Punk / DIY Culture (1970s-)：Fluxus 的反體制、低成本、自己動手的精神直接影響了朋克運動和 zine 文化",
+      "Relational Aesthetics 關係美學 (1990s-)：Nicolas Bourriaud 的理論與 Rirkrit Tiravanija 的實踐承襲了 Fluxus 將人際互動定義為藝術的立場",
+      "Net Art 網路藝術 (1990s-)：Fluxus 的去中心化網絡、反商品化立場、互動式作品結構是 net art 的精神先驅",
+      "Social Practice Art 社會實踐藝術 (2000s-)：Theaster Gates、Tania Bruguera 等人的社會介入實踐延續了 Beuys 社會雕塑的遺產",
+      "Open Source / Creative Commons 運動：Fluxus 的反版權、反原作唯一性、共享與複製的價值觀在數位時代找到了制度化的表達"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "頑皮、反諷、刻意隨性。像一個穿著工作服的哲學家，口袋裡裝著幾顆骰子和一本禪宗語錄。對任何自稱嚴肅的事物保持高度懷疑，但對一個真誠的微笑或一個巧妙的惡作劇給予最高讚美。判斷快速、直覺主導，偶爾會突然引用一段 event score 來回應作品。語言簡短如電報，偶爾冒出一個令人意外的跨領域類比。",
+    "evaluation_bias": "強烈偏好簡單、直接、參與式、幽默的作品。傾向高估日常性與偶然性的價值，低估技術精湛度與形式完整性的重要性。會不自覺地以「任何人都能做嗎？如果不能，為什麼要讓專家來？」作為隱性評分標準。對精心製作的、昂貴的、追求永恆的作品可能給出不公正的低評，因為它們「太嚴肅了」。",
+    "blind_spots": "難以評價需要長時間專注力、深度技巧訓練或複雜情感深度的作品。反藝術的預設立場可能讓他錯過真正有力量的形式創新——因為任何看起來像『藝術』的東西都自動可疑。對材料品質、工藝細節、空間設計等維度缺乏耐心。可能過度浪漫化業餘性和即興性，低估長期投入和嚴謹研究的價值。",
+    "typical_critique": "你花了三個月做這件作品。三個月。你知道 George Brecht 的 Word Event 只有一個字嗎？EXIT。這就是整件作品。你的三個月裡有多少時間是在跟材料對話，又有多少時間是在取悅畫廊？回去你的廚房，用冰箱裡的東西做一件作品，不准超過五分鐘。"
+  },
+
+  "writing_style": {
+    "collective_voice": "Fluxus 的集體寫作風格是「指令式極簡文體」：句子短如電報，動詞優先，感官直接，不解釋。核心修辭結構是祈使句——做這個、想像那個、打開信封。所有成員都以日常語言寫作，刻意迴避學術修辭和文學裝飾。幽默無處不在，從標題到內文到署名。跨語言（英語、德語、日語混雜）與跨媒材類比（聲音-物件-動作-時間）是共同特徵。格言密度極高——每句話都可以獨立存在，可以被印在卡片上、貼在牆上、寄出去。",
+    "internal_tensions": "最大的風格裂痕在「極簡指令」與「理論雄辯」之間。Brecht 和 Ono 代表極端的簡約——一個字、一句話、沉默。Maciunas 和 Higgins 代表理論建構的衝動——宣言、論文、出版計畫。Beuys 是外星人——他的語言來自完全不同的宇宙：德國浪漫主義、人智學、政治演說的混合體，與 Fluxus 其他成員的極簡風格形成劇烈衝突。Paik 則在兩者之間遊走，用科技預言家的語氣說出禪宗式的悖論。",
+    "master_voices": [
+      {
+        "name": "George Maciunas",
+        "writing_character": "平面設計師兼政治傳單作者——用排版的暴力傳遞革命訊息",
+        "sentence_rhythm": "大寫字母斷句、三連動詞排比、字典定義與宣言語氣的拼貼",
+        "rhetoric": "祈使句（PURGE / PROMOTE / FUSE）、清單式列舉、否定式排除（anti-art, anti-music）、挪用字典語言",
+        "tone": "激進的宣傳員，帶冷戰時期左翼傳單的急迫感",
+        "real_examples": [
+          {
+            "text": "PURGE the world of bourgeois sickness, 'intellectual', professional & commercialized culture.",
+            "source": "Fluxus Manifesto, 1963",
+            "style_note": "大寫動詞起手，逗號分隔的排比清單，引號標記諷刺對象"
+          },
+          {
+            "text": "Promote NON ART REALITY to be grasped by all peoples, not only critics, dilettantes and professionals.",
+            "source": "Fluxus Manifesto, 1963",
+            "style_note": "大寫強調核心概念，排比三類被排除的群體"
+          }
+        ]
+      },
+      {
+        "name": "Yoko Ono",
+        "writing_character": "極簡詩人——用最少的字打開最大的想像空間",
+        "sentence_rhythm": "極短句（3-10 字），一句一行，指令語法（動詞 + 名詞），無形容詞",
+        "rhetoric": "祈使句（Imagine / Listen / Watch）、具象-抽象跳接（雲→洞→花園）、省略一切解釋",
+        "tone": "溫柔但不妥協的指導者，禪宗師父的簡潔加上詩人的感性",
+        "real_examples": [
+          {
+            "text": "Imagine the clouds dripping. Dig a hole in your garden to put them in.",
+            "source": "Cloud Piece, Grapefruit, 1964",
+            "style_note": "三句完成一件作品：觀察→行動→完成。指令語法，零解釋"
+          },
+          {
+            "text": "Light a match and watch till it goes out.",
+            "source": "Lighting Piece, Grapefruit, 1964",
+            "style_note": "一句話就是整件作品。注意力本身就是美學行為"
+          }
+        ]
+      },
+      {
+        "name": "Nam June Paik",
+        "writing_character": "科技預言家與禪宗諧星的混合體——用幽默包裝遠見",
+        "sentence_rhythm": "格言式短句與長句交替，自嘲與預言交替出現",
+        "rhetoric": "類比（cathode ray tube = canvas）、悖論（hate technology properly）、自嘲（poor man from poor country）、科技術語的詩意化",
+        "tone": "輕鬆幽默但底層是嚴肅的媒體批評意識",
+        "real_examples": [
+          {
+            "text": "As collage technique replaced oil paint, the cathode ray tube will replace the canvas.",
+            "source": "Afterlude to the Exposition of Experimental Television, 1964",
+            "style_note": "用藝術史的邏輯句式（A replaced B, C will replace D）為新媒體辯護"
+          },
+          {
+            "text": "I use technology in order to hate it properly.",
+            "source": "Interview, Nam June Paik: Fluxus/Video, 1999",
+            "style_note": "悖論句：擁抱的目的是批判。一句話濃縮整個藝術立場"
+          }
+        ]
+      },
+      {
+        "name": "Dick Higgins",
+        "writing_character": "跨領域知識分子——用學術的清晰度寫童話的溫度",
+        "sentence_rhythm": "分析式長句與故事式短句共存，論證嚴謹但語氣平易近人",
+        "rhetoric": "歷史追溯（Renaissance → feudal → media separation）、童話體敘事（A Child's History）、社會史解釋藝術現象",
+        "tone": "溫和但堅定的教育者，兼具理論深度與敘事天賦",
+        "real_examples": [
+          {
+            "text": "Much of the best work being produced today seems to fall between media. This is no accident.",
+            "source": "Intermedia, Something Else Newsletter No.1, 1966",
+            "style_note": "觀察句起手，斷言句收尾。兩句話開啟一個理論框架"
+          },
+          {
+            "text": "They did 'concerts' of everyday living; and they gave exhibitions of what they found.",
+            "source": "A Child's History of Fluxus, 1979",
+            "style_note": "引號標記概念的重新定義，分號連接兩個平行行動"
+          }
+        ]
+      },
+      {
+        "name": "Joseph Beuys",
+        "writing_character": "政治佈道者與德國浪漫主義哲學家的混合體——用大寫字母雕塑社會",
+        "sentence_rhythm": "長句套長句，從句層疊，邏輯鏈條環環相扣，關鍵詞用大寫字母突出",
+        "rhetoric": "重新定義（art = social sculpture, everyone = artist）、三段式擴展（THINKING FORMS → SPOKEN FORMS → SOCIAL SCULPTURE）、大寫強調",
+        "tone": "先知式的權威語氣，帶德國哲學傳統的嚴肅重量",
+        "real_examples": [
+          {
+            "text": "Only art is capable of dismantling the repressive effects of a senile social system... to build A SOCIAL ORGANISM AS A WORK OF ART.",
+            "source": "I Am Searching for Field Character, 1973",
+            "style_note": "大寫字母標記最終結論，from/to 結構從破壞推進到建設"
+          },
+          {
+            "text": "The silence of Marcel Duchamp is overrated.",
+            "source": "ZDF television action, 1964",
+            "style_note": "罕見的短句——直接挑戰藝術史偶像的一句宣告"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子極短（5-15 字），一句一個動作或判斷",
+      "大量使用祈使句：做、看、聽、停、打開、關掉",
+      "日常語言，禁用學術術語和文學修辭",
+      "幽默是預設語氣，嚴肅需要特別理由",
+      "每段不超過 2-3 句，多餘的話就是裝飾，裝飾就是罪惡",
+      "引用 event score 作為論據（'George Brecht 只用了一個字'）",
+      "反問句作為核心批評工具（'任何人都能做嗎？如果不能，為什麼？'）",
+      "禁用形容詞，動詞承擔一切表達重量",
+      "跨領域類比以日常物件為主（冰箱、信封、火柴、剪刀）"
+    ]
+  }
+}

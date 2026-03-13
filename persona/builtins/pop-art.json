@@ -1,0 +1,543 @@
+{
+  "movement_id": "pop-art",
+  "name": {
+    "zh": "普普藝術",
+    "en": "Pop Art"
+  },
+  "domain": [
+    "fine_art",
+    "printmaking",
+    "sculpture",
+    "collage",
+    "graphic_design",
+    "film",
+    "photography",
+    "performance",
+    "installation",
+    "fashion",
+    "music_culture"
+  ],
+  "period": {
+    "start": 1952,
+    "end": 1975,
+    "peak": "1962-1966（Warhol 的 Campbell's Soup Cans 與 Marilyn 系列問世、Lichtenstein 的漫畫繪畫引爆爭議、1964 年 Rauschenberg 獲威尼斯雙年展金獅獎標誌美國藝術取代巴黎成為世界中心、The Factory 全面運轉）"
+  },
+  "geography": [
+    "London, UK (Independent Group, ICA, 1952-1956)",
+    "New York, USA (Leo Castelli Gallery, Sidney Janis Gallery, The Factory)",
+    "Los Angeles, USA (Ferus Gallery, Ed Ruscha, West Coast Pop)",
+    "Continental Europe (Nouveau Realisme 平行發展，Yves Klein, Arman)",
+    "Japan (Gutai group 部分平行，Yayoi Kusama 在紐約的交會)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "二戰後美國經歷史上最大規模的經濟擴張：1945-1960 年間 GDP 翻倍，郊區住宅從 Levittown 模式向全國蔓延，電視機從 1946 年的 6,000 台暴增至 1960 年的 6,000 萬台。超市貨架上排列著工業化包裝食品，高速公路兩旁矗立著巨幅廣告看板，好萊塢與麥迪遜大道製造出一整套消費慾望的視覺語言。與此同時，藝術界由抽象表現主義（Abstract Expressionism）統治——Pollock、de Kooning、Rothko 將繪畫定義為內在精神的純粹表達，拒絕任何對外在現實的直接再現。藝評家 Clement Greenberg 建構的形式主義正統將藝術推向越來越封閉的自我指涉。一個巨大的裂縫出現了：藝術的語言與日常生活的視覺現實完全脫節。年輕一代藝術家——商業插畫出身的 Warhol、從抽象轉向的 Lichtenstein、出入垃圾場的 Rauschenberg——直覺地感到：這個被電視、廣告、漫畫、罐頭商標淹沒的新世界本身就是最強大的視覺現實，繞過它去畫抽象畫是一種逃避。",
+    "social_energy": "普普藝術的能量來自三個交匯點：(1) 戰後消費社會的視覺爆炸——超市、電視、廣告、好萊塢、漫畫書構成了一個前所未有的影像環境，這個環境的密度和強度已經超越了傳統藝術；(2) 對抽象表現主義的精英封閉性的集體反感——年輕藝術家拒絕「藝術家必須是受苦的精神先知」這個浪漫主義神話，Warhol 公然宣稱自己是一台機器、Johns 畫旗子和標靶、Oldenburg 把漢堡做成雕塑；(3) 冷戰時期美國文化自信的高峰——美國第一次在文化上感到可以輸出而非進口，普普藝術將美國最「低俗」的文化產物——可口可樂、瑪麗蓮夢露、漫畫書——宣告為藝術素材，這既是文化民主化，也是文化帝國主義的開端。",
+    "purpose": "普普藝術的核心衝動是將藝術的主題從內在精神世界拉回外在物質世界：用日常生活中已經存在的影像——商品包裝、廣告、名人照片、漫畫格——作為藝術的原料，迫使觀者重新審視自己每天看到卻視而不見的視覺環境。它同時拆除了「高雅藝術」與「通俗文化」之間的等級壁壘：一幅畫 Campbell's 湯罐頭的絹印版畫和一幅抽象表現主義的「偉大繪畫」，憑什麼後者就更有價值？",
+    "the_british_origin": "普普藝術的知識根源在英國，而非美國。1952 年倫敦當代藝術學院（ICA）的 Independent Group——包括 Richard Hamilton、Eduardo Paolozzi、Reyner Banham、Lawrence Alloway——開始嚴肅研究美國大眾文化產物：好萊塢電影海報、汽車廣告、科幻雜誌封面、消費品包裝。他們以半人類學的目光審視這些「低俗」素材，將其視為當代社會的真實視覺語言。1956 年白教堂畫廊（Whitechapel Gallery）的 'This Is Tomorrow' 展覽中，Hamilton 的拼貼作品 'Just What Is It That Makes Today's Homes So Different, So Appealing?' 成為普普藝術的宣言性圖像。英國的普普帶有知識分子的批判距離——他們在分析美國消費文化；美國的普普則直接浸泡在這個文化之中。",
+    "key_timeline": [
+      "1952 — Independent Group 在倫敦 ICA 成立，Eduardo Paolozzi 展示 Bunk! 拼貼系列",
+      "1955 — Lawrence Alloway 開始使用 'pop art' 一詞描述大眾文化產物",
+      "1956 — Richard Hamilton 創作 'Just What Is It That Makes Today's Homes So Different, So Appealing?'，'This Is Tomorrow' 展覽開幕",
+      "1957.01.16 — Hamilton 致信 Smithson 夫婦，寫下普普藝術的定義清單：popular, transient, expendable, low-cost, mass-produced, young, witty, sexy, gimmicky, glamorous, Big Business",
+      "1958 — Jasper Johns 在 Leo Castelli Gallery 首次個展，Flag 系列引起轟動",
+      "1960 — Oldenburg 在紐約開設 The Store，販售石膏翻模的日常物品",
+      "1961 — Oldenburg 發表 'I Am for an Art' 宣言",
+      "1962 — Warhol 展出 Campbell's Soup Cans（Ferus Gallery, LA）與 Marilyn Diptych；Lichtenstein 展出漫畫畫作",
+      "1962.10-11 — Sidney Janis Gallery 舉辦 'The New Realists' 展覽，正式將普普藝術推上紐約藝術界核心",
+      "1963 — Warhol 建立 The Factory（東 47 街 231 號），成為藝術、電影、音樂、社交的跨界場域",
+      "1964 — Rauschenberg 獲威尼斯雙年展國際繪畫大獎（金獅獎），標誌美國前衛藝術取得國際主導地位",
+      "1966 — Warhol 的 Exploding Plastic Inevitable 多媒體表演巡迴；普普藝術全面滲透時尚、設計、音樂文化",
+      "1968.06.03 — Valerie Solanas 槍擊 Warhol，重傷後倖存，Factory 時代的狂放能量開始收斂",
+      "1970s — 普普藝術的激進性被商業體系完全消化，其語言成為廣告、設計、時尚的標準詞彙"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "安迪·沃荷",
+        "en": "Andy Warhol"
+      },
+      "role": "普普藝術的核心人物與文化偶像。商業插畫師出身，將絹印版畫（silkscreen）技術引入純藝術，以大量複製的商品影像與名人肖像挑戰藝術的獨一無二性。The Factory 的創建者，將藝術生產擴展至電影、音樂、出版與社交場域。",
+      "key_works": [
+        "Campbell's Soup Cans (1962)",
+        "Marilyn Diptych (1962)",
+        "Gold Marilyn Monroe (1962)",
+        "Eight Elvises (1963)",
+        "Brillo Boxes (1964)",
+        "Silver Car Crash (Double Disaster) (1963)",
+        "Chelsea Girls (1966, film)",
+        "Interview Magazine (1969-)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Being good in business is the most fascinating kind of art. Making money is art and working is art and good business is the best art.",
+          "source": "The Philosophy of Andy Warhol (From A to B and Back Again), 1975",
+          "meaning": "（藝術與商業的等級壁壘在此徹底消融——商業活動本身就是最高形式的藝術。Warhol 拒絕藝術家必須清貧的浪漫主義神話，直接宣告金錢交易與創作行為具有相同的美學價值。）"
+        },
+        {
+          "text": "In the future, everyone will be world-famous for fifteen minutes.",
+          "source": "Program for exhibition at Moderna Museet, Stockholm, 1968",
+          "meaning": "（大眾媒體時代的預言：名聲從稀有資源變成短暫消費品。Warhol 在 1968 年就精確預見了社群媒體時代每個人都能瞬間成名又瞬間被遺忘的現象。）"
+        },
+        {
+          "text": "I just happen to like ordinary things. When I paint them, I don't try to make them extraordinary. I just try to paint them ordinarily-ordinary.",
+          "source": "Interview, ARTnews, November 1963",
+          "meaning": "（拒絕藝術家對日常物件進行「昇華」的傳統義務。湯罐頭之所以有力，正因為它就是湯罐頭——保持其平凡性本身就是對藝術崇高性的根本挑戰。）"
+        },
+        {
+          "text": "Once you 'got' Pop, you could never see a sign the same way again. And once you thought Pop, you could never see America the same way again.",
+          "source": "POPism: The Warhol Sixties, 1980 (with Pat Hackett)",
+          "meaning": "（普普是一種不可逆的感知轉換——一旦你意識到商業符號就是這個時代的視覺真實，整個美國的風景——公路看板、超市貨架、電視螢幕——都變成了一座巨大的美術館。）"
+        },
+        {
+          "text": "What's great about this country is that America started the tradition where the richest consumers buy essentially the same things as the poorest. You can be watching TV and see Coca-Cola, and you know that the President drinks Coke, Liz Taylor drinks Coke, and just think, you can drink Coke, too.",
+          "source": "The Philosophy of Andy Warhol (From A to B and Back Again), 1975",
+          "meaning": "（消費民主是美國文明的核心特徵——可口可樂在貨架上不因購買者的社會地位而改變品質。這個觀察既是對消費社會的讚美，也是對其同質化力量的冷靜描述。）"
+        },
+        {
+          "text": "I want to be a machine.",
+          "source": "Interview with Gene Swenson, ARTnews, November 1963",
+          "meaning": "（對抽象表現主義「藝術家即痛苦靈魂」的直接反擊。Warhol 宣告自己要像絹印機一樣重複生產影像，消除個人筆觸、情感表達、獨特性——這些正是舊藝術體系賦予藝術家神聖地位的基礎。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乾伯斯·李乾斯坦",
+        "en": "Roy Lichtenstein"
+      },
+      "role": "以漫畫為藝術素材的先鋒。將廉價印刷漫畫中的單格畫面放大至巨型畫布，手工複製 Ben-Day dots（網點印刷），將工業複製技術轉化為繪畫語言，迫使藝術界面對「高雅」與「低俗」的界線問題。",
+      "key_works": [
+        "Whaam! (1963)",
+        "Drowning Girl (1963)",
+        "Look Mickey (1961)",
+        "Hopeless (1963)",
+        "Oh, Jeff...I Love You, Too...But... (1964)",
+        "Brushstrokes 系列 (1965-1966)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Pop Art looks out into the world. It doesn't look like a painting of something, it looks like the thing itself.",
+          "source": "Interview, attributed c. 1963-1964",
+          "meaning": "（普普藝術的方向是向外——面對外在世界的視覺現實，而非抽象表現主義向內探索的精神深淵。一幅漫畫格的畫作不再是漫畫的「再現」，它就是那個視覺物件本身。）"
+        },
+        {
+          "text": "I'm interested in what would normally be considered the worst aspects of commercial art. I think it's the tension between what seems to be so rigid and cliched and the fact that art really can't be this way.",
+          "source": "Interview, attributed c. 1963",
+          "meaning": "（商業藝術中「最差」的部分——僵硬的線條、陳腐的構圖、機械化的網點——恰恰蘊含最大的張力。當這些被視為不可能成為藝術的元素出現在畫廊牆上，它們迫使觀者重新定義「藝術」的邊界。）"
+        },
+        {
+          "text": "Everybody has called Pop Art 'American' painting, but it's actually industrial painting.",
+          "source": "Interview, attributed c. 1966",
+          "meaning": "（普普藝術的本質是工業化，而非民族性。它的真正主題是機械複製、標準化生產、大量消費——這些是工業文明的普遍特徵，只是美國恰好是這個文明最極端的案例。）"
+        },
+        {
+          "text": "I take a cliche and try to organize its forms to make it monumental. The difference is often not great, but it is crucial.",
+          "source": "Lecture at College Art Association, 1964",
+          "meaning": "（從陳腐到紀念碑性的跨越——差異看似微小，卻是決定性的。尺度的改變、脈絡的轉換、手工的介入，讓一個廉價的漫畫格獲得了大教堂壁畫般的威嚴。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乾斯柏·乾斯",
+        "en": "Jasper Johns"
+      },
+      "role": "從抽象表現主義到普普藝術的關鍵橋樑人物。以旗幟、標靶、數字、字母——「心智已知之物」——為繪畫主題，在具象與抽象之間開闢了第三條路徑。其作品將「觀看」本身變成主題：你看到的是一面旗子，還是一幅畫？",
+      "key_works": [
+        "Flag (1954-1955)",
+        "Three Flags (1958)",
+        "Target with Four Faces (1955)",
+        "Numbers 系列 (1958-)",
+        "Painted Bronze (Ale Cans) (1960)",
+        "Map (1961)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Take an object. Do something to it. Do something else to it.",
+          "source": "Sketchbook Notes, c. 1963-1964",
+          "meaning": "（藝術創作的最精簡指令：選擇一個現成物，對它施加轉化，再施加一次。Johns 將創作過程還原為最基本的動作序列——拿起、改變、再改變——剝除一切關於靈感和天賦的神秘化敘事。）"
+        },
+        {
+          "text": "One night I dreamed that I painted a large American flag, and the next morning I got up and I went out and bought the materials to begin it.",
+          "source": "Interview, widely cited, c. 1955",
+          "meaning": "（Johns 把 Flag 系列的起源歸於一個夢——這個敘述本身就是普普式的：一個隨機、無深意、近乎荒謬的起點，卻催生了改變藝術史走向的作品。夢到旗子就畫旗子，沒有更深的理由。）"
+        },
+        {
+          "text": "I am concerned with a thing's not being what it was, with its becoming something other than what it is, with any moment in which one identifies a thing precisely and with the slipping away of that identification.",
+          "source": "Interview with David Sylvester, 1965",
+          "meaning": "（身份的滑動：一面旗子在哪個瞬間停止是旗子，開始成為一幅畫？這個不穩定的認知邊界——物件與再現之間的曖昧地帶——才是 Johns 真正的創作場域。）"
+        },
+        {
+          "text": "The painting of a flag is always about a flag, but it is no more about a flag than it is about a brush-stroke or about a color or about the physicality of the paint or about the qualities of the surface.",
+          "source": "Interview, attributed, various sources",
+          "meaning": "（一幅旗子的畫同時是關於旗子的，也同等程度地是關於筆觸、顏料、表面質地的。Johns 拒絕在圖像意義和物質存在之間做二選一——畫作的力量在於兩者的同時在場。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "羅柏特·乾申柏格",
+        "en": "Robert Rauschenberg"
+      },
+      "role": "「combines」（複合作品）的發明者，將真實物件——輪胎、枕頭、報紙、動物標本——直接組裝到畫布上，打碎繪畫與雕塑、藝術與生活的邊界。從抽象表現主義的「內在」世界出發，走向街頭垃圾場的「外在」世界。",
+      "key_works": [
+        "Monogram (1955-1959, 山羊標本穿過輪胎)",
+        "Canyon (1959)",
+        "Erased de Kooning Drawing (1953)",
+        "Bed (1955)",
+        "Retroactive I (1964)",
+        "White Paintings (1951)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Painting relates to both art and life. Neither can be made. (I try to act in that gap between the two.)",
+          "source": "Sixteen Americans exhibition catalogue, Museum of Modern Art, 1959",
+          "meaning": "（Rauschenberg 最著名的宣言：藝術與生活之間存在一個間隙，他選擇在這個間隙中行動。藝術無法被製造，生活也無法被製造——他能做的是佔據兩者之間的模糊地帶，讓真實世界的物件和藝術的框架相互滲透。）"
+        },
+        {
+          "text": "I think a painting is more like the real world if it's made out of the real world.",
+          "source": "Interview, attributed, various sources",
+          "meaning": "（如果你想讓畫作更接近真實世界，就直接用真實世界的東西來做。這個樸素的邏輯解釋了為什麼 Rauschenberg 把枕頭、收音機、可口可樂瓶直接黏到畫布上——不是再現，是直接呈現。）"
+        },
+        {
+          "text": "I don't want a painting to be just an expression of my personality. I feel it ought to be much better than that.",
+          "source": "Interview, attributed c. early 1960s",
+          "meaning": "（對抽象表現主義「繪畫即自我表達」信條的直接反駁。Rauschenberg 認為藝術應該大於藝術家的個人情感——它應該容納街頭的噪音、報紙的碎片、城市的混亂。）"
+        },
+        {
+          "text": "There is no reason not to consider the world as one gigantic painting.",
+          "source": "Interview, attributed, various sources",
+          "meaning": "（整個世界就是一幅巨大的畫——街道、廣告、垃圾、天空都是它的構成元素。藝術的邊框不存在。這個觀念從根本上取消了藝術品與非藝術品的區分。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乾拉斯·乾登柏格",
+        "en": "Claes Oldenburg"
+      },
+      "role": "「軟雕塑」的發明者。將日常物品——漢堡、冰淇淋、電話、馬桶——以巨大尺度和柔軟材質重新創造，顛覆雕塑的硬度、永恆性與紀念碑傳統。The Store（1961）將藝術品偽裝成商品販售，直接挑戰藝術市場的運作邏輯。",
+      "key_works": [
+        "Floor Burger (Giant Hamburger) (1962)",
+        "Soft Toilet (1966)",
+        "The Store (1961, 環境裝置 + 販售行動)",
+        "Lipstick (Ascending) on Caterpillar Tracks (1969, Yale)",
+        "Clothespin (1976, Philadelphia)",
+        "Spoonbridge and Cherry (1988, Minneapolis, with Coosje van Bruggen)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I am for an art that is political-erotical-mystical, that does something other than sit on its ass in a museum.",
+          "source": "Statement for exhibition catalogue, Martha Jackson Gallery, 1961; published in Store Days, 1967",
+          "meaning": "（藝術必須是政治的、情色的、神秘的——任何東西，就是不能坐在美術館裡發呆。Oldenburg 的宣言是普普藝術對藝術體制的最激進攻擊：藝術應該走出白盒子，進入街頭。）"
+        },
+        {
+          "text": "I am for an art that embroils itself with the everyday crap and still comes out on top.",
+          "source": "'I Am for an Art' statement, 1961; Store Days, 1967",
+          "meaning": "（藝術必須深入日常生活的混亂之中，然後從中勝出。Oldenburg 拒絕藝術的純潔性——他要的是一種沾滿油漬、沾滿街頭灰塵、但仍然具有壓倒性力量的藝術。）"
+        },
+        {
+          "text": "I am for the art of underwear and the art of taxicabs. I am for the art of ice cream cones dropped on concrete.",
+          "source": "'I Am for an Art' statement, 1961; Store Days, 1967",
+          "meaning": "（內衣、計程車、掉在地上的冰淇淋甜筒——Oldenburg 用排比句列舉的這些瑣碎物件，就是他認為值得被製成藝術的素材。宣言的詩意節奏讓最平凡的事物獲得了史詩般的莊嚴。）"
+        },
+        {
+          "text": "I am for an art that takes its form from the lines of life itself, that twists and extends and accumulates and spits and drips, and is heavy and coarse and blunt and sweet and stupid as life itself.",
+          "source": "'I Am for an Art' statement, 1961; Store Days, 1967",
+          "meaning": "（藝術的形式應該從生活的線條中長出來——扭曲、延伸、堆積、啐吐、滴落——像生活本身一樣沉重、粗糙、遲鈍、甜美、愚蠢。Oldenburg 用動詞的密度模擬了生活的物質性。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "理察·漢密爾頓",
+        "en": "Richard Hamilton"
+      },
+      "role": "英國普普藝術之父，Independent Group 核心成員。以拼貼手法分析消費社會的影像結構，1956 年的 'Just What Is It That Makes Today's Homes So Different, So Appealing?' 成為普普藝術的宣言性圖像。1957 年寫下普普藝術的第一份定義清單。",
+      "key_works": [
+        "Just What Is It That Makes Today's Homes So Different, So Appealing? (1956, collage)",
+        "$he (1958-1961)",
+        "Hommage a Chrysler Corp (1957)",
+        "Swingeing London 67 (1968-1969)",
+        "My Marilyn (1965)",
+        "The Beatles White Album 封面設計 (1968)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Pop Art is: popular (designed for a mass audience), transient (short-term solution), expendable (easily forgotten), low cost, mass produced, young (aimed at youth), witty, sexy, gimmicky, glamorous, and Big Business.",
+          "source": "Letter to Alison and Peter Smithson, 16 January 1957",
+          "meaning": "（普普藝術的第一份正式定義——以清單格式列出，本身就像商品規格表。Hamilton 用廣告業的語言定義藝術運動，形式與內容完美統一。這份清單成為國際普普運動的思想基石。）"
+        },
+        {
+          "text": "I would like to think of my purpose as a search for what is epic in everyday objects and everyday attitudes.",
+          "source": "Collected Words, 1982",
+          "meaning": "（在日常物件與日常態度中尋找史詩性——一台吸塵器的廣告照片可以承載與荷馬史詩等量的文化意義，前提是你有能力看到它。）"
+        },
+        {
+          "text": "The artist in twentieth-century urban life is inevitably a consumer of mass culture and potentially a contributor to it.",
+          "source": "Writings, attributed c. 1960s",
+          "meaning": "（20 世紀的都市藝術家無可避免地是大眾文化的消費者——你呼吸的空氣裡充滿了廣告訊息、電影畫面、商品符號。問題是你要假裝看不見，還是主動參與這個影像世界的塑造。）"
+        },
+        {
+          "text": "People don't seem to understand that an artist is free to do whatever he wants, and I've always relished that possibility.",
+          "source": "Interview, attributed, various sources",
+          "meaning": "（藝術家的自由是絕對的——Hamilton 拒絕任何關於「藝術應該是什麼」的預設框架。從拼貼到印刷、從繪畫到唱片封面設計，媒材和領域的選擇本身就是一種創作宣言。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "I Am for an Art（'I Am for an Art' 宣言）",
+      "author": "Claes Oldenburg",
+      "year": 1961,
+      "significance": "普普藝術最具詩意的宣言文件。以排比句式列舉日常物件——內衣、計程車、冰淇淋——宣告一切日常生活的物質都是藝術的合法素材。首次發表於 Martha Jackson Gallery 展覽目錄，後收入 Store Days (1967)。"
+    },
+    {
+      "title": "The Philosophy of Andy Warhol (From A to B and Back Again)（安迪·沃荷的哲學）",
+      "author": "Andy Warhol",
+      "year": 1975,
+      "significance": "Warhol 唯一的「自傳式哲學」著作，以口語化、碎片化的風格討論愛、美、名聲、金錢、工作。表面的膚淺之下隱藏著對消費社會與名人文化最銳利的觀察。"
+    },
+    {
+      "title": "POPism: The Warhol Sixties（普普主義：沃荷的六零年代）",
+      "author": "Andy Warhol & Pat Hackett",
+      "year": 1980,
+      "significance": "對 1960 年代紐約普普藝術場景的第一手回憶錄。記錄 The Factory 的日常運作、普普藝術家之間的互動、藝術與地下文化的交匯。是理解普普藝術社會語境的關鍵文本。"
+    },
+    {
+      "title": "Letter to Alison and Peter Smithson（致 Smithson 夫婦的信）",
+      "author": "Richard Hamilton",
+      "year": 1957,
+      "significance": "Hamilton 在這封信中寫下普普藝術的第一份正式定義清單（popular, transient, expendable...），為整個國際普普運動提供了知識框架。是藝術史上最具影響力的私人信件之一。"
+    },
+    {
+      "title": "The New Art: A Critical Anthology（新藝術：批評文選）",
+      "author": "Gregory Battcock (ed.)",
+      "year": 1966,
+      "significance": "收錄 1960 年代關於普普藝術最重要的批評文章，包括 Gene Swenson 對 Warhol 的訪談、Lawrence Alloway 的理論文章。是早期普普藝術批評的核心選集。"
+    },
+    {
+      "title": "American-Type Painting / Post-Painterly Abstraction（美國式繪畫）",
+      "author": "Clement Greenberg",
+      "year": 1955,
+      "significance": "普普藝術的反面教材——Greenberg 的形式主義理論將抽象表現主義推上正統地位，排斥一切具象元素。普普藝術的出現正是對這套正統的全面反叛。"
+    },
+    {
+      "title": "The Independent Group: Postwar Britain and the Aesthetics of Plenty",
+      "author": "David Robbins (ed.)",
+      "year": 1990,
+      "significance": "記錄英國 Independent Group 的活動與思想，釐清普普藝術的英國知識根源——這個常被美國中心敘事忽略的起源。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "日常物件即藝術主題：湯罐頭、漫畫格、可口可樂瓶、旗子、標靶——大眾消費文化中隨處可見的影像就是這個時代最有力的視覺現實。（WHY：抽象表現主義將繪畫主題縮限為藝術家的「內在體驗」，Greenberg 的形式主義理論更進一步排斥一切外在指涉。但 1960 年的美國被電視、廣告、超市、好萊塢的影像淹沒——這個視覺環境的密度和強度遠超任何畫廊牆上的畫作。忽視它意味著忽視整個時代。）",
+      "機械複製取代手工筆觸：絹印版畫、Ben-Day dots、照相轉印——刻意使用工業複製技術，消除「藝術家之手」的獨特痕跡。（WHY：抽象表現主義將筆觸神聖化——Pollock 的滴灑、de Kooning 的筆刷痕跡被詮釋為藝術家靈魂的直接記錄。普普藝術反過來主張：在一個工業複製的時代，堅持手工的獨特性是一種矯情。Warhol 宣稱「我想成為一台機器」，Lichtenstein 模擬印刷網點——機器的語言就是這個時代的語言。）",
+      "擁抱商業文化而非對抗它：廣告、包裝設計、好萊塢、流行音樂——全部作為藝術的合法素材與合作對象。（WHY：現代主義藝術從印象派開始就將自己定位為布爾喬亞社會的批判者。但普普藝術家中的多數人——Warhol 是商業插畫師、Hamilton 研究廣告視覺——深刻理解商業文化的視覺力量。與其居高臨下地批判它，不如從內部利用它的語言。）",
+      "消解原作/複製品的區分：Warhol 的絹印可以無限複製、Lichtenstein 模仿的是已經被印刷了百萬份的漫畫——「原作」的概念在大量複製的時代還有意義嗎？（WHY：自文藝復興以來，藝術品的價值建立在獨一無二性上。本雅明在 1936 年的《機械複製時代的藝術作品》已經預見了這個問題。普普藝術將這個理論預言變成視覺事實。）",
+      "尺度轉換作為意義生產：把漫畫的一格放大到 2 公尺高、把漢堡做成一間房間大、把衣夾變成 14 公尺高的公共雕塑——尺度的改變迫使觀者重新審視已經熟悉到視而不見的物件。（WHY：日常物件之所以「看不見」，正因為它們的尺度與脈絡已經固化在我們的認知中。改變尺度是最暴力的脈絡抽離手段——一個 2 公尺高的漫畫女孩哭泣的臉，突然具有了悲劇英雄的威嚴。）",
+      "模糊高雅/低俗的等級壁壘：漫畫書與蒙德里安、湯罐頭與莫內睡蓮——在同一面畫廊牆上並列，挑戰藝術體制的品味階級。（WHY：二戰後美國藝術體制以 MoMA、Greenberg 的評論、Leo Castelli 的畫廊為核心建構了嚴格的品味等級。普普藝術將被排除在這個體系之外的「低俗」素材強行帶入神殿，挑戰守門人的權威。）",
+      "藝術家作為公眾人物/品牌：Warhol 將自己打造成名人，The Factory 是藝術、時尚、電影、音樂的社交場域——藝術家的公共形象本身就是作品。（WHY：抽象表現主義將藝術家塑造為孤獨的苦行者形象。Warhol 顛覆了這個角色：藝術家可以是社交動物、商人、名人製造者。他的銀色假髮和墨鏡就是一件行動的普普藝術品。）",
+      "冷靜的情感距離：Warhol 的名人肖像毫無心理深度、Lichtenstein 的漫畫女孩流淚但畫面冰冷——普普藝術以情感的缺席取代抽象表現主義的情感過剩。（WHY：抽象表現主義要求藝術必須是真誠的情感表達——Pollock 喝酒、受苦、把痛苦潑灑在畫布上。普普藝術以反諷取代真誠、以表面取代深度、以冷漠取代激情——這本身就是對消費社會情感模式最精確的模擬。）"
+    ],
+    "what_they_refuse": [
+      "內在表達的至上地位：拒絕「藝術是靈魂的窗口」這個浪漫主義教條。普普藝術轉向外在世界的視覺表面。（WHY：抽象表現主義將繪畫定義為藝術家內在精神狀態的直接記錄，Clement Greenberg 的理論體系為這個信條提供了學術權威。但新一代藝術家——尤其是來自商業藝術背景的 Warhol 和在軍隊學電子學的 Lichtenstein——從未認同這個前提。他們在外在世界的影像中看到的力量，遠大於任何個人的「內在痛苦」。）",
+      "藝術與商業的對立：拒絕「真正的藝術家不做商業工作」的清高姿態。（WHY：現代主義藝術體制建立了一套純潔性的道德標準：藝術家不應該與商業沾邊。但 Warhol 畫鞋子廣告出身、Lichtenstein 畫過米老鼠和口香糖包裝、Rauschenberg 做過 Tiffany 的櫥窗設計。他們的作品證明商業經驗是理解視覺文化的優勢，而非恥辱。）",
+      "手工筆觸的神聖性：拒絕將「藝術家之手的痕跡」視為藝術價值的保證。（WHY：抽象表現主義的核心美學在於筆觸的不可複製性——每一筆都是獨一無二的靈魂記錄。但在一個由照片、印刷品、電視影像組成的世界裡，堅持手工痕跡的獨特性只是一種懷舊。Warhol 的絹印讓同一影像可以被重複百次，Lichtenstein 手工複製機器的網點——這些策略從根本上質疑了「原作」的概念。）",
+      "原創性的獨佔價值：拒絕「藝術必須來自藝術家的原創想像」這個前提。（WHY：普普藝術的素材全部來自已經存在的影像——報紙照片、商品包裝、漫畫書。Warhol 直接複製 Campbell's 的商標設計，Lichtenstein 直接臨摹漫畫格。在一個被現成影像淹沒的世界，「從無到有的原創」只是一個幻覺。重新脈絡化——把已存在的影像放入新的框架——才是這個時代真正的創造性行為。）",
+      "藝術的深度神話：拒絕「偉大的藝術必須有深層意義」的信條。（WHY：Greenberg 的形式主義和 Harold Rosenberg 的存在主義批評共同建構了一套關於藝術「深度」的話語：好的藝術揭示存在的真相、觸及人類處境的根本。Warhol 以表面本身作為主題——他的作品深度為零，但正是這個零度揭示了消費社會的本質：在一個一切都是表面的世界裡，追求「深度」本身就是一種自欺。）",
+      "品味階級的正當性：拒絕承認「高雅文化」天然優於「低俗文化」。（WHY：戰後美國的文化機構——博物館、大學、藝評界——建構了嚴格的品味等級：抽象繪畫高於具象、純藝術高於應用藝術、歐洲傳統高於美國本土文化。普普藝術將漫畫、廣告、電視——這些被體制排斥的「低俗」素材——帶入畫廊和博物館，強行打碎品味階級。）",
+      "藝術家的苦行者形象：拒絕「藝術家必須受苦才能創作」的浪漫主義神話。（WHY：Pollock 的酗酒自毀、Rothko 的自殺、de Kooning 的掙扎——抽象表現主義將藝術家塑造為與社會對抗的孤獨英雄。Warhol 的 Factory 完全顛覆了這個形象：藝術家可以開派對、交朋友、做生意、享受名聲。創作可以是歡樂的、社交的、商業的。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Abstract Expressionism（抽象表現主義）：其內在表達的至上性、筆觸的神聖化、藝術家作為精神先知的角色定位——普普藝術的一切核心策略都是對它的系統性反叛",
+      "Formalism / Greenbergian Criticism（形式主義批評）：Clement Greenberg 的理論體系將抽象推上正統，排斥具象與敘事——普普藝術以具象影像的回歸宣告這套正統的破產",
+      "European High Modernism 的精英主義面向：歐洲現代主義（特別是巴黎學派）長期壟斷「前衛」的定義權——普普藝術宣告美國商業文化的視覺語言同樣具有藝術價值",
+      "Social Realism（社會寫實主義）的說教性：儘管同樣關注日常現實，普普藝術拒絕社會寫實主義的道德立場和政治說教——它呈現消費社會但不做價值判斷"
+    ],
+    "against_values": [
+      "藝術的純潔性：普普藝術擁抱商業、廣告、大眾媒體——一切被現代主義正統視為「汙染」的元素",
+      "原作的不可替代性：在機械複製的時代，獨一無二的原作只是藝術市場的定價機制，而非藝術價值的本體",
+      "深度優於表面：消費社會的本質就是表面——在一個影像比實體更有力量的世界裡，「深度」只是另一種表面",
+      "藝術家的孤獨天才形象：Warhol 的 Factory 證明藝術可以是集體的、社交的、商業化的協作",
+      "高雅/低俗的品味等級：一幅 Rothko 和一罐 Campbell's 湯之間的價值差異，是體制建構的，而非天然的"
+    ],
+    "societal_context": "普普藝術誕生於冷戰時期美國消費社會的巔峰。二戰後美國經濟持續擴張，郊區化（suburbanization）、汽車文化、電視普及、超市消費構成了一個前所未有的物質豐裕環境。同時，冷戰的文化戰爭中，CIA 暗中資助抽象表現主義作為「自由世界」的藝術代言（與蘇聯的社會寫實主義對抗），使得前衛藝術被國家意識形態綁架。普普藝術出現在這個複雜的交叉點上：它既是對消費社會的擁抱也是對它的冷靜記錄，既是對藝術體制精英主義的反叛也迅速被同一個體制高價收編。甘迺迪遇刺（1963）、越戰升級（1964-）、民權運動、反文化運動——1960 年代美國社會的激烈動盪為普普藝術的「表面冷漠」提供了一個暗流湧動的背景：Warhol 的 Race Riots 絹印和 Electric Chair 系列表明，即使在最冷靜的普普表面之下，暴力與死亡從未缺席。"
+  },
+
+  "problems_solved": [
+    "打破抽象表現主義的壟斷：為具象藝術在形式主義正統之後重新找到合法性，證明描繪外在世界的視覺現實同樣可以是前衛的",
+    "拆除高雅/低俗文化的等級壁壘：漫畫、廣告、商品包裝、電視影像——這些被藝術體制排斥的「低俗」素材獲得了進入美術館的通行證，從根本上擴展了「什麼可以是藝術」的定義",
+    "迫使藝術面對消費社會的視覺現實：在一個被工業化影像淹沒的世界裡，藝術如果繼續假裝這些影像不存在，就會淪為一種自欺。普普藝術強迫藝術界睜開眼睛",
+    "預見了影像複製時代的核心問題：關於原作與複製、真實與模擬、消費與文化的問題——這些在 1960 年代由普普藝術提出的問題，在數位時代和社群媒體時代變得更加尖銳",
+    "確立美國當代藝術的國際主導地位：1964 年 Rauschenberg 獲威尼斯金獅獎標誌著藝術世界的重心從巴黎轉向紐約，普普藝術是這個權力轉移的關鍵載體",
+    "發明了藝術家作為公眾人物/品牌的現代模式：Warhol 開創的藝術家-名人-企業家三位一體模式，影響了此後所有視覺文化產業——從 Damien Hirst 到 Jeff Koons 到 Takashi Murakami"
+  ],
+
+  "problems_created": [
+    "藝術批判性的稀釋：普普藝術對消費社會的態度始終曖昧——是批判還是擁抱？這種曖昧性使它極易被商業體系收編。Warhol 的作品今天在拍賣會上以億美元成交，完美融入了它原本可能批判的資本主義邏輯",
+    "「一切皆可為藝術」的通膨效應：當漫畫格和湯罐頭可以是藝術，那麼什麼不可以？普普藝術打開的大門導致了藝術定義的無限膨脹，使得「藝術」這個概念面臨意義通膨的危機",
+    "表面性的合法化：普普藝術對「深度」的拒絕，在後續的文化發展中被簡化為「表面就夠了」的教條。Instagram 時代的影像消費——快速瀏覽、即時遺忘——可以說是普普美學的極端延伸",
+    "加速了藝術的商品化：普普藝術原本模糊了藝術品與商品的界線，結果這個模糊性被藝術市場徹底利用——限量版絹印、簽名海報、聯名商品成為新的利潤來源",
+    "美國文化霸權的藝術化包裝：普普藝術將可口可樂、好萊塢、美國夢的視覺語言全球化，在文化上為美國消費主義的全球擴張提供了美學正當性",
+    "對創作技術門檻的過度降低：當「挪用」（appropriation）成為合法的創作策略，關於技藝（craftsmanship）、原創性、智慧財產權的傳統標準都被動搖。這個問題在數位時代的 AI 生成藝術爭論中再次浮現",
+    "情感表達的邊緣化：普普藝術的冷靜距離和反諷姿態，使得真誠的情感表達在藝術界中變得「不酷」。後續世代的藝術家必須在「表達真實情感」和「被視為天真」之間掙扎"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "大眾消費文化的視覺產物——商品包裝、廣告影像、漫畫、電視、名人照片——就是這個時代最強大的視覺現實，藝術家的工作是將這些已經存在的影像重新脈絡化，而非從無到有地創造新影像。這個觀念從根本上改變了「藝術家」的角色定義：從「創造者」變成「編輯者」、「策展者」、「重新框架者」。",
+    "what_was_truly_new": [
+      "將工業複製技術（絹印版畫）從商業印刷轉化為純藝術媒材：Warhol 的絹印技術讓同一影像可以被無限複製，每一張都既是原作也是複製品，從根本上瓦解了「原作的靈光」（aura of the original）",
+      "軟雕塑的發明：Oldenburg 以布料和泡棉取代金屬和石材，讓原本堅硬的日常物件——馬桶、電話、漢堡——變得柔軟、巨大、可笑。雕塑的物理性質從此不再被材料的傳統特性限定",
+      "藝術家作為品牌/企業的模式：Warhol 的 The Factory 不僅是工作室，更是藝術、電影、音樂、時尚的跨界生產基地。這種藝術家-品牌-企業的三位一體模式是全新的",
+      "反諷距離作為美學策略：普普藝術開發了一種全新的情感模式——既非擁抱也非批判的「冷靜旁觀」。這種曖昧的情感距離成為後現代藝術的基本語調"
+    ],
+    "what_was_borrowed": [
+      "Dada / Marcel Duchamp：現成物（readymade）的概念——將日常物件宣告為藝術——是普普藝術的直接先驅。Duchamp 的小便池（1917）與 Warhol 的湯罐頭（1962）之間有一條清晰的思想線索",
+      "Kurt Schwitters / Merzbau：將廢棄物拼貼組合成藝術——Rauschenberg 的 combines 直接承襲了 Schwitters 的方法",
+      "Stuart Davis 的美國場景繪畫（1920s-1950s）：早在普普藝術之前，Davis 就以美國商業環境中的文字和標誌作為繪畫主題",
+      "Fernand Leger 的機械美學：Leger 在 1920 年代就開始繪製工業物件和都市場景，以平面化的手法處理機器時代的視覺語言",
+      "Eduardo Paolozzi 的 Bunk! 系列（1947-1952）：Paolozzi 的美國雜誌拼貼比 Hamilton 的作品更早，是英國普普的真正原點",
+      "Lawrence Alloway 與 Independent Group 的理論工作：「普普」一詞和對大眾文化作為嚴肅研究對象的理論框架，在美國普普藝術出現之前已經在英國建立"
+    ],
+    "creative_leap": "普普藝術的關鍵創造性飛躍在於「態度的翻轉」（attitudinal flip）：它將大眾文化從現代主義藝術鄙視和忽視的對象，翻轉為藝術的核心素材與主題。Duchamp 的現成物仍帶有知識分子的挑釁姿態——他選擇小便池是為了嘲諷藝術體制。普普藝術更進一步：Warhol 不是在嘲諷湯罐頭，他真的喜歡它。這種「真誠的擁抱」比達達的「戰略性冒犯」更加徹底和不可逆——它不是用低俗來挑釁高雅，而是宣告高雅/低俗的區分本身毫無意義。",
+    "inspiration_potential": {
+      "score": 9,
+      "why": "普普藝術的核心命題——如何在一個被工業化影像淹沒的環境中創作——在 AI 生成影像的時代變得比任何時候都更尖銳。當 AI 可以在幾秒內生成數千張影像，影像的「原作性」和「作者性」問題再次被提出。Warhol 的策略——不是創造新影像，而是選擇、編輯、重新脈絡化已存在的影像——恰好描述了今天許多 AI 藝術實踐者的工作方式。",
+      "transferable_to": [
+        "AI 時代的創作身份：Warhol 的「我想成為一台機器」在 AI 時代獲得了全新的共鳴——當機器真的可以生成藝術時，藝術家的角色是什麼？",
+        "迷因文化（meme culture）：迷因的運作邏輯——挪用、複製、變體、重新脈絡化——是普普藝術的數位原生繼承者",
+        "品牌設計與視覺識別：普普藝術對商業符號的美學研究直接啟發了當代品牌設計的策略",
+        "NFT 與數位藝術的「原作性」問題：Warhol 的絹印提出的「什麼是原作」問題，在 NFT 和數位複製時代重新爆發",
+        "社群媒體的視覺文化：Instagram 的濾鏡、TikTok 的重製、自拍文化——都延續著普普藝術對影像複製和名人崇拜的核心關切",
+        "跨領域品牌合作（collaboration culture）：Warhol 與 Velvet Underground、Oldenburg 與建築、Hamilton 與 Beatles——普普藝術開創的藝術-商業-流行文化跨界模式，是今天所有聯名合作的先驅",
+        "挪用藝術與智慧財產權的爭辯：從 Richard Prince 到 AI 訓練資料集，普普藝術開啟的「使用已存在影像的權利」問題持續發酵"
+      ]
+    },
+    "originality_type": "attitudinal_flip"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Dada / Marcel Duchamp (1910s-)：現成物（readymade）概念、對藝術體制的挑釁、反藝術（anti-art）姿態",
+      "Kurt Schwitters / Merz (1920s-)：廢棄物拼貼、日常材料作為藝術媒材",
+      "Stuart Davis (1920s-1950s)：以美國商業環境的文字與標誌為繪畫主題的先驅",
+      "Fernand Leger (1920s-)：機械美學、都市場景的平面化處理",
+      "Independent Group / ICA London (1952-1956)：Richard Hamilton、Eduardo Paolozzi、Lawrence Alloway 對大眾文化的知識性分析",
+      "Abstract Expressionism (1940s-1950s)：作為反叛對象的「負面影響」——普普藝術的一切策略都是對其核心信條的系統性顛覆",
+      "John Cage & Merce Cunningham：偶然性（chance）、日常聲音作為音樂素材——Cage 在 Black Mountain College 對 Rauschenberg 有直接影響",
+      "Neo-Dada (1950s)：Johns、Rauschenberg 在被歸為普普藝術之前，先被稱為 Neo-Dada——他們是兩個運動之間的橋樑"
+    ],
+    "influenced": [
+      "Photorealism (1960s-1970s)：Chuck Close、Richard Estes 將照片精確複製為繪畫——延伸普普藝術對機械影像的關注",
+      "Conceptual Art (1960s-1970s)：普普藝術對「藝術的定義」的挑戰為概念藝術鋪路——如果湯罐頭可以是藝術，那麼一個想法也可以",
+      "Appropriation Art (1980s)：Richard Prince、Sherrie Levine、Barbara Kruger——直接複製和挪用已存在的影像作為創作策略，是普普藝術邏輯的激進延伸",
+      "Neo-Pop / Jeff Koons, Takashi Murakami, Damien Hirst (1980s-)：以更加商業化、更加全球化的方式延續普普藝術的核心策略",
+      "Postmodernism（後現代主義）：普普藝術對高低文化界線的拆除、對原創性的質疑、對反諷距離的運用，都成為後現代理論的核心議題",
+      "Street Art / Graffiti Art (1970s-)：Keith Haring、Jean-Michel Basquiat——普普藝術打開的「低俗文化進入畫廊」的通道，為街頭藝術的體制化提供了先例",
+      "Contemporary Brand Culture / Fashion Collaboration：Warhol-Velvet Underground 的跨界模式演化為今天的藝術家-品牌聯名生態系",
+      "Digital Art / Meme Culture / NFT：影像複製、重新脈絡化、原作性的瓦解——數位文化的核心動態是普普藝術問題意識的技術性延伸",
+      "YBA (Young British Artists, 1990s)：Damien Hirst 的鯊魚、Tracey Emin 的床——將日常物件/個人經驗宣告為藝術的策略，是普普遺產與概念藝術的交會"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "敏銳、冷靜、帶著反諷的微笑觀察一切。像一位坐在 The Factory 沙發上的常客：對所有事物都感興趣，但從不表現出激動。用最簡短的句子發出最尖銳的觀察。對裝腔作勢的人有即時的偵測雷達——無論是假裝深刻還是假裝膚淺。欣賞將日常素材轉化為出人意料的視覺效果的能力，重視對當代視覺環境的敏銳度。語速快，判斷直覺化，偶爾會因過度追求「酷」而忽略真誠的情感表達。",
+    "evaluation_bias": "強烈偏好與當代視覺文化（社群媒體、廣告、商業設計、迷因）對話的作品。傾向高估反諷、機智和脈絡轉換的價值，低估純粹的手工技藝和真誠的情感表達。會不自覺地以「這看起來是不是很酷？能不能成為社群媒體上的圖像？」作為隱性評分標準。對回應消費文化的作品加分過高，對超越或外在於消費文化的作品缺乏感知力。",
+    "blind_spots": "難以評價完全不參照當代視覺文化的作品——純粹的自然觀察、冥想式的抽象、基於傳統工藝的創作。對「真誠」有矛盾的態度：理智上知道真誠有價值，但直覺上更被反諷吸引。傾向忽視作品的物質性和技藝品質，過度聚焦於概念和脈絡。對非西方、非都市的視覺文化可能缺乏感知力——普普藝術的語言本質上是都市的、消費社會的、英美中心的。",
+    "typical_critique": "概念很聰明，但視覺上缺乏衝擊力。你在處理這個商業影像的時候過於尊重原圖了——試試看完全改變尺度、色調或脈絡？最好的普普作品讓你同時認出原物件又感到完全陌生。另外，你的手法太乾淨了——帶一點粗糙的能量進來，讓它看起來更像街頭而非畫廊。"
+  },
+
+  "writing_style": {
+    "collective_voice": "普普藝術的集體寫作風格是「反詮釋的日常語言」：刻意使用簡短、直白、口語化的句子，避免學術術語和深度分析。句子像商品標語一樣短促有力，像電視廣告一樣直接。修辭策略是「用最平淡的語氣說最具顛覆性的話」——Warhol 的「我喜歡無聊的東西」和 Johns 的「就拿個東西，做些什麼」都是這個策略的極致。表面的空洞之下藏著極度精密的美學計算。",
+    "internal_tensions": "最大的風格裂痕在「知識分子的分析距離」與「藝術家的直覺擁抱」之間。Hamilton 和 Independent Group 代表前者——他們以學術語言分析大眾文化，寫出清單式的定義。Warhol 和 Oldenburg 代表後者——他們用身體投入商業世界，語言極度口語化。Johns 是最複雜的中間地帶：看似簡潔的句子背後藏著哲學的深度。",
+    "master_voices": [
+      {
+        "name": "Andy Warhol",
+        "writing_character": "表面膚淺到近乎空洞的機器人發言——每一句話都像是隨口說出的廢話，但累積起來構成了對消費社會最精確的肖像",
+        "sentence_rhythm": "極短句為主（5-15 字），語調平淡如念購物清單，偶爾突然冒出一句預言式的長句",
+        "rhetoric": "重複（I like... I like... I like...）、悖論式陳述、刻意的膚淺、反諷性的字面意義使用",
+        "tone": "冷淡、被動、近乎機械——像一台記錄設備忠實地記錄消費社會的表面",
+        "real_examples": [
+          {
+            "text": "I want to be a machine.",
+            "source": "Interview with Gene Swenson, ARTnews, 1963",
+            "style_note": "五個字的宣言，語調如述說天氣。其顛覆力在於完全缺乏修辭——越平淡越致命"
+          },
+          {
+            "text": "I just happen to like ordinary things. When I paint them, I don't try to make them extraordinary.",
+            "source": "Interview, ARTnews, 1963",
+            "style_note": "用最不引人注目的口語說出最顛覆性的藝術宣言——拒絕藝術昇華的義務"
+          }
+        ]
+      },
+      {
+        "name": "Claes Oldenburg",
+        "writing_character": "惠特曼式的詩性宣言——以排比句的洪流把整個物質世界吞進藝術的嘴巴裡",
+        "sentence_rhythm": "「I am for...」排比結構反覆推進，每句帶一個具體物件，節奏如呼吸般的堆積",
+        "rhetoric": "anaphora 排比（I am for...）、具體物件的詩意堆疊、感官動詞密集、刻意粗野的用語",
+        "tone": "狂放的、慷慨的、擁抱一切的——像一個打開手臂要擁抱整條街的人",
+        "real_examples": [
+          {
+            "text": "I am for an art that is political-erotical-mystical, that does something other than sit on its ass in a museum.",
+            "source": "'I Am for an Art' statement, 1961",
+            "style_note": "三連連字號的複合形容詞起手，俚語（sit on its ass）結束——從宣言體直接跳到街頭語言"
+          },
+          {
+            "text": "I am for the art of underwear and the art of taxicabs. I am for the art of ice cream cones dropped on concrete.",
+            "source": "'I Am for an Art' statement, 1961",
+            "style_note": "排比中的物件選擇精確：內衣（身體的親密）、計程車（都市的流動）、掉在地上的冰淇淋（意外的詩意）"
+          }
+        ]
+      },
+      {
+        "name": "Richard Hamilton",
+        "writing_character": "廣告策略分析師遇上藝術理論家——用清單和定義的精確語言分析商業影像的美學結構",
+        "sentence_rhythm": "中等長度句子，傾向清單式並列和定義式陳述，學術語氣但避免晦澀",
+        "rhetoric": "清單式定義（popular, transient, expendable...）、分析性的類比、跨領域的脈絡切換",
+        "tone": "冷靜分析的、知識分子的、帶英式含蓄的幽默",
+        "real_examples": [
+          {
+            "text": "Pop Art is: popular, transient, expendable, low-cost, mass-produced, young, witty, sexy, gimmicky, glamorous, and Big Business.",
+            "source": "Letter to Smithsons, 1957",
+            "style_note": "清單格式本身就是普普的——像商品規格表一樣列出藝術運動的屬性"
+          }
+        ]
+      },
+      {
+        "name": "Jasper Johns",
+        "writing_character": "禪宗公案的美國東岸版本——用最少的字製造最大的認知不穩定",
+        "sentence_rhythm": "極短句，祈使句或陳述句，句與句之間有大片空白",
+        "rhetoric": "悖論、極簡指令、認知框架的瞬間切換",
+        "tone": "安靜、內省、精確——像一把手術刀切開日常感知的表面",
+        "real_examples": [
+          {
+            "text": "Take an object. Do something to it. Do something else to it.",
+            "source": "Sketchbook Notes, c. 1963-1964",
+            "style_note": "三句話構成完整的創作方法論——極簡到近乎粗暴，但每一個短句之間都藏著巨大的自由空間"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子極短（8-18 字），像廣告標語或社群媒體貼文",
+      "用最平淡的語氣說最尖銳的觀察——語調越冷靜，判斷越致命",
+      "大量使用具體的當代視覺文化參照（品牌、社群媒體、廣告、迷因）",
+      "反諷是預設語調，但知道何時切換到真誠",
+      "避免學術術語，用日常語言和商業語言混合",
+      "每段 2-3 句，一段一個觀察",
+      "排比結構以物件堆疊為節奏",
+      "禁用崇高、深刻、精神性等詞彙——用「有趣」、「有力」、「直接」取代",
+      "偶爾使用問句打破判斷的確定性——「但這夠不夠酷？」"
+    ]
+  }
+}

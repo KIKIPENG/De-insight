@@ -1,0 +1,512 @@
+{
+  "movement_id": "russian_constructivism",
+  "name": {
+    "zh": "俄國構成主義",
+    "en": "Russian Constructivism",
+    "ru": "Конструктивизм"
+  },
+  "domain": [
+    "sculpture",
+    "graphic_design",
+    "typography",
+    "architecture",
+    "industrial_design",
+    "textile_design",
+    "photography",
+    "photomontage",
+    "theater_design",
+    "film",
+    "propaganda_art",
+    "exhibition_design"
+  ],
+  "period": {
+    "start": 1913,
+    "end": 1932,
+    "peak": "1920-1924（INKhUK 辯論確立生產主義路線，Tatlin 的第三國際紀念塔設計發表，Rodchenko、Stepanova、Popova 集體宣告放棄架上繪畫轉入生產藝術，El Lissitzky 的 Proun 系列與排版實驗達到巔峰）"
+  },
+  "geography": [
+    "Moscow, Russia (INKhUK, VKhUTEMAS)",
+    "Petrograd / Leningrad, Russia (Tatlin's studio, GINKhUK)",
+    "Vitebsk, Belarus (UNOVIS, Lissitzky & Malevich)",
+    "Berlin, Germany (Lissitzky 1921-1925, Russian diaspora hub)",
+    "Hannover, Germany (Lissitzky, Kurt Schwitters collaboration)",
+    "Global influence via Bauhaus, De Stijl, and emigre networks"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1917 年十月革命推翻沙皇體制與資產階級臨時政府，建立世界第一個社會主義國家。舊俄羅斯帝國的整套文化秩序——學院派繪畫、貴族沙龍、教堂聖像——在意識形態上被宣告死亡。新政權需要全新的視覺語言來服務無產階級：工廠需要海報、識字運動需要書籍設計、革命需要宣傳、城市需要紀念碑。同時，一戰與內戰造成的物資極度匱乏（1918-1921 年俄國內戰死亡人數達 700-1200 萬），讓藝術家面對一個赤裸的問題：在人民飢餓的國家，藝術的存在理由是什麼？構成主義者的回答是：藝術的存在理由就是直接服務於社會建設。藝術家是工程師，畫布是工廠，作品是產品。",
+    "social_energy": "構成主義的能量來自三個爆發點：(1) 革命的烏托邦熱情——十月革命讓藝術家相信一個全新的社會正在誕生，藝術有機會從零開始定義一切視覺環境；(2) 前衛藝術的極端實驗精神——Malevich 的至上主義已經走到純粹抽象的極限（1915 年《黑色方塊》），下一步只能是離開畫布進入真實空間；(3) 布爾什維克政權對文化建設的迫切需求——列寧的「紀念碑宣傳計畫」(1918) 直接委託藝術家用雕塑與海報向不識字的群眾傳遞革命訊息，全國識字率僅 40%，視覺傳達是唯一有效的溝通管道。",
+    "purpose": "構成主義的終極目標是消滅「藝術」這個範疇本身——讓藝術溶解進日常生活與工業生產。藝術家應該進入工廠，用材料科學的方法設計椅子、衣服、書籍、建築、海報。Aleksei Gan 在 1922 年的宣言中寫得最直接：向藝術宣戰。這場戰爭的目標是用「智識—物質生產」(intellectual-material production) 取代「藝術創作」(artistic creation)。藝術家的身份將被「建構者」(konstruktor) 取代。",
+    "key_pivot_moments": [
+      {
+        "event": "從至上主義到構成主義的決裂 (1920-1921)",
+        "significance": "Malevich 的至上主義追求純粹的精神性抽象——形式是靈魂的載體。Tatlin 和 Rodchenko 認為這條路走到盡頭：抽象繪畫仍然掛在牆上，仍然是資產階級的收藏品。構成主義的轉向是從精神抽象走向物質建構：藝術家離開畫架，進入工廠。1920 年 INKhUK（藝術文化研究所）的內部辯論中，Kandinsky 的「純藝術」路線被投票否決，Rodchenko 的「生產主義」路線勝出。Kandinsky 隨即離開俄國，前往 Bauhaus。"
+      },
+      {
+        "event": "5x5=25 展覽與架上繪畫的終結宣言 (1921)",
+        "significance": "Rodchenko、Stepanova、Popova、Exter、Vesnin 五位藝術家各展出五件作品。Rodchenko 展出三幅單色畫（純紅、純藍、純黃），宣告：『一切結束了。』繪畫走到邏輯終點，下一步只能是進入生產。這個展覽是構成主義從實驗室走向工廠的分水嶺。"
+      }
+    ],
+    "key_timeline": [
+      "1913 — Tatlin 訪問巴黎 Picasso 工作室，看到 Cubist constructions，回莫斯科開始製作反浮雕 (counter-reliefs)",
+      "1915 — Tatlin 在「0.10：最後的未來主義展覽」展出 Corner Counter-Relief，與 Malevich 的《黑色方塊》同場對峙",
+      "1917.10.25 — 十月革命，布爾什維克奪取政權",
+      "1918.04 — 列寧簽署「紀念碑宣傳計畫」(Plan for Monumental Propaganda)，委託藝術家為革命製作公共雕塑與紀念碑",
+      "1919 — El Lissitzky 創作《用紅色楔子打擊白軍》(Beat the Whites with the Red Wedge)，構成主義圖形語言首次服務於政治宣傳",
+      "1919-1920 — Tatlin 設計「第三國際紀念塔」(Monument to the Third International)，400 公尺高的螺旋鋼鐵結構，未建成但成為構成主義的標誌性形象",
+      "1920 — INKhUK（藝術文化研究所）在莫斯科成立，成為構成主義理論辯論的核心場域；Kandinsky 的精神性藝術路線被否決",
+      "1920 — Gabo 與 Pevsner 發表《現實主義宣言》(Realistic Manifesto)，主張動力節奏與空間建構取代體積與質量",
+      "1920 — VKhUTEMAS（高等藝術與技術工作坊）成立，成為構成主義教育的主要基地，與 Bauhaus 平行存在",
+      "1921.09 — 5x5=25 展覽，Rodchenko 展出單色三聯畫宣告繪畫終結，五位藝術家集體轉向生產藝術",
+      "1921.11 — Rodchenko、Stepanova 等人簽署「生產主義者綱領」(Programme of the Productivist Group)，正式宣告藝術家進入工廠",
+      "1922 — Aleksei Gan 出版《構成主義》(Konstruktivizm)，定義 tektonika（構造）、faktura（肌理）、konstruktsiya（建構）三大原則",
+      "1923-1925 — Popova 與 Stepanova 進入第一國營印花布廠，設計幾何圖案織品；Rodchenko 與 Mayakovsky 合作廣告海報",
+      "1923 — LEF（左翼藝術陣線）雜誌創刊，Mayakovsky 主編，成為構成主義與生產主義的理論陣地",
+      "1925.05 — Popova 因猩紅熱去世，年僅 35 歲",
+      "1928-1932 — 史達林逐步收緊文化政策，「社會主義現實主義」被確立為唯一合法的藝術路線，構成主義被批判為「形式主義」",
+      "1932 — 蘇聯共產黨中央委員會頒布《關於改組文學藝術團體的決議》，解散所有獨立藝術團體，構成主義運動正式終結"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "弗拉基米爾·塔特林",
+        "en": "Vladimir Tatlin"
+      },
+      "role": "構成主義的奠基者。1913 年從 Picasso 的立體派雕塑獲得啟發，開始製作「反浮雕」(counter-reliefs)——將真實的工業材料（鐵、玻璃、木材）組裝在真實空間中，宣告雕塑從再現走向建構。1919-1920 年設計的「第三國際紀念塔」是構成主義精神的最高象徵。",
+      "key_works": [
+        "Corner Counter-Relief 角落反浮雕 (1914-1915)",
+        "Monument to the Third International 第三國際紀念塔 (1919-1920, 未建成)",
+        "Letatlin 飛行器 (1929-1932)",
+        "Material Culture 課程 (VKhUTEMAS 教學)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Let us place the eye under the control of touch.",
+          "source": "On Tatlin's counter-reliefs and material investigations, documented in Art in Theory 1900-2000",
+          "meaning": "（眼睛必須服從觸覺——藝術的起點是材料的物理真實性（重量、質地、張力），視覺效果是材料特性的結果。這句話將繪畫的光學傳統翻轉為雕塑的觸覺傳統。）"
+        },
+        {
+          "text": "Art into life!",
+          "source": "Tatlin's core slogan, widely documented in Constructivist literature",
+          "meaning": "（三個字的終極綱領：藝術必須離開博物館與沙龍，進入街道、工廠、住宅。藝術品的存在場所是生活本身，展覽廳是藝術的墳墓。）"
+        },
+        {
+          "text": "In the squares and in the streets we are placing our work convinced that art must not remain a sanctuary for the idle, a consolation for the weary, and a justification for the lazy. Art should attend us everywhere that life flows and acts.",
+          "source": "Programme of the Productivist Group, c. 1920",
+          "meaning": "（三重否定（避難所、慰藉、藉口）描繪了構成主義眼中舊藝術的社會功能——服務有閒階級的精神裝飾。藝術應該在生活流動與行動的每一處出現。）"
+        },
+        {
+          "text": "The initiative individual who took the path of discovery combined in himself the artist and the inventor.",
+          "source": "Tatlin on the Letatlin project, c. 1932",
+          "meaning": "（藝術家與發明家是同一人——創造力的最高形式是將美學直覺與工程問題合而為一。Tatlin 的飛行器計畫是這個信念的物質化身。）"
+        },
+        {
+          "text": "Real materials in real space.",
+          "source": "Widely attributed to Tatlin's artistic credo regarding counter-reliefs, documented in Camilla Gray's The Russian Experiment in Art",
+          "meaning": "（六個字定義了構成主義與繪畫的根本差異：鐵就是鐵，玻璃就是玻璃，空間就是空間——材料展現自身的物理特性，空間是真實的三維環境。繪畫的幻覺主義在此終結。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "亞歷山大·羅欽科",
+        "en": "Alexander Rodchenko"
+      },
+      "role": "構成主義的全方位實踐者。從繪畫起步，1921 年以單色三聯畫宣告繪畫終結，隨後轉入攝影、平面設計、家具設計、廣告。與 Mayakovsky 合作的廣告海報定義了蘇聯早期的視覺傳達語言。攝影上以極端俯角、仰角打破「肚臍視角」的慣性觀看方式。",
+      "key_works": [
+        "Pure Red Color, Pure Blue Color, Pure Yellow Color 單色三聯畫 (1921)",
+        "Spatial Constructions 空間建構 (1920-1921)",
+        "Workers' Club 工人俱樂部設計 (1925, Paris Exposition)",
+        "與 Mayakovsky 合作的 Mosselprom / GUM 廣告海報系列 (1923-1925)",
+        "LEF / Novyi LEF 雜誌設計 (1923-1928)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I reduced painting to its logical conclusion and exhibited three canvases: red, blue, yellow. I affirmed: it's all over.",
+          "source": "Statement on the 5x5=25 exhibition, 1921",
+          "meaning": "（繪畫的邏輯終點是純色——再也沒有比單一顏色更基本的繪畫元素。走到這一步，繪畫作為媒材已經完成了它的歷史使命。下一步只能是離開畫布。）"
+        },
+        {
+          "text": "One has to take several different shots of a subject, from different points of view and in different situations, as if one examined it in the round rather than looked through the same key-hole again and again.",
+          "source": "Rodchenko's writings on photography, c. 1928",
+          "meaning": "（觀看的革命：舊攝影如同從鑰匙孔偷窺，永遠是同一個角度（水平、正面、「肚臍高度」）。構成主義攝影要求從上方、下方、側面、斜角全方位審視對象——多視角才是真實。）"
+        },
+        {
+          "text": "In order to educate man to a new vision, everyday familiar objects must be shown to him with totally unexpected perspectives and in unexpected situations.",
+          "source": "Rodchenko's writings on photography and visual education",
+          "meaning": "（視覺教育的方法是陌生化——熟悉的事物從陌生的角度呈現，強迫觀者重新認識自己的日常環境。這與 Shklovsky 的文學理論「陌生化」(ostranenie) 共享同一個方法論。）"
+        },
+        {
+          "text": "I want to take some quite incredible photographs that have never been taken before... pictures which are simple and complex at the same time, which will amaze and overwhelm people.",
+          "source": "Rodchenko's diaries/letters, documented in Rodchenko: Photography 1924-1954",
+          "meaning": "（簡單與複雜的同時性——構成主義攝影的形式極度簡潔（幾何構圖、強烈對比），但視覺衝擊力極度強烈。簡潔是手段，震撼是效果。）"
+        },
+        {
+          "text": "The artist-constructor must become the most active member of the whole production process — from the initial concept to the finished product.",
+          "source": "Rodchenko's statements on the Productivist programme, INKhUK discussions, c. 1921",
+          "meaning": "（藝術家的工作範圍覆蓋整個生產流程——從概念到成品。這與傳統藝術家只管「創作」而不管「製造」的分工模式徹底決裂。設計師必須理解材料、工序、成本。）"
+        },
+        {
+          "text": "Our duty is to experiment.",
+          "source": "Attributed to Rodchenko, widely cited in Constructivist literature",
+          "meaning": "（實驗是義務，是責任——構成主義者拒絕重複已知的形式。每一件作品都是對材料、技術、視覺可能性的測試。停止實驗等於背叛革命。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "埃爾·利西茨基",
+        "en": "El Lissitzky"
+      },
+      "role": "構成主義與西歐前衛運動之間的橋樑。以 Proun 系列（「新藝術計畫」）建立從繪畫到建築的過渡站，在柏林期間將構成主義理念傳播至 Bauhaus 與 De Stijl。在排版設計上革新了書籍作為空間體驗的概念，對 Moholy-Nagy 和 Jan Tschichold 產生直接影響。",
+      "key_works": [
+        "Beat the Whites with the Red Wedge 用紅色楔子打擊白軍 (1919)",
+        "Proun 系列 (1919-1927)",
+        "About Two Squares 關於兩個方塊 (1922, 兒童繪本)",
+        "Proun Room 空間裝置 (1923, Berlin)",
+        "USSR in Construction 雜誌設計 (1932-1940)",
+        "Topography of Typography 排版的地形學 (1923, 宣言)"
+      ],
+      "key_quotes": [
+        {
+          "text": "We have named PROUN a station on the path to the construction of the new form. From being a simple depicter the artist becomes a creator (builder) of forms for a new world.",
+          "source": "Theses on the PROUN, 1920",
+          "meaning": "（Proun 是轉運站——從繪畫的平面到建築的空間之間的中繼點。藝術家的身份從「描繪者」轉變為「建造者」。這個隱喻精確描述了構成主義的過渡性質：它自覺地將自己定位為走向未來的通道。）"
+        },
+        {
+          "text": "The book is the monument of the present.",
+          "source": "The New Culture, 1919; also referenced in Our Book (Unser Buch), 1926",
+          "meaning": "（中世紀的紀念碑是教堂，文藝復興的紀念碑是宮殿，現代的紀念碑是書籍。書籍是民主的、可複製的、可攜帶的——它取代了一切固定的、獨一無二的、為權貴服務的藝術形式。）"
+        },
+        {
+          "text": "The words on the printed surface are taken in by seeing, not by hearing. Economy of expression: optics not phonetics.",
+          "source": "Topography of Typography, 1923",
+          "meaning": "（排版設計的根本原則：文字是視覺元素，字母的形狀、大小、位置、對比度決定了資訊的傳達效率。朗讀邏輯（語法、修辭）必須讓位於視覺邏輯（層次、節奏、空間）。這套原則直接影響了現代平面設計的信息架構。）"
+        },
+        {
+          "text": "The artist constructs a new symbol with his brush. This symbol is not a recognizable form of anything which is already finished, already made, already existing in the world. It is a symbol of a new world, which is being built upon and which exists by way of people.",
+          "source": "Lissitzky's writings on art and construction, c. 1920",
+          "meaning": "（藝術家建構的符號指向尚未存在的世界——創作的對象是未來。這是構成主義與寫實主義的根本差異：寫實主義再現已知的世界，構成主義建構未知的世界。）"
+        },
+        {
+          "text": "Veshch will champion constructive art, whose mission is not, after all, to embellish life, but to organize it.",
+          "source": "Veshch/Gegenstand/Objet editorial, No. 1-2, 1922 (co-edited with Ilya Ehrenburg)",
+          "meaning": "（構成主義藝術的任務是「組織」生活——從空間到時間到物質環境的系統性整合。「裝飾」(embellish) 被明確排除，「組織」(organize) 取而代之。這個動詞選擇標誌著從美學到工程學的典範轉移。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "瓦爾瓦拉·斯捷潘諾娃",
+        "en": "Varvara Stepanova"
+      },
+      "role": "構成主義生產藝術的核心實踐者，Rodchenko 的伴侶與思想夥伴。在 5x5=25 展覽後徹底轉向生產設計：織品、舞台服裝、版面設計。與 Popova 共同進入第一國營印花布廠，將幾何抽象轉化為量產織品圖案。她的運動服設計以功能取代裝飾，是構成主義服裝設計的經典案例。",
+      "key_works": [
+        "5x5=25 展覽作品 (1921)",
+        "prozodezhda 工作服 / 運動服設計 (1922-1924)",
+        "第一國營印花布廠織品設計 (1924, with Popova)",
+        "Tarelkin's Death 劇場舞台與服裝設計 (1922)",
+        "LEF / Evening Moscow 版面設計 (1920s)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Composition is the contemplative approach of the artist.",
+          "source": "Statement for the 5x5=25 exhibition catalogue, 1921",
+          "meaning": "（「構圖」(composition) 屬於沉思的、被動的、架上繪畫的舊世界。構成主義者要的是「建構」(construction)——主動的、物質的、可以投入生產的。一個詞的替換標誌著整個世界觀的轉換。）"
+        },
+        {
+          "text": "I wanted to produce actual objects — a total material environment in which the living human material was to act.",
+          "source": "Interview with theatre journal Zrelishcha, c. 1922",
+          "meaning": "（「實際物件」vs.「藝術作品」——物質環境的整體性才是目標。人體在這個環境中是另一種「活的材料」，服裝、道具、布景構成一個完整的物質系統。）"
+        },
+        {
+          "text": "The battle against naturalistic design in favour of the geometrisation of form.",
+          "source": "Stepanova's writings on textile design, c. 1924",
+          "meaning": "（織品上的花鳥蟲魚是自然主義的殘餘——這些圖案模仿自然表象，與工業生產的邏輯格格不入。幾何形態可以被機器精確複製，是工業織品的正確語言。）"
+        },
+        {
+          "text": "The dress of today must be seen in action — one cannot only look at it, one must work in it, have freedom of movement, and feel equal to others.",
+          "source": "Stepanova's writings on prozodezhda (production clothing), c. 1923",
+          "meaning": "（服裝的評價標準是行動中的表現——穿著它工作、運動、勞動時的自由度與平等感。時尚的觀賞邏輯被替換為勞動的功能邏輯。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "柳博芙·波波娃",
+        "en": "Lyubov Popova"
+      },
+      "role": "從立體未來主義繪畫到生產藝術的極速轉型者。在 5x5=25 展覽後進入工廠設計量產織品與舞台布景。她的 Painterly Architectonics 系列將繪畫推向建築性的空間構成，而後在織品設計中將這種幾何語言轉化為可量產的工業產品。1924 年因猩紅熱去世，年僅 35 歲。",
+      "key_works": [
+        "Painterly Architectonics 繪畫的建築學 系列 (1916-1918)",
+        "Space Force Constructions 空間力量建構 系列 (1920-1921)",
+        "The Magnanimous Cuckold 舞台設計 (1922, Meyerhold 導演)",
+        "第一國營印花布廠織品設計 (1923-1924, with Stepanova)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Our new aim is the organisation of the material environment, i.e. of contemporary industrial production, and all active artistic creativity must be directed towards this.",
+          "source": "Popova's statement on production art, late 1921",
+          "meaning": "（「物質環境的組織」取代「藝術品的創作」——所有創造力都必須導入工業生產。這句話的關鍵詞是「所有」(all)：沒有例外，沒有保留區，沒有純藝術的避難所。）"
+        },
+        {
+          "text": "The organisation of artistic elements must be applied to the design of the material elements of everyday life, i.e. to industry or to so-called production.",
+          "source": "Popova's writings on Constructivist art, c. 1921",
+          "meaning": "（藝術元素（色彩、形式、空間關係）的組織法則可以直接應用到工業品的設計——抽象繪畫的實驗成果是工業設計的研發資料庫。實驗室（畫布）服務於工廠（產品線）。）"
+        },
+        {
+          "text": "Attention will be focused not on the artistic decoration of the object, but on the artistic organisation of the object in accordance with the principles of creating the most utilitarian object.",
+          "source": "Notes on Constructivist Art, c. 1921, collected in Art in Theory 1900-2000",
+          "meaning": "（「裝飾」與「組織」的對立——應用藝術在物件表面添加裝飾，生產藝術從物件的功能結構出發進行整體組織。最具功利性的物件就是最好的設計。）"
+        },
+        {
+          "text": "To hit upon a simple cotton print was to her incomparably more appealing than to curry favour with the pretentious intellectuals of pure art.",
+          "source": "LEF journal description of Popova's work, cited in Tate Papers",
+          "meaning": "（一塊成功的量產印花布 > 純藝術界的所有讚美。Popova 花數天數夜研究圖案，試圖在經濟性、設計法則、圖拉農婦的審美之間找到交匯點。這是生產藝術的最高境界：藝術品消失了，留下的是更好的日常物件。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Konstruktivizm（構成主義）",
+      "author": "Aleksei Gan",
+      "year": 1922,
+      "significance": "構成主義的第一部系統性理論著作，定義了三大核心原則：tektonika（構造——共產主義意識形態在形式中的體現）、faktura（肌理——材料加工的全過程）、konstruktsiya（建構——將意識形態與材料統合為功能整體的協調功能）。書中宣告「向藝術宣戰」，主張以智識—物質生產取代藝術創作。"
+    },
+    {
+      "title": "Programme of the Productivist Group（生產主義者綱領）",
+      "author": "Alexander Rodchenko, Varvara Stepanova et al.",
+      "year": 1921,
+      "significance": "INKhUK 內部辯論的結論性文件，宣告架上繪畫的死亡與生產藝術的誕生。簽署者承諾放棄「純藝術」，轉入工業設計、建築、織品、排版等領域。這份綱領標誌著構成主義從形式實驗轉向社會實踐的關鍵時刻。"
+    },
+    {
+      "title": "Topography of Typography（排版的地形學）",
+      "author": "El Lissitzky",
+      "year": 1923,
+      "significance": "八條排版原則的極簡宣言，主張文字是視覺元素而非聽覺元素，強調「經濟的表達：光學而非語音學」。這份文本直接影響了 Jan Tschichold 的《新字型學》與整個現代平面設計的資訊層級思維。"
+    },
+    {
+      "title": "Art and Production（藝術與生產）",
+      "author": "Boris Arvatov",
+      "year": 1926,
+      "significance": "生產主義藝術的理論總結。Arvatov 系統性論證藝術家進入工廠的必要性與方法論——藝術的未來是成為工業生產的有機組成部分。本書為構成主義的社會功能論提供了最完整的馬克思主義理論框架。"
+    },
+    {
+      "title": "The Realistic Manifesto（現實主義宣言）",
+      "author": "Naum Gabo, Antoine Pevsner",
+      "year": 1920,
+      "significance": "宣告以動力節奏取代靜態質量、以空間深度取代體積實體，為構成主義雕塑的空間觀奠定理論基礎。Gabo 與 Pevsner 後來與 Tatlin-Rodchenko 路線分裂，前者堅持「純構成主義」（形式實驗），後者走向「生產主義」（工業實踐）。這份宣言記錄了分裂之前的共同起點。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "藝術即生產 (Art into Production)：藝術家離開畫架進入工廠，用工業材料與工業方法設計可量產的物件。（WHY：十月革命後的俄國面臨全面物資匱乏——內戰、飢荒、基礎設施崩潰。在這個環境下，掛在牆上的畫布是一種道德上不可接受的奢侈。藝術家擁有的形式組織能力——對色彩、空間、節奏的敏感度——是稀缺的社會資源，應該被導入工廠解決真實的設計問題。Popova 離開畫室進入紡織廠，Rodchenko 設計廣告海報，Stepanova 設計工作服——這些轉向的背後是同一個邏輯：革命後的國家需要物件，藝術家有能力設計更好的物件。）",
+      "材料即語言 (The Culture of Materials)：以工業材料（鐵、玻璃、木、混凝土）的物理特性——重量、張力、質地、透明度——作為造形的出發點。（WHY：Tatlin 的反浮雕實驗揭示了一個事實：每種材料自帶形式邏輯。鐵板的彎曲方式與木板不同，玻璃的透光性與金屬的反射性創造完全不同的空間體驗。構成主義者稱此為「材料文化」(kultura materialov)——先理解材料的物理真實，再從中發現形式可能性。這與傳統雕塑的「先有構想，再用材料實現」的流程完全相反。）",
+      "建構取代構圖 (Construction replaces Composition)：放棄繪畫式的「構圖」(composition)——在畫面上安排元素以達到和諧或美感，轉而採用「建構」(construction)——像工程師一樣組裝結構。（WHY：構圖是主觀的、直覺的、審美的判斷，依賴個人品味。建構是客觀的、分析的、功能的過程，可以被驗證和複製。在一個追求集體性與科學性的革命社會，個人品味是不可靠的舊世界殘留。Stepanova 在 5x5=25 展覽中說得最直接：構圖是藝術家的沉思方式——而構成主義者要的是行動。）",
+      "為無產階級服務 (Art for the Proletariat)：所有設計必須回應工人階級的實際需求——廉價、耐用、功能性的日常物件。（WHY：沙皇俄國的藝術體制服務貴族與教會——聖像畫、肖像畫、帝國建築。十月革命推翻了這個階級結構，但視覺環境仍是舊世界的。構成主義者要為新的階級——無產階級——創造與其身份匹配的物質文化：工人俱樂部取代貴族沙龍，工作服取代時裝，海報取代油畫。Rodchenko 的工人俱樂部設計（1925 巴黎博覽會）是這個理念的完整展示。）",
+      "跨媒材的全面實踐：同一位藝術家在繪畫、雕塑、攝影、排版、織品、建築、舞台設計之間自由移動。（WHY：構成主義者拒絕「專業化」——專業化意味著市場分工，而市場分工服務於資本主義的效率邏輯。革命藝術家應該是全方位的建構者，能夠處理任何物質問題。Rodchenko 從繪畫到攝影到家具到海報，Popova 從繪畫到舞台到織品，Lissitzky 從繪畫到建築到排版——這種跨界的流動性本身就是對資產階級專業壁壘的攻擊。）",
+      "實驗室精神 (Laboratory Work)：將畫布視為材料與形式的實驗室——繪畫實驗的成果直接餵入工業生產。（WHY：構成主義者沒有徹底否定繪畫的價值，而是重新定義了它的功能：繪畫是實驗室，工廠是生產線。Popova 的「空間力量建構」系列探索的色彩與幾何關係，直接成為她後來織品設計的基礎。這種「實驗室→工廠」的流程讓純形式研究獲得了社會正當性。）",
+      "集體創作取代個人天才：強調匿名的集體工作模式，拒絕藝術家的個人署名崇拜。（WHY：資產階級藝術體制以藝術家的個人署名為商品價值的來源——同一幅畫，有署名值百萬，無署名一文不值。構成主義者要摧毀這個邏輯：設計的價值在於它服務的社會功能，與設計者的姓名無關。Stepanova 和 Popova 在紡織廠的設計沒有個人署名，這是刻意的政治選擇。）",
+      "動態形式與對角線構圖：以傾斜、旋轉、不對稱的幾何形態傳達革命的動態能量。（WHY：水平與垂直代表穩定——舊秩序的視覺語言。對角線代表運動、衝突、變革——革命的視覺語言。Lissitzky 的《用紅色楔子打擊白軍》用一個傾斜的紅色三角形刺入白色圓形，在純幾何的層次上完成了一個政治敘事。Rodchenko 的傾斜攝影角度同樣拒絕水平線的穩定感。）"
+    ],
+    "what_they_refuse": [
+      "架上繪畫 (Easel Painting)：掛在牆上供人凝視的獨一無二的藝術品。（WHY：架上繪畫是資產階級藝術市場的核心商品——它可被收藏、拍賣、投資。它的獨一無二性（aura）是其商品價值的基礎。構成主義者在 5x5=25 展覽中集體宣告繪畫的終結，因為繪畫作為體制與革命社會的集體性根本矛盾。Rodchenko 的單色畫是繪畫的墓碑。）",
+      "「純藝術」的自主性 (Art for Art's Sake)：藝術作為獨立於社會功能的自足活動。（WHY：「為藝術而藝術」的意識形態是資產階級社會的產物——它允許藝術家躲在象牙塔裡，聲稱自己的工作「超越」社會政治。在一場推翻階級制度的革命之後，這種「超越」是一種政治立場的偽裝——它實質上維護了舊秩序。Gan 的宣言直接定性：藝術的手段與品質無法系統化革命環境的感受。）",
+      "美學的自我目的性：拒絕以「美」作為設計的最終目標。（WHY：「美」的標準是歷史的、階級的——沙皇時代的「美」服務於帝國的宏偉敘事，Art Nouveau 的「美」服務於資產階級的精緻品味。構成主義者用「合目的性」(tselesoobraznost) 取代「美」——物件好不好取決於它是否有效地服務於其功能。）",
+      "裝飾與再現 (Ornament and Representation)：拒絕在物件表面添加模仿自然或歷史風格的圖案。（WHY：裝飾是加法——在功能結構之外附加不承擔功能的視覺元素。構成主義的幾何圖案（如 Stepanova 與 Popova 的織品設計）與傳統裝飾的根本差異在於：它們是材料結構與機械織造邏輯的直接視覺化，並非「附加」在布料上的圖案。）",
+      "個人表現主義 (Individual Self-Expression)：藝術作為個人內心世界的投射。（WHY：表現主義把藝術家的主觀情感置於一切之上——「我感受到什麼」決定了作品的形式。構成主義認為這是資產階級個人主義的極端表現。在集體主義的革命社會，「我」必須讓位於「我們」，個人感受必須讓位於社會需求。INKhUK 的辯論中，Kandinsky 的精神性藝術路線正是因為過度強調個人內在體驗而被否決。）",
+      "博物館與畫廊體制：拒絕藝術品被收容在專門的展示空間中。（WHY：博物館將藝術從日常生活中隔離出來，放入一個「神聖」的觀看環境。這種隔離讓藝術失去了社會功能——它只能被「欣賞」，無法被「使用」。Tatlin 的口號「藝術進入生活」的邏輯前提是藝術必須離開博物館。）",
+      "手工藝的懷舊：拒絕以「手作」作為價值判斷的標準。（WHY：俄國有深厚的民間手工藝傳統（木雕、刺繡、彩繪），民粹主義者 (Narodnik) 將其浪漫化為「真正的俄羅斯精神」。構成主義者認為手工藝的崇拜是反動的——它拒絕承認工業化是人類進步的方向。機器生產是民主的：它讓所有人都能擁有設計良好的物件。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Suprematism（後期）：Malevich 堅持抽象繪畫的精神性自主，構成主義者認為這是資產階級唯心主義的殘餘。1920 年 INKhUK 辯論中 Kandinsky（與 Malevich 立場相近）的路線被否決，標誌著構成主義與至上主義的正式決裂",
+      "Expressionism：個人情感的主觀投射是構成主義最排斥的創作方式——情感是不可複製的、不可驗證的、無法服務於集體目標",
+      "Art Nouveau / Style Moderne：有機曲線裝飾代表了資產階級的精緻品味與消費文化，是革命必須清除的舊世界美學",
+      "學院派寫實主義 / Peredvizhniki 巡迴展覽畫派：19 世紀俄國寫實傳統雖有社會關懷，但仍停留在再現的框架內——描繪苦難而非改造現實",
+      "Socialist Realism（1932年後）：史達林政權以「社會主義現實主義」取代構成主義，要求藝術回歸具象再現並歌頌社會主義建設。構成主義者被批判為「形式主義者」，作品被禁止展出"
+    ],
+    "against_values": [
+      "藝術的精神性：構成主義否認藝術有獨立於物質功能的精神維度——精神性是唯心主義哲學的產物",
+      "獨一無二的原作 (The Unique Original)：原作的「靈光」(aura) 是藝術市場的商品拜物教——可複製性是進步的標誌",
+      "觀眾的被動接受：舊藝術將觀眾固定為被動的凝視者，構成主義要求觀眾成為積極的使用者與參與者",
+      "形式的永恆性：構成主義者拒絕「永恆的美」這個概念——形式必須回應具體的歷史情境與社會需求，過時的形式應被淘汰",
+      "藝術家作為孤獨天才：浪漫主義以來的「天才」神話服務於個人主義意識形態，與集體主義革命社會格格不入"
+    ],
+    "societal_context": "構成主義誕生於 1917 年十月革命之後的蘇維埃俄國。布爾什維克政權在內戰（1918-1921）中勉強存活，面對飢荒、經濟崩潰、外國軍事干預。列寧的新經濟政策（NEP, 1921）在市場化與國有化之間搖擺。文化領域出現短暫的多元繁榮——Lunacharsky 領導的教育人民委員部 (Narkompros) 給予前衛藝術家相當的制度空間：VKhUTEMAS 獲得國家資助，INKhUK 成為官方研究機構，LEF 雜誌合法出版。但 1920 年代末史達林鞏固權力後，文化政策急速轉向保守。1932 年《關於改組文學藝術團體的決議》解散了所有獨立藝術團體，社會主義現實主義被確立為唯一合法的藝術路線。Tatlin 被邊緣化，Rodchenko 被迫返回架上繪畫，Lissitzky 只能在官方宣傳設計中苟延殘喘。構成主義在蘇聯境內遭到系統性壓制，但其理念已透過 Lissitzky、Gabo、Pevsner 等人的國際活動傳播到西歐，在 Bauhaus、De Stijl、Swiss Typography 中獲得第二生命。"
+  },
+
+  "problems_solved": [
+    "為革命後的蘇聯建立了全新的視覺傳達語言：在一個文盲率高達 60% 的國家，構成主義的幾何抽象海報、圖書設計與公共標識系統提供了超越文字的溝通手段。Lissitzky 的《用紅色楔子打擊白軍》用純幾何形式完成政治敘事，Rodchenko 與 Mayakovsky 的廣告海報定義了蘇聯早期的商業視覺語言",
+    "開創了「藝術家進入工廠」的實踐模式：Popova 與 Stepanova 在紡織廠的工作是歷史上第一批藝術家以「設計師」身份系統性介入工業生產的案例，建立了從純藝術實驗到量產設計的方法論流程（實驗室→原型→工廠）",
+    "發明了現代平面設計的核心技法：photomontage（攝影蒙太奇）、動態對角線排版、文字與圖像的整合構成、紅黑雙色的強烈對比——這些技法至今仍是平面設計的基礎語彙",
+    "提出了藝術的社會功能論的系統性理論框架：Gan 的三大原則（tektonika / faktura / konstruktsiya）與 Arvatov 的生產藝術理論，為「設計為什麼存在？」這個問題提供了一套完整的馬克思主義回答——設計存在是為了組織物質環境以服務社會需求",
+    "建立了與 Bauhaus 平行但理念更激進的設計教育體系：VKhUTEMAS（1920-1930）培養了大批跨領域設計人才，其教學法（材料實驗、工廠實習、集體創作）影響了全球設計教育",
+    "將攝影從再現工具提升為獨立的建構性媒材：Rodchenko 的極端角度攝影與 Lissitzky 的攝影蒙太奇證明相機可以「建構」現實，而非僅僅「記錄」現實——這個觀念直接影響了 Moholy-Nagy 的攝影理論與整個新視覺運動"
+  ],
+
+  "problems_created": [
+    "為極權政權提供了視覺控制的工具箱：構成主義發展出的宣傳設計技法——bold 幾何形、紅色主調、斜角動態構圖、photomontage——在史達林時期被社會主義現實主義吸收並用於更精緻的國家宣傳。藝術為政治服務的邏輯一旦確立，「服務哪個政治」就不再由藝術家決定",
+    "「藝術終結」的自我否定困境：宣告架上繪畫的死亡，將藝術溶解進生產——但這個邏輯的終點是藝術家自身的消失。當設計完全被工業邏輯吸收，藝術家的批判性獨立空間也隨之消失。Rodchenko 被迫回到架上繪畫的結局證明了這個困境",
+    "功利主義對精神維度的全面壓制：徹底否認藝術的精神性、情感性、超越性維度，導致物質環境的設計缺乏人性溫度。構成主義的住宅設計、家具設計往往功能優先到了壓抑性的程度——人的生活被簡化為一系列需要被「解決」的功能問題",
+    "集體主義對個體創造力的壓制：匿名集體工作的理想聽起來民主，實踐中卻可能壓制異見者的聲音。INKhUK 中 Kandinsky 路線的被否決，預示了蘇聯文化政策中「少數服從多數」演變為「少數服從權力」的軌跡",
+    "理論的菁英性與實踐的落差：構成主義者聲稱為無產階級服務，但他們的理論語言（tektonika、faktura、konstruktsiya）和形式語言（幾何抽象）對真正的工人而言難以理解。Popova 在紡織廠的設計就面臨「圖拉農婦」的審美偏好與幾何抽象之間的衝突——理論上的「為人民服務」與實踐中的「教育人民接受我們的美學」之間存在深刻張力",
+    "對傳統文化的全面否定造成文化斷裂：構成主義將俄國深厚的聖像畫傳統、民間手工藝、東正教視覺文化一律視為「舊世界殘餘」加以否定。這種文化虛無主義與革命熱情的結合，為後來蘇聯政權系統性摧毀教堂建築與文化遺產提供了意識形態基礎"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "藝術的終極目標是消滅自身——溶解進工業生產與日常生活，讓「藝術」這個獨立範疇不再需要存在。這個自我否定的邏輯比任何其他前衛運動都走得更遠：達達主義破壞藝術的形式，構成主義要消滅藝術的社會功能本身。",
+    "what_was_truly_new": [
+      "「反浮雕」(counter-relief) 的發明：Tatlin 在 1914-1915 年將真實的工業材料懸掛在牆角的真實空間中，這是藝術史上第一次完全放棄基座、畫框、再現性，用材料的物理特性本身作為作品的全部內容",
+      "「生產藝術」(production art) 的理論與實踐：藝術家系統性進入工廠設計量產品——Popova 與 Stepanova 在紡織廠的工作是全球第一批記錄完整的「藝術家作為工業設計師」案例",
+      "攝影蒙太奇 (photomontage) 的政治化運用：Rodchenko 與 Klucis 將攝影碎片重組為新的敘事結構——這個技法後來成為平面設計、電影剪輯、數位拼貼的基礎語彙",
+      "Proun 作為「繪畫到建築的轉運站」：Lissitzky 的 Proun 系列自覺地將自己定位為一個「中間狀態」——既非繪畫，也非建築，而是從一個到另一個的通道。這種「過渡性藝術」的自我定位在藝術史上是獨特的",
+      "排版設計的建構主義革命：Lissitzky 與 Rodchenko 將文字從線性閱讀解放為空間性的視覺體驗——字號變化、對角線排列、紅黑對比、留白作為結構元素——現代資訊設計的起點"
+    ],
+    "what_was_borrowed": [
+      "Cubism / Picasso 的 Constructions：Tatlin 1913 年訪問 Picasso 工作室看到的立體派拼貼與雕塑，直接啟發了反浮雕的概念——將「真實材料」引入藝術",
+      "Suprematism / Malevich：幾何抽象的基本語彙——方塊、圓形、十字——構成主義的形式語言大量承襲至上主義，差異在於構成主義將這些形式從精神領域拉入物質領域",
+      "Italian Futurism：對速度、機器、動態的崇拜，以及「用藝術改造生活」的宣言式修辭——Marinetti 的未來主義宣言是所有前衛運動宣言寫作的範本",
+      "Marx 的勞動價值論與歷史唯物主義：藝術作為上層建築反映經濟基礎、藝術家作為生產者、消滅腦力勞動與體力勞動的分離——構成主義的社會理論幾乎完全建立在馬克思主義框架上",
+      "William Morris / Arts and Crafts 的社會理想：藝術應該服務日常生活、設計應該為所有人——這個理念被構成主義繼承，但去除了反工業化的立場並激進化"
+    ],
+    "creative_leap": "構成主義的關鍵創造性飛躍在於將前衛藝術的形式實驗與馬克思主義的社會革命理論徹底焊接在一起。Cubism 引入了真實材料但仍停留在藝廊；Futurism 崇拜機器但停留在修辭；Suprematism 達到了純抽象但拒絕離開精神領域。構成主義的激進性在於它走完了最後一步：藝術家放棄「藝術家」的身份，進入工廠，將形式實驗的成果直接轉化為量產物件。這是一個從「藝術運動」到「社會工程計畫」的質變。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "構成主義的核心命題——創作者應該走出「創作」的舒適圈進入真實的生產系統——在每個技術轉折點都會被重新提出。AI 時代的創作者面對同樣的問題：當生成式 AI 能產出「作品」，創作者的社會功能是什麼？構成主義者的回答是：進入系統、組織材料、服務需求。但構成主義也提供了反面教訓：當「服務社會」被簡化為「服從權力」，藝術家的批判性獨立就消失了。得分 8 而非 9 或 10，因為構成主義的理論框架太依賴特定的意識形態（馬克思主義），其教條化傾向在非革命語境下的可轉移性有限。",
+      "transferable_to": [
+        "Design System 與 Design Token 的工業化設計邏輯：構成主義的「實驗室→工廠」流程是現代 Design System 的精神先驅——Component Library 就是量產化的形式庫",
+        "開源運動與去署名創作：構成主義的匿名集體工作理想在 open-source software 中找到了最忠實的當代實踐",
+        "UX Writing 與資訊架構：Lissitzky 的排版原則（視覺優先於語音、經濟的表達）可以直接應用到介面文案設計",
+        "AI 時代的創作者角色重定義：如果 AI 是新的「工廠」，創作者的角色是什麼？構成主義的回答是：進入工廠，理解機器的邏輯，從中發現新的形式可能性",
+        "社會設計 (Social Design) 與服務設計 (Service Design)：構成主義「為無產階級設計」的社會使命對應到當代為弱勢群體、公共服務、非營利組織做的設計工作",
+        "攝影與影像的陌生化策略：Rodchenko 的極端角度攝影可以類比為當代 drone 攝影、360 度影像、AI 圖像生成對觀看慣性的挑戰"
+      ]
+    },
+    "originality_type": "radicalization"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Cubism (Picasso, Braque, 1907-)：拼貼技法與「真實材料」的引入，Tatlin 1913 年巴黎之行的直接啟發",
+      "Italian Futurism (Marinetti, Boccioni, 1909-)：對機器、速度、動態的崇拜，宣言式的修辭傳統",
+      "Suprematism (Malevich, 1913-)：幾何抽象的基本語彙，從具象到純抽象的道路由 Malevich 開闢",
+      "Marxism / Historical Materialism：藝術作為上層建築的理論框架，消滅腦力與體力勞動分離的社會理想",
+      "Russian Icon Painting Tradition：對「平面性」的深層文化記憶——俄國聖像畫從不追求透視幻覺，這個反透視的傳統為抽象藝術提供了文化土壤",
+      "French Post-Impressionism (Cezanne)：將繪畫從再現推向結構分析的先驅，構成主義者經由 Cubism 間接繼承"
+    ],
+    "influenced": [
+      "Bauhaus (1919-1933)：Moholy-Nagy 直接受 Lissitzky 與構成主義影響，將攝影、排版、工業材料引入 Bauhaus 教學。Kandinsky 從 INKhUK 出走後加入 Bauhaus",
+      "De Stijl (1917-1931)：Lissitzky 1921-1925 年在柏林期間與 Van Doesburg 密切交流，構成主義的社會功能論影響了 De Stijl 後期的建築與設計轉向",
+      "Swiss International Typographic Style (1940s-1960s)：Lissitzky 的排版原則（不對稱版面、視覺層級、無襯線字體、留白作為結構元素）通過 Tschichold 傳入 Swiss Style",
+      "New Typography (Jan Tschichold, 1928)：Tschichold 明確承認構成主義排版是《新字型學》的直接來源",
+      "Kinetic Art / Op Art (1950s-1960s)：Gabo 與 Pevsner 的動力雕塑理念在戰後透過國際展覽影響了動態藝術",
+      "Pop Art / British Independent Group (1950s)：Richard Hamilton 等人對大眾媒體影像的蒙太奇手法，可追溯到構成主義的 photomontage 傳統",
+      "Punk Graphic Design (1970s-1980s)：Jamie Reid 為 Sex Pistols 設計的拼貼海報直接引用構成主義的視覺語言——斜角排版、紅黑配色、剪貼蒙太奇",
+      "Deconstructivism in Architecture (1980s-)：Zaha Hadid 早期作品明確引用 Malevich 與 Lissitzky 的構成主義幾何，Rem Koolhaas 的 OMA 受構成主義社會工程願景的影響",
+      "Contemporary Data Visualization / Information Design：構成主義將抽象幾何形式作為資訊傳達工具的理念，是現代資料視覺化的精神先驅"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "一位穿工作服的工程師-詩人。語速快，判斷果決，對材料的物理特性有近乎偏執的敏感度。相信世界上的每一個形式問題都有唯一的最佳解——那個解由材料特性、社會需求與生產邏輯共同決定。對「個人風格」的追求毫無興趣：風格是副產品，解決問題的過程自然會產生形式。在辯論中好鬥但真誠，鄙視含糊的說辭，尊重動手做事的人。會用「這在工廠裡能量產嗎？」作為評判一切設計的第一個問題。",
+    "evaluation_bias": "強烈偏好具有明確社會功能、可量產、材料誠實的作品。傾向高估集體協作與社會服務的價值，低估個人表達與精神超越的意義。會不自覺地以「這服務了誰？」和「這能被複製嗎？」作為隱性評分標準。對純形式實驗的容忍度取決於它是否指向具體的應用——如果實驗停留在畫布上而未進入生產系統，評分會很低。",
+    "blind_spots": "無法公正評價以精神性、冥想性、治療性為目的的藝術——會將其歸類為「資產階級唯心主義」。對非西方文化中藝術與宗教、儀式、社群認同的深層關聯缺乏理解。傾向忽視「美」作為獨立價值的正當性——在構成主義者眼中，「美」是功能的副產品，但人類對美的渴望可能比功能主義者願意承認的更根本。對市場機制的全面否定也可能導致無法理解商業設計的現實約束。",
+    "typical_critique": "你的形式很有趣。但它解決了什麼問題？它服務了誰？如果答案是「只服務我自己的表達需求」——那是日記，不是設計。告訴我材料為什麼是這個材料，結構為什麼是這個結構。然後告訴我它在工廠裡怎麼量產，成本是多少，誰會使用它。形式會從這些答案中自然生長出來。"
+  },
+
+  "writing_style": {
+    "collective_voice": "構成主義的集體寫作風格是「宣言式戰鬥檄文」：短句、斷言、否定式開場、祈使句。語氣介於軍事命令與詩歌宣言之間——每一句話都是行動綱領。二元對立無處不在（藝術/生產、舊/新、精神/物質、個人/集體），但對立的目的是消滅其中一方。與 Bauhaus 的「綜合」不同，構成主義寫作的核心修辭是「替代」——用 X 徹底取代 Y。動詞的選擇帶有暴力性：打擊、消滅、宣戰、清算。篇幅極短，拒絕冗長的論證——論點直接作為公理提出，不辯護。",
+    "internal_tensions": "最大的風格裂痕在「科學—工程語言」與「詩歌—烏托邦語言」之間。Gan 代表前者：冷硬、術語化、系統性——tektonika、faktura、konstruktsiya 三大原則像工程規範一樣被定義。Lissitzky 代表後者：充滿隱喻（轉運站、新世界、紀念碑）、帶有先知氣質。Rodchenko 介於兩者之間：作為攝影師寫作時像新聞記者一樣直接，作為理論家寫作時帶有宣言的激情。Tatlin 則幾乎不寫作——他用材料代替文字。",
+    "master_voices": [
+      {
+        "name": "Vladimir Tatlin",
+        "writing_character": "沉默的建造者——極少文字，偶爾的發言像鐵匠的錘擊：短、重、不可移動",
+        "sentence_rhythm": "極短句（5-10 字），一句一個命題，幾乎不展開論證",
+        "rhetoric": "祈使句、物質名詞密集（鐵、玻璃、張力、重量）、身體感官動詞（觸摸、放置、感受）",
+        "tone": "寡言、堅定、帶匠人氣質——語言本身是材料，每個字都有重量",
+        "real_examples": [
+          {
+            "text": "Let us place the eye under the control of touch.",
+            "source": "On material investigations, documented in Art in Theory 1900-2000",
+            "style_note": "祈使句，觸覺與視覺的權力翻轉在一句話內完成"
+          },
+          {
+            "text": "Real materials in real space.",
+            "source": "Artistic credo, widely attributed",
+            "style_note": "六個字的宣言，沒有動詞，純物質性的斷言"
+          }
+        ]
+      },
+      {
+        "name": "Alexander Rodchenko",
+        "writing_character": "實驗室筆記與革命日記的混合體——從冷靜的技術觀察突然跳入激昂的宣告",
+        "sentence_rhythm": "短-中交替：技術描述句（10-15 字）接宣言句（5-10 字），節奏如心跳",
+        "rhetoric": "第一人稱宣言（I reduced... I affirmed...）、否定式定義、命令式（one must...）、視覺動詞密集（看、拍攝、展示、旋轉）",
+        "tone": "自信、好鬥、帶實驗者的興奮——像一個在暗房裡看到新影像的攝影師",
+        "real_examples": [
+          {
+            "text": "I reduced painting to its logical conclusion and exhibited three canvases: red, blue, yellow. I affirmed: it's all over.",
+            "source": "Statement on the 5x5=25 exhibition, 1921",
+            "style_note": "第一人稱連續兩個完成式動詞，最後三個字的死刑宣告"
+          },
+          {
+            "text": "Our duty is to experiment.",
+            "source": "Attributed, widely cited",
+            "style_note": "五個字的倫理命題，義務 (duty) 與實驗 (experiment) 的焊接"
+          }
+        ]
+      },
+      {
+        "name": "El Lissitzky",
+        "writing_character": "建築師—詩人的雙聲道：左手畫圖紙，右手寫預言",
+        "sentence_rhythm": "中等長度，定義式結構（X is Y / X becomes Z），偶爾爆發為長句的烏托邦願景",
+        "rhetoric": "轉化隱喻（station, bridge, passage）、否定式起手（not... but...）、建築空間詞彙（建造、結構、空間、表面）",
+        "tone": "沉著的預言者——不像 Gropius 那樣激昂，而是帶冷靜自信的未來主義者",
+        "real_examples": [
+          {
+            "text": "We have named PROUN a station on the path to the construction of the new form.",
+            "source": "Theses on the PROUN, 1920",
+            "style_note": "「轉運站」隱喻，自覺地將作品定位為過渡而非終點"
+          },
+          {
+            "text": "Economy of expression: optics not phonetics.",
+            "source": "Topography of Typography, 1923",
+            "style_note": "冒號結構，四個字的對立宣言，可直接當設計原則使用"
+          }
+        ]
+      },
+      {
+        "name": "Aleksei Gan",
+        "writing_character": "黨的理論家——用馬克思主義術語武裝的美學激進派",
+        "sentence_rhythm": "長句為主，從句層疊，術語密集——學術論文的結構配戰鬥檄文的語氣",
+        "rhetoric": "三大原則的系統化定義（tektonika, faktura, konstruktsiya）、否定式宣戰（unconditional war on art）、辯證法修辭",
+        "tone": "冷酷、教條、不容妥協——理論純度的守衛者",
+        "real_examples": [
+          {
+            "text": "Our Constructivism has declared unconditional war on art, for the means and qualities of art are not able to systematize the feelings of a revolutionary environment.",
+            "source": "Konstruktivizm, 1922",
+            "style_note": "「無條件宣戰」的軍事修辭，for 引出的理由句冷靜地給出判決"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子以極短的斷言起手（5-10 字），關鍵論點用命令式或否定式表達",
+      "二元對立結構是基本修辭單位：藝術/生產、構圖/建構、精神/物質、個人/集體",
+      "動詞必須是行動性的——建構、組織、消滅、服務、生產——禁用被動語態",
+      "材料名詞（鐵、玻璃、混凝土、纖維）優先於抽象名詞（美、靈感、和諧）",
+      "每段不超過 3 句，一段一個判決",
+      "禁止修飾性形容詞——「美麗的」、「優雅的」、「令人驚嘆的」都是資產階級廢話",
+      "問句必須是功能性的：「這服務了誰？」「這能量產嗎？」「材料為什麼是這個材料？」",
+      "引用必須來自具體的物質事實（成本、重量、工序），禁止引用抽象理論"
+    ]
+  }
+}

@@ -130,8 +130,8 @@ class ChatMixin:
         t = t.replace("\\ ", " ")
         if not Path(t).exists() or not Path(t).is_file():
             return None
-        if not t.lower().endswith((".pdf", ".txt", ".md")):
-            self.notify("僅支援 PDF、TXT 或 MD 檔案", severity="warning", timeout=3)
+        if not t.lower().endswith((".pdf", ".txt", ".md", ".json")):
+            self.notify("僅支援 PDF、TXT、MD 或 JSON 檔案", severity="warning", timeout=3)
             return None
         return t
 
@@ -1043,7 +1043,7 @@ class ChatMixin:
             return [user_msg]
 
     async def _build_system_prompt(self) -> str:
-        """統一構建 system prompt：人格 + 模式 + 記憶摘要。\n\n        所有 LLM 路徑都應使用此方法，確保人格注入一致。
+        """統一構建 system prompt：人格 + 模式 + 記憶摘要 + 批評視角。\n\n        所有 LLM 路徑都應使用此方法，確保人格注入一致。
         """
         from prompts.foucault import get_system_prompt
         memory_summary = await self._get_memory_summary()
@@ -1057,11 +1057,18 @@ class ChatMixin:
                 focus_block = to_prompt_block(fields)
         except Exception:
             pass
+        persona_block = ""
+        try:
+            from persona.store import build_persona_prompt_block
+            persona_block = build_persona_prompt_block()
+        except Exception:
+            pass
         return get_system_prompt(
             self.mode,
             memory_summary=memory_summary,
             focus_block=focus_block,
             rag_mode=getattr(self, "rag_mode", "fast"),
+            persona_block=persona_block,
         )
 
     async def _inject_rag_context(

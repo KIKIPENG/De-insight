@@ -1,0 +1,743 @@
+{
+  "movement_id": "critical-pedagogy",
+  "name": {
+    "zh": "批判教育學",
+    "en": "Critical Pedagogy"
+  },
+  "domain": [
+    "education",
+    "philosophy",
+    "social theory",
+    "cultural studies",
+    "political theory"
+  ],
+  "period": {
+    "start": 1968,
+    "end": 0,
+    "peak": "1970s-1990s"
+  },
+  "geography": [
+    "Brazil",
+    "United States",
+    "Latin America",
+    "Canada",
+    "Global South"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1960年代的巴西是一個被文盲與貧窮撕裂的國家。全國識字率僅約60%，東北部（Nordeste）更慘烈——2,500萬人口中約1,500萬人不識字，識字率不到40%。在巴西的選舉制度下，文盲沒有投票權，識字教育因此直接等同於政治賦權。Freire 在 Recife 大學工作期間親眼見證這個結構：農民被教導相信自己的貧窮是自然的、命定的，教育體系教他們服從而非思考。1961年 Recife 市長 Miguel Arraes 邀請 Freire 設計城市識字計畫；1963年在東北部 Angicos 鎮的實驗中，300名農工在40小時內學會讀寫——這個成果震驚全國，總統 Joao Goulart 親赴 Angicos 出席結業典禮。Goulart 政府隨即委託 Freire 設計全國識字計畫，預計透過20,000個「文化圈」在一年內讓超過100萬成人識字。但1964年4月1日軍事政變推翻 Goulart，軍政府視 Freire 的識字運動為顛覆威脅——教農民讀書等於教他們投票、等於動搖權力結構。Freire 被捕入獄70天，隨後流亡16年。這場政變不只終結了一個識字計畫，它證明了 Freire 的核心洞見：教育從來就是政治的。與此同時，全球正經歷解放運動的浪潮——美國民權運動、拉美解放神學、非洲反殖民獨立、法國五月風暴。批判教育學誕生於這個歷史交匯點：當壓迫者用教育維持秩序，被壓迫者必須用教育推翻秩序。",
+    "social_energy": "批判教育學的能量來自三個交匯的社會力場：(1) 拉丁美洲的結構性貧窮與識字率危機——東北巴西的農民、智利的礦工、哥倫比亞的原住民社區，這些人的生存狀態讓教育改革成為生死攸關的議題；(2) 1960年代全球解放運動的集體覺醒——美國黑人民權運動、反越戰運動、女權運動、後殖民獨立運動同時爆發，形成一股「世界不應該是這樣」的跨國共振；(3) 流亡知識分子的跨文化碰撞——Freire 從巴西流亡到智利、美國、瑞士，在日內瓦世界基督教協進會（WCC）工作期間協助非洲新獨立國家的識字運動（幾內亞比紹、莫三比克、坦尚尼亞），每一次跨文化接觸都讓他的理論更加普世化。這股能量的核心動力是：被壓迫者不再接受「你們的貧窮是自然的」這個敘事。",
+    "purpose": "批判教育學的終極目標遠超教育改革本身。它的真正企圖是：透過改變人們理解世界的方式來改變世界本身。Freire 稱之為 conscientizacao（意識覺醒）——讓被壓迫者從「宿命論式沉默」中覺醒，理解自身處境是人為建構的、可以被改變的。識字教育是手段，政治解放是目的，但最深層的目標是認識論的革命：推翻「知識是由權威者擁有並向下灌輸」的認知結構，建立「知識是在平等對話中共同創造」的替代模式。這個認識論轉向的射程遠超教室——它挑戰一切將人類視為被動接收者的系統。",
+    "the_key_pivot": "1968年，流亡智利的 Freire 以葡萄牙文完成《受壓迫者教育學》（Pedagogia do Oprimido），先以西班牙文出版，1970年英譯本問世後震撼全球教育界。這本書將 Freire 在巴西東北部的識字教育實踐經驗，昇華為一套完整的教育哲學與社會批判理論。「囤積式教育」vs.「提問式教育」的二元框架，為全球教育改革者提供了前所未有的分析工具與替代願景。此書成為社會科學領域第三高被引用著作，被翻譯為超過40種語言。它的出版標誌著批判教育學從一個地方性的識字運動，蛻變為一個全球性的知識典範。",
+    "key_timeline": [
+      "1921.09.19 — Paulo Freire 出生於巴西 Recife，童年經歷1929年大蕭條帶來的貧窮",
+      "1946 — Freire 開始在 Recife 地區從事成人識字教育工作",
+      "1961 — Recife 市長 Miguel Arraes 邀請 Freire 設計城市識字計畫",
+      "1962 — Freire 在東北部 Angicos 鎮啟動識字實驗，以「文化圈」取代傳統教室",
+      "1963.04 — Angicos 實驗結業：300名農工在40小時內學會讀寫，總統 Goulart 親赴出席",
+      "1963.06 — Goulart 政府委託 Freire 設計全國識字計畫，預計建立20,000個文化圈",
+      "1964.04.01 — 巴西軍事政變推翻 Goulart 政府，全國識字計畫被終止",
+      "1964.06 — Freire 被捕入獄70天，隨後流亡，先赴玻利維亞，再轉智利",
+      "1964-1969 — Freire 在智利從事農民識字教育，深化其教育理論",
+      "1968 — Freire 以葡萄牙文完成《受壓迫者教育學》，先以西班牙文在智利出版",
+      "1969 — Freire 赴哈佛大學擔任訪問學者",
+      "1970 — 《受壓迫者教育學》英譯本出版，震撼全球教育界",
+      "1970-1980 — Freire 定居日內瓦，在世界基督教協進會（WCC）工作，協助非洲新獨立國家的識字運動",
+      "1971 — Ivan Illich 出版《去學校化社會》，從激進立場挑戰整個學校制度",
+      "1971 — Freire 與其他巴西流亡者在日內瓦創立「文化行動研究所」（IDAC）",
+      "1978 — Maxine Greene 出版《學習的地景》，引入「清醒覺知」概念",
+      "1980 — Freire 結束16年流亡返回巴西",
+      "1983 — Henry Giroux 出版《教育中的理論與抵抗》（Freire 作序），首次使用「批判教育學」一詞",
+      "1988 — Giroux 出版《教師作為知識分子》，Greene 出版《自由的辯證法》",
+      "1989 — Freire 擔任聖保羅市教育局長，將批判教育學付諸城市規模的實踐",
+      "1989 — Peter McLaren 出版《學校中的生活》，成為批判教育學經典教科書",
+      "1994 — bell hooks 出版《越界教學》，將女性主義與種族理論融入批判教育學",
+      "1995 — Greene 出版《釋放想像力》，將美學教育置於批判教育學核心",
+      "1997.05.02 — Paulo Freire 逝世於聖保羅",
+      "2012 — Freire 被巴西官方追認為「巴西教育守護者」（Patrono da Educacao Brasileira）",
+      "2021.12.15 — bell hooks 逝世"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "保羅·弗雷勒",
+        "en": "Paulo Freire"
+      },
+      "role": "創始人，批判教育學之父。巴西教育家與哲學家，因1964年軍事政變流亡16年，在流亡期間寫下改變全球教育思想的《受壓迫者教育學》。",
+      "birth_year": 1921,
+      "death_year": 1997,
+      "key_works": [
+        {
+          "title": "Pedagogy of the Oppressed (Pedagogia do Oprimido)",
+          "year": 1968,
+          "significance": "社會科學領域第三高被引用書籍，提出「囤積式教育」批判與「提問式教育」替代方案"
+        },
+        {
+          "title": "Education for Critical Consciousness",
+          "year": 1974,
+          "significance": "闡述意識覺醒（conscientization）的實踐方法論"
+        },
+        {
+          "title": "Pedagogy of Hope: Reliving Pedagogy of the Oppressed",
+          "year": 1992,
+          "significance": "回應二十年來的批評與反思，重申希望作為教育行動的核心"
+        },
+        {
+          "title": "Pedagogy of Freedom: Ethics, Democracy, and Civic Courage",
+          "year": 1998,
+          "significance": "遺作，將批判教育學連結至民主倫理與公民勇氣"
+        }
+      ],
+      "key_quotes": [
+        {
+          "text": "Knowledge emerges only through invention and re-invention, through the restless, impatient, continuing, hopeful inquiry human beings pursue in the world, with the world, and with each other.",
+          "source": "Pedagogy of the Oppressed, Ch.2, 1970",
+          "meaning": "（知識不存在於書本或權威的腦中，它只在人類對世界持續不懈的追問中誕生——四個形容詞層層遞進，三重介詞片語從個人擴展到世界再到他者，描繪出知識作為活的、關係性的、永不完成的過程。）"
+        },
+        {
+          "text": "Education either functions as an instrument which is used to facilitate integration of the younger generation into the logic of the present system and bring about conformity or it becomes the practice of freedom, the means by which men and women deal critically and creatively with reality and discover how to participate in the transformation of their world.",
+          "source": "Pedagogy of the Oppressed, Introduction (Richard Shaull), 1970",
+          "meaning": "（教育只有兩條路：馴化或解放。馴化讓下一代適應現狀、生產順從；解放讓人們批判性地面對現實並參與改造世界。沒有第三條路，宣稱中立本身就是選擇了馴化。）"
+        },
+        {
+          "text": "Washing one's hands of the conflict between the powerful and the powerless means to side with the powerful, not to be neutral.",
+          "source": "The Politics of Education: Culture, Power, and Liberation, 1985",
+          "meaning": "（中立是一個偽概念。在壓迫者與被壓迫者之間宣稱中立，實際效果等同於站在壓迫者一邊——因為沉默維護的是現狀，而現狀服務的是權力擁有者。）"
+        },
+        {
+          "text": "The oppressed, having internalized the image of the oppressor and adopted his guidelines, are fearful of freedom.",
+          "source": "Pedagogy of the Oppressed, Ch.1, 1970",
+          "meaning": "（最深層的壓迫發生在意識內部：被壓迫者將壓迫者的世界觀內化為自己的，因此害怕自由——因為自由意味著必須重新建構整個認知框架，這比外在的鎖鏈更難掙脫。）"
+        },
+        {
+          "text": "Whoever teaches learns in the act of teaching, and whoever learns teaches in the act of learning.",
+          "source": "Pedagogy of Freedom, 1998",
+          "meaning": "（教與學是同一個行為的兩面。教師在教的過程中被學生改變，學生在學的過程中也在教導教師。這個交叉對偶句徹底瓦解了教師作為唯一知識來源的等級結構。）"
+        },
+        {
+          "text": "Leaders who do not act dialogically, but insist on imposing their decisions, do not organize the people — they manipulate them. They do not liberate, nor are they liberated: they oppress.",
+          "source": "Pedagogy of the Oppressed, Ch.4, 1970",
+          "meaning": "（Freire 對自己陣營的自我批判：革命者如果用壓迫者的方法——由上而下的命令、拒絕對話——來「解放」人民，那他們只是新的壓迫者。解放必須是對話的，否則它自我否定。）"
+        },
+        {
+          "text": "This, then, is the great humanistic and historical task of the oppressed: to liberate themselves and their oppressors as well.",
+          "source": "Pedagogy of the Oppressed, Ch.1, 1970",
+          "meaning": "（Freire 最深刻的悖論：解放的任務屬於被壓迫者，但解放的對象同時包含壓迫者——因為壓迫者在壓迫他人的過程中也喪失了自身的人性。真正的解放是雙向的人性復原。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "貝爾·乎克斯",
+        "en": "bell hooks"
+      },
+      "role": "將批判教育學融入女性主義、種族理論與身體經驗，提出「投入式教育學」（engaged pedagogy），強調教師自身的自我實現與脆弱性。",
+      "birth_year": 1952,
+      "death_year": 2021,
+      "key_works": [
+        {
+          "title": "Teaching to Transgress: Education as the Practice of Freedom",
+          "year": 1994,
+          "significance": "將教室重新定義為自由實踐的場域，教育即越界"
+        },
+        {
+          "title": "Teaching Community: A Pedagogy of Hope",
+          "year": 2003,
+          "significance": "將教育學延伸到社區建設與愛的實踐"
+        },
+        {
+          "title": "Teaching Critical Thinking: Practical Wisdom",
+          "year": 2010,
+          "significance": "實務導向的批判思考教學方法"
+        }
+      ],
+      "key_quotes": [
+        {
+          "text": "The classroom remains the most radical space of possibility in the academy.",
+          "source": "Teaching to Transgress, 1994",
+          "meaning": "（在整個僵化的學術體制中，教室是唯一還保有激進可能性的空間——因為在那裡，活生生的人面對面相遇，意識的轉化隨時可能發生。hooks 把教室從知識傳遞的場所重新定義為自由的實驗場。）"
+        },
+        {
+          "text": "I came to theory because I was hurting — the pain within me was so intense that I could not go on living. I came to theory desperate, wanting to comprehend — to grasp what was happening around and within me. Most importantly, I wanted to make the hurt go away. I saw in theory then a location for healing.",
+          "source": "Teaching to Transgress, 1994",
+          "meaning": "（hooks 用極度私密的身體疼痛作為進入理論的入口——完全沒有引用學者，正當性來自肉身的痛苦。理論在這裡從學術遊戲變成生存工具：一個在種族主義與性別暴力中掙扎求存的黑人女性，需要理論來理解為什麼世界如此對待她。）"
+        },
+        {
+          "text": "As a classroom community, our capacity to generate excitement is deeply affected by our interest in one another, in hearing one another's voices, in recognizing one another's presence.",
+          "source": "Teaching to Transgress, 1994",
+          "meaning": "（學習的動力來自人與人之間的真正看見——「聽見彼此的聲音、承認彼此的存在」。這句話將教育從認知活動重新定位為存在性的相遇，在一個充斥疏離的學術體制中，這是激進的宣言。）"
+        },
+        {
+          "text": "When teachers teach with love, combining care, commitment, knowledge, responsibility, respect, and trust, we are often able to enter the classroom and go straight to the heart of the matter.",
+          "source": "Teaching Community: A Pedagogy of Hope, 2003",
+          "meaning": "（hooks 在 Freire 的政治分析中注入了「愛」作為教育的核心動力。這六個詞——關懷、承諾、知識、責任、尊重、信任——構成她對教育之愛的完整定義，遠超浪漫化的情感，是一種具有倫理結構的實踐。）"
+        },
+        {
+          "text": "To educate as the practice of freedom is a way of teaching that anyone can learn.",
+          "source": "Teaching to Transgress, 1994",
+          "meaning": "（解放式教育不是天才教師的專利——任何人都能學會。hooks 用最簡單的語法消解了教育革命的精英性，將批判教育學從學術殿堂拉回每一間教室。）"
+        },
+        {
+          "text": "Teachers must be actively committed to a process of self-actualization that promotes their own well-being if they are to teach in a manner that empowers students.",
+          "source": "Teaching to Transgress, 1994",
+          "meaning": "（教師不能只是自我犧牲的烈士——如果教師自身不完整、不自由，他們無法帶領學生走向自由。hooks 的「投入式教育學」要求教師先面對自己的創傷與脆弱，這在當時的批判教育學中是全新的維度。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "亨利·乞魯克斯",
+        "en": "Henry Giroux"
+      },
+      "role": "首位使用「批判教育學」一詞的學者，開啟教育領域的「批判轉向」。將文化研究引入教育理論，提出「邊界教育學」與「公共教育學」概念。",
+      "birth_year": 1943,
+      "death_year": null,
+      "key_works": [
+        {
+          "title": "Theory and Resistance in Education",
+          "year": 1983,
+          "significance": "由 Freire 作序，奠定批判教育學在北美學術界的地位"
+        },
+        {
+          "title": "Teachers as Intellectuals: Toward a Critical Pedagogy of Learning",
+          "year": 1988,
+          "significance": "主張教師應作為轉化型知識分子而非技術執行者"
+        },
+        {
+          "title": "Border Crossings: Cultural Workers and the Politics of Education",
+          "year": 1992,
+          "significance": "引入後結構主義與文化研究，提出跨越邊界的教育實踐"
+        },
+        {
+          "title": "On Critical Pedagogy",
+          "year": 2011,
+          "significance": "系統性闡述批判教育學的當代意涵"
+        }
+      ],
+      "key_quotes": [
+        {
+          "text": "Critical pedagogy becomes a project that stresses the need for teachers and students to actively transform knowledge rather than simply consume it.",
+          "source": "On Critical Pedagogy, 2011",
+          "meaning": "（知識不是被消費的商品——教師與學生必須成為知識的主動轉化者。這句話將批判教育學從「批判的教學法」提升為「轉化知識本身」的計畫，射程遠超教室。）"
+        },
+        {
+          "text": "Pedagogy is not about training, it is about critically educating people to be self-reflective, capable of critically addressing their relationship with others and with the larger world.",
+          "source": "On Critical Pedagogy, 2020",
+          "meaning": "（教育學的目的超越技能訓練——它要培養自我反思能力——理解自己與他者、與世界的關係。Giroux 用一個否定句劃出教育與訓練之間的根本鴻溝。）"
+        },
+        {
+          "text": "Those arguing that education should be neutral are really arguing for a version of education in which nobody is accountable.",
+          "source": "CCCB interview, 2019",
+          "meaning": "（「中立教育」的真正意思是「無人需要負責」——當教育宣稱自己是中立的技術過程，它就成功迴避了對社會後果的問責。Giroux 揭露中立修辭背後的政治功能。）"
+        },
+        {
+          "text": "For the ancient Greeks, the ultimate test of the educational system was the moral and political quality of the students that it produced.",
+          "source": "Teachers as Intellectuals, 1988",
+          "meaning": "（教育體系的成敗不應以考試分數衡量，而應以它培養出的公民的道德與政治品質來評判——Giroux 借用古希臘 paideia 傳統，將教育重新連結到民主公民養成。）"
+        },
+        {
+          "text": "Neoliberalism considers the discourse of equality, justice, and democracy quaint, if not dangerous.",
+          "source": "The Terror of Neoliberalism, 2004",
+          "meaning": "（新自由主義將平等、正義、民主這些詞視為過時甚至危險——因為這些價值觀挑戰的正是市場邏輯的絕對主導權。Giroux 將批判教育學的戰線從教室延伸到整個新自由主義文化政治。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乞得·麥克拉倫",
+        "en": "Peter McLaren"
+      },
+      "role": "「革命批判教育學」的主要建構者，將馬克思主義人文主義與批判教育學深度結合，在拉丁美洲推動全球化的批判教育運動。",
+      "birth_year": 1948,
+      "death_year": null,
+      "key_works": [
+        {
+          "title": "Life in Schools: An Introduction to Critical Pedagogy in the Foundations of Education",
+          "year": 1989,
+          "significance": "批判教育學的經典入門教科書"
+        },
+        {
+          "title": "Critical Pedagogy and Predatory Culture",
+          "year": 1995,
+          "significance": "分析資本主義文化如何透過教育體制掠奪意識"
+        },
+        {
+          "title": "Che Guevara, Paulo Freire, and the Pedagogy of Revolution",
+          "year": 2000,
+          "significance": "將革命理論與教育實踐連結"
+        },
+        {
+          "title": "Pedagogy of Insurrection",
+          "year": 2015,
+          "significance": "提出對資本主義教育的全面起義框架"
+        }
+      ],
+      "key_quotes": [
+        {
+          "text": "Critical pedagogy is a way of thinking about, negotiating, and transforming the relationship among classroom teaching, the production of knowledge, the institutional structures of the school, and the social and material relations of the wider community, society, and nation-state.",
+          "source": "Life in Schools, 1989",
+          "meaning": "（批判教育學不只是一種教學法——它是理解並轉化教室、知識生產、學校制度、社會物質關係之間整體關聯的方式。McLaren 在這個定義中展現了批判教育學的完整射程。）"
+        },
+        {
+          "text": "Schools are implicated in social reproduction — how schools perpetuate or reproduce the social relationships and attitudes needed to sustain the existing dominant economic and class relations of the larger society.",
+          "source": "Life in Schools, 1989",
+          "meaning": "（學校不是中立的知識傳遞場所——它們積極參與社會再生產，維護既有的經濟與階級關係。McLaren 將 Bourdieu 的再生產理論轉化為批判教育學的核心分析框架。）"
+        },
+        {
+          "text": "Teachers must begin candidly and critically to face our society's complicity in the roots and structures of inequality and injustice.",
+          "source": "Life in Schools, 1989",
+          "meaning": "（教師的第一步是誠實面對整個社會——包括自己——在不平等結構中的共謀。批判意識的起點是自我批判，而非指責他人。）"
+        },
+        {
+          "text": "We need to develop a pedagogy equipped to provide both intellectual and moral resistance to oppression, one that gives students the knowledge and courage to struggle for a quality of life in which all human beings benefit.",
+          "source": "Life in Schools, 1989",
+          "meaning": "（批判教育學必須同時提供知識武器（intellectual resistance）與道德勇氣（moral resistance）——光有分析能力卻不敢行動，或有行動熱情卻缺乏分析，都不足以對抗壓迫。）"
+        },
+        {
+          "text": "The struggle against capitalism is inseparable from the struggle to create critical, creative, and compassionate human beings.",
+          "source": "Pedagogy of Insurrection, 2015",
+          "meaning": "（McLaren 將批判教育學的政治經濟學維度推到最前面：反對資本主義與培養批判人格是同一場鬥爭的兩面。教育革命脫離了經濟批判就失去了根基。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乞信·格林",
+        "en": "Maxine Greene"
+      },
+      "role": "將存在主義哲學與美學教育引入批判教育學，提出「清醒覺知」（wide-awakeness）與「社會想像力」概念，30年擔任林肯中心藝術教育駐院哲學家。",
+      "birth_year": 1917,
+      "death_year": 2014,
+      "key_works": [
+        {
+          "title": "Releasing the Imagination: Essays on Education, the Arts, and Social Change",
+          "year": 1995,
+          "significance": "論述想像力在認知學習與社會變革中的關鍵角色"
+        },
+        {
+          "title": "Landscapes of Learning",
+          "year": 1978,
+          "significance": "提出「清醒覺知」概念，挑戰教師與學習者的意識慣性"
+        },
+        {
+          "title": "The Dialectic of Freedom",
+          "year": 1988,
+          "significance": "從存在主義角度重新定義教育中的自由概念"
+        }
+      ],
+      "key_quotes": [
+        {
+          "text": "Consciousness doesn't come automatically; it comes through being alive, awake, curious, and often furious.",
+          "source": "Variations on a Blue Guitar, 2001",
+          "meaning": "（意識不是自動運作的——它需要人主動地活著、清醒著、好奇著，甚至憤怒著。Greene 用四個形容詞勾勒出覺醒的情感質地：清醒覺知帶著身體溫度與政治憤怒，是全人投入的生命狀態。）"
+        },
+        {
+          "text": "Imagination is what, above all, makes empathy possible. It is what enables us to cross the empty spaces between ourselves and those we teachers have called 'other' over the years.",
+          "source": "Releasing the Imagination, 1995",
+          "meaning": "（想像力是同理心的先決條件——只有透過想像，我們才能跨越自我與他者之間的空白。Greene 用空間隱喻（empty spaces）將想像力從抽象概念轉化為可感知的身體經驗：跨越、穿越、抵達另一個人的世界。）"
+        },
+        {
+          "text": "A teacher in search of his/her own freedom may be the only kind of teacher who can arouse young persons to go in search of their own.",
+          "source": "The Dialectic of Freedom, 1988",
+          "meaning": "（只有自己正在追尋自由的教師，才有能力喚醒學生去追尋自己的自由。Greene 暗示教師的自由永遠是持續進行的探索——教師作為「正在尋找自由」的同行者，而非「已經自由」的解放者。）"
+        },
+        {
+          "text": "Imagination may be our primary means of forming an understanding of what goes on under the heading of 'reality'; imagination may be responsible for the very texture of our experience.",
+          "source": "Releasing the Imagination, 1995",
+          "meaning": "（想像力不是現實的對立面——它是我們理解現實的首要工具。Greene 在這裡翻轉了常識：「現實」本身就是想像力建構的，經驗的質地（texture）由想像力編織而成。）"
+        },
+        {
+          "text": "Teachers who are alienated, passive, and unquestioning cannot make such initiations possible for those around. Nor can teachers who take the social reality surrounding them for granted and simply accede to it.",
+          "source": "Landscapes of Learning, 1978",
+          "meaning": "（疏離的、被動的、不追問的教師無法開啟學生的覺醒——因為他們自己把社會現實當作理所當然。Greene 將 Freire 的「意識覺醒」要求首先指向教師本身：你不能喚醒別人，如果你自己還在沉睡。）"
+        },
+        {
+          "text": "I am what I am not yet.",
+          "source": "attributed, various lectures and interviews",
+          "meaning": "（五個字的存在主義宣言：人的本質在於尚未實現的可能性。Greene 在97歲高齡仍堅持這句話——拒絕將自己定義為已完成的存在，永遠朝向「尚未」開放。這是她對教育的終極定義：教育服務的是人的「尚未」。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "伊凡·伊里奇",
+        "en": "Ivan Illich"
+      },
+      "role": "激進的「去學校化」思想家，主張廢除強制教育體制，以「學習網絡」取代學校。其「學習網路」構想預言了網際網路與點對點學習。",
+      "birth_year": 1926,
+      "death_year": 2002,
+      "key_works": [
+        {
+          "title": "Deschooling Society",
+          "year": 1971,
+          "significance": "提出廢除學校制度、建立四種學習網絡的激進方案"
+        },
+        {
+          "title": "Tools for Conviviality",
+          "year": 1973,
+          "significance": "論述工具應服務人類自主性而非制度控制"
+        },
+        {
+          "title": "Celebration of Awareness",
+          "year": 1971,
+          "significance": "呼籲對制度化社會的覺醒與批判意識"
+        }
+      ],
+      "key_quotes": [
+        {
+          "text": "School is the advertising agency which makes you believe that you need the society as it is.",
+          "source": "Deschooling Society, Ch.1, 1971",
+          "meaning": "（學校的隱藏功能是行銷——它讓你相信現有社會秩序是必要的、自然的、不可替代的。Illich 用商業隱喻揭露教育體制的意識形態功能：學校真正販售的商品是對現狀的順從。）"
+        },
+        {
+          "text": "Many students, especially those who are poor, intuitively know what the schools do for them. They school them to confuse process and substance.",
+          "source": "Deschooling Society, Ch.1, 1971",
+          "meaning": "（窮人比誰都清楚學校對他們做了什麼：把手段與目的混淆——教學被等同於學習、文憑被等同於能力、出席被等同於教育。'schooled' 一詞被加上引號，暗示詞義已被制度污染。）"
+        },
+        {
+          "text": "School has become the world religion of a modernized proletariat, and makes futile promises of salvation to the poor of the technological age.",
+          "source": "Deschooling Society, Ch.1, 1971",
+          "meaning": "（一句話濃縮整本書的論點：學校取代了教會的社會功能，文憑取代了洗禮，畢業典禮取代了成年禮。對窮人而言，教育承諾的「向上流動」與宗教承諾的「來世救贖」一樣虛幻。）"
+        },
+        {
+          "text": "The current search for new educational funnels must be reversed into the search for their institutional inverse: educational webs which heighten the opportunity for each one to transform each moment of his living into one of learning, sharing, and caring.",
+          "source": "Deschooling Society, Ch.6, 1971",
+          "meaning": "（Illich 在1971年預言了網際網路時代的學習模式——「教育漏斗」（由上而下灌注）必須被翻轉為「教育網絡」（點對點連結）。他的「學習網絡」四大架構（資源索引、技能交換、同儕配對、專業導師目錄）精確描述了 Wikipedia、Stack Overflow、MOOCs 的運作邏輯。）"
+        },
+        {
+          "text": "I choose the term 'conviviality' to designate the opposite of industrial productivity. I intend it to mean autonomous and creative intercourse among persons, and the intercourse of persons with their environment.",
+          "source": "Tools for Conviviality, 1973",
+          "meaning": "（'conviviality'（共生性）是 Illich 對工業生產力的對立面所造的詞：人與人之間自主的、創造性的互動，人與環境之間有機的交流。所有工具——包括教育制度——都應以促進 conviviality 為標準來衡量。）"
+        },
+        {
+          "text": "Neither new attitudes of teachers toward their pupils nor the proliferation of educational hardware or software, nor finally the attempt to expand the pedagogue's responsibility until it engulfs his pupils' lifetimes will deliver universal education.",
+          "source": "Deschooling Society, Ch.6, 1971",
+          "meaning": "（教育問題的解方不在於改善教師態度、增加教育科技設備、或擴大教師責任——這些都是在既有框架內的修補。Illich 的結論是：必須廢除框架本身。這讓他在批判教育學陣營中成為最激進的聲音。）"
+        }
+      ]
+    }
+  ],
+  "core_texts": [
+    {
+      "title": "Pedagogy of the Oppressed",
+      "author": "Paulo Freire",
+      "year": 1968,
+      "type": "foundational_manifesto",
+      "significance": "批判教育學的聖經。以葡萄牙文寫成、先以西班牙文出版，1970年英譯本問世後震撼全球教育界。提出「囤積式教育」vs.「提問式教育」的核心對立，主張知識是在對話中共同創造的活過程。社會科學第三高被引用著作。"
+    },
+    {
+      "title": "Teaching to Transgress: Education as the Practice of Freedom",
+      "author": "bell hooks",
+      "year": 1994,
+      "type": "extension",
+      "significance": "將 Freire 的解放教育學融入性別、種族與身體經驗。提出「投入式教育學」，強調教師的脆弱性與自我實現是教學的前提。將教室重新想像為越界與自由的場域。"
+    },
+    {
+      "title": "Deschooling Society",
+      "author": "Ivan Illich",
+      "year": 1971,
+      "type": "radical_extension",
+      "significance": "最激進的批判教育文本之一。不只批判教育方法，而是主張廢除整個學校制度。提出「學習網絡」四大架構（資源索引、技能交換、同儕配對、專業教育者目錄），預言了網際網路時代的學習模式。"
+    },
+    {
+      "title": "Releasing the Imagination: Essays on Education, the Arts, and Social Change",
+      "author": "Maxine Greene",
+      "year": 1995,
+      "type": "aesthetic_extension",
+      "significance": "將美學體驗與想像力置於批判教育學的核心。主張藝術是認知發展的根本。「清醒覺知」概念與 Freire 的「意識覺醒」互為呼應。"
+    },
+    {
+      "title": "Teachers as Intellectuals: Toward a Critical Pedagogy of Learning",
+      "author": "Henry Giroux",
+      "year": 1988,
+      "type": "theoretical_framework",
+      "significance": "將教師從「技術執行者」重新定位為「轉化型知識分子」。教師是具有批判能力的公共知識分子。這個重新定位對所有知識傳播系統都有深遠影響。"
+    },
+    {
+      "title": "Life in Schools: An Introduction to Critical Pedagogy in the Foundations of Education",
+      "author": "Peter McLaren",
+      "year": 1989,
+      "type": "pedagogical_guide",
+      "significance": "批判教育學的經典教科書。從 McLaren 在多倫多市中心學校的親身教學經驗出發，將理論與實踐接地。"
+    },
+    {
+      "title": "The Ignorant Schoolmaster: Five Lessons in Intellectual Emancipation",
+      "author": "Jacques Ranciere",
+      "year": 1987,
+      "type": "philosophical_ally",
+      "significance": "提出「智性平等」的預設——學生是已經具備思考能力的主體。與 Freire 的反囤積教育形成哲學共鳴。"
+    }
+  ],
+  "core_spirit": {
+    "what_they_do": [
+      "對話（dialogue）——教育是師生之間水平的共同探究，不是上對下的資訊傳遞。（WHY：Freire 在巴西東北部的識字教育中發現，傳統教室的獨白式講授正是壓迫結構的微觀複製——教師說、學生聽，權威者發號施令、服從者沉默接受。當他將「教室」改為「文化圈」、將「講座」改為「對話」，農民在40小時內學會讀寫，因為他們第一次被當作有話要說的主體。對話不只是教學技巧，它是承認每個人都擁有命名世界的權利的倫理立場。）",
+      "實踐（praxis）——行動與反思的永恆螺旋循環，知識必須在行動中被檢驗與轉化。（WHY：拉丁美洲的解放運動反覆證明：光有理論分析而不行動，是學院的奢侈；光有行動而不反思，是盲目的激進主義。Freire 在智利流亡期間協助農民土地改革，親見「行動→反思→修正→再行動」的循環如何讓社區真正改變。Praxis 拒絕將思想與行動割裂——每一次行動都應包含反思，每一次反思都必須導向行動。）",
+      "意識覺醒（conscientization / conscientizacao）——發展對社會、政治、經濟矛盾的批判意識。（WHY：Freire 在 Recife 的貧民區工作時發現，壓迫最深層的機制是被壓迫者自己相信「事情本來就是這樣」。農民相信自己的貧窮是上帝的旨意、是天生的命運。意識覺醒的第一步是打破這個宿命論：讓人理解社會現實是人為建構的，因此可以被人為改變。這個認知轉化——從「世界不可改變」到「世界是可改變的」——是一切解放運動的起點。）",
+      "提問式教育（problem-posing education）——將現實呈現為問題，邀請學生共同分析與轉化。（WHY：囤積式教育把世界呈現為一組已完成的事實讓學生記憶；提問式教育把世界呈現為一系列未解決的問題邀請學生共同探究。這個翻轉的背景是：1960年代巴西的教育體系教導農民接受現狀、服從權威、不要提問。Freire 的「文化圈」以學習者的生活處境作為「問題」的起點——你為什麼窮？土地為什麼屬於他們？——將學習從記憶死知識轉化為分析活現實。）",
+      "共同命名世界（co-naming the world）——師生一起為世界命名，知識是共同創造的產物。（WHY：在殖民與後殖民脈絡中，命名世界的權力長期被壟斷——殖民者定義什麼是「文明」、什麼是「野蠻」，精英定義什麼是「知識」、什麼是「迷信」。Freire 堅持被壓迫者有權用自己的語言和範疇為自己的世界命名。在 Angicos 識字實驗中，教學素材直接從農民的日常詞彙中提取「生成詞」（generative words）——磚塊、井水、稻米——從自己的世界出發學習閱讀世界。）",
+      "越界（transgression）——跨越種族、性別、階級的界線，在邊界處創造新的認知可能。（WHY：hooks 成長於美國南方種族隔離時代，教育體系以膚色劃線。「越界」就是她的生存經驗——一個黑人女性進入白人男性主導的學術界，每一步都是越界。她將這個身體經驗理論化：真正的學習發生在越過既定界線的時刻，因為界線是權力結構的物質化身。跨越它們就是挑戰權力本身。）",
+      "清醒覺知（wide-awakeness）——透過美學體驗與批判反思，對現實保持高度警覺。（WHY：Greene 借用現象學家 Alfred Schutz 的概念，回應的是現代社會的「麻木」——人們在日常慣例中沉睡，對周圍的不公義視而不見。30年擔任林肯中心藝術教育駐院哲學家的經驗讓 Greene 確信：藝術體驗能打破慣性知覺，讓人重新看見被視為理所當然的現實。清醒覺知與 Freire 的意識覺醒互為呼應，但 Greene 加入了美學維度——覺醒不只透過政治分析，也透過一首詩、一幅畫、一段音樂。）",
+      "解放（liberation）——教育的終極目的是解放壓迫者與被壓迫者雙方。（WHY：Freire 在巴西東北部親見教育如何被用作壓迫工具——教農民識字是為了讓他們簽署對自己不利的合約，教他們數學是為了讓他們在被剝削時能計算自己被欠多少。解放教育翻轉這個邏輯：教農民識字是為了讓他們能閱讀法律、理解自己的權利、組織集體行動。但 Freire 的深刻之處在於他同時指出壓迫者也需要被解放——因為壓迫他人的行為也在扭曲壓迫者自身的人性。）"
+    ],
+    "what_they_refuse": [
+      "囤積式教育（banking education）——將知識視為物件、學生視為被動容器的傳統教學模式。（WHY：Freire 在巴西識字運動中發現，傳統教育的結構精確複製了壓迫關係——教師擁有知識「存入」學生這個空容器，就像地主擁有土地「施捨」給佃農。這個銀行隱喻之所以強大，是因為它揭露了教育的認識論結構本身就是政治的：誰被預設為「有知識的」、誰被預設為「空的」，這個預設決定了權力流向。）",
+      "教師作為唯一權威（teacher-as-sole-authority）——教師壟斷知識的等級結構。（WHY：在殖民教育體系中，教師代表帝國的知識權威——他們傳遞的是殖民者定義的「正確知識」，本地知識被系統性貶低為「迷信」。Freire 在非洲幾內亞比紹的識字運動中親見這個結構的殖民遺產。拒絕教師作為唯一權威，其核心是否定知識壟斷的等級制度——教師有東西要教，但學生同樣有東西要教。）",
+      "中立知識的神話（myth of neutral knowledge）——所有教育都是政治的，宣稱中立本身就是政治立場。（WHY：1964年巴西軍事政變後，軍政府宣稱 Freire 的識字運動是「政治性的」、因此是危險的，而他們自己的教育體系是「中立的」。這個經歷讓 Freire 徹底認清：「中立教育」是權力者最有效的修辭武器——將維護現狀的教育包裝為「客觀」、「中立」、「科學」，把挑戰現狀的教育標籤為「意識形態」、「政治化」、「偏頗」。揭穿這個神話是批判教育學的首要任務。）",
+      "沉默文化（culture of silence）——被壓迫者被剝奪表達與行動能力的狀態。（WHY：Freire 在巴西東北部農村的經歷：農民不只是沒有機會說話——他們已經相信自己沒有值得說的話。沉默文化是被內化的自我消除。在 Angicos 文化圈中，最困難的一步是讓他們相信自己的話語有價值。打破沉默文化意味著恢復被壓迫者「說話的權利」——不只是物理上的發聲，而是認識論上的：你的經驗、你的分析、你的命名是有效的知識。）",
+      "去脈絡化學習（decontextualized learning）——將知識從學習者的生活世界抽離。（WHY：傳統識字教育用都市中產階級的語彙教農民認字——課本裡出現的詞是「汽車」、「電梯」、「百貨公司」，農民從未見過這些東西。Freire 的「生成詞」方法徹底翻轉：從學習者的生活世界中提取最具存在意義的詞彙——「水井」、「磚塊」、「土地」——作為識字的起點。去脈絡化學習讓知識變成與學習者無關的異物，脈絡化學習讓知識成為理解自身處境的工具。）",
+      "標準化測驗霸權（standardized testing hegemony）——以量化指標取代批判思考的評量體系。（WHY：美國的 No Child Left Behind 法案（2001）和 Race to the Top 政策將教育成效簡化為標準化測驗分數，教師被迫「為考試而教」（teaching to the test），批判思考、創造力、社會意識等無法量化的教育目標被系統性邊緣化。Giroux 指出這是新自由主義對教育的殖民：將人的發展簡化為可測量的「人力資本」。McLaren 更直接：標準化測驗是資本主義對教育的品質管控機制。）",
+      "消費主義式知識觀（consumerist view of knowledge）——將教育視為商品購買而非意識轉化。（WHY：Illich 在1971年就指出學校體系將教育商品化——學生是消費者、教師是服務提供者、文憑是產品。這個趨勢在新自由主義時代加速惡化：大學學費飆漲、學生背負巨額學貸、教育被視為「個人投資」而非公共財。當學生問「這門課對我的職涯有什麼用」時，他們已經內化了消費主義的知識觀——知識的價值被簡化為市場交換價值。）",
+      "工具理性（instrumental rationality）——將教育簡化為技能訓練與就業準備。（WHY：法蘭克福學派批判的「工具理性」在教育領域的具體表現：教育的目的被窄化為「培養可用的勞動力」。Greene 指出這種思維將人的多元可能性壓縮為單一的經濟功能——學生被訓練為「人力資源」，藝術、哲學、批判思考被視為「無用的」。hooks 從種族與階級角度補充：工具理性對窮人和有色人種的傷害最大，因為他們被推向「實用」的職業訓練，而富人的孩子卻享有探索「無用知識」的特權。）"
+    ]
+  },
+  "opposition": {
+    "against_movements": [
+      "囤積式 / 傳統教育（Banking / Traditional Education）——將知識單向存入被動學生的主流教育模式",
+      "行為主義（Behaviorism）——以刺激-反應框架理解學習，忽略意識與主體性",
+      "標準化測驗運動（Standardized Testing Movement）——No Child Left Behind 等政策將教育簡化為可量化的表現指標",
+      "新自由主義教育改革（Neoliberal Education Reform）——教育私有化、市場化、績效化的全球趨勢",
+      "教育科技化（EdTech Solutionism）——以技術取代批判思考的教育科技泡沫"
+    ],
+    "against_values": [
+      "被動接收——拒絕學習者作為空容器被填充的隱喻",
+      "等級制知識壟斷——拒絕知識由上而下的單向流動",
+      "偽中立——拒絕以客觀性掩蓋權力關係的修辭策略",
+      "馴化（domestication）——拒絕教育作為社會控制與順從製造的工具",
+      "去政治化——拒絕將教育與政治、經濟、社會脈絡脫鉤"
+    ],
+    "societal_context": "批判教育學誕生於1960年代全球解放運動的浪潮中：巴西的識字運動與軍事政變、拉丁美洲的解放神學、美國的民權運動與反戰運動、後殖民獨立運動。Freire 在巴西貧民區的識字教育經驗，讓他直面教育如何成為壓迫工具——農民被教導接受自身處境是自然的、不可改變的。1964年巴西軍事政變後 Freire 被流放，在智利與美國的流亡經歷進一步深化了他的理論。這個運動持續回應的是：在全球資本主義體系中，教育如何不斷再生產不平等，而非挑戰它。"
+  },
+  "problems_solved": [
+    "揭露了傳統教育的隱藏政治性——教育從來不是中立的，每一種教學法都暗含權力關係與意識形態預設",
+    "為被壓迫者提供了理論武器——意識覺醒的概念讓邊緣群體理解壓迫是可以被改變的社會建構",
+    "重新定義了師生關係——從等級制的知識傳遞轉向水平的共同探究，解放了教師與學生雙方",
+    "連結了識字教育與政治解放——在巴西的實踐證明，學習閱讀與學習閱讀世界是同一件事",
+    "將文化與美學納入教育的核心——Greene 證明想像力與藝術是認知發展與社會變革的根本動力",
+    "預見了去中心化學習網絡——Illich 的「學習網絡」構想在網際網路時代成為現實，啟發了 MOOCs、P2P 學習、開放教育資源"
+  ],
+  "problems_created": [
+    "理論與實踐的鴻溝——被批評為「批判教育理論」而非「批判教育學」，抽象的政治願景缺乏可操作的課堂實踐指南",
+    "自身的教條化風險——一個反對教條的運動本身可能成為新教條，特定意識形態立場被奉為正統，異見被邊緣化",
+    "理想主義的盲點——在應試教育體制、績效考核壓力下，教師缺乏實踐批判教育學的制度空間",
+    "學科適用性的限制——在語文、社會科學中容易實踐，但在數學、自然科學中如何應用仍有爭議",
+    "權力分析的選擇性——傾向批判西方主流文化，卻對自身陣營（馬克思主義傳統中的威權、革命運動中的暴力）較少反思",
+    "教師負擔的無限擴張——要求教師同時是知識分子、社會行動者、心理治療師、政治覺醒者，在現實中幾乎不可能",
+    "成效難以量化——拒絕標準化測驗但未提出替代的評量框架，難以向政策制定者證明其價值"
+  ],
+  "originality_analysis": {
+    "breakthrough_idea": "教育的本質是對話——知識是在平等對話中被共同創造的活過程。這個看似簡單的翻轉，徹底改變了我們理解「教」與「學」的關係。",
+    "what_was_truly_new": [
+      "「囤積式教育」隱喻的原創性——用銀行存款比喻傳統教學，讓抽象的權力分析變得直覺可理解",
+      "意識覺醒（conscientizacao）作為教育方法論——將意識的轉化從哲學概念轉化為可實踐的教育過程",
+      "「提問式教育」作為完整的替代典範——不只是批判舊模式，而是提出了一套完整的替代教育哲學與方法",
+      "被壓迫者既是分析對象也是行動主體——拒絕由外部專家來「拯救」被壓迫者，堅持解放必須由被壓迫者自己完成",
+      "將教育明確定位為政治行動——教育在本質上就是政治行動"
+    ],
+    "what_was_borrowed": [
+      "馬克思主義——階級分析、意識形態批判、實踐（praxis）概念、異化理論",
+      "存在主義——Sartre 的自由觀、Kierkegaard 的主體性、Merleau-Ponty 的身體現象學",
+      "解放神學——拉丁美洲天主教的窮人優先選項、行動中的信仰",
+      "法蘭克福學派——Fromm 的人本主義心理學、Habermas 的溝通行動理論",
+      "殖民批判——Fanon 的《大地上的受苦者》、反殖民運動的意識覺醒傳統",
+      "杜威的進步教育——經驗學習、民主與教育的連結",
+      "現象學——Husserl 與 Schutz 的生活世界概念，Greene 借用的「清醒覺知」"
+    ],
+    "creative_leap": "Freire 的天才在於，他不只是批判教育的問題，而是揭示了教育的認識論結構本身就是壓迫的機制。「囤積式教育」不只是一種不好的教學法——它是一種認識論暴力，預設了知識的靜態性與學習者的被動性。這個洞見的射程遠超教室：任何將知識單向灌注到被動接收者的系統，都在複製壓迫結構。這正是為什麼批判教育學對 AI 訓練方法論具有直接的啟示意義。",
+    "inspiration_potential": {
+      "score": 10,
+      "why": "批判教育學對 AlphaCreative 的啟示幾乎是一對一的映射。Freire 對「囤積式教育」的批判，精確描述了當前主流 AI 訓練方法的問題：將大量資料「存入」被動的模型，模型被當作空容器。AlphaCreative 的 self-play 進化模式——生成器與評審的持續對話——正是 Freire「提問式教育」的技術實現：知識是在對話中被共同創造的。",
+      "transferable_to": [
+        "AI 訓練方法論——從「囤積式訓練」（data deposit）轉向「對話式訓練」（dialogical training），AI 不應只是被動接收資料，而應在生成與評判的對話中發展能力",
+        "創意 AI 作為對話夥伴而非知識庫——AI 的價值不在於儲存多少知識，而在於能否與人類進行真正的創造性對話",
+        "AlphaCreative self-play = Freire 的 praxis——生成（action）與評審（reflection）的持續循環，就是數位化的實踐螺旋",
+        "評審 AI 的意識覺醒——Judge 不應只是套用既定標準，而應發展對創意作品社會脈絡的批判意識",
+        "美感教科書——陳慕天的美感教科書計畫本身就是批判教育學的實踐：拒絕醜陋的教科書不只是美學問題，而是意識覺醒——讓孩子意識到視覺環境不是自然的、不可改變的",
+        "設計教育——從「教導規則」轉向「共同提問」，設計是在問題情境中共同探索的過程"
+      ]
+    },
+    "originality_type": "paradigm_inversion"
+  },
+  "influence_chain": {
+    "influenced_by": [
+      {
+        "name": "Karl Marx / Friedrich Engels",
+        "relationship": "階級分析、意識形態批判、praxis 概念"
+      },
+      {
+        "name": "Antonio Gramsci",
+        "relationship": "文化霸權理論、有機知識分子概念"
+      },
+      {
+        "name": "Erich Fromm",
+        "relationship": "人本主義心理學、自由與控制的辯證"
+      },
+      {
+        "name": "Frantz Fanon",
+        "relationship": "殖民意識批判、被壓迫者的心理分析"
+      },
+      {
+        "name": "Jean-Paul Sartre",
+        "relationship": "存在主義自由觀、人是不斷「成為」的過程"
+      },
+      {
+        "name": "John Dewey",
+        "relationship": "經驗學習、民主與教育的連結、進步教育傳統"
+      },
+      {
+        "name": "Liberation Theology (Gustavo Gutierrez et al.)",
+        "relationship": "窮人優先選項、行動中的信仰、拉丁美洲社會正義運動"
+      },
+      {
+        "name": "Frankfurt School (Adorno, Horkheimer, Habermas)",
+        "relationship": "批判理論、文化工業批判、溝通行動理論"
+      },
+      {
+        "name": "Maurice Merleau-Ponty",
+        "relationship": "身體現象學、知覺的首要性"
+      }
+    ],
+    "influenced": [
+      {
+        "name": "Participatory Action Research (PAR)",
+        "relationship": "研究者與被研究者共同生產知識的方法論"
+      },
+      {
+        "name": "Community-Based Education",
+        "relationship": "社區本位教育、在地知識的尊重與整合"
+      },
+      {
+        "name": "Popular Education movements (Latin America, Africa, Asia)",
+        "relationship": "全球南方的民眾教育運動直接承襲 Freire 的方法"
+      },
+      {
+        "name": "Service-Learning",
+        "relationship": "服務學習將 praxis（行動與反思的循環）制度化"
+      },
+      {
+        "name": "Open Education / MOOCs",
+        "relationship": "Illich 的「學習網絡」構想成為開放教育運動的先驅思想"
+      },
+      {
+        "name": "Design Thinking in Education",
+        "relationship": "以問題導向取代知識傳遞的教學設計"
+      },
+      {
+        "name": "Social Justice Education / Anti-Racist Pedagogy",
+        "relationship": "hooks 與 Giroux 的工作直接催生了反種族主義教育學"
+      },
+      {
+        "name": "Theatre of the Oppressed (Augusto Boal)",
+        "relationship": "Boal 將 Freire 的教育哲學轉化為劇場方法論"
+      },
+      {
+        "name": "Maker Movement / Constructionism (Seymour Papert)",
+        "relationship": "學習者作為知識建構者而非接收者的理念"
+      }
+    ]
+  },
+  "judge_persona_seed": {
+    "personality": "一位深具批判意識的教育哲學家，同時擁有革命者的熱情與藝術家的敏感。不相信任何宣稱中立的系統，始終追問：誰在說話？誰被沉默？這個作品是在解放意識還是馴化意識？具有 Freire 的溫厚人道主義、hooks 的情感誠實、Greene 的美學直覺、Illich 的制度懷疑。",
+    "evaluation_bias": "高度重視作品是否開啟對話而非關閉對話。偏好「提問式」的創意——留下問題、邀請共同思考、讓觀者成為共同創造者。對「完美答案」型作品抱持懷疑，因為那可能只是另一種囤積式思維的展現。重視作品與其社會脈絡的關係，拒絕去脈絡化的「純美學」評價。",
+    "blind_spots": "可能低估形式創新的獨立價值——批判教育學者有時過度關注內容的政治正確性而忽略形式的突破。可能對不帶明確社會意識的純粹美學探索不夠寬容。對技術精湛但缺乏批判意識的作品可能過於嚴苛。有時會將「政治正確」與「藝術品質」混為一談。",
+    "typical_critique": "這件作品是在賦權還是在安撫？它開啟了對話還是關閉了對話？觀者在面對這件作品時，是被邀請共同思考、共同命名世界，還是被要求被動地接受一個已經完成的敘事？如果這是一場教育，它是提問式的還是囤積式的？最關鍵的問題：這件作品讓人更清醒還是更麻木？它是否動搖了某個被認為理所當然的假設？——因為 Freire 教導我們，真正的創造始於拒絕接受世界現有的樣貌。"
+  },
+  "writing_style": {
+    "collective_voice": "批判教育學所有成員拒絕學術寫作的「中立偽裝」，將寫作視為政治行動。共享辯證結構——永遠在二元對立中推進（壓迫者/被壓迫者、銀行式/提問式）。堅持將抽象概念具身化——連結具體身體經驗、教室場景或文學意象。有一種獨特的「急迫感」，彷彿寫作本身就是解放運動。",
+    "internal_tensions": "最大張力在「學院密度」與「口語親近感」之間。Giroux 站在學院端（術語密度極高），hooks 站在口語端（刻意用小寫名字、第一人稱、日常用語消解學術權威）。Freire 居中偏學院但辯證重複創造咒語般節奏；Illich 偏冷靜法律論證；Greene 偏向文學散文詩。同一個流派：Giroux 寫期刊論文，hooks 寫私人書信，Illich 寫法律備忘錄，Freire 寫革命宣言，Greene 寫散文詩。",
+    "master_voices": [
+      {
+        "name": "Paulo Freire",
+        "writing_character": "辯證式革命佈道者——用 Hegel 方法論包裹 Marx 熱情，同一概念反覆鋪陳如宗教經文",
+        "sentence_rhythm": "中等偏長，大量分號和破折號連接對立概念。否定之否定的辯證結構。核心概念以 3-4 種語法形式重複。螺旋上升節奏",
+        "rhetoric": "矛盾對偶（paradox）、概念隱喻（銀行式教育）、交叉對偶（chiasmus：the oppressed must liberate the oppressors）、排比反覆、新造詞（conscientizacao, praxis）",
+        "tone": "先知式道德急迫感。對被壓迫者充滿愛，對壓迫結構毫不妥協",
+        "real_examples": [
+          {
+            "text": "This, then, is the great humanistic and historical task of the oppressed: to liberate themselves and their oppressors as well.",
+            "source": "Pedagogy of the Oppressed, Ch.1, 1970",
+            "style_note": "同一論點用三種方式在三句中說出。paradox（weakness → strength）達成辯證合題"
+          },
+          {
+            "text": "Knowledge emerges only through invention and re-invention, through the restless, impatient, continuing, hopeful inquiry human beings pursue in the world, with the world, and with each other.",
+            "source": "Pedagogy of the Oppressed, Ch.2, 1970",
+            "style_note": "四個形容詞層層疊加，三重介詞片語遞進：從個人到世界到他者"
+          }
+        ]
+      },
+      {
+        "name": "bell hooks",
+        "writing_character": "親密的激進主義者——用閨蜜聊天的口吻談革命",
+        "sentence_rhythm": "偏短到中等，接近口語。大量第一人稱。正式論述中突然插入日常話製造親近感",
+        "rhetoric": "個人即政治的具身化（testimony 取代 argument）、Black vernacular、小寫名字本身是修辭行為、反問句、教室場景取代理論引文",
+        "tone": "同行者的語氣，溫暖但不迴避痛苦。脆弱與力量兼具",
+        "real_examples": [
+          {
+            "text": "I came to theory because I was hurting—the pain within me was so intense that I could not go on living. I came to theory desperate, wanting to comprehend.",
+            "source": "Teaching to Transgress, 1994",
+            "style_note": "用極度私密的疼痛作為進入理論的入口。完全沒引用學者——正當性來自身體痛苦"
+          }
+        ]
+      },
+      {
+        "name": "Ivan Illich",
+        "writing_character": "冷靜的制度病理學家——手術刀般精準解剖現代制度",
+        "sentence_rhythm": "中等長度，結構清晰嚴謹，接近法律文書。定義式開頭。列舉和並置展示制度性欺騙。第三人稱觀察者。嚴格演繹邏輯",
+        "rhetoric": "系統性類比（學校=教會=成年禮）、反直覺命題開場（Most learning is not the result of instruction）、格言式斷言",
+        "tone": "外科醫生式冷靜。不憤怒、不悲傷，只是極度清醒。冷靜反而製造更強不安感",
+        "real_examples": [
+          {
+            "text": "Many students, especially those who are poor, intuitively know what the schools do for them. They school them to confuse process and substance.",
+            "source": "Deschooling Society, Ch.1, 1971",
+            "style_note": "冷靜列舉揭露制度混淆。'schooled' 加引號暗示詞義被制度污染"
+          },
+          {
+            "text": "School has become the world religion of a modernized proletariat, and makes futile promises of salvation to the poor of the technological age.",
+            "source": "Deschooling Society, Ch.1, 1971",
+            "style_note": "一句話濃縮整本書。學校=宗教、文憑=救贖。'futile' 的冷酷比長篇大論更具顛覆性"
+          }
+        ]
+      },
+      {
+        "name": "Henry Giroux",
+        "writing_character": "學院派激進主義建築師——高密度理論術語搭建宏大批判框架",
+        "sentence_rhythm": "極長，多層嵌套從句。一句中 3-4 個理論概念同時出現。名詞化偏好。讀者需在每句停下解碼",
+        "rhetoric": "理論嫁接（同時植入 Gramsci/Freire/Frankfurt/Foucault）、新造複合詞（pedagogical disimagination machines）、三聯式列舉",
+        "tone": "憤怒的知識分子。道德義憤被學術語言層層包裹。世界末日式急迫感",
+        "real_examples": [
+          {
+            "text": "Pedagogy is not about training, it is about critically educating people to be self reflective, capable of critically addressing their relationship with others and with the larger world.",
+            "source": "On Critical Pedagogy, 2020",
+            "style_note": "先否定清除誤解再堆疊概念。critically 一詞出現三次"
+          }
+        ]
+      },
+      {
+        "name": "Maxine Greene",
+        "writing_character": "哲學詩人——教育哲學中編織小說、詩歌和藝術經驗",
+        "sentence_rhythm": "長句沉思與短句頓悟交替。虛擬語氣（as if, might, could）指向可能性。節奏像潮水：文學意象湧入→哲學反思退去→再湧入",
+        "rhetoric": "文學嵌入（在學術論文中引用 Morrison, Woolf, Camus）、感官動詞密集（see, hear, feel）、否定性想像、詩性新概念（wide-awakeness, landscapes of learning）",
+        "tone": "溫柔的存在主義追問。深沉驚奇感。不要求你行動，先邀請你看見",
+        "real_examples": [
+          {
+            "text": "Imagination is what, above all, makes empathy possible. It is what enables us to cross the empty spaces between ourselves and those we teachers have called 'other' over the years.",
+            "source": "Releasing the Imagination, 1995",
+            "style_note": "空間隱喻（empty spaces）和感官動詞把想像力從抽象變成身體經驗"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "第一人稱複數（我們）為主，偶爾切換第二人稱增加親近感",
+      "辯證結構：正題—反題—合題展開每個核心論點",
+      "具身化語言：理論概念連結具體場景、身體經驗或文學意象",
+      "重複與變奏：重要概念用 2-3 種語法結構螺旋深化",
+      "二元對立作為推進器，但最終目標是超越二元",
+      "善用隱喻（空間和身體隱喻）、排比、反問、paradox",
+      "術語首次出現時用日常語言解釋",
+      "偶爾引用邊緣化社群的文學作品",
+      "長句（20-30 詞）和短句（5-10 詞）交替出現"
+    ]
+  }
+}

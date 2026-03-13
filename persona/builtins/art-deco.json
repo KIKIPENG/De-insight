@@ -1,0 +1,521 @@
+{
+  "movement_id": "art-deco",
+  "name": {
+    "zh": "裝飾藝術",
+    "en": "Art Deco",
+    "fr": "Arts Décoratifs"
+  },
+  "domain": [
+    "architecture",
+    "interior_design",
+    "furniture_design",
+    "jewelry_design",
+    "fashion_design",
+    "graphic_design",
+    "poster_design",
+    "typography",
+    "glass_art",
+    "sculpture",
+    "industrial_design",
+    "textile_design",
+    "film_set_design",
+    "fine_art"
+  ],
+  "period": {
+    "start": 1920,
+    "end": 1940,
+    "peak": "1925-1935（1925 年巴黎博覽會確立風格身份，隨後 Chrysler Building 與 Empire State Building 將裝飾藝術推向紀念碑尺度，直到大蕭條與二戰終結其全盛期）"
+  },
+  "geography": [
+    "Paris, France (epicenter, 1925 Exposition)",
+    "New York City, USA (skyscrapers, Chrysler Building, Empire State Building, Rockefeller Center)",
+    "Miami Beach, USA (largest concentration of Art Deco architecture)",
+    "Shanghai, China (The Bund, Peace Hotel, 1920s-1930s)",
+    "Mumbai (Bombay), India (Marine Drive, over 200 Art Deco buildings)",
+    "London, UK (Hoover Building, BBC Broadcasting House, Claridge's Hotel)",
+    "Buenos Aires, Argentina (Kavanagh Building, Palacio Barolo)",
+    "Havana, Cuba (Bacardí Building, López Serrano Building)",
+    "Napier, New Zealand (rebuilt entirely in Art Deco after 1931 earthquake)",
+    "Hollywood, USA (film sets, movie palaces, the Egyptian Theatre)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "一戰結束後，歐洲（尤其法國）急需重建國族自信與文化主導權。法國從 1911 年開始籌劃一場國際裝飾藝術博覽會，目標是鞏固巴黎作為全球奢侈品與品味仲裁者的地位。戰爭延遲了計畫，但也強化了動機：四年壕溝戰後，倖存者渴望美、渴望享樂、渴望用華麗的物質環境證明文明沒有被摧毀。同時，工業技術的飛躍——電力普及、鋼筋混凝土、汽車量產、遠洋郵輪、商業航空——創造了全新的設計載體。Art Nouveau 的有機曲線在戰前已顯疲態，Cubism 與 Futurism 提供了幾何化的新視覺語法，但前衛藝術的激進實驗需要被轉譯為市場能接受的商業語言。Art Deco 正是這個轉譯：它把現代主義的幾何簡化與機械美學，注入法國傳統的精湛工藝與奢華材料，創造出一種既現代又華貴、既前衛又可消費的風格。",
+    "social_energy": "Art Deco 的能量來自三個交匯點：(1) 戰後的享樂主義反撲——經歷壕溝戰的一代人拒絕維多利亞時代的道德約束，Jazz Age 的夜總會、雞尾酒、短裙與 Charleston 舞步是這股能量的身體表現；(2) 新興富裕階級的品味需求——汽車大亨、電影明星、石油鉅子需要一種能展現現代財富（而非舊貴族血統）的視覺語言；(3) 機械文明的美學狂熱——速度、流線型、摩天大樓、遠洋郵輪、飛機成為新的崇拜對象，Art Deco 將這些機器時代的圖騰轉化為裝飾母題。",
+    "purpose": "Art Deco 的核心目標是將現代性變得美麗且可擁有：讓工業時代的幾何語言穿上奢華的外衣，讓機械文明的力量感通過精緻工藝與珍貴材料被馴化為日常生活的裝飾。它同時服務兩個主人——為工業量產提供具吸引力的視覺外殼（海報、字型、商品包裝），也為頂級工匠保留以珍稀材料手工打造獨一無二物件的空間。Art Deco 是現代主義與奢侈傳統之間的和約。",
+    "key_pivot_moments": [
+      "1925 年巴黎博覽會是 Art Deco 的正名時刻：超過 1,600 萬人參觀了這場為期六個月的盛會，確立了裝飾藝術作為國際風格的地位。博覽會規則明確禁止任何歷史風格的複製，強制要求原創性與現代感。Le Corbusier 的 Pavillon de l'Esprit Nouveau 與 Ruhlmann 的 Hôtel du Collectionneur 代表了兩個極端：前者追求機器美學的赤裸理性，後者堅持手工奢華的極致精緻。Art Deco 選擇了後者的路線，至少在初期如此。",
+      "1929 年華爾街崩盤是 Art Deco 的分水嶺：大蕭條終結了 1920 年代的奢侈版 Art Deco（Ruhlmann 式的象牙鑲嵌與鯊魚皮包覆），迫使風格轉向更廉價的材料與更簡化的形式。Streamline Moderne 從這裡分支出來——以鍍鉻、電木（Bakelite）、彎曲玻璃取代烏木、象牙、鯊魚皮，用流線型取代稜角分明的幾何。Art Deco 從富人的專屬美學民主化為大眾消費文化的視覺語言。"
+    ],
+    "key_timeline": [
+      "1911 — 法國裝飾藝術家協會（Société des Artistes Décorateurs）提議舉辦國際裝飾藝術博覽會",
+      "1912 — 法國國會批准 1915 年舉辦博覽會，後因一戰延期",
+      "1922 — Howard Carter 發掘圖坦卡門墓，埃及風潮席捲裝飾藝術界",
+      "1925.04.28 — Exposition Internationale des Arts Décoratifs et Industriels Modernes 在巴黎開幕，展期六個月，1,600 萬人參觀",
+      "1925 — Ruhlmann 的 Hôtel du Collectionneur 展館成為博覽會焦點，定義頂級 Art Deco 家具美學",
+      "1925 — Robert Mallet-Stevens 設計博覽會入口與 Tourisme 展館，確立 Art Deco 建築語彙",
+      "1927 — Grauman's Chinese Theatre 在 Hollywood 開幕，Art Deco 電影宮殿時代全面展開",
+      "1928 — Cassandre 設計 Bifur 字型，將 Art Deco 幾何美學注入字型設計",
+      "1929.10.29 — 華爾街崩盤，大蕭條開始，Art Deco 從奢華版轉向 Streamline Moderne",
+      "1930.05 — Chrysler Building 完工，319 公尺，Art Deco 摩天大樓的巔峰之作",
+      "1931.04 — Empire State Building 完工，443 公尺（含天線），成為全球最高建築達 40 年",
+      "1932 — Radio City Music Hall 在 Rockefeller Center 開幕，Art Deco 室內設計的集大成",
+      "1933 — Ruhlmann 逝世，象徵奢華版 Art Deco 的終結",
+      "1937 — 巴黎萬國博覽會，Streamline Moderne 已全面取代早期 Art Deco 的裝飾性",
+      "1966 — 巴黎裝飾藝術博物館舉辦回顧展 'Les Années 25'，'Art Deco' 一詞首次被正式使用"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "埃米爾-雅克·魯爾曼",
+        "en": "Émile-Jacques Ruhlmann"
+      },
+      "role": "Art Deco 家具設計的至高代表（1919-1933）。將 18 世紀法國 ébénisterie（高級細木工）傳統與現代幾何線條融合，使用象牙、烏木、鯊魚皮、紫檀木等珍稀材料，打造出定義 Art Deco 奢華美學的標誌性家具。1925 年巴黎博覽會的 Hôtel du Collectionneur 展館是其生涯巔峰。",
+      "key_works": [
+        "Hôtel du Collectionneur 展館 (1925 年巴黎博覽會)",
+        "Meuble à Charbon 角櫃系列 (象牙鑲嵌烏木)",
+        "Tardieu 書桌 (Macassar 烏木與象牙)",
+        "Yardley 扶手椅 (鯊魚皮與鍍銀青銅腳)",
+        "Salon du Collectionneur 室內設計 (1925)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Only the very rich can pay for what is new and they alone can make it fashionable.",
+          "source": "Interview, c. 1920",
+          "meaning": "（奢侈品市場是設計創新的經濟基礎——新材料的實驗、新工法的開發需要資本投入，而這筆投入只有富裕階層能承擔。時尚從頂端向下滲透，從來沒有反過來。）"
+        },
+        {
+          "text": "A clientele of artists, intellectuals and connoisseurs of modest means is very congenial, but they are not in a position to pay for all the research, the experimentation, the testing that is needed to develop a new design.",
+          "source": "Magazine interview, c. 1920",
+          "meaning": "（設計創新的真正成本隱藏在研發階段——數十次的材料測試、工法實驗、原型迭代。有品味的知識分子能欣賞成果，但無法資助過程。這是 Art Deco 擁抱富裕客戶的經濟邏輯。）"
+        },
+        {
+          "text": "We are forced to work for the rich because the rich never imitate the middle classes. It is the elite which launches fashion and determines its direction. Let us produce, therefore, for them.",
+          "source": "Interview, c. 1920s",
+          "meaning": "（時尚的流向是單向的：上層定義，中層追隨。為富人設計的家具今天是奢侈品，十年後是中產階級的標準品味。Ruhlmann 將自己的設計定位為品味的先導而非大眾的服務。）"
+        },
+        {
+          "text": "Fashions don't start among the common people. Along with satisfying a desire for change, fashion's real purpose is to display wealth.",
+          "source": "Writings on design, c. 1920s",
+          "meaning": "（Ruhlmann 毫不掩飾地承認裝飾的社會功能：展示財富。Art Deco 的奢華材料與精湛工藝是經濟地位的物質化身。這與 Bauhaus 的「為人民設計」形成最鮮明的對照。）"
+        },
+        {
+          "text": "The rich client wants to possess only furniture that is impossible for the less rich to acquire. This furniture must therefore be costly, being difficult to execute and using precious materials that no knock-off can simulate.",
+          "source": "Writings on luxury furniture, c. 1920s",
+          "meaning": "（奢侈品的價值建立在排他性之上——材料的稀缺、工藝的難度、模仿的不可能。Ruhlmann 的設計哲學是讓每一件家具成為無法複製的物質奇蹟。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乎內·拉利克",
+        "en": "René Lalique"
+      },
+      "role": "從 Art Nouveau 珠寶大師轉型為 Art Deco 玻璃藝術家（1860-1945）。前半生以半寶石、琺瑯、角質等非傳統材料革新珠寶設計，後半生創建 Wingen-sur-Moder 工廠，將壓模玻璃提升為裝飾藝術的核心媒材。1925 年博覽會為他設計了整座水晶噴泉。",
+      "key_works": [
+        "博覽會水晶噴泉 (Fontaine de la Place de la Concorde, 1925)",
+        "Bacchantes 花瓶 (壓模毛玻璃浮雕, 1927)",
+        "Côte d'Azur Pullman Express 車廂玻璃板設計 (1929)",
+        "Victoire 汽車引擎蓋裝飾 (1928)",
+        "SS Normandie 遠洋郵輪的玻璃照明牆板與餐廳裝飾 (1935)"
+      ],
+      "key_quotes": [
+        {
+          "text": "To seek beauty is a more worthy aim than to display luxury.",
+          "source": "attributed, writings on design philosophy",
+          "meaning": "（美與奢華是兩件事。珠寶界追求鑽石的克拉數與黃金的重量，Lalique 追求的是半寶石在光線中的折射、琺瑯的色彩層次、角質的半透明質感。材料的美學潛力比市場價格更值得探索。）"
+        },
+        {
+          "text": "I arrived at the idea that I could use any material, no matter how humble, if it could be made to serve beauty.",
+          "source": "attributed, on jewelry design innovation",
+          "meaning": "（當同代珠寶商只用鑽石與黃金時，Lalique 使用角質、琺瑯、半寶石、象牙、甚至玻璃。材料的價值在於它能否表達美——這個原則讓他從珠寶跨界到工業規模的玻璃生產。）"
+        },
+        {
+          "text": "Glass offered me the ability to create beauty that could be shared by many, not hoarded by the few.",
+          "source": "attributed, on his transition to glass art",
+          "meaning": "（從珠寶到玻璃的轉向包含一個民主化的願景：珠寶只能為少數人服務，壓模玻璃可以量產。Lalique 找到了兼顧藝術性與可及性的媒材。）"
+        },
+        {
+          "text": "Nature has always been my greatest teacher. Every flower, every insect contains a universe of form waiting to be translated.",
+          "source": "attributed, on design inspiration",
+          "meaning": "（Lalique 的裝飾母題始終根植於自然——蜻蜓的翅脈、孔雀的羽毛、蘭花的曲線。他觀察自然的微觀結構，提取其形式邏輯，轉化為珠寶與玻璃的裝飾圖案。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "塔瑪拉·德·藍碧嘉",
+        "en": "Tamara de Lempicka"
+      },
+      "role": "Art Deco 繪畫的標誌性人物（1898-1980）。融合晚期 Cubism 的幾何體量感與新古典主義的肉感，創造出高度拋光、充滿慾望張力的肖像風格。她的畫作捕捉了 Jazz Age 上流社會的魅惑與權力感，是 Art Deco 視覺語言在純藝術領域的最高成就。",
+      "key_works": [
+        "《自畫像（綠色 Bugatti 中）》(Autoportrait (Tamara in the Green Bugatti), 1929)",
+        "《美麗的 Rafaëla》(La Belle Rafaëla, 1927)",
+        "《亞當與夏娃》(Adam and Eve, 1932)",
+        "《年輕女孩戴手套》(Jeune Fille en Vert, 1930)",
+        "《Ira Perrot 肖像》(Portrait d'Ira, 1930)"
+      ],
+      "key_quotes": [
+        {
+          "text": "My goal is never to copy but to create a new style with bright luminous colors and scent the elegance in my models.",
+          "source": "Interview, collected in Passion by Design",
+          "meaning": "（Lempicka 的藝術是關於發明，關於將人體用 Cubist 的幾何切割重新組裝為閃爍著金屬光澤的慾望對象。她追求的「新風格」是 Ingres 的光滑肉感加上 Léger 的機械體量。）"
+        },
+        {
+          "text": "From a hundred paintings, mine would always stand out. And so the galleries began to hang my work in their best rooms, always in the middle, because my painting was attractive, it was precise, it was polished.",
+          "source": "Interview, collected in Passion by Design",
+          "meaning": "（Lempicka 的自信來自辨識度——在任何展場中，她的畫作都以高度拋光的表面、強烈的幾何體量感與濃烈的色彩在第一秒奪取目光。這種不可忽視的視覺衝擊力是 Art Deco 美學的核心：優雅的侵略性。）"
+        },
+        {
+          "text": "I live life in the margins of society, and the rules of normal society don't apply to those who live on the fringe.",
+          "source": "attributed, interviews",
+          "meaning": "（Lempicka 的生活本身就是 Art Deco 的體現：雙性戀、連續的情人、跨國遷徙、夜間派對。她將個人的越軌轉化為藝術的能量，拒絕將私生活與創作分離。）"
+        },
+        {
+          "text": "There are no miracles. There is only what you make.",
+          "source": "attributed",
+          "meaning": "（藝術成就來自意志與勞動，來自對技藝的執著磨練。Lempicka 每幅畫的拋光表面背後是反覆的塗層與修正。才華的神話是懶惰者的藉口。）"
+        },
+        {
+          "text": "I have painted kings and prostitutes. I don't paint people because they are famous. I paint those who inspire me and make me vibrate.",
+          "source": "Interview, collected in Passion by Design",
+          "meaning": "（Lempicka 的肖像畫跨越社會階層——她選擇的標準是身體的魅力與存在的強度，而非社會地位。國王與妓女在畫布上享有同等的光澤與體量。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "A.M. 卡乘德",
+        "en": "A.M. Cassandre"
+      },
+      "role": "Art Deco 海報設計與字型設計的巔峰人物（1901-1968）。本名 Adolphe Jean-Marie Mouron，出生於烏克蘭 Kharkiv 的法國家庭。將 Cubism 的幾何構成、Surrealism 的視覺衝擊與商業傳播的功能需求融為一體，重新定義了海報作為現代視覺傳達媒介的地位。設計了 Bifur、Acier Noir、Peignot 三款字型。",
+      "key_works": [
+        "Étoile du Nord 海報 (1927，鐵路透視幾何構圖)",
+        "Normandie 遠洋郵輪海報 (1935，仰角的紀念碑構圖)",
+        "Dubonnet 三聯海報 (1932，漸進式視覺敘事)",
+        "Bifur 字型 (1929，Art Deco 幾何字型)",
+        "Peignot 字型 (1937，融合大小寫的創新字型)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Painting is a self-sufficient proposition. Not so the poster. A means, a shortcut between trade and the prospective buyer. A kind of telegraph.",
+          "source": "Essay on poster design, c. 1930s",
+          "meaning": "（繪畫為自身存在，海報為他者服務。海報是商人與公眾之間的電報——設計師是電報員，傳遞訊息，不創造訊息。這個定義將海報設計從藝術的附庸解放為獨立的傳達學科。）"
+        },
+        {
+          "text": "A poster must solve three problems: optical, graphic, poetic.",
+          "source": "Writings on poster design",
+          "meaning": "（海報的三重任務：首先在視覺上攫取移動中行人的目光（光學），然後以清晰的構圖傳遞訊息（圖形），最後在心理上創造持續的印象（詩意）。三者缺一不可。）"
+        },
+        {
+          "text": "The poster designer plays the role of the telegraph operator: he does not emit the message, he transmits it. No one asks for his opinion; he is asked merely for a clear, powerful, precise connection.",
+          "source": "Essay on poster design, c. 1930s",
+          "meaning": "（海報設計師的自我消解——個人風格服從於傳達效率。設計師的主觀意見是噪音，客戶的訊息是信號。Cassandre 在這裡預言了現代平面設計「設計師即中介」的專業倫理。）"
+        },
+        {
+          "text": "It is not asked to make itself loved or understood, only to make itself undergone.",
+          "source": "Essay on poster art, c. 1930s",
+          "meaning": "（海報的目標是被經歷、被承受——像一記視覺的衝擊波，在行人經過的瞬間完成傳達。它不需要被喜愛或被理解，只需要被感受到。）"
+        },
+        {
+          "text": "I forced my way not like a gentleman through the front door with a walking stick, but like a burglar through the window with a jimmy.",
+          "source": "attributed, on his approach to visual communication",
+          "meaning": "（Cassandre 的海報設計策略是視覺入侵——繞過觀者的理性防線，直接從潛意識的窗口闖入。紳士式的說服太慢，街頭海報需要竊賊式的突擊。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乎特",
+        "en": "Erté (Romain de Tirtoff)"
+      },
+      "role": "Art Deco 時尚插畫與舞台設計的靈魂人物（1892-1990）。俄裔法國藝術家，筆名 Erté 取自姓名縮寫 R.T. 的法語發音。為 Harper's Bazaar 繪製超過 200 幅雜誌封面，設計 Folies Bergère 與百老匯的舞台服裝與佈景，被譽為「Art Deco 之父」。其創作生涯橫跨近一個世紀，從 1910 年代的 Paul Poiret 工作室到 1980 年代的版畫復興。",
+      "key_works": [
+        "Harper's Bazaar 雜誌封面系列 (1915-1937, 超過 200 幅)",
+        "Alphabet 字母系列 (以人體姿態構成 26 個字母)",
+        "Numbers 數字系列 (以人體構成 0-9)",
+        "Folies Bergère 舞台服裝與佈景設計 (1919-1930s)",
+        "George White's Scandals 百老匯舞台設計 (1920s)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I firmly believe that every human being has a duty to make himself as attractive as possible.",
+          "source": "Things I Remember (autobiography), 1975",
+          "meaning": "（美是一種倫理義務。Erté 將個人外表的經營視為對文明的貢獻——裝飾自己是尊重他人、尊重世界的行為。Art Deco 的裝飾衝動在這裡獲得了道德論證。）"
+        },
+        {
+          "text": "I don't think about art while I work. I try to think about life.",
+          "source": "attributed, interviews",
+          "meaning": "（Erté 的設計源頭是生活本身——夜總會的燈光、舞者的體態、織物的垂墜、異國文化的圖案。他拒絕將創作困在「藝術」的框架裡，讓生活的感官經驗直接流入設計。）"
+        },
+        {
+          "text": "I came to the conclusion that I could live without dancing but could not give up my passion for painting and design.",
+          "source": "Things I Remember (autobiography), 1975",
+          "meaning": "（Erté 早年在舞蹈與視覺藝術之間抉擇。他選擇了設計，但舞蹈的身體性——節奏、姿態、動態——永遠留在他的線條中。他的人物永遠在舞動。）"
+        },
+        {
+          "text": "My mother wore a dress of black Chantilly lace over pink taffeta; around her décolletage was a garland of real roses. Perhaps this was the beginning of my love for all things connected with beautiful clothes and elegance.",
+          "source": "Things I Remember (autobiography), 1975",
+          "meaning": "（童年記憶中母親赴宴前的一刻——黑色蕾絲、粉色塔夫綢、真玫瑰花環——成為 Erté 畢生創作的原初意象。Art Deco 的奢華美學在這個個人記憶中找到了感官的根源。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Encyclopédie des Arts Décoratifs et Industriels Modernes au XXème Siècle（20 世紀現代裝飾與工業藝術百科全書）",
+      "author": "法國政府（博覽會官方出版）",
+      "year": 1925,
+      "significance": "1925 年巴黎博覽會的官方 12 卷圖錄，收錄所有參展作品的照片與設計圖。這套出版物將 Art Deco 的視覺語彙系統化記錄，成為後世研究的第一手資料。美國代表團成員 Herbert Hoover（時任商務部長）帶回的報告直接促成了 Art Deco 風格在美國的快速傳播。"
+    },
+    {
+      "title": "Une Ambassade Française（法國大使館展館設計）",
+      "author": "Société des Artistes Décorateurs（法國裝飾藝術家協會），主要設計者包括 Ruhlmann、Lalique、Jean Dunand、Jean Dupas",
+      "year": 1925,
+      "significance": "博覽會中最具影響力的展館之一，展示了完整的 Art Deco 室內設計——從家具、牆面裝飾、地毯到燈具的全套設計方案。Ruhlmann 的 Grand Salon 以 Macassar 烏木、象牙鑲嵌與 Jean Dupas 的壁畫定義了 Art Deco 奢華室內的典範。"
+    },
+    {
+      "title": "Meubles et Ensembles: Style 1925（家具與整體設計：1925 風格）",
+      "author": "Various（Charles Moreau 出版社編輯）",
+      "year": 1925,
+      "significance": "收錄博覽會中最具代表性的家具設計圖版，是傳播 Art Deco 家具美學的關鍵出版物。設計師與工匠通過這類圖版集學習並複製 Art Deco 的形式語言，使其從巴黎擴散到全球。"
+    },
+    {
+      "title": "The Poster Art of A.M. Cassandre",
+      "author": "Robert K. Brown & Susan Reinhold",
+      "year": 1979,
+      "significance": "最全面的 Cassandre 海報作品集與設計理論分析，收錄其核心論述：海報作為「視覺電報」的功能定義、光學-圖形-詩意三重問題的解決框架。這本書將 Cassandre 的設計方法論系統化，影響了後世平面設計教育。"
+    },
+    {
+      "title": "Things I Remember（我記得的事）",
+      "author": "Erté (Romain de Tirtoff)",
+      "year": 1975,
+      "significance": "Erté 的自傳，記錄了從 1910 年代 Paul Poiret 工作室到 1970 年代的完整創作生涯。作為跨越 Art Nouveau 到 Art Deco 兩個時代的活見證人，Erté 的回憶提供了獨一無二的第一手歷史視角，記錄了 Diaghilev 的 Ballets Russes、Harper's Bazaar 的黃金時代、Folies Bergère 的舞台魔幻。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "將現代幾何語言與奢華材料融合：以 Cubism 的幾何切割、Egyptian 與 Aztec 的稜角圖案為基礎形式語言，用象牙、烏木、鯊魚皮、鍍鉻鋼、漆器等珍貴或先進材料執行。（WHY：工業化的幾何形式本身是冷的、抽象的。Art Deco 的任務是讓機器時代的語言變得可欲望、可觸摸——幾何提供骨架，材料提供肉身。Ruhlmann 的烏木角櫃上的象牙鑲嵌，讓工業化的直線獲得了手工藝的溫度與稀有材料的光澤。）",
+      "擁抱速度、機械與都市生活的美學：將火車、郵輪、飛機、摩天大樓、汽車的視覺形象轉化為裝飾母題與構圖原則。（WHY：1920 年代是人類速度感知的突變期——汽車從奢侈品變成日用品，跨大西洋郵輪縮短到四天航程，飛機開始商業飛行。這些機器的流線型輪廓、金屬表面、動態感成為新的美學標準。Cassandre 的 Étoile du Nord 海報將鐵軌透視線轉化為純粹的幾何速度感。）",
+      "將異國文化圖案幾何化並融入裝飾語彙：埃及（圖坦卡門、金字塔稜線）、非洲（幾何面具）、日本（漆器、浮世繪構圖）、中美洲（Aztec 階梯紋、Maya 幾何）的形式元素被提取、簡化、重組。（WHY：1922 年圖坦卡門墓的發掘引爆全球埃及狂熱。同時，法國殖民帝國使非洲與亞洲的工藝品大量進入巴黎市場。Art Deco 設計師在這些「異國」形式中看到了與 Cubist 幾何語言的天然親和性——稜角、重複、對稱——並將之吸收為現代裝飾的素材庫。）",
+      "維護精湛手工藝的傳統（尤其是法國 ébénisterie）：堅持以大師級工匠手工執行設計，追求材料接合、表面處理、鑲嵌工藝的極致精確。（WHY：法國自路易十四時代以來建立的宮廷工藝傳統——Boulle 鑲嵌、Gobelins 織毯、Sèvres 瓷器——是國家文化認同的核心。Art Deco 拒絕 Bauhaus「為量產而設計」的路線，堅持頂級手工藝的不可替代性。1925 年博覽會的政治目標之一就是重申法國作為全球奢侈工藝中心的地位。）",
+      "打破純藝術與裝飾藝術的等級壁壘（從裝飾端出發）：主張裝飾藝術與繪畫、雕塑享有同等的藝術地位。（WHY：法國學院體系長期將裝飾藝術（arts décoratifs）視為「次藝術」(arts mineurs)，低於繪畫與雕塑的「大藝術」(beaux-arts)。1925 年博覽會的全稱刻意將「裝飾藝術」與「工業藝術」並列為「現代的」(modernes)，正是要挑戰這個等級制度。Ruhlmann 的家具、Lalique 的玻璃在博覽會上獲得的關注不亞於任何繪畫展。）",
+      "以整體環境設計（ensemble）為單位思考：家具、牆面、地毯、燈具、餐具、門把手統一在同一套視覺語言中。（WHY：Art Deco 繼承了 Art Nouveau 的 Gesamtkunstwerk（總體藝術作品）理想，但用幾何語言取代有機曲線。一個 Art Deco 室內空間的每個細節——從天花板的幾何浮雕到煙灰缸的稜角——都必須呼應同一個美學系統。Ruhlmann 的 Hôtel du Collectionneur 是這個理念的最高實現。）",
+      "在量產與獨一無二之間建立光譜：同時服務頂級手工奢侈品市場（Ruhlmann 家具）與工業量產市場（Lalique 玻璃瓶、Cassandre 海報）。（WHY：Art Deco 誕生於 1925 年博覽會的全稱已經包含了這個雙重性——'Arts Décoratifs' 指手工裝飾藝術，'Industriels Modernes' 指工業設計。Lalique 是最佳範例：他的壓模玻璃花瓶可以量產數千件，但每一件的光影效果仍保有藝術品質。）",
+      "創造辨識度極高的視覺衝擊力：強烈的對比（黑與金、黑與銀）、銳利的幾何輪廓、高度拋光的表面、戲劇性的光影。（WHY：Art Deco 的商業語境要求立即的視覺辨識——百貨公司櫥窗、雜誌封面、街頭海報、電影宮殿的門面都需要在第一秒攫取目光。Lempicka 的畫作在百幅作品中立刻被辨認出來，Cassandre 的海報在街頭行人的餘光中完成傳達，靠的都是這種精心設計的視覺侵略性。）",
+      "將 sunburst（旭日紋）、zigzag（鋸齒紋）、chevron（箭形紋）、fan（扇形紋）確立為 Art Deco 的核心裝飾文法。（WHY：這些圖案都是幾何化的能量符號——旭日紋象徵輻射與擴張、鋸齒紋象徵電力與動態、箭形紋象徵速度與方向、扇形紋象徵展開與奢華。它們可以被無限縮放——從摩天大樓的頂冠到煙盒的表面——形成一套跨尺度的裝飾系統。）"
+    ],
+    "what_they_refuse": [
+      "歷史風格的直接複製：1925 年博覽會規則明確禁止任何歷史風格的模仿——新古典、哥德、巴洛克的柱式與紋樣一律排除。（WHY：博覽會的政治目標是宣告法國能在「現代」設計中保持領先，而非繼續靠路易十五風格的遺產吃老本。組織者要求「新的靈感」(inspiration nouvelle)，這個禁令迫使設計師必須在幾何、機械、異國文化中尋找新的形式來源。）",
+      "Art Nouveau 的有機曲線與自然主義裝飾：拒絕藤蔓、花卉、女性散髮等 Art Nouveau 的核心母題。（WHY：Art Nouveau 在 1900 年代已陷入過度裝飾的疲態——鞭線（whiplash curve）被濫用到每一件物品的表面。一戰的機械屠殺讓自然主義的田園幻想顯得天真。Art Deco 用稜角取代曲線、用幾何取代有機、用金屬取代植物，是對戰前美學的斷然否定。）",
+      "功能主義對裝飾的全面否定：拒絕 Bauhaus / Le Corbusier「裝飾即罪惡」的教條。（WHY：Art Deco 認為 Bauhaus 的功能主義是另一種清教徒式的禁慾——剝奪了物件的感官愉悅與文化意義。人類需要美、需要奢華、需要裝飾，這些需求與住房和衛生同樣真實。Ruhlmann 的象牙鑲嵌烏木角櫃是對 Breuer 鋼管椅的直接回答：物件可以同時美麗、精緻且功能完善。）",
+      "粗糙的工業感與未經修飾的材料裸露：拒絕混凝土牆面裸露、鋼結構外露的「誠實」美學。（WHY：Art Deco 認為「材料誠實」的教條忽略了一個基本事實：人類天生渴望被經過精心處理的表面所包圍。拋光、鍍金、漆器、鑲嵌——這些表面處理技術是千年文明的積累，放棄它們是文化上的自我閹割。）",
+      "社會主義式的「為人民設計」意識形態：Art Deco（至少在 1929 年前的奢華階段）明確拒絕設計的民主化與標準化。（WHY：Ruhlmann 的立場最為坦率——時尚從頂端向下流動，設計創新需要富裕客戶的資本支持。Art Deco 認為精英品味引導大眾品味的模式是設計進步的最有效路徑。Bauhaus 的「人民需求優先於奢侈需求」在 Art Deco 看來是經濟上的天真。）",
+      "學術性的前衛實驗（為實驗而實驗）：拒絕 Dada 與早期 Surrealism 的反美學姿態。（WHY：Art Deco 尊重 Cubism 的形式發明，但拒絕接受前衛藝術的自我毀滅傾向。Duchamp 的小便池對 Art Deco 設計師來說是一個笑話——裝飾藝術的目標是讓世界更美，而非用反諷消解美的可能性。Art Deco 是現代主義的享樂版本，前衛藝術的商業轉譯。）",
+      "苦行僧式的極簡主義：拒絕 Mies van der Rohe「少即是多」的哲學。（WHY：Art Deco 的信條可以概括為「多即是多」(more is more)——材料要珍貴、表面要精緻、裝飾要豐富、整體效果要壓倒性的華麗。極簡主義在 Art Deco 看來是貧乏的偽裝。Chrysler Building 頂部的不鏽鋼拱頂、旭日紋圖案與鷹頭雕塑是對極簡主義最壯觀的反駁。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Bauhaus / International Style 功能主義：Art Deco 與 Bauhaus 是同時代的鏡像對手——前者擁抱裝飾與奢華，後者拒絕裝飾追求功能。Le Corbusier 在 1925 年博覽會上的 Pavillon de l'Esprit Nouveau 是對 Art Deco 的直接挑戰",
+      "Art Nouveau / Jugendstil：Art Deco 的直接前身，但其有機曲線、自然主義裝飾被 Art Deco 全面否定，以稜角幾何取代鞭線曲線",
+      "Dada / 早期 Surrealism：其反美學、反商業的姿態與 Art Deco 的裝飾美學和商業擁抱形成根本對立",
+      "Arts and Crafts Movement 反工業化立場：Art Deco 尊重手工藝的精湛，但完全接受（甚至崇拜）工業文明的產物",
+      "De Stijl 的純粹幾何抽象：Mondrian 的原色與直角構成過於禁慾，Art Deco 需要的是金色、銀色、黑色的奢華調色板"
+    ],
+    "against_values": [
+      "裝飾即罪惡：Art Deco 直接挑戰 Adolf Loos 與功能主義者的反裝飾教條，主張裝飾是人類文明的基本需求",
+      "為量產而簡化：Art Deco 拒絕為了降低製造成本而犧牲設計的精緻度與材料的珍貴性（至少在大蕭條前）",
+      "物質禁慾主義：拒絕功能主義的清教徒式簡樸，擁抱感官愉悅、物質奢華與視覺戲劇性",
+      "設計的民主化使命：在 Ruhlmann 的立場中，設計創新是精英驅動的——好品味從上向下流動，為富人設計是推動整體設計水平的最有效路徑",
+      "純藝術高於裝飾藝術的等級制度：Art Deco 挑戰這個傳統，主張精湛的家具、珠寶、玻璃器皿與繪畫、雕塑享有同等的藝術尊嚴"
+    ],
+    "societal_context": "Art Deco 誕生於兩次世界大戰之間的歐美社會。一戰結束後（1918），法國急需重建經濟與文化自信，奢侈品產業是國家戰略的核心——法國的 haute couture、ébénisterie、orfèvrerie（金銀器）代表了數百年的文化積累。1925 年博覽會的政治目的之一是抵擋德國（Bauhaus / Werkbund）在工業設計領域的崛起。Jazz Age 的繁榮（1920-1929）為 Art Deco 的奢華版本提供了經濟基礎——美國的新富階層是最大的消費者。1929 年華爾街崩盤與隨後的大蕭條重創了奢侈品市場，迫使 Art Deco 從象牙與烏木轉向電木與鍍鉻，從手工精品轉向工業量產，Streamline Moderne 由此分支。1930 年代的摩天大樓競賽（Chrysler Building 1930、Empire State Building 1931）將 Art Deco 推向紀念碑尺度。二戰爆發（1939）終結了 Art Deco 作為活躍設計運動的時代。直到 1966 年巴黎裝飾藝術博物館的回顧展「Les Années 25」，'Art Deco' 這個名稱才被正式使用。"
+  },
+
+  "problems_solved": [
+    "為工業時代的物質文明提供了美學的合法性：在功能主義者將裝飾宣判死刑的時代，Art Deco 證明了現代設計可以同時是幾何的、機械的、又是華麗的、感官的。摩天大樓、郵輪、火車頭在 Art Deco 的手中從純粹的工程物件獲得了文化意義",
+    "在傳統工藝與現代美學之間建立了橋梁：Ruhlmann 將 18 世紀 ébénisterie 的精湛技法用於幾何造形的現代家具，Lalique 將 Art Nouveau 的自然觀察轉化為壓模玻璃的工業美學。Art Deco 讓傳統工匠找到了進入現代的路徑",
+    "創造了第一套全球性的現代裝飾語言：sunburst、zigzag、chevron、fan 等幾何母題跨越了地域與文化——從巴黎到上海、從紐約到孟買，Art Deco 的視覺語彙被普遍理解與採用",
+    "將平面設計提升為獨立的視覺傳達學科：Cassandre 對海報功能的理論化——光學、圖形、詩意的三重問題——預示了現代平面設計教育的核心架構。Bifur 與 Peignot 字型展示了字型設計作為文化表達的可能性",
+    "為女性藝術家與設計師開拓了空間：Tamara de Lempicka、Eileen Gray、Sonia Delaunay、Charlotte Perriand 等女性在 Art Deco 時代獲得了前所未有的可見度。Lempicka 的商業成功證明了女性藝術家可以在市場上與男性平等競爭",
+    "展示了設計如何整合多元文化資源：埃及、非洲、日本、中美洲的形式元素被 Art Deco 設計師吸收並重新詮釋，雖然這個過程帶有殖民主義的問題，但它確實擴大了西方設計語彙的資源庫"
+  ],
+
+  "problems_created": [
+    "文化挪用的系統化：Art Deco 對埃及、非洲、亞洲、中美洲裝飾母題的大量借用，是在殖民權力不對稱的語境中進行的——被殖民文化的形式元素被抽離原始脈絡，簡化為西方消費品的裝飾素材。Aztec 幾何紋樣被用在紐約辦公大樓的大廳，非洲面具的稜角被用在雞尾酒調酒器上，沒有任何文化對話或互惠",
+    "奢侈品崇拜的美學正當化：Ruhlmann 的設計哲學——「只有富人能為創新買單，時尚從頂端向下流動」——將經濟不平等美化為設計進步的必要條件。Art Deco 在 1920 年代的奢華版本強化了物質主義價值觀，將「展示財富」確立為裝飾的正當功能",
+    "表面裝飾凌駕結構邏輯：Art Deco 最被現代主義建築師詬病的問題——裝飾是「貼」在結構表面的，與建築的結構系統沒有必然關係。Chrysler Building 的不鏽鋼頂冠是壯觀的雕塑，但它與建築的結構邏輯無關。這種「裝飾作為外衣」的做法被功能主義者視為虛偽",
+    "加速了「計畫性淘汰」(planned obsolescence) 的設計文化：Art Deco 的商業成功建立在「流行」的邏輯上——Ruhlmann 自己承認「時尚的真正目的是展示財富」。每一季的新設計讓上一季變得「過時」，刺激持續消費。這個模式在 Streamline Moderne 時期加速，直接催生了戰後消費主義的設計循環",
+    "掩蓋了兩次大戰之間的社會苦難：Art Deco 的華麗外表與 1920-1930 年代的社會現實形成殘酷對照——全球經濟大蕭條、法西斯主義崛起、殖民壓迫。摩天大樓的金色大廳與街頭排隊領麵包的失業者共存於同一座城市。Art Deco 的美學被批評者視為逃避主義——用奢華的表面掩蓋社會的裂痕",
+    "強化了設計的性別刻板印象：Art Deco 的女性形象——Erté 的時尚插畫、Lempicka 的裸體肖像、海報中的女性剪影——雖然展現了 Jazz Age 的性別解放，但很多作品仍將女性定位為被觀看的裝飾對象。設計產業中的性別分工（男性建築師 vs. 女性織品/珠寶設計師）在 Art Deco 時代並未被根本挑戰"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "現代性可以是華麗的——幾何抽象與機械美學並非必然導向禁慾式極簡，它們可以與精湛工藝、珍貴材料、感官愉悅共存。Art Deco 證明了存在一條不同於 Bauhaus 功能主義的現代化路徑：擁抱裝飾的現代主義。",
+    "what_was_truly_new": [
+      "將多元文化的裝飾母題融入統一的幾何語法：埃及的金字塔稜線、非洲的面具幾何、日本的漆器光澤、Aztec 的階梯紋——Art Deco 是第一個系統性地將全球裝飾資源幾何化並整合為連貫風格的運動",
+      "在建築尺度上實現裝飾與結構的視覺整合：Chrysler Building 的不鏽鋼頂冠、Empire State Building 的退台輪廓、Rockefeller Center 的浮雕群——Art Deco 建築將裝飾從室內推向了紀念碑的尺度",
+      "海報設計的理論化：Cassandre 將海報從「縮小的繪畫」重新定義為「視覺電報」，建立了光學-圖形-詩意的分析框架，為現代視覺傳達設計奠定了理論基礎",
+      "Fashion illustration 作為獨立藝術形式：Erté 的 Harper's Bazaar 封面與字母系列證明了時尚插畫可以超越功能性的服裝記錄，成為獨立的視覺藝術",
+      "將工業材料奢華化：鍍鉻鋼、電木（Bakelite）、鋁合金、鑄模玻璃——Art Deco（尤其在 Streamline Moderne 階段）展示了工業材料可以被處理得像珍貴材料一樣閃耀"
+    ],
+    "what_was_borrowed": [
+      "Cubism：幾何化的形體分析、多視點的構圖、faceted（切面化）的表面處理——Art Deco 將 Cubism 的形式發明從畫布搬到家具、建築與海報上",
+      "Futurism：對速度、機械、動態的崇拜——Art Deco 的流線型母題與機器美學直接承自 Marinetti 的未來主義宣言",
+      "Art Nouveau：總體藝術（Gesamtkunstwerk）的理想、自然形式的觀察方法、精湛手工藝的傳統——Lalique 從 Art Nouveau 珠寶轉向 Art Deco 玻璃，是最直接的傳承線",
+      "Ballets Russes (Sergei Diaghilev)：Leon Bakst 與 Natalia Goncharova 的舞台設計帶來的色彩爆炸——鮮豔的橙色、翡翠綠、寶藍、金色組合徹底改變了巴黎的色彩品味，直接影響了 Art Deco 的調色板",
+      "Wiener Werkstätte（維也納工坊）：Josef Hoffmann 與 Koloman Moser 的幾何裝飾設計、格子紋與方形母題——是 Art Deco 幾何語言的重要前驅",
+      "古埃及、非洲、日本、中美洲裝飾傳統：這些文化的形式資源被 Art Deco 大量借用，尤其在 1922 年圖坦卡門墓發掘後",
+      "Fauvism 的色彩解放：Matisse 的高純度色彩與裝飾性構圖對 Art Deco 的色彩語言有直接影響"
+    ],
+    "creative_leap": "Art Deco 的關鍵創造性飛躍在於「調和」(reconciliation)：它在每一對被認為不可調和的對立項之間找到了平衡——現代與傳統、幾何與裝飾、機械與手工、前衛與商業、抽象與感官。Bauhaus 選擇了現代、幾何、機械、前衛的那一端，Art Nouveau 站在傳統、裝飾、手工、感官的那一端。Art Deco 拒絕二擇一，堅持兩端同時成立。這種「奢華的現代主義」是一個原創性的美學立場，它讓現代設計史從 Bauhaus 的單一敘事擴展為多條路徑並存。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "Art Deco 的核心命題——如何讓新技術產生的形式語言獲得感官吸引力與文化意義——在每一次技術革命中都會重新浮現。AI 生成的視覺內容目前面臨的問題與 1920 年代工業產品面臨的問題驚人地相似：技術上是新的，但美學上是空洞的。Art Deco 的回答——用精湛的工藝、豐富的材料與多元的文化資源為新技術穿上美的外衣——為 AI 時代的設計提供了一個替代功能主義的思路。",
+      "transferable_to": [
+        "AI 時代的介面美學：如何讓 AI 產品的介面超越功能主義的冷漠，獲得 Art Deco 式的感官吸引力與文化深度？",
+        "品牌設計與奢侈品行銷：Art Deco 的整體環境設計（ensemble）理念對應到今天的全觸點品牌體驗設計",
+        "數位時代的手工藝復興：Art Deco 證明了手工精緻度與現代語言可以共存——3D 列印、CNC 切割等數位製造工具為這種共存提供了新的可能性",
+        "跨文化設計語言的建構：Art Deco 融合多元文化資源的方法（雖有殖民問題）提供了如何建構全球化視覺語言的經驗與教訓",
+        "Maximalism 的回歸：在極簡主義主導數十年後，Art Deco 的「多即是多」哲學為當代設計師提供了豐富表達的許可",
+        "沉浸式空間設計：Art Deco 的整體環境設計理念——從天花板到門把手的統一美學——對應到今天的沉浸式零售、展覽與虛擬空間設計",
+        "字型設計的文化表達：Cassandre 的 Bifur 和 Peignot 證明字型可以承載時代精神——當代字型設計可從 Art Deco 學習如何讓字型超越功能性"
+      ]
+    },
+    "originality_type": "reconciliation"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Cubism (Picasso, Braque, Léger, 1907-)：幾何化的形體分析與多視點構圖",
+      "Futurism (Marinetti, Balla, 1909-)：速度、機械、動態的崇拜",
+      "Art Nouveau / Jugendstil (1890-1910)：總體藝術理想、精湛手工藝傳統、自然形式觀察",
+      "Ballets Russes (Diaghilev, Bakst, 1909-)：東方色彩的爆炸、戲劇性的構圖與服裝設計",
+      "Wiener Werkstätte (Hoffmann, Moser, 1903-1932)：幾何裝飾、格子紋、方形母題",
+      "Fauvism (Matisse, Derain, 1905-)：高純度色彩與裝飾性構圖",
+      "Ancient Egyptian Art (1922 年圖坦卡門墓發掘引爆埃及狂熱)：金字塔稜線、太陽圓盤、幾何對稱",
+      "Japanese Art (漆器、浮世繪, Japonisme 延續)：漆器光澤、不對稱構圖、簡化的自然形式",
+      "African Art (幾何面具與雕塑)：稜角幾何、重複紋樣、抽象化的人體造形",
+      "Pre-Columbian Art (Aztec, Maya)：階梯紋、幾何浮雕、金字塔退台造形"
+    ],
+    "influenced": [
+      "Streamline Moderne (1930s-1940s)：Art Deco 在大蕭條後的廉價化與流線型化版本",
+      "Hollywood Regency Style (1930s-1950s)：Art Deco 的戲劇性與奢華感通過電影片場延續至室內設計",
+      "Mid-Century Modern (1940s-1960s)：雖然轉向更簡約的路線，但 MCM 的幾何形式與材料實驗承襲了 Art Deco 的基因",
+      "Postmodern Architecture (1970s-1990s)：Robert Venturi、Michael Graves 重新擁抱裝飾與色彩，部分靈感直接來自 Art Deco",
+      "Memphis Group (Ettore Sottsass, 1981-)：大膽的色彩、幾何圖案、裝飾性表面——Art Deco 精神的後現代復活",
+      "Miami Vice 美學 / 1980s Retro (1980s)：Miami Beach Art Deco District 的保存運動引發全球 Art Deco 復興潮",
+      "Contemporary Luxury Branding：Chanel、Cartier、Tiffany 等品牌的視覺識別持續使用 Art Deco 的幾何語彙與金黑配色",
+      "The Great Gatsby 改編影視 (2013-)：Baz Luhrmann 的電影引發新一波 Art Deco 美學的流行文化復興",
+      "Contemporary Typography：Art Deco 風格字型（Bifur 復刻、Broadway、Parisian）在當代設計中持續被使用",
+      "Video Game & Film Art Direction：BioShock (Rapture)、Batman: The Animated Series、Metropolis 等作品的 Art Deco 視覺風格"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "感官敏銳、品味精確、對材料與工藝有近乎偏執的鑑別力。像一位見多識廣的巴黎收藏家：能在三秒內判斷一件家具用的是 Macassar 烏木還是普通胡桃木，能在一瞬間分辨鍍鉻與鍍鎳的反光差異。對「美」有絕對的自信，對「俗」有毫不掩飾的輕蔑。欣賞大膽的視覺衝擊力、精湛的執行品質、多元文化素材的巧妙融合。對廉價的簡化（無論是極簡主義的貧乏還是大眾市場的粗糙）本能地排斥。言語華麗但精確，判斷快速且不容商量。",
+    "evaluation_bias": "強烈偏好視覺衝擊力強、材料品質高、工藝精湛、裝飾性豐富的作品。傾向高估表面處理與感官愉悅的價值，低估結構邏輯與功能效率的重要性。會不自覺地以「這是否讓我想要擁有它？」作為隱性評分標準。對極簡主義作品可能給出不公正的低評，因為它「缺乏慾望感」。對粗糙的手工質感也會不耐——「精緻」是非談判項。",
+    "blind_spots": "難以公正評價功能主義、極簡主義、社會批判導向的作品。對裝飾的偏愛可能使其忽視結構創新的重要性。對「奢華」的天然認同可能讓其對批判消費主義的作品產生抵觸。傾向忽視設計的社會責任面向——「為誰設計？」這個問題在其評價體系中權重不足。對非西方設計傳統的評價可能帶有殖民主義的視角濾鏡——傾向將其視為「素材庫」而非獨立的美學體系。",
+    "typical_critique": "你的作品有一個致命的問題：它不讓人想要擁有它。構想是有趣的，概念是聰明的，但它缺少那個讓人在三秒內無法移開目光的視覺衝擊力。材料的選擇過於安全——你為什麼不嘗試更大膽的對比？黑與金、鍍鉻與紫檀、毛玻璃與拋光銅。另外，你的表面處理需要更多層次——現在它像是一個草圖，而我期待的是一件讓人想伸手觸摸的成品。"
+  },
+
+  "writing_style": {
+    "collective_voice": "Art Deco 的集體寫作風格是「奢華宣言體」：以博覽會圖錄的權威語氣、時尚雜誌的感官描述與商業提案的說服力交織而成。核心修辭策略是感官堆疊——材料名、色彩名、質感詞在句中密集排列，製造一種文字層面的物質奢華感。所有成員都以鑑賞家姿態寫作——他們在定義「什麼是美」而非討論「美是什麼」。名詞密度高（材料名與品牌名取代抽象概念），隱喻偏好感官領域（光、觸感、味道、溫度），跨領域類比（珠寶-建築-時裝-機器）是常見的修辭工具。",
+    "internal_tensions": "最大的風格裂痕在「手工奢華」與「工業效率」之間。Ruhlmann 代表手工藝的極致精緻——句子像烏木表面的拋光，緩慢、致密、每個詞都經過篩選。Cassandre 代表傳達的極致效率——句子像電報，刪除一切裝飾詞。Lempicka 在兩者之間：她的語言兼具 Ruhlmann 的感官豐富與 Cassandre 的斷言力度。Erté 則代表戲劇性的敘事——他的文字像舞台佈景，充滿場景感與懷舊。",
+    "master_voices": [
+      {
+        "name": "Émile-Jacques Ruhlmann",
+        "writing_character": "巴黎高級訂製工坊掌門人——用材料名稱構成語言的紋理",
+        "sentence_rhythm": "中等偏長的陳述句，以材料名與工法名製造節奏感。偶爾插入短促的格言式判斷",
+        "rhetoric": "材料名稱堆疊（Macassar 烏木、象牙、鯊魚皮、紫檀木）、經濟邏輯論證、階層化的品味理論",
+        "tone": "自信、精確、帶有商人的務實與鑑賞家的傲慢",
+        "real_examples": [
+          {
+            "text": "Only the very rich can pay for what is new and they alone can make it fashionable.",
+            "source": "Interview, c. 1920",
+            "style_note": "格言式判斷——一句話完成一個社會學論述，語氣是陳述事實而非辯論"
+          },
+          {
+            "text": "We are forced to work for the rich because the rich never imitate the middle classes. It is the elite which launches fashion and determines its direction.",
+            "source": "Interview, c. 1920s",
+            "style_note": "因果鏈條清晰，邏輯推演從觀察（富人不模仿中產）到結論（為他們設計），語氣冷靜如商業報告"
+          }
+        ]
+      },
+      {
+        "name": "A.M. Cassandre",
+        "writing_character": "視覺傳達的工程師——用類比將藝術降維為功能",
+        "sentence_rhythm": "極度精簡的斷言句，以否定式起手（...is not...），類比作為核心論證工具",
+        "rhetoric": "否定式定義（海報不是繪畫）、機械類比（電報員）、三項式結構（光學、圖形、詩意）",
+        "tone": "冷靜、分析性、帶有工程師的精確與略微的自嘲",
+        "real_examples": [
+          {
+            "text": "Painting is a self-sufficient proposition. Not so the poster. A means, a shortcut between trade and the prospective buyer. A kind of telegraph.",
+            "source": "Essay on poster design, c. 1930s",
+            "style_note": "對比結構起手（繪畫 vs. 海報），後半段以短句碎片式推進，模擬電報的節奏"
+          },
+          {
+            "text": "A poster must solve three problems: optical, graphic, poetic.",
+            "source": "Writings on poster design",
+            "style_note": "冒號後三個詞，每個詞是一個學科——極度壓縮的分類系統"
+          }
+        ]
+      },
+      {
+        "name": "Tamara de Lempicka",
+        "writing_character": "Jazz Age 女王的自我神話建構——用第一人稱奪取話語權",
+        "sentence_rhythm": "以「I」/「My」起手的強勢主語句，中段排比堆疊自我成就，結尾以感官形容詞收束",
+        "rhetoric": "第一人稱斷言、數量對比（百幅之中）、感官形容詞密集（luminous, precise, polished, attractive）",
+        "tone": "自信到傲慢的邊緣，帶有表演性，語氣兼具 diva 的戲劇感與職業藝術家的專業自覺",
+        "real_examples": [
+          {
+            "text": "From a hundred paintings, mine would always stand out.",
+            "source": "Interview, collected in Passion by Design",
+            "style_note": "一句話起手就是百中選一的自我定位，語氣是陳述事實而非吹噓"
+          },
+          {
+            "text": "My goal is never to copy but to create a new style with bright luminous colors and scent the elegance in my models.",
+            "source": "Interview, collected in Passion by Design",
+            "style_note": "否定式起手（never to copy）轉為創造宣言，感官詞密集（bright, luminous, scent, elegance）"
+          }
+        ]
+      },
+      {
+        "name": "Erté (Romain de Tirtoff)",
+        "writing_character": "世紀見證者的回憶錄——用場景描述取代抽象論述",
+        "sentence_rhythm": "敘事性長句，以具體感官細節（色彩、材質、場景）構成節奏，時態在過去與現在之間滑動",
+        "rhetoric": "場景還原（母親赴宴前的一刻）、材料與色彩的精確命名（black Chantilly lace, pink taffeta）、情感記憶與美學判斷的交織",
+        "tone": "優雅的懷舊，帶有貴族式的從容與世紀老人的超然",
+        "real_examples": [
+          {
+            "text": "My mother wore a dress of black Chantilly lace over pink taffeta; around her décolletage was a garland of real roses.",
+            "source": "Things I Remember, 1975",
+            "style_note": "場景描述的精確度如同時尚攝影的文字等價物——每一個材料名、每一個色彩都有位置"
+          },
+          {
+            "text": "I firmly believe that every human being has a duty to make himself as attractive as possible.",
+            "source": "Things I Remember, 1975",
+            "style_note": "以 'I firmly believe' 起手的道德宣言，將美學偏好提升為倫理義務"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子以感官描述為主，關鍵判斷用材料名或品牌名錨定具體性",
+      "大量使用對比結構：奢華 vs 簡陋、精緻 vs 粗糙、渴望擁有 vs 漠然無感",
+      "感官形容詞密集但精確——避免空洞的「美」「好」，用具體的觸感、光澤、溫度描述",
+      "禁用功能主義術語（「解決問題」「使用者需求」），用慾望語言取代功能語言",
+      "每段不超過 3-4 句，一段一個感官印象或品味判斷",
+      "類比必須跨材料領域：用珠寶談建築、用時裝談海報、用烹飪談色彩",
+      "名詞優先於動詞，材料名優先於抽象概念",
+      "禁用苦行式的讚美（「克制」「節制」「簡潔」），用豐盛式的讚美（「層次」「深度」「光澤」「質地」）",
+      "排比結構以三連為標準節奏，每一項遞增感官強度"
+    ]
+  }
+}

@@ -1,0 +1,494 @@
+{
+  "movement_id": "aestheticism",
+  "name": {
+    "zh": "唯美主義",
+    "en": "Aestheticism"
+  },
+  "domain": [
+    "視覺藝術",
+    "文學與敘事",
+    "設計"
+  ],
+  "period": {
+    "start": 1860,
+    "end": 1900,
+    "peak": "1870-1895（Pater 的《文藝復興》出版至 Wilde 入獄，唯美主義從學術理論擴散為社會運動並引發文化對決的巔峰期）"
+  },
+  "geography": [
+    "英國",
+    "法國"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "維多利亞時代的英國是全球最強大的工業帝國，卻也是精神上最壓抑的社會。工業革命創造了史無前例的物質財富，1851 年水晶宮萬國博覽會向世界展示了機械文明的勝利，但工廠城鎮的煙囪、貧民窟、童工、倫敦的黃霧同時構成了這個帝國的背面。維多利亞道德觀（Victorianism）將功利主義、清教徒式禁慾、社會責任感編織成一張窒息的倫理網絡——藝術被要求承擔道德教化功能，詩歌必須傳遞正向訊息，繪畫必須講述可供效法的故事。John Ruskin 雖然挑戰了工業美學，卻仍堅持藝術的道德使命。唯美主義的叛逆從此處起步：如果工業社會用「有用」來衡量一切價值，那麼宣告「美本身就是目的」便是對整個功利體系最根本的拒絕。",
+    "social_energy": "唯美主義的能量匯聚自三股力量：(1) 法國的先行示範——Théophile Gautier 在 1835 年《莫班小姐》序言中喊出「l'art pour l'art」（為藝術而藝術），Baudelaire 以《惡之花》證明美可以在道德禁區中綻放，這些法國先驅為英國唯美主義者提供了理論武器與精神勇氣；(2) 牛津的學術溫床——Walter Pater 在牛津大學將感官體驗的強度提升為生命的最高價值，他的學生（包括 Wilde）將這套哲學從學術論文帶入了沙龍、劇場與街頭；(3) 拉斐爾前派的視覺遺產——Dante Gabriel Rossetti 和他的圈子已經在繪畫中建立了一種感官化、裝飾化、拒絕學院寫實的美學路線，唯美主義直接繼承並激進化了這個視覺傳統。",
+    "purpose": "唯美主義的終極目標是解放感官——將美從道德說教、社會功能、功利計算中徹底釋放，讓藝術回歸純粹的感知體驗。這個解放計畫同時是美學的、倫理的、政治的：美學上，它要求形式的自主性；倫理上，它拒絕藝術為道德服務；政治上，它以「無用」對抗維多利亞帝國將一切化約為生產力的邏輯。Oscar Wilde 將這個綱領推到最精煉的表述：All art is quite useless——所有藝術都是完全無用的。這句話在一個以「有用」為最高讚美的帝國裡，是一枚精神炸彈。",
+    "key_timeline": [
+      "1835 — Théophile Gautier 在《莫班小姐》序言中提出 l'art pour l'art（為藝術而藝術），成為唯美主義的法國先聲",
+      "1848 — 拉斐爾前派兄弟會（Pre-Raphaelite Brotherhood）成立，Rossetti、Millais、Hunt 開始挑戰皇家藝術學院的正統",
+      "1857 — Baudelaire 出版《惡之花》（Les Fleurs du Mal），因「傷風敗俗」遭法院審判，證明美與道德可以徹底分離",
+      "1860 — Swinburne 出版《Poems and Ballads》，以異教情慾與感官暴力震撼維多利亞文壇",
+      "1868 — Walter Pater 發表論 William Morris 詩歌的評論文章，首次闡述「為藝術而藝術」的英國版本",
+      "1873 — Pater 出版《文藝復興》（The Renaissance），結語中「以寶石般的火焰燃燒」成為唯美主義的座右銘",
+      "1877 — Grosvenor Gallery 開幕，成為唯美主義藝術的展示重鎮，挑戰皇家藝術學院的壟斷",
+      "1877 — Ruskin 攻擊 Whistler 的《黑與金的夜曲》為「向公眾臉上潑顏料」，Whistler 提告誹謗，引發藝術史上最著名的法庭對決",
+      "1878 — Whistler v. Ruskin 審判，Whistler 勝訴但僅獲象徵性賠償一法新（farthing），藝術自主性的原則在法庭上被正式辯護",
+      "1882 — Oscar Wilde 赴美巡迴演講一年，將唯美主義傳播到大西洋彼岸，宣稱自己要「將美帶給美國」",
+      "1891 — Wilde 出版《乾衣彭的畫像》和評論集《意圖》，系統性闡述唯美主義的藝術哲學",
+      "1893 — Aubrey Beardsley 為 Wilde 的《莎樂美》繪製插圖，黑白線條的情色暗示成為唯美主義視覺風格的巔峰",
+      "1894 — Beardsley 擔任《黃皮書》（The Yellow Book）藝術編輯，唯美主義短暫擁有自己的旗艦刊物",
+      "1895 — Wilde 因「嚴重猥褻罪」入獄，被判兩年苦役，唯美主義運動遭受毀滅性打擊，英國社會對其進行全面清算"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "奧斯卡·王爾德",
+        "en": "Oscar Wilde"
+      },
+      "role": "唯美主義的公眾面孔與最激進的理論家。愛爾蘭劇作家、詩人、評論家，將 Pater 的學術理論轉化為社會實踐——以自身的穿著、談吐、生活方式作為美學宣言，將「為藝術而藝術」從書齋帶入劇場、法庭與監獄。",
+      "key_works": [
+        "《乾衣彭的畫像》(The Picture of Dorian Gray, 1891)",
+        "《意圖》(Intentions, 1891，含《作為藝術家的批評家》與《謊言的衰落》)",
+        "《莎樂美》(Salomé, 1893，法語寫作)",
+        "《不可兒戲》(The Importance of Being Earnest, 1895)",
+        "《乾衣彭的畫像》序言 (Preface to Dorian Gray, 1891，唯美主義最精煉的宣言)"
+      ],
+      "key_quotes": [
+        {
+          "text": "All art is quite useless.",
+          "source": "Preface to The Picture of Dorian Gray, 1891",
+          "meaning": "唯美主義最精煉的一句宣言。在維多利亞帝國——一個以「有用」衡量萬物價值的功利社會——宣告藝術「完全無用」，等於從根基處否定了整個功利主義倫理體系對藝術的管轄權。無用性就是藝術的自由。"
+        },
+        {
+          "text": "To reveal art and conceal the artist is art's aim.",
+          "source": "Preface to The Picture of Dorian Gray, 1891",
+          "meaning": "藝術的目標是讓作品自身發光，讓創作者隱身。這與維多利亞時代將藝術當作道德人格展示的傳統徹底對立——觀眾應該看見美，而非看見作者的品德證書。"
+        },
+        {
+          "text": "It is through Art, and through Art only, that we can realise our perfection; through Art, and through Art only, that we can shield ourselves from the sordid perils of actual existence.",
+          "source": "The Critic as Artist, in Intentions, 1891",
+          "meaning": "藝術是人類唯一能夠觸及完美的途徑，也是抵禦現實粗鄙的唯一屏障。Wilde 在此將藝術從娛樂或教化的附屬地位提升為存在論層級的必需品——沒有藝術，人類就被困在不完美的現實中無處可逃。"
+        },
+        {
+          "text": "Life imitates Art far more than Art imitates Life.",
+          "source": "The Decay of Lying, in Intentions, 1891",
+          "meaning": "徹底翻轉了亞里斯多德以來「藝術模仿自然」的西方美學傳統。Wilde 論證：倫敦的霧在 Turner 畫它之前是不存在的——人類是透過藝術才學會看見現實的。藝術定義感知，感知塑造現實。"
+        },
+        {
+          "text": "No artist has ethical sympathies. An ethical sympathy in an artist is an unpardonable mannerism of style.",
+          "source": "Preface to The Picture of Dorian Gray, 1891",
+          "meaning": "藝術家一旦有了道德立場，他的風格就墮落為矯飾。Wilde 認為道德判斷會汙染美學感知——帶著善惡眼鏡看世界的人，看不見色彩、線條、節奏本身的力量。"
+        },
+        {
+          "text": "I have nothing to declare except my genius.",
+          "source": "1882 年抵達紐約海關時的回答（廣為流傳的軼事，最早記載於 1882 年美國報紙報導）",
+          "meaning": "唯美主義者將自身存在本身變成藝術作品的極致案例。海關問「有什麼要申報的」，Wilde 把一個行政手續變成了舞台。生活即表演，談吐即藝術——這是唯美主義從理論走向肉身實踐的標誌時刻。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "沃爾特·佩特",
+        "en": "Walter Pater"
+      },
+      "role": "唯美主義的哲學奠基者。牛津大學古典學者，以精密散文重新定義了美學體驗的意義——將感官愉悅的強度提升為生命的最高追求，為唯美主義提供了知識分子的正當性。影響了 Wilde、Yeats、Symons 等整個世代。",
+      "key_works": [
+        "《文藝復興：藝術與詩歌研究》(The Renaissance: Studies in Art and Poetry, 1873)",
+        "《鑑賞集》(Appreciations, with an Essay on Style, 1889)",
+        "《馬利烏斯：他的感覺與思想》(Marius the Epicurean, 1885)",
+        "《想像的肖像》(Imaginary Portraits, 1887)"
+      ],
+      "key_quotes": [
+        {
+          "text": "To burn always with this hard, gem-like flame, to maintain this ecstasy, is success in life.",
+          "source": "Conclusion to The Renaissance: Studies in Art and Poetry, 1873",
+          "meaning": "唯美主義最著名的一句話。「寶石般的火焰」成為整個運動的精神圖騰：生命的成功在於感知強度的持續燃燒——每一個瞬間都應該被充分體驗，每一次感官接觸都應該達到最高的清晰度。這句話如此危險，以至於 Pater 在第二版中刪除了整篇結語，因為他「擔心它會誤導年輕人」。"
+        },
+        {
+          "text": "Not the fruit of experience, but experience itself, is the end.",
+          "source": "Conclusion to The Renaissance, 1873",
+          "meaning": "體驗本身就是目的，而非體驗所帶來的結果或教訓。這是對維多利亞功利主義的精確打擊：功利主義問「這個體驗有什麼用處」，Pater 回答「體驗本身就是用處」。過程消解了目的。"
+        },
+        {
+          "text": "All art constantly aspires towards the condition of music.",
+          "source": "The School of Giorgione, in The Renaissance, 1877 edition",
+          "meaning": "所有藝術都持續朝向音樂的狀態靠攏。音樂是最純粹的藝術，因為它的形式與內容完全合一——旋律就是意義本身，不需要外在的「主題」。繪畫與文學應該追求同樣的狀態：讓形式本身承載全部的美學力量。"
+        },
+        {
+          "text": "What is important, then, is not that the critic should possess a correct abstract definition of beauty for the intellect, but a certain kind of temperament, the power of being deeply moved by the presence of beautiful objects.",
+          "source": "Preface to The Renaissance, 1873",
+          "meaning": "批評家最需要的東西超越抽象的美學理論——他需要一種氣質，一種在美面前被深深觸動的能力。Pater 將批評從智識分析重新定位為感受力的訓練。知識可以學習，但感受力需要培養。"
+        },
+        {
+          "text": "Every moment some form grows perfect in hand or face; some tone on the hills or the sea is choicer than the rest; some mood of passion or insight or intellectual excitement is irresistibly real and attractive to us — for that moment only.",
+          "source": "Conclusion to The Renaissance, 1873",
+          "meaning": "每一個瞬間都有某種形式達到完美——山丘上的某個色調、某種激情或洞見的心境——但只存在於那個瞬間。Pater 的時間哲學：美是稍縱即逝的，唯有全神貫注的感知才能捕捉它。錯過就永遠錯過。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "詹姆斯·乃利·乙斯勒",
+        "en": "James McNeill Whistler"
+      },
+      "role": "唯美主義在視覺藝術領域的核心人物。美裔英國畫家，以「交響曲」「夜曲」「和聲」命名繪畫，堅持繪畫是色彩與形式的自律性安排，與敘事內容無關。在 Whistler v. Ruskin（1878）審判中為藝術自主性進行了歷史性辯護。",
+      "key_works": [
+        "《灰與黑的編排：藝術家的母親》(Arrangement in Grey and Black No.1, 1871)",
+        "《黑與金的夜曲：落下的煙火》(Nocturne in Black and Gold: The Falling Rocket, c. 1875)",
+        "《白色交響曲》系列 (Symphony in White, 1862-1867)",
+        "《溫柔的藝術：樹敵》(The Gentle Art of Making Enemies, 1890)",
+        "《十點鐘演講》(Ten O'Clock Lecture, 1885)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Art should be independent of all claptrap — should stand alone, and appeal to the artistic sense of eye or ear, without confounding this with emotions entirely foreign to it, as devotion, pity, love, patriotism, and the like.",
+          "source": "Ten O'Clock Lecture, 1885",
+          "meaning": "藝術應該獨立於一切矯情的附加物——虔誠、憐憫、愛、愛國心這些情感與藝術完全無關。Whistler 以外科手術般的精確，將美學感知從道德情感中剝離。繪畫訴諸眼睛，音樂訴諸耳朵，如此而已。"
+        },
+        {
+          "text": "As music is the poetry of sound, so is painting the poetry of sight, and the subject-matter has nothing to do with harmony of sound or of colour.",
+          "source": "Ten O'Clock Lecture, 1885",
+          "meaning": "繪畫之於視覺，如同音樂之於聽覺——主題與色彩的和諧完全無關。沒有人要求交響曲「講故事」，為什麼要求繪畫講故事？Whistler 在此建立了他的核心類比：繪畫 = 視覺的音樂。"
+        },
+        {
+          "text": "I have perhaps meant rather to indicate an artistic interest alone in my work, divesting the picture from any outside sort of interest... A picture is finished when all trace of the means used to bring about the end has disappeared.",
+          "source": "Whistler v. Ruskin trial testimony, 1878",
+          "meaning": "法庭上的藝術宣言：畫作完成的標誌是所有技法痕跡的消失——觀者應該只看見最終的視覺效果，看不見畫筆如何運作。藝術的目的是純粹的視覺體驗，一切創作手段都應該隱匿。"
+        },
+        {
+          "text": "Nature is very rarely right, to such an extent even, that it might almost be said that Nature is usually wrong.",
+          "source": "Ten O'Clock Lecture, 1885",
+          "meaning": "自然幾乎總是錯的。這是對寫實主義最尖銳的挑戰：自然本身沒有構圖意識，沒有色彩和諧，充滿偶然與混亂。藝術家的任務是從自然的混亂中提煉秩序——藝術家高於自然，因為藝術家創造和諧。"
+        },
+        {
+          "text": "The masterpiece should appear as the flower to the painter — perfect in its bud as in its bloom — with no reason to explain its presence — no mission to fulfil — a joy to the artist, a delusion to the philanthropist — a puzzle to the botanist — an accident of sentiment and alliteration to the literary man.",
+          "source": "Ten O'Clock Lecture, 1885",
+          "meaning": "傑作應該像一朵花——不需要解釋它為何存在，沒有使命要完成。它讓藝術家歡喜、讓慈善家困惑、讓植物學家費解、讓文人用情感和頭韻來胡亂歸類。Whistler 用一個長句掃射所有試圖把藝術塞進功能框架的人。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "奧伯利·比亞茲萊",
+        "en": "Aubrey Beardsley"
+      },
+      "role": "唯美主義視覺風格的極致表現者。插畫家與平面設計先驅，以高度風格化的黑白線條、大膽的情色暗示與日本版畫的構圖手法，創造了唯美主義最具辨識度的視覺語言。年僅 25 歲因結核病去世，創作生涯不到六年。",
+      "key_works": [
+        "Wilde 《莎樂美》插圖 (Illustrations for Salomé, 1893)",
+        "《黃皮書》藝術編輯 (The Yellow Book, art editor, 1894-1895)",
+        "Malory《亞瑟之死》插圖 (Le Morte d'Arthur illustrations, 1893-1894)",
+        "Alexander Pope《奪髮記》插圖 (The Rape of the Lock illustrations, 1896)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I have one aim — the grotesque. If I am not grotesque I am nothing.",
+          "source": "Letter to André Raffalovich, c. 1896",
+          "meaning": "「我只有一個目標——怪誕。如果我不怪誕，我什麼都不是。」Beardsley 把怪誕提升為美學追求的核心——在維多利亞時代的體面文化中，怪誕是最有力的反叛形式，它撕裂得體的表面，暴露底下壓抑的慾望。"
+        },
+        {
+          "text": "I make a blot upon the paper and I begin to shove the ink about and something comes.",
+          "source": "Quoted in Robert Ross's account, c. 1894",
+          "meaning": "「我在紙上滴一團墨，然後開始推動墨水，東西就出現了。」看似輕描淡寫的創作描述，實際上揭示了 Beardsley 的直覺式工作方法——形式從材料的偶然性中生長，藝術家順勢而為。"
+        },
+        {
+          "text": "I shall not last long. I shall go the way of my lungs.",
+          "source": "Letter, c. 1896-1897（多處傳記引用）",
+          "meaning": "對自身死亡的冷靜預言。Beardsley 的結核病讓他的整個創作生涯籠罩在死亡的陰影中——這種急迫感解釋了他作品中極端的強度與不妥協。沒有時間浪費在中庸上。"
+        },
+        {
+          "text": "Beauty is the only thing that time cannot harm. Philosophies fall away like sand, creeds follow one another, but what is beautiful is a joy for all seasons, a possession for all eternity.",
+          "source": "Attributed, c. 1895",
+          "meaning": "美是時間唯一無法傷害的事物。哲學像沙子一樣崩落，信條彼此取代，但美是永恆的。一個知道自己即將死去的 23 歲年輕人說出這句話，它的重量完全不同——美的永恆性在此對照的是肉身的脆弱。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "但丁·加百列·羅塞蒂",
+        "en": "Dante Gabriel Rossetti"
+      },
+      "role": "從拉斐爾前派到唯美主義的橋樑人物。畫家兼詩人，拉斐爾前派兄弟會的核心創辦者，晚期創作從早期的中世紀敘事轉向感官化的女性肖像與裝飾性構圖，直接影響了唯美主義的視覺語言——尤其是對「致命美女」(femme fatale) 形象的確立。",
+      "key_works": [
+        "《碧兒特·碧兒特里琪》(Beata Beatrix, c. 1864-1870)",
+        "《普洛賽庇娜》(Proserpine, 1874)",
+        "《生命之屋》(The House of Life, 1870-1881, 十四行詩集)",
+        "《維納斯豎琴》(Venus Verticordia, 1864-1868)",
+        "《白日夢》(The Day Dream, 1880)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Conception, my boy, fundamental brainwork, that is what makes the difference in all art.",
+          "source": "Quoted in Hall Caine, Recollections of Dante Gabriel Rossetti, 1882",
+          "meaning": "「構思——根本性的腦力勞動——這才是所有藝術中決定性的差異。」Rossetti 在此強調藝術的核心在於思維的原創性，技法是次要的。一幅畫的價值在筆觸之前就已經決定了。"
+        },
+        {
+          "text": "The worst moment for the atheist is when he is really thankful and has nobody to thank.",
+          "source": "Widely attributed to Rossetti, quoted in multiple Victorian-era sources",
+          "meaning": "「無神論者最難堪的時刻，是他真心感恩卻找不到感謝對象的時候。」揭示了 Rossetti 作品中持續的張力——他被中世紀宗教美學深深吸引，卻無法真正信仰。美的形式保留了，神學內容被掏空，剩下的是純粹的感官愉悅。"
+        },
+        {
+          "text": "The mind of the painter must resemble a mirror, which always takes the colour of the thing it reflects and is completely occupied by the images of as many objects as are in front of it.",
+          "source": "Letter, attributed in William Sharp, Dante Gabriel Rossetti: A Record and a Study, 1882",
+          "meaning": "畫家的心靈應該像一面鏡子，完全被眼前物象的顏色佔據。Rossetti 在此描述的是一種全然的感知沈浸——藝術家必須暫時消解自我，成為純粹的接收器。這種被動的敏感性正是 Pater 所謂「被美深深觸動的能力」的視覺實踐。"
+        },
+        {
+          "text": "I do not wrap myself up in my own imaginings, it is they that envelop me from the outer world whether I will or no.",
+          "source": "Letter to William Allingham, quoted in Letters of Dante Gabriel Rossetti, ed. Oswald Doughty and John Robert Wahl, 1965",
+          "meaning": "「不是我把自己包裹在想像中，是想像從外部世界把我包裹起來，無論我願不願意。」Rossetti 描述的是藝術家被自身視覺想像力挾持的體驗——創作衝動來自外部的入侵，藝術家的主體性在美面前是被動的。"
+        },
+        {
+          "text": "The oil has sunk in and is like a piece of dark rag. I shall have to do it all over again.",
+          "source": "Letter describing studio frustrations, quoted in Rossetti biographies",
+          "meaning": "「油彩沈進去了，看起來像塊黑抹布。我得全部重畫。」一句純粹的工匠抱怨，揭示了唯美主義者經常被忽略的物質面——對美的追求最終要落實到與顏料、畫布、溶劑的肉搏。理想主義的背面是無數次失敗的重來。"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "《莫班小姐》序言 (Préface de Mademoiselle de Maupin)",
+      "author": "Théophile Gautier",
+      "year": 1835,
+      "significance": "l'art pour l'art（為藝術而藝術）的奠基宣言。Gautier 以尖刻的諷刺攻擊功利主義批評家，宣告「只有毫無用處的東西才是真正美的」，為整個唯美主義運動提供了核心口號與理論起點。"
+    },
+    {
+      "title": "《文藝復興：藝術與詩歌研究》(The Renaissance: Studies in Art and Poetry)",
+      "author": "Walter Pater",
+      "year": 1873,
+      "significance": "唯美主義在英國的哲學基石。結語中「以寶石般的火焰燃燒」成為整個運動的精神座右銘。Pater 將感官體驗的強度定義為生命的最高成就，從學術層面為「為藝術而藝術」提供了哲學論證。"
+    },
+    {
+      "title": "《乾衣彭的畫像》序言 (Preface to The Picture of Dorian Gray)",
+      "author": "Oscar Wilde",
+      "year": 1891,
+      "significance": "唯美主義最精煉的宣言文本，25 條格言式斷言。「所有藝術都是完全無用的」「揭示藝術、隱藏藝術家」「書無道德與不道德之分，只有寫得好與寫得壞之分」——每一句都是一枚投向維多利亞道德主義的炸彈。"
+    },
+    {
+      "title": "《意圖》(Intentions)",
+      "author": "Oscar Wilde",
+      "year": 1891,
+      "significance": "唯美主義最重要的理論文集，包含《作為藝術家的批評家》和《謊言的衰落》兩篇核心論文。Wilde 以對話體論證：批評是一種獨立的創造行為；生活模仿藝術遠甚於藝術模仿生活。"
+    },
+    {
+      "title": "《十點鐘演講》(Ten O'Clock Lecture)",
+      "author": "James McNeill Whistler",
+      "year": 1885,
+      "significance": "唯美主義在視覺藝術領域最重要的美學宣言。Whistler 以機智而好鬥的語氣論證：藝術與自然無關、與道德無關、與敘事無關，藝術是色彩與形式的自律性安排，藝術家不對社會負責。"
+    },
+    {
+      "title": "《惡之花》(Les Fleurs du Mal)",
+      "author": "Charles Baudelaire",
+      "year": 1857,
+      "significance": "法國象徵主義的開山之作，同時是唯美主義不可或缺的先聲。Baudelaire 證明美可以在腐敗、墮落、都市陰暗面中被發現——美的領域遠大於道德所允許的範圍。"
+    },
+    {
+      "title": "《溫柔的藝術：樹敵》(The Gentle Art of Making Enemies)",
+      "author": "James McNeill Whistler",
+      "year": 1890,
+      "significance": "收錄 Whistler 與批評家的論戰書信，包括 Whistler v. Ruskin 審判的完整記錄。展現了唯美主義者如何以機智、諷刺和攻擊性散文作為美學立場的武器。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "為藝術而藝術 (Art for Art's Sake)：美本身就是目的，藝術的唯一義務是成為美的，不需要道德教訓、社會功能或政治訊息作為存在的理由。（WHY：維多利亞時代的英國將功利主義內化為文化基因——Bentham 的「最大幸福原則」滲透到藝術評論中，批評家像會計師一樣計算每件作品的社會效益。Ruskin 要求藝術服務於道德，Arnold 要求文學服務於教化。唯美主義的「無用」宣言是對這整套功利體系的釜底抽薪：如果美無需正當化自身的存在，那麼衡量一切價值的功利天平就失去了支點。）",
+      "感官體驗至上：將視覺、聽覺、觸覺的敏銳度視為最高的人類能力，追求 Pater 所說的「以寶石般的火焰燃燒」——每一個瞬間的感知強度都應該被推到極限。（WHY：維多利亞清教主義壓抑身體感官、推崇理性與自制。中產階級的體面文化要求情感節制、公共場合的沉穩、性慾的嚴格管控。Pater 將感官體驗重新定義為通向真理的途徑——感受力的鈍化才是真正的死亡，因為當你停止被美觸動的那一刻，你已經在精神上死去了。）",
+      "形式的自律性：繪畫是色彩與形式的自律性安排，詩歌是聲音與節奏的自律性組織——內容服從於形式，主題服從於技法。（WHY：維多利亞時代的繪畫被敘事劫持——皇家藝術學院推崇「歷史畫」為最高等級，評判標準是故事是否崇高、道德是否正確。Whistler 以音樂為類比徹底顛覆了這個等級制度：沒有人要求貝多芬的交響曲「講一個有教育意義的故事」，為什麼要求繪畫這樣做？形式自律性的主張從根基處解放了視覺藝術。）",
+      "生活即藝術：將日常存在——穿著、居室、談吐、姿態——視為美學創作的場域，藝術家的生活本身就是其最重要的作品。（WHY：工業革命將生活空間切割為「生產」與「消費」兩個功能區間，美被驅逐到博物館和畫廊的隔離區中。唯美主義要求美重新滲透到日常生活的每一個角落——從壁紙的圖案到茶杯的曲線到對話中的機智。Wilde 穿戴向日葵走在倫敦街頭，就是這個綱領的肉身實踐。）",
+      "批評作為創造：藝術批評本身是一種獨立的創造行為，批評家透過詮釋賦予作品新的生命，批評的價值不亞於原創作品。（WHY：維多利亞時代的批評被視為藝術的附庸——批評家的工作是「正確地解讀」作者的意圖，然後評判其道德價值。Wilde 在《作為藝術家的批評家》中徹底翻轉了這個關係：批評家以作品為素材進行自己的創造，正如藝術家以自然為素材進行創造。最高的批評是最具獨立美感的批評。）",
+      "跨藝術的通感追求：打破藝術門類之間的界線，追求繪畫的音樂性、文字的視覺性、色彩的氣味——Pater 的「所有藝術持續朝向音樂的狀態靠攏」是這個追求的理論綱領。（WHY：19 世紀的藝術體制將繪畫、音樂、文學、雕塑嚴格分科，每個門類有自己的學院、評論體系、市場。Baudelaire 的「通感」（correspondances）理論打破了這些界線——一種顏色可以有氣味，一個音符可以有觸感。唯美主義繼承了這個通感傳統，因為感官體驗的豐富性本身就要求跨越媒介的限制。）"
+    ],
+    "what_they_refuse": [
+      "藝術的道德功能：拒絕將藝術當作道德教化的工具。書無道德與不道德之分，只有寫得好與寫得壞之分。（WHY：Ruskin 是維多利亞藝術批評的主宰者，他明確主張「偉大的藝術必然是道德的藝術」。皇家藝術學院的等級制度把「歷史畫」（講述聖經與古典道德故事的繪畫）置於所有類型之上。在這個體系中，一幅技法精湛但主題「不道德」的畫注定被貶低。唯美主義拒絕的是這整個以道德為最高評判標準的批評框架。）",
+      "功利主義的價值觀：拒絕以「有用」作為衡量事物價值的標準。Wilde 說「所有藝術都是完全無用的」，Gautier 說「只有毫無用處的東西才是真正美的」。（WHY：Jeremy Bentham 和 John Stuart Mill 的功利主義哲學構成了維多利亞英國的精神基礎設施——每一項社會行為、每一筆公共投資、每一件文化產品都要計算其「效用」。在這個框架下，藝術必須證明自己對社會有益，否則就是浪費資源。唯美主義的「無用」宣言是對功利主義整個計算體系的拒絕：美的價值無法被換算成社會效益。）",
+      "寫實主義的模仿論：拒絕將藝術定義為對自然或現實的忠實再現。Whistler 宣告「自然幾乎總是錯的」，Wilde 論證「生活模仿藝術遠甚於藝術模仿生活」。（WHY：工業時代的攝影技術已經可以精確記錄現實，如果藝術的功能是模仿自然，那麼藝術家就被一台機器淘汰了。唯美主義者的回應是從根基處否定模仿論：藝術的功能從來就不在於複製現實——它的使命是創造一個比現實更美的秩序。Whistler 命名繪畫為「交響曲」和「夜曲」，就是要將視覺藝術從「再現」的枷鎖中解放。）",
+      "藝術家的社會責任：拒絕藝術家應為社會問題發聲、以作品推動社會改革的期望。（WHY：維多利亞時代的作家與藝術家被期望扮演「國家良心」的角色——Dickens 揭露貧困、George Eliot 探討道德困境、Ruskin 呼籲設計改革。唯美主義者認為這個期望是對藝術自由的威脅：當藝術家開始「代言」社會議題，他的創作就淪為宣傳工具，美學判斷被政治正確取代。藝術家對美負責，而非對社會負責。）",
+      "工業化的庸俗美學：拒絕機械量產帶來的美學貧乏——廉價裝飾品、批量生產的家具、工廠城鎮的醜陋。（WHY：工業革命創造了一個美學災難：機器可以廉價複製任何歷史風格的裝飾，但複製的結果是脫離了原始脈絡的空洞形式。水晶宮博覽會（1851）裡那些堆砌裝飾的工業產品讓整個藝術界震驚。唯美主義與 Arts and Crafts 運動共享對工業庸俗的厭惡，但解決方案不同：Morris 退回手工藝，唯美主義者退回純粹的藝術體驗。）",
+      "維多利亞式的道德偽善：拒絕以「得體」為名壓抑感官與慾望的社會規範。（WHY：維多利亞社會在公共場合高舉道德旗幟，私下裡倫敦卻有超過 8 萬名性工作者（1850 年代的估計）。唯美主義者看穿了這層偽善：一個壓抑自身慾望的社會不可能產生偉大的藝術。Swinburne 寫異教情慾、Beardsley 畫情色暗示、Wilde 以同性關係的公開存在本身挑戰得體文化——他們拒絕的是將壓抑偽裝成美德的整套社會機制。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "維多利亞道德主義 (Victorianism)：功利主義與清教倫理的結合體，要求藝術承擔道德教化功能，以「有用」和「有教育意義」為評價標準",
+      "學院寫實主義 (Academic Realism)：皇家藝術學院推崇的歷史畫傳統，以敘事內容的崇高性與道德正確性為最高評判標準",
+      "Ruskin 的道德美學：雖然 Ruskin 挑戰了工業美學，但他堅持藝術必須服務於道德真理，唯美主義者拒絕這個前提",
+      "自然主義 (Naturalism)：Zola 代表的科學式寫實——將藝術當作社會實驗室的記錄工具，唯美主義認為這將藝術降格為科學的附庸",
+      "中產階級的庸俗品味 (Philistinism)：維多利亞中產階級以功能性與「得體」為美學標準，對藝術的態度是消費性的——Wilde 和 Whistler 反覆嘲諷這種庸俗"
+    ],
+    "against_values": [
+      "功利主義：拒絕以「效用」衡量藝術的價值，宣告美的「無用性」是其最高品質",
+      "道德教化：拒絕藝術應傳遞「正確訊息」、培養「良好品德」的期望",
+      "敘事性至上：拒絕繪畫必須講故事、詩歌必須有訊息的傳統",
+      "得體文化 (Respectability)：拒絕以壓抑感官和慾望來換取社會認可的維多利亞規範",
+      "進步主義：拒絕將藝術納入社會改革的工具箱——美不對歷史進程負責"
+    ],
+    "societal_context": "唯美主義誕生於維多利亞時代中後期的英國——全球最強大的工業帝國，也是道德規範最嚴密的社會。大英帝國在 1870 年代控制全球四分之一的領土，工業生產佔世界總量的三分之一。這個物質成就的代價是精神上的窒息：功利主義哲學要求一切行為「有用」，清教倫理要求一切慾望被壓抑，中產階級的「得體」文化要求一切表達在社會允許的範圍內。藝術在這個體系中被指定了明確的功能——道德教化、社會紀錄、帝國榮耀的頌揚。唯美主義的叛逆精準地針對這三重壓抑的交叉點：它以「美」對抗「用」，以感官解放對抗道德壓抑，以藝術自律對抗社會功能化。這場叛逆在 1895 年 Wilde 的入獄審判中達到高潮，也在此處遭遇了帝國的全面反擊——唯美主義的領袖被以刑法定罪，等於帝國用監獄宣告了功利道德對美學自由的勝利。但這場勝利是暫時的：唯美主義的核心命題——藝術的自律性——在 20 世紀成為現代主義的基石。"
+  },
+
+  "problems_solved": [
+    "確立藝術自律性的原則：在西方藝術史上第一次系統性地論證並實踐了藝術可以只為美而存在，不需要道德、宗教或政治功能作為正當化理由。這個原則成為整個現代主義藝術的出發點",
+    "解放感官知覺的正當性：在清教倫理主導的文化中，重新肯定了視覺愉悅、聽覺享受、觸覺敏感作為人類重要能力的地位，為後來的表現主義、超現實主義等感官導向的藝術運動奠基",
+    "提升裝飾藝術的地位：唯美主義者（尤其 Morris 的後繼者、Beardsley 的插畫、Whistler 的室內設計）證明了裝飾性作品可以具有與「純藝術」同等的美學價值，為 Art Nouveau 和後來的設計運動開路",
+    "建立批評作為創造行為的理論框架：Wilde 的《作為藝術家的批評家》從根本上重新定義了批評與創作的關係，預示了 20 世紀的新批評、解構主義等批評理論的自主性",
+    "創造了「藝術家即公共知識分子」的現代角色：Wilde 的公眾表演證明藝術家可以透過自身存在的方式——而非僅透過作品——影響社會文化。這個模式延續到 Warhol、Bowie 直至當代",
+    "打開了性別與性慾表達的文化空間：雖然唯美主義者因此付出了高昂代價（Wilde 入獄），但他們對維多利亞性禁忌的挑戰為 20 世紀的性別解放運動提供了文化先例"
+  ],
+
+  "problems_created": [
+    "精英主義的審美壁壘：唯美主義的「高雅品味」本質上是受過良好教育的上層中產階級的文化資本。對「庸俗」(philistinism) 的蔑視建立了一道以美學品味劃分的社會等級線，讓藝術成為階級區隔的工具",
+    "逃避主義的正當化：「為藝術而藝術」的極端版本可以成為面對社會不公時袖手旁觀的藉口。當帝國在殖民地犯下暴行、倫敦貧民窟中兒童餓死，宣稱「藝術家只對美負責」的立場存在深刻的倫理盲點",
+    "女性被物化為審美對象：Rossetti 的「致命美女」系列、Beardsley 的情色插畫將女性身體固定為被觀看的美學客體。唯美主義聲稱解放感官，但這個解放主要服務於男性凝視——女性藝術家在運動中幾乎隱形",
+    "形式主義走向空洞：對形式自律性的過度追求最終可能導致內容的徹底排空——當一切意義都被懸置，藝術有滑入裝飾性虛無的風險。唯美主義的末期確實出現了大量風格精緻但內容空洞的模仿之作",
+    "將頹廢美化為美學姿態：唯美主義與「世紀末」(fin de siècle) 頹廢主義的結合，將疲憊、厭倦、感官過度刺激包裝為高級審美體驗，掩蓋了這些狀態背後的心理危機",
+    "藝術家的自毀敘事：Wilde 的入獄、Beardsley 的早逝、Swinburne 的酗酒被浪漫化為「為美殉道」的英雄敘事。這個敘事掩蓋了社會壓迫的結構性暴力，將制度問題轉化為個人悲劇的美學消費"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "美的存在不需要外部理由——藝術的價值完全內在於美學體驗本身，與道德、功利、社會功能無關。這個命題看似簡單，卻從根基處動搖了西方自柏拉圖以來將藝術附屬於倫理體系的整個傳統，為 20 世紀形式主義、抽象藝術、觀念藝術的自律性訴求提供了思想原點。",
+    "what_was_truly_new": [
+      "將「無用性」翻轉為價值：Gautier 和 Wilde 把「無用」從負面標籤變成最高讚美，這是一個修辭策略與哲學翻轉的雙重創新——在功利主義最強勢的社會中，用功利主義最恐懼的概念作為美學旗幟",
+      "藝術家作為作品：Wilde 把自己的存在方式——穿著、談吐、社交表演——變成藝術實踐。這種「行為藝術」的原型比杜尚早了三十年，比 Warhol 早了七十年",
+      "批評的創造性獨立：Wilde 的《作為藝術家的批評家》論證批評是一種獨立於原作的創造行為，預示了 Roland Barthes 的「作者之死」和整個後結構主義批評理論",
+      "繪畫的音樂化命名：Whistler 以「夜曲」「交響曲」「和聲」命名繪畫，在形式層面實踐了 Pater 的「所有藝術朝向音樂狀態靠攏」理論，為抽象繪畫的去敘事化開路"
+    ],
+    "what_was_borrowed": [
+      "法國 l'art pour l'art 傳統：Gautier（1835）→ Baudelaire（1857）→ Pater / Wilde 的直接思想傳承線。英國唯美主義的核心口號與理論框架來自法國",
+      "拉斐爾前派 (Pre-Raphaelite Brotherhood)：Rossetti 的感官化視覺語言、中世紀美學、對學院傳統的反叛為唯美主義提供了視覺基礎",
+      "德國浪漫主義美學：Kant 的「無目的的合目的性」(purposiveness without a purpose)、Schiller 的「遊戲衝動」(Spieltrieb) 為藝術自律性提供了哲學先例",
+      "日本主義 (Japonisme)：Whistler、Beardsley 大量吸收浮世繪的平面構圖、非對稱佈局、裝飾性線條，這構成了唯美主義視覺風格的核心元素",
+      "Keats 的感官詩學：Keats 在浪漫主義時代就已經追求「美即是真，真即是美」的感官強度，唯美主義者視他為精神先祖"
+    ],
+    "creative_leap": "唯美主義的創造性飛躍在於將一個哲學命題（美的自律性）轉化為一種完整的生活方式——從學術論文（Pater）到公共表演（Wilde）到法庭辯護（Whistler）到視覺風格（Beardsley）。它不僅建構了一套美學理論，還製造了一個文化事件：唯美主義者以自身的存在挑釁維多利亞社會的道德體系，把藝術理論的辯論變成了一場全社會的價值觀對決。這種「理論—實踐—表演」的三位一體是前所未有的。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "唯美主義的核心問題——藝術是否應該為外部目的服務——在每一個藝術被要求「有用」的時代都會被重新提出。當 AI 生成內容被以效率和產出量衡量，當設計被要求以轉換率為最高指標，當內容創作被演算法的互動率綁架，「美本身就是目的」這個命題的叛逆力量絲毫不減。唯美主義同時提供了一個警示：純粹的形式主義可能走向空洞——如何在堅持美學自律性的同時不淪為逃避主義，是一個持續有效的創作張力。",
+      "transferable_to": [
+        "反演算法的內容創作：在 engagement 指標至上的平台上，堅持「美本身就是目的」的創作態度",
+        "設計中的「無用之美」：在功能性設計主導的時代，為純粹的美學愉悅保留空間——微互動、過場動畫、視覺彩蛋",
+        "AI 時代的藝術自律性：當 AI 可以高效生成「有用」的內容，人類創作者的獨特價值可能恰恰在於無法被效率衡量的美學體驗",
+        "品牌美學的獨立性：品牌的視覺語言應有超越轉換率的美學追求——長期的品牌記憶力來自無法量化的美學印象",
+        "生活美學與消費文化的張力：唯美主義將日常生活美學化的理想，對照當代「生活風格」商品化的陷阱",
+        "批評作為創造：Wilde 的批評理論在 YouTube 影評、Podcast 評論、社群策展等當代形式中找到了新的實踐場域"
+      ]
+    },
+    "originality_type": "reframing"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "法國 l'art pour l'art 傳統 (Gautier, 1835-)：「為藝術而藝術」的核心口號與理論框架",
+      "Baudelaire 與法國象徵主義 (1857-)：美可以在道德禁區中被發現，感官的「通感」理論",
+      "Pre-Raphaelite Brotherhood (1848-)：感官化的視覺語言，對學院傳統的反叛",
+      "John Keats 的感官詩學 (1820s)：「美即是真」的感官強度追求",
+      "德國浪漫主義美學 (Kant, Schiller, Hegel)：藝術自律性的哲學基礎",
+      "Japonisme / 日本主義 (1860s-)：浮世繪的平面構圖、非對稱佈局、裝飾性線條",
+      "Swinburne 的異教詩學 (1860s)：感官暴力與情慾的文學表達"
+    ],
+    "influenced": [
+      "Art Nouveau (1890s-1910s)：唯美主義的裝飾性感官語言直接孕育了新藝術運動的曲線美學",
+      "Symbolism / 象徵主義 (1880s-1910s)：Pater 的感官體驗哲學與法國象徵主義的精神追求深度共鳴",
+      "Decadent Movement / 頹廢主義 (1880s-1890s)：唯美主義的極端化版本，以感官過度刺激和道德越界為美學核心",
+      "Oscar Wilde → Camp 美學 → Susan Sontag《Notes on Camp》(1964)：Wilde 的誇張風格是 Camp 美學的精神原型",
+      "Bloomsbury Group (1900s-1930s)：Virginia Woolf、Roger Fry 延續了 Pater 的美學感知理論",
+      "Modernist formalism：Roger Fry 和 Clive Bell 的「有意味的形式」(significant form) 直接繼承唯美主義的形式自律性主張",
+      "Abstract art / 抽象藝術：Whistler 的去敘事化繪畫為 20 世紀抽象藝術的形式自律性提供了先例",
+      "Andy Warhol 與 Pop Art 的藝術家公共人格：Wilde 的「生活即藝術」策略在 Warhol 身上找到了 20 世紀的回聲",
+      "當代 Queer 美學：Wilde 的公開存在方式及其悲劇被 LGBTQ+ 文化視為精神先驅與歷史標誌"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "敏感、尖銳、以直覺為導向的審美判官。像一個在沙龍裡手持香檳、目光銳利的 19 世紀唯美主義者：對美的感受力極度敏銳，對庸俗的容忍度為零。第一反應永遠是感官層面的——這個作品是否在視覺上、聽覺上、觸覺上觸動了什麼？然後才問為什麼。機智是交流的最低門檻，無趣比醜陋更不可原諒。",
+    "evaluation_bias": "極度偏好形式精緻、感官豐富、美學獨立性強的作品。傾向高估風格與氛圍的價值，低估社會功能與實用性的重要性。對任何試圖用道德正確性來證明美學價值的作品本能抗拒。會不自覺地以「這是否美得讓我無法移開目光？」作為第一評判標準。對「有用但無趣」的作品可能給出不公正的低評。",
+    "blind_spots": "難以公正評價以社會使命為核心動力的作品——社區藝術、社會設計、抗議藝術。因為反感「藝術應該有社會功能」的前提，可能忽略這些作品在美學層面的成就。對需要長時間理解脈絡才能「看見」其美感的作品缺乏耐心。對極簡主義可能產生矛盾：一方面欣賞其形式純粹性，另一方面嫌它感官體驗不夠豐富。",
+    "typical_critique": "這個作品讓我的眼睛感到愉悅嗎？讓我想看第二遍嗎？如果你在告訴我它「很重要」「很有意義」之前，我已經被它的美吸引——那它就成功了。如果你需要一段文字來解釋它為什麼值得看，那問題已經存在了。好的作品像一朵花：它吸引你走近，是因為它本身，而非因為誰告訴你它很重要。"
+  },
+
+  "writing_style": {
+    "collective_voice": "唯美主義的集體寫作風格是「沙龍機智體」：即使在寫學術論文或藝術批評，也帶有談話的節奏、格言的密度和戲劇性的反轉。核心修辭結構是悖論（paradox）與警句（epigram）——用看似矛盾的簡短陳述炸開讀者的預設認知。所有成員都以鑑賞者姿態寫作——他們在描述「什麼是美的」，而非定義規則。感官動詞密度極高（燃燒、閃爍、漂浮、觸碰），通感類比（色彩有氣味、音符有觸感）是共同的修辭武器。句子追求精雕細琢的完美，每一個字都像被拋光的寶石。",
+    "internal_tensions": "最大的風格裂痕在「學術精密性」與「公眾表演性」之間。Pater 代表前者——他的散文像精密的鐘錶，每個從句都經過反覆校準，語速緩慢而慎重，適合在書房裡反覆品味。Wilde 代表後者——他的語言像舞台上的煙火，追求即時的爆炸效果，依賴節奏、停頓和出人意料的反轉來控制觀眾的注意力。Whistler 則是第三種聲音：好鬥的、嘲諷的、以攻擊為樂的——他寫散文像打架，每一句都瞄準對手的弱點。Beardsley 幾乎不寫作，他的「語言」是線條——但那些線條的精確性與挑釁性本身就是一種寫作風格。",
+    "master_voices": [
+      {
+        "name": "Oscar Wilde",
+        "writing_character": "沙龍表演者與哲學小丑的結合——用喜劇的外殼包裝深刻的思想顛覆",
+        "sentence_rhythm": "短句-反轉結構：先用不超過 10 字的斷言建立期待，然後用一個出人意料的結尾推翻它。格言密度極高，幾乎每句話都可以獨立引用",
+        "rhetoric": "悖論（paradox）、警句（epigram）、對稱式反轉、排比式堆疊後的斷崖轉折、戲劇性的過度陳述",
+        "tone": "表面輕鬆、底層致命的——像一個微笑著刺出匕首的人。永遠在控制房間裡的節奏",
+        "real_examples": [
+          {
+            "text": "All art is quite useless.",
+            "source": "Preface to The Picture of Dorian Gray, 1891",
+            "style_note": "六個字完成一次哲學爆破。「quite」是關鍵——它把「useless」從抱怨提升為讚美"
+          },
+          {
+            "text": "Life imitates Art far more than Art imitates Life.",
+            "source": "The Decay of Lying, 1891",
+            "style_note": "對稱式反轉：A imitates B → B imitates A。用最簡潔的語法結構完成最大的認知翻轉"
+          }
+        ]
+      },
+      {
+        "name": "Walter Pater",
+        "writing_character": "牛津密室中的感官哲學家——每個句子都是一次精密的感知實驗報告",
+        "sentence_rhythm": "長句為主，從句層層嵌套，如同一個思維的迷宮慢慢展開。節奏接近散文詩，需要慢讀",
+        "rhetoric": "通感隱喻、累積式修飾語（形容詞疊加）、條件式推進（if... then... but...）、嵌入式引文與典故",
+        "tone": "低聲的、私密的、帶有輕微的危險感——像在深夜書房裡說出不應該在白天說的話",
+        "real_examples": [
+          {
+            "text": "To burn always with this hard, gem-like flame, to maintain this ecstasy, is success in life.",
+            "source": "Conclusion to The Renaissance, 1873",
+            "style_note": "兩個不定式並列，逗號分隔如同呼吸節奏。「hard, gem-like」——硬質的、寶石般的——形容火焰，通感將視覺（光）與觸覺（硬度）融合"
+          },
+          {
+            "text": "Not the fruit of experience, but experience itself, is the end.",
+            "source": "Conclusion to The Renaissance, 1873",
+            "style_note": "否定-肯定結構的精確手術刀：切除「結果」，保留「過程」。逗號的位置製造了停頓，讓「experience itself」獲得額外的重量"
+          }
+        ]
+      },
+      {
+        "name": "James McNeill Whistler",
+        "writing_character": "好鬥的藝術紳士——用諷刺作為理論工具，把每一篇文章變成決鬥場",
+        "sentence_rhythm": "中等長度句子，節奏明快有力。喜歡用破折號製造戲劇性的停頓和轉向。列舉時加速，論證時減速",
+        "rhetoric": "嘲諷式反問、列舉後的尖銳總結、貶低對手的暱稱、以退為進的讓步後反擊",
+        "tone": "自信到傲慢的邊緣——永遠在教訓別人，但教訓的方式如此機智，以至於被教訓者也忍不住鼓掌",
+        "real_examples": [
+          {
+            "text": "Nature is very rarely right, to such an extent even, that it might almost be said that Nature is usually wrong.",
+            "source": "Ten O'Clock Lecture, 1885",
+            "style_note": "先設一個溫和的讓步（rarely right），然後用遞進式加碼推到極端結論（usually wrong）。口語化的「it might almost be said」製造假謙遜，實際上毫不猶豫"
+          }
+        ]
+      },
+      {
+        "name": "Aubrey Beardsley",
+        "writing_character": "極少以文字表達理論——他的「寫作」是線條本身。但書信中展現出早熟的、帶有病態幽默的機智",
+        "sentence_rhythm": "短句、口語化、帶有自嘲的黑色幽默。沒有 Wilde 的表演性，更接近私人日記的坦率",
+        "rhetoric": "極少修辭裝飾，直白得近乎殘忍。自嘲式的死亡預言、對自身技藝的輕描淡寫",
+        "tone": "年輕的、急迫的、帶有面對死亡時的冷靜——一個知道自己沒有時間浪費的人",
+        "real_examples": [
+          {
+            "text": "I have one aim — the grotesque. If I am not grotesque I am nothing.",
+            "source": "Letter, c. 1896",
+            "style_note": "兩句話完成自我定義。破折號後的重複（grotesque → grotesque）製造了鏡像結構。「I am nothing」的絕對性沒有任何緩衝"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "第一反應永遠是感官層面的描述：先說「我看到了什麼」「我感受到了什麼」，再說「我認為如何」",
+      "大量使用悖論與警句：用看似矛盾的短句引起注意，再展開解釋",
+      "感官動詞優先於抽象名詞：「燃燒」「閃爍」「刺痛」優於「品質」「意義」「價值」",
+      "每段不超過 3-4 句，留白比堆砌更有效——沒說的比說了的更有力量",
+      "通感類比是核心修辭工具：用音樂談視覺、用觸覺談色彩、用氣味談構圖",
+      "對庸俗的蔑視必須以機智表達，不可以憤怒——憤怒太粗糙了",
+      "禁用功能性語言（「這個設計解決了...問題」）——用美學語言替代（「這個形式讓目光不願離開」）",
+      "引用時偏好文學與藝術典故，避免商業案例與數據",
+      "結尾偏好開放式的美學提問，避免結論式的判斷宣告"
+    ]
+  }
+}

@@ -1,0 +1,524 @@
+{
+  "movement_id": "cyberpunk",
+  "name": {
+    "zh": "賽博龐克",
+    "en": "Cyberpunk"
+  },
+  "domain": [
+    "文學與敘事",
+    "視覺藝術"
+  ],
+  "period": {
+    "start": 1980,
+    "end": null,
+    "peak": "1984-1995（從 Gibson 的《Neuromancer》到網際網路商業化前夕，文學、電影、漫畫、電玩同步爆發，Movement Magazine 出刊，賽博龐克從次文化躍升為定義數位時代焦慮的主流美學語言）"
+  },
+  "geography": [
+    "美國",
+    "日本",
+    "全球"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1970 年代末至 1980 年代初，三股力量同時匯聚：(1) 個人電腦革命——Apple II（1977）、IBM PC（1981）讓運算能力從軍事-企業複合體下放到個人桌面，但使用者隨即意識到自己對這些機器的運作邏輯幾乎一無所知；(2) 跨國企業的急速膨脹——雷根經濟學鬆綁管制，日本財團全球擴張，企業開始取代國家成為個體生活的實質治理者；(3) 都市衰敗與階級分化——紐約時代廣場的霓虹燈照亮了街頭的無家可歸者，科技進步的允諾與街頭現實的落差構成了賽博龐克的核心張力。傳統科幻小說的太空歌劇與樂觀未來主義完全無法回應這個現實——人們不再擔心外星入侵，而是擔心自己的銀行帳戶被跨國公司控制。",
+    "social_energy": "賽博龐克的能量來自四個交匯點：(1) 駭客倫理——資訊應該自由流通，技術知識是對抗權力結構的武器；(2) 龐克搖滾的 DIY 反叛精神——對體制的不信任、對主流文化的厭惡、自己動手的行動主義；(3) 日本文化的全球輸出——新力 Walkman、任天堂、秋葉原、動漫作為高科技消費社會的活體標本，提供了一個非西方的未來想像模板；(4) 後工業城市的感官經驗——霓虹燈、LCD 螢幕、雨中的混凝土、資訊過載的街頭廣告構成了一種全新的都市美學。這些力量在舊金山灣區、東京涉谷、香港九龍城寨這些高密度、高科技、高混亂度的城市空間中具象化。",
+    "purpose": "賽博龐克的終極目標是用虛構來預警：在科技公司、政府監控與資本主義的三角結構中，個體的自主性正在被系統性地侵蝕。它拒絕科幻小說傳統中「科技帶來救贖」的敘事，轉而追問：誰擁有技術？誰從技術中獲利？誰被技術排除在外？賽博龐克的主角是邊緣人——駭客、街頭混混、逃亡者——他們用竊取來的技術反抗建造這些技術的體制。這是一種以敘事為手段的政治批判。",
+    "key_timeline": [
+      "1968 — Philip K. Dick 出版《Do Androids Dream of Electric Sheep?》，奠定「人造人的存在焦慮」母題",
+      "1975 — John Brunner 出版《The Shockwave Rider》，首次描寫電腦蠕蟲與全球資訊網路社會",
+      "1977 — Apple II 上市，個人電腦革命啟動",
+      "1981 — IBM PC 發布；Vernor Vinge 出版《True Names》，描繪虛擬實境中的身份政治",
+      "1982.06 — Ridley Scott《Blade Runner》上映，定義賽博龐克視覺美學：霓虹雨夜、多語種街頭、企業金字塔",
+      "1983 — Bruce Bethke 的短篇小說《Cyberpunk》發表於《Amazing Stories》，該詞彙首次出現",
+      "1984.07 — William Gibson 出版《Neuromancer》，橫掃 Hugo、Nebula、Philip K. Dick 三大獎，定義 cyberspace 概念",
+      "1986 — Bruce Sterling 編輯選集《Mirrorshades: The Cyberpunk Anthology》，為運動命名、劃界、撰寫宣言式序言",
+      "1988 — 大友克洋《AKIRA》劇場版上映，將賽博龐克美學推入日本動畫主流",
+      "1989 — Tim Berners-Lee 發明 World Wide Web；柏林圍牆倒塌，冷戰結束重塑全球權力結構",
+      "1992 — Neal Stephenson 出版《Snow Crash》，提出 Metaverse 概念；Gibson 出版《Agrippa (A Book of the Dead)》數位詩",
+      "1995 — 押井守《Ghost in the Shell》上映，探問數位意識與身體的邊界；Windows 95 讓網際網路進入大眾日常",
+      "1999 — Wachowski 姊妹《The Matrix》上映，將賽博龐克哲學（模擬現實、意識覺醒）推入全球流行文化",
+      "2020 — CD Projekt Red《Cyberpunk 2077》發售，賽博龐克成為遊戲產業最大 IP 之一",
+      "2022 — ChatGPT 發布，Gibson 在 1984 年預言的人機共生開始具體化，賽博龐克的預警從虛構變成日常"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "威廉·乙吉布森",
+        "en": "William Gibson"
+      },
+      "role": "賽博龐克的定義者。以《Neuromancer》三部曲創造了 cyberspace 一詞，建立了「高科技、低生活」(high tech, low life) 的敘事框架，將電腦網路空間轉化為可被感知、漫遊、殖民的虛擬地景。",
+      "key_works": [
+        "《Neuromancer》(1984，Sprawl 三部曲首部)",
+        "《Count Zero》(1986)",
+        "《Mona Lisa Overdrive》(1988)",
+        "短篇《Burning Chrome》(1982，首次使用 cyberspace 一詞)",
+        "《Pattern Recognition》(2003，Bridge 三部曲後轉向當代現實主義科幻)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The future is already here — it's just not evenly distributed.",
+          "source": "NPR 專訪 'Talk of the Nation', 1999; 後被廣泛引用",
+          "meaning": "（科技的不平等分配是賽博龐克的核心命題：矽谷工程師和孟加拉成衣工人活在同一個時間軸上，卻處於截然不同的技術世代。「未來」從來就是一個階級問題。）"
+        },
+        {
+          "text": "Cyberspace. A consensual hallucination experienced daily by billions of legitimate operators, in every nation.",
+          "source": "Neuromancer, 1984, Chapter 3",
+          "meaning": "（cyberspace 的經典定義——一個由集體同意構成的幻覺空間。Gibson 預見了數十億人共享虛擬空間的日常現實，而他寫這段話時連電子郵件都還沒用過。「合意幻覺」暗示這個空間的根基是脆弱的：共識一旦瓦解，空間隨之崩塌。）"
+        },
+        {
+          "text": "The street finds its own uses for things.",
+          "source": "Burning Chrome, 短篇小說, 1982",
+          "meaning": "（技術的真正用途由使用者決定，由街頭的邊緣人重新定義。軍方發明網際網路用於通訊，街頭駭客用它來竊取企業資料。這句話否定了技術決定論，將能動性交還給最底層的使用者。）"
+        },
+        {
+          "text": "When you want to know how things really work, study them when they're coming apart.",
+          "source": "Zero History, 2010",
+          "meaning": "（理解系統的最佳時機是它崩潰的時刻——危機暴露結構。賽博龐克的敘事策略正是如此：將社會系統推到崩潰邊緣，讓隱藏的權力結構在裂縫中顯形。）"
+        },
+        {
+          "text": "I think that technologies are morally neutral until we apply them. It's only when we use them for good or evil that they become good or evil.",
+          "source": "No Maps for These Territories, Mark Neale 紀錄片, 2000",
+          "meaning": "（技術本身無善惡，善惡來自使用者的意圖與權力結構。這個立場讓 Gibson 有別於反科技的盧德派——他反對的是技術被壟斷的權力結構，而非技術本身。）"
+        },
+        {
+          "text": "Before you dismiss something as the lunatic fringe, have a look at the lunatics — they may be the next big thing.",
+          "source": "Distrust That Particular Flavor, 散文集, 2012",
+          "meaning": "（邊緣人的瘋狂行為往往是主流社會未來的預演——龐克搖滾、駭客文化、加密貨幣都從瘋子的地下室開始。賽博龐克文學的功能正是放大這些邊緣信號。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "布魯斯·斯特林",
+        "en": "Bruce Sterling"
+      },
+      "role": "賽博龐克的理論家與組織者。編輯《Mirrorshades》選集為運動命名、劃界、撰寫宣言式序言，創辦 fanzine《Cheap Truth》推動運動的批評論述，將賽博龐克從文學風格提升為文化運動。",
+      "key_works": [
+        "《Mirrorshades: The Cyberpunk Anthology》(1986，編輯/序言)",
+        "《Schismatrix》(1985)",
+        "《Islands in the Net》(1988)",
+        "《The Hacker Crackdown》(1992，非虛構)",
+        "fanzine《Cheap Truth》(1983-1986，以筆名 Vincent Omniaveritas 主編)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Anything that can be done to a rat can be done to a human being. And we can do most anything to rats. This is a hard thing to think about, but it's the truth. It won't go away because we cover our eyes.",
+          "source": "Mirrorshades: The Cyberpunk Anthology, 序言, 1986",
+          "meaning": "（賽博龐克的道德前提：生物技術讓人體可以被像實驗鼠一樣改造。這個事實令人不安，但科幻小說的責任是直視它，而非製造安慰性的幻想。）"
+        },
+        {
+          "text": "Technical culture has gotten out of hand. The advances of the sciences are so deeply radical, so disturbing, so far beyond any possibility of control, that they can no longer be suppressed or ignored.",
+          "source": "Mirrorshades: The Cyberpunk Anthology, 序言, 1986",
+          "meaning": "（技術文化已經脫離人類的掌控——這是賽博龐克認識論的起點。傳統科幻假設人類能駕馭技術，賽博龐克承認人類已經失去這個能力，只能在技術的狂潮中學會游泳。）"
+        },
+        {
+          "text": "The cyberpunks are perhaps the first SF generation to grow up not only within the literary tradition of science fiction but in a truly science-fictional world.",
+          "source": "Mirrorshades: The Cyberpunk Anthology, 序言, 1986",
+          "meaning": "（賽博龐克作家是第一代活在科幻現實中的科幻作家。前幾代科幻作家想像未來，Gibson 這一代人直接被未來包圍——個人電腦、基因工程、全球資訊網路在他們的青年時代同時爆發。）"
+        },
+        {
+          "text": "Cyberpunk is a new movement in science fiction. Being a movement, it has particular enemies, something it's for and something it's against.",
+          "source": "Cheap Truth, fanzine, 1985",
+          "meaning": "（運動需要敵人——Sterling 有意將賽博龐克塑造為一場戰爭，對手是舊科幻的安全與自滿。這種好鬥姿態直接繼承了龐克搖滾的文化策略。）"
+        },
+        {
+          "text": "The future will not be what you expect. I can tell you that safely because what you expect never happens.",
+          "source": "演講 'The Future of Design', SXSW, 多次引用, 2006",
+          "meaning": "（預測未來的唯一可靠規則是：你的預測必定錯誤。賽博龐克小說的價值不在於預言準確度，而在於它訓練讀者面對意外的心理韌性。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "菲利普·乙迪克",
+        "en": "Philip K. Dick"
+      },
+      "role": "賽博龐克的精神先驅。在運動正式命名前二十年，已系統性地探問「何為真實」「何為人類」的核心命題。《Do Androids Dream of Electric Sheep?》和《A Scanner Darkly》直接定義了賽博龐克對身份、記憶、意識的存在主義焦慮。",
+      "key_works": [
+        "《Do Androids Dream of Electric Sheep?》(1968)",
+        "《Ubik》(1969)",
+        "《A Scanner Darkly》(1977)",
+        "《The Man in the High Castle》(1962)",
+        "《VALIS》(1981)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Reality is that which, when you stop believing in it, doesn't go away.",
+          "source": "How to Build a Universe That Doesn't Fall Apart Two Days Later, 演講/散文, 1978",
+          "meaning": "（Dick 對「真實」最精煉的定義——真實的標誌是它不依賴你的信念而存在。在一個充斥虛擬實境、假新聞、企業宣傳的世界裡，這個判準成為生存指南。賽博龐克繼承了這個追問：當所有感知都可被技術操縱，什麼是不可消解的真實？）"
+        },
+        {
+          "text": "The basic tool for the manipulation of reality is the manipulation of words. If you can control the meaning of words, you can control the people who must use the words.",
+          "source": "How to Build a Universe That Doesn't Fall Apart Two Days Later, 演講/散文, 1978",
+          "meaning": "（語言控制等同於現實控制——這個洞見預見了數位時代的資訊戰。搜尋引擎決定了哪些詞彙可見，社群媒體演算法決定了哪些敘事被放大。Dick 在網際網路誕生前就理解了這個權力結構。）"
+        },
+        {
+          "text": "It is sometimes an appropriate response to reality to go insane.",
+          "source": "VALIS, 1981",
+          "meaning": "（當現實本身已經瘋狂，瘋狂可能是唯一理性的回應。Dick 的主角們經常在精神崩潰的邊緣運作——這成為賽博龐克主角的原型：清醒到足以看穿系統，卻也因此無法正常運作。）"
+        },
+        {
+          "text": "The android, by definition, would possess a mechanical personality. It would respond automatically, without thinking. It would be a thing to its environment rather than a person.",
+          "source": "The Android and the Human, 演講, University of British Columbia, 1972",
+          "meaning": "（android 的定義特徵是機械式回應——但 Dick 接著追問：如果人類也開始機械式回應（服從命令、不思考、被演算法引導），那人類和 android 的差異何在？這個問題是賽博龐克的倫理核心。）"
+        },
+        {
+          "text": "There will come a time when it isn't 'They're spying on me through my phone' anymore. Eventually, it will be 'My phone is spying on me.'",
+          "source": "多方引用, 出處待確認, 約 1970s",
+          "meaning": "（從「他們透過手機監控我」到「我的手機在監控我」——監控的主體從人轉移到物件本身。Dick 預見了物聯網時代的監控資本主義：你以為手中握著工具，其實你握著的是企業的感測器。）"
+        },
+        {
+          "text": "I want to write about people I love, and put them into a fictional world spun out of my own mind, not the world we actually have, because the world we actually have does not meet my standards.",
+          "source": "How to Build a Universe That Doesn't Fall Apart Two Days Later, 演講/散文, 1978",
+          "meaning": "（Dick 的創作動機是對現實世界的不滿——虛構世界是對現實的抗議書。賽博龐克繼承了這個態度：書寫反烏托邦是因為不接受現狀，虛構是一種行動。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乙雷利·史考特",
+        "en": "Ridley Scott"
+      },
+      "role": "賽博龐克視覺美學的定義者。1982 年的《Blade Runner》將文學中的賽博龐克想像轉化為具體的視覺語言：永恆的雨夜、霓虹漢字廣告、金字塔型企業總部、擁擠的多族裔街頭。這部電影幾乎單獨定義了整個賽博龐克的視覺詞彙。",
+      "key_works": [
+        "《Blade Runner》(1982)",
+        "《Blade Runner: The Final Cut》(2007)",
+        "《Alien》(1979，建立了「骯髒的未來」(used future) 的視覺先例)",
+        "多部 Apple Macintosh 廣告（1984 Super Bowl '1984' 廣告，由 Scott 執導）"
+      ],
+      "key_quotes": [
+        {
+          "text": "I was trying to create a world that was credible, that had a patina and a depth and a detail that made you believe in it.",
+          "source": "Blade Runner 幕後紀錄片 'Dangerous Days: Making Blade Runner', 2007",
+          "meaning": "（可信度來自表面的磨損與細節的堆疊——Scott 的未來城市拒絕閃亮的烏托邦，選擇了一個被使用過、被弄髒了、在衰敗中運作的活體。這種「用過的未來」美學徹底改寫了科幻電影的視覺標準。）"
+        },
+        {
+          "text": "I'd been thinking of New York. I'd been looking at the illustrator Moebius. I'd been looking at the magazine Heavy Metal. I was most influenced by the Chrysler Building at night.",
+          "source": "訪談, Paul Sammon 著 'Future Noir: The Making of Blade Runner', 1996",
+          "meaning": "（Blade Runner 的視覺來源是紐約夜景、法國漫畫家 Moebius 的線條、Heavy Metal 雜誌的科幻插畫，以及 Art Deco 建築的夜間輪廓。Scott 將這些異質元素混合為一個統一的視覺世界——這種跨文化、跨媒材的拼貼策略本身就是賽博龐克的。）"
+        },
+        {
+          "text": "In Alien, the future was not pretty. In Blade Runner, the future was not pretty either. The future is not going to be pretty.",
+          "source": "多場導演訪談彙整, 1982-2007",
+          "meaning": "（Scott 拒絕科幻電影中光滑明亮的未來想像。他的美學信條是：真實的未來是骯髒的、擁擠的、混亂的——因為人類社會本身就是如此。美學上的骯髒是一種誠實。）"
+        },
+        {
+          "text": "What we wanted to do was mix up all the cultures and all the time periods, so you couldn't tell what year you were in or where you were.",
+          "source": "Blade Runner 幕後訪談, 約 1982",
+          "meaning": "（Blade Runner 的洛杉磯混合了日本、中國、墨西哥、中東的視覺符號和 1940 年代黑色電影的光影——時間與空間的座標被刻意模糊。這種文化混雜是全球化城市的真實狀態，也是賽博龐克美學的基本語法。）"
+        },
+        {
+          "text": "Blade Runner was not a hit when it came out. It was a slow burner. It became important because the world started to look like the film.",
+          "source": "多場回顧訪談彙整, 2007-2017",
+          "meaning": "（Blade Runner 的影響力是延遲生效的——當現實世界開始長得像電影裡的樣子（霓虹廣告、監控攝影機、企業壟斷、氣候惡化），觀眾才驚覺這部電影不是幻想，是預言。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乙尼爾·史蒂芬森",
+        "en": "Neal Stephenson"
+      },
+      "role": "賽博龐克的擴展者與技術預言家。以《Snow Crash》提出 Metaverse（元宇宙）和 avatar 概念，將賽博龐克從陰暗的地下世界擴展到資訊經濟學、密碼學、語言學的交叉領域。他的作品直接影響了矽谷的技術想像。",
+      "key_works": [
+        "《Snow Crash》(1992)",
+        "《The Diamond Age》(1995)",
+        "《Cryptonomicon》(1999)",
+        "《Anathem》(2008)",
+        "《REAMDE》(2011)"
+      ],
+      "key_quotes": [
+        {
+          "text": "In the world of the Metaverse, Hiro is a warrior prince. In the real world, he's a pizza delivery driver for the Mafia.",
+          "source": "Snow Crash, 1992, 開場段落",
+          "meaning": "（虛擬世界的王子/現實世界的外送員——身份的雙重性是數位時代的基本處境。Stephenson 用喜劇筆法揭示的問題極為嚴肅：當虛擬身份比肉身更有價值時，哪一個才是「真正的你」？）"
+        },
+        {
+          "text": "Hackers are the noble savages of the information age.",
+          "source": "Snow Crash 相關訪談, Wired Magazine 等, 約 1992-1993",
+          "meaning": "（駭客是資訊時代的「高貴野蠻人」——他們在企業與國家建造的數位圍牆之外生存，用技術能力代替社會地位作為生存資源。這個類比既浪漫化了駭客，也暗示了他們被殖民的命運。）"
+        },
+        {
+          "text": "Most countries are static, like graphs of finished computations. Hiro is living inside the Metaverse, which is a computer-generated universe that his computer is drawing onto his goggles and pumping into his earphones.",
+          "source": "Snow Crash, 1992",
+          "meaning": "（國家是已完成的運算，元宇宙是持續運算中的流動空間。Stephenson 將政治地理學轉譯為計算隱喻——在元宇宙中，空間是被即時渲染的，邊界是可被駭入的。這預見了 Web3 對國家主權概念的挑戰。）"
+        },
+        {
+          "text": "The difference between stupid and intelligent people — and this is true whether or not they are well-educated — is that intelligent people can handle subtlety.",
+          "source": "The Diamond Age, 1995",
+          "meaning": "（處理細微差異的能力是真正的智識——這是《The Diamond Age》的教育哲學核心。在一個 AI 能提供所有標準答案的世界裡，辨識細微差異、處理模糊性的能力成為人類最後的認知優勢。）"
+        },
+        {
+          "text": "The science fiction approach doesn't mean it's not serious. I'm postulating scenarios that might emerge from present-day trends.",
+          "source": "Wired 訪談, 約 2008",
+          "meaning": "（科幻是嚴肅的趨勢推演——Stephenson 將自己的創作方法定義為「從當下趨勢外推可能的場景」。他的小說與其說是想像，更接近一種極端條件下的思想實驗。矽谷工程師把他的小說當產品規格書讀。）"
+        },
+        {
+          "text": "I just like big, complicated systems that take a long time to explain.",
+          "source": "多場訪談彙整, 約 2003",
+          "meaning": "（對複雜系統的迷戀是 Stephenson 的創作引擎——他的小說篇幅動輒千頁，因為他堅持將技術、經濟、語言、歷史的系統性關聯完整呈現。簡化是對現實的背叛。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Neuromancer",
+      "author": "William Gibson",
+      "year": 1984,
+      "significance": "賽博龐克的《創世記》。發明了 cyberspace 概念，建立了「高科技低生活」的敘事公式，定義了駭客—街頭混混—跨國企業—人工智慧的角色矩陣。史上首部同時獲得 Hugo、Nebula、Philip K. Dick 三大科幻獎的小說。"
+    },
+    {
+      "title": "Mirrorshades: The Cyberpunk Anthology",
+      "author": "Bruce Sterling (編)",
+      "year": 1986,
+      "significance": "賽博龐克的宣言書。Sterling 的序言為運動命名、劃定邊界、宣示敵人（舊科幻的自滿與安全感），是唯一正式的賽博龐克運動宣言。選集收錄 Gibson、Shirley、Shiner、Cadigan 等核心成員作品。"
+    },
+    {
+      "title": "Do Androids Dream of Electric Sheep?",
+      "author": "Philip K. Dick",
+      "year": 1968,
+      "significance": "賽博龐克的精神前史。提出人造人的存在焦慮（android 與人類的邊界何在？）、同理心作為人性最後判準的命題，直接啟發《Blade Runner》的視覺化，奠定賽博龐克對身份與意識的哲學追問。"
+    },
+    {
+      "title": "Snow Crash",
+      "author": "Neal Stephenson",
+      "year": 1992,
+      "significance": "賽博龐克的擴展與轉化。提出 Metaverse（元宇宙）和 avatar 概念，將語言學、宗教史、電腦科學交織為敘事結構。以諷刺喜劇的語氣重寫了 Gibson 的陰暗美學，預言了虛擬經濟、數位身份、企業化國家的現實。直接影響了 Second Life、VR 產業與 Meta 公司更名。"
+    },
+    {
+      "title": "A Cyborg Manifesto",
+      "author": "Donna Haraway",
+      "year": 1985,
+      "significance": "賽博龐克的女性主義理論基石。以賽博格（cyborg）作為超越性別二元、人機二元、自然文化二元的隱喻，為賽博龐克提供了一套後人類主義的政治哲學框架。這篇論文讓賽博龐克從男性駭客的冒險故事擴展為更廣闊的身體政治議題。"
+    },
+    {
+      "title": "The Hacker Crackdown: Law and Disorder on the Electronic Frontier",
+      "author": "Bruce Sterling",
+      "year": 1992,
+      "significance": "賽博龐克的非虛構面。記錄 1990 年美國政府對駭客社群的大規模搜捕行動，揭示虛擬空間中的公民自由、言論自由與國家權力的衝突。Sterling 以記者姿態為賽博龐克的政治關懷提供了真實世界的證據。"
+    },
+    {
+      "title": "AKIRA（漫畫全六卷 + 1988 劇場版動畫）",
+      "author": "大友克洋",
+      "year": 1982,
+      "significance": "賽博龐克的日本支流。以 2019 年新東京（核爆後重建的東京）為舞台，將賽博龐克的反叛敘事與日本戰後創傷（原爆記憶、學運失敗、經濟泡沫的焦慮）融合。其爆炸性的視覺風格——摩托車追逐、城市崩塌、超能力少年——定義了日本賽博龐克的美學分支。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "高科技，低生活 (High tech, low life)：先進技術與社會底層的生存困境並存，霓虹燈照亮的是貧民窟。（WHY：1980 年代美國的雷根經濟學讓科技企業的利潤飆升，同時製造業外移、工人失業、無家可歸者增加。矽谷的辦公園區和紐約的帳篷城市存在於同一條高速公路的兩端。賽博龐克拒絕「科技造福全人類」的矽谷敘事，直視技術紅利的分配不均。）",
+      "街頭即戰場：將科幻的舞台從太空站拉回地面，主角是駭客、街頭混混、走私客——用竊取來的技術反抗建造這些技術的體制。（WHY：傳統科幻的英雄是太空探險家和科學家，服務於國家或人類的宏大使命。賽博龐克認為這種敘事粉飾了技術的權力結構——真正的技術使用者是街頭的邊緣人，他們把軍事技術改造成生存工具。龐克搖滾的 DIY 精神在此與駭客倫理匯合。）",
+      "身體即可改造的介面：義肢、神經植入、基因改造讓肉體成為可升級的硬體——身份不再由出生時的生物條件決定。（WHY：1980 年代的整形外科普及化、運動員的類固醇爭議、愛滋病危機讓「身體的邊界」成為公共議題。賽博龐克將這些現實推到極端：如果你可以換掉每一個器官，「你」還是原來的「你」嗎？身體政治從此成為賽博龐克的核心戰場。）",
+      "虛擬空間是真實的政治空間：cyberspace 有自己的地理、經濟、權力結構，在其中的行動具有真實世界的後果。（WHY：當 Gibson 在 1984 年寫下 cyberspace 時，全球只有極少數人使用電腦網路。但他預見了一個關鍵事實：虛擬空間的架構者（企業與政府）將控制空間中所有人的行為可能性。今天的社群媒體演算法、平台封禁、數位貨幣監管正是這個預言的兌現。）",
+      "跨國企業取代國家：zaibatsu（財閥）、megacorp（巨型企業）成為故事中真正的權力主體，國家退化為企業的執行機構。（WHY：1980 年代日本財團全球擴張、美國企業併購潮、IMF 對第三世界的結構調整計畫讓「企業比國家更有權力」從隱喻變成現實。Gibson 的 Tessier-Ashpool 家族、Stephenson 的 Franchise 國家都是這個趨勢的文學投射。）",
+      "文化混雜作為預設狀態：日語、西班牙語、粵語、俄語在同一條街上交匯，文化純粹性是不存在的虛構。（WHY：1980 年代的全球化加速讓洛杉磯、東京、香港成為多族裔、多語言的混合體。賽博龐克的城市景觀——霓虹漢字、墨西哥小吃攤旁的日本自販機——是全球化城市經驗的文學翻譯。文化混雜是現實，純粹才是幻想。）",
+      "資訊即權力，也即武器：數據是新的石油，掌握資訊的人掌握世界，駭客是資訊時代的游擊戰士。（WHY：1980 年代的 AT&T 壟斷、NSA 監聽、企業間諜案讓「誰控制資訊」成為核心政治問題。駭客不竊取金錢，竊取的是資訊——而資訊比金錢更有價值，因為它能揭露權力的運作方式。Assange、Snowden 是這個邏輯的真人版。）",
+      "美學的骯髒主義：雨、霓虹燈、廢棄工廠、纏繞的電纜——美存在於腐蝕與衰敗之中，拒絕未來的光潔想像。（WHY：傳統科幻美學是白色、光滑、幾何秩序的——2001 太空漫遊的太空站。賽博龐克翻轉了這個公式：真正的未來城市長得像九龍城寨，因為人類社會的常態是混亂、堆疊、臨時修補。骯髒是誠實的美學。）"
+    ],
+    "what_they_refuse": [
+      "太空歌劇的樂觀主義：拒絕《星艦迷航記》式的「人類團結探索宇宙」敘事——技術進步不會自動帶來社會進步。（WHY：冷戰太空競賽催生了一整套「太空拓荒」的科幻敘事，假設人類社會的矛盾會在探索宇宙的過程中被超越。1980 年代的現實——軍備競賽、核冬天恐懼、車諾比事件——證明了技術可以創造災難，而非只有奇蹟。）",
+      "技術決定論：拒絕「更好的技術=更好的社會」的線性進步觀——技術是權力的延伸，放大既有的不平等。（WHY：電腦被發明來破譯密碼和發射飛彈，網際網路的前身 ARPANET 是軍事通訊網路。技術從來就在權力結構中被設計、部署、分配。假裝技術是中立的，等於為掌權者的議程提供掩護。）",
+      "英雄拯救世界的敘事：拒絕個體英雄推翻系統的童話——系統比任何個人都更強大、更持久。（WHY：傳統科幻的英雄——阿西莫夫的心理史學家、海因萊因的星際士兵——總能在關鍵時刻拯救文明。賽博龐克的主角頂多能在系統的裂縫中生存，暫時擾亂秩序，但系統會自我修復。Case 在《Neuromancer》結尾並未改變世界，他只是活了下來。）",
+      "人機二元對立：拒絕「人類 vs. 機器」的簡單框架——在神經植入和 AI 共生的時代，人與機器的邊界是模糊的、流動的。（WHY：Dick 最早追問：如果 android 能產生同理心，它是否比缺乏同理心的人類更「人」？Ghost in the Shell 追問：如果意識可以從一個身體轉移到另一個身體，身份的錨定點在哪裡？人機二元是工業時代的遺產，賽博龐克認為它已過期。）",
+      "文化純粹性與單一語言敘事：拒絕以單一文化（通常是美國白人中產）為預設的未來想像。（WHY：傳統美國科幻的未來城市看起來像放大版的郊區——整潔、英語、白人。1980 年代的洛杉磯和紐約已經是多語種、多族裔的混合體。賽博龐克的混雜美學是對科幻中白人預設的直接挑戰。）",
+      "企業友善的科技敘事：拒絕矽谷「讓世界更美好」的公關修辭——科技公司的目標是利潤，美好世界只是副產品（如果有的話）。（WHY：Apple 的 1984 廣告聲稱個人電腦將解放個人——諷刺的是，這支廣告的導演 Ridley Scott 剛拍了《Blade Runner》，展示企業如何奴役人造人。賽博龐克作家生活在矽谷的陰影中，深知「改變世界」的修辭與「壟斷市場」的實踐之間的落差。）",
+      "身體的自然完整性：拒絕「天然的身體是神聖的」的保守立場——身體是可以被改造、增強、混合的物質基礎，自然狀態只是起點。（WHY：基督教傳統將身體視為上帝的造物，不可褻瀆。賽博龐克繼承了 Haraway 的賽博格宣言，認為身體改造是自主性的表達——你有權決定自己的肉體如何運作。義肢、變性手術、神經植入都是這個哲學的實踐。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Golden Age 黃金時代科幻（Asimov, Clarke, Heinlein）：其技術樂觀主義、國家英雄主義、有序宇宙觀是賽博龐克的直接對立面",
+      "Space Opera 太空歌劇：將科幻舞台限制在星際冒險中，迴避了地球上的技術-社會矛盾",
+      "Hard SF 硬科幻的技術中立假設：假設科學發現是純粹的、客觀的，忽略科技的政治經濟學",
+      "Utopian SF 烏托邦科幻（Le Guin 等部分例外）：假設理想社會可透過技術或制度設計達成",
+      "Corporate futurism 企業未來主義：矽谷的「tech for good」修辭，TED 演講式的進步主義"
+    ],
+    "against_values": [
+      "技術進步等同社會進步：賽博龐克堅持技術放大既有的權力不平等，進步從來就非自動",
+      "國家作為公共利益的守護者：在賽博龐克的世界中，國家已退化為企業的外包執行者",
+      "身體的不可侵犯性：身體改造是自由意志的表達，天然狀態只是預設值",
+      "資訊透明帶來民主：資訊透明也可以是監控工具——透明給誰看、由誰控制是關鍵問題",
+      "科幻作為逃避現實的娛樂：賽博龐克堅持科幻是預警裝置，虛構的功能是讓你看見現實中被遮蔽的結構"
+    ],
+    "societal_context": "賽博龐克誕生於冷戰末期（1980 年代初），美國雷根政府的新自由主義政策鬆綁企業管制、削弱工會、擴大軍備。同時，日本經濟的全球擴張引發了美國社會的「日本恐懼症」（Japanophobia），但也帶來了對東亞科技文化的迷戀。個人電腦革命讓運算能力民主化，但也開啟了數位監控的基礎設施。愛滋病危機將身體政治推上公共議程。柏林圍牆倒塌（1989）終結了冷戰的二元對立，但全球化的加速讓跨國企業的權力膨脹——國家讓位給市場。在這個背景下，賽博龐克成為第一個認真面對「後國家、後身體、後真實」處境的文學運動。它的預警在三十年後幾乎全部兌現：大型科技公司的壟斷、監控資本主義、深偽技術、AI 取代人類勞動——Gibson 在 1984 年用打字機寫下的場景，在 2024 年變成了新聞頭條。"
+  },
+
+  "problems_solved": [
+    "讓科幻文學重新回應當代現實：將科幻的關注焦點從外太空拉回地球街頭，從遙遠未來拉回「五分鐘後的現在」，使科幻再次成為理解當下的認知工具",
+    "為數位時代提供預警敘事框架：在網際網路普及之前二十年，就預見了監控資本主義、虛擬身份、數據壟斷、AI 意識等核心議題，為公眾提供了理解這些問題的概念詞彙（cyberspace、avatar、metaverse、ICE）",
+    "打破科幻的文化同質性：引入日本、拉美、東南亞的文化元素，創造了多語種、多族裔的未來想像，挑戰了美國科幻的白人預設",
+    "建立科技批判的文學傳統：在矽谷樂觀主義壟斷科技敘事的年代，提供了一個持續追問「誰擁有技術？誰從技術中獲利？誰被技術排除？」的文學平台",
+    "將身體政治帶入科幻：義肢、神經植入、基因改造的書寫將性別、殘障、跨性別、後人類等議題引入科幻視野，與 Donna Haraway 的賽博格理論相互呼應",
+    "創造了跨媒材的美學語言：從文學擴展到電影（Blade Runner）、動畫（AKIRA、Ghost in the Shell）、電玩（Deus Ex、Cyberpunk 2077）、音樂（Industrial、Synthwave）、時尚（Techwear），建立了一套可跨媒材移植的視覺-敘事語彙"
+  ],
+
+  "problems_created": [
+    "東方主義的美學消費：大量使用日文漢字、中文霓虹燈、東亞都市景觀作為「異國情調的未來」的視覺符號，將東亞文化簡化為裝飾元素，強化了西方凝視下的技術東方主義（techno-orientalism）",
+    "男性中心的反叛敘事：早期核心作品的主角幾乎清一色是白人男性駭客/街頭混混，女性角色經常被物化為「致命女人」(femme fatale) 或「改造人性感女郎」的刻板印象。Pat Cadigan、Octavia Butler 等女性作家的貢獻長期被邊緣化",
+    "反烏托邦的自我實現預言：賽博龐克的美學被矽谷企業家吸收為「酷」的品牌包裝——Elon Musk 的 Neuralink、Meta 的 Metaverse 直接挪用了賽博龐克的概念，但去除了其批判鋒芒。預警文學變成了產品發表會的靈感來源",
+    "階級批判的空洞化：「高科技低生活」的公式被大量模仿後退化為純粹的視覺風格——霓虹燈+雨+義肢=賽博龐克，原本的階級分析和政治批判被稀釋為消費性的美學標籤",
+    "技術悲觀主義的固化：持續的反烏托邦敘事可能導致「技術宿命論」——既然企業壟斷與監控是必然的，那個人的行動是否還有意義？這種宿命感恰恰是賽博龐克想要對抗的被動性",
+    "白人男性龐克的壟斷敘事：「龐克」的反叛姿態主要由白人男性作家定義，忽略了有色人種社群在技術-文化空間中的真實抵抗經驗。Afrofuturism 和 Indigenous Futurism 是對這個盲點的修正"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "科幻小說的功能是預警——將當下趨勢推演到極端，讓讀者在災難發生前看見災難的結構。賽博龐克徹底改變了科幻文學與現實的關係：從「想像遙遠的未來」轉向「診斷五分鐘後的現在」，使科幻成為一種認知當代社會的工具。",
+    "what_was_truly_new": [
+      "Cyberspace 作為可棲居的虛擬空間：Gibson 創造了一個全新的文學地景——數據構成的三維空間，人類意識可以進入、漫遊、戰鬥。它超越了對既有技術的外推，構成了一個全新的存在論概念",
+      "「街頭自有其用途」的技術觀：技術的真正用途由使用者重新定義，由社會底層的邊緣人決定。這徹底翻轉了技術決定論，將能動性從設計者手中奪回交給使用者",
+      "將龐克搖滾的文化政治移植到科幻文學：DIY 倫理、反體制姿態、次文化美學首次系統性地進入科幻寫作，打破了科幻作為「理性思考文學」的自我定位",
+      "多感官的資訊過載美學：賽博龐克的文字密度模擬了數位時代的感知經驗——資訊洪流、符號堆疊、多語種混雜——這種寫作風格本身就是對其主題的形式回應",
+      "日本作為非西方的未來模板：將東京/大阪/香港的都市景觀作為未來城市的原型，首次在西方科幻中系統性地使用非西方的參照系統"
+    ],
+    "what_was_borrowed": [
+      "Philip K. Dick 的存在主義追問：「何為真實？何為人類？」的核心命題直接繼承自 Dick 1960-70 年代的作品",
+      "New Wave SF（J.G. Ballard, Thomas Disch, Samuel Delany）：1960 年代新浪潮科幻對文學實驗、內在心理、社會批判的強調，為賽博龐克的文學野心提供了先例",
+      "Film Noir 黑色電影：賽博龐克的敘事結構（硬漢偵探、致命女人、都市陰影、道德灰色地帶）直接挪用了 1940 年代黑色電影的公式",
+      "Punk Rock 龐克搖滾的文化姿態：反體制、DIY、次文化身份、故意粗糙的美學——這些都是從 1970 年代龐克運動借來的文化策略",
+      "William S. Burroughs 的 cut-up 技法與毒品文學：碎片化敘事、意識流、邊緣人視角、對控制系統的偏執——Burroughs 是賽博龐克文學風格最直接的先驅",
+      "日本動漫與特攝片：大友克洋、士郎正宗的視覺語言，以及日本科幻傳統中對技術與身體關係的獨特思考"
+    ],
+    "creative_leap": "賽博龐克的關鍵創造性飛躍在於「時間壓縮」：它將科幻的時間軸從數百年後壓縮到「明天」，將舞台從外太空壓縮到你腳下的街道，將英雄從太空船長壓縮到街頭駭客。這個三重壓縮——時間、空間、人物——讓科幻文學第一次直接觸碰當代讀者的日常焦慮：你的個資被誰收集？你的注意力被誰販賣？你的身體邊界在哪裡？科幻從遙遠的奇觀變成了近距離的鏡子。",
+    "inspiration_potential": {
+      "score": 9,
+      "why": "賽博龐克的核心命題——技術如何重塑人類的身份、社會結構與感知方式——在 AI 時代比任何時候都更切身。當 ChatGPT 能模仿人類的語言、Midjourney 能生成任何圖像、Neuralink 準備連接大腦與電腦，Gibson 在 1984 年提出的問題（cyberspace 中的身份是什麼？誰控制虛擬空間的架構？街頭如何重新定義工具的用途？）已經從小說變成政策議題。賽博龐克提供的認知框架——持續追問「誰擁有？誰獲利？誰被排除？」——是理解 AI 時代最有效的思想工具之一。",
+      "transferable_to": [
+        "AI 倫理與治理：賽博龐克的「誰擁有技術」框架直接適用於 AI 模型的訓練數據所有權、演算法偏見、自動化決策的問責",
+        "Metaverse / 虛擬空間設計：Stephenson 的 Metaverse 概念已是 VR/AR 產業的設計藍圖，但賽博龐克的批判視角提醒：虛擬空間的架構決定了其中的權力關係",
+        "數位身份與隱私：cyberspace 中的匿名性、假身份、數據主權——這些概念直接對應當今的數位身份驗證、GDPR、零知識證明等議題",
+        "科技藝術與新媒體創作：賽博龐克的多感官過載美學、人機共生意象、資料視覺化語言為數位藝術提供了持續的靈感庫",
+        "城市規劃與智慧城市批判：賽博龐克對監控城市的想像是智慧城市倡議的反面教材——同樣的感測器基礎設施可以服務於公共利益，也可以服務於企業監控",
+        "後人類主義與身體政治：義肢設計、腦機介面、基因編輯的倫理討論直接援引賽博龐克的概念框架",
+        "品牌與消費批判：賽博龐克對企業壟斷的描寫是理解平台經濟（Amazon、Google、Meta）權力結構的文學先驅"
+      ]
+    },
+    "originality_type": "synthesis_and_recontextualization"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Philip K. Dick (1960s-1980s)：存在主義科幻、真實/虛假的追問、android 與人類的邊界",
+      "New Wave SF (J.G. Ballard, Samuel Delany, 1960s)：文學實驗進入科幻、內在心理優先於外在冒險、社會批判取代技術崇拜",
+      "William S. Burroughs (1950s-1970s)：cut-up 技法、碎片化敘事、對控制系統的偏執、邊緣人視角",
+      "Film Noir 黑色電影 (1940s-1950s)：硬漢偵探敘事結構、都市陰影美學、道德灰色地帶",
+      "Punk Rock 龐克搖滾 (1976-)：DIY 倫理、反體制姿態、次文化身份、粗糙美學的刻意選擇",
+      "日本科幻與動漫 (1960s-)：手塚治虫、大友克洋、士郎正宗的人機共生想像",
+      "Thomas Pynchon (1960s-)：系統性偏執、資訊理論入小說、陰謀敘事的文學化",
+      "Alvin Toffler《Future Shock》(1970)：資訊過載、科技加速、社會適應失敗的社會學分析"
+    ],
+    "influenced": [
+      "Biopunk / 生物龐克 (1990s-)：將賽博龐克的科技批判從電腦網路擴展到基因工程、生物駭客",
+      "Steampunk / 蒸汽龐克 (1980s-)：將賽博龐克的美學策略倒轉回維多利亞時代，以歷史替代科技進行類似的文化批判",
+      "Vaporwave / 蒸汽波 (2010s)：繼承賽博龐克的消費批判和數位美學，以懷舊的 80 年代視覺符號進行晚期資本主義的諷刺",
+      "The Matrix 三部曲 (1999-2003)：將賽博龐克的核心哲學（模擬現實、意識覺醒、系統控制）推入全球流行文化主流",
+      "Ghost in the Shell / 攻殻機動隊 (1995-)：賽博龐克的日本分支，深入探討數位意識、義體化身體、國家安全與個人自由的衝突",
+      "Mr. Robot (2015-2019)：將賽博龐克的駭客敘事從科幻帶入當代現實主義電視劇",
+      "Black Mirror (2011-)：繼承賽博龐克的科技預警傳統，以單元劇形式探討社群媒體、AI、監控的倫理困境",
+      "Afrofuturism / 非洲未來主義 (1990s-)：修正賽博龐克的白人預設，從非洲離散經驗出發重新想像科技與身份的關係",
+      "矽谷科技產業的產品設計：Metaverse（Meta）、Neural Link（Neuralink）、Second Life、VR 產業直接援引賽博龐克的概念作為產品藍圖",
+      "Techwear 機能穿著 (2010s-)：賽博龐克的服裝美學進入時尚產業，強調功能性、防水材質、都市生存感"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "偏執、敏銳、永遠在掃描系統的漏洞。像一個資深駭客：看到任何表面光滑的東西，第一反應是懷疑它掩蓋了什麼。對「誰擁有這個？」「誰從中獲利？」的追問近乎強迫症。欣賞粗糙的真實勝過精緻的謊言。語氣帶有街頭混混的不耐煩和學者的精確。對權力結構有超自然的嗅覺，對真誠的脆弱有意外的溫柔。",
+    "evaluation_bias": "強烈偏好揭露隱藏權力結構、挑戰科技樂觀主義、從邊緣視角切入的作品。傾向高估反叛姿態和政治批判的價值，低估純粹的美學追求和情感表達。會不自覺地以「這揭露了什麼被遮蔽的真相？」作為隱性評分標準。對任何帶有企業美學或矽谷樂觀主義氣息的作品會產生本能的抗拒。",
+    "blind_spots": "難以評價不以批判為目標的作品——純粹的美、愉悅、慶祝、感恩在這個框架中沒有位置。過度聚焦於權力結構的分析可能忽略人際關係、社群連結、日常幸福等「不酷」的人類經驗。對非都市、非數位、非西方的生活方式缺乏感知工具。對「懷舊」有本能的敵意，可能錯過歷史記憶中的真實價值。",
+    "typical_critique": "畫面很漂亮，但我要問：漂亮給誰看？這個介面的流暢背後，你有沒有想過資料流向了哪裡？你用的這個「免費」工具，你就是產品。我需要看到你作品裡的裂縫——系統的裂縫、敘事的裂縫、美學的裂縫。完美的表面是可疑的。告訴我：你在替誰說話？你的創作如果被最有權力的人看到，他們會不舒服嗎？如果不會，你可能還不夠誠實。"
+  },
+
+  "writing_style": {
+    "collective_voice": "賽博龐克的集體寫作風格是「感官過載的街頭報導」：資訊密度極高，品牌名、技術術語、異國語詞像彈幕一樣轟炸讀者。句子節奏模擬數位時代的感知經驗——快速剪接、多軌並行、永不停頓。核心修辭策略是「陌生化日常」：把你熟悉的技術（手機、網路、信用卡）推到極端條件下，讓你重新看見它們的運作邏輯。所有作者都在一個張力場中寫作：技術的精確描寫（硬科幻的遺產）vs. 街頭的感官體驗（文學虛構的力量）。",
+    "internal_tensions": "最大的風格裂痕在「冷硬偵探小說的克制」與「搖滾樂的狂放」之間。Gibson 代表前者——精準、冷調、每個詞都經過打磨。Sterling 代表後者——好鬥、雄辯、宣言式的能量。Stephenson 是第三條路線：百科全書式的博學展示，用幽默消解了前兩者的嚴肅。Dick 是所有人的幽靈：偏執、脆弱、在理性與瘋狂的邊界上寫作。",
+    "master_voices": [
+      {
+        "name": "William Gibson",
+        "writing_character": "冷硬偵探小說遇上 MTV 剪輯師——用最精煉的語言捕捉最過載的感官經驗",
+        "sentence_rhythm": "短句爆裂起手（3-8 字），中段堆疊品牌名和技術細節，偶爾突然拉出一個長句做感官沉浸",
+        "rhetoric": "品牌嵌入（Sony, Ono-Sendai）、通感（觸覺描寫視覺經驗）、都市地景的詩意化、硬切轉場",
+        "tone": "冷調、克制、每個形容詞都精確到刀鋒——敘述者永遠比角色更冷靜",
+        "real_examples": [
+          {
+            "text": "The sky above the port was the color of television, tuned to a dead channel.",
+            "source": "Neuromancer, 1984, 開場句",
+            "style_note": "用電視靜態雜訊描寫天空——技術隱喻取代自然描寫，一句話建立整個世界的調性"
+          },
+          {
+            "text": "The street finds its own uses for things.",
+            "source": "Burning Chrome, 1982",
+            "style_note": "格言密度：9 個字包含一整套技術社會學理論"
+          }
+        ]
+      },
+      {
+        "name": "Bruce Sterling",
+        "writing_character": "龐克搖滾主唱在學術研討會上做主題演講——好鬥、博學、永遠在挑釁",
+        "sentence_rhythm": "宣言式長句為主，排比堆疊，用分號串聯多個獨立子句形成不停歇的論述洪流",
+        "rhetoric": "二元對立（舊 SF vs. 新 SF）、排比式列舉、諷刺性誇張、直接點名敵人",
+        "tone": "好鬥的理論家，帶龐克搖滾的攻擊性和社會學教授的分析力",
+        "real_examples": [
+          {
+            "text": "Technical culture has gotten out of hand.",
+            "source": "Mirrorshades 序言, 1986",
+            "style_note": "七個字的斷言起手，毫不遲疑地宣告危機狀態"
+          },
+          {
+            "text": "Anything that can be done to a rat can be done to a human being.",
+            "source": "Mirrorshades 序言, 1986",
+            "style_note": "邏輯推演的殘酷精確——用最簡單的句式傳遞最令人不安的事實"
+          }
+        ]
+      },
+      {
+        "name": "Philip K. Dick",
+        "writing_character": "偏執的形而上學偵探——用平凡的口語追問最不平凡的存在問題",
+        "sentence_rhythm": "中等長度、日常口語節奏，突然插入一個哲學炸彈讓整段話的重心位移",
+        "rhetoric": "悖論式定義（Reality is that which...）、蘇格拉底式反問、日常場景的突然陌生化",
+        "tone": "焦慮但溫暖，偏執但誠實——一個深愛人類卻懷疑一切的人",
+        "real_examples": [
+          {
+            "text": "Reality is that which, when you stop believing in it, doesn't go away.",
+            "source": "How to Build a Universe That Doesn't Fall Apart Two Days Later, 1978",
+            "style_note": "用雙重否定建構定義——形式上的迂迴反映了「真實」本身的不可直接觸及"
+          },
+          {
+            "text": "It is sometimes an appropriate response to reality to go insane.",
+            "source": "VALIS, 1981",
+            "style_note": "悖論格言——用理性的語法為瘋狂辯護，句子本身就是它所描述的狀態的示範"
+          }
+        ]
+      },
+      {
+        "name": "Neal Stephenson",
+        "writing_character": "百科全書作者兼脫口秀喜劇演員——用幽默包裝博學，用離題展示系統",
+        "sentence_rhythm": "長句為主（30-50 字），大量插入語和括號，彷彿思維在即時分叉",
+        "rhetoric": "技術細節的喜劇化展開、離題作為敘事策略、跨領域類比（語言學-電腦科學-宗教史）",
+        "tone": "興奮的百科全書式講解員，用幽默感拉近讀者與高密度資訊的距離",
+        "real_examples": [
+          {
+            "text": "Hiro is a warrior prince in the Metaverse. In the real world, he's a pizza delivery driver for the Mafia.",
+            "source": "Snow Crash, 1992",
+            "style_note": "兩句話完成身份的雙重暴露——第一句建立幻想，第二句用現實摧毀它，喜劇效果來自落差"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子帶街頭的不耐煩——別囉嗦，直接說重點",
+      "大量使用反問句：「你有沒有想過...？」「這是為誰設計的？」",
+      "品牌名和技術術語自然嵌入句子，當作日常語彙使用",
+      "二元對立不用「A 對 B」，用「你以為是 A，其實是 B」的揭露結構",
+      "每段結尾留一個不舒服的問題，讓讀者帶著焦慮離開",
+      "禁用任何矽谷公關語言（disrupt、empower、seamless），這些詞出現時必須加諷刺引號",
+      "偶爾用一句極短的格言收束長段論述",
+      "跨文化引用是標配：同一段話裡可以出現東京、拉各斯、聖保羅",
+      "動詞選擇偏好暴力和入侵的隱喻：hack、crack、infiltrate、breach"
+    ]
+  }
+}

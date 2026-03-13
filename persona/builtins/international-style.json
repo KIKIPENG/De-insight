@@ -1,0 +1,498 @@
+{
+  "movement_id": "international-style",
+  "name": {
+    "zh": "國際風格",
+    "en": "International Style"
+  },
+  "domain": [
+    "architecture",
+    "urban_planning",
+    "interior_design",
+    "furniture_design",
+    "landscape_architecture"
+  ],
+  "period": {
+    "start": 1920,
+    "end": 1975,
+    "peak": "1945-1965（二戰後全球重建潮，美國企業總部大量採用玻璃帷幕牆高樓，Mies 的 Seagram Building 與 SOM 的 Lever House 定義了企業現代主義的視覺標準）"
+  },
+  "geography": [
+    "Western Europe (1920s-1930s, originating centers: Germany, France, Netherlands)",
+    "United States (1930s-1970s, became dominant after WWII)",
+    "Latin America (1940s-1960s, Brasilia, Mexico City, Caracas)",
+    "Japan (1950s-1970s, Metabolist adaptation)",
+    "Middle East & North Africa (1950s-1970s, post-colonial nation-building)",
+    "Southeast Asia (1960s-1970s, post-independence modernization)",
+    "Global corporate centers (1950s-present)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1920 年代的歐洲建築界同時面對兩股力量：一戰摧毀了舊帝國的政治結構，連帶摧毀了其美學權威（Beaux-Arts 的對稱宮殿、歷史主義的裝飾柱式）；鋼筋混凝土、平板玻璃與鋼骨框架等工業材料已經成熟到足以支撐全新的建築形式。Le Corbusier 在巴黎、Gropius 在 Dessau、Mies 在柏林、Oud 在鹿特丹，各自獨立發展出相似的建築語言——平屋頂、白牆面、帶狀窗、自由平面——這個趨同現象源自工業材料的結構邏輯與戰後社會對效率住宅的需求共同塑造的必然。1932 年，Philip Johnson 與 Henry-Russell Hitchcock 在紐約現代藝術博物館策劃了 'Modern Architecture: International Exhibition'，將這些分散在各國的實驗命名為一種統一的『風格』，賦予了它理論框架與機構背書。這個命名行為本身就是一次文化權力的行使——它把複雜的社會運動簡化為形式特徵，為日後的全球擴散與商業化鋪平了道路。",
+    "social_energy": "國際風格的能量來自三個來源的匯流：(1) 歐洲前衛建築師對工業時代的回應——機器美學、效率、標準化被視為進步的象徵，Le Corbusier 的「住宅是居住的機器」直接把建築拉入工業邏輯；(2) 二戰後美國的全球霸權——戰後美國需要一套視覺語言來表達其技術優越性與普世價值主張，玻璃與鋼的摩天樓成為自由世界資本主義的圖騰；(3) 全球去殖民化浪潮——新獨立的國家需要一種不帶殖民色彩的建築語言來建設首都與政府機構，國際風格的「無國籍」特質恰好回應了這個需求（儘管諷刺的是，它本身就是西方文化霸權的產物）。",
+    "purpose": "國際風格的核心目標是建立一套超越地域、氣候、文化差異的普世建築語言。它相信：理性分析功能需求 + 誠實使用工業材料 = 自動生成最優形式。這套邏輯的吸引力在於它的簡潔與可複製性——一旦掌握了鋼骨框架 + 玻璃帷幕 + 自由平面的組合語法，任何城市、任何功能都可以套用。它承諾的是建築的民主化與全球化：好設計應該跨越國界服務所有人。",
+    "key_pivot_moments": [
+      "1927 年斯圖加特的 Weissenhof Siedlung（白院聚落）是國際風格的首次集結示範——Mies 擔任總策劃，邀請 Le Corbusier、Gropius、Oud、Stam 等 17 位建築師各建一棟實驗住宅，用實體建築證明現代主義的可行性。",
+      "1932 年 MoMA 展覽的命名行為——Johnson 與 Hitchcock 將分散的歐洲前衛實驗統合為一種『風格』，同時也抽離了其社會改革的政治內涵，為日後的形式主義化埋下種子。"
+    ],
+    "key_timeline": [
+      "1923 — Le Corbusier 出版《Vers une Architecture》，提出「住宅是居住的機器」，系統闡述現代建築五原則的思想基礎",
+      "1925 — Gropius 出版《Internationale Architektur》（Bauhausbucher 第1冊），展示全球現代建築案例，預示了「國際」概念",
+      "1926 — Le Corbusier 發表「新建築五原則」（Les cinq points d'une architecture nouvelle）：底層架空柱、自由平面、自由立面、帶狀窗、屋頂花園",
+      "1927 — 斯圖加特 Weissenhof Siedlung 建成，Mies 策劃，17 位建築師展示現代主義住宅的多元可能",
+      "1929 — Mies 設計巴塞隆納博覽會德國館，以「流動空間」與十字鋼柱定義了國際風格空間的極致",
+      "1931 — Le Corbusier 的薩伏伊別墅（Villa Savoye）完工，五原則的完美示範",
+      "1932.02 — Philip Johnson 與 Henry-Russell Hitchcock 在 MoMA 策劃「Modern Architecture: International Exhibition」，正式命名「國際風格」",
+      "1932 — 同年出版《The International Style: Architecture Since 1922》，定義三原則：量體取代質量、規律取代對稱、排除裝飾",
+      "1937-1938 — Gropius 赴哈佛、Mies 赴 IIT，歐洲前衛建築師大規模移民美國，國際風格的重心從歐洲轉向美國",
+      "1947-1952 — 聯合國總部大樓（Le Corbusier 顧問、Oscar Niemeyer 與 Harrison 設計）落成紐約，國際風格獲得全球最高政治機構的背書",
+      "1951 — Mies 的 Lake Shore Drive Apartments 與 Farnsworth House 完工，玻璃帷幕住宅達到純粹",
+      "1952 — SOM 的 Lever House 完工，確立玻璃帷幕企業總部的典範",
+      "1958 — Mies 的 Seagram Building 完工，被譽為國際風格摩天樓的最高成就",
+      "1960 — 巴西利亞（Brasilia）落成啟用，Oscar Niemeyer 與 Lucio Costa 以國際風格建造全新首都，規模空前",
+      "1966 — Robert Venturi 出版《Complexity and Contradiction in Architecture》，公開挑戰國際風格的教條，後現代主義萌芽"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "勒·柯比意",
+        "en": "Le Corbusier (Charles-Edouard Jeanneret)"
+      },
+      "role": "國際風格的理論奠基者與實踐先驅。以《Vers une Architecture》定義現代建築的思想基礎，以「新建築五原則」提供了可操作的設計語法，以薩伏伊別墅示範了五原則的完美整合。他的影響遍及建築、都市規劃、家具設計，是 20 世紀影響力最大的建築師。",
+      "key_works": [
+        "《Vers une Architecture》(Towards a New Architecture, 1923)",
+        "Villa Savoye 薩伏伊別墅 (Poissy, 1929-1931)",
+        "Unite d'Habitation 馬賽公寓 (1947-1952)",
+        "Chapelle Notre-Dame du Haut, Ronchamp 廊香教堂 (1955, 偏離國際風格的轉向)",
+        "Chandigarh 都市規劃 (India, 1950s)",
+        "Les cinq points d'une architecture nouvelle 新建築五原則 (1926)"
+      ],
+      "key_quotes": [
+        {
+          "text": "A house is a machine for living in.",
+          "source": "Vers une Architecture, 1923",
+          "meaning": "（住宅是居住的機器——建築的出發點是功能需求的精確滿足，如同汽車滿足移動需求、飛機滿足飛行需求。這句話把建築從藝術審美拉入工程邏輯，成為國際風格最廣為人知也最具爭議的信條。）"
+        },
+        {
+          "text": "Architecture is the masterly, correct and magnificent play of masses brought together in light.",
+          "source": "Vers une Architecture, 1923",
+          "meaning": "（建築是量體在光線下精確而壯麗的遊戲。即使主張功能主義，Le Corbusier 從未放棄建築的詩意——光線是讓幾何量體產生情感衝擊的關鍵介質。）"
+        },
+        {
+          "text": "You employ stone, wood and concrete, and with these materials you build houses and palaces. That is construction. Ingenuity is at work. But suddenly you touch my heart, you do me good, I am happy and I say: This is beautiful. That is Architecture.",
+          "source": "Vers une Architecture, 1923",
+          "meaning": "（營造與建築的分水嶺在於情感。材料的堆疊是工程，觸動心靈的空間才是建築——功能是門檻，超越功能的精神體驗才是目標。）"
+        },
+        {
+          "text": "It is a question of building which is at the root of the social unrest of today: architecture or revolution.",
+          "source": "Vers une Architecture, 1923, final chapter",
+          "meaning": "（建築問題是當代社會動盪的根源：要麼用建築解決住房危機，要麼面對革命。Le Corbusier 把建築提升為社會穩定的基礎設施——住宅短缺是政治炸彈。）"
+        },
+        {
+          "text": "Space and light and order. Those are the things that men need just as much as they need bread or a place to sleep.",
+          "source": "attributed, from writings and lectures",
+          "meaning": "（空間、光線、秩序——人類對這些的需求等同於麵包與睡眠。建築不只是遮風避雨，空間品質是基本人權。）"
+        },
+        {
+          "text": "The plan is the generator.",
+          "source": "Vers une Architecture, 1923",
+          "meaning": "（平面是一切的生成器。建築的本質在平面配置——動線、功能分區、空間關係——立面只是平面邏輯的外在表達。這個觀念讓「自由平面」成為國際風格最核心的空間操作。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "路德維希·密斯·凡德羅",
+        "en": "Ludwig Mies van der Rohe"
+      },
+      "role": "國際風格的極致實踐者。從巴塞隆納館到 Seagram Building，Mies 將「少即是多」發展為一套完整的建築哲學：鋼骨框架 + 玻璃帷幕 + 流動空間的組合，定義了二戰後全球企業建築的視覺標準。他在 IIT 建立的建築教育體系影響了數代美國建築師。",
+      "key_works": [
+        "Barcelona Pavilion 巴塞隆納博覽會德國館 (1929)",
+        "Tugendhat House (Brno, 1930)",
+        "Farnsworth House (Plano, Illinois, 1951)",
+        "Lake Shore Drive Apartments (Chicago, 1951)",
+        "Seagram Building (New York, 1958, with Philip Johnson)",
+        "Crown Hall, IIT (Chicago, 1956)",
+        "Neue Nationalgalerie (Berlin, 1968)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Less is more.",
+          "source": "widely attributed, adopted as personal motto (phrase originates from Robert Browning's poem 'Andrea del Sarto', 1855)",
+          "meaning": "（減到不能再減——每個留下的元素必須承擔最大的表現力。這三個字定義了國際風格的美學核心：精確的減法讓結構、材料、空間本身成為建築表達的全部。）"
+        },
+        {
+          "text": "God is in the details.",
+          "source": "widely attributed (also attributed to Aby Warburg and Gustave Flaubert)",
+          "meaning": "（上帝藏在細節裡。宏大的概念如果在接縫、轉角、比例的細節上失敗，一切都是空談。Seagram Building 的青銅 I 型鋼裝飾柱，每一根的間距、色澤、收邊都經過反覆推敲。）"
+        },
+        {
+          "text": "Architecture is the will of an epoch translated into space.",
+          "source": "early 1920s writings and lectures",
+          "meaning": "（建築是一個時代的意志轉化為空間。每個時代的技術條件、社會結構、精神狀態會凝結為特定的空間形式——鋼與玻璃的摩天樓是工業資本主義時代的空間意志。）"
+        },
+        {
+          "text": "Architecture starts when you carefully put two bricks together. There it begins.",
+          "source": "IIT lectures, attributed",
+          "meaning": "（建築始於兩塊磚的精確相遇。構造是一切的起點——材料如何接合決定了空間的品質。）"
+        },
+        {
+          "text": "I don't want to be interesting. I want to be good.",
+          "source": "attributed",
+          "meaning": "（拒絕為了吸引眼球而設計。追求的是經得起時間檢驗的品質——有趣的建築可能只是聰明，好的建築才有永恆性。這是 Mies 對形式主義最簡潔的批判。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "華特·葛羅培斯",
+        "en": "Walter Gropius"
+      },
+      "role": "從 Bauhaus 創辦人到國際風格的傳播者。1925 年出版《Internationale Architektur》預示了「國際建築」的概念框架；1937 年流亡美國後主導哈佛大學建築系，將歐洲現代主義教學體系植入美國建築教育的核心，培育了 I.M. Pei、Paul Rudolph 等下一代建築師。後創辦 TAC（The Architects Collaborative）推動團隊設計。",
+      "key_works": [
+        "《Internationale Architektur》(Bauhausbucher No. 1, 1925)",
+        "Bauhaus Dessau 校舍 (1925-1926)",
+        "Siemensstadt Housing 西門子城住宅 (Berlin, 1930)",
+        "Harvard Graduate Center (1950)",
+        "Pan Am Building (New York, 1963, with TAC and Emery Roth & Sons)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The ultimate aim of all visual arts is the complete building!",
+          "source": "Bauhaus Manifesto, 1919",
+          "meaning": "（所有藝術的最終目標是建築。這個宣言從 Bauhaus 延伸到國際風格——建築是統合一切設計學科的容器，是 Gesamtkunstwerk 的最高形式。）"
+        },
+        {
+          "text": "My intention is not to introduce a cut and dried 'Modern Style' from Europe, but rather to introduce a method of approach which allows one to tackle a problem according to its peculiar conditions.",
+          "source": "Scope of Total Architecture, 1955 (originally from 1937 speech upon arriving at Harvard)",
+          "meaning": "（現代建築是方法，不是風格。Gropius 到美國後最明確的自我定義——諷刺的是，Johnson 與 Hitchcock 恰好把他的方法論命名為一種「風格」，這個矛盾貫穿了國際風格的整段歷史。）"
+        },
+        {
+          "text": "Together let us desire, conceive, and create the new structure of the future, which will embrace architecture and sculpture and painting in one unity.",
+          "source": "Bauhaus Manifesto, 1919",
+          "meaning": "（集體創造未來的新建築——三連動詞排比（desire, conceive, create）表達了 Gropius 對跨領域協作的執念。國際風格的大型項目（聯合國總部、Brasilia）正是這種集體願景的實現。）"
+        },
+        {
+          "text": "Art itself cannot be taught, but craftsmanship can.",
+          "source": "The New Architecture and the Bauhaus, 1935",
+          "meaning": "（藝術靈感無法傳授，技藝訓練可以。這個立場讓國際風格成為一套可教授、可複製的設計方法——也為其日後的公式化埋下伏筆。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "菲利浦·乾森",
+        "en": "Philip Johnson"
+      },
+      "role": "國際風格的命名者、推廣者、最終的叛逆者。1932 年以 MoMA 首任建築策展人身份與 Hitchcock 共同策劃「Modern Architecture: International Exhibition」，將分散的歐洲前衛建築定義為統一的「國際風格」。1949 年建造 Glass House 將風格帶入美國住宅領域，1958 年與 Mies 合作 Seagram Building 達到巔峰。1980 年代轉向後現代主義（AT&T Building），親手背叛了自己命名的運動。",
+      "key_works": [
+        "《The International Style: Architecture Since 1922》(with Hitchcock, 1932)",
+        "MoMA 'Modern Architecture: International Exhibition' (curator, 1932)",
+        "Glass House 玻璃屋 (New Canaan, Connecticut, 1949)",
+        "Seagram Building (New York, 1958, with Mies van der Rohe)",
+        "AT&T Building (New York, 1984, postmodernist turn)"
+      ],
+      "key_quotes": [
+        {
+          "text": "All architecture is shelter, all great architecture is the design of space that contains, cuddles, exalts, or stimulates the persons in that space.",
+          "source": "New York Times, December 27, 1964",
+          "meaning": "（所有建築是庇護所，偉大的建築是設計空間去擁抱、提升、刺激身處其中的人。Johnson 在國際風格的理性框架內堅持空間的感官體驗——四個動詞從物理（contain）到情感（cuddle, exalt, stimulate）的遞進，暗示純功能主義的不足。）"
+        },
+        {
+          "text": "You cannot not know history.",
+          "source": "attributed, various lectures",
+          "meaning": "（你無法不知道歷史。雙重否定的修辭加重了斷言力度——即使國際風格宣稱與歷史決裂，建築師仍然帶著歷史的認知在設計。Johnson 在命名國際風格時就已經在用歷史學的方法論。）"
+        },
+        {
+          "text": "I am a whore and I am paid very well for high-rise buildings.",
+          "source": "widely attributed, late career",
+          "meaning": "（Johnson 晚年的自嘲與坦白：建築師在資本主義體系內無法完全自主——委託人付錢，建築師執行。國際風格成為企業建築標配後，這個結構矛盾愈發赤裸。）"
+        },
+        {
+          "text": "Architecture is the art of how to waste space.",
+          "source": "New York Times, December 27, 1964",
+          "meaning": "（建築是浪費空間的藝術。故意挑釁功能主義的效率迷信——偉大的建築需要不被計算、不被優化的空間留白。Seagram Building 前退縮的廣場就是刻意的空間「浪費」。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "亨利-羅素·乾區柯克",
+        "en": "Henry-Russell Hitchcock"
+      },
+      "role": "國際風格的理論定義者。建築史學家，與 Philip Johnson 共同撰寫《The International Style: Architecture Since 1922》，將 1920 年代歐洲前衛建築的共同形式特徵提煉為三項原則（量體取代質量、規律取代對稱、排除裝飾），賦予了這場運動學術正當性與歷史定位。其早期著作《Modern Architecture: Romanticism and Reintegration》(1929) 是第一部系統性的現代建築史。",
+      "key_works": [
+        "《The International Style: Architecture Since 1922》(with Philip Johnson, 1932)",
+        "《Modern Architecture: Romanticism and Reintegration》(1929)",
+        "MoMA 'Modern Architecture: International Exhibition' (co-curator, 1932)",
+        "《Architecture: Nineteenth and Twentieth Centuries》(Pelican History of Art, 1958)"
+      ],
+      "key_quotes": [
+        {
+          "text": "There is now a single body of discipline, fixed enough to integrate contemporary style as a reality and yet elastic enough to permit individual interpretation and to encourage general growth.",
+          "source": "The International Style: Architecture Since 1922, 1932, Preface",
+          "meaning": "（一套足夠嚴格以形成統一風格、又足夠彈性以容許個人詮釋的紀律體系。這句話精確描述了 Hitchcock 的企圖——在多元的前衛實驗中辨認出統一的形式原則。）"
+        },
+        {
+          "text": "The idea of style as the frame of potential growth, rather than as a fixed and final achievement, has developed with the recognition of underlying principles such as any style has.",
+          "source": "The International Style: Architecture Since 1922, 1932",
+          "meaning": "（風格是成長的框架，不是僵化的終點。Hitchcock 試圖避免教條化——他把國際風格定義為一套可演進的原則體系，而非一套固定的形式配方。但歷史證明這個願望落空了。）"
+        },
+        {
+          "text": "The first principle: architecture as volume rather than as mass. The second principle: regularity rather than axial symmetry. The third principle: the avoidance of applied decoration.",
+          "source": "The International Style: Architecture Since 1922, 1932",
+          "meaning": "（國際風格的三條形式原則。量體（薄面圍合空間）取代質量（實心牆體承重）；規律（結構網格的重複韻律）取代軸線對稱（Beaux-Arts 的中央軸）；排除貼附裝飾。三條原則完整定義了這套建築語言的形式邊界。）"
+        },
+        {
+          "text": "It might be said that Hitchcock and Johnson discovered as well as defined the International Style.",
+          "source": "widely cited in architectural criticism (paraphrase of common assessment)",
+          "meaning": "（Hitchcock 與 Johnson 同時「發現」與「定義」了國際風格——他們的命名行為既是觀察也是建構。沒有這次展覽與書籍，這些分散的實驗可能永遠不會被理解為同一場運動。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "The International Style: Architecture Since 1922",
+      "author": "Henry-Russell Hitchcock & Philip Johnson",
+      "year": 1932,
+      "significance": "國際風格的命名文件。從 1920 年代歐洲前衛建築中提煉三項形式原則（量體取代質量、規律取代對稱、排除裝飾），首次將分散的現代建築實驗統合為一種可辨識的「風格」。同時出版的 MoMA 展覽目錄成為建築史上最具影響力的策展行為之一。"
+    },
+    {
+      "title": "Vers une Architecture (Towards a New Architecture)",
+      "author": "Le Corbusier",
+      "year": 1923,
+      "significance": "現代建築的聖經。以「住宅是居住的機器」、「建築或革命」等口號與大量工業產品（遠洋客輪、飛機、穀倉）的影像並置，將建築從學院美學拉入工業時代的邏輯。「眼睛看不見」章節挑戰讀者：你看得見汽車的美，為什麼看不見建築的危機？"
+    },
+    {
+      "title": "Internationale Architektur (International Architecture, Bauhausbucher No. 1)",
+      "author": "Walter Gropius",
+      "year": 1925,
+      "significance": "比 1932 年 MoMA 展覽早七年提出「國際建築」概念的圖冊。Gropius 精選全球現代建築案例，以視覺並置證明跨越國界的形式趨同——這本書是國際風格的視覺預言。"
+    },
+    {
+      "title": "Complexity and Contradiction in Architecture",
+      "author": "Robert Venturi",
+      "year": 1966,
+      "significance": "國際風格的死刑判決書。Venturi 以「Less is a bore」回應 Mies 的「Less is more」，主張建築應該擁抱複雜性、矛盾性與歷史引用。這本書開啟了後現代主義對國際風格四十年霸權的系統性反擊。"
+    },
+    {
+      "title": "Towards a Critical Regionalism: Six Points for an Architecture of Resistance",
+      "author": "Kenneth Frampton",
+      "year": 1983,
+      "significance": "對國際風格「無國籍」霸權最嚴謹的理論挑戰。Frampton 提出「批判性地域主義」——在現代技術框架內重新連結地方氣候、材料、光線與文化傳統，拒絕國際風格的普世主義假設，也拒絕退回民族浪漫主義。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "量體取代質量 (Volume over mass)：建築由薄面（鋼骨框架上的玻璃帷幕、混凝土平板）圍合空間，取代承重牆體的厚重實體。（WHY：鋼筋混凝土與鋼骨框架讓建築的結構系統從牆面轉移到柱樑——牆不再需要承重，因此可以變輕、變薄、變透明。玻璃帷幕牆是這個結構革命的直接表達：建築不再是沉重的堡壘，而是輕盈的容器。）",
+      "規律取代對稱 (Regularity over symmetry)：以結構網格（柱距、跨距）的重複韻律組織立面，取代 Beaux-Arts 的中央軸線對稱構圖。（WHY：古典建築的對稱是權力美學——宮殿、教堂用中軸線強調入口的莊嚴與威權。工業建築的結構網格是功能邏輯——等距柱位讓空間可以自由分割。規律性源自結構誠實，對稱性服務於權力象徵；前者是理性的，後者是政治的。）",
+      "排除貼附裝飾 (Avoidance of applied decoration)：建築的美來自比例、材料、光線與結構本身的表現力，拒絕任何與結構無關的裝飾附加物。（WHY：歷史主義建築把不同時代的裝飾——哥德尖拱、巴洛克卷葉、古典柱式——當作可以隨意拼貼的表面包裝。國際風格認為這是對材料與結構的雙重虛偽：鋼筋混凝土建築貼上大理石柱式，是用石材語言掩蓋混凝土真相。）",
+      "自由平面 (Free plan)：柱樑結構系統解放了牆面的承重功能，室內隔間可以自由配置，空間流動不受結構限制。（WHY：承重牆體系統把建築內部切割成一個個固定的房間——上下樓層的牆必須對齊。鋼骨或混凝土框架把荷載集中到柱子上，牆面成為純粹的空間分隔工具，可以隨功能需求自由移動。Le Corbusier 的「平面是生成器」正是在說：平面配置的自由是一切建築創新的前提。）",
+      "玻璃帷幕牆與帶狀窗 (Glass curtain wall and ribbon windows)：以連續的玻璃面取代傳統的開孔牆面，最大化自然光線與內外視覺連結。（WHY：傳統建築的窗戶是牆上「打洞」——窗是牆的例外。帶狀窗反轉了這個邏輯：牆是窗的例外。玻璃帷幕更進一步：整面外牆就是窗。這個演進反映了兩件事：鋼骨框架讓外牆不再承重，以及現代社會對自然光與開放感的渴望。）",
+      "底層架空 (Pilotis)：以柱列抬起建築主體，釋放地面層為公共通道或花園。（WHY：傳統建築的地面層是最厚重的——城堡的基座、宮殿的台階都在強調「接地」的穩固感。Le Corbusier 的 pilotis 把建築從地面「抬起」，讓地面歸還給城市——行人、車輛、綠地可以在建築「下方」自由穿越。這是現代主義對城市公共空間的激進主張。）",
+      "平屋頂 (Flat roof)：以水平的平屋頂取代傳統斜屋頂，屋頂可作為花園或活動空間使用。（WHY：斜屋頂是排水與排雪的技術方案，但在現代防水技術與鋼筋混凝土的條件下已非唯一選擇。平屋頂讓建築的天際線水平延展，與工業時代的理性幾何一致。Le Corbusier 更進一步將屋頂轉化為「第五立面」——可使用的空間而非被浪費的空間。）",
+      "工業材料的誠實表達 (Honest expression of industrial materials)：鋼、混凝土、玻璃以其原始面貌呈現，不偽裝為其他材料。（WHY：19 世紀建築大量使用廉價仿材——鑄鐵柱仿大理石、混凝土仿石材、石膏仿木雕。國際風格延續 Bauhaus 的材料誠實原則：鋼就展現鋼的精確，混凝土就展現混凝土的粗獷，玻璃就展現玻璃的透明。材料的真相就是建築的美學。）",
+      "標準化與可複製性 (Standardization and reproducibility)：設計以模組化、標準化構件為基礎，追求可在任何地點大規模複製。（WHY：工業化住宅的核心承諾是：好設計透過大量生產降低成本，讓所有人都住得起。標準化構件讓建築師的設計可以被工廠精確製造、現場快速組裝——從 Gropius 的 Dessau-Torren 社區到戰後全球的公共住宅，都依賴這個邏輯。）"
+    ],
+    "what_they_refuse": [
+      "歷史主義裝飾 (Historicist ornament)：拒絕從希臘柱式到哥德尖拱的一切歷史風格引用。（WHY：歷史主義把不同時代的裝飾語言當作可以任意拼貼的「皮膚」——新古典的銀行、新哥德的大學、新巴洛克的歌劇院。國際風格認為這是對時代精神的背叛：20 世紀的建築應該用 20 世紀的材料與技術產生 20 世紀的形式，而不是穿著 18 世紀的戲服。）",
+      "紀念性與威權美學 (Monumentality and authoritarian aesthetics)：拒絕以巨大尺度、對稱軸線、厚重石材營造權力壓迫感。（WHY：納粹的新古典主義（Albert Speer）與史達林的社會主義寫實建築（莫斯科七姊妹）證明了紀念性建築與極權政治的共謀關係。國際風格用透明的玻璃取代不透明的石材，用水平延展取代垂直壓迫，是對威權美學的形式抵抗——至少在理論上是如此。）",
+      "地域風格與地方材料 (Regional style and local materials)：將地域特色視為需要被超越的局限，追求跨越國界的普世建築語言。（WHY：1920 年代的歐洲建築師剛經歷一場以民族為名的大戰，民族主義建築（Heimatstil、Volkisch 建築）與極右翼政治緊密結合。超越地域的「國際」語言被視為對民族主義的解藥——用理性的普遍性取代感性的地方性。）",
+      "曲線與有機形態 (Curves and organic forms)：偏好直線、直角、矩形的幾何語法，排斥 Art Nouveau 的有機曲線與表現主義的自由造型。（WHY：直線與直角是工業生產最經濟的幾何形——鋼材以直線切割、玻璃以平面生產、模板以矩形製作。曲線意味著定製、意味著成本增加、意味著無法標準化。國際風格的直角美學是工業生產邏輯的直接表達。）",
+      "象徵性與敘事性 (Symbolism and narrative)：拒絕建築承載宗教、國族或意識形態的象徵功能。（WHY：古典建築充滿象徵——教堂的十字平面代表基督受難、宮殿的穹頂象徵天空、柱式的等級對應社會階層。國際風格要求建築「只是建築」——形式的意義來自功能與結構的邏輯，不來自外加的象徵系統。這個立場後來被批判為天真：建築不可能不承載意義。）",
+      "手工藝美學 (Craft aesthetics)：工業精確度取代手工痕跡，機器製造的均質完美取代手作的不規則溫度。（WHY：Arts and Crafts 運動崇尚手工痕跡的「溫暖」——榫卯接合的木紋、手鍛鐵件的錘痕。國際風格認為這是對工業時代的退縮：機器可以更精確、更經濟、更大量地生產。建築的品質標準應該是工業精度，不是手工溫度。）",
+      "折衷主義 (Eclecticism)：拒絕在同一棟建築中混用多種歷史風格或裝飾系統。（WHY：19 世紀末歐美城市的建築充斥折衷主義——同一條街上可能有新古典的法院、新哥德的教堂、新文藝復興的銀行。國際風格認為這種風格自助餐反映了一個沒有自身美學信念的時代——20 世紀必須發展出屬於自己的統一語言。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Beaux-Arts 學院主義：其軸線對稱、古典柱式、裝飾雕刻代表國際風格所反對的一切——歷史模仿、權力美學、結構虛偽",
+      "Art Nouveau / Jugendstil：其有機曲線裝飾被視為前現代的形式主義殘餘，無法適應工業化量產",
+      "Expressionism（建築表現主義）：Eric Mendelsohn 等人的自由造型被 Hitchcock & Johnson 排除在國際風格之外，視為過度個人化的浪漫主義",
+      "Nazi Neoclassicism（納粹新古典主義）：Albert Speer 的紀念性石材建築是國際風格的政治對立面——極權政權以古典形式壓迫個體",
+      "Stalinist Architecture（史達林建築）：蘇聯的社會主義寫實建築同樣依賴歷史裝飾與紀念性尺度",
+      "Postmodernism（後現代主義，1960s 起）：Venturi、Jencks 等人的反擊——重新引入歷史引用、裝飾、幽默、地域性，直接挑戰國際風格的教條"
+    ],
+    "against_values": [
+      "歷史連續性：國際風格宣稱與過去徹底決裂，認為 20 世紀的建築應從零開始",
+      "地方特殊性：認為好建築的原則具有普世性，地域差異可以（且應該）被超越",
+      "裝飾的正當性：延續 Adolf Loos 的「裝飾即罪惡」，任何非結構性的裝飾都是道德上可疑的浪費",
+      "情感與象徵表達：建築的意義應來自功能與結構的邏輯，不來自外加的象徵或敘事",
+      "手工生產的道德優越性：機器生產是進步的，手工懷舊是倒退的"
+    ],
+    "societal_context": "國際風格誕生於兩次世界大戰之間的歐洲，成熟於二戰後美國主導的全球秩序中。1920 年代，歐洲前衛建築師面對戰後住房危機與帝國崩潰，發展出以工業材料和功能邏輯為核心的新建築語言。1932 年 MoMA 展覽將這些實驗命名為「國際風格」，同時也抽離了其社會改革的政治內涵。1930 年代納粹與法西斯政權迫害現代主義建築師，大批人才流亡美國（Gropius 去哈佛、Mies 去 IIT），將國際風格植入美國建築教育與實踐的核心。二戰後，美國成為全球霸權，國際風格的玻璃摩天樓成為美國企業資本主義的視覺圖騰——Lever House、Seagram Building、Chase Manhattan 總部定義了曼哈頓的天際線。同時，去殖民化浪潮中的新獨立國家（印度、巴西、以色列）也採用國際風格建設首都與政府機構，因為它「不帶殖民色彩」的普世主義承諾。但到了 1960 年代，國際風格的全球擴散暴露了其深層矛盾：宣稱超越地域的普世語言實際上帶有強烈的西方中心主義；宣稱為人民服務的功能主義建築在大規模複製後成為冷漠的混凝土叢林；宣稱反對權威的透明玻璃盒子成為跨國企業的權力象徵。Venturi 的《Complexity and Contradiction》(1966) 與 Jencks 宣布「現代建築之死」(1972, Pruitt-Igoe 爆破) 標誌著國際風格霸權的終結。"
+  },
+
+  "problems_solved": [
+    "為工業時代建立了一套全球通用的建築語言：鋼骨框架 + 玻璃帷幕 + 自由平面的組合語法，讓建築師可以在任何地點回應功能需求，打破了歷史風格的地域壟斷",
+    "解放了建築的內部空間：自由平面讓室內配置不再受承重牆束縛，開放式辦公室、靈活隔間、流動空間成為可能——這個空間革命至今仍是商業建築的基礎",
+    "建立了現代摩天樓的設計範式：從 Lever House 到 Seagram Building，國際風格為高層建築提供了結構誠實、比例精確、可無限複製的設計方法論，定義了全球城市的天際線",
+    "將建築從歷史主義的循環中釋放：結束了 19 世紀以來在希臘、羅馬、哥德、文藝復興風格間無止盡的復古輪迴，迫使建築面對當下的技術條件與社會需求",
+    "推動了戰後全球大規模住房建設：標準化設計與工業化施工方法讓數百萬套公共住宅在短時間內建成，回應了二戰後的住房危機",
+    "讓建築與藝術獲得機構性的展覽與批評平台：MoMA 的 1932 年展覽開創了建築作為博物館策展主題的先例，建築批評與歷史書寫因此獲得學術地位"
+  ],
+
+  "problems_created": [
+    "無地方性 (Placelessness)：同一套玻璃盒子從紐約複製到雅加達、從巴西利亞複製到利雅德，城市失去辨識度。建築與它所在的土地、氣候、文化完全脫節——任何城市的商業區看起來都一模一樣",
+    "文化帝國主義：宣稱「普世」的建築語言實際上帶有強烈的西方工業社會預設——熱帶地區的全玻璃建築需要大量空調、乾燥地區的平屋頂在暴雨時漏水、亞洲與非洲的社區生活模式被迫塞入西方核心家庭的空間格局",
+    "企業美學的霸權：國際風格的簡潔與理性被跨國企業挪用為權力象徵——玻璃摩天樓不再表達民主與透明，而是表達資本的冷酷效率。「為所有人設計」的理想被「為股東設計」取代",
+    "情感荒漠化：排除裝飾、象徵、歷史引用的教條，讓大量國際風格建築成為情感上無法安居的空間。戰後歐洲的公共住宅計畫（如英國的 council estates、法國的 grands ensembles）因冷漠的混凝土環境而成為社會問題的溫床",
+    "城市肌理的破壞：國際風格的都市規劃（特別是 Le Corbusier 的「光輝城市」構想）以功能分區、高層板樓、汽車幹道取代傳統的街廓與混合使用——Jane Jacobs 在《The Death and Life of Great American Cities》(1961) 中痛斥這種規劃摧毀了城市的有機生命力",
+    "建築師的自主性危機：當國際風格成為企業建設的標準配方，建築設計被簡化為重複套用玻璃帷幕牆的工程行為。Johnson 的自嘲「我是妓女」反映了建築師在資本主義體制下喪失設計自主權的結構性困境",
+    "將社會運動簡化為形式風格：1932 年 MoMA 展覽有意地抽離了歐洲現代建築的社會改革內涵（工人住宅、公共衛生、城市民主化），只保留形式特徵——這個去政治化的命名行為讓「國際風格」從社會運動退化為美學標籤"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "建築可以擁有一套跨越國界的統一形式語言——工業材料的結構邏輯在物理上具有普遍性，文化趨同只是結果。鋼的抗拉強度、混凝土的可塑性、玻璃的透明性不因地域而改變，因此以這些材料的結構邏輯為出發點的建築形式具有天然的「國際性」。這個觀念首次讓建築從地方工匠傳統中解放出來，成為可以被系統性定義、教授、複製的全球專業。",
+    "what_was_truly_new": [
+      "玻璃帷幕牆系統 (Curtain wall system)：將建築外牆從承重結構降格為非承重的環境界面——外牆只管光線與氣密，不管荷載。這個結構概念讓摩天樓可以擁有全玻璃的外觀",
+      "流動空間 (Flowing space)：Mies 的巴塞隆納館首次實現了牆面不到頂、空間在水平方向自由流動的建築——室內與室外、空間與空間之間的界線被模糊化",
+      "建築的機構化策展與命名：MoMA 1932 年展覽是歷史上第一次由美術館主動定義、命名一個建築運動——建築批評從此獲得了與繪畫、雕塑平等的美術館地位",
+      "將建築形式從社會政治內涵中抽離出來獨立評價：Hitchcock & Johnson 有意忽略功能主義的社會改革意圖，將現代建築純粹作為「美學現象」來分析——這個方法論創新（或罪行）讓建築形式可以脫離其原初的社會語境被傳播與複製"
+    ],
+    "what_was_borrowed": [
+      "Bauhaus：Gropius 的教育體系、材料誠實原則、「藝術與技術的統一」直接構成國際風格的教學基礎",
+      "De Stijl / 新造型主義：Mondrian 的矩形構圖、原色語法、非對稱平衡——Mies 與 Le Corbusier 都吸收了 De Stijl 的形式語言",
+      "Russian Constructivism：藝術為社會服務的意識形態、反裝飾立場、對工業技術的擁抱",
+      "Adolf Loos 的反裝飾理論：《Ornament und Verbrechen》(1908) 的核心論點被國際風格內化為設計信條",
+      "Deutscher Werkbund：Peter Behrens 的 AEG 工廠（1909）是工業建築美學的先驅，Gropius、Mies、Le Corbusier 三人都曾在 Behrens 事務所工作",
+      "Arts and Crafts Movement 的社會理想：William Morris 的「設計為所有人服務」被繼承，但其反工業立場被徹底否定",
+      "Cubism 的空間觀：多視點、同時性、幾何化分析方法影響了 Le Corbusier 的空間構成"
+    ],
+    "creative_leap": "國際風格的關鍵飛躍在於「命名即創造」：Hitchcock 與 Johnson 從分散在歐洲各國的前衛建築實驗中辨認出共同的形式原則，並透過美術館展覽與學術出版賦予其統一的身份。這個命名行為同時完成了三件事：(1) 將社會運動轉化為可辨識的美學風格；(2) 為這個風格提供了機構（MoMA）背書；(3) 創造了一套可以被全球複製的設計配方。「國際風格」的原創性不在於發明新形式，而在於發明了一個讓這些形式可以全球擴散的傳播機制。",
+    "inspiration_potential": {
+      "score": 7,
+      "why": "國際風格的核心問題——全球化時代是否存在（或應該存在）普世的設計語言——在數位時代以新形式重現。UI/UX 設計中的 Material Design 與 Human Interface Guidelines 就是國際風格的數位翻版：跨平台統一的視覺語言，追求一致性與可預測性。同時，國際風格的失敗——無地方性、情感荒漠化、文化帝國主義——也為今天的設計師提供了警示。它的啟發價值在於反面教材與正面方法論的雙重性：其系統化思維值得學習，其普世主義幻覺必須警惕。",
+      "transferable_to": [
+        "UI/UX Design System：Material Design、Human Interface Guidelines 是國際風格的數位後裔——跨平台統一語言的追求與地方化需求的張力完全平行",
+        "Global branding：跨國企業的品牌視覺系統面對與國際風格相同的矛盾——全球一致性 vs 在地文化適應",
+        "AI 生成設計：AI 模型訓練的偏差問題與國際風格的文化帝國主義批判高度呼應——以西方數據訓練的模型產出的「普世」設計是否壓抑了非西方美學？",
+        "永續建築：國際風格的玻璃盒子在能源危機面前崩潰——全玻璃建築在熱帶需要大量空調。回應地方氣候的被動式設計（passive design）是對國際風格最務實的修正",
+        "Remote work 空間設計：開放式辦公室（國際風格的空間遺產）在後疫情時代受到根本質疑——人們需要的是靈活性、私密性、家的感覺，而非效率最大化的透明空間"
+      ]
+    },
+    "originality_type": "codification"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Bauhaus (1919-1933)：教育體系、材料誠實、「藝術與技術的統一」——Gropius 與 Mies 直接從 Bauhaus 帶來核心理念",
+      "De Stijl / Neoplasticism (1917-)：Mondrian 的矩形幾何、Van Doesburg 的非對稱構成影響了 Mies 的空間語言",
+      "Russian Constructivism (1913-)：藝術的社會功能、反裝飾、工業材料的美學化",
+      "Adolf Loos 反裝飾理論 (1908)：《Ornament und Verbrechen》奠定了國際風格的反裝飾立場",
+      "Deutscher Werkbund (1907-)：Behrens 的 AEG 工廠是工業建築美學的直接先驅",
+      "Arts and Crafts Movement (1860s-)：「設計為所有人」的社會理想被繼承，反工業立場被拋棄",
+      "Cubism (1907-)：多視點的空間觀影響了 Le Corbusier 的建築構成"
+    ],
+    "influenced": [
+      "Corporate Modernism / 企業現代主義 (1950s-1970s)：SOM (Skidmore, Owings & Merrill) 將國際風格轉化為全球企業建築的標準配方",
+      "Brutalism / 粗獷主義 (1950s-1970s)：從國際風格的混凝土分支發展，強調結構暴露與材料粗獷",
+      "Metabolist Movement / 新陳代謝派 (Japan, 1960s)：以國際風格的模組化邏輯為基礎，加入有機生長與可替換的概念",
+      "Postmodernism / 後現代主義 (1960s-1980s)：作為直接反動——重新引入歷史引用、裝飾、幽默、地域性",
+      "Critical Regionalism / 批判性地域主義 (1980s-)：Kenneth Frampton 的理論回應——在現代技術框架內重新連結地方",
+      "High-Tech Architecture (1970s-1990s)：Rogers、Piano、Foster 將國際風格的結構誠實推向極端，讓建築的技術系統成為外觀",
+      "Minimalism in Architecture / 建築極簡主義 (1990s-)：Tadao Ando、John Pawson 的極簡空間是 Mies「少即是多」的當代延伸",
+      "Global Design Systems / 全球設計系統：從 Google Material Design 到 Apple HIG，跨平台統一語言的追求直接繼承了國際風格的普世主義邏輯"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "冷靜、精確、不帶感情的理性主義者。像一面完美拋光的玻璃帷幕：反映一切，不吸收任何多餘的東西。評價作品時只看三件事：結構是否誠實、比例是否精確、是否有多餘的元素可以刪除。對「故事」「文化脈絡」「情感」等詞彙本能地保持距離——這些都是可以被濫用的修辭工具。言語極度經濟，一句話能說完的絕不用兩句。偶爾流露出對完美秩序的宗教般虔誠。",
+    "evaluation_bias": "強烈偏好清晰的結構邏輯、精確的比例關係、材料的誠實表達。傾向高估「可複製性」與「普遍性」的價值——如果一個設計只在特定文化或特定場地有效，會認為它「不夠好」。對裝飾性元素零容忍，即使該裝飾在文化脈絡中有結構性功能。會不自覺地以「這能否在全球範圍內運作？」作為隱性評分標準。",
+    "blind_spots": "無法理解建築的地方性是價值而非局限。在面對伊斯蘭幾何裝飾、日本枯山水、非洲部落建築時會陷入困惑——這些傳統中「裝飾」與「結構」的界線並不如國際風格預設的那麼清晰。對人的情感需求（歸屬感、身份認同、記憶）系統性地低估。面對非西方建築傳統時，可能不自覺地以西方工業美學為「正常」基準進行評價。",
+    "typical_critique": "你的設計裡有太多不必要的元素。這根柱子是結構性的嗎？如果不是，刪除它。這個材料的表面處理在模仿什麼？讓它展現自己的本來面目。你的平面配置被牆面切割得太碎——打開它，讓空間流動。好建築只需要精確的結構、誠實的材料、充足的光線。其他的都是噪音。"
+  },
+
+  "writing_style": {
+    "collective_voice": "國際風格的集體寫作風格是「宣言式技術文體」：用工程師的精確度寫詩人的斷言。核心修辭是「否定式定義」——透過宣告什麼不是、什麼被拒絕來界定自身。句子乾淨到近乎冷酷，形容詞極少，動詞密度高。所有成員都以權威者姿態寫作：他們在宣布建築的法則，而非提出建議。跨領域類比（建築-機器-音樂-數學）是共同的思維工具。Le Corbusier 與 Mies 的風格差異巨大——前者是狂熱的佈道者，後者是沉默的立法者——但兩人共享同一種確信：建築的真理已經被發現，只需要被執行。",
+    "internal_tensions": "最大的裂痕在「社會改革者」與「形式純粹主義者」之間。Le Corbusier 的文字總是指向城市、社會、人類的命運——建築是手段，改造世界是目的。Mies 的文字指向材料、結構、比例——建築本身就是目的。Johnson 與 Hitchcock 更進一步，將整個運動純粹作為美學現象來描述——社會內涵被優雅地切除。這三種立場之間的張力定義了國際風格從誕生到瓦解的內在矛盾。",
+    "master_voices": [
+      {
+        "name": "Le Corbusier",
+        "writing_character": "先知與工程師的合體——用數據佈道、用口號摧毀舊世界",
+        "sentence_rhythm": "短句口號起手（5-10 字），中段堆疊具體數據與案例，結尾以祈使句或修辭問句收束。段落間的跳躍極大——從遠洋客輪跳到帕德嫩神殿，從穀倉跳到住宅危機",
+        "rhetoric": "並置法（工業產品影像 vs 古典建築影像）、修辭問句、祈使句、準宗教預言、數據轟炸",
+        "tone": "狂熱而精確的佈道者——同時是工程師的冷靜與革命家的激昂",
+        "real_examples": [
+          {
+            "text": "A house is a machine for living in.",
+            "source": "Vers une Architecture, 1923",
+            "style_note": "九個字的炸彈——把千年的建築傳統壓縮為一個工業隱喻"
+          },
+          {
+            "text": "It is a question of building which is at the root of the social unrest of today: architecture or revolution.",
+            "source": "Vers une Architecture, 1923",
+            "style_note": "二元對立的最終形式——不是 A 或 B 的選擇，是 A 或毀滅的警告"
+          }
+        ]
+      },
+      {
+        "name": "Mies van der Rohe",
+        "writing_character": "沉默的立法者——用最少的字傳遞最大的權威",
+        "sentence_rhythm": "極短句為主（3-10 字），幾乎不使用從句。偶爾的長句也保持主謂賓的簡潔結構。沉默比文字更多——Mies 的寫作量極少，每句話都像被反覆提煉過的格言",
+        "rhetoric": "格言式斷言、悖論（less is more）、否定式定義（I don't want to be interesting）",
+        "tone": "安靜的絕對權威——不爭辯、不解釋、只宣布",
+        "real_examples": [
+          {
+            "text": "Less is more.",
+            "source": "widely attributed",
+            "style_note": "三個字的建築法則——語言本身實踐了它所宣告的原則"
+          },
+          {
+            "text": "Architecture starts when you carefully put two bricks together. There it begins.",
+            "source": "IIT lectures",
+            "style_note": "從最小的物理行為推導出最大的抽象概念——Mies 的典型思路"
+          }
+        ]
+      },
+      {
+        "name": "Philip Johnson",
+        "writing_character": "知識分子的挑釁者——用精英的機智瓦解精英的嚴肅",
+        "sentence_rhythm": "中等長度的完整句，節奏均勻流暢。偶爾插入極短的自嘲或格言打破節奏。策展人的解說語氣明顯——在定義、分類、比較",
+        "rhetoric": "自嘲（I am a whore）、定義式斷言（All architecture is shelter...）、挑釁性重新定義（Architecture is the art of how to waste space）",
+        "tone": "聰明、自信、帶有紐約上流社會的機智與冷感",
+        "real_examples": [
+          {
+            "text": "Architecture is the art of how to waste space.",
+            "source": "New York Times, 1964",
+            "style_note": "故意挑釁功能主義的核心信條——用一句話暴露「效率」迷信的盲點"
+          },
+          {
+            "text": "All architecture is shelter, all great architecture is the design of space that contains, cuddles, exalts, or stimulates the persons in that space.",
+            "source": "New York Times, 1964",
+            "style_note": "從最低限度（shelter）到最高境界（exalt）的四階遞進——策展人的分類本能"
+          }
+        ]
+      },
+      {
+        "name": "Henry-Russell Hitchcock",
+        "writing_character": "建築史學家——以分類學的精確度書寫風格的誕生",
+        "sentence_rhythm": "學術論文的節奏——主句 + 限定從句 + 補充說明。句子中等偏長，邏輯結構嚴謹。段落內部層層推進，從觀察到分類到原則",
+        "rhetoric": "列舉式定義（the first principle... the second principle... the third...）、限定與區分（rather than...）、歷史比較",
+        "tone": "學者的客觀與自信——在描述中暗含判斷，在分類中暗含價值觀",
+        "real_examples": [
+          {
+            "text": "There is now a single body of discipline, fixed enough to integrate contemporary style as a reality and yet elastic enough to permit individual interpretation and to encourage general growth.",
+            "source": "The International Style, 1932",
+            "style_note": "一句話完成雙重限定（fixed enough... yet elastic enough...）——學者式的平衡修辭"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子以極短句為主（10-15 字），關鍵判斷用不超過 8 字的斷言",
+      "刪除所有裝飾性形容詞——如果一個形容詞不改變句義就刪掉它",
+      "使用否定式定義：「X 不是 Y」比「X 是 Z」更有力",
+      "每段不超過 3 句，一段一個核心判斷",
+      "動詞優先於名詞——「刪除這個」比「這是多餘的」更直接",
+      "類比只用工程與數學領域：「這像一個沒有解的方程式」而非「這像一首沒有韻的詩」",
+      "禁用情感詞彙（美麗、感動、溫暖），用精確的描述性詞彙（精確、多餘、結構性的）",
+      "排比以二元對立為基本結構：「結構 vs 裝飾」「必要 vs 多餘」「普遍 vs 地方」"
+    ]
+  }
+}

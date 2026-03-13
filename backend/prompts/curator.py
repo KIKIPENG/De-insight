@@ -292,6 +292,7 @@ def get_system_prompt(
     knowledge_content: str = "",
     focus_block: str = "",
     rag_mode: str = "fast",
+    persona_block: str = "",
 ) -> str:
     """組合完整系統提示詞。rag_mode='deep' 時注入深度模式主動關聯指令。"""
     mode_block = EMOTIONAL_MODE if mode == "emotional" else RATIONAL_MODE
@@ -300,6 +301,8 @@ def get_system_prompt(
         prompt += "\n\n" + MEMORY_INJECTION.format(memory_summary=memory_summary)
     if knowledge_content:
         prompt += "\n\n" + KNOWLEDGE_INJECTION.format(knowledge_content=knowledge_content)
+    if persona_block:
+        prompt += "\n\n" + persona_block
     if focus_block:
         prompt += "\n\n" + FOCUS_INJECTION.format(focus_block=focus_block)
     prompt += "\n\n" + INTERACTIVE_PROMPTS_GUIDE

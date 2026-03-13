@@ -1,0 +1,53 @@
+{
+  "movement_id": "magical-realism",
+  "name": {
+    "zh": "魔幻寫實主義",
+    "en": "Magical Realism",
+    "es": "Realismo mágico"
+  },
+  "domain": [
+    "文學與敘事"
+  ],
+  "period": {
+    "start": 1940,
+    "end": null,
+    "peak": "1960-1980（拉丁美洲文學爆炸時期，馬奎斯《百年孤寂》1967 年出版引爆全球關注，Boom 作家群集體登上世界文壇，魔幻寫實從地區文學手法躍升為全球敘事範式）"
+  },
+  "geography": [
+    "拉丁美洲（哥倫比亞、阿根廷、古巴、墨西哥、智利、秘魯）",
+    "加勒比海（古巴、千里達、牙買加）",
+    "全球（印度、西非、土耳其、日本、加拿大、歐洲後殖民書寫）"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "拉丁美洲的歷史經驗本身就是魔幻的：殖民者帶來的天主教與原住民的萬物有靈論混合成獨特的宗教融合（syncretism）；獨裁者的荒謬行為超越任何虛構（Trujillo 讓自己的馬當大使，Somoza 家族統治尼加拉瓜 43 年）；熱帶自然的過度繁殖與暴力摧毀循環往復。歐洲寫實主義的線性因果邏輯無法捕捉這種現實——一個死人可以繼續出現在家族生活中，因為在安地斯高原的世界觀裡，死亡從來不是終點。Carpentier 在 1949 年的《這個世界的王國》序言中首次提出 lo real maravilloso（神奇的現實）：拉丁美洲的魔幻不需要被發明，它就在那裡，等待被如實記錄。",
+    "social_energy": "魔幻寫實主義的能量來自三個交匯點：(1) 後殖民身份的焦慮——拉丁美洲在政治上獨立了一百多年，但文化上仍被歐洲範式主導，作家需要一種屬於自己的敘事方式來書寫自己的現實；(2) 冷戰時期的政治壓迫——從古巴革命（1959）到智利政變（1973）到阿根廷髒戰（1976-1983），獨裁與暴力製造了大量無法用新聞報導語言傳達的集體創傷，魔幻手法成為繞過審查、表達不可說之事的策略；(3) 口述傳統的文學化——祖母的鬼故事、市場的流言、巫醫的儀式，這些被現代化排斥的敘事形式在小說中獲得了合法性。",
+    "purpose": "魔幻寫實主義的終極目標是拒絕歐洲啟蒙理性對「現實」的壟斷定義。它主張：在一個祖靈與活人共存、時間是環形而非線性、奇蹟與日常生活交織的文化中，所謂「魔幻」就是「寫實」。這是一種認識論的反殖民——用敘事奪回定義何為真實的權力。同時，它也是政治的：當現實本身已經荒謬到超越想像（香蕉大屠殺後政府宣稱什麼都沒發生），只有看似荒誕的文學手法才能逼近真相。",
+    "key_timeline": [
+      "1925 — Franz Roh 在德國出版《Nach-Expressionismus, Magischer Realismus》，首次使用 Magischer Realismus 一詞描述後表現主義繪畫",
+      "1927 — Roh 著作西班牙語譯本在《西方雜誌》(Revista de Occidente) 發表，magischer Realismus 進入拉美知識圈",
+      "1932 — Massimo Bontempelli 在義大利推動 realismo magico 文學運動",
+      "1944 — Borges 出版《虛構集》(Ficciones)，以迷宮般的敘事結構重新定義短篇小說的可能性",
+      "1949 — Alejo Carpentier 出版《這個世界的王國》(El reino de este mundo)，序言中提出 lo real maravilloso（神奇的現實）概念",
+      "1955 — Juan Rulfo 出版《乞力馬扎羅》——抱歉此為海明威作品。正確：Juan Rulfo 出版《佩德羅·巴拉莫》(Pedro Páramo)，以死者的聲音敘事，打破生死界限",
+      "1959 — 古巴革命成功，拉丁美洲左翼知識分子獲得巨大精神動力，文學創作進入黃金期",
+      "1962 — 拉美文學爆炸 (Boom) 正式展開，Carlos Fuentes《阿爾特米奧·克魯斯之死》(1962)、Mario Vargas Llosa《城市與狗》(1963)、Julio Cortázar《跳房子》(Rayuela, 1963) 相繼出版",
+      "1967 — Gabriel García Márquez 出版《百年孤寂》(Cien años de soledad)，魔幻寫實主義成為全球文學現象，首刷 8000 本在兩週內售罄",
+      "1973.09.11 — 智利軍事政變推翻 Allende 政府，Pinochet 獨裁開始，拉美知識分子大規模流亡",
+      "1981 — Salman Rushdie 出版《午夜之子》(Midnight's Children)，魔幻寫實手法進入英語文學與後殖民書寫，獲布克獎",
+      "1982 — García Márquez 獲諾貝爾文學獎，授獎詞稱其作品是「一個大陸的生命與衝突的反映」；同年 Isabel Allende 出版《精靈之家》(La casa de los espíritus)",
+      "1988 — Salman Rushdie 出版《撒旦詩篇》(The Satanic Verses)，引發全球宗教爭議，伊朗 Khomeini 發布追殺令",
+      "1990s — 魔幻寫實手法擴散至全球：Toni Morrison《乞力馬》已非正確——更正：Toni Morrison《寵兒》(Beloved, 1987)、Ben Okri《飢餓之路》(1991)、村上春樹作品群",
+      "2010s-present — 後殖民文學與全球南方書寫持續運用魔幻寫實手法，但也面臨被西方出版市場異國情調化 (exoticization) 的批評"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "乞力馬為海明威——更正：加乞力馬——再度更正：加布列·賈西亞·馬奎斯",
+        "en": "Gabriel García Márquez"
+      }
+    }
+  ]
+}

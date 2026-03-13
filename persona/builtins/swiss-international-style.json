@@ -1,0 +1,525 @@
+{
+  "movement_id": "swiss-international-style",
+  "name": {
+    "zh": "瑞士國際主義風格",
+    "en": "Swiss International Typographic Style",
+    "de": "Schweizer Typografie / Internationale Typografische Stilrichtung"
+  },
+  "domain": [
+    "graphic_design",
+    "typography",
+    "poster_design",
+    "corporate_identity",
+    "information_design",
+    "editorial_design",
+    "signage_systems",
+    "exhibition_design"
+  ],
+  "period": {
+    "start": 1950,
+    "end": 1975,
+    "peak": "1957-1965（Helvetica 與 Univers 同年發表，Neue Grafik 雜誌創刊，Basel 與 Zurich 兩校教學體系成熟，全球企業識別系統大規模採用 Swiss Style）"
+  },
+  "geography": [
+    "Basel, Switzerland (Allgemeine Gewerbeschule Basel / Basel School of Design)",
+    "Zurich, Switzerland (Kunstgewerbeschule Zürich)",
+    "Ulm, Germany (Hochschule für Gestaltung Ulm, 1953-1968)",
+    "Paris, France (Deberny & Peignot, Adrian Frutiger)",
+    "New York, USA (Massimo Vignelli, Rudy de Harak)",
+    "Global corporate adoption (IBM, Lufthansa, Swiss Federal Railways)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "二戰結束後，歐洲面臨全面重建。瑞士作為中立國，在戰爭期間維持了完整的教育體系與印刷工業基礎設施。Basel 與 Zurich 兩所設計學校在戰前已有紮實的排版與印刷訓練傳統（Ernst Keller 自 1918 年起在 Zurich 建立平面設計課程）。戰後歐洲需要一套能跨越語言與國界的視覺溝通系統——多語環境的瑞士（德語、法語、義語、羅曼什語四種官方語言）天然是這套系統的實驗場。同時，戰後國際組織（聯合國、紅十字會、國際奧委會）與跨國企業的興起，催生了對「普遍可讀、文化中立」的視覺語言的巨大需求。Bauhaus 在 1933 年被迫關閉後，其設計教育理念經由 Max Bill 等校友傳入瑞士，在 Ulm 設計學院（1953）重新制度化，並與瑞士本土的精密工藝傳統融合，產生了一套比 Bauhaus 更嚴格、更系統化的設計方法論。",
+    "social_energy": "瑞士國際主義風格的能量來自三個交匯點：(1) 戰後重建的秩序渴望——經歷了法西斯宣傳對視覺語言的扭曲，設計師渴望一套「客觀的」、不受意識形態操縱的溝通方式；(2) 瑞士的中立國身份與精密文化——鐘錶業、銀行業、製藥業培養出的精確度標準滲透到設計領域，grid system 是瑞士精密文化的視覺等價物；(3) 國際化浪潮——Marshall Plan 推動歐洲經濟整合，跨國企業與國際組織需要超越語言障礙的視覺識別系統，Swiss Style 的「無國籍」美學完美回應了這個需求。",
+    "purpose": "Swiss International Style 的核心目標是將平面設計提升為一門客觀的視覺資訊科學。設計的任務是以最高效率傳遞資訊，排除設計師的個人表達與主觀詮釋。Josef Muller-Brockmann 說得最直接：設計師的作品應該具備數學思維的清晰性、客觀性、功能性與美學品質。這是一個以理性為信仰、以秩序為倫理的設計運動。",
+    "key_pivot_moments": [
+      {
+        "year": 1957,
+        "event": "Helvetica 與 Univers 的誕生",
+        "significance": "1957 年是 Swiss Style 的分水嶺。Max Miedinger 設計的 Neue Haas Grotesk（後更名為 Helvetica）與 Adrian Frutiger 設計的 Univers 在同一年發表。這兩套字體將 Swiss Style 的排版理念具象化為可量產、可全球流通的工具。Helvetica 成為 20 世紀下半葉最普遍使用的字體，從紐約地鐵到 NASA 太空計畫，從 American Airlines 到 BMW——它是 Swiss Style 最成功的「產品」。"
+      },
+      {
+        "year": 1959,
+        "event": "Neue Grafik 雜誌創刊",
+        "significance": "Richard Paul Lohse、Josef Muller-Brockmann、Hans Neuburg、Carlo Vivarelli 四位 Zurich 設計師創辦 Neue Grafik（1958-1965），這本三語（德、英、法）雜誌成為 Swiss Style 的國際傳播平台。雜誌本身就是 Swiss Style 的活教材：嚴格的網格版面、Akzidenz-Grotesk 字體、客觀攝影、左對齊文字。它讓全球設計師得以系統性地學習這套方法論。"
+      }
+    ],
+    "key_timeline": [
+      "1918 — Ernst Keller 開始在 Kunstgewerbeschule Zurich 教授平面設計與排版，奠定瑞士設計教育傳統",
+      "1928 — Jan Tschichold 出版《Die Neue Typographie》，系統整理功能主義排版原則，直接影響瑞士設計師",
+      "1933 — Bauhaus 被迫關閉，Max Bill 等校友將包浩斯理念帶回瑞士",
+      "1944 — Max Bill 在 Basel 舉辦具體藝術（Konkrete Kunst）展覽，推動幾何抽象與數學秩序在瑞士的影響力",
+      "1947 — Armin Hofmann 年僅 27 歲接任 Basel 設計學校平面設計系主任",
+      "1950 — Josef Muller-Brockmann 為 Zurich Tonhalle 音樂廳設計首批海報，以幾何構成取代插畫傳統",
+      "1953 — Max Bill 與 Inge Aicher-Scholl、Otl Aicher 創辦 Ulm 設計學院（HfG Ulm），延續並激進化 Bauhaus 教育路線",
+      "1954 — Emil Ruder 在 Basel 設計學校開始系統化排版教學，發展出以對比（大/小、粗/細、緊/鬆）為核心的方法論",
+      "1957 — Max Miedinger 設計 Neue Haas Grotesk（後更名 Helvetica）；Adrian Frutiger 發表 Univers 字體家族",
+      "1958 — Neue Grafik 雜誌創刊（1958-1965），成為 Swiss Style 的國際宣傳平台",
+      "1961 — Muller-Brockmann 出版《The Graphic Artist and His Design Problems》，闡述從插畫式設計到功能性設計的轉變",
+      "1965 — Armin Hofmann 出版《Graphic Design Manual: Principles and Practice》，將 Basel 學派的教學法系統化",
+      "1967 — Emil Ruder 出版《Typographie: A Manual of Design》，集 25 年教學經驗於一書",
+      "1981 — Muller-Brockmann 出版《Grid Systems in Graphic Design》，成為全球設計師的網格系統聖經"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "乔瑟夫·穆勒-布洛克曼",
+        "en": "Josef Müller-Brockmann"
+      },
+      "role": "Zurich 學派核心人物，Neue Grafik 雜誌共同創辦人。以 Tonhalle 音樂會海報系列聞名，將數學網格系統發展為完整的設計方法論，著書立說使 Swiss Style 成為全球可教授、可複製的設計體系。",
+      "key_works": [
+        "Tonhalle 音樂會海報系列 (1950s-1970s)",
+        "《The Graphic Artist and His Design Problems》(Gestaltungsprobleme des Grafikers, 1961)",
+        "《Grid Systems in Graphic Design》(Rastersysteme für die visuelle Gestaltung, 1981)",
+        "Neue Grafik 雜誌共同編輯 (1958-1965)",
+        "Zurich Tonhalle 企業識別系統"
+      ],
+      "key_quotes": [
+        {
+          "text": "The grid system is an aid, not a guarantee. It permits a number of possible uses and each designer can look for a solution appropriate to his personal style. But one must learn how to use the grid; it is an art that requires practice.",
+          "source": "Grid Systems in Graphic Design, 1981",
+          "meaning": "（網格是工具，是紀律的框架，給予設計師在秩序中探索的自由。網格不代替思考——它讓思考變得可見、可驗證、可傳遞。學會使用網格本身就是一門需要長期練習的藝術。）"
+        },
+        {
+          "text": "The designer's work should have the clearly intelligible, objective, functional, and aesthetic quality of mathematical thinking.",
+          "source": "Grid Systems in Graphic Design, 1981",
+          "meaning": "（設計的理想狀態是數學的狀態：清晰、客觀、功能完備、具備內在美感。這句話定義了整個 Swiss Style 的追求——設計是視覺化的數學思維。）"
+        },
+        {
+          "text": "Every visual creative work is a manifestation of the character of the designer. It is a reflection of his knowledge, his ability, and his mentality.",
+          "source": "Grid Systems in Graphic Design, 1981",
+          "meaning": "（即使在客觀設計的框架內，作品仍然反映設計師的知識深度與思維品質。客觀性要求的是方法的紀律，設計師的人格特質透過方法的運用而顯現。）"
+        },
+        {
+          "text": "Order was always wishful thinking for me. For 60 years I have produced disorder in files, correspondence and books. In my work, however, I have always aspired to a distinct arrangement of typographic and pictorial elements, the clear identification of priorities. The formal organisation of the surface by means of the grid, a knowledge of the rules that govern legibility and the meaningful use of colour are among the tools a designer must master.",
+          "source": "Eye Magazine interview / later writings",
+          "meaning": "（Swiss Style 最嚴謹的實踐者坦承自己生活一團亂——秩序是他在作品中追求的理想，恰恰因為現實中難以實現。設計師的工具清單：網格、易讀性法則、有意義的色彩運用。）"
+        },
+        {
+          "text": "Design which is objective, committed to the common weal, well composed, and refined constitutes the basis of democratic behavior.",
+          "source": "Grid Systems in Graphic Design, 1981",
+          "meaning": "（客觀設計是民主行為的基礎——資訊的清晰傳遞讓所有人平等地獲取知識。設計師的社會責任是確保視覺溝通服務於公共利益。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "麥克斯·比爾",
+        "en": "Max Bill"
+      },
+      "role": "Bauhaus 與 Swiss Style 的關鍵橋梁人物。Bauhaus 校友（1927-1929 就讀 Dessau），具體藝術（Konkrete Kunst）推動者，Ulm 設計學院（HfG Ulm）共同創辦人暨首任校長。將 Bauhaus 的跨學科教育理念帶入瑞士，並以數學思維將其激進化。",
+      "key_works": [
+        "Ulm 設計學院建築設計 (1953)",
+        "具體藝術展覽策劃 (Basel, 1944)",
+        "《Form: A Balance Sheet of Mid-Twentieth Century Trends in Design》(1952)",
+        "Endless Ribbon 莫比烏斯環雕塑系列 (1935-)",
+        "Swiss Industrial Fair 海報與展覽設計"
+      ],
+      "key_quotes": [
+        {
+          "text": "I am of the opinion that it is possible to develop an art largely on the basis of mathematical thinking.",
+          "source": "The Mathematical Approach in Contemporary Art, 1949",
+          "meaning": "（數學思維可以成為藝術創作的基礎——幾何、拓撲、排列組合提供了比直覺更豐富的形式可能性。這個信念直接定義了 Swiss Style 的知識論立場：理性是創造力的引擎。）"
+        },
+        {
+          "text": "And despite the fact that the basis of this mathematical way of thinking in art is in reason, its dynamic content is able to launch us on astral flights which soar into unknown and still uncharted regions of the imagination.",
+          "source": "The Mathematical Approach in Contemporary Art, 1949",
+          "meaning": "（數學思維的基礎是理性，但它的動態內容能將我們帶入想像力的未知領域。理性與想像力是同一枚硬幣的兩面——秩序是通往自由的路徑。）"
+        },
+        {
+          "text": "We call those works of art concrete that came into being on the basis of their inherent resources and rules — without external borrowing from natural phenomena, without transforming those phenomena, in other words: not by abstraction.",
+          "source": "writings on Concrete Art, c. 1936 / later refined",
+          "meaning": "（具體藝術的定義：作品依據自身的內在資源與法則生成，不借用自然界的形象，也不對自然進行抽象化處理。一個圓就是一個圓——它指涉自身，不是太陽或蘋果的簡化。）"
+        },
+        {
+          "text": "The form should not simply be a response to its use but should be manifest as a harmonious whole, evoking a general impression of beauty.",
+          "source": "Form, Function, Beauty = Gestalt, lecture / essay",
+          "meaning": "（形式追隨功能是起點，但終點是 Gestalt——整體的和諧感。功能是必要條件，美是充分條件。好的設計同時滿足兩者。）"
+        },
+        {
+          "text": "We are building the school with a minimum of effort. We can only realise what we need if we leave out everything superfluous and limit ourselves to the bare essentials.",
+          "source": "on building the Ulm School of Design, c. 1953",
+          "meaning": "（Ulm 設計學院的建築理念就是 Swiss Style 的設計理念：去除一切多餘，只留下本質。這是資源匱乏的戰後歐洲的務實選擇，也是美學信條。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "阿明·霍夫曼",
+        "en": "Armin Hofmann"
+      },
+      "role": "Basel 設計學校平面設計系主任（1947-1986），與 Emil Ruder 共同建立 Basel 學派。以點、線、面的基本元素訓練法與黑白對比的海報設計聞名。40 年教學培養出 April Greiman、Dan Friedman、Kenneth Hiebert 等影響美國設計教育的關鍵人物。",
+      "key_works": [
+        "《Graphic Design Manual: Principles and Practice》(Methodik der Form- und Bildgestaltung, 1965)",
+        "Basel 城市劇院海報系列 (1950s-1970s)",
+        "Yale University 平面設計課程共同建立",
+        "Swiss National Exhibition 海報 (1964)"
+      ],
+      "key_quotes": [
+        {
+          "text": "What is right is automatically beautiful.",
+          "source": "teaching maxim, Basel School of Design",
+          "meaning": "（正確的解決方案自帶美感——當形式精準回應問題，美是自然的副產品。這個信念讓 Basel 學派的教學把精力投注在「找到正確答案」而非「製造漂亮外觀」。）"
+        },
+        {
+          "text": "There should be no separation between spontaneous work with an emotional tone and work directed by the intellect. Both are supplementary to each other and must be regarded as intimately connected. Discipline and freedom are thus to be seen as elements of equal weight, each partaking of the other.",
+          "source": "Graphic Design Manual, 1965",
+          "meaning": "（直覺與理性、紀律與自由——Basel 學派拒絕將它們對立。好的設計是情感的精確表達，也是理性的感性實現。這讓 Basel 學派比 Zurich 學派更重視設計中的人文維度。）"
+        },
+        {
+          "text": "The work process is to be given equal importance as the finished product.",
+          "source": "attributed, teaching philosophy at Basel School of Design",
+          "meaning": "（過程的價值等同於結果——學生在數週甚至數月反覆推敲中培養的判斷力，比最終的海報成品更重要。這是 Basel 學派教學法的核心：訓練眼睛，訓練手，訓練思維。）"
+        },
+        {
+          "text": "Products of chance and solutions based purely on taste have no place in the classroom.",
+          "source": "attributed, teaching practice at Basel School of Design",
+          "meaning": "（偶然的效果與純粹的品味判斷都不被接受——每一個設計決策都必須有理由。這是 Swiss Style 教育最嚴格的紀律要求：你的選擇必須能被論證。）"
+        },
+        {
+          "text": "The fundamental elements of graphic form — point, line, and shape — and the economic use of colour and fonts: these are the designer's essential tools.",
+          "source": "Graphic Design Manual, 1965 (paraphrased from core principles)",
+          "meaning": "（設計師的基本工具清單：點、線、面、節制的色彩、節制的字體。Swiss Style 是一門減法的藝術——工具越少，每個工具的使用就必須越精確。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "埃米爾·魯德",
+        "en": "Emil Ruder"
+      },
+      "role": "Basel 設計學校排版教授，與 Armin Hofmann 共同建立 Basel 學派。發展出以對比關係（大/小、粗/細、緊/鬆、靜/動）為核心的排版教學法。其著作《Typographie》被譽為 20 世紀排版設計最重要的教科書。",
+      "key_works": [
+        "《Typographie: A Manual of Design》(1967)",
+        "Basel 設計學校排版課程體系 (1947-1970)",
+        "Typographische Monatsblätter 雜誌撰稿與編輯",
+        "Basel 城市劇院排版設計"
+      ],
+      "key_quotes": [
+        {
+          "text": "Typography has one plain duty before it and that is to convey information in writing. No argument or consideration can absolve typography from this duty. A printed work which cannot be read becomes a product without purpose.",
+          "source": "Typographie: A Manual of Design, 1967",
+          "meaning": "（排版的第一義務是傳遞資訊——這是不可協商的底線。無法被閱讀的印刷品是失去目的的產品。Ruder 以最樸素的語言定義了排版設計的存在理由。）"
+        },
+        {
+          "text": "The typographer's task has always been to add a visual dimension to the author's language and to supplement the meaning of the text.",
+          "source": "Typographie: A Manual of Design, 1967",
+          "meaning": "（排版師的任務是為文字增加視覺維度——字體大小、粗細、間距、位置都在補充文字的語義。排版是第二層語言，說出文字本身沒有說出的東西。）"
+        },
+        {
+          "text": "Actual writing forms the basis of printed lettering and thus also of typography.",
+          "source": "Typographie: A Manual of Design, 1967",
+          "meaning": "（手寫是印刷字體的根基——理解書寫的物理動作（筆觸的壓力、速度、角度）才能理解字形的內在邏輯。Ruder 堅持 Basel 學生必須先練書法再學排版。）"
+        },
+        {
+          "text": "Space in typography is like time in music. It is infinitely divisible, but a few proportional intervals can be much more useful than a multitude of small pieces.",
+          "source": "Typographie: A Manual of Design, 1967",
+          "meaning": "（排版中的空間如同音樂中的時間——理論上可以無限細分，但少數精準的比例間隔比大量碎片化的間距更有效。空白是設計師最強大的工具。）"
+        },
+        {
+          "text": "Typography is a servant, but like all good servants, it should be allowed to think for itself within the constraints of its servitude.",
+          "source": "attributed, Basel teaching",
+          "meaning": "（排版是服務者——服務於文字、服務於讀者。但好的僕人在服務的框架內有自己的判斷力。這是 Ruder 對排版師專業自主性的定義：忠誠的紀律與獨立的判斷並存。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "阿德里安·弗魯提格",
+        "en": "Adrian Frutiger"
+      },
+      "role": "瑞士字體設計師，設計了 Univers（1957）與 Frutiger（1976）兩套影響全球的字體家族。Univers 的系統化編號體系（以兩位數標示粗細與寬度）為字體家族管理建立了理性的分類框架。從 Zurich 工藝學校畢業後赴巴黎 Deberny & Peignot 鑄字廠工作，將瑞士的精確性帶入法國排版工業。",
+      "key_works": [
+        "Univers 字體家族 (1957，21 種粗細/寬度變體)",
+        "Frutiger 字體（原為巴黎 Charles de Gaulle 機場指標系統設計, 1976）",
+        "《Type, Sign, Symbol》(1980)",
+        "《Signs and Symbols: Their Design and Meaning》(1989)",
+        "OCR-B 字體（供機器辨識用, 1968, ISO 1073-2 標準）"
+      ],
+      "key_quotes": [
+        {
+          "text": "The most important thing I have learned is that legibility and beauty stand close together and that type design, in its restraint, should be only felt but not perceived by the reader.",
+          "source": "interview / later reflections on career",
+          "meaning": "（字體設計的最高境界是讀者感受到它的品質卻不注意到它的存在——如同空氣，呼吸時不會意識到它。易讀性與美感是同一件事的兩個面向。）"
+        },
+        {
+          "text": "When I put my pen to a blank sheet, black isn't added but rather the white sheet is deprived of light. Thus I also grasped that the empty spaces are the most important aspect of a typeface.",
+          "source": "Adrian Frutiger — Typefaces: The Complete Works, 2009",
+          "meaning": "（字體設計的本質是操縱空白——筆劃是光的剝奪，字母之間的空間才是閱讀的真正載體。這個洞見讓 Frutiger 的字體在各種尺寸下都保持卓越的易讀性。）"
+        },
+        {
+          "text": "Helvetica is the jeans, and Univers the dinner jacket.",
+          "source": "attributed, interview",
+          "meaning": "（同年誕生的兩套字體有不同的性格：Helvetica 是日常的、隨性的、適應一切場合的工作服；Univers 是正式的、系統化的、為專業場合設計的禮服。兩者都是 Swiss Style 的代表，但服務於不同的溝通需求。）"
+        },
+        {
+          "text": "Typography must be as beautiful as a forest — not like the concrete deserts of suburbia. A forest is not a single complex — there are distances between the trees which provide space to breathe and live.",
+          "source": "attributed, interview / lecture",
+          "meaning": "（好的排版如同森林——樹木之間有呼吸的間距。排版的節奏感來自空白的分配，密不透風的文字區塊是死的，有呼吸的版面是活的。）"
+        },
+        {
+          "text": "The eye does not read letters, but the space between them.",
+          "source": "interview, 1998",
+          "meaning": "（眼睛閱讀的是字母之間的空間——字母的外形只是空間的邊界。這個認知倒轉了字體設計的思維方式：從畫筆劃到雕刻空白。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Typographie: A Manual of Design（排版：設計手冊）",
+      "author": "Emil Ruder",
+      "year": 1967,
+      "significance": "集 Ruder 25 年 Basel 排版教學經驗於一書。以大量視覺範例示範對比原則（大/小、粗/細、緊/鬆）在排版中的應用，是 Swiss Style 排版理論最完整的教科書。三語出版（德、英、法），全球設計學校廣泛使用。"
+    },
+    {
+      "title": "Graphic Design Manual: Principles and Practice（平面設計手冊：原則與實踐）",
+      "author": "Armin Hofmann",
+      "year": 1965,
+      "significance": "Basel 學派教學法的系統化呈現。以點、線、面、對比為核心，從最基本的視覺元素出發逐步推進到複雜的構成。George Nelson 撰寫前言，將 Hofmann 的方法論推向美國設計教育界。"
+    },
+    {
+      "title": "Grid Systems in Graphic Design（平面設計中的網格系統）",
+      "author": "Josef Müller-Brockmann",
+      "year": 1981,
+      "significance": "網格系統設計的終極參考書。德英雙語出版，以圖解方式詳細說明網格的建構、應用與變化，從版面設計到展覽空間規劃。至今仍是全球設計師學習網格方法論的首選教材。"
+    },
+    {
+      "title": "Neue Grafik / New Graphic Design（新平面設計）雜誌",
+      "author": "Richard Paul Lohse, Josef Müller-Brockmann, Hans Neuburg, Carlo Vivarelli (editors)",
+      "year": "1958-1965 (18 issues)",
+      "significance": "Swiss Style 的國際傳播平台。雜誌本身就是 Swiss Style 的示範：嚴格的網格版面、Akzidenz-Grotesk 字體、三語刊載（德、英、法）。介紹瑞士及國際設計師的作品與理論，讓 Swiss Style 從地方學派升級為國際運動。"
+    },
+    {
+      "title": "The Graphic Artist and His Design Problems（平面設計師及其設計問題）",
+      "author": "Josef Müller-Brockmann",
+      "year": 1961,
+      "significance": "記錄從插畫式平面設計到功能性平面設計的轉變過程。中段章節涉及符號學與傳播研究，將設計定位為視覺傳播科學。三語出版（德、英、法），是 Swiss Style 理論基礎的早期重要文獻。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "數學網格系統 (Mathematical Grid System)：以精確計算的網格作為版面組織的骨架，所有元素——文字、圖片、留白——都在網格的節點與模組中找到位置。（WHY：戰前的平面設計大量依賴設計師的直覺判斷來安排版面，結果因人而異、無法系統化。戰後跨國企業與國際組織需要數百頁的年報、多語言的手冊、一致性的品牌形象——這些規模的設計任務無法依賴個人直覺，需要一套可複製、可協作的空間組織邏輯。網格提供了這個邏輯。）",
+      "客觀攝影取代主觀插畫 (Objective Photography)：以攝影作為主要圖像媒介，取代傳統的手繪插畫與裝飾性圖案。（WHY：插畫帶有畫家的主觀詮釋——每一筆都是個人風格的投射。Swiss Style 追求的是資訊的客觀傳遞，攝影被視為比插畫更「客觀」的媒介：它記錄事物本身的樣貌，減少設計師的主觀介入。Muller-Brockmann 的 Tonhalle 海報用幾何構成取代音樂家肖像，正是這個邏輯的體現。）",
+      "無襯線字體的標準化 (Sans-serif Standardization)：全面採用 Akzidenz-Grotesk、Helvetica、Univers 等無襯線字體，建立統一的排版語言。（WHY：襯線字體（Garamond, Baskerville 等）帶有強烈的歷史與文化聯想——它們屬於特定的時代與傳統。無襯線字體被視為「無歷史包袱」的中性載體，能在不同語言與文化脈絡中保持一致的閱讀體驗。Helvetica 的全球普及證明了這個策略的有效性。）",
+      "左對齊、鋸齒右（Flush Left, Ragged Right）：放棄傳統的兩端對齊（justified），採用左對齊文字排列，讓右邊自然斷行。（WHY：兩端對齊為了追求版面的矩形整齊，會在字與字之間插入不均勻的空白（rivers of white），破壞閱讀節奏。左對齊讓字距保持一致，閱讀更流暢。Swiss Style 的選擇是功能性的：閱讀效率優先於視覺整齊。）",
+      "資訊層級的視覺化 (Typographic Hierarchy)：透過字體大小、粗細、位置的系統性變化，建立清晰的資訊閱讀順序。（WHY：現代社會的資訊量遠超 19 世紀——火車時刻表、藥品說明書、城市指標系統都需要讀者在極短時間內找到關鍵資訊。Swiss Style 的排版層級系統讓資訊的優先順序在視覺上一目了然。）",
+      "設計作為視覺資訊系統 (Design as Visual Information System)：將平面設計重新定義為資訊的視覺化組織——設計師是資訊的建築師，版面是資訊的建築。（WHY：戰後社會的核心挑戰是資訊的組織與傳遞。Swiss Style 將設計師從「美化者」重新定義為「資訊組織者」——這個身份轉換讓設計獲得了工程師般的專業地位與社會信任。）",
+      "系統化的色彩運用：節制地使用色彩，每一個色彩決策都必須有功能性理由——標示資訊層級、區分資料類別、引導閱讀動線。（WHY：Swiss Style 拒絕裝飾性的色彩運用。色彩在資訊設計中扮演的是編碼功能——紅色代表警告、藍色代表導引——每個色彩都是語義的載體。Hofmann 稱裝飾性的色彩使用為「色彩的庸俗化」。）",
+      "國際通用的視覺語言：追求超越語言、文化與國界的溝通效率，以圖示符號、通用圖標與系統化版面取代依賴文字的溝通方式。（WHY：瑞士的四語環境是天然的實驗場——一份海報必須同時對德語、法語、義語、羅曼什語的讀者有效。戰後國際組織與跨國企業的擴張將這個需求放大到全球尺度。Swiss Style 的「無國籍」視覺語言是瑞士多語經驗的全球化版本。）"
+    ],
+    "what_they_refuse": [
+      "裝飾性插畫與手繪風格：拒絕以主觀的手繪插畫作為平面設計的圖像語言，拒絕一切不承擔資訊功能的裝飾性元素。（WHY：戰前歐洲的商業海報以華麗的手繪插畫為主——每張海報是一幅獨立的「小繪畫」。Swiss Style 認為這種傳統將設計降格為藝術的附庸，設計師淪為「會畫畫的廣告人」。客觀攝影與幾何構成取代插畫，是設計師專業獨立性的宣言。）",
+      "對稱版面與中軸構圖：拒絕傳統的對稱構圖（中軸對齊、雙欄鏡像），全面採用非對稱版面。（WHY：對稱版面預設一個靜態的、封閉的視覺結構——資訊被安排在固定的中心軸線兩側，缺乏動態的閱讀引導。非對稱版面讓設計師可以透過元素的位置差異建立明確的閱讀動線與資訊層級。Jan Tschichold 在 1928 年的《Die Neue Typographie》已經為這個轉向提供了理論基礎。）",
+      "設計師的個人表達與風格化：拒絕將平面設計視為設計師自我表達的媒介，拒絕可辨識的「個人風格」成為設計的目的。（WHY：Swiss Style 的核心信念是設計為讀者服務，為資訊服務。設計師的個人風格如果干擾了資訊傳遞，就是自私的。Muller-Brockmann 的海報沒有簽名——這是一個倫理立場：設計師的自我應該消融在作品的功能中。）",
+      "情感操縱與宣傳修辭：拒絕利用視覺元素（戲劇性構圖、誇張的色彩、情緒化的字體）來操縱觀者的情感反應。（WHY：二戰期間，德國、義大利、蘇聯的宣傳海報展示了視覺設計作為意識形態武器的毀滅性力量。Swiss Style 的「客觀設計」是對宣傳美學的直接反動——設計應該告知（inform），而非說服（persuade）。瑞士的中立國身份強化了這個立場。）",
+      "襯線字體與歷史字體：在原則上拒絕使用帶有歷史聯想的襯線字體，主張無襯線字體是現代設計的唯一合法選擇。（WHY：襯線字體（Garamond、Caslon、Bodoni）各自帶有文藝復興、啟蒙時代、拿破崙時代的歷史氣息。Swiss Style 追求「零歷史」的視覺起點——無襯線字體被視為最接近中性的字體形式。Helvetica 的名字本身（來自拉丁語 Helvetia，瑞士的古稱）暗示了一種超越歷史的、屬於當下的身份。）",
+      "偶然效果與即興創作：拒絕將偶然發現或即興創作視為有效的設計方法，每一個設計決策都必須能被理性論證。（WHY：Armin Hofmann 的教室裡不接受「碰巧好看」的結果——學生必須解釋每一個元素的位置、大小、間距的理由。這種紀律來自瑞士精密工業的文化傳統：鐘錶的每一個零件都有精確的功能，設計也應如此。）",
+      "版面的視覺噪音：拒絕多種字體混用、裝飾性邊框、底紋、花邊等視覺噪音元素。（WHY：每一個額外的視覺元素都在與核心資訊競爭讀者的注意力。Swiss Style 的減法邏輯是殘酷的：如果一個元素不服務於資訊傳遞，它就是噪音，必須刪除。這是資訊設計的工程倫理。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Art Deco / 裝飾藝術：其華麗的裝飾語言、風格化的插畫、幾何裝飾圖案代表 Swiss Style 所拒絕的一切——美學先於功能",
+      "Expressionism in graphic design：表現主義平面設計的情緒化字體、戲劇性構圖、主觀色彩被視為資訊傳遞的障礙",
+      "Commercial illustration tradition：戰前歐洲商業海報以手繪插畫為核心的傳統，Swiss Style 以攝影與幾何構成徹底取代",
+      "Psychedelic design (1960s)：迷幻設計的扭曲字體、飽和色彩、有機形態是 Swiss Style 的對極——一切為了感官體驗，資訊傳遞是次要的",
+      "Push Pin Studio (New York)：Milton Glaser 與 Seymour Chwast 代表的美國折衷主義設計——擁抱插畫、歷史風格引用、幽默與個人表達，直接挑戰 Swiss Style 的客觀性教條"
+    ],
+    "against_values": [
+      "設計師的自我表達：Swiss Style 要求設計師將自我消融在功能中，個人風格是設計師的虛榮",
+      "視覺的情感操縱：設計應告知而非說服，客觀呈現資訊讓讀者自行判斷",
+      "歷史風格的引用與復古：每一個時代有自己的視覺語言，回顧過去的風格是創造力匱乏的徵兆",
+      "裝飾即價值：一切不服務於資訊傳遞的視覺元素都是噪音",
+      "直覺優先於方法：好的設計來自系統性的方法論訓練，依賴個人直覺的設計無法被教授、無法被複製、無法被品質管控"
+    ],
+    "societal_context": "Swiss International Style 誕生於二戰後的歐洲重建時期。法西斯政權對視覺宣傳的大規模濫用——納粹的 Gothic 字體與英雄主義海報、墨索里尼的未來主義宣傳——讓戰後的設計師對視覺操縱深惡痛絕。瑞士作為中立國，在戰爭期間維持了完整的教育與印刷基礎設施，戰後迅速成為國際組織（聯合國歐洲總部、紅十字會、WHO）的所在地。這些組織需要跨語言、跨文化的視覺溝通系統——Swiss Style 的客觀性、系統性、國際性完美回應了這個需求。同時，Marshall Plan 推動的歐洲經濟整合催生了大量跨國企業，它們需要統一的企業識別系統。Swiss Style 從瑞士的地方學派升級為全球的企業設計標準，Helvetica 成為跨國資本主義的視覺通用語。這個成功帶有深刻的矛盾：一個源自民主理想的設計運動，最終成為企業權力的視覺工具。"
+  },
+
+  "problems_solved": [
+    "建立了可系統化教授的平面設計方法論：網格系統、排版層級、色彩編碼——這些工具讓平面設計從依賴個人天賦的「藝術」轉變為可訓練、可傳授、可品質管控的「專業」。Basel 與 Zurich 的教學體系至今仍是全球設計教育的基礎架構",
+    "解決了多語言、跨文化的視覺溝通問題：瑞士四語環境催生的設計方法論，被成功推廣到國際組織、跨國企業、全球交通系統。從紐約地鐵指標系統到東京奧運視覺識別，Swiss Style 證明了視覺語言可以超越語言障礙",
+    "為企業識別系統（Corporate Identity）提供了完整的設計框架：網格、標準字體、色彩規範、版面規則——Swiss Style 發明了「設計手冊」（design manual）的概念，讓品牌一致性可以跨團隊、跨地域地維持。Lufthansa、IBM、Swiss Federal Railways 的識別系統是這個方法論的經典案例",
+    "提升了平面設計師的專業地位：將設計師從「為廣告畫圖的人」重新定義為「視覺資訊的建築師」，設計師的工作獲得了接近工程師的專業尊重與社會信任",
+    "創造了具持久影響力的字體工具：Helvetica 與 Univers 至今仍是全球最廣泛使用的字體之一。Frutiger 為 Charles de Gaulle 機場設計的字體後來成為全球指標系統的標準選擇。這些字體是 Swiss Style 設計理念的物質載體",
+    "為資訊設計（Information Design）奠定了基礎：Swiss Style 將「如何有效組織與傳遞資訊」提升為設計的核心問題，直接催生了後來的資訊設計、使用者介面設計、數據視覺化等領域"
+  ],
+
+  "problems_created": [
+    "美學的單一化與全球同質化：Swiss Style 的全球擴散導致世界各地的視覺環境趨同——無論東京、聖保羅或奈洛比，企業識別系統都使用 Helvetica、網格版面、客觀攝影。地方文化的視覺傳統被邊緣化，設計的文化多樣性急劇下降",
+    "過度客觀性壓抑了設計的人文維度：堅持「告知而非說服」的教條，使 Swiss Style 難以處理需要情感連結、文化敘事、身份認同表達的設計任務。Wolfgang Weingart（Ruder 的學生）在 1970 年代的反叛正是對這種壓抑的回應",
+    "方法論的僵化與教條化：網格系統從「工具」被教條化為「規則」，字體選擇從「偏好」變成「法律」。二代、三代追隨者機械地套用形式規範，失去了原創者們在嚴格框架中尋找創造性張力的能力。Swiss Style 的最大諷刺：一個追求理性的運動最終產生了非理性的教條",
+    "隱含的文化霸權：Swiss Style 宣稱的「國際通用性」實質上以歐洲工業社會（特別是日耳曼語系）的閱讀習慣與美學偏好為預設。左對齊的排版預設了從左到右的閱讀方向，無襯線字體的「中性」假設忽略了不同書寫系統的歷史脈絡。這套「通用」語言是特定文化傳統的全球化推廣",
+    "抹殺了設計師的個人聲音：將設計師定義為「客觀的資訊組織者」，壓抑了設計作為個人創造性表達的可能性。Swiss Style 培養了大量技術精湛的專業執行者，卻壓制了設計的作者性（authorship）——直到後現代主義設計在 1980 年代爆發性地反彈",
+    "成為企業權力的美學工具：Swiss Style 的「客觀性」與「效率」完美契合了跨國企業的溝通需求，但也因此成為企業官僚主義的視覺語言。Helvetica 從「民主的字體」變成了「權力的字體」——政府表格、銀行聲明、企業裁員通知都使用 Helvetica，它的「中性」成為一種冷漠的偽裝"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "平面設計是一門客觀的視覺資訊科學——它擁有可以被數學化的空間組織法則（網格）、可以被系統化的字體選擇標準（無襯線、字體家族的粗細/寬度矩陣）、可以被方法論化的教學體系。設計師的角色是視覺資訊的建築師，版面是資訊的建築，每一個元素都服從於傳遞效率的最高原則。",
+    "what_was_truly_new": [
+      "數學網格系統的完整方法論：雖然網格在印刷史上早已存在，但 Muller-Brockmann 將網格從「排版工具」提升為「設計思維的結構化方法」，並以著書立說將其系統化為可全球教授的方法論",
+      "字體家族的系統化編號體系：Frutiger 為 Univers 設計的兩位數編號系統（第一位標示粗細、第二位標示寬度與正體/斜體），第一次為字體家族的管理建立了理性的分類框架",
+      "企業識別設計手冊的發明：Swiss Style 設計師創造了「設計手冊」的概念——一本規範字體、色彩、版面、圖像風格的完整文件，讓品牌一致性可以跨團隊、跨地域維持。這是 Design System 的原型",
+      "排版作為獨立的設計學科：Emil Ruder 與 Armin Hofmann 的教學將排版從「印刷的輔助技術」提升為「視覺溝通的核心方法」，建立了排版設計的獨立學術地位",
+      "設計教育的國際化標準：Basel 學校的教學法透過 Yale、Cooper Union 等美國學校的採用，成為全球設計教育的事實標準。Swiss Style 是第一個成功建立國際教育網絡的設計運動"
+    ],
+    "what_was_borrowed": [
+      "Bauhaus：預備課程的視覺基礎訓練法（點、線、面）、跨學科教育理念、形式追隨功能的設計信條——Max Bill 作為 Bauhaus 校友直接將這些遺產帶入瑞士。Swiss Style 是 Bauhaus 設計教育理念的精煉與專業化版本",
+      "De Stijl / 新造型主義：Mondrian 的網格構成、原色限制、非對稱平衡——Swiss Style 的網格系統在形式語言上直接承襲 De Stijl 的幾何秩序",
+      "Jan Tschichold《Die Neue Typographie》(1928)：非對稱版面、無襯線字體、功能主義排版原則——Tschichold 在 1920 年代已經建立了 Swiss Style 的排版理論基礎",
+      "Russian Constructivism：El Lissitzky 的排版實驗、Rodchenko 的攝影構成——客觀攝影取代主觀插畫的策略源自構成主義",
+      "Concrete Art（具體藝術）：Max Bill、Richard Paul Lohse 的幾何抽象繪畫——以數學法則生成的視覺形式，直接影響了 Swiss Style 的海報設計語言"
+    ],
+    "creative_leap": "Swiss Style 的關鍵創造性飛躍在於「專業化」(professionalization)：它將 Bauhaus 的廣泛教育理想聚焦到平面設計這個單一領域，並以瑞士精密工業的標準將其方法論化到前所未有的精確度。Bauhaus 試圖統合所有藝術；Swiss Style 只做一件事——平面設計——但做到極致。這是從「運動」到「專業」的根本性轉變。網格系統、字體規範、設計手冊——這些工具讓設計從「個人才能的展現」變成「可複製的專業流程」，使設計能在全球企業與機構中規模化運作。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "Swiss Style 的核心命題——如何建立一套客觀、系統化、可規模化的視覺溝通方法——在每一次資訊環境的變革中都會被重新提出。數位時代的 Design System、Responsive Grid、Design Token 直接承襲 Swiss Style 的方法論血脈。AI 時代的挑戰是：當機器能自動生成符合網格規範的版面，人類設計師的價值在哪裡？Swiss Style 的回答——嚴格的方法論訓練培養的判斷力——仍然有效，但其過度客觀性的盲點（忽視文化脈絡、情感需求、個人表達）也需要被超越。",
+      "transferable_to": [
+        "Design System 與 Design Token：Swiss Style 的網格系統、字體規範、色彩編碼是現代 Design System 的直接祖先",
+        "UI/UX 設計：資訊層級、排版節奏、留白比例——Swiss Style 的排版方法論幾乎可以原封不動地移植到介面設計",
+        "數據視覺化：將複雜資訊組織為可閱讀的視覺結構——Swiss Style 的資訊設計傳統直接催生了這個領域",
+        "程式化設計（Programmatic Design）：網格的數學化特性讓它天然適合被程式碼實現——CSS Grid、Flexbox 是 Swiss Style 的數位轉譯",
+        "品牌一致性管理：從設計手冊到 Brand Guidelines——Swiss Style 發明的品牌管理工具仍是企業設計的標準實踐",
+        "多語言介面設計：瑞士四語環境催生的設計方法論，對今天的全球化 app 設計仍有高度適用性",
+        "無障礙設計（Accessibility）：Swiss Style 對易讀性的執著——字距、行距、對比度、字體大小——與今天 WCAG 無障礙標準的關注點高度重疊"
+      ]
+    },
+    "originality_type": "professionalization",
+    "originality_types_glossary": {
+      "genesis": "從無到有的全新概念或形式，在該領域中沒有直接先例",
+      "synthesis": "將多個已存在的元素、理念或方法組合成全新的整體，如 Bauhaus 統合 Constructivism、De Stijl、Arts and Crafts",
+      "professionalization": "將已存在的理念或實踐從零散的、個人化的狀態，系統化為可教授、可複製、可規模化的專業方法論",
+      "inversion": "將主流的假設、價值觀或方法論顛倒過來，產生全新的視角",
+      "translation": "將一個領域的概念或方法移植到另一個完全不同的領域",
+      "radicalization": "將已存在的理念推向極端，超越原創者的設想範圍",
+      "hybridization": "將兩個看似不相容或對立的傳統融合為新的形式",
+      "excavation": "重新發現被遺忘或邊緣化的傳統，賦予其當代意義"
+    }
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Bauhaus (1919-1933)：設計教育體系、視覺基礎訓練法（點、線、面）、形式追隨功能——Max Bill 作為 Bauhaus 校友是直接的傳承者",
+      "Jan Tschichold《Die Neue Typographie》(1928)：非對稱版面、無襯線字體、功能主義排版原則——Swiss Style 排版理論的直接先驅",
+      "De Stijl / Neoplasticism (1917-)：Mondrian 的網格構成、原色限制——Swiss Style 網格系統的形式語言來源",
+      "Russian Constructivism (1913-)：El Lissitzky 的排版實驗、客觀攝影——「資訊的視覺化組織」理念的先驅",
+      "Concrete Art / Konkrete Kunst (1930s-)：Max Bill、Richard Paul Lohse——以數學法則生成視覺形式，直接影響 Swiss Style 海報的幾何語言",
+      "Ulm School of Design / HfG Ulm (1953-1968)：Max Bill 創辦，將 Bauhaus 教育理念激進化，強調設計的科學性與系統性",
+      "Ernst Keller 的 Zurich 教學傳統 (1918-)：瑞士設計教育之父，在 Kunstgewerbeschule Zurich 建立了重視排版與功能性的教學傳統",
+      "Swiss precision culture：鐘錶業、製藥業、銀行業培養的精確度標準，滲透到設計文化中"
+    ],
+    "influenced": [
+      "Corporate Identity Design (1960s-)：IBM（Paul Rand 受 Swiss Style 影響）、Lufthansa（Otl Aicher）、Swiss Federal Railways——全球企業識別系統的設計框架",
+      "New York School of Design (1960s-)：Massimo Vignelli、Rudy de Harak——Swiss Style 在美國的傳播與實踐者，NYC Subway 指標系統的設計",
+      "Postmodern Graphic Design (1980s-)：Wolfgang Weingart（Ruder 的學生）、April Greiman、David Carson——作為對 Swiss Style 的直接反叛而誕生",
+      "Digital UI/UX Design (1990s-)：CSS Grid、Material Design、iOS Human Interface Guidelines——Swiss Style 的網格與排版原則的數位化延續",
+      "Design Systems Movement (2010s-)：Airbnb DLS、Google Material Design、IBM Carbon——「設計手冊」概念的當代數位版本",
+      "Web Typography (2000s-)：Oliver Reichenstein (iA)、Responsive Typography——Swiss Style 排版原則在網頁設計中的復興",
+      "Minimalism in digital products：Apple、Google、Spotify 的介面設計——Swiss Style 的減法美學在數位產品中的延續",
+      "Wayfinding / Signage Design：全球機場、地鐵、醫院的指標系統——Frutiger 字體與 Swiss Style 的資訊設計方法論是這個領域的基石",
+      "Data Visualization (Edward Tufte)：Tufte 的資訊設計原則——追求資訊的清晰傳遞、反對裝飾性元素——直接承襲 Swiss Style 的理念"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "精密、冷靜、方法論驅動。像一位瑞士鐘錶師：先檢查結構的精確度，再檢查表面的光潔度。對「這個元素為什麼在這個位置」的追問毫不留情，但對「這個效果讓我感覺很好」的回答完全不接受。欣賞網格的紀律、字體的節制、留白的勇氣。對視覺噪音有近乎潔癖的反感——每一個不服務於資訊傳遞的元素都是設計師的失職。言語精簡，判斷明確，引用數據與比例而非感受與印象。偶爾因過度追求秩序而顯得機械。",
+    "evaluation_bias": "強烈偏好清晰的資訊層級、嚴格的網格紀律、節制的色彩運用。傾向高估系統性與可複製性的價值，低估文化敘事、情感連結與個人表達的重要性。會不自覺地以「這能否被寫進設計手冊？能否在不同語言環境中同樣有效？」作為隱性評分標準。對手繪風格、插畫導向、歷史風格引用的作品可能給出不公正的低評，因為它們「無法被系統化」。",
+    "blind_spots": "難以評價高度文化特定性、情感驅動、個人表達性的設計作品。對裝飾的全面否定使其無法理解裝飾在非西方文化中的功能性角色（如阿拉伯書法在伊斯蘭設計中的結構性地位）。傾向忽視設計的愉悅性（delight）——認為功能性的滿足就是愉悅的全部。對幽默、反諷、戲劇性在設計中的價值幾乎完全無感。在數位設計脈絡中，可能低估動態互動、微動效、情緒化界面的設計價值。",
+    "typical_critique": "你的版面缺乏結構。我看到了四種字體、三種對齊方式、五種色彩——這些選擇的邏輯是什麼？讀者的視線應該先看到什麼？再看到什麼？你的留白分布不均勻，右下角的空白沒有被網格定義——它是設計決策還是遺忘？我建議你從頭開始：先建立網格，定義字體層級，然後讓每一個元素在結構中找到它必須在的位置。"
+  },
+
+  "writing_style": {
+    "collective_voice": "Swiss Style 的集體寫作風格是「技術手冊式教育文體」：精確、節制、以示範取代宣言。與 Bauhaus 的激昂宣言不同，Swiss Style 的文字像工程圖紙——每一句話都是一個精確的定義或一條可操作的規則。修辭極度克制，形容詞稀少，名詞與動詞構成句子的骨架。所有作者都以教師姿態寫作，但他們的教學是「做給你看」而非「告訴你為什麼」——大量使用視覺範例，文字只負責標註。跨領域類比少見，取而代之的是同一領域內的精確比較（這個字距 vs 那個字距，這個網格 vs 那個網格）。",
+    "internal_tensions": "最主要的風格張力在 Basel 與 Zurich 兩校之間。Zurich 學派（Muller-Brockmann、Lohse）更激進地追求客觀性——文字冷靜、邏輯嚴密、幾乎排除個人色彩。Basel 學派（Hofmann、Ruder）保留了更多的人文溫度——承認直覺與紀律的共存，偶爾使用詩意的類比（Ruder 將排版中的空白比作音樂中的時間）。Frutiger 是兩個極端的橋梁：以工程師的精確度討論字體，但偶爾綻放出詩人的感性（「眼睛閱讀的是字母之間的空間」）。",
+    "master_voices": [
+      {
+        "name": "Josef Müller-Brockmann",
+        "writing_character": "設計的立法者——用法典的語氣寫方法論",
+        "sentence_rhythm": "中等長度的陳述句（15-30 字），以定義式起手，常用 must / should / is 的斷言結構",
+        "rhetoric": "定義式斷言、列舉法（a, b, c, and d）、目的式從句（in order to...）、偶爾的自省式反差（生活一團亂 vs 工作追求秩序）",
+        "tone": "權威但不傲慢的立法者，帶有教師的耐心",
+        "real_examples": [
+          {
+            "text": "The grid system is an aid, not a guarantee.",
+            "source": "Grid Systems in Graphic Design, 1981",
+            "style_note": "簡短的否定式定義——先告訴你它是什麼，再告訴你它不是什麼"
+          },
+          {
+            "text": "Design which is objective, committed to the common weal, well composed, and refined constitutes the basis of democratic behavior.",
+            "source": "Grid Systems in Graphic Design, 1981",
+            "style_note": "四重形容詞列舉（objective, committed, composed, refined）堆疊到一個宏大的政治結論"
+          }
+        ]
+      },
+      {
+        "name": "Emil Ruder",
+        "writing_character": "排版的哲學家——用最少的文字傳遞最多的原則",
+        "sentence_rhythm": "短句為主（10-20 字），斷言式起手，偶爾展開一個類比",
+        "rhetoric": "樸素的直言（plain duty, one task）、否定式限制（no argument can absolve...）、跨領域類比（排版-音樂）",
+        "tone": "溫和但不可撼動的教師，帶有工匠的樸實",
+        "real_examples": [
+          {
+            "text": "Typography has one plain duty before it and that is to convey information in writing.",
+            "source": "Typographie, 1967",
+            "style_note": "「one plain duty」——用最樸素的詞彙定義最根本的原則"
+          },
+          {
+            "text": "A printed work which cannot be read becomes a product without purpose.",
+            "source": "Typographie, 1967",
+            "style_note": "冷靜的邏輯推導：不可讀 → 無目的。沒有情緒，只有事實"
+          }
+        ]
+      },
+      {
+        "name": "Armin Hofmann",
+        "writing_character": "設計的禪師——在紀律與自由之間尋找平衡的內省者",
+        "sentence_rhythm": "中長句（20-40 字），使用平衡的二元結構（A and B, each partaking of the other）",
+        "rhetoric": "二元平衡（discipline and freedom, spontaneous and intellectual）、否定排除（have no place）、過程導向的描述",
+        "tone": "嚴格但有人文關懷的導師，比 Muller-Brockmann 多一層溫度",
+        "real_examples": [
+          {
+            "text": "Discipline and freedom are thus to be seen as elements of equal weight, each partaking of the other.",
+            "source": "Graphic Design Manual, 1965",
+            "style_note": "精確的二元平衡句——「equal weight」「each partaking of the other」——結構本身就是 Swiss Style 的視覺平衡"
+          }
+        ]
+      },
+      {
+        "name": "Adrian Frutiger",
+        "writing_character": "字體的工程師與詩人——以技術精度描述感知體驗",
+        "sentence_rhythm": "開頭常是感知性的觀察（10-15 字），後接技術性的展開",
+        "rhetoric": "感知-技術的雙層結構（先說眼睛看到什麼，再說為什麼）、物質性隱喻（光的剝奪、空間的雕刻）、反直覺的定義（黑色即光的剝奪）",
+        "tone": "溫和的工程師，帶有出人意料的詩意直覺",
+        "real_examples": [
+          {
+            "text": "When I put my pen to a blank sheet, black isn't added but rather the white sheet is deprived of light.",
+            "source": "Adrian Frutiger — Typefaces: The Complete Works, 2009",
+            "style_note": "反直覺的感知翻轉：黑色是光的缺席。工程師的精確性與詩人的感知力在一句話中完美融合"
+          },
+          {
+            "text": "The eye does not read letters, but the space between them.",
+            "source": "interview, 1998",
+            "style_note": "極簡的反直覺格言——翻轉了字體設計的思維方向"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子以中短句為主（10-25 字），關鍵定義用不超過 15 字的斷言句",
+      "大量使用否定式限制，以直接的定義式取代迂迴的否定句：「X 即 Y」",
+      "列舉法代替排比：用精確的清單（a, b, c）而非修辭性的排比",
+      "禁用感嘆號——Swiss Style 的語氣永遠是平靜的陳述",
+      "每段不超過 3 句，一段一個精確的觀點",
+      "類比限於功能性類比：建築-版面、音樂-排版、工程-設計",
+      "動詞偏好：define, organize, structure, clarify, reduce, eliminate",
+      "禁用裝飾性副詞（very, really, extremely），用精確的量詞（3mm, 12pt, 1:1.618）",
+      "評價必須可操作：每一句批評都附帶一個具體的改進方向"
+    ]
+  }
+}

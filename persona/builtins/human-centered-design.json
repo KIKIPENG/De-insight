@@ -1,0 +1,489 @@
+{
+  "movement_id": "human-centered-design",
+  "name": {
+    "zh": "人本設計",
+    "en": "Human-Centered Design"
+  },
+  "domain": [
+    "設計"
+  ],
+  "period": {
+    "start": 1980,
+    "end": null,
+    "peak": "1988-2015（Don Norman 出版《The Design of Everyday Things》到 Design Thinking 席捲全球商業界，IDEO 方法論被 Stanford d.school 制度化傳播，ISO 9241-210 確立國際標準）"
+  },
+  "geography": [
+    "Palo Alto, California, USA (Xerox PARC, Stanford, IDEO)",
+    "San Francisco Bay Area, USA (Silicon Valley 科技業)",
+    "Scandinavia (participatory design 傳統：Sweden, Denmark, Norway)",
+    "Cambridge, Massachusetts, USA (MIT Media Lab)",
+    "London, UK (Royal College of Art, Bill Moggridge)",
+    "Global (ISO 標準化後成為國際設計方法論)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1970-80 年代個人電腦革命將「介面」從工程師的技術問題升級為數百萬普通人的日常困境。1984 年 Apple Macintosh 上市，圖形使用者介面（GUI）開始普及，但絕大多數軟硬體仍由工程師依據技術邏輯設計，使用者被迫適應機器的語言。錄影機閃爍的 12:00、無法操作的影印機、令人困惑的電腦錯誤訊息——技術產品的「易用性危機」成為社會普遍的挫折經驗。同時，認知科學（cognitive science）在 1970 年代正式成為跨領域學科，為理解人類心智運作提供了科學框架。人本設計誕生於這個交叉點：當技術複雜度超越了普通人的認知能力，設計的責任從「教會使用者操作機器」轉向「讓機器理解使用者」。",
+    "social_energy": "人本設計的能量匯聚自三股力量：(1) Xerox PARC 與 Silicon Valley 的技術民主化浪潮——個人電腦的願景是讓運算能力從大型主機的祭司手中解放，交給每一個人，但硬體普及後，介面成為新的進入障礙；(2) 北歐參與式設計（Participatory Design）的政治傳統——1970 年代瑞典與挪威的工會運動主張工人有權參與影響其工作的技術系統設計，這股民主能量從勞工權利擴展到所有使用者的設計發言權；(3) 認知心理學與人因工程的學術積累——從二戰時期的軍事人因工程（飛行員座艙設計）到 1980 年代 Don Norman 在 UCSD 認知科學系的研究，提供了「人的認知有系統性限制，設計必須順應而非對抗」的科學基礎。",
+    "purpose": "人本設計的終極目標是翻轉設計的權力結構：技術服務於人，而非人適應技術。Herbert Simon 在 1969 年定義設計為「將現有狀態轉變為期望狀態的行動方案」——人本設計把「誰的期望」這個問題推到最前面，答案是使用者的需求、能力與情境。這個運動將設計的評判標準從「技術可行性」與「美學完整性」轉向「人的體驗品質」，並主張這個轉向需要系統性的方法論：田野觀察、原型測試、迭代改進、跨領域協作。",
+    "key_timeline": [
+      "1969 — Herbert Simon 出版《The Sciences of the Artificial》，首次將設計定義為獨立的知識領域，提出設計是將現有狀態轉變為期望狀態的行動方案",
+      "1970s — 北歐參與式設計運動興起：瑞典 UTOPIA 計畫（1981-1985 前導研究始於 1970s）讓印刷工人直接參與電腦排版系統的設計",
+      "1973 — Xerox PARC 開始開發 Alto 個人電腦與圖形使用者介面（GUI），奠定人機互動研究基礎",
+      "1978 — Herbert Simon 獲得 Nobel 經濟學獎，其 bounded rationality 理論為理解使用者認知限制提供科學框架",
+      "1982 — Bill Moggridge 設計 GRiD Compass，世界第一台翻蓋筆記型電腦，在使用過程中意識到軟體互動體驗與硬體工業設計同等重要",
+      "1987 — Lucy Suchman 出版《Plans and Situated Actions》，以 Xerox 影印機的民族誌研究挑戰 AI 領域的計畫模型，證明人的行動是情境化的即興回應",
+      "1988 — Don Norman 出版《The Psychology of Everyday Things》（後更名《The Design of Everyday Things》），將認知心理學引入設計實踐，創造 affordance、mapping、feedback 等設計詞彙",
+      "1988 — Bill Moggridge 與 Bill Verplank 在 ID Two 提出 interaction design（互動設計）一詞，定義軟硬體之間的使用者體驗為獨立設計學科",
+      "1991 — IDEO 由 David Kelley、Bill Moggridge、Mike Nuttall 合併三家設計公司成立，成為人本設計方法論的全球傳播載體",
+      "1993 — Don Norman 加入 Apple，擔任 User Experience Architect——這是業界首次使用「使用者體驗」(UX) 作為正式職稱",
+      "1999 — ISO 13407 發布，首次將 human-centred design 標準化為互動系統的設計流程規範",
+      "2003 — IDEO 出版《IDEO Method Cards》，將 51 種人本設計方法工具化，從學術理論轉為可操作的實務工具包",
+      "2005 — Stanford d.school（Hasso Plattner Institute of Design）成立，David Kelley 將 Design Thinking 制度化為跨領域教育方法",
+      "2008 — Tim Brown 在《Harvard Business Review》發表 'Design Thinking'，將人本設計方法論推入主流商業語境",
+      "2010 — ISO 9241-210 取代 ISO 13407，更新 human-centred design 的國際標準定義，涵蓋互動系統全生命週期"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "唐・諾曼",
+        "en": "Don Norman"
+      },
+      "role": "認知科學家，將心理學系統性引入設計實踐的關鍵人物。UCSD 認知科學系教授、Apple 首位 User Experience Architect（1993）、Nielsen Norman Group 共同創辦人。以《The Design of Everyday Things》重新定義設計的評判標準：從「它好看嗎」到「人能用嗎」。",
+      "key_works": [
+        "《The Design of Everyday Things》(原名 The Psychology of Everyday Things, 1988；修訂版 2013)",
+        "《Emotional Design: Why We Love (or Hate) Everyday Things》(2004)",
+        "《Living with Complexity》(2010)",
+        "《Design for a Better World: Meaningful, Sustainable, Humanity Centered》(2023)",
+        "Nielsen Norman Group 創立 (1998, 與 Jakob Nielsen 共同創辦)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Two of the most important characteristics of good design are discoverability and understanding.",
+          "source": "The Design of Everyday Things, Revised and Expanded Edition, 2013, Chapter 1",
+          "meaning": "（好設計的兩個根本特徵：可發現性——使用者能找到可執行的操作，以及可理解性——使用者能明白這個東西是什麼、如何運作。這兩個標準取代了「美觀」成為設計的首要評判基準。）"
+        },
+        {
+          "text": "It is not our duty to understand the arbitrary, meaningless dictates of machines. It is the duty of machines and those who design them to understand people.",
+          "source": "The Design of Everyday Things, Revised and Expanded Edition, 2013, Chapter 1",
+          "meaning": "（人本設計的根本倫理宣言：理解的責任在設計者這一端。使用者不該被迫學習機器的邏輯，機器應該被設計成符合人的認知方式。這句話翻轉了技術中心主義的權力關係。）"
+        },
+        {
+          "text": "Good design is actually a lot harder to notice than poor design, in part because good designs fit our needs so well that the design is invisible.",
+          "source": "The Design of Everyday Things, Revised and Expanded Edition, 2013",
+          "meaning": "（好設計的悖論：它成功的標誌是「消失」——當一個產品完美契合使用者的需求與認知模式，使用者甚至不會意識到設計的存在。設計師的最高成就是讓自己的工作變得透明。）"
+        },
+        {
+          "text": "Human error usually is a result of poor design: it should be called system error.",
+          "source": "The Design of Everyday Things, Revised and Expanded Edition, 2013, Chapter 5",
+          "meaning": "（重新歸因：當使用者「犯錯」，問題出在系統設計而非人的能力。核電廠事故（Three Mile Island, 1979）與航空事故的調查已反覆證明——人為失誤幾乎都能追溯到介面設計缺陷。稱之為「人為錯誤」是在為設計失敗卸責。）"
+        },
+        {
+          "text": "The whole point of human-centered design is to tame complexity, to turn what would appear to be a complicated tool into one that fits the task, that is understandable, usable, enjoyable.",
+          "source": "Living with Complexity, 2010",
+          "meaning": "（人本設計的核心任務是馴服複雜性——讓複雜的工具變得可理解、可使用、令人愉悅。複雜性本身無法消除，但好的設計能讓複雜系統呈現出清晰的結構，讓使用者在複雜中找到秩序。）"
+        },
+        {
+          "text": "Attractive things do work better.",
+          "source": "Emotional Design: Why We Love (or Hate) Everyday Things, 2004, Chapter 1",
+          "meaning": "（Norman 對自己早期過度偏重功能性的自我修正：正向情感狀態讓使用者更有創造力、更能容忍小問題、更願意探索功能。美學體驗影響認知效能——情感設計是功能設計的一部分，兩者不可分割。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "提姆・布朗",
+        "en": "Tim Brown"
+      },
+      "role": "IDEO 執行長（2000-2019）與董事長，將 IDEO 的人本設計方法論從設計顧問公司的內部實踐轉化為全球商業界的通用語言。透過《Harvard Business Review》文章與《Change by Design》一書，讓 Design Thinking 成為 MBA 課程的標準內容。",
+      "key_works": [
+        "《Change by Design: How Design Thinking Transforms Organizations and Inspires Innovation》(2009；修訂版 2019)",
+        "'Design Thinking' (Harvard Business Review, June 2008)",
+        "IDEO Method Cards (2003, 主導發展)",
+        "IDEO.org 創立 (2011, 將人本設計引入社會創新與發展中國家)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Design thinking is a human-centered approach to innovation that draws from the designer's toolkit to integrate the needs of people, the possibilities of technology, and the requirements for business success.",
+          "source": "IDEO official definition; 'Design Thinking', Harvard Business Review, June 2008",
+          "meaning": "（Design Thinking 的標準定義——三個圓的交集：人的需求（desirability）、技術可行性（feasibility）、商業永續性（viability）。這個框架讓設計師得以與工程師和商業人士用同一種語言溝通。）"
+        },
+        {
+          "text": "Empathy is the mental habit that moves us beyond thinking of people as laboratory rats or standard deviations.",
+          "source": "Change by Design, 2009, Chapter 2",
+          "meaning": "（同理心是人本設計的起點態度——將使用者從統計數據中的抽象概念還原為活生生的人。量化研究告訴你「多少人」，同理心讓你理解「為什麼」。）"
+        },
+        {
+          "text": "The faster we make our ideas tangible, the sooner we will be able to evaluate them, refine them, and zero in on the best solution.",
+          "source": "Change by Design, 2009, Chapter 4",
+          "meaning": "（原型製作（prototyping）的核心邏輯：想法留在腦中永遠完美，一旦具象化就暴露所有問題。速度勝過精緻——粗糙但快速的原型比完美的計畫更能推進設計。）"
+        },
+        {
+          "text": "There are many approaches to prototyping, but they share a single, paradoxical feature: They slow us down to speed us up.",
+          "source": "Change by Design, 2009, Chapter 4",
+          "meaning": "（原型的悖論：花時間做原型表面上是減速，實際上是避免在錯誤方向上全速前進。一個粗糙的紙板原型在十分鐘內揭露的問題，可能在開發階段耗費數月才被發現。）"
+        },
+        {
+          "text": "Build bridges of insight through empathy, see the world through the eyes of others, understand the world through their experiences, and feel the world through their emotions.",
+          "source": "Change by Design, 2009",
+          "meaning": "（設計研究的本質是跨越視角的橋梁工程——用眼睛看他人所見，用身體經歷他人所歷，用情感感受他人所感。這三個層次（觀察、體驗、情感）構成完整的同理心。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "赫伯特・賽門",
+        "en": "Herbert Simon"
+      },
+      "role": "跨領域巨人——政治學家、經濟學家、認知科學家、人工智慧先驅、Nobel 經濟學獎得主（1978）。以《The Sciences of the Artificial》為設計學奠定認識論基礎，將設計從藝術實踐提升為可系統研究的知識領域。",
+      "key_works": [
+        "《The Sciences of the Artificial》(1969；第二版 1981；第三版 1996)",
+        "《Administrative Behavior》(1947)",
+        "《Models of Man》(1957)",
+        "Bounded rationality（有限理性）理論",
+        "Satisficing（滿意即可）概念"
+      ],
+      "key_quotes": [
+        {
+          "text": "Everyone designs who devises courses of action aimed at changing existing situations into preferred ones.",
+          "source": "The Sciences of the Artificial, 1969, Chapter 5 'The Science of Design'",
+          "meaning": "（設計最廣義的定義：所有試圖改變現狀的有意識行動都是設計。醫生開處方是設計，教師編課綱是設計，政策制定者擬定法案是設計。這個定義將設計從工業設計師的專屬領域解放出來，成為所有專業的核心能力。）"
+        },
+        {
+          "text": "Engineering, medicine, business, architecture, and painting are concerned not with the necessary but with the contingent — not with how things are but with how they might be — in short, with design.",
+          "source": "The Sciences of the Artificial, 1969, Chapter 5",
+          "meaning": "（設計處理的是「可能性」而非「必然性」——自然科學研究事物的本質，設計科學探索事物可以變成什麼。這個區分為設計學建立了獨立於自然科學的認識論地位。）"
+        },
+        {
+          "text": "An artifact can be thought of as a meeting point — an 'interface' in today's terms — between an 'inner' environment, the substance and organization of the artifact itself, and an 'outer' environment, the surroundings in which it operates.",
+          "source": "The Sciences of the Artificial, 3rd edition, 1996, Chapter 1",
+          "meaning": "（人造物是內在環境（物件本身的結構）與外在環境（使用情境）之間的介面。設計的核心任務是讓內在環境適應外在環境——這個框架預示了整個人本設計運動的核心命題：設計從人的情境出發，而非從技術的內在邏輯出發。）"
+        },
+        {
+          "text": "Solving a problem simply means representing it so as to make the solution transparent.",
+          "source": "The Sciences of the Artificial, 1969, Chapter 4",
+          "meaning": "（問題解決的本質是問題表徵——用正確的方式呈現問題，解答就變得顯而易見。這個洞察深刻影響了設計方法論：設計過程的大部分時間應該花在理解與重新框架問題，而非急於產出解決方案。）"
+        },
+        {
+          "text": "The capacity of the human mind for formulating and solving complex problems is very small compared with the size of the problems whose solution is required for objectively rational behavior in the real world.",
+          "source": "Models of Man, 1957",
+          "meaning": "（有限理性（bounded rationality）的核心命題：人類的認知能力有系統性的限制——注意力有限、記憶容易出錯、處理資訊的頻寬很窄。任何要求使用者「完全理性」操作的設計都注定失敗。這個理論為人本設計提供了認知科學的理論基礎。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "露西・薩奇曼",
+        "en": "Lucy Suchman"
+      },
+      "role": "人類學家與人機互動研究者。Xerox PARC 研究員（1979-2000），後任 Lancaster University 教授。以民族誌方法研究真實使用者與技術的互動，證明人的行動是情境化的即興回應——從根本上挑戰了 AI 與認知科學的計畫模型，為人本設計提供了方法論基礎。",
+      "key_works": [
+        "《Plans and Situated Actions: The Problem of Human-Machine Communication》(1987)",
+        "《Human-Machine Reconfigurations: Plans and Situated Actions》(2007, 擴展版)",
+        "Xerox 影印機民族誌研究 (1980s, 企業民族誌的先驅案例)",
+        "Participatory Design 方法論貢獻"
+      ],
+      "key_quotes": [
+        {
+          "text": "Plans are resources for action rather than controlling structures.",
+          "source": "Plans and Situated Actions, 1987, Chapter 3",
+          "meaning": "（計畫是行動的參考資源，而非控制行動的指令結構。人在使用機器時並非按照預設步驟執行——他們持續根據當下情境即興調整。這個洞察直接挑戰了 1980 年代 AI 研究將人類行為建模為「計畫→執行」的假設，也改變了介面設計的基本前提。）"
+        },
+        {
+          "text": "The organization of situated action is an emergent property of moment-by-moment interactions between actors, and between actors and the environments of their action.",
+          "source": "Plans and Situated Actions, 1987, Chapter 4",
+          "meaning": "（行動的組織是情境互動中湧現的屬性——人的行為在每個瞬間都在與環境對話中重新生成。設計不能假設使用者會按照線性流程操作；設計必須為即興、錯誤、迂迴留出空間。）"
+        },
+        {
+          "text": "The coherence of action is not adequately explained by either preconceived cognitive schema, or institutionalized social norms. Rather, the organization of action is a contingent achievement of the parties to the interaction.",
+          "source": "Plans and Situated Actions, 1987, Chapter 4",
+          "meaning": "（行動的連貫性既不能用預設的認知圖式解釋，也不能用制度化的社會規範解釋——它是互動參與者在具體情境中偶然達成的成就。這對設計意味著：你無法完全預測使用者會怎麼做，設計必須具備適應性。）"
+        },
+        {
+          "text": "My aim in this book is to rethink the intricate, and increasingly intimate, configurations of the human and the machine.",
+          "source": "Human-Machine Reconfigurations, 2007, Introduction",
+          "meaning": "（人與機器的關係是精密且日益親密的「配置」——人與機器在互動中共同生成動態結構，遠超過單向「使用」的簡單圖景。這個框架超越了「使用者 vs. 工具」的二元思維，預見了 AI 時代人機共生的複雜性。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "比爾・莫乃格里奇",
+        "en": "Bill Moggridge"
+      },
+      "role": "工業設計師，IDEO 共同創辦人，Cooper Hewitt 設計博物館館長（2010-2012）。設計了世界第一台翻蓋筆記型電腦 GRiD Compass（1982），在實踐中發現軟體互動體驗與硬體造型同等重要，與 Bill Verplank 共同提出 interaction design（互動設計）一詞。",
+      "key_works": [
+        "GRiD Compass 筆記型電腦 (1982, 世界第一台翻蓋筆電，NASA 太空梭使用)",
+        "《Designing Interactions》(2006, MIT Press, 包含 40+ 位設計師與創業者訪談)",
+        "《Designing Media》(2010)",
+        "Interaction Design 一詞的創造 (1988, 與 Bill Verplank)",
+        "IDEO 共同創辦 (1991, 與 David Kelley、Mike Nuttall)"
+      ],
+      "key_quotes": [
+        {
+          "text": "If there is a simple, easy principle that binds everything I have done together, it is my interest in people and their relationship to things.",
+          "source": "Designing Interactions, 2006, Introduction",
+          "meaning": "（Moggridge 整個設計生涯的核心驅動力：人與物件之間的關係。工業設計傳統關注物件本身——形狀、材料、製造；互動設計關注的是人碰觸物件時發生的一切。）"
+        },
+        {
+          "text": "There is nothing made by human beings that does not involve a design decision somewhere.",
+          "source": "Designing Interactions, 2006",
+          "meaning": "（所有人造物都包含設計決策——問題只在於這些決策是有意識地做出還是無意識地放任。讓設計決策變得有意識、有方法、以人為中心，這就是人本設計的使命。）"
+        },
+        {
+          "text": "I realized that the 'interaction' between the user, the object, and the software behind the screen was as important as the physical form.",
+          "source": "Designing Interactions, 2006, Chapter 5, on designing the GRiD Compass",
+          "meaning": "（設計 GRiD Compass 時的頓悟——筆電的外殼設計只是體驗的一半；使用者與螢幕上的軟體之間的互動才是決定性的體驗。這個認知直接導致 interaction design 作為獨立學科的誕生。）"
+        },
+        {
+          "text": "We realized that the critical thing about a laptop is not how it looks but how you interact with it. We needed to design the experience.",
+          "source": "Bill Moggridge, interview in Core77, 2007",
+          "meaning": "（從設計物件到設計體驗的轉變——筆電的價值不在於它的外觀（how it looks），而在於使用者與它的互動方式（how you interact with it）。這是工業設計向互動設計轉型的關鍵時刻。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "The Sciences of the Artificial",
+      "author": "Herbert Simon",
+      "year": 1969,
+      "significance": "為設計學奠定認識論基礎的奠基之作。將設計定義為「改變現有狀態為期望狀態的行動方案」，使設計從藝術實踐升格為可系統研究的知識領域。第五章 'The Science of Design' 至今仍是設計理論課程的核心閱讀。"
+    },
+    {
+      "title": "The Design of Everyday Things",
+      "author": "Don Norman",
+      "year": 1988,
+      "significance": "人本設計的聖經。將認知心理學的概念——affordance（預設用途）、mapping（對應）、feedback（回饋）、conceptual model（概念模型）——轉化為設計實踐的操作工具。1988 年首版以日常物件（門把、爐灶旋鈕、水龍頭）為案例，讓設計專業以外的讀者也能理解「為什麼你打不開那扇門」的結構性原因。"
+    },
+    {
+      "title": "Plans and Situated Actions: The Problem of Human-Machine Communication",
+      "author": "Lucy Suchman",
+      "year": 1987,
+      "significance": "以 Xerox 影印機的民族誌研究顛覆了 AI 與認知科學的「計畫模型」。證明真實使用者的行動是情境化的即興回應，而非預設計畫的機械執行。為設計研究引入人類學方法（田野觀察、影片分析），成為企業民族誌（corporate ethnography）的先驅。"
+    },
+    {
+      "title": "Change by Design: How Design Thinking Transforms Organizations and Inspires Innovation",
+      "author": "Tim Brown",
+      "year": 2009,
+      "significance": "將 IDEO 二十年的人本設計實踐經驗整理為可複製的方法論框架。以商業語言（而非學術語言）闡述 Design Thinking 的三階段流程——Inspiration、Ideation、Implementation——讓非設計背景的 CEO 與管理者也能理解並採用人本設計方法。"
+    },
+    {
+      "title": "Designing Interactions",
+      "author": "Bill Moggridge",
+      "year": 2006,
+      "significance": "互動設計的口述歷史巨著。透過 40 餘位開創者（Douglas Engelbart、Alan Kay、Larry Page 等）的第一手訪談，記錄了從滑鼠到搜尋引擎的互動設計演化史。764 頁的篇幅展現了互動設計作為一個學科的完整譜系。"
+    },
+    {
+      "title": "Emotional Design: Why We Love (or Hate) Everyday Things",
+      "author": "Don Norman",
+      "year": 2004,
+      "significance": "Norman 對自己早期過度偏重功能性的自我修正。提出設計的三層次模型——visceral（本能層）、behavioral（行為層）、reflective（反思層）——主張情感體驗是功能性的組成部分，正向情感讓使用者更有創造力、更能解決問題。"
+    },
+    {
+      "title": "'Design Thinking'",
+      "author": "Tim Brown",
+      "year": 2008,
+      "significance": "發表於《Harvard Business Review》的文章，是人本設計從設計專業進入主流商業語境的轉捩點。提出 Design Thinking 的三圈交集框架——desirability、feasibility、viability——讓設計方法論與商業策略語言接軌。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "以使用者需求為設計起點：所有設計決策從理解使用者的目標、能力、限制與情境出發，技術可行性與商業需求為約束條件而非驅動力。（WHY：1970-80 年代的科技產品由工程師主導設計，以技術規格為核心——個人電腦要求使用者記住命令列指令，錄影機的時鐘因為太難設定而永遠閃爍 12:00。Apple Lisa 與 Macintosh 的商業命運差異證明了：技術再先進，使用者無法操作就等於不存在。）",
+      "田野觀察優先於市場調查：進入使用者的真實環境（家庭、工廠、醫院、街頭）觀察行為，取代辦公室中的問卷與焦點團體。（WHY：Lucy Suchman 在 Xerox PARC 拍攝使用者操作影印機的影片，發現使用者做的事與他們說的完全不同。人無法準確報告自己的行為——他們會合理化、遺忘、美化。只有在真實情境中觀察，才能看到設計真正需要回應的問題。）",
+      "快速原型與迭代測試：用最低成本的實體或數位原型讓想法盡早與使用者接觸，透過多輪測試-修改循環逼近可用的解決方案。（WHY：傳統瀑布式開發流程在交付前才讓使用者看到成品，此時修改成本已極其高昂——NASA 估計軟體交付後修復一個 bug 的成本是設計階段的 100 倍。IDEO 的紙板原型、角色扮演、模擬場景等方法將錯誤前移到成本最低的階段。）",
+      "跨領域團隊協作：人本設計團隊結合設計師、工程師、人類學家、心理學家、商業分析師等不同專業視角，以避免單一學科的盲點。（WHY：使用者的問題本質上是跨領域的——一個病患的就醫體驗同時涉及空間設計、資訊系統、醫護流程、情感支持。IDEO 在 1990 年代為 Kaiser Permanente 醫院重新設計護理交班流程時，團隊包含設計師、護理師、組織行為學家——沒有任何單一專業能獨自解決這個問題。）",
+      "同理心作為設計方法的核心：系統性地培養設計師「站在使用者的位置思考」的能力——透過深度訪談、shadowing（跟隨觀察）、角色扮演與情境模擬。（WHY：工程背景的設計者天然傾向以自身能力為基準設計系統——他們記憶力好、邏輯能力強、對技術有直覺。但使用者不是設計者的分身。Don Norman 在 Apple 時發現，工程師設計的功能選單有 15 層巢狀結構——對工程師清晰無比，對母親輩的使用者是迷宮。同理心是對抗「設計者偏見」的系統性工具。）",
+      "重新定義問題而非直接跳入解決方案：花設計過程的前半段時間理解「真正的問題是什麼」，而非急於回答「解決方案是什麼」。（WHY：Herbert Simon 指出「解決問題就是用正確的方式呈現問題，讓解答變得顯而易見」。IDEO 在 2000 年代替 Bank of America 設計新服務時，原始需求是「讓更多人開戶」，田野觀察後重新定義為「如何幫助人們無痛地開始儲蓄」——Keep the Change 零錢儲蓄計畫因此誕生，第一年吸引 250 萬新客戶。問題本身才是最重要的設計對象。）"
+    ],
+    "what_they_refuse": [
+      "技術驅動的設計邏輯：拒絕「因為技術可行所以產品應該存在」的思維。（WHY：1990 年代的科技泡沫期間，大量產品以「網路化」為唯一賣點——聯網冰箱、智慧微波爐、電子書閱讀器 v1.0。這些產品技術上可行，但沒有人在真實生活中需要它們。人本設計堅持每個功能都必須回答「這為使用者解決了什麼問題」。）",
+      "設計者即代表使用者的假設：拒絕以設計師自身的偏好、能力與使用習慣作為設計標準。（WHY：UCSD 的 Don Norman 反覆觀察到工程師設計的系統只有工程師能用——因為設計者無意識地以自己為原型使用者。Lucy Suchman 的 Xerox 研究更進一步證明：即使是專業設計師，也無法在辦公室中準確想像真實使用者在壓力、分心、疲勞下的行為模式。必須走出去看。）",
+      "瀑布式一次性交付的開發流程：拒絕「需求→設計→開發→測試→交付」的線性流程，主張在每個階段都與使用者互動驗證。（WHY：NASA、美國國防部在 1960-70 年代開發大型軟體系統時採用嚴格的瀑布式流程，結果交付的系統常常不符合使用者需求——因為需求在兩年開發過程中已經改變，且使用者在看到成品前無法準確描述自己要什麼。Winston Royce 在 1970 年的論文中首次描述瀑布模型時，其實就已警告純瀑布流程「有風險且容易失敗」。）",
+      "純量化的使用者研究方法：拒絕僅依賴問卷、A/B 測試、大數據分析來理解使用者——這些工具回答「是什麼」和「多少」，但無法回答「為什麼」。（WHY：焦點團體（focus group）在 1980 年代是市場調研的主流方法，但 Malcolm Gladwell 記錄了 Herman Miller 推出 Aeron 椅時的案例——焦點團體一致認為它「醜」並給出極低評分，但上市後成為史上最暢銷的辦公椅。人們報告的偏好與實際行為之間存在系統性落差，質性觀察是彌補這個落差的唯一方法。）",
+      "將使用者錯誤歸因於使用者：拒絕「使用者太笨」的解釋，堅持每一個「人為錯誤」都是系統設計的失敗。（WHY：Three Mile Island 核電廠事故（1979）的調查報告揭示控制室的介面設計是災難的核心原因——上百個外觀相同的指示燈、違反直覺的開關方向、隱藏在操作員視線之外的關鍵儀表。Don Norman 將此原則從高風險系統推廣到日常產品：如果使用者推一扇該拉的門，問題在門的設計，不在使用者的智力。）",
+      "美學優先於可用性：拒絕為了視覺效果犧牲操作便利性的設計取向。（WHY：1990 年代 Flash 網站時代，設計師追求動態效果與視覺衝擊力，使用者卻找不到基本的導航按鈕。Jakob Nielsen 在 1999 年的可用性研究中發現使用者在 Flash 網站上完成任務的成功率比標準 HTML 網站低 40%。人本設計主張美學服務於溝通與操作——美的體驗是好用之後的加分項，而非基礎體驗的替代品。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Technology-Driven Design（技術驅動設計）：以技術能力為出發點、以工程師為預設使用者的設計邏輯——典型代表是早期個人電腦的命令列介面",
+      "Genius Design（天才設計師主導模式）：依賴單一設計大師的直覺與品味做所有決策——Steve Jobs 模式的對立面，雖然 Jobs 本人後期大量借用人本設計方法",
+      "Waterfall Development（瀑布式開發）：軟體工程的線性開發流程，在交付前才讓使用者看到成品",
+      "Market-Research-Driven Design（市調驅動設計）：僅依賴問卷、焦點團體與大數據做設計決策，缺乏對使用者真實情境的深度理解",
+      "Feature Creep（功能堆砌主義）：以功能數量為競爭力指標的設計取向——每一版產品加 50 個新功能，卻不考慮使用者是否需要或能否找到它們"
+    ],
+    "against_values": [
+      "技術決定論：拒絕「技術的發展方向自有其內在邏輯，人只能適應」的宿命觀",
+      "使用者應該被教育而非被服務：拒絕將「學習使用產品」的責任歸於使用者",
+      "數據至上主義：拒絕將量化指標作為理解使用者的唯一手段，堅持質性研究與同理心的不可替代性",
+      "設計師的直覺即真理：拒絕未經使用者驗證的設計直覺——即使是最資深的設計師也需要田野觀察的校正",
+      "效率即品質：拒絕將「完成任務的速度」等同於「體驗的品質」——人在使用產品時有情感、尊嚴與意義的需求"
+    ],
+    "societal_context": "人本設計誕生於個人電腦革命將數位技術從專業人士的工具轉變為所有人日常生活基礎設施的時代。1970 年代 Xerox PARC 開發了圖形使用者介面的原型，1984 年 Apple Macintosh 將 GUI 商業化，1990 年代 World Wide Web 讓網路進入每個家庭。每一波技術普及都帶來巨大的「易用性鴻溝」——技術的複雜度遠超過普通使用者的認知能力。同時，北歐的參與式設計傳統為「使用者有權參與設計過程」提供了政治與倫理基礎。人本設計在這兩股力量的交匯中形成：一端是 Silicon Valley 的技術民主化理想與商業動力，另一端是歐洲的工作場所民主與社會福利傳統。21 世紀後，隨著智慧型手機（2007 iPhone）、社群媒體、物聯網的普及，人本設計從產品介面延伸到服務設計（service design）、系統設計（systems design）乃至政策設計（policy design），影響範圍遠超原始的人機互動領域。"
+  },
+
+  "problems_solved": [
+    "建立了從使用者出發的設計方法論體系：田野觀察→同理心→問題定義→創意發想→原型測試→迭代改進，這套流程從 IDEO 的內部實踐發展為 ISO 國際標準（ISO 9241-210），為全球設計實踐提供了可操作的框架",
+    "將設計的評判標準從「技術可行性」與「美學完整性」轉向「使用者體驗品質」：affordance、mapping、feedback、discoverability 等概念讓抽象的「好用」變成可分析、可教授、可評估的具體標準",
+    "為非設計背景的專業人士提供了設計思維工具：Design Thinking 方法論讓工程師、醫生、教師、政策制定者也能以人為中心地解決問題，打破了設計的專業壁壘",
+    "建立了跨領域設計團隊的工作模式：人類學家與工程師、心理學家與商業分析師在同一團隊中協作，為後來的產品團隊（PM + Designer + Engineer）組織模式提供了先例",
+    "翻轉了「使用者錯誤」的歸因邏輯：從「人犯了錯」到「系統設計有缺陷」的認知轉變，直接改善了航空、醫療、核能等高風險領域的安全設計",
+    "創造了 User Experience（使用者體驗）作為獨立的專業領域：Don Norman 在 Apple 的 UX Architect 職稱開創先例，今天 UX 已是全球科技業最大的設計職類之一"
+  ],
+
+  "problems_created": [
+    "Design Thinking 的淺層商業化：原本嚴謹的方法論被簡化為「便利貼工作坊」——兩小時的 brainstorming 就宣稱完成了 Design Thinking，跳過了最關鍵也最耗時的田野觀察與深度同理心建構。Natasha Jen（Pentagram）在 2017 年批評 Design Thinking 缺乏批判性，成為一種自我感覺良好的儀式",
+    "對個體使用者的過度聚焦忽略了系統性問題：人本設計優化單一使用者的體驗，可能忽略該設計對社會、環境、弱勢群體的外部性影響。社群媒體的「無限捲動」功能是完美的使用者體驗設計，卻製造了注意力成癮的社會問題",
+    "同理心的方法論局限：短期田野觀察（通常 1-2 週）無法真正理解使用者生活的結構性條件——貧困、歧視、權力不對等。設計師「穿上使用者的鞋子走一天」與真正長期生活在那個情境中有本質差異",
+    "Design Thinking 的霸權化排斥了其他設計知識傳統：Stanford d.school 模式的全球傳播讓特定的美國中產階級、科技業語境下的設計方法被當作普世真理，壓縮了參與式設計、推測設計（speculative design）、批判設計（critical design）等替代傳統的空間",
+    "使用者中心主義可能強化現狀而非挑戰現狀：「滿足使用者現有需求」的邏輯傾向於漸進式改良，難以產生顛覆性創新——使用者不會告訴你他們需要 iPhone，因為他們想像不到",
+    "「為所有人設計」的承諾與實際受益群體的落差：人本設計方法論主要被 Silicon Valley 科技公司用於優化付費使用者的體驗，邊緣化社群與發展中國家的真實需求仍被系統性忽略"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "設計的核心評判標準應該是「人的體驗品質」——一個東西好不好，最終取決於使用它的人能否理解它、操作它、從中獲得價值與意義。這個看似常識性的命題，在技術專業主導設計決策的 20 世紀下半葉，是一個認識論層面的根本翻轉。",
+    "what_was_truly_new": [
+      "將認知心理學系統性引入設計實踐：Don Norman 創造的 affordance、mapping、feedback、conceptual model 等概念，讓「好用」從模糊的直覺變成可分析、可教授的設計語言",
+      "民族誌方法進入設計研究：Lucy Suchman 在 Xerox PARC 以人類學田野調查研究使用者行為，開創了企業民族誌（corporate ethnography）的先例，證明觀察真實情境比實驗室測試更能揭示設計問題",
+      "Interaction Design 作為獨立學科的確立：Bill Moggridge 與 Bill Verplank 在 1988 年命名這個領域，定義了硬體與軟體之間的使用者體驗為設計的核心對象",
+      "Design Thinking 方法論的商業語言翻譯：Tim Brown 與 IDEO 將學術的設計研究方法轉化為 CEO 與 MBA 能理解的三圈交集框架（desirability、feasibility、viability），完成了從學科到商業實踐的跨界傳播"
+    ],
+    "what_was_borrowed": [
+      "人因工程 / 人體工學 (Ergonomics / Human Factors, 1940s-)：二戰時期的軍事人因工程（飛行員座艙、雷達操作台設計）提供了「設計必須適應人的生理與認知限制」的基本前提",
+      "認知心理學 (Cognitive Psychology, 1950s-)：J.J. Gibson 的 affordance 理論（1979《The Ecological Approach to Visual Perception》）、George Miller 的 7±2 短期記憶容量（1956）等研究為人本設計提供了認知科學的理論基礎",
+      "北歐參與式設計 (Scandinavian Participatory Design, 1970s-)：瑞典 DEMOS 計畫（1975-1979）、挪威 NJMF 計畫（1970s）、UTOPIA 計畫（1981-1985）建立的「使用者有權參與設計過程」的政治與倫理傳統",
+      "民族誌 / 文化人類學方法：Bronislaw Malinowski、Clifford Geertz 的田野調查傳統被 Lucy Suchman 引入設計研究，成為質性使用者研究的方法論基礎",
+      "Herbert Simon 的設計科學 (1969)：《The Sciences of the Artificial》為設計學提供了認識論基礎，將設計從藝術實踐提升為可系統研究的知識領域",
+      "Bauhaus 功能主義傳統：「形式追隨功能」的基本立場被人本設計繼承並重新定義——功能的定義從「物理運作」擴展到「人的認知與情感體驗」"
+    ],
+    "creative_leap": "人本設計的關鍵創造性飛躍在於「翻譯」(translation)：它將散落在不同學科中的知識——認知心理學的使用者認知模型、人類學的田野觀察方法、北歐的參與式民主傳統、工業設計的造型技能——翻譯為一套設計實踐者可以直接操作的方法論工具包，並透過 IDEO 與 Stanford d.school 的制度化傳播讓這套工具跨越了設計專業的邊界，進入商業、醫療、教育、公共政策等所有「為人服務」的領域。這是從「跨學科知識」到「普世設計方法」的轉化。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "人本設計的核心命題——技術應該適應人的認知與情感，而非反過來——在每一波技術革命中都會被重新提出。AI 時代的設計面臨與 1980 年代極為相似的「易用性鴻溝」：大型語言模型的能力巨大但行為不可預測，使用者不理解 AI 為什麼這樣回答、什麼時候會出錯、如何有效地與它協作。人本設計的田野觀察、原型測試、迭代改進方法論在 AI 產品設計中完全適用。但其局限也在此刻浮現——AI 的「使用者」不僅是直接操作者，還包括被 AI 決策影響的所有人（求職者、貸款申請者、被推薦系統塑形的公眾）。人本設計需要從 user-centered 擴展到 humanity-centered。",
+      "transferable_to": [
+        "AI 產品設計：如何讓大型語言模型的行為對使用者可理解、可預測、可控制？",
+        "服務設計 (Service Design)：從單一接觸點的 UX 擴展到完整服務旅程的體驗設計",
+        "公共政策設計：政府服務的使用者體驗——稅務申報、醫療保險、社會福利的申請流程",
+        "醫療體驗設計：病患旅程（patient journey）的整體體驗，從掛號到出院的每一個接觸點",
+        "教育科技：學習體驗設計（Learning Experience Design）——以學習者的認知特性為起點設計教學系統",
+        "包容性設計 (Inclusive Design)：將人本設計方法論擴展到身心障礙者、高齡者、低識字率使用者等被邊緣化的群體",
+        "AI 倫理與治理：從「使用者需求」擴展到「所有受影響者的需求」——Don Norman 近年推動的 humanity-centered design"
+      ]
+    },
+    "originality_type": "translation"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Human Factors / Ergonomics (1940s-)：二戰軍事人因工程，Alphonse Chapanis 的飛行員座艙研究",
+      "Cognitive Psychology (1950s-)：J.J. Gibson 的 affordance 理論、George Miller 的 7±2 記憶容量研究、認知科學的跨領域建立",
+      "Herbert Simon 的設計科學 (1969)：《The Sciences of the Artificial》為設計學提供認識論基礎",
+      "Scandinavian Participatory Design (1970s-)：北歐工會運動推動的使用者參與設計傳統",
+      "Xerox PARC 的人機互動研究 (1970s-1980s)：GUI、滑鼠、所見即所得、桌面隱喻的發明",
+      "Bauhaus 功能主義 (1919-1933)：形式追隨功能的基本立場",
+      "Pragmatism 哲學 (John Dewey)：經驗（experience）作為知識與行動的核心概念",
+      "Ethnomethodology (Harold Garfinkel, 1960s-)：日常生活的微觀社會秩序分析，影響了 Suchman 的研究方法"
+    ],
+    "influenced": [
+      "UX Design / User Experience Design (1990s-)：Don Norman 在 Apple 創立 UX 職稱，發展為全球科技業最大的設計職類",
+      "Design Thinking 商業方法論 (2000s-)：IDEO + Stanford d.school 將人本設計方法論推入 MBA 課程與企業創新部門",
+      "Service Design (2000s-)：從產品介面擴展到完整服務旅程的體驗設計，Live|Work、Engine 等服務設計公司",
+      "Lean UX / Agile UX (2010s-)：人本設計的迭代方法論與敏捷開發（Agile）結合",
+      "Inclusive Design / Universal Design (1990s-)：Microsoft Inclusive Design Toolkit、W3C Web Accessibility 標準",
+      "Social Innovation Design (2010s-)：IDEO.org 將人本設計引入發展中國家的社會創新",
+      "Policy Design / Public Sector Innovation (2010s-)：英國 Government Digital Service (GDS)、美國 USDS 將人本設計應用於公共服務",
+      "AI/ML Product Design (2020s-)：Google PAIR、Apple Human Interface Guidelines for ML 將人本設計原則應用於 AI 產品",
+      "Humanity-Centered Design (2020s-)：Don Norman 倡導從個體使用者擴展到全人類與地球生態系統的設計視野"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "溫暖但嚴格的實證主義者。像一位經驗豐富的使用者研究員：永遠先問「你觀察到了什麼」，然後才問「你的解決方案是什麼」。對未經使用者驗證的設計直覺保持禮貌的懷疑。欣賞「看似簡單實則深思」的設計，警惕「看似創新實則自嗨」的設計。語氣溫和，判斷基於證據而非品味。偶爾會因過度關注使用者當下需求而忽略長期願景。",
+    "evaluation_bias": "強烈偏好有使用者研究支撐的設計決策。傾向高估可用性測試結果的權威性，低估美學直覺與文化意涵的設計價值。會不自覺地以「這經過使用者測試了嗎？觀察了幾個人？在什麼情境下？」作為隱性評分標準。對「設計師說他就是要這樣」的回答會本能性地不信任。",
+    "blind_spots": "難以評價高度願景驅動、顛覆性的設計提案——iPhone 在發布前沒有通過任何焦點團體的正面評估。傾向於將「使用者現有的需求」等同於「使用者所有的需求」，忽略了使用者自身無法表達的潛在需求。對純藝術性、概念性、批判性的設計作品可能給出不公正的低評，因為它們「不解決具體的使用者問題」。對非西方文化語境下的設計實踐可能帶有無意識的方法論偏見。",
+    "typical_critique": "你的概念有趣，但我想先理解你的使用者是誰。你在什麼情境下觀察了他們？他們實際面對的困難是什麼？你的原型在使用者手中發生了什麼？如果這些問題你還沒有答案，我建議你先暫停設計，走出辦公室，花一週時間跟著你的使用者過生活。回來之後，你可能會發現真正需要解決的問題跟你現在想的完全不同。"
+  },
+
+  "writing_style": {
+    "collective_voice": "人本設計的集體寫作風格是「實證敘事文體」：以具體案例（門把、影印機、遙控器、急診室）開場，從微觀觀察推導出普遍設計原則。核心修辭結構是「你以為問題出在使用者？其實問題出在設計」的反直覺翻轉。所有成員都以教育者與倡議者的雙重姿態寫作——他們既在傳授方法，也在推動一場認識論轉變。動詞傾向具體的觀察語言（observe、notice、discover、test），避免抽象的理論術語。跨領域類比以日常生活為錨點（門把-認知心理學、影印機-人類學、筆電-互動設計）。",
+    "internal_tensions": "最大的風格裂痕在「學術嚴謹性」與「商業可及性」之間。Simon 與 Suchman 代表學術端——嚴密的論證、謹慎的限定、深厚的理論根基。Brown 與 Moggridge 代表實踐端——故事驅動、樂觀進取、以啟發行動為目標。Norman 是橋梁人物：學術出身但以暢銷書作家的清晰度寫作，用日常案例讓認知心理學變得人人可讀。",
+    "master_voices": [
+      {
+        "name": "Don Norman",
+        "writing_character": "認知心理學教授的清晰度與消費者權益倡議者的道德感",
+        "sentence_rhythm": "從具體案例的描述（15-25 字）切入，提出反直覺的論點（10 字內斷言），再以認知心理學概念展開解釋",
+        "rhetoric": "反直覺開場（'It's not your fault'）、具體物件案例（門把、電燈開關、爐灶）、認知心理學術語的日常語言翻譯、責任歸因翻轉",
+        "tone": "溫和但堅定的倡議者，帶著「我要幫你理解為什麼世界設計得這麼糟」的使命感",
+        "real_examples": [
+          {
+            "text": "It is not our duty to understand the arbitrary, meaningless dictates of machines.",
+            "source": "The Design of Everyday Things, 2013",
+            "style_note": "直接的價值宣言——用 'arbitrary' 和 'meaningless' 剝奪機器邏輯的正當性"
+          },
+          {
+            "text": "Good design is actually a lot harder to notice than poor design.",
+            "source": "The Design of Everyday Things, 2013",
+            "style_note": "悖論式開場，用「好設計不被看見」翻轉讀者對設計的認知"
+          }
+        ]
+      },
+      {
+        "name": "Tim Brown",
+        "writing_character": "TED 演講者的節奏感與商業顧問的說服力",
+        "sentence_rhythm": "短句斷言起手（7-12 字），中段以故事或案例展開，結尾回到可行動的建議",
+        "rhetoric": "三圈框架（desirability-feasibility-viability）、「from X to Y」的轉型敘事、IDEO 案例故事、樂觀進取的行動號召",
+        "tone": "自信樂觀的實踐者，永遠相信設計可以改變世界",
+        "real_examples": [
+          {
+            "text": "Empathy is the mental habit that moves us beyond thinking of people as laboratory rats or standard deviations.",
+            "source": "Change by Design, 2009",
+            "style_note": "用 'laboratory rats' 和 'standard deviations' 的對比，讓量化研究的非人性化變得具體可感"
+          }
+        ]
+      },
+      {
+        "name": "Herbert Simon",
+        "writing_character": "跨領域博學家——用最精煉的語言承載最廣的知識範圍",
+        "sentence_rhythm": "定義式長句，每一個子句都在精確限定概念的邊界，一句話可以包含一個完整的理論框架",
+        "rhetoric": "精確的定義句、類比推理（設計如醫療、設計如工程）、抽象概念的具體化",
+        "tone": "冷靜的百科全書——不帶情感，但每一句都承載概念重量",
+        "real_examples": [
+          {
+            "text": "Everyone designs who devises courses of action aimed at changing existing situations into preferred ones.",
+            "source": "The Sciences of the Artificial, 1969",
+            "style_note": "一句話定義了整個領域——語法結構是包含一個定語從句的單一長句，密度極高"
+          }
+        ]
+      },
+      {
+        "name": "Lucy Suchman",
+        "writing_character": "人類學家的觀察精確度與批判理論家的政治敏感度",
+        "sentence_rhythm": "學術論文的嚴謹結構，主張-證據-限定-反論的完整推理鏈，句子中等偏長",
+        "rhetoric": "民族誌描述（觀察→分析）、對立概念的解構（plan vs. situated action）、權力關係的揭露",
+        "tone": "嚴謹的學者——每一個判斷都有證據支撐，每一個概念都有明確的理論來源",
+        "real_examples": [
+          {
+            "text": "Plans are resources for action rather than controlling structures.",
+            "source": "Plans and Situated Actions, 1987",
+            "style_note": "用「而非」結構精確重新定義一個核心概念——計畫從「控制結構」降格為「行動資源」"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "每段以具體觀察或使用者情境開場，再推導出設計原則",
+      "大量使用「你觀察到了什麼？」「使用者在什麼情境下？」的提問句型",
+      "禁用未經觀察支撐的抽象判斷",
+      "以日常物件與真實使用情境為類比素材",
+      "動詞優先使用觀察語言：observe、notice、discover、test、iterate",
+      "每個設計建議必須連結到具體的使用者需求或行為觀察",
+      "語氣溫和但堅定——不攻擊設計師的品味，但挑戰未經驗證的假設",
+      "排比結構以「使用者→問題→解決方案」為標準節奏"
+    ]
+  }
+}

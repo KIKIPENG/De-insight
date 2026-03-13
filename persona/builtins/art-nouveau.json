@@ -1,0 +1,535 @@
+{
+  "movement_id": "art-nouveau",
+  "name": {
+    "zh": "新藝術運動",
+    "en": "Art Nouveau",
+    "fr": "Art Nouveau",
+    "de": "Jugendstil"
+  },
+  "domain": [
+    "architecture",
+    "interior_design",
+    "furniture_design",
+    "decorative_arts",
+    "graphic_design",
+    "poster_design",
+    "jewelry_design",
+    "glasswork",
+    "ceramics",
+    "ironwork",
+    "textile_design",
+    "typography",
+    "fine_art"
+  ],
+  "period": {
+    "start": 1890,
+    "end": 1910,
+    "peak": "1893-1905（從 Horta 的 Hotel Tassel 到 1900 年巴黎世界博覽會達到國際頂峰，Guimard 巴黎地鐵入口成為城市象徵，Mucha 海報風靡歐美，Gaudi 在巴塞隆納開展最激進的有機建築實驗）"
+  },
+  "geography": [
+    "Brussels, Belgium (Horta, Van de Velde, Hankar — 運動誕生地)",
+    "Paris, France (Guimard, Lalique, Gallé — 'Art Nouveau' 名稱來源：Siegfried Bing 的商店 'L'Art Nouveau')",
+    "Nancy, France (École de Nancy: Gallé, Majorelle, Daum — 玻璃與家具重鎮)",
+    "Barcelona, Catalonia (Gaudí, Domènech i Montaner — Modernisme)",
+    "Vienna, Austria (Wiener Secession: Klimt, Olbrich, Wagner, Hoffmann)",
+    "Glasgow, Scotland (Charles Rennie Mackintosh — Glasgow Style)",
+    "Munich & Darmstadt, Germany (Jugendstil: Endell, Obrist, Behrens)",
+    "Prague & Moravia (Mucha, Czech Secese)",
+    "Riga, Latvia (歐洲 Art Nouveau 建築密度最高的城市)",
+    "Helsinki, Finland (National Romanticism: Saarinen, Gesellius, Lindgren)",
+    "New York, USA (Tiffany Studios — 彩色玻璃與裝飾藝術)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1880-1890 年代的歐洲同時經歷兩股對立力量的衝撞：一方面是第二次工業革命的加速——電力普及、鋼鐵產量暴增（1880-1900 年間歐洲鋼產量增長 5 倍）、化學工業崛起、都市人口爆炸（巴黎從 200 萬增至 270 萬，布魯塞爾人口翻倍）；另一方面是工業化帶來的深刻美學危機——工廠批量生產的廉價商品充斥市場，千篇一律的歷史主義建築覆蓋城市，住宅內部堆滿仿製的新古典、新哥德、新文藝復興裝飾，所有物件都在假裝自己來自另一個時代。William Morris 的 Arts and Crafts 運動已經提出問題（工業化摧毀了美），但他的解方——回歸中世紀手工藝——無法回應現代城市的規模與速度。新藝術運動的誕生正是要同時擁抱工業時代的新材料（鍛鐵、玻璃、鋼筋混凝土）和有機自然的美學靈魂，創造一種前所未有的、屬於當下的完整風格。",
+    "social_energy": "新藝術運動的能量來自三個交匯點：(1) 新興資產階級對文化身份的渴望——他們靠工業致富，但拒絕貴族舊秩序的美學品味，需要一種屬於自己時代的視覺語言來定義新的生活方式；(2) 自然科學的黃金時代——Ernst Haeckel 的《自然界的藝術形態》(Kunstformen der Natur, 1899-1904) 以精密版畫揭示放射蟲、水母、蕨類的驚人幾何，達爾文演化論重新定義了人與自然的關係，顯微鏡下的微觀世界成為設計師的形態辭典；(3) 日本主義 (Japonisme) 的衝擊——1862 年倫敦世博會和 1867 年巴黎世博會引進的日本浮世繪、漆器、和服，以非對稱構圖、平面化色彩、自然題材，徹底顛覆了歐洲學院派的透視法則與構圖慣例。",
+    "purpose": "新藝術運動的終極目標是創造一種「總體藝術」(Gesamtkunstwerk)——從建築外觀到門把手、從壁紙花紋到餐具曲線，所有物件都遵循同一套有機美學語法，讓居住者沉浸在一個完整的美學宇宙中。這個願景的激進之處在於：它同時拒絕了歷史主義的抄襲（從過去偷形式）和工業化的粗暴（用機器抹殺美）。新藝術運動要證明：現代生活可以是美的，工業材料可以承載有機靈魂，裝飾可以是結構性的而非附加的。美學統一即生活統一——環境塑造人，人值得被美包圍。",
+    "key_pivot_moments": [
+      {
+        "year": 1893,
+        "event": "Hotel Tassel 的落成是新藝術建築的「第一槍」。Horta 在布魯塞爾 Rue Paul-Emile Janson 6 號完成了這棟私人住宅，首次將鍛鐵的鞭線 (coup de fouet / whiplash curve) 從結構延伸到裝飾，鐵柱在入口大廳展開如植物莖幹，馬賽克地板的曲線與牆面壁畫、樓梯欄杆形成連續的有機流動。建築史學者普遍將此視為 Art Nouveau 建築的起點。"
+      },
+      {
+        "year": 1895,
+        "event": "Siegfried Bing 在巴黎開設「L'Art Nouveau」商店，成為運動的國際展示平台與命名來源。Bing 委託 Van de Velde 設計店內展間，展出 Tiffany 玻璃、Lalique 珠寶、日本工藝品，將分散在各國的新風格匯聚為一個可辨識的國際運動。"
+      },
+      {
+        "year": 1900,
+        "event": "巴黎世界博覽會 (Exposition Universelle) 是新藝術運動的頂峰舞台。5,000 萬參觀者見證了 Art Nouveau 在建築、家具、珠寶、海報、玻璃等所有領域的全面展示。Guimard 為巴黎地鐵設計的鑄鐵入口亭同年啟用，成為新藝術運動最具辨識度的都市符號。但過度商業化的跡象也在此刻浮現——廉價模仿品開始氾濫。"
+      }
+    ],
+    "key_timeline": [
+      "1851 — 倫敦水晶宮萬國博覽會，工業產品的醜陋引發設計改革呼聲",
+      "1861 — William Morris 成立 Morris, Marshall, Faulkner & Co.，Arts and Crafts 運動展開",
+      "1862 — 倫敦世博會首次大規模展出日本藝術品，Japonisme 浪潮啟動",
+      "1883 — Horta 進入布魯塞爾皇家美術學院，師從 Alphonse Balat",
+      "1892 — Horta 接下 Hotel Tassel 委託案，開始設計革命",
+      "1893 — Hotel Tassel 落成，Art Nouveau 建築誕生；Mucha 為 Sarah Bernhardt 設計 Gismonda 海報一夜成名（1894 年 1 月 1 日）",
+      "1895 — Siegfried Bing 在巴黎開設 L'Art Nouveau 商店，運動獲得正式名稱",
+      "1897 — Vienna Secession 成立（Klimt, Olbrich, Hoffmann），口號 'Der Zeit ihre Kunst, der Kunst ihre Freiheit'",
+      "1898 — Guimard 完成 Castel Béranger，獲巴黎市立面競賽首獎",
+      "1899-1904 — Haeckel 出版《Kunstformen der Natur》，自然形態成為設計師的視覺聖經",
+      "1900 — 巴黎世界博覽會，Art Nouveau 達到國際頂峰；Guimard 巴黎地鐵入口啟用",
+      "1900-1910 — Gaudi 進入創作巔峰：Park Guell (1900-1914), Casa Batllo (1904-1906), Casa Mila (1906-1912)",
+      "1902 — Turin 國際裝飾藝術博覽會，標誌 Art Nouveau 開始被批評為過度裝飾",
+      "1905-1910 — Art Nouveau 在多數歐洲城市迅速退潮，被 Vienna Secession 後期的幾何化傾向和 Proto-Modernism 取代",
+      "1910 — Adolf Loos《Ornament und Verbrechen》(1908) 的影響擴散，裝飾被現代主義宣判為 '罪惡'，Art Nouveau 進入歷史"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "維克多·奧塔",
+        "en": "Victor Horta"
+      },
+      "role": "Art Nouveau 建築的奠基者。布魯塞爾建築師，首位將鍛鐵鞭線 (whiplash curve) 整合為建築結構與裝飾的統一語言者。他的四棟布魯塞爾住宅（Hotel Tassel, Hotel Solvay, Hotel van Eetvelde, Maison & Atelier Horta）於 2000 年列入 UNESCO 世界遺產。",
+      "key_works": [
+        "Hotel Tassel (1893) — Art Nouveau 建築的起點",
+        "Hotel Solvay (1894-1900) — 總體藝術的極致：從門把手到地毯全由 Horta 設計",
+        "Hotel van Eetvelde (1895-1901) — 鋼鐵與玻璃穹頂的創新運用",
+        "Maison du Peuple (1896-1899) — 為比利時工人黨設計的總部，鐵與玻璃帷幕牆的先驅（1965 年遭拆除）",
+        "Maison & Atelier Horta (1898-1901) — 現為 Horta Museum"
+      ],
+      "key_quotes": [
+        {
+          "text": "I discarded the flower and the leaf, and took the stem.",
+          "source": "Mémoires (posthumously published, 1985)",
+          "meaning": "（Horta 對自然的學習方式：捨棄花朵與葉片的表面形態，取用莖幹的結構邏輯——生長的力量、支撐的張力、分叉的節奏。Art Nouveau 的精髓在於學習自然的生長法則，而非複製自然的外觀。）"
+        },
+        {
+          "text": "I was not the first architect of my time to design furniture, but I was the first to integrate it to my architecture.",
+          "source": "attributed, reflections on Gesamtkunstwerk approach",
+          "meaning": "（總體藝術的宣言：家具是建築的延伸，門把手是牆面曲線的終點，地毯是地板的皮膚。建築師必須掌控空間中的每一個物件，因為它們都是同一個有機體的細胞。）"
+        },
+        {
+          "text": "To each time its art, to each art its freedom.",
+          "source": "widely attributed to Art Nouveau circle; inscribed on Olbrich's Secession Building, Vienna, 1897",
+          "meaning": "（每個時代有自己的藝術，每種藝術有自己的自由——這句被刻在維也納分離派展館上的銘文，是整個新藝術運動共享的信條：拒絕複製過去，創造屬於現在的美學。）"
+        },
+        {
+          "text": "Iron lends itself to the curve as easily as stone resists it.",
+          "source": "attributed, on the structural logic of Art Nouveau",
+          "meaning": "（鐵的本質是彎曲——它天生渴望成為曲線，正如石頭天生抗拒曲線。新藝術運動的鞭線美學來自對新材料物理特性的深刻理解：讓材料做它擅長的事。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乾克多·乘馬",
+        "en": "Hector Guimard"
+      },
+      "role": "法國 Art Nouveau 建築的代表人物，巴黎地鐵入口的設計者。將新藝術的有機語言從私人住宅帶入公共空間，讓 Art Nouveau 成為巴黎的城市面貌。法國評論界稱其風格為 'Style Guimard'。",
+      "key_works": [
+        "Castel Béranger (1895-1898) — 巴黎第一棟完整的 Art Nouveau 公寓建築",
+        "Paris Métro 入口設計 (1899-1904) — 141 座鑄鐵入口亭，Art Nouveau 最廣為人知的公共設計",
+        "Hôtel Guimard (1909-1912) — 自宅，總體藝術的個人實踐",
+        "Castel Henriette (1899-1903) — 有機造形建築的極端實驗（1969 年遭拆除）",
+        "Humbert de Romans Concert Hall (1898-1901)"
+      ],
+      "key_quotes": [
+        {
+          "text": "A style of architecture, in order to be true, must be the product of the soil where it exists and of the period which needs it.",
+          "source": "Architectural Record interview, 1902",
+          "meaning": "（真正的建築風格是土地與時代的產物——它從特定的地理條件和社會需求中生長出來。複製其他時代或其他地方的風格，是對建築真實性的背叛。）"
+        },
+        {
+          "text": "Nature is a big book from which we can draw inspiration, and it is in that book that we must look for principles, which, when found, have to be defined and applied by the human mind according to human needs.",
+          "source": "Architectural Record interview, 1902",
+          "meaning": "（自然是原則的來源，但人類必須用理性將這些原則轉化為設計。新藝術運動的「學自然」是學習生長的邏輯、結構的效率、形態的適應性，然後依人類需求重新定義。）"
+        },
+        {
+          "text": "Three principles should have a predominating influence in all architectural productions: logic, taking into account all the conditions of the case; harmony, putting constructions in full accord with their surroundings; and sentiment, leading by emotion to the highest expression of art.",
+          "source": "Architectural Record interview, 1902",
+          "meaning": "（建築的三位一體：邏輯（功能與條件的精確回應）、和諧（與環境的完整融合）、情感（通往藝術最高表達的路徑）。這三者缺一不可——純邏輯是工程，純情感是雕塑，只有三者合一才是建築。）"
+        },
+        {
+          "text": "I have merely applied the theory of Viollet-le-Duc, but without allowing myself to be seduced by medieval forms.",
+          "source": "attributed, on his relationship to structural rationalism",
+          "meaning": "（Guimard 承認自己的知識債務：Viollet-le-Duc 的結構理性主義是出發點，但他拒絕被哥德式的歷史形式所誘惑。取用方法論，拋棄風格外殼——這正是新藝術運動對歷史主義的態度。）"
+        },
+        {
+          "text": "I hope that my American confrères will not rest content to be mere copyists, but will be creators.",
+          "source": "Architectural Record interview, 1902",
+          "meaning": "（對美國建築師的公開呼籲：停止抄襲歐洲歷史風格，成為創造者。好的設計原則是可轉移的，但形式必須從自己的土地與時代中生長。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "阿爾豐斯·慕夏",
+        "en": "Alphonse Mucha"
+      },
+      "role": "捷克畫家與裝飾藝術家，Art Nouveau 平面設計的定義者。他為 Sarah Bernhardt 設計的劇場海報創造了 'Style Mucha'——流動的長髮女性、華麗的花卉邊框、拜占庭式光環、柔和的粉彩色調。晚年投入《斯拉夫史詩》(The Slav Epic) 20 幅巨作，將裝飾藝術的精神提升為民族史詩。",
+      "key_works": [
+        "Gismonda 海報 (1894) — 為 Sarah Bernhardt 設計，一夜成名之作",
+        "《四季》系列 (The Seasons, 1896) — 裝飾面板的經典範式",
+        "Job 香菸紙海報 (1896)",
+        "Documents Décoratifs (1902) — 72 頁裝飾設計教材",
+        "《斯拉夫史詩》(The Slav Epic, 1910-1928) — 20 幅 6×8 公尺巨幅油畫"
+      ],
+      "key_quotes": [
+        {
+          "text": "Art exists only to communicate a spiritual message.",
+          "source": "attributed, on the purpose of decorative art",
+          "meaning": "（藝術的存在理由是傳遞精神訊息——即使是商業海報、香菸廣告、餅乾包裝，都應該承載超越商品本身的美學與精神價值。裝飾藝術的「裝飾」二字，指的是讓日常生活充滿精神意義。）"
+        },
+        {
+          "text": "I was happy to be involved in an art for the people and not for private drawing rooms. It was inexpensive, accessible to the general public, and it found a home in poor families as well as in more affluent circles.",
+          "source": "on his poster art, attributed",
+          "meaning": "（海報是民主的藝術——不需要買門票進美術館，貼在街頭人人可見。Mucha 的海報讓 Art Nouveau 的美學語言從上流社會的沙龍走上街頭，成為大眾共享的視覺經驗。）"
+        },
+        {
+          "text": "The purpose of my work was never to destroy but always to create, to construct bridges, because we must live in the hope that humankind will draw together and that the better we understand each other the easier this will become.",
+          "source": "on The Slav Epic, attributed",
+          "meaning": "（藝術是建造橋樑的行為：連接民族之間、過去與未來之間、精神與日常之間的橋樑。Mucha 從商業海報轉向民族史詩，動機始終是連接——讓美成為人們相互理解的媒介。）"
+        },
+        {
+          "text": "Let it announce to foreign friends — and even to enemies — who we were, who we are, and what we hope for.",
+          "source": "Opening speech at the first exhibition of The Slav Epic, Prague, 1919",
+          "meaning": "（《斯拉夫史詩》的使命宣言：藝術是民族的自我介紹——向世界展示我們的過去、現在與未來。裝飾藝術家 Mucha 在生命後半段將海報的溝通力量放大為歷史敘事的力量。）"
+        },
+        {
+          "text": "Exterior form is a language which appeals to the senses as the art of music appeals to the hearing. The arts of painting, sculpture and architecture, being addressed to the eyes, should fulfill the conditions which are most agreeable to them.",
+          "source": "attributed, on visual harmony",
+          "meaning": "（視覺形式是一種語言，如同音樂是聽覺的語言——它必須遵循眼睛的生理與心理規律。Art Nouveau 的曲線之所以令人愉悅，是因為它符合人眼追蹤流動線條的自然傾向。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "安東尼·高第",
+        "en": "Antoni Gaudi"
+      },
+      "role": "加泰隆尼亞建築師，Modernisme 運動的靈魂人物。將 Art Nouveau 的有機語言推向最極端的表現：拋物面、雙曲面、螺旋面取代了所有直線與直角。聖家堂 (Sagrada Familia) 是他傾注 43 年生命的未竟之作，也是有機建築理念的終極實驗場。",
+      "key_works": [
+        "Sagrada Familia 聖家堂 (1882-至今) — 傾注一生的未完成傑作",
+        "Casa Batllo (1904-1906) — 海洋生物啟發的立面改造",
+        "Casa Mila / La Pedrera (1906-1912) — 無直線、無直角的石造有機建築",
+        "Park Guell (1900-1914) — 自然主義都市空間實驗",
+        "Palau Guell (1886-1890) — 早期作品，已展現對材料與空間的非凡掌控"
+      ],
+      "key_quotes": [
+        {
+          "text": "The straight line belongs to men, the curved one to God.",
+          "source": "widely attributed, on the relationship between geometry and nature",
+          "meaning": "（直線是人類的發明——自然界找不到完美的直線。曲線才是造物的語言。Gaudi 的建築以曲線取代直線，是要讓人造空間重新連接神聖的自然秩序。）"
+        },
+        {
+          "text": "Nothing is invented, for it's written in nature first. Originality consists of returning to the origin.",
+          "source": "attributed, collected sayings",
+          "meaning": "（一切發明都已經寫在自然之書裡——放射蟲的結構是穹頂的原型，樹幹的分叉是柱子的原型，骨骼的拋物線是拱的原型。原創性意味著回到源頭，而非遠離源頭。）"
+        },
+        {
+          "text": "Those who look for the laws of Nature as a support for their new works collaborate with the creator.",
+          "source": "attributed, on the relationship between architect and nature",
+          "meaning": "（尋找自然法則的建築師是造物主的合作者——人類的角色是發現，而非發明。Gaudi 的結構實驗（懸鏈線模型、雙曲拋物面）全部來自對自然力學的觀察與轉化。）"
+        },
+        {
+          "text": "Color in certain places has the great value of making the outlines and structural planes seem more energetic.",
+          "source": "attributed, on polychromy in architecture",
+          "meaning": "（色彩讓結構更有力量——Gaudi 在 Casa Batllo 與 Park Guell 大量使用碎磁磚拼貼 (trencadis)，色彩成為建築表面的活力來源，讓石頭的沉重感消失，讓建築像活的生物一樣呼吸。）"
+        },
+        {
+          "text": "There are no straight lines or sharp corners in nature. Therefore, buildings must have no straight lines or sharp corners.",
+          "source": "widely attributed",
+          "meaning": "（最直截了當的建築宣言：自然沒有直線，建築也不應該有。Casa Mila 的立面如波浪、Park Guell 的長凳如蛇——Gaudi 用石頭和鐵實現了自然的流動形態。）"
+        },
+        {
+          "text": "Ornamentation has been, is, and will be coloured. Nature presents us with no object that is monochrome, uniform in colour.",
+          "source": "attributed, on the integration of color and ornament",
+          "meaning": "（裝飾天生就是彩色的——自然界沒有單色的存在物。單色的建築是對自然的背叛。Gaudi 以此立場對抗了後來現代主義的白色崇拜，堅持色彩是建築不可剝離的器官。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "亨利·凡·德·維爾德",
+        "en": "Henry van de Velde"
+      },
+      "role": "比利時畫家、建築師、設計師、藝術理論家。Art Nouveau 最重要的理論建構者，提出「線條是一種力」(Die Linie ist eine Kraft) 的核心命題。從比利時 Art Nouveau 出發，經德國 Jugendstil，最終創辦了 Weimar 工藝學校（後被 Gropius 改組為 Bauhaus）。他是連接 Art Nouveau 與現代主義的關鍵人物。",
+      "key_works": [
+        "Bloemenwerf 自宅 (1895-1896) — 總體藝術的個人實驗，從建築到妻子的衣服全由他設計",
+        "Siegfried Bing 的 L'Art Nouveau 商店展間設計 (1895)",
+        "Folkwang Museum 室內設計, Hagen (1900-1902)",
+        "Weimar 工藝學校 (Kunstgewerbeschule, 1906) — Bauhaus 的前身",
+        "Werkbund Theatre, Cologne (1914) — 表現主義建築的先驅"
+      ],
+      "key_quotes": [
+        {
+          "text": "A line is a force that displays its activity like all elemental forces; several connected but contradictory lines exercise the same mutual influence as several elemental forces working against each other.",
+          "source": "Kunstgewerbliche Laienpredigten (Sermons on Applied Art), 1902",
+          "meaning": "（線條即力場——每一條線都攜帶方向、速度、張力。多條線的交會如同多股力量的角力。Van de Velde 將裝飾從「附加的圖案」重新定義為「力的可視化」，這是 Art Nouveau 理論的最核心命題。）"
+        },
+        {
+          "text": "There will be no place in the society of the future for anything which is not of use to everyone.",
+          "source": "Déblaiement d'art (Clearing of Art), 1894",
+          "meaning": "（未來社會沒有無用之物的容身之處——藝術必須服務所有人。Van de Velde 早在 1894 年就預言了設計的民主化使命，這個信念後來通過他在 Weimar 的教學直接傳遞給了 Bauhaus。）"
+        },
+        {
+          "text": "An ornament designed and worked out according to the effect of elementary forces upon each other attains the immutable formal purity of a proof, and retains persisting force and effect.",
+          "source": "Kunstgewerbliche Laienpredigten, 1902",
+          "meaning": "（依據力學原理設計的裝飾擁有數學證明般的形式純粹性——它是力的必然結果，具有內在的形式必然性。這個論述將 Art Nouveau 的曲線從「品味偏好」提升為「結構邏輯」。）"
+        },
+        {
+          "text": "Ugliness corrupts not only the eyes, but also the heart and mind.",
+          "source": "attributed, on the moral imperative of design",
+          "meaning": "（醜陋腐蝕的是眼睛、心靈與思想——它是整體性的傷害。因此，設計改革的急迫性等同於道德改革的急迫性。改善物質環境即改善人的精神狀態——這是 Art Nouveau 的社會信念。）"
+        },
+        {
+          "text": "I wanted to penetrate to the essence of things, to the point from which forms radiate.",
+          "source": "attributed, on his transition from painting to applied arts",
+          "meaning": "（穿透表象直達形式的輻射核心——Van de Velde 從印象派畫家轉型為設計師，是因為他意識到繪畫只能描繪事物的表面，設計卻能觸及事物的結構本質。形式從內部向外輻射，裝飾是這股輻射力量的可見軌跡。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Kunstformen der Natur（自然界的藝術形態）",
+      "author": "Ernst Haeckel",
+      "year": 1899,
+      "significance": "100 幅石版畫描繪放射蟲、水母、蕨類、苔蘚等微觀與宏觀生物的驚人對稱與幾何。這本書是 Art Nouveau 設計師的「視覺聖經」——Horta、Guimard、Gallé、Lalique 都從中汲取自然形態的靈感。Haeckel 證明了自然是最偉大的裝飾設計師。"
+    },
+    {
+      "title": "Kunstgewerbliche Laienpredigten（工藝佈道集）",
+      "author": "Henry van de Velde",
+      "year": 1902,
+      "significance": "Van de Velde 的核心理論著作，提出「線條是一種力」的命題，將裝飾從表面圖案重新定義為力的可視化表達。確立了 Art Nouveau 裝飾的理論基礎：裝飾是結構性的、力學性的、有機的，而非附加的、任意的、歷史引用的。"
+    },
+    {
+      "title": "Entretiens sur l'architecture（建築對話錄）",
+      "author": "Eugène-Emmanuel Viollet-le-Duc",
+      "year": 1863,
+      "significance": "Art Nouveau 建築的思想先驅。Viollet-le-Duc 主張建築應該展現結構的誠實性，並研究哥德式建築的力學理性。Horta 和 Guimard 都明確承認受其影響——他們繼承了結構理性主義，卻用全新的有機語言取代了哥德式的尖拱。"
+    },
+    {
+      "title": "The Grammar of Ornament（裝飾法則）",
+      "author": "Owen Jones",
+      "year": 1856,
+      "significance": "系統整理全球裝飾紋樣的百科全書式著作，提出 37 條裝飾原則，包括「所有裝飾都應基於幾何構成」和「花卉不應該以自然狀態被用作裝飾」。這些原則影響了 Art Nouveau 對自然形態的抽象化處理方式。"
+    },
+    {
+      "title": "Documents Décoratifs（裝飾文獻）",
+      "author": "Alphonse Mucha",
+      "year": 1902,
+      "significance": "72 頁的裝飾設計範本集，涵蓋字母、花卉、人體、首飾、餐具、家具等主題，是 Art Nouveau 平面設計語言的系統化教材。Mucha 將自己的海報風格轉化為可學習的設計方法論。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "總體藝術 (Gesamtkunstwerk)：從建築結構到門把手曲線、從壁紙花紋到居住者的衣著，所有物件遵循同一套有機美學語法，構成一個完整的生活環境。（WHY：歷史主義的室內設計是各種時代風格的拼盤——哥德式壁爐配巴洛克椅配新古典花瓶，每個物件來自不同時代，彼此毫無關聯。這種視覺混亂反映了 19 世紀新興資產階級缺乏自身美學身份的焦慮。新藝術運動以統一的有機語言取代風格拼貼，讓環境成為一個呼吸的整體。）",
+      "從自然形態中提取結構原則：研究植物的莖幹、昆蟲的翅脈、水母的觸手、骨骼的拋物線，將這些生長法則轉化為設計語法。（WHY：Haeckel 的顯微攝影揭示了自然界最微小生物的驚人結構美——放射蟲的矽質骨架比任何人造裝飾更精密、更優雅。如果自然已經用數百萬年的演化解決了結構與美的統一問題，設計師為什麼還要從希臘柱式裡找答案？）",
+      "將新工業材料轉化為藝術表現：鍛鐵、鑄鐵、鋼、玻璃、鋼筋混凝土——這些工業革命的產物成為有機曲線的載體。（WHY：鐵是 19 世紀的新材料，它的延展性天生適合曲線。但當時的建築界把鐵藏在石材立面後面，視之為「不雅」的工程材料。Horta 的革命在於讓鐵的曲線暴露出來，賦予它審美尊嚴——鍛鐵不再是被隱藏的骨架，而是建築的表情。）",
+      "裝飾即結構 (Ornament as Structure)：裝飾從牆面的附加物變成建築的有機組成部分——鐵柱展開為藤蔓、欄杆生長為花莖、窗框流動為水波。（WHY：歷史主義建築的裝飾是貼上去的面具——撕掉柯林斯柱頭，底下是普通的鐵柱。新藝術運動的裝飾從結構內部生長出來，裝飾與結構是同一件事。Horta 的 Hotel Tassel 鐵柱從基座展開為天花板的曲線，沒有結構/裝飾的分界線。）",
+      "曲線美學 (Cult of the Curve)：以鞭線 (coup de fouet / whiplash curve)、S 曲線、不對稱有機形態作為核心視覺語言，拒絕古典的對稱性與直角幾何。（WHY：古典建築以直線、直角、對稱為美——這是一種靜態的、完成的、理想化的美。新藝術運動的曲線是動態的、生長中的、未完成的——它暗示生命力、暗示流動、暗示變化。在一個快速現代化的社會中，靜態的古典美已經不足以表達時代的活力。）",
+      "跨媒材的美學統一：同一位設計師操作建築、家具、首飾、海報、織品、玻璃器皿，確保所有尺度的物件都說同一種視覺語言。（WHY：工業分工讓建築師只管建築、家具師只管家具、珠寶匠只管珠寶——結果是一棟新藝術的房子裡擺滿新古典的家具。總體藝術的實踐需要一個設計師掌控所有尺度。Horta 設計 Hotel Solvay 時從外觀到門鈴都親自繪圖。）",
+      "藝術民主化 (Art for All)：透過海報、地鐵入口、日用品設計，將 Art Nouveau 美學從上流沙龍帶入公共空間與一般家庭。（WHY：學院派繪畫被鎖在美術館和私人收藏中，只有少數人能看到。Mucha 的海報貼在街頭，Guimard 的地鐵入口讓每個通勤者每天經過——Art Nouveau 是第一個有意識地佔領公共視覺空間的美學運動。）",
+      "日本主義的轉化 (Japonisme)：吸收浮世繪的非對稱構圖、平面化色彩、自然題材、留白美學，融入歐洲裝飾傳統。（WHY：歐洲學院派繪畫被單點透視和明暗法統治了 400 年，構圖以對稱為預設。日本浮世繪打開了另一種可能——鶴的頸部可以從畫面邊緣切入、背景可以是純色、圖案可以不對稱但平衡。這種「另一種觀看方式」解放了歐洲設計師的構圖想像。）"
+    ],
+    "what_they_refuse": [
+      "歷史主義 (Historicism)：拒絕從希臘、羅馬、哥德、巴洛克、文藝復興中複製形式語彙——新古典的柱式、哥德的尖拱、巴洛克的渦捲。（WHY：19 世紀歐洲建築界的常態是「風格點菜」——銀行用新古典（暗示穩重）、教堂用新哥德（暗示虔誠）、歌劇院用新巴洛克（暗示華麗）。每種風格都是偽裝——建築物假裝自己來自另一個時代。新藝術運動的憤怒在於：我們活在 19 世紀末，為什麼所有建築都在假裝自己活在別的世紀？）",
+      "學院派的風格再現 (Academic Eclecticism)：拒絕 Beaux-Arts 教育體系以模仿古典範本為核心的教學方法。（WHY：巴黎 Beaux-Arts 學院的學生花數年臨摹羅馬廢墟和希臘神殿的測繪圖。這套教育培養出的建築師只會在古典語彙之間排列組合，無法面對鋼鐵與玻璃帶來的全新結構可能性。新藝術運動的建築師從自然而非從古蹟中學習。）",
+      "機器美學的粗暴 (Industrial Ugliness)：拒絕工業大量生產的廉價、醜陋、千篇一律的產品。（WHY：工業革命讓商品變得便宜，但也讓它們變醜。工廠用模具壓印出偽造的手工紋路，用鑄鐵仿製石雕細節，用機器印花取代手繪圖案——一切都是假的。新藝術運動拒絕這種「廉價的偽裝」，堅持每一條曲線都應該由設計師有意識地繪製，即使這意味著更高的成本。）",
+      "直線崇拜與幾何僵化：拒絕將直線、直角、對稱視為美的預設條件。（WHY：古典美學建立在幾何的純粹性上——直線代表理性，對稱代表秩序。但 Gaudi 指出自然界沒有直線，Horta 發現鐵的物理特性天然偏向曲線。直線是人為強加的理想化，而非材料與自然的真實狀態。）",
+      "裝飾與結構的分離：拒絕「先建結構再加裝飾」的設計流程。（WHY：在歷史主義建築中，工程師先完成結構，裝飾師再把柱頭、壁飾、簷口貼上去——裝飾是結構的化妝品。新藝術運動要求裝飾從結構內部生長，兩者不可分離。撕掉 Horta 建築的裝飾，結構也隨之崩塌——因為裝飾本身就是結構。）",
+      "純藝術的傲慢 (Fine Art Elitism)：拒絕「繪畫和雕塑高於裝飾藝術」的學院等級制度。（WHY：歐洲學院傳統將架上繪畫和雕塑視為「高等藝術」，家具、首飾、海報、壁紙則是「低等工藝」。新藝術運動的核心反叛正是對這個等級制度的挑戰：一張 Mucha 的海報、一盞 Tiffany 的檯燈、一扇 Horta 的鐵門，其藝術價值不亞於任何油畫。）",
+      "自然的寫實複製 (Naturalistic Imitation)：拒絕直接複製自然的外觀——摘下一朵花貼在牆上。（WHY：Van de Velde 明確指出，照搬自然形態反而「更不自然」，因為它遮蔽了物件本身的形式與功能。新藝術運動「學自然」是學習生長的力學、分叉的邏輯、曲線的張力——是抽象化的自然原則，而非寫實的自然圖像。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Historicism / Eclecticism：新古典主義、新哥德、新巴洛克、新文藝復興——所有從過去借形式的做法，是 Art Nouveau 最直接的敵人",
+      "Academic Beaux-Arts：巴黎美術學院的古典教育體系，以模仿古典範本為核心，培養出的建築師只會在歷史語彙中排列組合",
+      "Industrial mass production 的廉價仿古產品：工廠用模具壓印出偽造的手工紋路與歷史裝飾",
+      "後期的 Bauhaus / International Style（反向對抗）：Art Nouveau 在 1910 年後被現代主義批評為「裝飾過度」「布爾喬亞品味」，Loos 的《裝飾與罪惡》成為現代主義反裝飾的武器"
+    ],
+    "against_values": [
+      "歷史風格的循環再利用：拒絕從過去偷形式，堅持每個時代必須有自己的視覺語言",
+      "結構與裝飾的分離：拒絕先建後飾的分工模式，堅持兩者的有機統一",
+      "直線作為美的預設條件：挑戰古典美學的幾何霸權，以曲線作為基本語彙",
+      "純藝術的等級優越：拒絕繪畫/雕塑高於裝飾藝術/應用藝術的學院等級制度",
+      "藝術與日常生活的隔離：拒絕將美鎖在美術館裡，堅持美應該滲透到每一個日常物件中"
+    ],
+    "societal_context": "新藝術運動誕生於 1890 年代的歐洲，正值第二次工業革命的巔峰期與世紀末 (fin de siècle) 的文化焦慮交匯。一方面，電力、鋼鐵、化學工業帶來前所未有的物質繁榮和都市化速度；另一方面，工業化的社會代價——工人階級的貧困、都市的擁擠與污染、手工藝傳統的崩解——引發了廣泛的反思。法國在 1870 年普法戰爭慘敗後急需文化自信的重建，比利時在 1893 年因選舉權鬥爭爆發總罷工，加泰隆尼亞的 Modernisme 帶有強烈的民族復興色彩。Art Nouveau 在每個國家都融合了本土的政治議程：在比利時，Horta 的 Maison du Peuple 為工人黨建造；在法國，Guimard 的地鐵入口民主化了公共空間；在加泰隆尼亞，Gaudi 的建築是加泰隆尼亞民族認同的物質象徵。但這場運動的階級基礎始終是新興資產階級——他們有能力委託整棟住宅的總體設計，也有品味去欣賞有機曲線的精緻。這個內在矛盾（藝術民主化的理想 vs. 資產階級贊助人的現實）最終限制了 Art Nouveau 的社會影響範圍，也成為後來 Bauhaus 和現代主義批評的著力點。"
+  },
+
+  "problems_solved": [
+    "創造了第一個真正屬於工業時代的原創美學語言：在歷史主義統治歐洲設計百年後，Art Nouveau 是第一個拒絕從過去借形式、完全從自然與新材料中生長出來的完整風格體系",
+    "證明了工業材料可以承載藝術表現力：鍛鐵、鑄鐵、玻璃從被隱藏的工程材料變成建築的美學核心，為後來的現代主義建築打開了材料表現的先例",
+    "實踐了總體藝術 (Gesamtkunstwerk) 的理念：從建築到門把手的美學統一，證明了設計可以創造沉浸式的完整生活環境，開啟了現代室內設計的專業領域",
+    "將裝飾藝術提升為嚴肅的藝術形式：海報、家具、首飾、玻璃器皿獲得了與繪畫、雕塑同等的藝術地位，打破了延續數百年的美術學院等級制度",
+    "建立了自然形態與設計的系統性連結：從 Haeckel 的生物形態學到 Horta 的建築結構，Art Nouveau 發展出一套從自然中提取設計原則的方法論，成為後來仿生設計 (biomimicry) 的先驅",
+    "將美學帶入公共空間與大眾生活：Guimard 的地鐵入口、Mucha 的街頭海報、Tiffany 的燈具讓高品質的設計走出私人沙龍，進入通勤者、路人、一般家庭的日常視野"
+  ],
+
+  "problems_created": [
+    "高昂的製作成本限制了社會影響力：每一條手工鍛造的鐵曲線、每一塊手工吹製的玻璃都需要極高的工藝水準，使 Art Nouveau 設計本質上是富裕階級的奢侈品。Horta 的 Hotel Solvay 造價相當於今天的數百萬歐元——「為所有人的美」停留在理想層面",
+    "過度裝飾與形式疲勞：運動後期（1905 年後），大量廉價模仿品將 Art Nouveau 的有機曲線簡化為表面的裝飾套路，失去了結構性的內在邏輯。花草藤蔓被機械性地貼在每一個可能的表面上，曲線從力量變成了矯飾。1902 年 Turin 博覽會後，批評聲浪急劇上升",
+    "功能性的犧牲：總體藝術的執念有時壓倒了實用性——為了維持美學統一，家具可能不舒適，空間配置可能不合理，居住者被鎖在設計師預設的美學宇宙中無法自由改動",
+    "無法規模化的手工藝依賴：Art Nouveau 的美學品質高度依賴頂尖工匠的手工技藝，無法透過工業化批量生產來降低成本——這正是 Bauhaus 後來試圖解決的核心問題",
+    "建築維護的噩夢：複雜的鍛鐵曲線、馬賽克拼貼、彩色玻璃需要持續且昂貴的維護。許多 Art Nouveau 建築在 20 世紀中葉被拆除或簡化，Guimard 的多數地鐵入口被移除，Horta 的 Maison du Peuple 在 1965 年遭拆毀",
+    "設計師的「暴君」傾向：總體藝術要求設計師掌控空間中的每一個細節，居住者成為被動的觀賞者。Van de Velde 為妻子設計搭配自宅的衣服——美學統一的追求有時淪為對個人自主性的壓迫"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "裝飾是結構的有機延伸，而非附加的表面處理——一條鍛鐵曲線同時是承重構件、空間界定元素、美學表達。這個「結構即裝飾、裝飾即結構」的統一命題，是 Art Nouveau 對建築史最根本的貢獻：它重新定義了裝飾的本體論地位，讓裝飾從「罪惡」（Loos 的指控）或「附屬品」（歷史主義的做法）變成建築不可分離的器官。",
+    "what_was_truly_new": [
+      "鞭線 (whiplash curve) 作為統一的設計語彙：Horta 在 Hotel Tassel 創造的鍛鐵曲線——從柱子底部生長、經過天花板、延伸到牆面壁畫——是建築史上第一次將結構、裝飾、空間流動統一為單一的有機線條系統",
+      "工業鐵材的審美解放：在 Horta 之前，鐵只在工程建築（橋樑、車站、市場）中外露，在住宅建築中永遠被石材或灰泥遮蓋。Horta 讓鐵的曲線成為住宅的美學焦點，這個突破改變了「什麼材料值得被看見」的根本預設",
+      "海報藝術作為獨立的視覺藝術形式：Mucha 的劇場海報創造了一套完整的平面設計語言——裝飾性邊框、流動的字體與圖像整合、人物與圖案的有機融合——將商業印刷品提升為收藏級藝術品",
+      "建築的完整生活環境設計 (total environment design)：Horta、Guimard、Van de Velde 將建築師的職責從「設計建築外殼」擴展為「設計完整的生活體驗」，直接催生了現代室內設計專業",
+      "自然力學的建築轉化：Gaudi 的懸鏈線模型（倒掛繩索模型以發現理想的拱形曲線）是將自然的力學原理直接轉化為建築結構的先驅方法，預示了後來的參數化設計與仿生建築"
+    ],
+    "what_was_borrowed": [
+      "Arts and Crafts Movement (William Morris, 1860s-)：手工藝的尊嚴、裝飾藝術與純藝術的平等、設計應服務生活——Morris 的核心主張被 Art Nouveau 完整繼承，但去除了反工業化的立場，擁抱了鐵與玻璃",
+      "Japonisme (1860s-)：浮世繪的非對稱構圖、平面化色彩、自然題材、線條的表現力——直接影響了 Mucha 的海報構圖和 Art Nouveau 的圖案設計",
+      "Viollet-le-Duc 的結構理性主義 (1860s)：哥德建築的力學分析、結構誠實的理念——Horta 和 Guimard 明確承認的知識債務，但他們用有機曲線取代了尖拱",
+      "Gothic Revival / Ruskin：John Ruskin 對哥德式裝飾中「自然主義」元素的讚美，以及他對手工藝精神價值的堅持，為 Art Nouveau 的自然美學提供了道德論據",
+      "Symbolism (1880s-)：象徵主義文學與繪畫對夢境、神秘、內在世界的探索，影響了 Art Nouveau 的精神氣質——特別是 Mucha 的拜占庭式光環和 Klimt 的金色夢境",
+      "Celtic / Islamic / Byzantine 裝飾傳統：交織的曲線紋樣 (interlace patterns)、幾何化的有機形態——Owen Jones 的《The Grammar of Ornament》是這些非西方裝飾傳統進入歐洲設計視野的關鍵媒介"
+    ],
+    "creative_leap": "Art Nouveau 的關鍵創造性飛躍在於「有機統一」(organic unity)：它將散落的元素——Arts and Crafts 的工藝精神、日本主義的構圖革命、Viollet-le-Duc 的結構理性、自然科學的形態發現、新工業材料的物理特性——融合為一套從微觀（門把手曲線）到宏觀（建築結構）完全連貫的設計語言。這套語言的核心邏輯是：自然的生長法則是所有尺度的設計的共同語法。一條藤蔓的生長方式和一棟建築的結構邏輯遵循相同的力學原理——Art Nouveau 是第一個系統性地實踐這個信念的運動。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "Art Nouveau 的核心命題——如何從自然的生長法則中提取設計原則，如何讓裝飾成為結構的有機延伸，如何創造沉浸式的完整美學環境——在生成式 AI 與參數化設計的時代再度具有高度相關性。AI 可以模擬自然的生長演算法 (L-systems, reaction-diffusion patterns) 來生成裝飾與結構，參數化建築 (Zaha Hadid, NERI Oxman) 正在實現 Gaudi 和 Horta 夢想的有機建築形態。同時，VR/AR 環境設計面臨的「總體美學」挑戰——如何讓虛擬空間成為連貫的沉浸式體驗——與 Art Nouveau 的 Gesamtkunstwerk 理念高度共鳴。",
+      "transferable_to": [
+        "參數化建築與仿生設計：Gaudi 的懸鏈線模型是 computational design 的原型，Art Nouveau 的有機形態可用演算法重新生成",
+        "AI 生成的裝飾系統：reaction-diffusion patterns、L-systems 可以生成具有 Art Nouveau 精神的有機裝飾，且能在結構與裝飾之間建立真正的力學關聯",
+        "VR/AR 沉浸式環境設計：Gesamtkunstwerk 的理念直接對應虛擬空間的完整美學設計需求",
+        "永續設計與仿生工程：從自然結構中學習的方法論——輕量化、材料效率、適應性——是當代永續設計的核心策略",
+        "品牌識別的總體設計：從 logo 到空間到包裝到數位介面的美學統一，延續了 Art Nouveau 從建築到門把手的設計一貫性",
+        "UX/UI 的情感設計：Art Nouveau 對感官愉悅的重視，可以校正當代 UI 設計中過度追求效率而忽視情感體驗的傾向",
+        "3D 列印與數位製造：Art Nouveau 因手工藝成本而無法規模化的問題，可以透過數位製造技術解決——複雜的有機形態不再受限於工匠的手藝"
+      ]
+    },
+    "originality_type": "synthesis"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Arts and Crafts Movement (William Morris, 1860s-)：手工藝尊嚴、裝飾藝術平權、設計服務生活的社會理想",
+      "Japonisme (1860s-)：浮世繪的非對稱構圖、平面化色彩、自然題材、線條表現力",
+      "Viollet-le-Duc 的結構理性主義 (1860s)：哥德建築的力學分析、結構誠實原則",
+      "John Ruskin 的自然主義美學與工藝倫理 (1850s-)：自然是美的源頭、手工藝的道德價值",
+      "Owen Jones《The Grammar of Ornament》(1856)：全球裝飾傳統的系統整理、裝飾的幾何基礎原則",
+      "Ernst Haeckel 的生物形態學 (1860s-1900s)：顯微鏡下的自然結構成為設計師的形態辭典",
+      "Symbolism (1880s-)：夢境、神秘、內在世界的精神氣質",
+      "Pre-Raphaelite Brotherhood (1848-)：對中世紀工藝精神的浪漫化重啟、自然主義的細密描繪",
+      "Celtic / Islamic / Byzantine 裝飾傳統：交織曲線紋樣的結構性運用"
+    ],
+    "influenced": [
+      "Vienna Secession → Wiener Werkstatte (1903-)：從 Art Nouveau 的有機曲線過渡到幾何化裝飾，Hoffmann 與 Moser 的方格紋語言標誌了裝飾設計的理性化轉向",
+      "Art Deco (1920s-1930s)：繼承了 Art Nouveau 對裝飾的重視，但以幾何化、機械化、流線型取代有機曲線",
+      "Bauhaus / International Style (1919-)：直接反動——Bauhaus 將 Art Nouveau 視為「裝飾的殘餘」而全面否定，但繼承了其 Gesamtkunstwerk 理念與藝術/工藝平權精神",
+      "Catalan Modernisme → Gaudi 的持續影響 (20 世紀-)：Gaudi 的有機建築理念跨越了 Art Nouveau 的歷史框架，直接影響了 Frei Otto、Santiago Calatrava、Zaha Hadid 等當代建築師",
+      "Psychedelic Art (1960s-)：Art Nouveau 的流動曲線、華麗色彩、有機形態在迷幻藝術中全面復興——Mucha 的海報語言直接影響了 60 年代搖滾海報設計",
+      "現代平面設計與插畫：Mucha 的海報構圖法——裝飾性邊框、字體與圖像的有機整合、女性形象的風格化——持續影響當代插畫與海報設計",
+      "仿生建築 (Biomimetic Architecture, 2000s-)：Neri Oxman、Achim Menges 等人的計算仿生設計，在方法論上回應了 Art Nouveau 從自然結構中提取設計原則的核心信念",
+      "當代首飾與時尚設計：Art Nouveau 的有機形態、自然主題、材料實驗持續影響 Lalique、Van Cleef & Arpels 等品牌的設計語言"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "感性、直覺導向、追求美學的完整性與有機統一。像一位植物學家兼詩人：先感受空間的流動與曲線的張力，再分析結構的邏輯。對「這個細節是否從整體中自然生長出來」的判斷極為敏銳，對「拼湊的」「附加的」「斷裂的」設計元素有近乎生理性的不適。欣賞自然的觀察力、材料的敏感度、跨尺度的美學連貫性。對功能主義的冷漠和幾何的僵硬感到遺憾。言語帶有詩意的節奏，判斷依循直覺但能以力學語言自圓其說。",
+    "evaluation_bias": "強烈偏好有機形態、曲線張力、材料的感官品質、細節與整體的美學連貫性。傾向高估裝飾的藝術價值和感官愉悅的重要性，低估功能效率、標準化和可量產性。會不自覺地以「這個曲線是否有生命力？這個空間是否像一個活的有機體？」作為隱性評分標準。對極簡主義和幾何抽象可能給出不公正的低評，因為它們「缺乏生命的溫度」。",
+    "blind_spots": "難以評價高度系統化、模組化、標準化的設計——這些恰恰是工業設計和數位設計的核心需求。對「減法美學」的價值認識不足，傾向認為所有空白都應該被有機紋路填滿。可能低估功能性缺陷的嚴重性（「椅子不舒適但曲線很美」在 Art Nouveau 評審眼中可能是可接受的妥協）。對非裝飾性的建築美學（混凝土的粗獷、鋼的冷冽）缺乏共鳴。",
+    "typical_critique": "這件作品的結構是清晰的，但我必須問：它的表面在呼吸嗎？我看到了功能的解決方案，卻找不到生命的痕跡。一條線不只是連接兩點的最短路徑——它是一股力量，帶有方向、張力、生長的意圖。你的直線解決了問題，但它拒絕了體驗。我建議你觀察一根藤蔓如何攀爬牆面——它不走直線，卻總是找到最經濟的路徑。讓結構從內部生長，讓裝飾成為力的可見軌跡。"
+  },
+
+  "writing_style": {
+    "collective_voice": "新藝術運動的集體寫作風格是「詩意的理性主義」：在描述結構力學的同時保持對自然之美的感嘆，在論述設計原則的同時不放棄感官體驗的語言。核心修辭結構是有機隱喻（生長、流動、綻放、呼吸）——即使在最技術性的段落中，自然的意象也無處不在。所有成員都以「自然的翻譯者」姿態寫作——他們在轉譯自然的法則為人類的語言。動詞偏好流動性（展開、延伸、生長、綻放、蔓延），名詞偏好有機物（莖幹、藤蔓、觸手、脈絡）。",
+    "internal_tensions": "最大的風格裂痕在「理論化的抽象」與「感官的沉浸」之間。Van de Velde 代表力學語言的極端——線條被分析為「力」，裝飾被論述為「證明」。Gaudi 代表感官與神秘的極端——曲線來自上帝，自然是一本聖書。Mucha 是橋樑人物：商業的效率（海報必須在一秒內抓住眼球）與精神的追求（藝術傳遞靈性訊息）在他的作品中共存。Horta 在結構理性與裝飾狂熱之間保持了最精確的平衡。",
+    "master_voices": [
+      {
+        "name": "Victor Horta",
+        "writing_character": "結構工程師的精確性與園藝師的觀察力的結合",
+        "sentence_rhythm": "中等長度的陳述句，每句都包含一個具體的材料或結構觀察，偶爾以短句做結論性斷言",
+        "rhetoric": "材料擬人化（鐵「服從」曲線、石頭「抗拒」彎曲）、減法式描述（我捨棄了花和葉，取用了莖）、具體的空間描述",
+        "tone": "沉穩的實踐者，用行動多於言語，偶爾的理論表述簡潔有力",
+        "real_examples": [
+          {
+            "text": "I discarded the flower and the leaf, and took the stem.",
+            "source": "Mémoires",
+            "style_note": "減法句式：三個動詞（捨棄、捨棄、取用）以最精簡的方式定義了他的設計方法"
+          }
+        ]
+      },
+      {
+        "name": "Hector Guimard",
+        "writing_character": "法國建築理論家——以三段論式的邏輯推演建築原則",
+        "sentence_rhythm": "從原則出發的演繹式長句，以分號或逗號連接多個從句，每段以格言式結論收束",
+        "rhetoric": "三元結構（邏輯/和諧/情感）、條件句（要成為真正的...必須...）、與自然類比",
+        "tone": "學者型的建築師，自信但不傲慢，教學姿態明顯",
+        "real_examples": [
+          {
+            "text": "A style of architecture, in order to be true, must be the product of the soil where it exists and of the period which needs it.",
+            "source": "Architectural Record, 1902",
+            "style_note": "條件句起手，以「土地」和「時代」這兩個有機隱喻定義建築的真實性"
+          }
+        ]
+      },
+      {
+        "name": "Alphonse Mucha",
+        "writing_character": "斯拉夫民族詩人與平民藝術家的混合體",
+        "sentence_rhythm": "情感導向的中長句，以「我」為主語的個人敘事居多，結尾常帶有希望或信念的宣言",
+        "rhetoric": "橋樑隱喻（藝術連接人與人）、對比（富裕與貧窮、破壞與創造）、目的論語句（藝術存在是為了...）",
+        "tone": "溫暖的理想主義者，帶有斯拉夫式的憂鬱與希望的交織",
+        "real_examples": [
+          {
+            "text": "Art exists only to communicate a spiritual message.",
+            "source": "attributed",
+            "style_note": "一句話完成一個信念宣告，結構極簡但語義重量極大"
+          }
+        ]
+      },
+      {
+        "name": "Antoni Gaudi",
+        "writing_character": "神秘主義建築師——用預言者的語氣宣告自然的法則",
+        "sentence_rhythm": "極短的格言句（5-15 字），每句是一個完整的世界觀碎片，連續排列如聖經箴言",
+        "rhetoric": "二元對立（直線/曲線、人/上帝、發明/發現）、否定式定義（什麼都不是...除非...）、自然神學語言",
+        "tone": "篤定的、近乎先知式的，完全沒有學術語氣的猶豫",
+        "real_examples": [
+          {
+            "text": "The straight line belongs to men, the curved one to God.",
+            "source": "widely attributed",
+            "style_note": "兩個短句的完美對仗，將幾何選擇提升為神學命題"
+          },
+          {
+            "text": "Nothing is invented, for it's written in nature first.",
+            "source": "attributed",
+            "style_note": "否定起手，以自然作為一切真理的終極來源"
+          }
+        ]
+      },
+      {
+        "name": "Henry van de Velde",
+        "writing_character": "將物理學語言用於藝術理論的跨界思想家",
+        "sentence_rhythm": "從理論命題出發的演繹式長句，學術性強，大量使用分號連接平行結構",
+        "rhetoric": "力學隱喻（力、場、張力、平衡）、證明式邏輯（因此...必然...）、跨領域類比（物理→藝術）",
+        "tone": "嚴謹的理論家，帶有比利時式的國際視野，偶爾流露對美的道德激情",
+        "real_examples": [
+          {
+            "text": "A line is a force that displays its activity like all elemental forces.",
+            "source": "Kunstgewerbliche Laienpredigten, 1902",
+            "style_note": "將視覺元素（線條）重新定義為物理概念（力），一句話完成藝術理論的典範轉移"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "大量使用有機隱喻：生長、流動、綻放、呼吸、攀爬、分叉、脈絡",
+      "句子偏向中等長度（15-30 字），帶有詩意的節奏感但不失具體性",
+      "評價作品時從「這條線是否有生命力」出發，而非從「這是否有功能」出發",
+      "材料永遠被賦予性格：鐵渴望彎曲，石頭抗拒曲線，玻璃渴望光線",
+      "禁用純幾何語言（「網格」「模組」「標準化」是冷漠的詞彙），以力學語言取代（「張力」「流動」「生長」）",
+      "自然觀察是最高的論據：「你觀察過藤蔓如何...」比任何理論引用更有說服力",
+      "排比結構以二連或三連為標準，但節奏應模仿波浪——起伏而非機械重複",
+      "每段不超過 3-4 句，最後一句應帶有感官體驗的具體描述",
+      "動詞優先：展開、延伸、生長、綻放、蔓延——這些詞比名詞更重要"
+    ]
+  }
+}

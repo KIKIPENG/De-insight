@@ -1,0 +1,497 @@
+{
+  "movement_id": "classicism",
+  "name": {
+    "zh": "古典主義",
+    "en": "Classicism",
+    "fr": "Classicisme",
+    "de": "Klassizismus"
+  },
+  "domain": [
+    "視覺藝術",
+    "建築與空間",
+    "文學與敘事"
+  ],
+  "period": {
+    "start": -500,
+    "end": 1850,
+    "peak": "1660-1790（法國古典主義全盛期至新古典主義鼎盛，從路易十四宮廷到法國大革命前後，古典法則滲透繪畫、建築、戲劇與文學的一切領域）"
+  },
+  "geography": [
+    "古希臘（雅典，公元前五世紀黃金時代）",
+    "古羅馬（共和與帝國時期建築與文學）",
+    "法國（路易十四至拿破崙時期，古典主義的制度化中心）",
+    "英國（Palladian Revival，喬治亞時期建築）",
+    "義大利（文藝復興對古典的再發現，羅馬與龐貝考古）",
+    "德國（Winckelmann 的希臘理想，威瑪古典主義）",
+    "美國（聯邦建築，Jefferson 的古典共和理想）"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "古典主義的根源是公元前五世紀雅典的政治實驗——民主制度需要一套與之匹配的公共美學。帕德嫩神殿的比例體系、悲劇的三一律、修辭學的嚴格結構，都是民主城邦為公共生活建立的理性秩序。羅馬帝國將這套語法帝國化，維特魯威的《建築十書》將比例法則編纂為可傳播的知識。文藝復興在中世紀的斷裂後重新發現這批文本與遺跡，阿爾伯蒂、帕拉底歐等人將古典法則系統化為現代建築語言。十七世紀的法國在路易十四的絕對王權下，將古典主義制度化為國家美學——法蘭西學院、皇家繪畫暨雕塑學院的建立，讓古典法則成為可考試、可升遷、可獎懲的官方標準。十八世紀中葉，龐貝與赫庫蘭尼姆的考古發掘、Winckelmann 對希臘藝術的重新詮釋，引爆新古典主義浪潮——古典從宮廷品味轉變為革命理想，David 的畫筆將共和美德與斯巴達式犧牲精神視覺化，直接服務於法國大革命的政治宣傳。",
+    "social_energy": "古典主義的社會能量來自兩個反覆出現的歷史時刻：(1) 政治秩序的建構期——雅典民主、羅馬共和、路易十四的絕對君主、法國大革命的共和國、美國建國，每一次新政治秩序的誕生都回頭引用古典作為合法性的來源；(2) 文化危機的回應期——當社會感到現行文化失序（巴洛克的過度裝飾、洛可可的輕佻享樂），古典的秩序感與理性精神就被召喚為矯正的力量。這種「向過去尋找未來」的動力結構，讓古典主義在兩千年內反覆被啟動。",
+    "purpose": "古典主義的終極目標是建立一套超越時間的美學法則——以理性、秩序、和諧與比例為核心，為人類的公共生活提供永恆的形式框架。它相信存在客觀的美的標準，這些標準可以從古希臘羅馬的典範中提煉，並透過規則、教育與制度加以傳承。古典主義同時是一套倫理主張：形式的紀律對應道德的紀律，審美的克制對應公民的美德，建築的對稱對應社會的秩序。",
+    "key_timeline": [
+      "約前 447-432 — 帕德嫩神殿建造完成，菲迪亞斯監造，確立多利克柱式的黃金比例典範",
+      "約前 335 — 亞里斯多德《詩學》完成，建立悲劇結構理論，成為後世戲劇三一律的源頭",
+      "約前 27-前 23 — 維特魯威撰寫《建築十書》，為建築訂立「堅固、實用、美觀」三原則",
+      "1452 — 阿爾伯蒂《論建築》(De re aedificatoria) 出版，以古典法則為基礎建構文藝復興建築理論",
+      "1570 — 帕拉底歐《建築四書》(I Quattro Libri dell'Architettura) 出版，將古典柱式與比例系統化為可操作的設計手冊",
+      "1635 — 法蘭西學院 (Academie francaise) 成立，確立法語文學規範，古典主義獲得國家制度支持",
+      "1648 — 皇家繪畫暨雕塑學院 (Academie royale de peinture et de sculpture) 成立，歷史畫被定為最高畫種",
+      "1674 — 布瓦洛《詩的藝術》(L'Art poetique) 出版，為法國古典文學訂立嚴格規則",
+      "1738-1748 — 赫庫蘭尼姆與龐貝考古發掘開始，古典實物重見天日，引爆考古熱潮",
+      "1755 — Winckelmann《關於在繪畫和雕刻中模仿希臘作品的思考》出版，提出「高貴的單純與靜穆的偉大」",
+      "1764 — Winckelmann《古代藝術史》出版，建立以希臘為中心的藝術史敘事框架",
+      "1785 — David 展出《荷拉斯兄弟之誓》，新古典主義繪畫的里程碑，共和美德的視覺宣言",
+      "1789 — 法國大革命爆發，古典共和理想成為革命的美學與道德語言",
+      "1806 — 拿破崙下令建造凱旋門 (Arc de Triomphe)，以羅馬帝國形式宣示帝國權力",
+      "1816 — 埃爾金石雕運抵大英博物館，帕德嫩神殿的實物進入北歐視野，重新定義希臘藝術的認知"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "約翰·乔乔金·溫克爾曼",
+        "en": "Johann Joachim Winckelmann"
+      },
+      "role": "現代藝術史之父，新古典主義的理論奠基者。一個德國鞋匠之子，靠自學古希臘語進入學術界，在羅馬研究古典雕塑，提出「高貴的單純與靜穆的偉大」作為希臘藝術的本質。他幾乎憑一己之力將希臘藝術從羅馬的陰影中獨立出來，建立了以風格演變為核心的藝術史書寫方法。",
+      "key_works": [
+        "《關於在繪畫和雕刻中模仿希臘作品的思考》(Gedanken uber die Nachahmung der griechischen Werke in der Malerei und Bildhauerkunst, 1755)",
+        "《古代藝術史》(Geschichte der Kunst des Alterthums, 1764)",
+        "《論觀賞的能力與美》(Abhandlung von der Fahigkeit der Empfindung des Schonen in der Kunst, 1763)",
+        "《關於赫庫蘭尼姆發現的書簡》(Sendschreiben von den Herculanischen Entdeckungen, 1762)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Edle Einfalt und stille Grosse.",
+          "source": "Gedanken uber die Nachahmung der griechischen Werke, 1755",
+          "meaning": "高貴的單純與靜穆的偉大——這六個字定義了一整個世代對希臘藝術的理解。Winckelmann 以此描述拉奧孔群像面對蛇纏之痛時的克制表情，主張真正的偉大在於情感的自我約束，在激情的深淵邊緣保持形式的尊嚴。"
+        },
+        {
+          "text": "Der einzige Weg fur uns, gross, ja, wenn es moglich ist, unnachahmlich zu werden, ist die Nachahmung der Alten.",
+          "source": "Gedanken uber die Nachahmung der griechischen Werke, 1755",
+          "meaning": "我們成為偉大、甚至無可模仿的唯一道路，就是模仿古人——這個悖論是 Winckelmann 的核心辯證：透過模仿古典的精神法則（而非外在形式），藝術家能觸及普遍性的美，從而超越模仿本身。"
+        },
+        {
+          "text": "So wie die Tiefe des Meers allezeit ruhig bleibt, die Oberflache mag noch so wuten, ebenso zeigt der Ausdruck in den Figuren der Griechen bei allen Leidenschaften eine grosse und gesetzte Seele.",
+          "source": "Gedanken uber die Nachahmung der griechischen Werke, 1755",
+          "meaning": "正如海洋深處始終平靜，無論表面如何狂怒，希臘雕像的表情在一切激情中都展現出偉大而安定的靈魂——Winckelmann 用海洋比喻建立了古典美學的核心方程式：表面的克制 = 內在的深度。"
+        },
+        {
+          "text": "Die Kenntnis des Schonen kann nicht anders als durch Anschauung vieler Schonen erworben werden.",
+          "source": "Abhandlung von der Fahigkeit der Empfindung des Schonen, 1763",
+          "meaning": "對美的認識只能通過觀賞大量的美來獲得——Winckelmann 作為藝術史學科的創建者，堅持直接面對原作的感性經驗是一切理論的前提。這是經驗主義與理想主義的交會點。"
+        },
+        {
+          "text": "In den Meisterstucken der griechischen Kunst werden Kenner und Nachahmer nicht allein die schonste Natur finden, sondern noch mehr als Natur: namlich gewisse idealische Schonheiten derselben, die aus Bildern, bloss im Verstande entworfen, gemacht sind.",
+          "source": "Gedanken uber die Nachahmung der griechischen Werke, 1755",
+          "meaning": "在希臘藝術傑作中，鑑賞者會發現的不只是最美的自然，而是超越自然的理想之美——這些美由心靈中的意象所構成。Winckelmann 在此確立古典美學的形上學基礎：藝術高於自然，因為它呈現的是理性提煉後的理想形式。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "賈克-路易·大衛",
+        "en": "Jacques-Louis David"
+      },
+      "role": "新古典主義繪畫的核心人物，法國大革命的官方畫家。曾任國民公會議員，投票贊成處死路易十六，主導革命時期的公共儀式與視覺宣傳。他的畫筆讓古典共和美德成為革命的視覺語言——每一幅歷史畫都是政治行動。後來成為拿破崙的首席畫家，將古典形式從共和轉向帝國。",
+      "key_works": [
+        "《荷拉斯兄弟之誓》(Le Serment des Horaces, 1784)",
+        "《蘇格拉底之死》(La Mort de Socrate, 1787)",
+        "《馬拉之死》(La Mort de Marat, 1793)",
+        "《拿破崙加冕禮》(Le Sacre de Napoleon, 1805-1807)",
+        "《薩賓婦女》(Les Sabines, 1799)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Les arts doivent contribuer puissamment a l'instruction publique.",
+          "source": "Speech to the National Convention, 1793",
+          "meaning": "藝術必須有力地服務於公共教育——David 在國民公會的演說中將藝術功能直接綁定在公民教育上。藝術不是私人享樂，它是共和國塑造公民的工具。"
+        },
+        {
+          "text": "J'ai pris l'antique pour modele; les Grecs n'ont pas dedaigne de prendre le beau ideal dans la nature.",
+          "source": "Letter regarding Le Serment des Horaces, c. 1785",
+          "meaning": "我以古代為範本，希臘人也曾從自然中提取理想之美——David 用這句話同時合法化了兩個層次的模仿：畫家模仿古典，古典模仿自然中的理想。模仿是一條通向普遍性的鏈條。"
+        },
+        {
+          "text": "O Marat, ce n'est qu'en te perdant que nous avons mesure la profondeur de ton zele.",
+          "source": "Speech at the National Convention presenting La Mort de Marat, November 14, 1793",
+          "meaning": "馬拉，唯有失去你，我們才衡量出你的熱忱有多深——David 以悼詞形式將馬拉聖化。他用古典的克制構圖（刻意引用基督下十字架的姿態）將一個激進記者轉化為共和國的殉道者。"
+        },
+        {
+          "text": "Je n'avais pas besoin de ce spectacle pour etre republicain, mais il a renforce en moi le besoin de saisir la vertu.",
+          "source": "attributed, on witnessing the Tennis Court Oath, c. 1789",
+          "meaning": "我不需要這個場景才成為共和主義者，但它強化了我捕捉美德的渴望——David 承認藝術家的使命是「捕捉美德」：將抽象的道德理念轉化為可見的圖像，讓公民在觀看中被塑造。"
+        },
+        {
+          "text": "Il faut que le peintre soit philosophe; la philosophie est l'ame de la peinture.",
+          "source": "attributed, teaching notes at the Academie",
+          "meaning": "畫家必須是哲學家，哲學是繪畫的靈魂——David 延續了古典主義將智識活動置於技術之上的傳統。構思（inventio）先於執行（executio），思想先於手藝。"
+        },
+        {
+          "text": "Dans la peinture, on doit chercher non pas a copier la nature, mais a exprimer les sentiments que la nature inspire.",
+          "source": "attributed, Academie lectures",
+          "meaning": "在繪畫中應當追求的是表達自然所激發的情感，而非抄寫自然——David 在此劃出古典主義與寫實主義的界線：對象是情感與理念的載體，精確描繪外表不是目的。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "尼古拉·普桑",
+        "en": "Nicolas Poussin"
+      },
+      "role": "法國古典主義繪畫的精神領袖，雖長期定居羅馬，其作品成為法蘭西學院的最高範本。他發展出「模式理論」(Modes)，將古希臘音樂調式類比於繪畫的情感表現系統——每一幅畫有其特定的情感調性，由構圖、色彩與主題共同決定。普桑的理論影響了此後兩百年的學院繪畫教育。",
+      "key_works": [
+        "《阿卡迪亞的牧羊人》(Et in Arcadia ego, c. 1637-1638)",
+        "《薩賓婦女的掠奪》(L'Enlevement des Sabines, 1634-1635)",
+        "《四季》系列 (Les Quatre Saisons, 1660-1664)",
+        "《所羅門的審判》(Le Jugement de Salomon, 1649)",
+        "《以色列人收集嗎哪》(La Manne, 1637-1639)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Mon naturel me contraint de chercher et aimer les choses bien ordonnees, fuyant la confusion, qui m'est aussi contraire et ennemie comme est la lumiere des obscures tenebres.",
+          "source": "Letter to Paul Freart de Chantelou, March 20, 1642",
+          "meaning": "我的天性迫使我尋找並熱愛秩序井然之物，逃離混亂——混亂之於我如同黑暗之於光明。普桑在私人書信中揭示了古典主義最私密的心理動機：秩序是一種生理性的需求。"
+        },
+        {
+          "text": "La fin de l'art est la delectation.",
+          "source": "Letter to Paul Freart de Chantelou, 1665; paraphrasing Quintilian",
+          "meaning": "藝術的目的是愉悅——但普桑的「愉悅」(delectation) 指的是智識上的滿足，理性秩序被完美實現時產生的美感。這種愉悅與感官刺激無關，它是心靈在秩序中安頓的平靜。"
+        },
+        {
+          "text": "Lisez l'histoire et le tableau, afin de connaitre si chaque chose est appropriee au sujet.",
+          "source": "Letter to Paul Freart de Chantelou, April 28, 1639",
+          "meaning": "請讀歷史，再讀畫面，以判斷每一個元素是否切合主題——普桑要求觀者以文本對照畫面，逐一檢驗構圖的每個決策。繪畫是可以被逐字閱讀、逐項驗證的視覺論證。"
+        },
+        {
+          "text": "Les belles filles que vous aurez vues a Nimes ne vous auront, je m'assure, pas moins delecte l'esprit par la vue que les belles colonnes de la Maison Carree.",
+          "source": "Letter to Paul Freart de Chantelou, 1642",
+          "meaning": "尼姆的美女帶給你的精神愉悅，我相信不亞於方殿 (Maison Carree) 的美麗廊柱——普桑以幽默的類比暗示古典柱式的比例與人體比例共享同一套美的法則。建築與人體同為理性秩序的載體。"
+        },
+        {
+          "text": "La nouveaute dans la peinture ne consiste pas principalement dans le sujet qui n'a point encore ete vu, mais dans la bonne et nouvelle disposition et expression, et ainsi le sujet, d'ordinaire et vieux, devient singulier et neuf.",
+          "source": "Letter to Paul Freart de Chantelou, November 24, 1647",
+          "meaning": "繪畫中的新意並非主要在於前所未見的題材，而在於優良而新穎的佈局與表現——如此，尋常而古老的題材也能變得獨特而嶄新。普桑在此否定了題材獵奇的價值，將創造力定位在形式處理上。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "安德烈亞·帕拉底歐",
+        "en": "Andrea Palladio"
+      },
+      "role": "文藝復興晚期最具影響力的建築師，古典建築語言的系統化大師。出身石匠，在人文主義學者 Giangiorgio Trissino 的贊助下自學古典建築。他的《建築四書》將維特魯威與古羅馬遺跡的測量成果轉化為實用的設計手冊，影響遍及英國、美國、俄羅斯，形成跨越三百年的「帕拉底歐主義」(Palladianism)。",
+      "key_works": [
+        "《建築四書》(I Quattro Libri dell'Architettura, 1570)",
+        "圓廳別墅 (Villa Almerico Capra, 'La Rotonda', 1567-1592)",
+        "奧林匹克劇場 (Teatro Olimpico, Vicenza, 1580-1585)",
+        "聖喬治馬焦雷教堂 (San Giorgio Maggiore, Venice, 1566-1610)",
+        "巴西利卡 (Basilica Palladiana, Vicenza, 1549-1614)"
+      ],
+      "key_quotes": [
+        {
+          "text": "La bellezza risultera dalla bella forma, e dalla corrispondenza del tutto alle parti, delle parti fra loro, e di quelle al tutto.",
+          "source": "I Quattro Libri dell'Architettura, Book I, Chapter 1, 1570",
+          "meaning": "美來自優美的形式，來自整體與部分的對應、部分與部分之間的對應、以及部分與整體的對應——帕拉底歐用三層遞進定義了古典建築美學的核心算法：美是關係的和諧，每一個尺度都必須與其他尺度形成比例對話。"
+        },
+        {
+          "text": "Le fabriche private saranno fatte a proposito, se prima si considerara chi dovra habitare in esse.",
+          "source": "I Quattro Libri dell'Architettura, Book II, 1570",
+          "meaning": "私人建築的設計必須首先考慮誰將居住其中——帕拉底歐在古典比例法則的框架內堅持功能性的優先。建築服務於人的生活，比例系統為生活需求提供秩序，兩者並行。"
+        },
+        {
+          "text": "Guidato da una naturale inclinatione, mi diedi ne i miei primi anni allo studio dell'Architettura: e perche sempre fui d'opinione, che gli antichi Romani, come in molt'altre cose, cosi nel fabricare bene, havessero di gran lunga avanzato tutti quelli, che dopo loro sono stati, mi proposi per maestro e guida Vitruvio.",
+          "source": "I Quattro Libri dell'Architettura, Preface, 1570",
+          "meaning": "受天性的引導，我自幼投入建築研究；因為我始終認為古羅馬人在建造方面遠遠超越後世所有人，我選擇維特魯威為導師——帕拉底歐在序言中直接申明古典權威的合法性。古人的成就是可量化的事實，模仿是理性的選擇。"
+        },
+        {
+          "text": "Avendo io per molti, e molti anni con grandissima diligenza misurato i suoi sacri tempj, e d'essi osservata l'ordine, e la proportione.",
+          "source": "I Quattro Libri dell'Architettura, Book IV, 1570",
+          "meaning": "我用多年時間極其仔細地測量了他們的神殿，觀察其秩序與比例——帕拉底歐的方法論核心是實測。古典法則來自對實物的精確測量，而非抽象的美學思辨。知識從量尺開始。"
+        },
+        {
+          "text": "Le fabbriche si stimano piu da chi le vede quanto meno materia vi e impiegata, e piu sontuose paiono.",
+          "source": "I Quattro Libri dell'Architettura, Book I, 1570",
+          "meaning": "建築使用越少的材料卻顯得越壯麗，觀者對它的評價就越高——帕拉底歐在此預告了一條橫跨數世紀的美學原則：以最少手段達成最大效果。經濟性本身就是美的組成部分。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "約翰·沃爾夫岡·馮·歌德",
+        "en": "Johann Wolfgang von Goethe"
+      },
+      "role": "德國威瑪古典主義 (Weimarer Klassik) 的核心人物。從早期的狂飆突進 (Sturm und Drang) 轉向古典理想，1786-1788 年的義大利之旅是關鍵轉折。他在文學中追求古典的形式紀律與普遍人性，同時以科學家的眼光研究色彩理論、植物形態學與礦物學。歌德的古典主義融合了希臘理想與自然科學的觀察精神。",
+      "key_works": [
+        "《在陶里斯的伊菲革涅亞》(Iphigenie auf Tauris, 1787，散文版 1779)",
+        "《義大利之旅》(Italienische Reise, 1816-1817，記述 1786-1788 年旅程)",
+        "《浮士德》(Faust, 第一部 1808，第二部 1832)",
+        "《論色彩學》(Zur Farbenlehre, 1810)",
+        "《羅馬輓歌》(Romische Elegien, 1795)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Classisch ist das Gesunde, romantisch das Kranke.",
+          "source": "Conversations with Eckermann (Gesprache mit Eckermann), April 2, 1829",
+          "meaning": "古典的就是健康的，浪漫的就是病態的——歌德晚年以醫學隱喻劃定界線。古典主義是有機體的均衡狀態：各部分協調運作，沒有一個器官壓過其他。浪漫主義則是某種情感的病理性膨脹。"
+        },
+        {
+          "text": "In der Beschrankung zeigt sich erst der Meister.",
+          "source": "Sonnet 'Natur und Kunst' (Nature and Art), 1800",
+          "meaning": "唯有在限制中方見大師——歌德將古典主義的形式紀律濃縮為一句詩。限制（韻律、比例、三一律）是創造力的過濾器：通過限制的篩選，只有最精煉的元素得以留存。"
+        },
+        {
+          "text": "Auch ich in Arkadien!",
+          "source": "Motto of Italienische Reise, 1816; after the Latin 'Et in Arcadia ego'",
+          "meaning": "我也曾在阿卡迪亞！——歌德以此作為《義大利之旅》的題辭。義大利是日耳曼知識分子的精神朝聖地，踏上古典的土壤就是回到文明的源頭。這句話記錄了歌德從狂飆突進轉向古典主義的個人轉折。"
+        },
+        {
+          "text": "Die Griechen haben den Traum des Lebens am schonsten getraumt.",
+          "source": "attributed, from Gesprache mit Eckermann",
+          "meaning": "希臘人做了生命中最美的夢——歌德以「夢」為譬喻，暗示古典的完美帶有一種不可重複的歷史性。希臘藝術是人類在特定歷史瞬間達到的最高自然狀態，無法人為複製，只能被追憶和嚮往。"
+        },
+        {
+          "text": "Wer Grosses will, muss sich zusammenraffen; In der Beschrankung zeigt sich erst der Meister, Und das Gesetz nur kann uns Freiheit geben.",
+          "source": "Sonnet 'Natur und Kunst', 1800",
+          "meaning": "欲成大事者必須自我凝聚；唯有在限制中方見大師，唯有法則能給予我們自由——歌德在一首十四行詩中完成了古典主義的核心辯證：自由來自紀律，法則是自由的前提條件。"
+        },
+        {
+          "text": "Das Hochste, wozu der Mensch gelangen kann, ist das Erstaunen.",
+          "source": "Conversations with Eckermann, February 18, 1829",
+          "meaning": "人所能達到的最高境界是驚嘆——歌德在此迴響亞里斯多德「哲學始於驚嘆」的傳統。古典精神的起點是面對秩序之美時的理性震撼，這種震撼催生認識，認識催生創造。"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "《詩學》(Peri Poietikes / Poetica)",
+      "author": "Aristotle",
+      "year": -335,
+      "significance": "西方文藝理論的起源文本。建立了悲劇的六要素（情節、性格、言語、思想、場面、歌曲），定義模仿 (mimesis) 為藝術的本質，情節的統一性與必然性為結構法則。後世戲劇三一律（時間、地點、行動統一）即是對本書的（過度）延伸。"
+    },
+    {
+      "title": "《建築十書》(De Architectura)",
+      "author": "Vitruvius",
+      "year": -27,
+      "significance": "唯一倖存的古羅馬建築專著，為建築訂立「堅固 (firmitas)、實用 (utilitas)、美觀 (venustas)」三原則。文藝復興時期被重新發現後，成為阿爾伯蒂、帕拉底歐等人的理論起點，古典建築語言的合法性錨點。"
+    },
+    {
+      "title": "《建築四書》(I Quattro Libri dell'Architettura)",
+      "author": "Andrea Palladio",
+      "year": 1570,
+      "significance": "史上最具影響力的建築手冊。帕拉底歐將對古羅馬建築的實測成果系統化為柱式比例、平面佈局與立面設計的操作指南。透過英國的 Inigo Jones 與 Lord Burlington 傳播至全球，形成三百年的帕拉底歐主義 (Palladianism)。"
+    },
+    {
+      "title": "《詩的藝術》(L'Art poetique)",
+      "author": "Nicolas Boileau",
+      "year": 1674,
+      "significance": "法國古典主義文學的立法文本。以亞歷山大體韻文寫成，為各文學體裁訂立嚴格規則：悲劇須遵守三一律、喜劇須摹寫人性、詩歌須合乎理性與自然。影響了整個歐洲十八世紀的文學批評標準。"
+    },
+    {
+      "title": "《關於在繪畫和雕刻中模仿希臘作品的思考》(Gedanken uber die Nachahmung der griechischen Werke)",
+      "author": "Johann Joachim Winckelmann",
+      "year": 1755,
+      "significance": "新古典主義的理論宣言。提出「高貴的單純與靜穆的偉大」作為希臘藝術的本質特徵，主張現代藝術的偉大之路是模仿希臘的精神法則。這部篇幅不長的論文徹底改變了十八世紀歐洲的藝術觀念。"
+    },
+    {
+      "title": "《古代藝術史》(Geschichte der Kunst des Alterthums)",
+      "author": "Johann Joachim Winckelmann",
+      "year": 1764,
+      "significance": "現代藝術史學科的奠基之作。首次以風格發展的內在邏輯（而非藝術家傳記）為框架書寫藝術史，將希臘藝術分為四個階段（古拙、崇高、優美、模仿），建立了至今仍影響藝術史書寫的週期性敘事模型。"
+    },
+    {
+      "title": "《論建築》(De re aedificatoria)",
+      "author": "Leon Battista Alberti",
+      "year": 1452,
+      "significance": "文藝復興第一部系統性建築理論著作，以維特魯威為基礎，融入人文主義的理性精神。定義美為「各部分的和諧一致，以至於增減皆不可能」，將建築從工匠技藝提升為知識分子的理性創作。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "以理性為美的基礎：美是可認識、可分析、可教授的客觀秩序，由比例、對稱、和諧等數學關係構成。（WHY：古希臘哲學家從畢達哥拉斯到柏拉圖都相信數學是宇宙秩序的語言。弦長比例產生和諧音程這個發現，讓希臘人確信美可以被計算。如果音樂的美是數學的，建築的美、人體的美、詩歌的韻律也必然是數學的。理性通往真理，真理通往美——這條路徑是古典主義兩千年的地基。）",
+      "模仿古典典範 (imitatio)：以古希臘羅馬的作品為最高標準，通過研究與模仿古典法則來達到普遍的美。（WHY：古典主義面臨一個實際問題——如何確保美的標準不淪為個人趣味的獨斷？答案是歷史驗證：希臘羅馬的作品經歷了兩千年仍然被公認為美，這種時間的篩選提供了客觀性的保障。模仿古典是模仿經過歷史檢驗的美的法則，以此超越個體的偏見與時代的流行。）",
+      "追求理想化的自然 (bella natura)：藝術再現的對象是經過理性提煉的自然，去除偶然的缺陷，呈現事物應有的完美狀態。（WHY：自然界充滿偶然性——畸形、疾病、損毀。古典主義認為藝術的價值在於從偶然中提取必然，從個別中提取普遍。一座理想化的人體雕像展現的是「人」這個概念的最完美實現，而非某個具體的人。這種理想化服務於教育功能：讓觀者看到人性的最高可能，從而被激勵去趨近它。）",
+      "形式的紀律與法則：嚴格遵守既定規則——建築的柱式系統、悲劇的三一律、繪畫的歷史畫等級、詩歌的韻律格式。（WHY：法則的存在保證了品質的下限。一個遵守三一律的劇作家可能寫出平庸的作品，但不會寫出結構混亂的作品。古典主義的制度化（學院、沙龍、獎項）需要可操作的評判標準，法則提供了這個標準。更深層地，法則是對任意性的防線：在一個相信宇宙有秩序的世界觀中，藝術的形式紀律是宇宙秩序在人類創造中的映射。）",
+      "公共性與道德教化：藝術服務於公共生活，承擔道德教育的功能——歷史畫展示公民美德，建築體現國家威嚴，悲劇淨化觀眾情感。（WHY：古典主義誕生的每一個歷史時刻都是政治秩序建構的時刻。雅典的悲劇在城邦祭典上演出，觀眾是全體公民。路易十四的凡爾賽以古典建築彰顯王權的正當性。David 的歷史畫在沙龍中向巴黎公眾宣講共和美德。藝術的公共性不是附加功能，它是古典主義存在的政治理由。）",
+      "克制與節制 (decorum)：情感表達必須受到形式的約束，激情在尊嚴的框架內被馴服。（WHY：古典主義將失控的情感視為對理性秩序的威脅。拉奧孔面對致命蛇毒時的微張之口——而非撕心裂肺的嘶吼——是 Winckelmann 定義希臘藝術本質的核心案例。克制是倫理立場：能夠控制自己情感的人才有資格參與公共生活。古典悲劇中的英雄在崩潰前保持語言的結構完整，因為形式的崩潰就是人格的崩潰。）",
+      "層級體系與畫種等級：繪畫中歷史畫高於肖像畫高於風景畫高於靜物畫；建築中神殿與公共建築高於私人住宅。（WHY：古典主義的價值觀預設精神內容高於物質內容。歷史畫處理人類的偉大行動與道德抉擇，靜物畫描繪無生命的物件——主題的道德重量決定了畫種的等級。這個體系同時服務於學院的教學與考核：它提供了清晰的進階路徑，學生從靜物畫開始，以歷史畫為終極目標。）"
+    ],
+    "what_they_refuse": [
+      "未經理性約束的情感表達：拒絕巴洛克的戲劇性激情與感官刺激、拒絕浪漫主義的主觀情感崇拜。（WHY：情感本身不是問題，問題是情感凌駕於理性之上。巴洛克繪畫中誇張的明暗對比、扭曲的人體、戲劇性的光線，在古典主義者看來是對觀者感官的操縱——用生理反應取代智識判斷。古典主義要求的是「通過形式過濾的情感」：情感必須服從構圖法則、比例關係與主題的莊嚴性。）",
+      "裝飾的過度堆砌：拒絕洛可可的繁複裝飾、拒絕哥德式的有機紋樣。（WHY：古典主義將裝飾過度視為道德問題。路易十五時期的洛可可風格——貝殼紋、藤蔓紋、鍍金浮雕遍佈每一寸表面——在古典主義者看來代表了貴族階級的道德腐敗。每一朵無功能的裝飾花紋都是理性秩序的侵蝕。新古典主義在法國大革命前夕興起，直接對標洛可可的「墮落」。）",
+      "偶然性與不規則性：拒絕自然主義對現實缺陷的如實描繪、拒絕風景畫中未經馴化的野性自然。（WHY：古典主義的宇宙觀是目的論的——萬物有其理想狀態，藝術的使命是呈現這個理想。一棵被雷劈過的樹、一張佈滿皺紋的臉，在古典框架中是「偏離理想」的偶然事件。描繪偶然性等於承認宇宙缺乏秩序——這與整個古典世界觀衝突。理想化是一種哲學立場。）",
+      "個人風格的放縱：拒絕將藝術家的個性凌駕於法則之上，反對為了獨特而打破既定規則。（WHY：古典主義的知識論假設存在客觀的美，個人趣味只有在與客觀法則一致時才有效。一個藝術家的「個人風格」如果偏離了比例法則、構圖規範或主題的莊嚴性，那就是錯誤。學院體系的獎懲制度強化了這個信念：羅馬大獎 (Prix de Rome) 考的是對法則的掌握，而非個人表達。）",
+      "題材的低俗化：拒絕描繪日常瑣事、低等人物或粗俗場景，堅持藝術應處理崇高的主題。（WHY：古典主義的畫種等級體系將歷史畫（描繪神話、聖經、古代歷史的重大場景）置於最高位。農民生活、市井場景、靜物被視為「低等題材」，因為它們缺乏道德教化的潛力。藝術的功能是提升觀者，描繪卑微事物無法達成這個目標。這個等級觀直到印象派才被徹底推翻。）",
+      "時間性與變化的表現：拒絕捕捉瞬間、偶然的光影或特定時刻的情境。（WHY：古典主義追求的是永恆性——跨越時間的法則。帕德嫩神殿的比例在任何光線下都成立，普桑的構圖在任何觀看距離下都穩定。對「瞬間」的捕捉暗示著美是偶然的、轉瞬即逝的——這與古典主義的永恆美學根本矛盾。印象派對光影瞬間的迷戀正是對這個信念的全面反叛。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "巴洛克 (Baroque)：其戲劇性的明暗對比、動態構圖、感官刺激被古典主義視為理性秩序的對立面",
+      "洛可可 (Rococo)：其輕佻裝飾、色情暗示、貴族享樂主義被新古典主義者視為道德墮落的視覺表現",
+      "浪漫主義 (Romanticism)：其主觀情感崇拜、崇高 (Sublime) 美學、對野性自然的迷戀，是對古典理性秩序的正面挑戰",
+      "哥德式 (Gothic)：其非古典的有機結構、尖拱與飛扶壁、中世紀精神被文藝復興古典主義者視為「野蠻」（'gotico' 本身即為貶義詞）",
+      "自然主義 (Naturalism)：其對現實缺陷的如實描繪違反了古典的理想化原則"
+    ],
+    "against_values": [
+      "情感優先於理性：古典主義堅信理性是通往美的唯一可靠路徑，情感只有在理性框架內才有藝術價值",
+      "個人表達優先於客觀法則：古典主義否定藝術家的主觀趣味可以取代經過歷史驗證的美的標準",
+      "新奇優先於永恆：古典主義追求跨越時間的普遍法則，對「創新」本身不感興趣",
+      "偶然性高於必然性：古典主義的宇宙觀是目的論的，拒絕將偶然事件賦予美學價值",
+      "感官快感等同於美：古典主義區分「低等的」感官愉悅與「高等的」智識愉悅，後者才是藝術的目標"
+    ],
+    "societal_context": "古典主義的每一次興起都對應一個政治秩序的建構期。雅典民主需要公共美學凝聚城邦認同——帕德嫩神殿與悲劇祭典同時服務於宗教與政治。羅馬帝國用古典建築語言（凱旋門、萬神殿、浴場）宣示統治的正當性。文藝復興的城邦需要與中世紀決裂的文化符號，古典提供了「輝煌過去」的參照系。路易十四將古典主義制度化為國家美學，法蘭西學院與凡爾賽宮共同構成絕對王權的文化基礎設施。十八世紀新古典主義則出現在兩個對立的政治語境中：一方面是啟蒙理性對洛可可的道德批判，另一方面是法國大革命以羅馬共和為範本的政治實踐——David 同時畫了處死國王的《馬拉之死》與加冕皇帝的《拿破崙加冕禮》。美國建國者（Jefferson、Hamilton）選擇古典柱式作為新共和國的建築語言，國會大廈的圓頂是羅馬萬神殿的精神後裔。古典主義的政治彈性（既能服務於民主、也能服務於專制）是它延續兩千年的結構性原因。"
+  },
+
+  "problems_solved": [
+    "為美建立了可教授、可傳承的客觀標準：在比例、對稱、和諧的框架下，美從個人趣味的領域進入公共知識的領域，藝術教育得以制度化",
+    "創造了跨文化、跨時代的建築語言：柱式系統（多利克、愛奧尼、科林斯）提供了一套全歐洲通用的形式語法，使不同國家的建築師能在共同的框架內溝通",
+    "將藝術提升為知識活動：古典主義強調藝術家必須具備歷史知識、哲學素養與數學能力，將創作從手工技藝提升為自由藝術 (artes liberales)，改變了藝術家的社會地位",
+    "建立了藝術批評的理性方法：從亞里斯多德的《詩學》到布瓦洛的《詩的藝術》，古典主義發展出一套基於法則的作品評判系統，使藝術討論超越了「我喜歡 / 我不喜歡」的層次",
+    "為公共空間提供了莊嚴與秩序的形式語言：從帕德嫩神殿到美國國會大廈，古典建築為民主制度、公共機構與集體記憶提供了持久的空間載體",
+    "確立了「歷史意識」作為創作的前提：古典主義要求藝術家研究過去的傑作，這種歷史意識催生了藝術史學科（Winckelmann）、考古學（龐貝發掘）與博物館制度的發展"
+  ],
+
+  "problems_created": [
+    "壓抑了個體表達與情感真實：法則的霸權導致藝術創作趨向公式化，學院沙龍充斥著結構正確但缺乏生命力的歷史畫。無數有才能的藝術家因不符合學院標準而被排斥",
+    "建立了歐洲中心的美學霸權：以希臘羅馬為唯一合法源頭的美學觀，系統性地貶低了非西方文化的藝術成就——非洲雕刻、亞洲水墨、伊斯蘭幾何紋樣都被歸為「裝飾」或「原始藝術」",
+    "理想化人體造成了排他性的身體美學：古典雕塑確立的人體比例標準（八頭身、特定的肌肉結構）長期排斥了對年老、殘疾、非白人身體的藝術再現",
+    "古典法則被政治權力反覆挪用為合法性工具：從羅馬帝國到拿破崙到墨索里尼，專制政權利用古典形式的「永恆感」為自身的權力披上正當性的外衣。古典建築語言的政治中立性是一個危險的幻象",
+    "對「低等題材」的排斥延遲了日常生活進入藝術視野：畫種等級體系導致風景畫、靜物畫、風俗畫長期被邊緣化，直到十九世紀寫實主義與印象派才完成對這個等級的推翻",
+    "過度依賴古典權威導致創新的制度性抑制：學院體系將「正確地模仿古典」等同於「優秀」，羅馬大獎的考核標準獎勵的是對法則的遵從而非原創性。這種體制在十九世紀下半葉成為前衛藝術運動的首要攻擊目標"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "美可以被理性認識、由法則描述、通過教育傳承——藝術是可以被系統化的知識活動，擁有客觀的品質標準。這個信念讓藝術從巫術的領域進入理性的領域，從個人天賦的領域進入公共教育的領域，從而催生了藝術學院、藝術史、藝術批評等一切以理性處理美的制度。",
+    "what_was_truly_new": [
+      "柱式系統的發明：將建築元素組織為一套可精確計算、跨地域傳播的形式語法，這是人類最早的設計系統 (design system)",
+      "模仿理論 (mimesis) 的建立：亞里斯多德將模仿從低等的複製行為提升為揭示普遍性的認知活動，重新定義了藝術的本體論地位",
+      "藝術史書寫方法的發明：Winckelmann 首次以風格發展的內在邏輯（而非藝術家傳記）為框架書寫藝術史，建立了至今仍在使用的週期性敘事模型",
+      "學院制度的建立：法蘭西學院將古典法則制度化為可考核的教學標準，發明了現代藝術教育體系的原型（入學考試、工作坊、獎學金、羅馬大獎）",
+      "公共美學意識的形成：從雅典城邦到法國大革命，古典主義首次系統性地論證了美的公共功能——藝術不是私人享受，它是塑造公民的工具"
+    ],
+    "what_was_borrowed": [
+      "埃及建築的紀念性與對稱法則：希臘柱式的最早形態受到埃及石柱建築的影響，對稱構圖的概念在埃及神殿中已經高度成熟",
+      "美索不達米亞的數學傳統：畢達哥拉斯的數學哲學部分源自巴比倫的數學知識，而數學比例是古典美學的核心工具",
+      "古近東的史詩傳統：荷馬史詩的敘事結構與英雄原型受到吉爾伽美什史詩等古近東文學的影響",
+      "文藝復興時期的人文主義與考古學成就：新古典主義直接建立在文藝復興對古典文本的重新發現與詮釋之上"
+    ],
+    "creative_leap": "古典主義的關鍵飛躍在於將「美」從主觀感受轉化為客觀知識。這個轉化需要三個同時發生的思想運動：(1) 從畢達哥拉斯的弦長實驗推導出美可以被數學描述的信念；(2) 從柏拉圖的理型論推導出理想化高於現實摹寫的美學立場；(3) 從亞里斯多德的分類學推導出法則可以被系統性教授的教育信念。這三個環節任何一個單獨存在都不新鮮——真正的原創性在於將它們整合為一套自洽的美學-教育-制度體系，並讓這個體系持續運作了兩千年。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "古典主義的核心命題——是否存在客觀的品質標準——在任何創作領域都永遠有效。當 AI 可以大量生成「看起來不錯」的作品時，區分「不錯」與「偉大」的標準問題重新變得急迫。古典主義的法則思維（design system）、歷史意識（向過去學習）、公共性意識（藝術服務於集體）對當代設計仍有直接參考價值。",
+      "transferable_to": [
+        "Design System 與 Design Token：古典柱式系統是人類最早的 design system——預定義的比例關係、可組合的元素、跨項目的一致性",
+        "品牌設計的一致性法則：古典主義對 decorum（得體）的要求對應品牌調性管理——每一個視覺元素都必須服從整體的調性秩序",
+        "建築與都市規劃：古典主義的公共空間思維——建築如何服務於集體記憶、公民認同與社會秩序——對今天的公共建築設計仍有啟發",
+        "AI 時代的品質標準：當生成式 AI 能產出無限量的內容，如何建立品質判斷的客觀標準？古典主義的法則思維提供了一個起點",
+        "法律與制度設計的形式語言：古典建築為法院、議會、大學提供了莊嚴的空間語言，這種「形式承載價值」的設計思維在機構品牌設計中仍然相關",
+        "教育體系的結構化：古典主義的教學法（範本研究→法則掌握→個人創作）對任何技能教育的課程設計都有參考價值"
+      ]
+    },
+    "originality_type": "codification"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "古埃及建築：紀念性、對稱法則、石造建築的永恆性追求",
+      "美索不達米亞數學：比例與幾何的數學基礎",
+      "畢達哥拉斯學派：數學-音樂-宇宙和諧的統一觀",
+      "柏拉圖理型論：理想形式高於感官現實的哲學基礎",
+      "亞里斯多德：模仿理論、悲劇結構、分類學思維"
+    ],
+    "influenced": [
+      "文藝復興 (Renaissance, 14th-16th c.)：全面復興古典文本與形式語言，阿爾伯蒂、米開朗基羅、拉斐爾",
+      "法國古典主義 (French Classicism, 17th c.)：路易十四宮廷的制度化古典主義，普桑、拉辛、莫里哀",
+      "帕拉底歐主義 (Palladianism, 16th-18th c.)：從義大利到英國到美國的古典建築傳播",
+      "新古典主義 (Neoclassicism, 18th-19th c.)：Winckelmann 與 David 引領的古典復興",
+      "學院派 (Academic Art, 19th c.)：法蘭西學院的教學體系與沙龍制度",
+      "City Beautiful Movement (1890s-1920s)：美國城市規劃中的古典公共建築理想",
+      "新古典主義建築 (20th-21st c.)：從 Albert Speer 到 Leon Krier，古典形式在現代建築中的延續與爭議",
+      "現代設計體系 (Design Systems)：古典柱式系統作為可組合、可標準化的形式語法，是 design token 與 component library 的精神先驅"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "威嚴、有教養、重視傳統但並非盲從。像一位法蘭西學院的資深院士：衣著整齊、措辭精確、對歷史瞭若指掌。判斷作品時先看結構是否穩固，再看題材是否值得處理，最後看執行是否達到技藝的高標準。對膚淺的創新嗤之以鼻，但對真正理解古典法則後有意識地變奏的作品表示尊敬。語速從容，每一個判斷都有引經據典的習慣。偶爾流露出一種「世界正在失去品味」的感嘆。",
+    "evaluation_bias": "強烈偏好結構完整、比例和諧、主題崇高的作品。傾向高估技藝純熟度與歷史知識的價值，低估情感真實性與個人獨特性的重要性。會不自覺地以「這是否禁得起時間的考驗？」作為隱性評分標準。對形式粗糙但情感動人的作品可能給出偏低的評價，因為「表達意圖無法彌補技藝的缺陷」。",
+    "blind_spots": "難以公正評價破壞性創新的作品。對不符合西方古典傳統的美學體系（東亞水墨的留白、非洲雕刻的抽象化、伊斯蘭藝術的非具象傳統）缺乏相應的評判框架。傾向將「不遵守法則」等同於「缺乏能力」，無法區分「不會」與「選擇不」。對當代藝術的觀念性面向容易產生排斥反應。",
+    "typical_critique": "你的作品展現了可觀的企圖心，但結構上有幾處比例失衡需要修正。主題的選擇是值得的——問題在於處理方式缺乏必要的克制。我建議你回去研究普桑處理同一主題的方式：觀察他如何在情感的深度與構圖的穩定之間取得平衡。真正的力量在於約束之中。"
+  },
+
+  "writing_style": {
+    "collective_voice": "古典主義的集體寫作風格是「立法式論述」：每一句話都在建立或重申法則。句子結構偏好對偶與排比，反映理性秩序的追求。修辭上大量使用類比（自然-藝術、音樂-建築、身體-建築），以此證明美的法則具有跨領域的普遍性。權威引用是標準配備——荷馬、維特魯威、亞里斯多德被作為不可動搖的論據反覆援引。所有作者都以教育者或立法者的姿態寫作，定義的是「應該如何」。語氣莊重、用詞精確、結構對稱，正如他們主張的建築與繪畫。",
+    "internal_tensions": "最大的裂痕在「規則的普遍性」與「天才的例外權」之間。布瓦洛在《詩的藝術》中明確立法，卻又不得不承認荷馬打破了自己訂下的部分規則。Winckelmann 主張模仿古典是唯一的道路，卻以極度個人化的、近乎情色的語言描寫希臘雕像。歌德從狂飆突進轉向古典，但終其一生在「法則」與「天性」之間搖擺。普桑聲稱追求理性秩序，私人書信中卻流露出對混亂的深層恐懼。法則是盾牌還是枷鎖？這個問題在每一位古典主義者的文字中都留下了裂痕。",
+    "master_voices": [
+      {
+        "name": "Johann Joachim Winckelmann",
+        "writing_character": "藝術史的先知——以考古學家的精確眼光與詩人的狂熱情感描寫古典雕塑",
+        "sentence_rhythm": "中等長度的陳述句為主體，偶爾爆發長句式的抒情段落。平靜的學術敘述中突然出現感性的比喻，如深海表面突然湧起的浪",
+        "rhetoric": "自然界隱喻（海洋、風暴、季節循環）、對偶結構、以古典作品為論據的歸納推理",
+        "tone": "學者的冷靜與崇拜者的熱情交替出現，在描述希臘雕像時接近宗教性的虔誠",
+        "real_examples": [
+          {
+            "text": "Edle Einfalt und stille Grosse.",
+            "source": "Gedanken uber die Nachahmung, 1755",
+            "style_note": "六個字的密度——兩組形容詞-名詞配對，對偶結構，每一個詞都承載最大重量"
+          },
+          {
+            "text": "So wie die Tiefe des Meers allezeit ruhig bleibt, die Oberflache mag noch so wuten...",
+            "source": "Gedanken uber die Nachahmung, 1755",
+            "style_note": "以自然界的物理現象比喻心靈狀態，表面/深處的對立映射外在激情/內在安定的古典辯證"
+          }
+        ]
+      },
+      {
+        "name": "Nicolas Poussin",
+        "writing_character": "以書信體寫作的畫家哲學家——用日常對話的語氣傳遞深刻的美學原則",
+        "sentence_rhythm": "中等偏短的句子，書信體的自然節奏。複雜觀念被拆解為連續的短句，語氣親切但觀點絕對",
+        "rhetoric": "祈使句（讀歷史，再讀畫面）、具體案例推導普遍法則、幽默類比（美女與廊柱）",
+        "tone": "溫和而堅定的長者，在與友人的通信中自然地流露審美信條",
+        "real_examples": [
+          {
+            "text": "Lisez l'histoire et le tableau, afin de connaitre si chaque chose est appropriee au sujet.",
+            "source": "Letter to Chantelou, 1639",
+            "style_note": "祈使句起手，動詞-名詞配對（讀/歷史、讀/畫面），目的子句收束——畫面是可以被閱讀和驗證的文本"
+          }
+        ]
+      },
+      {
+        "name": "Goethe",
+        "writing_character": "在格言與長篇論述之間自如切換的文人——詩人的直覺為學者的論證提供跳板",
+        "sentence_rhythm": "兩極化：要嘛是不超過十字的格言警句，要嘛是層層從句的複雜論述。格言通常出現在對話錄中，長句出現在正式著作中",
+        "rhetoric": "醫學隱喻（健康/病態）、二元對立（古典/浪漫、法則/自由、自然/藝術）、悖論式收束",
+        "tone": "智慧長者的從容，帶有偶爾的尖銳與幽默",
+        "real_examples": [
+          {
+            "text": "Classisch ist das Gesunde, romantisch das Kranke.",
+            "source": "Gesprache mit Eckermann, 1829",
+            "style_note": "十個字的對偶格言，以醫學判斷取代美學判斷，將整個古典/浪漫之爭壓縮為一個診斷"
+          },
+          {
+            "text": "In der Beschrankung zeigt sich erst der Meister.",
+            "source": "Sonnet 'Natur und Kunst', 1800",
+            "style_note": "詩句中的格言——「限制」與「大師」的悖論性並置，用最精煉的形式表達古典主義的核心辯證"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子以中等長度的陳述句為主（20-35 字），關鍵判斷用對偶結構壓縮",
+      "大量使用歷史引用作為論據——普桑這樣做過、帕拉底歐會同意、亞里斯多德早就說過",
+      "語氣莊重而非激昂，判斷果斷但措辭有禮",
+      "偏好否定式表達：先指出缺陷，再給予建設性建議",
+      "使用比例、平衡、和諧等古典核心詞彙作為評判基準",
+      "排比結構以對偶（兩項）為標準節奏，偶爾擴展為三項",
+      "禁用口語化表達與流行詞彙",
+      "每一個批評都必須附帶一個古典範本作為對照參考",
+      "結尾傾向以格言或法則作為收束，而非開放性提問"
+    ]
+  }
+}

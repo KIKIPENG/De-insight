@@ -1,0 +1,523 @@
+{
+  "movement_id": "cubism",
+  "name": {
+    "zh": "立體主義",
+    "en": "Cubism",
+    "fr": "Cubisme"
+  },
+  "domain": [
+    "painting",
+    "sculpture",
+    "collage",
+    "graphic_design",
+    "architecture",
+    "literature",
+    "theater_design",
+    "decorative_arts"
+  ],
+  "period": {
+    "start": 1907,
+    "end": 1925,
+    "peak": "1907-1914（從《亞維儂的少女》到一戰爆發。分析立體主義 1907-1912 將物體拆解為多視點幾何碎片；綜合立體主義 1912-1920 引入拼貼、文字與色彩，重新組裝現實。戰爭中斷了 Picasso 與 Braque 的密集合作，但立體主義的視覺語法已徹底改寫西方藝術的基本規則。）"
+  },
+  "geography": [
+    "Paris, France (Montmartre / Bateau-Lavoir, 1907-1912)",
+    "Paris, France (Montparnasse, 1912-)",
+    "Céret, France (Picasso & Braque 夏季工作地)",
+    "Sorgues, France (Braque 首次拼貼實驗)",
+    "Madrid, Spain (Juan Gris 出生地，1906 移居巴黎)",
+    "Prague, Czech Republic (Josef Capek, Bohumil Kubista)",
+    "New York, USA (1913 Armory Show 將立體主義引入美國)",
+    "Moscow, Russia (影響 Constructivism, Suprematism)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1907 年的巴黎是全球藝術的引力中心。印象派已走到盡頭——Monet 把光線分解到眼睛無法再進一步的極限，Cézanne 在 1906 年去世前留下最後的遺言：把自然還原為圓柱體、球體、圓錐體。與此同時，非歐幾何學（Riemann, Lobachevsky）與第四維度的概念從數學界滲入巴黎知識圈，Henri Poincaré 的《科學與假說》(1902) 成為藝術家的案頭書。愛因斯坦的狹義相對論 (1905) 雖然未被藝術家直接閱讀，但「時間與空間是相對的」這個觀念已在空氣中流動。非洲與伊比利亞雕塑在巴黎民族誌博物館（Trocadéro）的展示，向歐洲藝術家揭示了一個完全不同的造形邏輯——面具不模仿面孔，它創造面孔。所有這些力量匯聚在一個 25 歲的西班牙人身上：Picasso 在 1907 年畫出《亞維儂的少女》，用一幅畫炸開了文藝復興以來 500 年的單點透視傳統。",
+    "social_energy": "立體主義的能量來自三個交匯點：(1) 工業化城市的感知衝擊——火車、汽車、電影、攝影改變了人類經驗時間與空間的方式，固定視點的靜態畫面無法再捕捉現代生活的速度與同時性；(2) 殖民帝國帶回的「他者」造形——非洲面具、伊比利亞石雕讓歐洲藝術家意識到模仿自然只是無數可能的造形策略之一；(3) 科學革命對確定性的瓦解——非歐幾何、第四維度、相對論動搖了牛頓世界觀的絕對座標系，如果空間本身是彎曲的，為什麼繪畫還要假裝它是平的？",
+    "purpose": "立體主義的核心計畫是重建繪畫的認識論基礎：畫布上呈現的是心智對物體的完整認知，而非視網膜在某個瞬間、某個角度接收到的局部光學影像。Picasso 說得最直接：我畫物體我所認知的樣子，而非我所看到的樣子。這意味著一張臉可以同時展示正面與側面，一把吉他可以同時呈現頂部、側面與背面。繪畫從「窗戶」變成「物體」——畫布本身就是一個實體，而非通向另一個幻覺空間的透明玻璃。",
+    "two_phases": "立體主義有兩個截然不同的階段。分析立體主義 (Analytic Cubism, 1907-1912)：將物體拆解為層層疊疊的幾何平面碎片，色彩壓縮到幾乎單色的灰褐色調，觀者必須在碎片中重新拼湊物體的身份。這個階段走到極端時，畫面已接近完全抽象——Braque 和 Picasso 開始擔心與「可辨識的現實」失去連結。綜合立體主義 (Synthetic Cubism, 1912-1920)：從拆解轉向重新組裝。Braque 在 1912 年貼上第一片壁紙碎片，Picasso 緊隨其後引入報紙、繩索、沙子。拼貼 (collage) 的發明是藝術史的分水嶺——真實物件進入畫面，繪畫與現實的邊界徹底模糊。色彩回歸，構圖變得更大膽、更裝飾性，字母與文字成為構圖元素。",
+    "key_timeline": [
+      "1904 — Picasso 定居巴黎 Bateau-Lavoir 工作室，進入玫瑰時期",
+      "1906 — Cézanne 去世。1907 年巴黎秋季沙龍舉辦 Cézanne 回顧展，震撼整個巴黎藝術界",
+      "1907.06-07 — Picasso 完成《亞維儂的少女》(Les Demoiselles d'Avignon)，當時幾乎所有人（包括 Braque、Matisse、Derain）都感到震驚與不安",
+      "1907 秋 — Picasso 參觀 Trocadéro 民族誌博物館，非洲面具的「魔力」深刻衝擊他對造形的理解",
+      "1908 — Braque 在 L'Estaque 畫的風景畫被 Matisse 評為「petits cubes」（小方塊），評論家 Louis Vauxcelles 據此創造「Cubisme」一詞",
+      "1909-1911 — 分析立體主義高峰。Picasso 與 Braque 密集合作，畫面趨向單色幾何碎片化，兩人作品幾乎無法區分",
+      "1911 — Gleizes、Metzinger、Léger、Delaunay 等人在獨立沙龍 Room 41 集體展出，立體主義首次以「運動」的形式公開亮相（Picasso 和 Braque 未參展）",
+      "1912.09 — Braque 在《水果盤與玻璃杯》中貼上仿木紋壁紙，發明拼貼 (papier colle)",
+      "1912.12 — Picasso 創作《藤椅靜物》，使用油布、繩索，拼貼從 papier colle 擴展為 collage",
+      "1912 — Gleizes 與 Metzinger 出版《Du Cubisme》，第一部立體主義理論專著",
+      "1913 — Apollinaire 出版《Les Peintres Cubistes》，定義立體主義的四種類型",
+      "1913.02 — 紐約 Armory Show 展出立體主義作品，Marcel Duchamp 的《下樓的裸女二號》引發美國媒體轟動",
+      "1914 — 一戰爆發。Braque 與 Léger 入伍（Braque 頭部重傷），Picasso 與 Gris 作為中立國公民留在巴黎。Picasso-Braque 的密切合作就此結束",
+      "1914-1920 — 綜合立體主義持續發展。Juan Gris 成為這一階段最具系統性的實踐者",
+      "1921 — Picasso 畫出《三個音樂家》，綜合立體主義的紀念碑式鉅作",
+      "1920s — 立體主義作為統一運動逐漸消散，但其視覺語法已永久改變西方藝術的 DNA"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "巴勃羅·畢卡索",
+        "en": "Pablo Picasso"
+      },
+      "role": "立體主義共同創始人。1907 年以《亞維儂的少女》開啟立體主義革命，與 Braque 在 1909-1914 年間密切合作發展分析與綜合立體主義。此後持續吸收並轉化立體主義語彙超過半世紀，是 20 世紀影響力最大的視覺藝術家。",
+      "key_works": [
+        "《亞維儂的少女》(Les Demoiselles d'Avignon, 1907)",
+        "《費爾南德頭像》(Head of a Woman / Fernande, 1909, 立體主義雕塑先驅)",
+        "《藤椅靜物》(Still Life with Chair Caning, 1912, 首件 collage 作品)",
+        "《吉他》(Guitar, 1912-1913, 紙板與金屬構造雕塑)",
+        "《三個音樂家》(Three Musicians, 1921, 綜合立體主義巨作)",
+        "《格爾尼卡》(Guernica, 1937, 以立體主義語彙創作的反戰紀念碑)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I paint objects as I think them, not as I see them.",
+          "source": "widely attributed, from interviews; quoted in Marius de Zayas, 'Picasso Speaks', The Arts, May 1923",
+          "meaning": "（立體主義的認識論核心宣言：繪畫呈現的是心智對物體的完整認知——包含記憶、觸覺、多個角度的經驗總和——而非定格在某個瞬間、某個視角的視網膜影像。這一句話推翻了文藝復興以來「繪畫是看見的忠實記錄」的基本假設。）"
+        },
+        {
+          "text": "Every act of creation is first an act of destruction.",
+          "source": "widely attributed to Picasso",
+          "meaning": "（在創造新的視覺秩序之前，必須先摧毀舊的。《亞維儂的少女》正是這個原則的極端實踐——Picasso 同時摧毀了古典透視、理想化的人體比例、統一的空間邏輯。破壞是建設的前提條件。）"
+        },
+        {
+          "text": "There is no abstract art. You must always start with something. Afterward you can remove all traces of reality.",
+          "source": "quoted in Christian Zervos, 'Conversation avec Picasso', Cahiers d'Art, 1935",
+          "meaning": "（Picasso 始終堅持立體主義從現實出發——一把吉他、一瓶紅酒、一張報紙。抽象化是過程，是認知的深化，但出發點永遠是具體的物件。這區別了立體主義與後來的純粹抽象藝術。）"
+        },
+        {
+          "text": "Cubism is not a reality you can take in your hand. It's more like a perfume, in front of you, behind you, to the sides, the scent is everywhere but you don't quite know where it comes from.",
+          "source": "quoted in Marius de Zayas, 'Picasso Speaks', The Arts, May 1923",
+          "meaning": "（立體主義的空間體驗是環繞式的、瀰漫的——物體從所有方向同時向你顯現自身。這個嗅覺隱喻精確描述了多視點空間的感知特質：你在它裡面，它在你周圍，沒有一個固定的觀看位置。）"
+        },
+        {
+          "text": "When we invented Cubism, we had no intention of inventing Cubism. We simply wanted to express what was in us.",
+          "source": "quoted in Dore Ashton, Picasso on Art: A Selection of Views, 1972",
+          "meaning": "（立體主義是一個內在必然性的結果，是對 20 世紀初碎裂的現實感知的誠實回應。Picasso 拒絕將它框定為一個預先設計的「主義」或風格策略。）"
+        },
+        {
+          "text": "The world today doesn't make sense, so why should I paint pictures that do?",
+          "source": "widely attributed to Picasso",
+          "meaning": "（如果現實本身已經碎裂、矛盾、多重，忠實於現實的藝術就應該同樣碎裂、矛盾、多重。連貫性是對 20 世紀經驗的背叛。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "喬治·布拉克",
+        "en": "Georges Braque"
+      },
+      "role": "立體主義共同創始人。1908 年在 L'Estaque 的風景畫催生「Cubisme」命名。與 Picasso 在 1909-1914 年間幾乎不可區分地緊密合作，自比為「被繩索綁在一起的登山者」。1912 年發明 papier colle（紙片拼貼），開啟綜合立體主義。",
+      "key_works": [
+        "《L'Estaque 的房屋》(Houses at l'Estaque, 1908, 催生 Cubism 命名)",
+        "《小提琴與調色盤》(Violin and Palette, 1909)",
+        "《水果盤與玻璃杯》(Fruit Dish and Glass, 1912, 首件 papier colle)",
+        "《帶撲克牌的靜物》(Still Life with Tenora, 1913)",
+        "《圓桌》(The Round Table, 1929, 晚期立體主義)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The hard-and-fast rules of perspective which it succeeded in imposing on art were a ghastly mistake which it has taken four centuries to redress.",
+          "source": "Le Jour et la Nuit: Cahiers 1917-1952 (Notebooks)",
+          "meaning": "（透視法是一個四百年的錯誤——文藝復興以來被視為「科學真理」的線性透視，其實只是一種人為的視覺慣例。立體主義的歷史使命正是糾正這個根深蒂固的錯誤。這是 Braque 對立體主義最凝練的歷史定位。）"
+        },
+        {
+          "text": "Art is made to disturb, science reassures.",
+          "source": "Le Jour et la Nuit: Cahiers 1917-1952 (Notebooks)",
+          "meaning": "（藝術的功能是擾亂既有的認知框架，強迫觀者重新看待習以為常的事物。科學提供確定性，藝術提供不確定性——立體主義擾亂的正是「眼見為實」這個最基本的視覺確定性。）"
+        },
+        {
+          "text": "In art progress does not consist in extension, but in the knowledge of limits. Limitation of means determines style, engenders new form, and gives impulse to creation.",
+          "source": "Le Jour et la Nuit: Cahiers 1917-1952 (Notebooks)",
+          "meaning": "（分析立體主義將色彩壓縮到灰褐單色、將空間壓縮到淺浮雕——正是這些極端的自我限制催生了全新的造形語言。限制是創造力的發動機。）"
+        },
+        {
+          "text": "It is not enough to make people see the object you paint. You must also make them touch it.",
+          "source": "Le Jour et la Nuit: Cahiers 1917-1952 (Notebooks)",
+          "meaning": "（繪畫必須喚起觸覺——物體的重量、質地、體積感。立體主義對多視點的追求，本質上是要在二維畫布上重建人類用手觸摸物體時獲得的完整空間認知。拼貼的發明——將真實材料貼上畫布——是這個觸覺衝動的極端表現。）"
+        },
+        {
+          "text": "Truth exists; only lies are invented.",
+          "source": "Le Jour et la Nuit: Cahiers 1917-1952 (Notebooks)",
+          "meaning": "（物體的真實存在不需要被發明，它只需要被揭示。透視法是「被發明的」——它是一套人為規則，製造空間深度的幻覺。立體主義要拋棄幻覺，直面畫布作為平面物體的真實身份。）"
+        },
+        {
+          "text": "With Picasso we said things that nobody else would ever have said to us, things that would have been incomprehensible to others. It was like being roped together on a mountain.",
+          "source": "reported by John Richardson in A Life of Picasso; Braque in interview with Dora Vallier, Cahiers d'Art, 1954",
+          "meaning": "（Braque 用登山者的隱喻描述他與 Picasso 的合作關係：兩人被繩索綁在一起，在未知的領域中攀登，彼此的溝通已經超越了語言——一種只有共同冒險者才能理解的默契。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "胡安·格里斯",
+        "en": "Juan Gris"
+      },
+      "role": "綜合立體主義最具理論自覺的實踐者。1906 年從馬德里移居巴黎 Bateau-Lavoir（與 Picasso 比鄰而居），1911 年開始投入立體主義創作。其方法論與 Picasso 和 Braque 相反：從抽象幾何結構出發，再將具體物象嵌入其中。1927 年早逝，年僅 40 歲。",
+      "key_works": [
+        "《畢卡索肖像》(Portrait of Pablo Picasso, 1912)",
+        "《桌上的吉他》(Guitar on a Table, 1915)",
+        "《百葉窗》(The Blinds, 1914)",
+        "《靜物與格子布》(Still Life with Checked Tablecloth, 1915)",
+        "《小丑》(Harlequin with Guitar, 1919)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Cézanne turns a bottle into a cylinder, but I begin with a cylinder and create an individual of a special type: I make a bottle — a particular bottle — out of a cylinder.",
+          "source": "L'Esprit Nouveau, No. 5, 1921; also cited in Daniel-Henry Kahnweiler, Juan Gris: His Life and Work, 1947",
+          "meaning": "（Gris 精準定義了綜合立體主義與分析立體主義的方法論差異。分析立體主義從具體物體出發、向抽象分解（瓶子→圓柱體）；綜合立體主義反向操作，從抽象結構出發、向具體物象凝聚（圓柱體→瓶子）。這是演繹法 vs 歸納法在視覺藝術中的對位。）"
+        },
+        {
+          "text": "I try to make concrete that which is abstract.",
+          "source": "attributed, lectures and statements; cited in Kahnweiler, Juan Gris: His Life and Work, 1947",
+          "meaning": "（一句話的方法論宣言：從抽象走向具象——先建立幾何的建築結構，再讓具體的吉他、玻璃杯、報紙從結構中「長出來」。這與 Picasso 從具象走向抽象的路徑完全互補。）"
+        },
+        {
+          "text": "I prefer the emotion that corrects the rule.",
+          "source": "attributed to Gris; cited in Kahnweiler, Juan Gris: His Life and Work, 1947",
+          "meaning": "（系統性不等於僵化——幾何結構是出發點，但最終的造形決策由情感微調。規則是骨架，情感是呼吸。Gris 的畫面比 Picasso 和 Braque 更有建築感，但色彩卻更溫暖、更抒情。）"
+        },
+        {
+          "text": "Cubism is not a manner but an aesthetic, and even a state of mind; it is therefore inevitably connected with every manifestation of contemporary thought.",
+          "source": "lecture at Sorbonne, 'On the Possibilities of Painting', May 15, 1924; published in Transatlantic Review, June 1924",
+          "meaning": "（立體主義是一種認識論態度，一種看待世界的方式，而非一套可以模仿的風格配方。它與同時代的哲學、科學、文學共享同一個知識基礎——多重視角、相對性、碎片化的現實。）"
+        },
+        {
+          "text": "I conceive of my paintings as flat, coloured architecture.",
+          "source": "reported by Kahnweiler; cited in Juan Gris: His Life and Work, 1947",
+          "meaning": "（繪畫是平面的建築——有結構、有承重、有空間關係，但它誠實地承認自己是平的。Gris 的構圖是所有立體主義者中最具建築邏輯的：每個色塊都是承重牆，每條線都是樑柱。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "費爾南·雷捷",
+        "en": "Fernand Léger"
+      },
+      "role": "立體主義陣營中最擁抱機械與現代生活的成員。1910 年代發展出獨特的「管狀立體主義」(Tubism)，以圓柱形體量取代稜角碎片。一戰戰壕經驗徹底改變他的藝術方向——從此將工人、機器、城市景觀作為主題，追求讓藝術服務所有人。",
+      "key_works": [
+        "《森林中的裸體》(Nudes in the Forest, 1909-1910, 被評論家稱為 'Tubism')",
+        "《城市》(The City, 1919)",
+        "《機械芭蕾》(Ballet Mécanique, 1924, 實驗電影)",
+        "《建設者》(The Builders, 1950)",
+        "《大遊行》(The Grand Parade, 1954)"
+      ],
+      "key_quotes": [
+        {
+          "text": "If pictorial expression has changed, it is because modern life has necessitated it.",
+          "source": "Functions of Painting (Fonctions de la Peinture), collected essays, 1965 (originally from 1914 lecture 'Contemporary Achievements in Painting')",
+          "meaning": "（藝術形式的變革是社會現實的必然後果——火車、電影、電燈改變了人類感知速度與空間的方式，繪畫如果不跟著變，就是對自身時代的背叛。立體主義的碎片化語言是對現代都市經驗的直覺回應。）"
+        },
+        {
+          "text": "Modern man lives more and more in a preponderantly geometric order. All human creation, mechanical or industrial, is dependent upon geometric intentions.",
+          "source": "The Machine Aesthetic: The Manufactured Object, the Artisan and the Artist, 1924",
+          "meaning": "（工業文明的視覺環境本質上是幾何的——鋼梁、齒輪、螺栓、煙囪。立體主義的幾何語言是對這個工業現實的美學對應，Léger 將 Picasso 和 Braque 的靜物幾何學推向城市與機械的尺度。）"
+        },
+        {
+          "text": "The object in modern painting must become the main character and overthrow the subject. If, in turn, the human form becomes an object, it can considerably liberate possibilities for the modern artist.",
+          "source": "Functions of Painting, 1945 essay",
+          "meaning": "（物件取代人物成為畫面的主角——這是立體主義最激進的反人文主義宣言之一。當人體也被當作物件（圓柱、圓錐、球體）來處理時，藝術家獲得了前所未有的造形自由。Léger 的工人形象正是「人體作為管狀物件」的實踐。）"
+        },
+        {
+          "text": "Man needs colour to live; it's just as necessary an element as fire and water.",
+          "source": "On Monumentality and Colour, 1943 lecture",
+          "meaning": "（色彩是生存必需品——Léger 在此與分析立體主義的灰褐色調決裂。他堅持色彩是平民的、民主的力量，工人社區的外牆應該像畫布一樣充滿色彩。）"
+        },
+        {
+          "text": "Let us gaze wide-eyed at present-day life, which rolls, moves, and overflows alongside us. Let us organise outer life in our domain: form, colour, light.",
+          "source": "attributed, from lectures and essays on modern painting",
+          "meaning": "（張大眼睛看當下——生活在滾動、移動、溢出。藝術家的任務是把這股洪流組織成形式、色彩、光線的秩序。Léger 是立體主義中最「入世」的成員，他的目光始終朝向街頭、工地、工廠。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "羅伯特·德洛內",
+        "en": "Robert Delaunay"
+      },
+      "role": "立體主義陣營中的「色彩異端」。與妻子 Sonia Delaunay 共同發展 Simultanisme（同時主義），被 Apollinaire 命名為 Orphism（奧費主義）——立體主義的色彩分支。將立體主義的結構分析與純色光學效果結合，開闢了通往純粹抽象的路徑。",
+      "key_works": [
+        "《聖塞弗蘭教堂》(Saint-Séverin, 1909-1910)",
+        "《艾菲爾鐵塔》系列 (Eiffel Tower series, 1909-1912)",
+        "《同時窗戶》系列 (Les Fenêtres simultanées, 1912)",
+        "《圓形構圖》系列 (Formes Circulaires, 1912-1913)",
+        "《無盡的節奏》(Rythme sans fin, 1934)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I was the heretic of Cubism. I had great arguments with my comrades who banned color from their palette, depriving it of all elemental mobility.",
+          "source": "attributed, from writings and correspondence",
+          "meaning": "（Delaunay 自稱立體主義的異端——他反對 Picasso 和 Braque 將色彩壓縮到灰褐單色。對 Delaunay 而言，色彩本身就是結構力量，它能創造空間、節奏和深度，不需要依附於線條和形體。）"
+        },
+        {
+          "text": "Simultaneous contrast is visible depth — Reality, Form, construction, representation. Depth is the new inspiration. We live in depth, we travel in depth.",
+          "source": "Simultanism, October 1913 (published text)",
+          "meaning": "（深度不靠透視線條產生——純色的同時對比本身就能製造空間感。紅色往前推、藍色往後退，這種色彩互動創造的深度比透視法更接近人類實際的空間感知方式。）"
+        },
+        {
+          "text": "Light in nature creates movement in color. The movement is provided by the relationships of uneven measures, of color contrasts among themselves and constitutes Reality.",
+          "source": "La Lumière (On Light), 1912 (published in Der Sturm, January 1913)",
+          "meaning": "（光線是色彩運動的引擎——色彩之間不均等的比例關係製造視覺節奏。Delaunay 把 Chevreul 的色彩理論與 Cézanne 的造形觀念合成為一個動態的視覺系統。）"
+        },
+        {
+          "text": "Simultaneity in light is harmony, the rhythm of colors which creates the Vision of Man.",
+          "source": "attributed, from writings on Simultanism",
+          "meaning": "（色彩的同時性就是和諧——光線中所有色彩同時存在、同時互動，這種同時性對應的是現代人在城市中同時接收多重感官刺激的體驗。繪畫應該像光線一樣運作。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Du 'Cubisme'（論立體主義）",
+      "author": "Albert Gleizes & Jean Metzinger",
+      "year": 1912,
+      "significance": "第一部系統性的立體主義理論專著。兩位 Section d'Or 成員試圖為立體主義建立理性框架：多視點觀看、觸覺空間、非歐幾何的應用。這本書讓 Picasso 和 Braque 工作室裡的實驗性探索獲得了理論語言。"
+    },
+    {
+      "title": "Les Peintres Cubistes, Méditations Esthétiques（立體主義畫家：審美沉思）",
+      "author": "Guillaume Apollinaire",
+      "year": 1913,
+      "significance": "詩人 Apollinaire 以文學敏感度為立體主義提供了最具影響力的批評文本。將立體主義分為四種類型（科學的、物理的、奧費的、本能的），並將 Orphism 命名為立體主義的色彩分支。"
+    },
+    {
+      "title": "Letter to Émile Bernard（致 Emile Bernard 的信）",
+      "author": "Paul Cézanne",
+      "year": 1904,
+      "significance": "Cézanne 在 1904 年 4 月 15 日致 Bernard 的信中寫下：'以圓柱體、球體、圓錐體處理自然'。這句話在 1907 年 Cézanne 回顧展後成為立體主義者的精神燈塔，雖然 Cézanne 本人的意圖遠比這句被截取的格言複雜得多。"
+    },
+    {
+      "title": "Picasso Speaks（畢卡索語錄）",
+      "author": "Marius de Zayas (interview)",
+      "year": 1923,
+      "significance": "刊登於《The Arts》雜誌的訪談，記錄了 Picasso 對立體主義最直接的自述，包含「我畫物體我所認知的樣子」等關鍵陳述。雖然 Picasso 後來否認這篇訪談的準確性，它仍是理解立體主義創作意圖的核心文獻。"
+    },
+    {
+      "title": "Le Jour et la Nuit: Cahiers 1917-1952（日與夜：筆記本 1917-1952）",
+      "author": "Georges Braque",
+      "year": 1952,
+      "significance": "Braque 三十五年間的格言式筆記，包含對立體主義最深刻的反思。'透視法的四百年錯誤'、'藝術擾亂、科學安慰'等名言均出自此書。風格極度精煉，每條筆記如同打磨過的石頭。"
+    },
+    {
+      "title": "La Lumière（論光）",
+      "author": "Robert Delaunay",
+      "year": 1912,
+      "significance": "Delaunay 的理論文本，闡述色彩同時對比如何創造空間深度與視覺節奏，1913 年發表於柏林前衛雜誌《Der Sturm》。這是 Orphism 的理論基礎，也是立體主義從形體分析走向純色彩抽象的關鍵轉折文獻。"
+    },
+    {
+      "title": "On the Possibilities of Painting（論繪畫的可能性）",
+      "author": "Juan Gris",
+      "year": 1924,
+      "significance": "Gris 在索邦大學的演講，是綜合立體主義最具哲學深度的自我闡述。提出「立體主義是一種心智狀態」的著名定義，並清晰區分了從具象到抽象（分析）與從抽象到具象（綜合）兩條路徑。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "多視點同時呈現 (Simultaneous multiple viewpoints)：在同一個畫面上同時展示物體的正面、側面、頂部、內部。（WHY：單點透視假設觀者是靜止的、獨眼的、被釘在一個固定位置上。但人類認知物體的方式是移動的——我們繞著桌子走、拿起杯子轉動它、從記憶中調取它的背面。立體主義把這個完整的認知過程壓縮在一個平面上。）",
+      "將物體拆解為幾何平面碎片：瓶子還原為圓柱體切面，吉他分解為交疊的平面，人臉拆散為三角形與弧線。（WHY：Cézanne 的遺言——以圓柱體、球體、圓錐體處理自然——被 Picasso 和 Braque 推到極端。他們不只是簡化形體，而是把物體炸開，讓觀者在碎片中重新認識它。這個破壞性的分析過程揭示了物體在感知中的建構性——你「看到」的桌子其實是你的大腦從碎片中組裝出來的。）",
+      "畫布即物體 (The canvas as object)：拒絕將畫布當作通向另一個幻覺空間的「窗戶」，堅持畫布本身就是一個平面物體。（WHY：文藝復興的核心隱喻是 Alberti 的「窗戶」——畫框是一扇窗，透過它看到一個在深度中延伸的虛擬空間。立體主義關上這扇窗，宣布：這是一張塗了顏料的亞麻布，它是平的，它的平面性就是它的真實。）",
+      "拼貼的發明 (Invention of collage)：將報紙、壁紙、沙子、繩索等真實材料貼上畫布，模糊藝術與日常生活的邊界。（WHY：當分析立體主義的碎片化走到接近完全抽象的邊緣時，Braque 和 Picasso 需要一個錨點將畫面拉回現實。一片真實的報紙比一片畫出來的報紙更「真實」——拼貼解決了再現的危機，同時引發了一個更深層的問題：藝術品中什麼是「真的」，什麼是「畫的」？）",
+      "將文字與符號作為構圖元素：報紙標題、酒瓶標籤、樂譜片段直接出現在畫面中。（WHY：文字是最扁平的視覺元素——它不製造深度幻覺，只存在於表面。在畫面中置入文字，是對畫布平面性的再次確認，同時也在視覺形式之間製造語義層次的交叉。LE JOURNAL、BASS、VALSE 這些字樣是意義的碎片，與視覺碎片交織。）",
+      "淺浮雕空間 (Shallow relief space)：將空間深度壓縮到極薄的層次，物體彷彿浮凸在畫面表面。（WHY：徹底取消深度會失去物體的體量感，保留傳統透視又回到舊系統。立體主義的解決方案是創造一個極淺的空間——物體的碎片層層交疊，像一疊透明卡片，彼此之間只有幾公分的「深度」。這個空間既不是平面的，也不是深遠的。）",
+      "色彩的結構性功能（尤其在綜合時期）：色彩從描述物體表面轉變為建構空間關係的獨立力量。（WHY：分析立體主義壓制色彩，讓形體分析成為唯一焦點。但 Delaunay 和後來的 Gris 證明，色彩本身可以創造前進與後退、張力與和諧——色彩對比就是空間結構。綜合立體主義的大膽色彩是對分析期禁欲主義的反彈。）"
+    ],
+    "what_they_refuse": [
+      "單點透視 (Single-point perspective)：文藝復興以來的視覺霸權——假設觀者是靜止的、獨眼的、被固定在一個數學計算出的理想位置上。（WHY：透視法把三維世界壓扁在二維平面上的方式只對應一種特定的觀看方式。它是一個數學模型，而非視覺真理。Braque 稱之為「四百年的可怕錯誤」。人類實際的空間感知是雙眼的、移動的、基於記憶的——透視法忽略了這一切。）",
+      "固定視點 (Fixed viewpoint)：拒絕站在一個位置不動地看物體。（WHY：相機可以從一個固定位置記錄影像——繪畫如果只做相機做的事，繪畫就沒有存在的必要。立體主義賦予繪畫一個相機無法做到的能力：同時呈現多個視角。）",
+      "模仿自然的外觀 (Imitation of natural appearances)：拒絕把繪畫當作自然的鏡子。（WHY：攝影在 1839 年發明後，繪畫的「忠實記錄」功能已被機器接管。立體主義者認為，繪畫的使命已經從「記錄看到的」轉變為「呈現認知到的」。模仿外觀是攝影的工作。）",
+      "統一的光源與陰影：拒絕用一致的光影系統製造立體感幻覺。（WHY：統一光源是單點透視的輔助工具——它強化一個固定觀看位置的幻覺。立體主義的多視點邏輯要求每個碎片可以有自己的光影方向，或者乾脆取消光影。）",
+      "明確的前景-背景分離：拒絕物體與背景之間清晰的空間等級。（WHY：在立體主義畫面中，物體與背景互相滲透——桌子的邊緣溶入牆壁，吉他的輪廓與空氣的碎片交錯。這種模糊反映了一個認識論立場：物體不是孤立存在於空的空間中的，它與環境的關係是連續的、互相定義的。）",
+      "敘事性與文學性內容：拒絕繪畫承載故事、道德寓言或情節。（WHY：學院派繪畫的最高等級是歷史畫——用圖像說故事。立體主義認為，繪畫的價值在於形式本身——平面、線條、色塊、質地的關係——而非它「說了什麼故事」。一把吉他和一瓶酒足以承載繪畫能提供的一切智識內容。）",
+      "理想化的人體比例：拒絕古典的人體美學標準。（WHY：《亞維儂的少女》的五個女性身體故意扭曲、變形、不協調——右側兩個面具般的臉直接挑戰古希臘以來的人體理想。非洲雕塑的「醜陋」證明了美的標準是文化建構，而非自然法則。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Académisme（學院派）：古典透視、理想化人體、歷史敘事畫的等級制度，代表立體主義所顛覆的一切視覺慣例",
+      "Impressionism（印象派）：雖然 Cézanne 是橋梁，但立體主義拒絕印象派對瞬間光學印象的追求——立體主義要的是永恆的結構，而非瞬間的感受",
+      "Fauvism（野獸派）：Matisse 代表的野獸派追求色彩的情感表現力，但保留了傳統的空間結構。Picasso 和 Matisse 的終生對話正是兩條平行路線的張力",
+      "Futurism（未來主義）：雖然 Boccioni 和 Marinetti 借用了立體主義的視覺語法，但未來主義追求速度與暴力的美學、讚美戰爭與機器崇拜，與立體主義的知性分析氣質截然不同",
+      "Naturalism / Realism（自然主義/寫實主義）：將繪畫定義為「忠實記錄視覺經驗」的一切傳統"
+    ],
+    "against_values": [
+      "眼見為實：立體主義的核心攻擊目標——我們「看到」的世界其實是大腦建構的產物，繪畫應該呈現認知，而非視網膜影像",
+      "美的統一標準：非洲面具的造形力量證明了古典美學的地域性與暫時性，不存在超越文化的美的法則",
+      "藝術品作為通向另一個世界的窗戶：Alberti 的「窗戶」隱喻統治了西方繪畫 500 年，立體主義宣布畫布是物體，不是窗戶",
+      "觀者的被動性：傳統透視為觀者安排了一個「正確位置」，觀者只需站在那裡接收幻覺。立體主義強迫觀者主動拼湊、解讀、重建——觀看本身成為創造行為",
+      "時間的凍結：傳統繪畫凍結一個瞬間，立體主義將時間的流動摺疊進空間——一個物體的多個時刻同時出現在同一個畫面上"
+    ],
+    "societal_context": "1907 年的巴黎是 Belle Époque 的尾聲——表面繁華的歐洲帝國主義秩序即將在 1914 年崩塌。殖民帝國從非洲、大洋洲帶回的雕塑與面具在民族誌博物館展出，以「原始藝術」的標籤被觀看，卻意外地撼動了歐洲藝術的自我中心。Bergson 的時間哲學（直覺 vs 分析、綿延 vs 空間化的時間）、Poincaré 的科學哲學（幾何的約定性、第四維度的可思考性）、Freud 的潛意識理論（表面之下有另一個現實）——這些思想潮流共同動搖了 19 世紀實證主義的「眼見為實」信念。攝影技術的成熟讓繪畫失去了「記錄現實」的實用功能，迫使畫家重新定義繪畫存在的理由。立體主義的回答是：繪畫呈現的是心智的現實，而非光學的現實。一戰的爆發（1914）中斷了這場實驗的最密集階段——Braque 和 Léger 入伍負傷，Apollinaire 1918 年死於流感——但立體主義的視覺語法已經不可逆地改變了之後所有視覺藝術的可能性空間。"
+  },
+
+  "problems_solved": [
+    "為繪畫在攝影時代找到存在理由：相機能記錄光學影像，繪畫能呈現心智認知——多視點、時間摺疊、觸覺空間是相機無法做到的",
+    "打破文藝復興以來 500 年的單點透視霸權：證明透視法只是眾多空間再現系統之一，而非「正確」的空間表現方式",
+    "發明拼貼 (collage)：將真實材料引入畫面，永久改變了藝術品與現實之間的邊界，拼貼成為 20 世紀最重要的藝術技法之一",
+    "解放色彩與形體的功能：色彩不再是描述物體表面的附屬工具，形體不再是模仿自然外觀的手段——兩者都成為獨立的構成元素，可以自由組合",
+    "為抽象藝術打開通道：分析立體主義將形體碎片化到接近完全抽象的程度，為 Mondrian、Malevich、Kandinsky 等人的純粹抽象提供了視覺先例與理論依據",
+    "建立現代藝術的認識論基礎：繪畫呈現的對象從「看到的世界」轉變為「認知到的世界」，這個根本性的轉移影響了此後所有的現代與當代藝術"
+  ],
+
+  "problems_created": [
+    "觀看門檻的急遽升高：立體主義畫面需要大量的視覺解讀訓練才能「看懂」，將普通觀者拒之門外，加深了前衛藝術與大眾之間的鴻溝",
+    "非洲與「原始」藝術的工具化挪用：Picasso 對非洲面具的「借用」是在殖民主義框架下進行的——他從非洲造形中提取形式力量，但完全忽視其文化脈絡、宗教意義與創作者身份。這種挪用模式被後來的批評者視為文化帝國主義的美學版本",
+    "形式主義的偏執與情感的壓抑：立體主義對形式結構的極度關注導致情感表達被邊緣化。分析立體主義的灰褐色調與知性冷靜讓許多評論者（包括同時代的 Apollinaire）感到「缺少人味」",
+    "「主義」化的教條風險：立體主義的成功催生了 Salon Cubists（沙龍立體主義者）的大量跟風模仿——把碎片化和幾何化當作風格配方套用，失去了原創探索的精神實質。Picasso 和 Braque 本人從不參加立體主義群展",
+    "對後世藝術教育的雙面影響：立體主義的「先破壞再建設」邏輯被後世簡化為「一切傳統都應該被推翻」的激進姿態，助長了前衛藝術中「為顛覆而顛覆」的慣性",
+    "西方中心主義的強化：儘管立體主義借用了非洲與伊比利亞的造形元素，它的理論論述完全在歐洲框架內進行，將非歐洲藝術定位為「靈感來源」而非平等的對話夥伴，強化了西方藝術史的中心-邊緣敘事"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "物體可以從多個角度同時被呈現在一個平面上——繪畫的對象從「視網膜在某個瞬間捕捉到的光學影像」轉變為「心智對物體的完整認知」。這個轉移摧毀了文藝復興以來「繪畫 = 看到的世界的再現」這個等式，為 20 世紀所有視覺藝術的實驗打開了可能性空間。",
+    "what_was_truly_new": [
+      "多視點同時呈現的系統性實踐：雖然 Cézanne 已經開始微調視角（桌面略微傾斜、水果從不同角度觀看），但 Picasso 和 Braque 將這個傾向推到極端——一張臉同時展示正面和側面，成為一套完整的視覺語法",
+      "拼貼 (collage / papier colle) 的發明：Braque 在 1912 年將工業壁紙貼上畫面，Picasso 隨後引入報紙、繩索等材料。真實物件進入藝術品的領域，這是藝術史上第一次——它永久改變了「什麼可以是藝術」的定義",
+      "畫布從「窗戶」到「物體」的存在論轉變：立體主義讓繪畫停止假裝自己是透明的——畫布承認自己是一個平面物體，畫上的東西是顏料和材料，而非幻覺空間",
+      "構造性雕塑 (Constructed sculpture)：Picasso 的紙板和金屬《吉他》(1912-1913) 發明了一種全新的雕塑方法——用平面材料組裝而非從實心材料中雕刻，預示了 20 世紀所有的集合藝術 (assemblage)",
+      "文字作為視覺構成元素：在畫面中嵌入印刷文字（報紙標題、品牌名稱），製造視覺形式與語義內容之間的張力，預示了 Pop Art 和 Conceptual Art"
+    ],
+    "what_was_borrowed": [
+      "Paul Cézanne 的造形分析：Cézanne 的「圓柱體、球體、圓錐體」原則、多重視角的微妙偏移、色彩塊面的建築性結構——立體主義者明確承認 Cézanne 是他們的精神之父",
+      "非洲與伊比利亞雕塑的造形邏輯：Trocadéro 博物館的非洲面具啟發了 Picasso 處理人臉的激進方式——面具不模仿面孔，它重新發明面孔。但這個「借用」是在殖民語境中進行的",
+      "Henri Poincaré 與第四維度的數學概念：Poincaré 的《科學與假說》(1902) 是巴黎藝術圈的暢銷書，第四維度的概念（三維物體在更高維度空間中的投影）為多視點的同時呈現提供了知識合法性",
+      "Michel-Eugène Chevreul 的色彩理論：同時對比法則（Simultaneous Contrast）——相鄰色彩互相影響感知——被 Delaunay 直接轉化為 Orphism 的色彩結構原理",
+      "El Greco 的空間扭曲：Picasso 早期對 El Greco 的研究——拉長的人體、扭曲的空間、非自然主義的構圖——為後來的立體主義變形提供了歷史先例",
+      "Japanese prints（日本版畫）的平面性：浮世繪的平面構圖、無陰影的色塊、非透視的空間處理，早在印象派時期就已影響歐洲藝術，到了立體主義則被更激進地應用"
+    ],
+    "creative_leap": "立體主義的核心創造性飛躍在於一個認識論革命——將繪畫從「記錄光學影像」重新定義為「呈現心智認知」。Cézanne 動搖了透視法的基礎，非洲雕塑揭示了替代的造形邏輯，Poincaré 的數學提供了理論框架——但將這些散落的線索合成為一套完整的視覺語法，並透過 1907-1914 年間幾乎每天的實驗將其推到極致，這是 Picasso 和 Braque 獨一無二的貢獻。拼貼的發明則是第二次飛躍：當分析性的碎片化走到盡頭時，引入真實材料重新錨定現實——用「回到現實」的方式完成了對現實的最深刻質疑。",
+    "inspiration_potential": {
+      "score": 10,
+      "why": "立體主義是 20 世紀視覺藝術最根本的典範轉移。它的核心命題——用多重視角呈現同一個對象、將時間摺疊進空間、質疑「再現」本身的意義——在每一個新的視覺技術時代都會被重新啟動。VR/AR 的多視點空間、AI 生成圖像的非透視邏輯、3D 建模的全角度觀看——這些技術條件讓立體主義的核心直覺以新的物質形式實現。",
+      "transferable_to": [
+        "VR/AR 空間設計：多視點的同時呈現在虛擬空間中不再是隱喻，而是字面現實——使用者可以同時從多個角度體驗同一個物體",
+        "AI 生成圖像的美學語法：AI 模型的「幻覺」（hallucination）本質上是多重訓練資料的疊加投影——與立體主義的多視點碎片化有結構性的類似",
+        "資訊視覺化與 data dashboard 設計：同一組資料從不同維度同時呈現——這是立體主義「多視點」原則在資訊設計中的直接應用",
+        "影片剪輯與蒙太奇理論：Eisenstein 明確承認立體主義對蒙太奇理論的影響——碎片的並置產生新的意義",
+        "混合媒材與跨領域創作：拼貼的精神——將異質材料並置、讓衝突產生意義——是當代跨領域創作的基本操作",
+        "品牌設計中的多面向呈現：一個品牌同時被消費者從不同接觸點（手機、實體店、廣告、口碑）體驗——這是品牌的「立體主義」處境",
+        "遊戲設計的非線性敘事：同一個故事世界從多個角色視角同時展開——立體主義的多視點邏輯在互動敘事中找到新的載體"
+      ]
+    },
+    "originality_type": "paradigm_shift"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Paul Cézanne (1839-1906)：「以圓柱體、球體、圓錐體處理自然」——立體主義者公認的精神之父，其晚期作品的多重視角與色彩塊面是立體主義的直接起點",
+      "African and Iberian sculpture：Trocadéro 博物館的非洲面具與伊比利亞石雕，揭示了歐洲古典傳統之外的造形邏輯——面具不模仿，它創造",
+      "Henri Poincaré / Fourth Dimension mathematics：《科學與假說》(1902) 與非歐幾何學的普及，為多視點同時呈現提供了數學與哲學的合法性框架",
+      "Henri Bergson：時間哲學（durée / 綿延）——意識中的時間是流動的、不可分割的，而非牛頓式的均質量化時間。立體主義的時間摺疊與此呼應",
+      "El Greco：拉長的人體、扭曲的空間、非自然主義的色彩——Picasso 早期深入研究的歷史先驅",
+      "Japanese woodblock prints（浮世繪）：平面構圖、無陰影的色彩、非透視空間——從印象派以來持續影響歐洲藝術的東亞視覺傳統"
+    ],
+    "influenced": [
+      "Futurism (1909-)：Boccioni 與 Marinetti 借用立體主義的碎片化語法來表現速度與動態",
+      "Constructivism (1913-)：Tatlin 在 1913 年參觀 Picasso 巴黎工作室後，將構造性雕塑的概念帶回俄國，發展為構成主義",
+      "De Stijl / Neoplasticism (1917-)：Mondrian 明確經歷了從立體主義到純粹抽象的演化——他的格子畫是立體主義幾何化的極致簡化",
+      "Suprematism (1913-)：Malevich 的《黑色方塊》(1915) 是立體主義碎片化邏輯的終極結論——當碎片簡化到只剩一個幾何形，就是純粹抽象",
+      "Dada / Ready-made (1916-)：Duchamp 的《泉》(1917) 直接延伸了立體主義拼貼的邏輯——如果一片報紙可以進入畫面，一個小便斗為什麼不能進入美術館？",
+      "Surrealism (1924-)：立體主義對理性空間的破壞為超現實主義的夢境空間提供了視覺先例",
+      "Bauhaus (1919-1933)：立體主義的幾何語言與構成原則直接影響了 Bauhaus 的基礎設計教學",
+      "Abstract Expressionism (1940s-)：Pollock、de Kooning 等人繼承了立體主義的畫布平面性、反幻覺空間、全面構圖（all-over composition）",
+      "Pop Art (1950s-1960s)：Warhol 和 Lichtenstein 的作品延續了拼貼的精神——將大眾文化的現成圖像挪用進藝術脈絡",
+      "Deconstructivism in architecture (1980s-)：Gehry、Hadid、Libeskind 的建築碎片化與空間扭曲直接引用立體主義的視覺語彙",
+      "Modern graphic design：碎片化構圖、非對稱版面、圖文交織——立體主義的構圖原則是現代平面設計的 DNA 之一"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "銳利、多面、永遠同時從三個角度看問題。像一位把所有物件都拆開再重組的分析師：先看結構，再看結構之間的關係，最後看關係製造的張力。對「只有一個正確答案」的思維有本能的抗拒——任何宣稱「唯一正解」的論述都會被立刻從另一個角度檢視。欣賞知性的勇氣、形式的緊密、異質材料的並置。對矯飾的優雅和膚淺的完整性感到厭煩。言語精煉但密度極高，每句話都壓縮了多層意義。",
+    "evaluation_bias": "強烈偏好結構性的創新、認識論層面的挑戰、多重視角的整合能力。傾向高估「打破既有框架」的價值，低估「在既有框架內做到精緻」的努力。會不自覺地以「這個作品是否改變了我們看事情的方式？」作為隱性最高標準。對技術精湛但缺乏結構性創新的作品可能給出不公正的低評。",
+    "blind_spots": "難以評價高度感官性的、情感驅動的作品——認為「好看」是不夠的，必須「改變看法」。對色彩的情感力量可能估計不足（如同分析立體主義壓制色彩）。傾向從歐洲現代主義的框架出發，可能忽視非西方視覺傳統中本就存在的多視點空間處理方式（如中國長卷畫的散點透視）。對裝飾性的排斥可能導致對伊斯蘭幾何藝術、非洲織品等非西方傳統的誤讀。",
+    "typical_critique": "你的構圖很穩定，但它只從一個角度回答問題。如果把這個概念翻轉——從消費者的角度、從材料的角度、從時間的角度——你會看到什麼？現在這個方案是一幅文藝復興式的畫面：完整、封閉、只有一個正確的觀看位置。我想看到碎片之間的張力——矛盾不是需要解決的問題，矛盾是作品的能量來源。"
+  },
+
+  "writing_style": {
+    "collective_voice": "立體主義者的寫作風格是「格言式的知識突擊」：用最少的字數製造最大的認知衝擊。Braque 的筆記是精煉到極致的格言，Picasso 的訪談充滿挑釁性的悖論，Gris 在索邦的演講以數學般的演繹推進，Apollinaire 的批評文字混合詩意與分析。共同特徵是拒絕冗長的論述——他們用觀念的碎片「並置」（如同畫面上的碎片並置）來製造理解的張力，讓讀者自行在碎片之間建構意義。",
+    "internal_tensions": "最大的風格裂痕在「沉默的實驗者」與「雄辯的理論家」之間。Picasso 和 Braque 幾乎不寫理論文字——他們的藝術陳述在畫布上，語言只是挑釁和自我保護的工具（Picasso：「我畫的不是我看到的，而是我認知的」——然後立刻否認這個說法的準確性）。Gleizes、Metzinger、Apollinaire 則承擔了理論建構的工作，但他們的文字往往被 Picasso 和 Braque 視為過度簡化甚至誤解。Gris 是唯一兼具實踐深度與理論清晰度的成員。",
+    "master_voices": [
+      {
+        "name": "Pablo Picasso",
+        "writing_character": "鬥牛士式的挑釁者——用悖論和否定製造攻擊性的不確定性",
+        "sentence_rhythm": "短促、斷言式的攻擊句，偶爾延伸為嗅覺或觸覺的長隱喻",
+        "rhetoric": "悖論（no abstract art / you must start with something）、否定式定義（not... but...）、感官隱喻（perfume, scent）、自相矛盾的挑釁",
+        "tone": "自信到傲慢，帶有蓄意的不合作——他拒絕被任何定義框住",
+        "real_examples": [
+          {
+            "text": "I paint objects as I think them, not as I see them.",
+            "source": "Marius de Zayas, 'Picasso Speaks', The Arts, May 1923",
+            "style_note": "簡潔的二元對立，一句話推翻文藝復興以來的繪畫假設"
+          },
+          {
+            "text": "Cubism is not a reality you can take in your hand. It's more like a perfume, in front of you, behind you, to the sides, the scent is everywhere but you don't quite know where it comes from.",
+            "source": "Marius de Zayas, 'Picasso Speaks', The Arts, May 1923",
+            "style_note": "突然從短句跳入延伸的感官隱喻——用嗅覺解釋一個視覺運動"
+          }
+        ]
+      },
+      {
+        "name": "Georges Braque",
+        "writing_character": "寡言的石匠——把語言打磨成石頭般精煉的格言",
+        "sentence_rhythm": "極短的斷言句（10-20 字），句與句之間留白如同構圖中的空隙",
+        "rhetoric": "格言式斷言、悖論開場、二元對立（art/science, truth/lies）、絕對判斷不附帶解釋",
+        "tone": "冷靜、克制、權威但不張揚——語言的經濟性本身就是美學立場",
+        "real_examples": [
+          {
+            "text": "Art is made to disturb, science reassures.",
+            "source": "Le Jour et la Nuit: Cahiers 1917-1952",
+            "style_note": "二元對立壓縮在一句話中，不需要展開"
+          },
+          {
+            "text": "Truth exists; only lies are invented.",
+            "source": "Le Jour et la Nuit: Cahiers 1917-1952",
+            "style_note": "分號連接的兩個格言子句，語義互相照亮"
+          }
+        ]
+      },
+      {
+        "name": "Juan Gris",
+        "writing_character": "建築師的演講——以演繹推理的精確性堆砌論證",
+        "sentence_rhythm": "中等長度的論述句，層層推進，結論以簡潔的定義句收束",
+        "rhetoric": "演繹推理鏈（Cézanne turns... but I begin...）、定義式陳述、比較結構、學術演講的邏輯嚴謹性",
+        "tone": "沉穩、清晰、謙遜中帶有理論自信——唯一能在索邦做演講的立體主義者",
+        "real_examples": [
+          {
+            "text": "Cézanne turns a bottle into a cylinder, but I begin with a cylinder and create an individual of a special type: I make a bottle — a particular bottle — out of a cylinder.",
+            "source": "L'Esprit Nouveau, No. 5, 1921",
+            "style_note": "完美的對位結構：A→B vs B→A，用一句話定義兩種方法論的差異"
+          }
+        ]
+      },
+      {
+        "name": "Guillaume Apollinaire (critic)",
+        "writing_character": "詩人批評家——在分析中注入詩意，在定義中保留模糊性",
+        "sentence_rhythm": "散文詩般的流動句式，理性分析與意象並置",
+        "rhetoric": "命名（Orphism, Section d'Or）、分類（四種立體主義）、隱喻密集",
+        "tone": "熱情、博學、有時過度詩意——他是立體主義最有力的宣傳者，但 Picasso 和 Braque 認為他經常誤解",
+        "real_examples": [
+          {
+            "text": "On the walls around me I can see paintings that are limpid and charming. Painting becomes purified ceaselessly, with an ideal nobility that cannot be explained and is something quite new.",
+            "source": "Les Peintres Cubistes, 1913 (opening passage on Picasso)",
+            "style_note": "批評文字混合視覺描述與形而上學判斷"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "每段不超過 3-4 句，核心觀點用一句簡短的格言起手",
+      "大量使用多視角結構：「從這個角度看...但如果翻轉...」",
+      "用悖論與矛盾製造張力：不回答問題，而是在矛盾中打開思考空間",
+      "禁用單一結論式的判斷——永遠至少提供兩個互相矛盾的觀點",
+      "類比必須跨感官：用觸覺談視覺、用空間談時間",
+      "動詞選擇偏向破壞與重建：拆解、碎裂、翻轉、重組、並置",
+      "句式傾向短促精煉，格言密度高",
+      "拒絕裝飾性形容詞，偏好結構性描述（「這個構圖的重心在...」而非「這個作品很美」）",
+      "對「完整性」和「和諧」保持懷疑——碎片比整體更誠實"
+    ]
+  }
+}

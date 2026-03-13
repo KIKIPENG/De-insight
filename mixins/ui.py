@@ -47,6 +47,16 @@ class UIMixin:
             project_name = self.state.current_project["name"] if self.state.current_project else None
             pending_count = len(self.state.pending_memories)
             gallery_selected = len(getattr(self.state, "pending_images", None) or [])
+            # Persona names for MenuBar display
+            persona_names: list[str] = []
+            try:
+                from persona.store import get_active_ids, load_persona
+                for pid in get_active_ids():
+                    data = load_persona(pid)
+                    if data:
+                        persona_names.append(data.get("name_zh", pid))
+            except Exception:
+                pass
             menu.set_state(
                 mode=self.mode,
                 model=model,
@@ -57,6 +67,7 @@ class UIMixin:
                 pending_count=pending_count,
                 gallery_selected=gallery_selected,
                 llm_calls=getattr(self, '_llm_call_count', 0),
+                persona_names=persona_names,
             )
         except NoMatches:
             pass

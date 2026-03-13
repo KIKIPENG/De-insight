@@ -1,0 +1,504 @@
+{
+  "movement_id": "realism",
+  "name": {
+    "zh": "寫實主義",
+    "en": "Realism",
+    "fr": "Réalisme"
+  },
+  "domain": [
+    "視覺藝術",
+    "文學與敘事"
+  ],
+  "period": {
+    "start": 1840,
+    "end": 1880,
+    "peak": "1848-1870（二月革命後法國寫實主義全面爆發，Courbet 發表寫實主義宣言，Flaubert 出版《包法利夫人》，Dostoevsky 進入創作高峰）"
+  },
+  "geography": [
+    "法國（巴黎、Ornans、Barbizon）",
+    "俄國（聖彼得堡、莫斯科）",
+    "英國（倫敦、工業城鎮）"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1848 年二月革命席捲歐洲，巴黎工人與學生推翻了路易-菲力普的七月王朝，宣布第二共和。但六月起義遭血腥鎮壓，一萬多人被殺或流放。拿破崙三世在 1851 年政變稱帝，自由派的幻滅感瀰漫整個知識階層。工業革命的加速推進使城市人口暴增——巴黎從 1800 年的 55 萬人膨脹到 1850 年的 100 萬人，工人階級的貧困、童工、妓女、疾病成為無法迴避的日常現實。浪漫主義那套英雄敘事、異域想像、情感昇華的美學語言，面對這個現實顯得虛偽且無力。攝影術在 1839 年問世，直接挑戰了繪畫作為『記錄真實』的壟斷地位，迫使畫家重新思考再現的本質。Auguste Comte 的實證主義哲學（1830-1842《實證哲學教程》）提供了思想基礎：唯有可觀察、可驗證的事實才構成知識。寫實主義在這三股力量——政治幻滅、社會危機、認識論轉向——的交匯點爆發。",
+    "social_energy": "寫實主義的能量來自三個源頭：(1) 1848 革命的政治餘震——工人階級第一次作為集體政治力量登上歷史舞台，他們的面孔、勞動、苦難要求被看見，被再現，被賦予與國王和聖徒同等的畫面尊嚴；(2) 工業化帶來的社會斷裂——鄉村人口湧入城市，舊的社會結構瓦解，新的階級矛盾、貧富懸殊、勞資衝突成為日常經驗，藝術家無法再假裝活在牧歌般的世界裡；(3) 科學實證精神的擴散——達爾文的演化論（1859）、Claude Bernard 的實驗醫學（1865）、Taine 的環境決定論都在說同一件事：觀察、記錄、分析現實世界的運作法則，比任何先驗理念或情感投射更接近真理。",
+    "purpose": "寫實主義的核心使命是拆除藝術與生活之間的屏障：讓農民、洗衣婦、礦工、妓女——那些被學院派視為『不配入畫』的對象——佔據畫布的中心；讓日常語言、方言、粗俗的身體經驗進入文學；讓藝術成為社會的鏡子，即使鏡中映照的是醜陋、不堪、令人不安的真實。Courbet 說得最直接：『我無法畫天使，因為我從未見過天使。給我看一個天使，我就畫一個。』這是一場關於『誰有資格被再現』的民主革命。",
+    "key_timeline": [
+      "1830-1842 — Auguste Comte 出版《實證哲學教程》六卷，奠定實證主義哲學基礎",
+      "1839 — Daguerre 公開銀版攝影術，攝影正式誕生",
+      "1848.02 — 法國二月革命，推翻七月王朝，宣布第二共和",
+      "1848.06 — 巴黎六月起義遭鎮壓，萬人死傷或流放",
+      "1849 — Courbet 以《奧南的葬禮》與《採石工人》參展沙龍，震動巴黎藝壇",
+      "1850 — Millet 完成《播種者》，農民勞動首次成為紀念碑式繪畫題材",
+      "1851.12 — 路易-拿破崙政變，隔年稱帝為拿破崙三世",
+      "1855 — Courbet 自建「寫實主義展廳」(Pavillon du Réalisme)，發表寫實主義宣言",
+      "1856-1857 — Flaubert 出版《包法利夫人》，因「傷風敗俗」被控告",
+      "1857 — Champfleury 出版《寫實主義》論文集，為運動提供理論框架",
+      "1859 — Darwin 出版《物種起源》，科學觀察法的最高成就",
+      "1862 — Hugo 出版《悲慘世界》，社會底層的苦難進入文學正典",
+      "1866 — Dostoevsky 出版《罪與罰》，心理寫實主義的里程碑",
+      "1869 — Flaubert 出版《情感教育》，1848 革命一代的集體幻滅",
+      "1880 — Zola 出版《小酒店》，自然主義從寫實主義分化而出，推向更極端的科學化方向"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "古斯塔夫·庫爾貝",
+        "en": "Gustave Courbet"
+      },
+      "role": "寫實主義繪畫的領袖與命名者。1855 年在巴黎萬國博覽會旁自建「寫實主義展廳」，發表寫實主義宣言，將農民、工人、日常場景提升為大尺幅歷史畫的題材，正面挑戰學院派的題材等級制度。",
+      "key_works": [
+        "《奧南的葬禮》(A Burial at Ornans, 1849-1850)",
+        "《採石工人》(The Stone Breakers, 1849)",
+        "《畫室》(The Painter's Studio, 1855)",
+        "《篩穀的女人》(The Grain Sifters, 1854)",
+        "寫實主義宣言 (Le Réalisme, 1855)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Show me an angel and I'll paint one.",
+          "source": "記錄於 Courbet 給友人的信件，約 1850 年；廣泛引用於 Champfleury《寫實主義》(1857)",
+          "meaning": "（寫實主義最簡潔的宣言：繪畫的對象只能是畫家親眼所見之物。天使、神話、古典英雄統統出局——藝術家的唯一合法素材是可觀察的物質世界。這句話同時是對學院派的嘲諷和對自身方法論的定義。）"
+        },
+        {
+          "text": "Painting is an essentially concrete art and can only consist of the representation of real and existing things. It is a completely physical language, the words of which consist of all visible objects; an object which is abstract, not visible, non-existent, is not within the realm of painting.",
+          "source": "Courbet 致學生的公開信 (Open letter to students), 1861",
+          "meaning": "（繪畫的語言是『可見之物』——每一筆色彩對應的都是眼前的物質存在。抽象概念、寓言象徵、理想化形體都被逐出畫布。Courbet 在此定義了一種激進的唯物論美學：繪畫只處理看得見、摸得到的東西。）"
+        },
+        {
+          "text": "The art of painting can consist only in the representation of objects visible and tangible to the painter. No epoch can be reproduced except by its own artists; I mean by the artists who have lived in it.",
+          "source": "寫實主義宣言 (Le Réalisme), 1855，自建展廳序言",
+          "meaning": "（每個時代只能由活在其中的藝術家來再現——歷史畫是一種謊言，因為畫家並未親歷那個場景。Courbet 宣告藝術的時間性：你只能畫你的時代、你的地方、你親身經歷的事件。）"
+        },
+        {
+          "text": "I have studied, outside of any system and without prejudice, the art of the ancients and the art of the moderns. I no more wanted to imitate the one than to copy the other; nor, furthermore, was it my intention to attain the trivial goal of 'art for art's sake.'",
+          "source": "寫實主義宣言 (Le Réalisme), 1855",
+          "meaning": "（三重否定：既不模仿古人、也不跟風現代人、更不追求純粹的形式遊戲。Courbet 把自己從所有既有陣營中抽離出來——他拒絕學院古典主義、拒絕浪漫主義、也拒絕唯美主義。寫實主義的立場是獨立觀察、獨立判斷。）"
+        },
+        {
+          "text": "To know in order to be able to do, that was my idea. To be in a position to translate the customs, the ideas, the appearance of my epoch, according to my own estimation; to be not only a painter, but a man as well; in short, to create living art — this is my goal.",
+          "source": "寫實主義宣言 (Le Réalisme), 1855",
+          "meaning": "（『創造活著的藝術』是寫實主義的終極目標——藝術必須與藝術家所處的時代、社會、風俗血肉相連。Courbet 在此強調藝術家的雙重身份：既是技術工作者（painter），也是社會參與者（man）。畫家不能躲在畫室裡，必須活在人群之中。）"
+        },
+        {
+          "text": "I hold that painting is essentially a concrete art, and does not consist of anything but the representation of things both real and existing... An abstract object, invisible or non-existent, does not belong to the domain of painting.",
+          "source": "Courbet 致學生的公開信, 1861，結尾段落",
+          "meaning": "（寫實主義的認識論底線：繪畫只處理可感知的物質世界。這句話將繪畫從宗教、神話、寓言的服務中解放出來，讓它成為一門觀察現實的獨立學科。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "奧諾雷·杜米埃",
+        "en": "Honoré Daumier"
+      },
+      "role": "石版畫家、畫家、雕塑家。以政治諷刺漫畫聞名，為《諷刺畫報》(La Caricature) 和《喧鬧報》(Le Charivari) 繪製超過四千幅石版畫，將社會批判與視覺藝術緊密結合。因諷刺國王路易-菲力普入獄六個月。",
+      "key_works": [
+        "《高康大》(Gargantua, 1831，諷刺路易-菲力普的石版畫)",
+        "《立法肚皮》(The Legislative Belly, 1834)",
+        "《三等車廂》(The Third-Class Carriage, 約 1862-1864)",
+        "《洗衣婦》(The Laundress, 約 1863)",
+        "《唐吉訶德》系列繪畫 (1864-1870)"
+      ],
+      "key_quotes": [
+        {
+          "text": "One must be of one's time.",
+          "source": "廣泛歸屬於 Daumier，記錄於多部 19 世紀法國藝術評論文獻",
+          "meaning": "（寫實主義的時間倫理：藝術家的首要義務是面對自己的時代。逃入古典神話或中世紀傳奇，是對當下苦難的背叛。這句話後來成為整個現代主義藝術的基本信條。）"
+        },
+        {
+          "text": "Il faut être de son temps et faire ce que l'on voit.",
+          "source": "Daumier 語錄，記錄於 Arsène Alexandre《Honoré Daumier: l'homme et l'oeuvre》, 1888",
+          "meaning": "（『必須屬於自己的時代，畫自己所見之物。』法文原版更直接——做（faire）和看（voir）兩個動詞構成完整的寫實主義方法論：先看，再做。看見什麼就畫什麼，拒絕加工、美化、編造。）"
+        },
+        {
+          "text": "There is not a man who does not contain within him the germ of the comic.",
+          "source": "歸屬於 Daumier，收錄於 T.J. Clark《Image of the People》引用文獻",
+          "meaning": "（喜劇性是人性的普遍特質——國王與乞丐同樣可笑。Daumier 的諷刺畫將權力者的莊嚴外表剝除，露出底下與所有人一樣的人性弱點。笑聲是民主的武器。）"
+        },
+        {
+          "text": "He is a republican by conviction, without hatred or bitterness.",
+          "source": "Champfleury 論 Daumier，收錄於《Histoire de la caricature moderne》, 1865",
+          "meaning": "（Champfleury 對 Daumier 的評價：共和主義者但不帶恨意。Daumier 的社會批判銳利但不尖酸，他畫資產階級法官時帶著悲憫，畫三等車廂的乘客時帶著尊嚴。這是寫實主義的倫理立場：觀察包含同理。）"
+        },
+        {
+          "text": "I pour my contempt on those who rule us.",
+          "source": "歸屬於 Daumier，談其諷刺畫工作的背景，記錄於 Robert L. Herbert《Impressionism》",
+          "meaning": "（寫實主義的政治鋒芒：藝術可以是武器。Daumier 因一幅將國王畫成高康大（吞噬人民的巨人）的石版畫入獄六個月。入獄沒有阻止他，反而強化了他對權力的批判立場。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "尚-法蘭索瓦·米勒",
+        "en": "Jean-François Millet"
+      },
+      "role": "巴比松畫派核心成員，將法國農村勞動場景提升為紀念碑式繪畫題材。長年居住在巴比松 (Barbizon)，直接觀察農民生活，以樸素凝重的手法描繪播種、收割、拾穗等農業勞動，賦予底層勞動者史詩般的莊嚴感。",
+      "key_works": [
+        "《播種者》(The Sower, 1850)",
+        "《拾穗》(The Gleaners, 1857)",
+        "《晚禱》(The Angelus, 1857-1859)",
+        "《牧羊女與羊群》(Shepherdess with Her Flock, 1864)",
+        "《簸穀者》(Man with a Hoe, 1860-1862)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I want the people I represent to look as if they really belong to their station, so that imagination cannot conceive of them as being anything else.",
+          "source": "Millet 致 Alfred Sensier 的信件, 約 1850 年代；收錄於 Sensier《Jean-François Millet: Peasant and Painter》, 1881",
+          "meaning": "（農民就是農民——他們的身體、姿態、與土地的關係必須讓觀者感到這就是他們唯一可能的存在方式。Millet 追求的是一種存在的真實性：人物的社會位置刻入他們的骨骼、肌肉、皮膚的每一個細節。）"
+        },
+        {
+          "text": "In art, as in all matters, the point is the eternal fitness of things.",
+          "source": "Millet 致 Sensier 的信件，收錄於 Sensier《Jean-François Millet: Peasant and Painter》, 1881",
+          "meaning": "（藝術的本質是『恰如其分』——每一筆、每一個構圖決策都必須符合對象的內在邏輯。農民的動作有其重力與節奏，畫家的任務是找到與之匹配的視覺形式。這是一種以觀察為基礎的形式倫理。）"
+        },
+        {
+          "text": "I try not to have things look as if chance brought them together, but as if they had a necessary bond between them.",
+          "source": "Millet 致 Sensier 的信件，約 1858 年；收錄於 Sensier《Jean-François Millet》, 1881",
+          "meaning": "（畫面中的每一個元素都必須存在必然性的關聯——人物、土地、天空、工具之間的關係應該看起來像自然生長出來的，拒絕人為的編排。這是寫實主義的構圖倫理：不安排場景，讓場景自己說話。）"
+        },
+        {
+          "text": "It is the treatment of the human condition which touches me most in art... I never see the joyous side; I don't know where it is. The gayest thing I know is the calm, the silence, which is so delicious, in the forest or in the plowed fields.",
+          "source": "Millet 致 Sensier 的信件，收錄於 Alfred Sensier《La Vie et l'Oeuvre de J.F. Millet》, 1881",
+          "meaning": "（Millet 坦承他的藝術根植於沉默與勞苦——農村生活的核心經驗是重複的勞動、季節的循環、與土地無盡的搏鬥。他看到的不是田園牧歌，是人與自然之間沉默而持久的對抗。）"
+        },
+        {
+          "text": "I have been told that I denied the charms of the country. I find in it far more than charms — I find infinite splendors. I see in it, just as they do, the little flowers of which Christ said that Solomon in all his glory was not arrayed like one of these.",
+          "source": "Millet 回應評論家指控其「醜化鄉村」的辯護，收錄於 Sensier, 1881",
+          "meaning": "（面對學院派批評家說他醜化農村，Millet 反擊：他看到的壯美遠超表面的「迷人」。引用基督論百合花的比喻，Millet 宣告農民的尊嚴超越所羅門的華服——真正的壯麗在日常勞動中，在泥土與汗水裡。）"
+        },
+        {
+          "text": "Some tell me that I deny the charms of the country. I find much more than charms in it. I find infinite glories. But I also see, as they do not, the toil of those who make these glories grow.",
+          "source": "Millet 致友人的信件，約 1860 年代；多處引用版本略有差異",
+          "meaning": "（農村的『壯美』背後是勞動者的汗水——那些欣賞田園風光的人看不見讓這片風景存在的人。Millet 揭示的是一個階級盲點：風景的消費者看不見風景的生產者。寫實主義的功能正是讓被遮蔽的勞動變得可見。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "古斯塔夫·福樓拜",
+        "en": "Gustave Flaubert"
+      },
+      "role": "法國小說家，文學寫實主義的最高標準制定者。以《包法利夫人》(1857) 將日常生活的庸俗與幻滅提煉為精密的藝術形式，堅持「客觀、非人格化」的敘事原則，對小說語言的錘鍊達到偏執的程度——為一個形容詞可以苦思數日。",
+      "key_works": [
+        "《包法利夫人》(Madame Bovary, 1857)",
+        "《情感教育》(L'Éducation sentimentale, 1869)",
+        "《薩朗波》(Salammbô, 1862)",
+        "《三故事》(Trois contes, 1877)",
+        "大量書信集 (Correspondance, 1830-1880)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The author, in his work, must be like God in the universe, present everywhere and visible nowhere.",
+          "source": "Flaubert 致 Louise Colet 的信，1852 年 12 月 9 日",
+          "meaning": "（寫實主義的敘事倫理：作者必須從作品中消失。小說家的個人情感、道德判斷、政治立場都不應該直接出現在文本中。敘事要像上帝管理宇宙一樣——法則無處不在，但制定者隱身。這個原則徹底改變了小說的寫法。）"
+        },
+        {
+          "text": "Human speech is like a cracked kettle on which we tap crude rhythms for bears to dance to, while we long to make music that will melt the stars.",
+          "source": "《包法利夫人》(Madame Bovary), Part II, Chapter 12, 1857",
+          "meaning": "（語言永遠無法精確表達內心經驗——我們想讓星辰融化，卻只能敲出讓熊跳舞的粗糙節拍。這是 Flaubert 對語言的根本懷疑：寫實主義追求精確再現，但它使用的工具（語言）天生帶有裂痕。這個矛盾是 Flaubert 畢生的折磨與動力。）"
+        },
+        {
+          "text": "Be regular and orderly in your life, so that you may be violent and original in your work.",
+          "source": "Flaubert 信件，確切日期有爭議，多處引用",
+          "meaning": "（紀律是創造力的前提——Flaubert 每天在書桌前苦工十小時以上，像苦行僧一樣壓縮個人生活，把所有能量投入寫作。這是寫實主義的工作倫理：觀察需要耐心，精確需要紀律，而紀律需要生活的秩序。）"
+        },
+        {
+          "text": "There is no truth. There are only ways of seeing.",
+          "source": "Flaubert 信件，收錄於《Correspondance》",
+          "meaning": "（這句話揭示了寫實主義內部最深刻的張力：它追求真實，卻承認真實依觀察角度而變。Flaubert 的寫實主義因此不是天真的鏡像反射——它是對觀看行為本身的自覺。每一個描述都是一個選擇，每一個選擇都反映一種立場。）"
+        },
+        {
+          "text": "Poetry is as exact a science as geometry.",
+          "source": "Flaubert 致 Louise Colet 的信，1852 年",
+          "meaning": "（文學寫作的精確度應該等同於幾何學——每一個詞的位置、每一個句子的節奏都必須經過計算。Flaubert 追求的 le mot juste（精確的詞）是寫實主義語言觀的核心：正確的詞只有一個，找到它是作家的絕對責任。）"
+        },
+        {
+          "text": "Do not read, as children do, to amuse yourself, or like the ambitious, for the purpose of instruction. No, read in order to live.",
+          "source": "Flaubert 致 Mademoiselle de Chantepie 的信，1857 年 6 月",
+          "meaning": "（閱讀的目的既非消遣也非學習，是為了活著——文學提供的是對生命的深度經驗。Flaubert 將寫實主義的要求從創作延伸到閱讀：讀者也必須以觀察者的態度進入文本，讓文字轉化為生命的體驗。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "費奧多爾·杜斯妥也夫斯基",
+        "en": "Fyodor Dostoevsky"
+      },
+      "role": "俄國小說家，心理寫實主義的開創者。將寫實主義從外在的社會觀察推向人類意識的內部深淵——罪惡感、信仰危機、自由的恐懼、理性與瘋狂的邊界。曾因參加革命團體被判死刑（臨刑前改為流放西伯利亞四年），這段經歷徹底重塑了他對人性的理解。",
+      "key_works": [
+        "《罪與罰》(Crime and Punishment, 1866)",
+        "《白痴》(The Idiot, 1868-1869)",
+        "《群魔》(Demons, 1872)",
+        "《卡拉馬助夫兄弟們》(The Brothers Karamazov, 1880)",
+        "《地下室手記》(Notes from Underground, 1864)",
+        "《作家日記》(A Writer's Diary, 1873-1881)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Man is a mystery. It needs to be unravelled, and if you spend your whole life unravelling it, don't say that you've wasted time. I am studying that mystery because I want to be a human being.",
+          "source": "Dostoevsky 致兄長 Mikhail 的信，1839 年 8 月 16 日",
+          "meaning": "（19 歲的 Dostoevsky 定義了他畢生的寫作計畫：解開人的謎。寫實主義在他手中從社會現象的記錄轉向人類內在經驗的考古。他研究的現實是意識本身——恐懼、渴望、矛盾、自我欺騙的精密結構。）"
+        },
+        {
+          "text": "They call me a psychologist: that is not true. I am merely a realist in the highest sense; that is, I portray all the depths of the human soul.",
+          "source": "Dostoevsky 的筆記，1880-1881 年間；收錄於《Dostoevsky 筆記本》，由 Anna Dostoevskaya 整理",
+          "meaning": "（Dostoevsky 拒絕「心理學家」的標籤，堅持自己是「最高意義上的寫實主義者」——因為靈魂的深處就是最真實的現實。他擴大了寫實主義的疆域：可觀察的世界不僅包括社會風俗，也包括意識的地下層。）"
+        },
+        {
+          "text": "The soul is healed by being with children.",
+          "source": "《卡拉馬助夫兄弟們》(The Brothers Karamazov), 1880",
+          "meaning": "（在一部充滿弒父、瀆神、哲學辯論的巨著中，Dostoevsky 把救贖的可能性交給了最簡單的人類經驗。這是他的寫實主義中最反知識分子的面向：理性思辨導向虛無，與孩子同在卻能觸及某種不可言說的真實。）"
+        },
+        {
+          "text": "Above all, don't lie to yourself. The man who lies to himself and listens to his own lie comes to a point that he cannot distinguish the truth within him, or around him, and so loses all respect for himself and for others.",
+          "source": "《卡拉馬助夫兄弟們》(The Brothers Karamazov), Book II, Chapter 2, 1880",
+          "meaning": "（自我欺騙是一切道德崩壞的起點——一旦人開始對自己說謊，內在的真實感就會瓦解，進而失去辨別外在真實的能力。這段話是 Dostoevsky 版本的寫實主義倫理：面對真實首先意味著面對自己。）"
+        },
+        {
+          "text": "Pain and suffering are always inevitable for a large intelligence and a deep heart.",
+          "source": "《罪與罰》(Crime and Punishment), Part IV, 1866",
+          "meaning": "（深刻的感知力必然伴隨痛苦——因為看得越清楚，承受的真實就越沉重。Dostoevsky 將寫實主義與苦難連結：對世界的忠實觀察是一種受苦的行為，因為現實的本質包含苦難。）"
+        },
+        {
+          "text": "The darker the night, the brighter the stars. The deeper the grief, the closer is God.",
+          "source": "《罪與罰》(Crime and Punishment), 1866",
+          "meaning": "（二元結構揭示 Dostoevsky 寫實主義的精神維度：他觀察的現實包含黑暗，但黑暗中蘊含超越性的可能。他的寫實主義拒絕停留在社會表面的記錄，堅持深入到存在的終極問題——在絕望的最深處尋找意義。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Le Réalisme（寫實主義宣言）",
+      "author": "Gustave Courbet",
+      "year": 1855,
+      "significance": "Courbet 自建展廳的序言宣言，首次以「寫實主義」命名一個藝術運動，宣告藝術家只能再現親身經歷的時代與親眼所見之物。"
+    },
+    {
+      "title": "Madame Bovary（包法利夫人）",
+      "author": "Gustave Flaubert",
+      "year": 1857,
+      "significance": "以外省小鎮醫生之妻的平庸生活與浪漫幻想的破滅為題材，以極度精確的語言和非人格化的敘事徹底重新定義了小說的可能性。出版後因「傷風敗俗」被起訴，審判本身成為寫實主義的公共事件。"
+    },
+    {
+      "title": "Le Réalisme（寫實主義論文集）",
+      "author": "Champfleury (Jules Husson)",
+      "year": 1857,
+      "significance": "法國寫實主義最重要的理論文獻，為 Courbet 等人的創作提供批評框架，論述寫實主義與攝影、科學觀察法的關係。"
+    },
+    {
+      "title": "Crime and Punishment（罪與罰）",
+      "author": "Fyodor Dostoevsky",
+      "year": 1866,
+      "significance": "心理寫實主義的典範之作，將寫實主義的觀察視角從社會外部推進到人類意識的內部，精確再現罪惡、懺悔、理性崩潰的心理過程。"
+    },
+    {
+      "title": "L'Éducation sentimentale（情感教育）",
+      "author": "Gustave Flaubert",
+      "year": 1869,
+      "significance": "以 1848 革命為背景的幻滅小說，Flaubert 稱之為「我那一代人的道德史」。被認為是 20 世紀現代主義小說的先驅。"
+    },
+    {
+      "title": "Cours de philosophie positive（實證哲學教程）",
+      "author": "Auguste Comte",
+      "year": "1830-1842",
+      "significance": "雖非藝術著作，但提供了寫實主義的哲學基礎：唯有可觀察、可驗證的事實才構成知識，先驗理念與形而上學應被排除於科學與藝術之外。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "以當代日常生活為唯一合法題材：農民、工人、市民的勞動與生活佔據畫布與文本的中心，取代神話、宗教、古典歷史。（WHY：學院派的題材等級制度（histoire > portrait > genre > paysage > nature morte）將歷史畫置於最高位，日常生活題材被視為「低等」。1848 革命後，工人階級已經成為政治主體，他們的存在卻仍被排除在「高等藝術」之外。Courbet 以大尺幅畫布（傳統上只用於歷史畫）畫農民葬禮，是對題材等級制度的正面攻擊。）",
+      "堅持直接觀察作為創作的唯一來源：藝術家必須親眼所見、親身經歷，拒絕從想像、傳說、歷史中取材。（WHY：浪漫主義依賴想像力和情感投射來創造戲劇性——但這種戲劇性往往服務於中產階級的審美消費，與底層民眾的真實處境脫節。攝影術的發明證明了「直接記錄」的可能性，同時 Comte 的實證主義宣告觀察是一切知識的基礎。寫實主義將這個科學原則移植到藝術中。）",
+      "追求客觀、非人格化的再現方式：壓制作者的主觀情感與道德判斷，讓對象自己說話。（WHY：浪漫主義作家將自己的情感投射到角色和風景上——拜倫式英雄是作者的自我戲劇化，自然描寫是作者情緒的延伸。Flaubert 認為這種主觀介入是一種知識分子的傲慢：作者憑什麼替讀者下判斷？寫實主義的「上帝隱身」原則要求作者退場，讓觀察到的事實自行產生意義。）",
+      "語言與形式的精確性：Flaubert 追求 le mot juste（精確的詞），Courbet 追求色彩與質感的物質真實。（WHY：浪漫主義的修辭傾向誇張、渲染、情感泛濫——形容詞堆砌、感嘆號過載。寫實主義者將這種修辭視為對現實的扭曲。精確的語言是對觀察對象的尊重：每一個多餘的詞都是對事實的背叛。）",
+      "揭示社會結構的運作機制：通過具體場景、人物、事件呈現階級關係、經濟壓力、權力分配的實際面貌。（WHY：浪漫主義將社會苦難歸因於命運、激情或個人悲劇，迴避了結構性的分析。寫實主義受到實證社會學的影響——特別是 Taine 的「種族、環境、時代」三因素理論——試圖以小說和繪畫的方式呈現社會系統如何塑造個人命運。）",
+      "賦予底層人物尊嚴與複雜性：拒絕將工人和農民簡化為可憐的受害者或高貴的野蠻人。（WHY：即使同情底層的浪漫主義作品（如早期雨果）也傾向將窮人理想化或戲劇化。Millet 筆下的農民既不可憐也不高貴——他們沉默、沉重、與土地融為一體。Dostoevsky 筆下的罪犯有完整的哲學思辨能力。寫實主義堅持人的複雜性不分階級。）"
+    ],
+    "what_they_refuse": [
+      "學院派的題材等級制度：拒絕歷史畫至上的價值排序，拒絕承認某些題材天生比其他題材更「高貴」。（WHY：學院派體系源自 17 世紀法國皇家繪畫與雕塑學院，將題材分為五等。這套等級制度維護了貴族與宗教的文化霸權——只有描繪神、國王、英雄的畫作才配掛在沙龍最顯眼的位置。寫實主義打破這套等級，就是打破文化權力的分配結構。）",
+      "浪漫主義的情感誇張與異域想像：拒絕拜倫式英雄、東方幻想、中世紀傳奇、自然的感傷化。（WHY：浪漫主義將現實美化或戲劇化，提供給中產階級讀者一個逃離日常的出口。但這種逃避讓人對眼前的社會不義視而不見。Flaubert 的《包法利夫人》正是對浪漫主義讀者的解剖：Emma Bovary 被浪漫小說毒害，把幻想當現實，最終走向毀滅。）",
+      "藝術的道德說教功能：拒絕將繪畫或小說當作傳遞道德訊息的工具。（WHY：學院派繪畫傳統要求歷史畫「寓教於畫」——通過古典場景傳達道德教訓。寫實主義認為這種說教是對觀者智識的侮辱：呈現事實本身就足夠了，讓觀者自己得出結論。Flaubert 最痛恨作者在文本中「跳出來教訓讀者」。）",
+      "古典主義的理想化美學：拒絕將人體、自然、社會按照古希臘羅馬的理想標準進行美化。（WHY：學院派要求裸體畫以希臘雕塑為標準——所有人體都必須接近完美比例。Courbet 畫的裸體是真實的肉體——有贅肉、有汗漬、有皺紋。這種「醜陋」冒犯了學院派的審美底線，但 Courbet 認為真實的身體比理想化的軀殼更值得被看見。）",
+      "藝術的純粹形式遊戲：拒絕「為藝術而藝術」的唯美主義立場，堅持藝術必須與社會現實保持連結。（WHY：Théophile Gautier 的「為藝術而藝術」主張藝術的唯一目的是追求美，與社會無關。Courbet 在寫實主義宣言中明確否定這個立場：藝術必須回應它所處的時代，否則就是一種不負責任的逃避。）",
+      "先驗知識與形而上學的權威：拒絕從宗教教義、哲學體系或政治意識形態出發來規定現實「應該」是什麼樣子。（WHY：實證主義的核心命題是：知識只能來自觀察與經驗。寫實主義將這個認識論原則轉化為藝術方法：先觀察，再描述——永遠從具體的、可感知的現實出發，拒絕任何先驗框架對觀察結果的預設。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "新古典主義 (Neoclassicism)：其理想化的人體比例、古典神話題材、英雄式構圖代表寫實主義所反對的一切——對現實的系統性美化",
+      "浪漫主義 (Romanticism)：其情感誇張、異域想像、個人英雄崇拜是寫實主義的直接批判對象——Flaubert 的《包法利夫人》就是對浪漫主義讀者的解剖報告",
+      "學院派 (Académisme)：其題材等級制度、歷史畫至上的價值排序、理想化的人體標準是寫實主義的制度性敵人",
+      "唯美主義 / 為藝術而藝術 (Art for Art's Sake)：Courbet 在寫實主義宣言中明確否定這個立場，堅持藝術必須回應社會現實"
+    ],
+    "against_values": [
+      "想像力高於觀察力：浪漫主義將想像力視為藝術的最高能力，寫實主義反轉這個排序，宣告觀察力才是藝術家的核心素養",
+      "美化就是美德：學院派認為將醜陋的現實美化是藝術的功能，寫實主義認為美化是謊言",
+      "藝術的永恆性高於當下性：古典主義追求跨越時代的永恆真理，寫實主義堅持藝術的價值在於忠實記錄此時此地",
+      "高雅題材的天然優越性：拒絕承認國王比農民、聖經比報紙、希臘神殿比鄉村教堂更值得被再現",
+      "作者作為先知或道德導師：寫實主義要求作者退場，放棄知識分子對大眾的啟蒙姿態"
+    ],
+    "societal_context": "寫實主義誕生於 1848 年革命的餘震中。二月革命推翻了七月王朝，六月起義遭到血腥鎮壓，拿破崙三世的政變終結了第二共和的民主實驗。這一連串事件粉碎了自由派知識分子對政治進步的信心——浪漫主義那套英雄敘事、人民解放的宏大願景在現實中全面失敗。同時，工業革命的加速推進將數百萬農民推進城市工廠，產生了龐大的城市無產階級。巴黎從花都變成貧民窟與工廠的混合體——Haussmann 的城市改造（1853-1870）本身就是將貧民區推土重建的暴力行為。攝影術（1839）挑戰了繪畫的記錄功能，Comte 的實證主義（1830-1842）瓦解了形而上學的知識壟斷，Darwin 的演化論（1859）將人類拉回動物界。在這個信仰崩塌、社會撕裂、認識論革命的交匯點，寫實主義宣告：藝術的任務是直面眼前的世界，不逃避、不美化、不說教——用最精確的觀察與最誠實的再現，記錄這個時代的面貌。"
+  },
+
+  "problems_solved": [
+    "打破題材等級制度：寫實主義讓農民、工人、市民、妓女——被排除在「高等藝術」之外數百年的群體——成為繪畫與文學的合法主角，永久改變了「什麼值得被再現」的文化共識",
+    "建立以觀察為基礎的創作方法論：從直覺、靈感、想像驅動的創作轉向以系統性觀察、直接經驗、客觀記錄為基礎的方法，為 20 世紀的文獻攝影、報導文學、紀錄片奠定了倫理與方法的基礎",
+    "發明現代小說的敘事技術：Flaubert 的「非人格化敘事」、「自由間接話語」(style indirect libre)、精確的場景描寫開創了現代小說的技術標準，直接影響了 James Joyce、Virginia Woolf、Proust 等人",
+    "將社會分析引入藝術：通過具體的人物與場景呈現階級結構、經濟壓力、權力關係的運作方式，讓藝術成為一種社會認知的工具，為後來的批判現實主義與社會學奠定基礎",
+    "擴大「現實」的定義範圍：Dostoevsky 將寫實主義從外在社會觀察推向心理與精神的內部現實，證明意識的深層結構——夢境、恐懼、信仰危機、道德困境——同樣是可以被精確再現的「現實」",
+    "為攝影與視覺紀錄提供美學合法性：寫實主義對「直接記錄可見世界」的堅持，為攝影作為藝術形式的合法化掃清了美學障礙"
+  ],
+
+  "problems_created": [
+    "客觀性的幻覺：寫實主義宣稱客觀再現，但所有再現都包含選擇——選擇什麼場景、從什麼角度、用什麼語調。這個「客觀性的幻覺」讓意識形態隱藏在「中立紀錄」的外衣之下，反而更難被質疑",
+    "歐洲中心的「普遍性」假設：法國和俄國寫實主義者的「真實」預設了特定的社會結構與認識論框架，當這套標準被強加於非西方文化時，成為文化霸權的工具",
+    "走向決定論的危險：從寫實主義到自然主義（Zola），社會環境與生物遺傳被過度強調，個人自由意志被壓縮為環境的產物。這種決定論在 20 世紀被用來為各種形式的社會控制辯護",
+    "排斥非具象的藝術表達：寫實主義對「可觀察現實」的堅持，在教條化之後成為反對抽象藝術、超現實主義等非具象表達的武器——蘇聯的「社會主義寫實主義」就是這種教條化的極端產物",
+    "將情感深度等同於苦難描寫：寫實主義傾向聚焦於社會的陰暗面——貧困、壓迫、幻滅——導致一種隱性假設：描寫痛苦比描寫快樂更「真實」、更有深度，這窄化了對人類經驗的全面理解",
+    "作者隱身的倫理問題：Flaubert 的「上帝隱身」原則讓作者迴避了道德責任——當小說描寫暴力或壓迫時，作者的沉默是「客觀」還是「共謀」？這個問題在 20 世紀的戰爭文學與大屠殺書寫中變得極為尖銳"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "藝術的對象從「應然」轉向「實然」——從描繪世界應該是什麼樣子（理想化的古典美、英雄主義的歷史敘事），轉向記錄世界實際上是什麼樣子（農民的葬禮、外省主婦的幻滅、罪犯的心理掙扎）。這個轉向看似簡單，卻徹底改變了藝術的功能定義、題材範圍與方法論基礎。",
+    "what_was_truly_new": [
+      "題材民主化的激進實踐：Courbet 以歷史畫的尺幅（3.15 x 6.68 公尺）畫《奧南的葬禮》——一群無名農民的葬禮佔據了沙龍最大的畫布，這在藝術史上前所未見",
+      "非人格化敘事的發明：Flaubert 的「作者如上帝」原則和「自由間接話語」技術開創了現代小說的敘事方法——讀者直接進入角色的意識，卻找不到作者的立場",
+      "心理寫實主義的深度：Dostoevsky 將內在意識的運作——矛盾的念頭、自我欺騙的機制、理性崩潰的過程——以前所未有的精確度呈現為可閱讀的文本",
+      "社會批判嵌入藝術形式：Daumier 的諷刺石版畫將政治批判與視覺藝術緊密結合，創造了現代政治漫畫的原型",
+      "勞動作為美學主題：Millet 將農業勞動提升為具有史詩莊嚴感的繪畫題材——播種、收割、拾穗的身體動作獲得了與宗教畫中聖徒姿態同等的形式尊嚴"
+    ],
+    "what_was_borrowed": [
+      "荷蘭黃金時代繪畫 (17 世紀)：Vermeer、Rembrandt、de Hooch 的日常生活場景繪畫是寫實主義的直接視覺先驅——Courbet 明確承認荷蘭繪畫的影響",
+      "Honoré de Balzac 的社會小說 (1830s-1840s)：《人間喜劇》以百科全書式的野心記錄法國社會各階層，為 Flaubert 和 Zola 提供了小說作為社會分析工具的先例",
+      "Auguste Comte 的實證主義 (1830-1842)：「唯有可觀察的事實才構成知識」的認識論直接轉化為寫實主義的方法論",
+      "攝影術 (1839-)：攝影「直接記錄可見世界」的能力既挑戰了繪畫的記錄功能，也為寫實主義提供了「機械客觀性」的參照標準",
+      "Stendhal 的小說理論：「小說是一面沿路行走的鏡子」（Le Rouge et le Noir, 1830）為寫實主義的反映論提供了最早的隱喻框架",
+      "Caravaggio 的明暗對照法 (17 世紀)：以街頭乞丐為聖經人物模特的做法，是將底層人物引入「高等題材」的最早先例"
+    ],
+    "creative_leap": "寫實主義的關鍵創造性飛躍在於將一個認識論轉向轉化為完整的藝術實踐體系：它把實證主義的「觀察即知識」從哲學命題變成畫布上的顏料分佈方式、小說中的句法結構、戲劇中的人物塑造方法。Courbet 的大尺幅日常場景繪畫同時是一個美學宣言和一個政治行動——它證明了「誰被看見」這個問題既是藝術問題也是權力問題。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "寫實主義的核心命題——如何在不歪曲現實的前提下再現現實——在 AI 生成內容的時代獲得了全新的急迫性。當 deepfake 能生成照片般逼真的假影像，當 LLM 能產出流暢但虛構的文字，「什麼是真實的再現？觀察的倫理是什麼？作者的責任在哪裡？」這些寫實主義在 1850 年代提出的問題，正以更複雜的形式重新浮現。",
+      "transferable_to": [
+        "紀錄片與新聞攝影的倫理：寫實主義的「觀察者應該介入還是保持距離」的辯論直接對應今天的新聞倫理問題",
+        "AI 生成內容時代的真實性標準：當機器能產出超寫實的影像與文字，Flaubert 對「精確的詞」的追求有了新意義",
+        "資料視覺化與資訊設計：將複雜社會現實轉化為可理解的視覺形式，是寫實主義精神的當代延續",
+        "社會設計與服務設計：寫實主義「從觀察底層真實經驗出發」的方法論對應今天的田野調查與使用者研究",
+        "口述歷史與素人紀錄：將「非菁英」的聲音帶入公共敘事，延續寫實主義的題材民主化使命",
+        "UX 寫作與內容策略：Flaubert 對 le mot juste 的追求與 UX 寫作對精確、簡潔、無冗餘語言的要求高度一致"
+      ]
+    },
+    "originality_type": "paradigm_shift"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "荷蘭黃金時代繪畫 (Vermeer, Rembrandt, 17 世紀)：日常生活場景作為繪畫正題的先例",
+      "Auguste Comte 的實證主義 (1830-1842)：觀察與經驗作為知識唯一合法來源的認識論基礎",
+      "Honoré de Balzac 的社會小說 (1830s-1840s)：《人間喜劇》以小說系統記錄法國社會",
+      "Stendhal 的小說理論 (1830)：「小說是一面鏡子」的反映論隱喻",
+      "攝影術的發明 (1839)：機械記錄現實的新可能性，迫使繪畫重新定位",
+      "Caravaggio 的街頭人物入畫 (17 世紀)：將底層人物作為宗教畫模特的先例",
+      "1848 年歐洲革命：工人階級作為政治主體登場，要求在文化中被再現"
+    ],
+    "influenced": [
+      "自然主義 (Naturalism, Zola, 1870s-)：將寫實主義的觀察原則推向科學實驗的極端——作家如實驗室科學家，小說如社會實驗",
+      "印象派 (Impressionism, 1870s-)：繼承寫實主義對直接觀察和當代生活題材的堅持，但將焦點從社會內容轉向光線與色彩的感知真實",
+      "俄國巡迴展覽畫派 (Peredvizhniki, 1870s-)：直接受法國寫實主義影響的俄國畫派，以社會批判繪畫回應沙俄的農奴制與貧困",
+      "社會主義寫實主義 (Socialist Realism, 1930s-)：寫實主義的意識形態化極端版本——被蘇聯國家化為官方藝術教條",
+      "現代主義小說 (James Joyce, Virginia Woolf, Proust)：Flaubert 的非人格化敘事、自由間接話語直接開啟了意識流小說的技術可能",
+      "紀錄攝影 (Documentary Photography, 1930s-)：Walker Evans、Dorothea Lange 的 FSA 攝影計畫延續寫實主義「記錄底層真實」的使命",
+      "義大利新寫實主義電影 (Italian Neorealism, 1940s-)：De Sica、Rossellini 以非職業演員、實景拍攝記錄戰後義大利底層生活",
+      "新新聞主義 / 非虛構寫作 (New Journalism, 1960s-)：Tom Wolfe、Truman Capote 以小說技巧處理真實事件，延續寫實主義的方法論"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "冷靜、銳利、不留情面的觀察者。像一位法醫解剖師：對表面的華美毫無興趣，只想知道表皮之下的結構。對真實有近乎偏執的執著——每一個細節都必須能在現實中找到對應物。討厭誇張的修辭、空洞的象徵、自我感動的情感。尊重勞動、尊重具體、尊重讓人不舒服的事實。言語精準、刪繁就簡，但偶爾會因為過度追求精確而顯得刻薄。",
+    "evaluation_bias": "強烈偏好基於直接觀察、有具體社會脈絡、呈現真實人類處境的作品。傾向高估紀錄性、社會批判性、語言精確性的價值，低估想像力、抽象表達、形式實驗的重要性。會不自覺地以「這在現實中有對應物嗎？」作為隱性評分標準。對幻想文學、抽象藝術、純形式遊戲可能給出不公正的低評。",
+    "blind_spots": "難以評價不以再現為目標的藝術形式——抽象繪畫、音樂、建築、舞蹈。過度強調「可觀察的現實」使其無法理解夢境、潛意識、精神體驗的藝術價值（儘管 Dostoevsky 已經開始探索這個領域）。對形式創新的純粹審美價值缺乏敏感度。可能將「好看」與「膚淺」劃等號，將「令人不安」與「深刻」劃等號。",
+    "typical_critique": "你的作品用了很多漂亮的詞，但它說了什麼具體的事？我看不到任何一個可以辨認的社會場景、可以觸摸的物質細節、可以驗證的人類處境。你把讀者帶進了一片美麗的迷霧——但迷霧散去之後什麼也沒有。回到街上去。打開你的眼睛。把你看到的東西原原本本地記錄下來——那裡面的力量比你的想像力更強大。"
+  },
+
+  "writing_style": {
+    "collective_voice": "寫實主義的集體寫作風格是「冷靜的手術刀」：語言是工具，用途是解剖。拒絕修辭裝飾，追求每一個字都承載具體資訊。句子結構傾向簡潔直陳，從具象的物質細節出發——先看到「一雙磨破的靴子」再談社會意義。核心修辭策略是累積：通過大量精確的細節堆疊建構出一個不可迴避的現實。所有成員都以觀察者姿態寫作——他們在記錄「是什麼」，刻意壓制「應該是什麼」。動詞傾向完成式（事情已經發生了，你只能看著），視角傾向第三人稱。",
+    "internal_tensions": "最大的風格裂痕在「外在社會觀察」與「內在心理挖掘」之間。Courbet 和 Millet 代表面向外部世界、面向可見物質的聲音——語言像攝影機，平移掃過場景。Dostoevsky 代表面向內部意識、面向不可見深淵的聲音——語言像手術探針，鑽入角色的大腦皮層。Flaubert 是橋梁人物：表面上冷靜客觀地描寫外部場景，但精密的句法結構讓讀者不知不覺滑入角色的主觀意識。",
+    "master_voices": [
+      {
+        "name": "Gustave Courbet",
+        "writing_character": "街頭演說家與唯物論宣言者的結合體",
+        "sentence_rhythm": "短促有力的斷言句為主（10-15 字），偶爾展開為列舉式長句",
+        "rhetoric": "否定式開場（我無法畫...因為我沒見過...）、具象比喻、三重否定、宣言式語氣",
+        "tone": "自信、挑釁、帶粗獷的直率，像農民跟學者吵架",
+        "real_examples": [
+          {
+            "text": "Show me an angel and I'll paint one.",
+            "source": "信件，約 1850 年",
+            "style_note": "條件句結構的挑釁：用最簡潔的邏輯推翻整個學院派的題材體系"
+          },
+          {
+            "text": "To know in order to be able to do, that was my idea. To be not only a painter, but a man as well; in short, to create living art — this is my goal.",
+            "source": "寫實主義宣言, 1855",
+            "style_note": "平行結構遞進：知→做→活，三段邏輯推到「活的藝術」"
+          }
+        ]
+      },
+      {
+        "name": "Gustave Flaubert",
+        "writing_character": "外科醫生兼語言潔癖患者——每一刀都經過計算",
+        "sentence_rhythm": "中等長度為主（20-35 字），節奏控制極精密：逗號與分號的位置影響呼吸",
+        "rhetoric": "精確的物質細節（質地、顏色、溫度）、自由間接話語、反諷（角色認真說出的話暴露其愚蠢）、隱喻極度節制",
+        "tone": "冰冷的手術燈光，偶爾閃過殘忍的幽默",
+        "real_examples": [
+          {
+            "text": "The author, in his work, must be like God in the universe, present everywhere and visible nowhere.",
+            "source": "致 Louise Colet 的信，1852",
+            "style_note": "以神學比喻定義寫作方法論——冷靜到近乎冷酷"
+          },
+          {
+            "text": "Human speech is like a cracked kettle on which we tap crude rhythms for bears to dance to, while we long to make music that will melt the stars.",
+            "source": "Madame Bovary, 1857",
+            "style_note": "二元結構從粗鄙（破水壺、熊跳舞）拉到崇高（融化星辰），語言的裂痕在一句話內現形"
+          }
+        ]
+      },
+      {
+        "name": "Fyodor Dostoevsky",
+        "writing_character": "在審訊室裡審問靈魂的偵探——兼控方、辯方與被告",
+        "sentence_rhythm": "極度不規則：短促的喘息式句子（3-7 字）與纏繞式長句交替出現，模擬意識的混亂運動",
+        "rhetoric": "自我反駁、突然轉向、反覆追問、矛盾修辭（自由即恐懼、苦難即救贖）",
+        "tone": "緊張、焦灼、帶狂熱的急迫感——像半夜三點的懺悔",
+        "real_examples": [
+          {
+            "text": "They call me a psychologist: that is not true. I am merely a realist in the highest sense; that is, I portray all the depths of the human soul.",
+            "source": "筆記本，1880-1881",
+            "style_note": "否定-修正結構：先拒絕一個標籤，再用「最高意義上」重新定義自己的位置"
+          },
+          {
+            "text": "Above all, don't lie to yourself.",
+            "source": "The Brothers Karamazov, 1880",
+            "style_note": "祈使句開場——指令式的道德斷言，後面緊跟層層推演的邏輯鏈"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子以中短句為主（15-25 字），關鍵觀點用不超過 12 字的直陳句起手",
+      "大量使用具體物質細節作為論證起點：先描述看到什麼，再分析意味什麼",
+      "使用反問句挑戰被評審者：「你在這裡看到了什麼具體的人類處境？」",
+      "禁用空洞的褒義詞（美麗、動人、深刻），用精確的描述替代",
+      "每段以一個觀察事實開頭，以一個判斷收尾",
+      "類比必須來自日常生活而非高雅文化：用菜市場談構圖，用手術室談語言",
+      "偏好完成式動詞——敘述已經發生的事實，拒絕虛擬語氣",
+      "禁用感嘆號——冷靜是寫實主義批評的基本溫度",
+      "質疑所有概括性陳述：「你說的『社會』是哪個街區？你說的『人民』是哪一戶人家？」"
+    ]
+  }
+}

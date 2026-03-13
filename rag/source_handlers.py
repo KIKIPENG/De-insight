@@ -150,6 +150,60 @@ class MdFileIngestHandler(SourceHandler):
         )
 
 
+class MovementJsonIngestHandler(SourceHandler):
+    """匯入 movement JSON：知識性內容進 LightRAG，persona 存全局。"""
+
+    async def ingest(self, job: dict) -> IngestResult:
+        import json as _json
+        import os
+
+        from rag.knowledge_graph import insert_text
+        from persona.store import (
+            _is_valid_movement,
+            extract_persona_from_movement,
+            extract_knowledge_text,
+            save_persona,
+        )
+
+        path = job["source"]
+        title = job.get("title", "") or os.path.basename(path)
+        with open(path, "r", encoding="utf-8") as f:
+            movement = _json.load(f)
+
+        # Fix #5: 驗證 JSON 是否為有效的 movement 格式
+        if not _is_valid_movement(movement):
+            raise ValueError(
+                f"JSON 檔案不是有效的 movement 格式（缺少 movement_id 或 judge_persona_seed）: {path}"
+            )
+
+        mid = movement.get("movement_id", os.path.splitext(os.path.basename(path))[0])
+        name_zh = movement.get("name", {}).get("zh", mid)
+
+        # 1. 抽取 persona → 存全局
+        persona_data = extract_persona_from_movement(movement)
+        save_persona(mid, persona_data)
+
+        # 2. 抽取知識文本 → LightRAG
+        knowledge_md = extract_knowledge_text(movement)
+        if not knowledge_md.strip():
+            raise ValueError(f"Movement JSON 無知識性內容: {path}")
+
+        warning = await insert_text(
+            knowledge_md,
+            source=f"movement:{name_zh}",
+            project_id=job["project_id"],
+            job_id=job.get("id"),
+        )
+        return IngestResult(
+            title=f"{name_zh}（流派知識 + 批評視角）",
+            warning=warning or "",
+            file_size=len(knowledge_md.encode("utf-8")),
+            page_count=0,
+            source_type="movement_json",
+            extra={"persona_id": mid, "persona_name": name_zh},
+        )
+
+
 HANDLER_MAP: dict[str, type[SourceHandler]] = {
     "pdf": PdfIngestHandler,
     "url": UrlIngestHandler,
@@ -157,6 +211,7 @@ HANDLER_MAP: dict[str, type[SourceHandler]] = {
     "txt": TxtFileIngestHandler,
     "md": MdFileIngestHandler,
     "doi": DoiIngestHandler,
+    "movement_json": MovementJsonIngestHandler,
 }
 
 

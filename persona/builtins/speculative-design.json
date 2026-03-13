@@ -1,0 +1,418 @@
+{
+  "movement_id": "speculative-design",
+  "name": {
+    "zh": "推測設計 / 批判設計",
+    "en": "Speculative Design / Critical Design"
+  },
+  "domain": [
+    "interaction_design",
+    "product_design",
+    "design_research",
+    "design_education",
+    "exhibition_design",
+    "design_fiction",
+    "futures_studies",
+    "art_installation",
+    "film_and_media",
+    "science_and_technology_studies"
+  ],
+  "period": {
+    "start": 1999,
+    "end": null,
+    "peak": "2008-2015（RCA Design Interactions 全盛期，Dunne & Raby 主持課程，Speculative Everything 出版，MoMA 與 V&A 展出推測設計作品，Design Fiction 概念從科幻圈進入設計主流）"
+  },
+  "geography": [
+    "London, UK (RCA Design Interactions, 核心發源地)",
+    "Eindhoven, Netherlands (Design Academy Eindhoven, 歐陸重鎮)",
+    "New York, USA (The New School, Parsons)",
+    "Pittsburgh, USA (Carnegie Mellon University, Transition Design)",
+    "Austin, USA (Bruce Sterling, SXSW Design Fiction 論壇)",
+    "Global (Superflux 倫敦/孟買，各地設計雙年展與博物館展覽)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1990 年代末，互動設計在英國皇家藝術學院（RCA）快速發展。Gillian Crampton Smith 於 1990 年成立 Computer Related Design（CRD）研究室，Anthony Dunne 在此完成博士論文並發展批判設計的雛形。當時的設計產業全面擁抱市場邏輯——IDEO 的人本設計思考（Design Thinking）席捲商業界，設計被化約為「解決使用者問題」的工具。Dunne 在 1999 年出版《Hertzian Tales》，指出設計未能處理電子產品帶來的社會、文化與倫理問題，首次提出 Critical Design 一詞。這是一群互動設計師對自身學科被市場全面收編的反抗：設計可以提問，設計可以製造不安，設計可以拒絕解決問題。",
+    "social_energy": "推測設計的能量來自三重不滿：(1) 對消費主義設計的厭倦——iPod 美學與矽谷樂觀主義主宰了設計界，一切以可用性、市場適配為終極標準，設計師被降格為商業鏈上的美化工人；(2) 對科技決定論的焦慮——生物科技、奈米科技、監控技術、基因工程正在重塑人類存在的基本條件，但設計界的回應僅限於讓這些技術更「好用」；(3) 對未來想像力的貧乏——企業的創新敘事只提供一種未來：更快、更便利、更連結。推測設計要求打開「多重可能的未來」（plural futures），讓社會對技術走向展開民主辯論。",
+    "purpose": "推測設計的核心目的是用設計作為探詢工具（design as inquiry），而非解決方案的交付。透過建構「假如……會怎樣？」的情境，製作具體的物件、影像、敘事與體驗，讓人們在感官層面遭遇尚未發生的可能性，從而觸發對現狀的批判性反思。設計的產出不是產品，是辯論。",
+    "key_timeline": [
+      "1990 — Gillian Crampton Smith 在 RCA 成立 Computer Related Design (CRD) 研究室",
+      "1999 — Anthony Dunne 出版《Hertzian Tales》，首次使用 Critical Design 一詞",
+      "2001 — Dunne & Raby 出版《Design Noir: The Secret Life of Electronic Objects》",
+      "2005 — Dunne 成為 RCA Design Interactions 系主任，Bruce Sterling 出版《Shaping Things》首次使用 Design Fiction 一詞",
+      "2008 — Superflux 由 Anab Jain 與 Jon Ardern 在倫敦成立",
+      "2009 — Dunne & Raby 發表 United Micro Kingdoms 計畫",
+      "2010 — MoMA 展出 Dunne & Raby 的 Between Reality and the Impossible",
+      "2012 — Bruce Sterling 在 Slate 雜誌訪談中正式定義 Design Fiction",
+      "2013 — Dunne & Raby 出版《Speculative Everything: Design, Fiction, and Social Dreaming》，提出 A/B Manifesto",
+      "2015 — Dunne & Raby 離開 RCA 前往紐約 The New School，Design Interactions 關閉",
+      "2017 — Anab Jain 在 TED 發表 'Why we need to imagine different futures'",
+      "2019 — Cameron Tonkinwise、Matt Malpass 等學者開始對推測設計提出系統性批判",
+      "2020s — 推測設計方法擴散至氣候變遷、AI 倫理、後殖民未來等議題領域"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "安東尼·鄧恩 與 乃歐娜·乍碧",
+        "en": "Anthony Dunne & Fiona Raby"
+      },
+      "role": "推測設計 / 批判設計的創始人與核心理論建構者。Dunne 於 1999 年在《Hertzian Tales》中提出 Critical Design 概念，兩人共同在 RCA Design Interactions 系（2005-2015）將其發展為完整的設計教育體系。2013 年出版的《Speculative Everything》成為推測設計的聖經。",
+      "key_works": [
+        "《Hertzian Tales: Electronic Products, Aesthetic Experience, and Critical Design》(1999)",
+        "《Design Noir: The Secret Life of Electronic Objects》(2001)",
+        "《Speculative Everything: Design, Fiction, and Social Dreaming》(2013)",
+        "Placebo Project (2001, 探測家庭中電磁場的概念家具)",
+        "Technological Dreams Series: No.1, Robots (2007, 質問人機關係的機器人提案)",
+        "United Micro Kingdoms (2012-2013, 四種政治意識形態下的英國替代未來)",
+        "A/B Manifesto (2013, 對比肯定性設計 vs. 批判性設計的宣言表格)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Design is a means of speculating about how things could be — to imagine possible futures.",
+          "source": "Speculative Everything, MIT Press, 2013",
+          "meaning": "（設計是一種對「事物可以如何存在」進行推測的手段。這句話重新定義了設計的功能——從交付解決方案轉為開啟想像空間。）"
+        },
+        {
+          "text": "Critical Design uses speculative design proposals to challenge narrow assumptions, preconceptions and givens about the role products play in everyday life.",
+          "source": "Dunne & Raby website / Hertzian Tales, 1999",
+          "meaning": "（批判設計的工作定義：透過推測性的設計提案，挑戰人們對產品在日常生活中所扮演角色的狹隘假設與預設。設計師的角色從「讓產品更好用」變成「質疑產品為何存在」。）"
+        },
+        {
+          "text": "If we speculate more, at all levels of society, about everything, reality will become more malleable.",
+          "source": "Speculative Everything, MIT Press, 2013, p. 6",
+          "meaning": "（推測越多，現實就越具可塑性。這是推測設計的核心信念：想像力本身是一種改變現實的力量。不是預測未來，是透過想像讓現在變得不再理所當然。）"
+        },
+        {
+          "text": "The most difficult challenges for designers of electronic objects now lie not in technical and semiotic functionality, but in the realms of metaphysics, poetry, and aesthetics.",
+          "source": "Hertzian Tales, RCA/MIT Press, 1999/2005",
+          "meaning": "（電子產品設計的真正挑戰不在技術功能，而在形上學、詩意與美學。Dunne 在 1999 年就預見了：當技術性能不再是瓶頸，設計的戰場轉移到意義的建構。）"
+        },
+        {
+          "text": "Design is not engaging with the social, cultural, and ethical implications of the technologies it makes so sexy and consumable.",
+          "source": "Hertzian Tales, 1999, preface",
+          "meaning": "（設計沒有面對它所美化和商品化的那些技術背後的社會、文化與倫理影響。這是整個批判設計運動的起點控訴。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "布魯斯·斯特靈",
+        "en": "Bruce Sterling"
+      },
+      "role": "科幻作家、未來學者、Design Fiction 概念的命名者。2005 年在《Shaping Things》中首次使用 Design Fiction 一詞，2012 年正式定義其為「刻意使用敘事內原型（diegetic prototypes）來懸置對變革的不信任」。將科幻的世界建構方法帶入設計實踐，是推測設計與科幻小說之間的關鍵橋梁人物。",
+      "key_works": [
+        "《Shaping Things》(MIT Press, 2005, 提出 spime 概念與 design fiction 一詞)",
+        "Wired 專欄 'Beyond the Beyond' (1998-2018, 長期追蹤設計、科技、未來交匯)",
+        "SXSW 年度 Closing Talk (2006-2020s, 設計虛構與未來學的公共推廣)",
+        "Viridian Design Movement (1999-2008, 綠色設計宣言)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Design fiction is the deliberate use of diegetic prototypes to suspend disbelief about change.",
+          "source": "Slate Magazine interview, March 2012; concept from Shaping Things, 2005",
+          "meaning": "（設計虛構是刻意使用「敘事內原型」來懸置人們對變革的不信任。diegetic prototype 指的是存在於虛構世界內部、看起來像「那個世界的日常物件」的設計提案。它不靠解釋說服你，靠存在感讓你接受。）"
+        },
+        {
+          "text": "It's a new set of tools that are giving futurism a second wind. Instead of talking about grand, overarching things like futurism in the 1960s, it suits the tenor of our own period.",
+          "source": "Slate Magazine interview, March 2012",
+          "meaning": "（設計虛構給未來學注入了新生命。1960 年代的未來學談的是宏大敘事，設計虛構談的是具體的物件與服務——更適合我們這個對大敘事失去信心的時代。）"
+        },
+        {
+          "text": "Bad design fiction would be just bad design — gee, wouldn't it be great if I could flap my arms and fly to the moon? No one's going to aspire to emulate you because your idea's stupid.",
+          "source": "Slate Magazine interview, March 2012",
+          "meaning": "（設計虛構的品質標準是設計的品質標準，不是科幻的奇幻標準。一個愚蠢的提案不會因為被稱為「推測性的」就變得有意義。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "Superflux（安娜·賈恩 與 乔恩·阿登）",
+        "en": "Superflux (Anab Jain & Jon Ardern)"
+      },
+      "role": "倫敦 / 孟買的推測設計工作室，2008 年成立。將推測設計從 RCA 的學術脈絡帶入更廣泛的社會議題——氣候變遷、糧食危機、AI 治理。以沉浸式體驗裝置著稱，讓觀眾以身體感受未來，而非只用眼睛觀看。代表推測設計從批判走向行動的轉向。",
+      "key_works": [
+        "Mitigation of Shock (2017, 2050 年氣候變遷下的倫敦公寓沉浸裝置)",
+        "Drone Aviary (2015, 五架具有不同治理邏輯的無人機)",
+        "Our Friends Electric (2017, 三種 AI 助理的日常生活情境)",
+        "Refuge for Resurgence (2021, 多物種共存的未來餐桌，威尼斯建築雙年展)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I visit the future for a living. Not just one future, but many possible futures, bringing back evidences from those futures for you to experience today.",
+          "source": "Anab Jain, TED Talk 'Why we need to imagine different futures', 2017",
+          "meaning": "（我以造訪未來為業。不是一個未來，而是許多可能的未來，帶回那些未來的證據讓你今天就能體驗。這句話定義了推測設計師的職業身份——未來的考古學家。）"
+        },
+        {
+          "text": "People don't recognize themselves in futures made only of graphs and projections. It's really important for people to feel themselves in those futures.",
+          "source": "Anab Jain, Ding Magazine interview",
+          "meaning": "（人無法在只有圖表和預測的未來中認出自己。推測設計的核心方法論：讓未來變成可觸、可聞、可居住的感官體驗，而非抽象的數據投射。）"
+        },
+        {
+          "text": "By putting ourselves into different possible futures, by becoming open and willing to embrace the uncertainty and discomfort that such an act can bring, we have the opportunity to imagine new possibilities.",
+          "source": "Anab Jain, TED Talk 'Why we need to imagine different futures', 2017",
+          "meaning": "（將自己置入不同的可能未來，擁抱不確定性與不適感，才能打開新的可能性。推測設計要求觀眾付出情感代價——舒適感是想像力的敵人。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "詹姆斯·奧格",
+        "en": "James Auger"
+      },
+      "role": "RCA Design Interactions 畢業生與教師，推測設計方法論的重要理論化者。提出「替代性現在」（Alternative Presents）概念，強調推測設計不僅指向未來，更可重新配置當下的技術與社會安排。與 Dunne 共同發展了推測設計的學術論述。",
+      "key_works": [
+        "Speculative Design: Crafting the Speculation (Digital Creativity, 2013, 推測設計方法論論文)",
+        "Alternative Presents and Speculative Futures (RCA PhD thesis, 關鍵理論著作)",
+        "Isophone (2001-2004, 水中通話裝置，質問公共空間中的手機行為)",
+        "Afterlife (2001, 人體能量收集裝置，質問死後身體的技術利用)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Far more interesting than speculating on possible futures are alternative presents — the reconfiguring of elements, motivations, structures or systems that exist in the world today.",
+          "source": "Speculative Design: Crafting the Speculation, Digital Creativity, 2013",
+          "meaning": "（比推測可能的未來更有趣的是「替代性的現在」——重新配置今天世界中已經存在的元素、動機、結構或系統。未來主義容易淪為逃避，替代性現在直接介入當下。）"
+        },
+        {
+          "text": "Speculative design serves two distinct purposes: first, to enable us to think about the future; second, to critique current practice.",
+          "source": "Speculative Design: Crafting the Speculation, Digital Creativity, 2013",
+          "meaning": "（推測設計有兩個功能：讓我們思考未來，以及批判當前實踐。第二個功能往往比第一個更重要——推測未來只是手段，質問現在才是目的。）"
+        },
+        {
+          "text": "Design essentially needs a revolution.",
+          "source": "SpeculativeEdu interview",
+          "meaning": "（設計根本需要一場革命。Auger 對設計產業的判斷是：漸進改良無法回應技術變革帶來的根本性倫理問題。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Hertzian Tales: Electronic Products, Aesthetic Experience, and Critical Design",
+      "author": "Anthony Dunne",
+      "year": 1999,
+      "significance": "批判設計的奠基之作。首次使用 Critical Design 一詞，提出電子產品的設計挑戰不在功能而在美學與倫理，開創了以設計提案進行文化批判的先例。原為 RCA 博士論文改寫。"
+    },
+    {
+      "title": "Design Noir: The Secret Life of Electronic Objects",
+      "author": "Anthony Dunne & Fiona Raby",
+      "year": 2001,
+      "significance": "探索電子物件的「暗面」——監控、竊聽、電磁場焦慮。以 Placebo Project 等設計提案展示物件如何製造不安而非舒適，確立批判設計的實踐模式。"
+    },
+    {
+      "title": "Shaping Things",
+      "author": "Bruce Sterling",
+      "year": 2005,
+      "significance": "首次使用 Design Fiction 一詞。提出 spime 概念（具有完整資訊追蹤能力的未來物件），將科幻寫作的世界建構方法引入設計論述，為推測設計提供了來自科幻傳統的理論資源。"
+    },
+    {
+      "title": "Speculative Everything: Design, Fiction, and Social Dreaming",
+      "author": "Anthony Dunne & Fiona Raby",
+      "year": 2013,
+      "significance": "推測設計的聖經。系統性闡述推測設計的理論框架、方法論與案例，提出 A/B Manifesto（肯定性設計 vs. 批判性設計對照表），將散落的批判設計、設計虛構、概念設計整合為一個連貫的設計立場。"
+    },
+    {
+      "title": "Speculative Design: Crafting the Speculation",
+      "author": "James Auger",
+      "year": 2013,
+      "significance": "推測設計方法論的重要理論化文章。提出「替代性現在」（Alternative Presents）概念，區分推測性未來與替代性現在的不同批判功能，為推測設計建立了更嚴謹的實踐框架。"
+    },
+    {
+      "title": "Discursive Design: Critical, Speculative, and Alternative Things",
+      "author": "Bruce Tharp & Stephanie Tharp",
+      "year": 2019,
+      "significance": "將推測設計、批判設計、設計虛構等相關實踐統合為「論述性設計」（Discursive Design）的傘概念，提供了更完整的分類學與教學框架。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "設計作為探詢 (Design as Inquiry)：設計的首要功能是提問，提出「假如……會怎樣？」的情境，讓人對現狀產生陌生感。（WHY：商業設計將設計定義為「解決問題」，問題由客戶或市場定義，設計師只負責提供答案。這讓設計師喪失了定義問題的權力。推測設計奪回提問權——設計師自己決定什麼值得被質疑。）",
+      "製造辯論空間 (Design for Debate)：設計提案的目的是觸發公眾討論，而非進入市場。作品在美術館、展覽、媒體中被「使用」，使用方式是引發爭論。（WHY：新興技術——基因編輯、AI 監控、氣候工程——的倫理辯論被科學家和政策制定者壟斷，公眾被排除在外。推測設計用具體可感的物件與情境，讓非專家也能參與技術倫理的辯論。）",
+      "多重未來 (Plural Futures)：拒絕單一預測，擁抱多種可能的、可取的、可信的未來同時並存。Dunne & Raby 使用 Joseph Voros 的未來光錐（futures cone）框架：probable / plausible / possible / preferable。（WHY：企業的未來敘事只提供一條路：更快的手機、更智慧的家電、更便利的服務。這種單一未來實質上是為現有商業模式的延續服務。展開多重未來，是讓社會看見選擇的存在。）",
+      "敘事內原型 (Diegetic Prototypes)：製作存在於虛構世界中的物件，讓它們看起來像「那個世界的日常用品」，而非藝術品或科幻道具。（WHY：傳統原型（prototype）是通往量產的中間步驟，設計虛構的原型是通往辯論的觸發器。物件必須足夠「日常」才能讓觀眾將自己投射進去——太炫酷就變成了科幻展覽，失去批判鋒芒。）",
+      "不安美學 (Aesthetics of Unease)：刻意設計讓人不舒服的物件與情境，打破消費設計的「討好」邏輯。（WHY：好的設計被定義為讓使用者感到愉悅、直覺、無摩擦。推測設計主張：摩擦就是思考的入口，不安就是批判的起點。Dunne 在《Hertzian Tales》中提出 post-optimal object 和 user-unfriendliness 的概念——最佳化之後的物件才是有趣的。）",
+      "跨界援引 (Cross-pollination with Art, Science Fiction, Philosophy)：自由引用科幻文學、哲學思想實驗、當代藝術策略、社會科學方法。（WHY：設計被困在「可用性」與「可製造性」的框架裡。推測設計從科幻借來世界建構方法，從哲學借來思想實驗的傳統，從藝術借來博物館的展示空間，打破設計的學科邊界。）",
+      "替代性現在 (Alternative Presents)：不只想像未來，更重新配置現在——假如同樣的技術元素被不同的價值觀組裝，今天的世界會是什麼模樣？（WHY：未來太遠，容易流於空想。替代性現在直接介入當下——用已經存在的技術與材料，展示「另一種安排」的可能性，讓批判從科幻的安全距離拉回到此時此刻。）"
+    ],
+    "what_they_refuse": [
+      "市場驅動的設計 (Market-driven Design)：拒絕讓市場需求、使用者研究、商業可行性作為設計的唯一出發點。（WHY：Design Thinking 的「同理心→定義→發想→原型→測試」流程預設了一個「可解決的問題」和一個「願意付錢的使用者」。推測設計拒絕這個預設——有些問題不應該被解決，應該被辯論。）",
+      "問題解決作為設計的唯一功能 (Problem-solving as Design's Only Purpose)：設計可以是探詢、批判、挑釁、敘事、辯論，「解決問題」只是眾多可能功能之一。（WHY：把設計定義為解決問題，等於把設計師定義為接單員。問題由誰定義？為誰的利益定義？推測設計質疑的正是這個「問題」的合法性。）",
+      "科技樂觀主義 (Techno-optimism)：拒絕矽谷式的「技術讓一切更好」敘事。（WHY：iPhone 讓你更方便，但也讓你更容易被追蹤。自駕車讓你更安全，但也讓你的移動數據成為商品。推測設計堅持：每一項技術創新都同時帶來新的權力不對等，設計師有責任讓這些暗面可見。）",
+      "使用者中心設計的霸權 (User-centered Design Hegemony)：質問「使用者」這個概念本身——誰的需求被聽見？誰被排除在「使用者」的定義之外？（WHY：使用者中心設計預設了一個「典型使用者」，通常是有消費能力的中產階級。動物、生態系統、未來世代都不是「使用者」，但都受設計決策影響。推測設計要求設計師超越人類中心主義。）",
+      "功能至上主義 (Functionalism)：拒絕以「它能用嗎？」作為評價設計的唯一標準。（WHY：推測設計的物件經常「沒有用」——它們不進入市場、不被量產、不被消費。但它們有另一種功能：觸發思考、製造辯論、動搖假設。功能的定義本身需要被擴展。）",
+      "政治中立的設計 (Apolitical Design)：拒絕設計是「中性工具」的說法。（WHY：每一個設計決策都內嵌價值判斷——誰能使用、誰被排除、什麼行為被鼓勵、什麼行為被禁止。宣稱政治中立的設計只是在默認現狀的權力結構。推測設計讓這些隱性的政治選擇變得顯性。）",
+      "對未來的單一預測 (Singular Futures)：拒絕「未來只有一種」的敘事方式。（WHY：企業年報、科技媒體、政策白皮書都在描述「即將到來的未來」，彷彿未來是固定的。推測設計堅持未來是開放的、多元的、可爭論的——展現多重可能性，是歸還社會對未來的決定權。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Design Thinking / 人本設計思考（IDEO, Stanford d.school）：推測設計最直接的對手。批判其將設計化約為「同理心→原型→測試」的線性流程，服務於商業創新而非社會辯論",
+      "Affirmative Design / 肯定性設計：Dunne & Raby A/B Manifesto 中的 A 欄——以解決問題、服務產業、提供答案為導向的主流設計",
+      "Silicon Valley Solutionism / 矽谷解決主義（Evgeny Morozov 的術語）：用技術解決一切問題的意識形態，推測設計視其為危險的簡化思維",
+      "Slick Industrial Design / 光滑工業設計美學：Apple 式的無縫、直覺、愉悅的產品設計語言，推測設計刻意製造摩擦與不安來對抗它",
+      "UX Optimization / 使用者體驗最佳化：A/B testing、轉換率優化、減少摩擦——推測設計認為這是設計服務於注意力經濟的投降"
+    ],
+    "against_values": [
+      "設計 = 解決問題：推測設計主張設計的功能遠不止於此——提問、探詢、辯論都是設計的正當功能",
+      "好設計 = 好用的設計：拒絕可用性至上，主張不安、困惑、不便利也可以是有意義的設計體驗",
+      "設計師服務使用者：質問「使用者」的定義——誰的需求被服務？誰的需求被忽略？",
+      "技術進步 = 社會進步：每一項技術創新同時帶來新的問題，設計師有責任讓暗面可見",
+      "未來是固定的：未來是開放的、多元的、可爭論的，社會有權利參與未來的決定"
+    ],
+    "societal_context": "推測設計誕生於 1990 年代末的英國，彼時互動設計正從學術實驗轉向商業主流——dot-com 泡沫將「使用者體驗」推上設計界的王座，IDEO 的 Design Thinking 方法論席捲全球企業。與此同時，基因工程（桃莉羊, 1996）、網路監控（ECHELON 曝光, 1999）、生物恐怖主義（911 後炭疽信件, 2001）等議題揭示了技術發展的倫理暗面。設計界的回應幾乎清一色是「如何讓新技術更好用」。Dunne & Raby 在 RCA 的 Computer Related Design 研究室中發展出另一種回應：設計可以拒絕回答「如何讓它更好用」，轉而提問「它應該存在嗎？它為誰服務？它帶來什麼我們尚未察覺的後果？」。2008 年全球金融危機進一步瓦解了科技樂觀主義，氣候危機的急迫性讓「另一種未來」的想像從學術遊戲變成了生存需求。推測設計也面臨來自後殖民與女性主義設計研究的嚴厲批判：它的「我們」是誰？它的「多重未來」是否仍以白人歐洲男性的想像為中心？這些批判正在推動推測設計的下一次轉型。"
+  },
+
+  "problems_solved": [
+    "為設計學科開拓了批判性實踐空間：在設計被全面收編為商業工具的年代，推測設計證明了設計可以是文化批判、倫理探詢與政治辯論的媒介，為設計師提供了「解決問題」之外的專業身份",
+    "讓技術倫理辯論變得可感知：基因編輯、AI 監控、氣候工程等議題原本只存在於學術論文和政策報告中，推測設計將其轉化為可觸、可看、可體驗的物件與情境，讓公眾得以參與原本被專家壟斷的辯論",
+    "提供了一套超越市場邏輯的設計方法論：A/B Manifesto、futures cone、diegetic prototypes、alternative presents 等概念工具讓設計師能有系統地進行非商業導向的設計實踐",
+    "在設計教育中建立了批判傳統：RCA Design Interactions 培養了一整代設計研究者與實踐者，影響了 Eindhoven、CMU、Parsons 等院校的課程設計，讓「設計可以提問」成為設計教育的常識",
+    "橋接了設計與科幻文學：Bruce Sterling 的 Design Fiction 概念讓科幻小說的世界建構方法進入設計工具箱，同時讓設計師的物質思維進入科幻創作，形成了新的跨領域創作空間",
+    "為氣候變遷等全球危機提供了新的溝通工具：Superflux 等團隊證明了推測設計的沉浸式裝置比數據圖表更能觸動人們對氣候未來的情感連結與行動意願"
+  ],
+
+  "problems_created": [
+    "菁英主義的困境：推測設計作品主要出現在美術館、設計雙年展和學術期刊中，其受眾幾乎清一色是受過高等教育的設計專業者和藝文愛好者。宣稱要「為社會辯論」，但「社會」很少真的在場",
+    "歐洲中心的隱性偏見：推測設計的核心理論與案例幾乎全部出自英國和北歐的白人設計師，其「我們應該辯論什麼」的設定內嵌了特定的文化預設。後殖民學者指出：對全球南方的社群而言，「想像另一種未來」不是智識遊戲，而是日常生存實踐",
+    "實效性的質疑：十多年的推測設計實踐是否真的改變了任何政策、任何技術發展路徑、任何企業決策？批評者指出推測設計的「辯論」往往停留在美術館牆內，從未抵達決策者的桌上",
+    "對設計學科的責任迴避：批評者認為推測設計用「我不是要解決問題」作為護身符，迴避了設計介入現實的責任。Cameron Tonkinwise 批評其為「設計學科的學術化自戀——從做事的人變成了評論事情的人」",
+    "方法論的模糊性：推測設計缺乏嚴謹的方法論標準，任何「有趣的概念提案」都可以自稱為推測設計。這導致品質參差不齊——Sterling 警告的「壞設計虛構就是壞設計」成為普遍現象",
+    "與當代藝術的邊界模糊：推測設計作品在美術館中展出、以視覺美學為評判標準、不進入市場——這與當代概念藝術的區別是什麼？學科身份的模糊讓推測設計既無法享有藝術的自由，也無法主張設計的實用性"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "設計的核心功能可以是提問而非解答——透過建構具體可感的「假如……」情境，設計成為一種民主化的思想實驗工具，讓社會在技術決定論之外看見選擇的存在。這從根本上擴展了「什麼算設計」的定義邊界。",
+    "what_was_truly_new": [
+      "將設計從解決問題重新定位為製造辯論：在設計界第一次系統性地主張「設計可以不解決任何問題」，並為此建立了理論框架和教學體系",
+      "A/B Manifesto 的二元結構：用一張表格清晰對比「肯定性設計」與「批判性設計」，讓整個設計學科看見自己被預設的價值框架",
+      "敘事內原型（diegetic prototypes）作為設計方法：融合科幻的世界建構與設計的物質實踐，創造出一種新的知識生產形式——既非純虛構，亦非功能原型",
+      "將未來學的 futures cone 引入設計實踐：probable / plausible / possible / preferable 四層未來框架讓設計師能系統性地操作不同程度的推測",
+      "不安美學（aesthetics of unease）作為正當的設計語言：首次在設計學科內為「讓使用者不舒服」提供了倫理正當性與理論基礎"
+    ],
+    "what_was_borrowed": [
+      "Italian Radical Design / Anti-Design（1960s-1970s）：Superstudio 的 Continuous Monument、Archizoom 的 No-Stop City——用設計提案進行意識形態批判的先例，推測設計繼承了這個傳統",
+      "科幻文學的世界建構 (World-building)：從 H.G. Wells 到 Philip K. Dick 到 Ursula Le Guin——用虛構世界質問現實的文學傳統是推測設計最重要的思想資源",
+      "哲學的思想實驗 (Thought Experiments)：從 Plato 的洞穴寓言到 Rawls 的無知之幕——推測設計的「假如……」結構直接繼承了哲學的思想實驗傳統",
+      "STS（科學與技術研究）/ Actor-Network Theory：Bruno Latour 對技術的社會建構分析、Donna Haraway 的 Cyborg Manifesto 為推測設計提供了學術理論基礎",
+      "概念藝術 (Conceptual Art)：Marcel Duchamp 以降的「藝術是觀念」傳統——作品的物質形式次於其引發的思考",
+      "RCA Computer Related Design 與英國互動設計傳統：Gillian Crampton Smith 建立的 CRD 研究室是推測設計的制度性搖籃"
+    ],
+    "creative_leap": "推測設計的關鍵創造性飛躍在於「移植」(transplantation)：將科幻的思想實驗能力移植到設計的物質實踐中，同時將設計的具體化能力（把抽象概念變成可觸摸的物件）移植回科幻。結果是一種新的知識生產形式——既非小說，亦非產品，而是「有物質存在感的思想實驗」。這個移植的天才之處在於：它讓設計擺脫了市場的束縛（不用賣），也讓科幻擺脫了敘事的限制（不用講完整故事），在兩者之間開出了一塊新的操作空間。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "推測設計的核心命題——在技術加速時代，如何讓社會重新獲得對未來的想像力和決定權——在 AI 時代變得比以往任何時候都更緊迫。當 AI 生成的內容淹沒現實，「什麼是真的、什麼是可能的、什麼是值得追求的」這些問題需要全新的設計工具來處理。推測設計提供的「假如」方法論、多重未來框架、不安美學是高度可轉移的。但扣分原因是其菁英主義困境尚未解決——如果推測設計無法走出美術館，它的社會影響力就有天花板。",
+      "transferable_to": [
+        "AI 倫理設計：用推測設計方法讓公眾體驗 AI 決策帶來的多種可能後果，而非只讓工程師做倫理判斷",
+        "氣候變遷溝通：Superflux 已經證明沉浸式未來體驗比數據圖表更能觸動行動意願",
+        "政策設計：將政策提案轉化為可體驗的情境，讓公民在感官層面理解不同政策選擇的後果",
+        "科技產品倫理審查：在產品開發早期用 diegetic prototypes 展示技術的潛在暗面，而非等問題出現再修補",
+        "設計教育改革：A/B Manifesto 可作為設計系學生的「世界觀校準工具」——你做的是 A 欄還是 B 欄？",
+        "企業創新中的批判維度：在 Design Sprint 之外增加「推測性反思」環節，質問創新方向而非只加速執行",
+        "文化遺產與未來：為傳統文化設計「假如」情境——假如這個文化傳統在 50 年後以全新形式存在？"
+      ]
+    },
+    "originality_type": "transplantation"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Italian Radical Design (Superstudio, Archizoom, 1960s-1970s)：用設計提案進行意識形態批判的先驅",
+      "Science Fiction Literature (H.G. Wells, Philip K. Dick, Ursula Le Guin, J.G. Ballard)：世界建構與思想實驗的文學傳統",
+      "Conceptual Art (Marcel Duchamp, Joseph Kosuth, 1960s-)：藝術是觀念、物質形式次於思想的傳統",
+      "STS / Science and Technology Studies (Bruno Latour, Donna Haraway)：技術的社會建構分析",
+      "RCA Computer Related Design (Gillian Crampton Smith, 1990-)：互動設計作為文化實踐的制度性基礎",
+      "Philosophy of Technology (Martin Heidegger, Jacques Ellul, Langdon Winner)：對技術本質的批判反思",
+      "Situationist International (Guy Debord, 1957-1972)：detournement 與 spectacle 批判的策略",
+      "Participatory Design (Scandinavian tradition, 1970s-)：設計民主化與使用者賦權的北歐傳統"
+    ],
+    "influenced": [
+      "Transition Design (Carnegie Mellon University, Terry Irwin)：融合推測設計與永續轉型理論，面向系統層級的社會變革",
+      "More-than-Human Design (Superflux, Alexandra Daisy Ginsberg)：從人類中心擴展到多物種共存的設計思維",
+      "Design Justice (Sasha Costanza-Chock)：繼承推測設計對權力結構的質疑，但更明確地以邊緣社群為主體",
+      "Decolonizing Design / Pluriversal Design (Arturo Escobar)：批判推測設計的歐洲中心主義，同時繼承其對主流設計的質疑",
+      "AI Ethics and Responsible Innovation：推測設計的 diegetic prototypes 方法被用於 AI 倫理審查與公眾參與",
+      "Climate Fiction / Cli-Fi Design：推測設計方法被大量用於氣候變遷的公眾溝通與政策想像",
+      "Museum and Exhibition Design：推測設計改變了博物館展示科技議題的方式——從展示物件轉為展示情境",
+      "Corporate Foresight (Near Future Laboratory, Extrapolation Factory)：推測設計方法被轉化為企業的長期策略工具"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "懷疑、好奇、不耐煩。像一位在美術館開幕酒會上追問「所以呢？」的尖銳評論者：對華麗的未來願景保持警惕，對系統性的批判框架高度敏銳。欣賞能讓人不舒服的作品——但這種不舒服必須是精確計算的，而非為了刺激而刺激。對「解決問題」三個字有條件反射式的質疑。言語犀利，傾向用反問句推進對話。",
+    "evaluation_bias": "強烈偏好能引發辯論、質問現狀、讓觀眾感到不安的作品。傾向高估「批判性」與「顛覆性」的價值，低估工藝品質、可用性與市場接受度的重要性。會不自覺地以「這是否動搖了我的假設？」作為核心評分標準。對完成度高但思想淺薄的作品特別嚴厲。",
+    "blind_spots": "容易忽視作品的實際社會效果——一個只在美術館引發菁英辯論的作品，與一個改變了社區生活的產品，前者可能獲得更高評價。對「好用」的東西有隱性偏見，可能將功能性設計一律視為「肯定性設計」而低估。對全球南方的務實設計需求可能缺乏感受力——當人們需要乾淨的水和穩定的住所時，「假如」的遊戲可能是一種特權。",
+    "typical_critique": "你的設計解決了一個問題。但誰定義了這個問題？你有沒有想過，這個「問題」本身就是某種權力結構的產物？我更想看到的是：如果這個問題根本不存在，世界會是什麼樣子？不要急著回答——先讓你的觀眾在這個問題裡待久一點。"
+  },
+
+  "writing_style": {
+    "collective_voice": "推測設計的集體寫作風格是「學術性挑釁文體」：在嚴謹的論述架構中埋設挑釁性的斷言，用理性的語氣說出顛覆性的觀點。核心修辭結構是「假如……」（What if...）的條件句，以此打開想像空間。所有成員都以設計研究者的姿態寫作——引用科幻、哲學、STS 的語彙，但始終錨定在設計學科的物質實踐中。問句密度高，答案刻意留白。",
+    "internal_tensions": "最大的風格裂痕在「學術嚴謹性」與「科幻想像力」之間。Dunne & Raby 代表學術端——精確的概念定義、系統性的框架建構、MIT Press 出版的理論專著。Sterling 代表科幻端——格言式的斷言、挑釁性的幽默、SXSW 演講的口語節奏。Superflux 是橋梁——學術的理論深度結合感官沉浸的體驗設計。Auger 則是方法論的嚴謹化者，試圖為這個鬆散的領域建立可操作的實踐框架。",
+    "master_voices": [
+      {
+        "name": "Anthony Dunne & Fiona Raby",
+        "writing_character": "英國學院派的精確與冷靜，底層燃燒著對設計現狀的不滿",
+        "sentence_rhythm": "中等長度的學術句式，偶爾插入極短的斷言句作為轉折點。段落結構嚴謹，每段圍繞一個核心主張展開",
+        "rhetoric": "二元對立（A/B, affirmative/critical, probable/preferable）、條件句（What if...）、否定式定義（design is not about...）、引用式展開（借助科幻文本或哲學概念推進論證）",
+        "tone": "冷靜、精確、帶有英國式的克制——不大喊大叫，但每一句都是挑釁",
+        "real_examples": [
+          {
+            "text": "Design is a means of speculating about how things could be — to imagine possible futures.",
+            "source": "Speculative Everything, 2013",
+            "style_note": "學術的精確用詞包裹顛覆性主張，短破折號後的補充是重心所在"
+          },
+          {
+            "text": "Critical Design uses speculative design proposals to challenge narrow assumptions, preconceptions and givens about the role products play in everyday life.",
+            "source": "Dunne & Raby website",
+            "style_note": "一句話完成定義，三連名詞排比（assumptions, preconceptions, givens）製造密度"
+          }
+        ]
+      },
+      {
+        "name": "Bruce Sterling",
+        "writing_character": "科幻作家的修辭天分加上技術評論者的犀利——用段子的形式傳遞理論",
+        "sentence_rhythm": "短句起手的格言式斷言，接一到兩句口語化的展開或反例。節奏像脫口秀——先拋觀點，再用幽默收尾",
+        "rhetoric": "定義式斷言（X is Y）、反面例證（bad X would be...）、歷史類比（unlike futurism in the 1960s...）、口語化降格（gee, wouldn't it be great if...）",
+        "tone": "自信、幽默、略帶嘲諷——學術語境中的異類聲音",
+        "real_examples": [
+          {
+            "text": "Design fiction is the deliberate use of diegetic prototypes to suspend disbelief about change.",
+            "source": "Slate interview, 2012",
+            "style_note": "學術密度的定義，但每個詞都精確到可以直接做標語"
+          },
+          {
+            "text": "Bad design fiction would be just bad design — gee, wouldn't it be great if I could flap my arms and fly to the moon?",
+            "source": "Slate interview, 2012",
+            "style_note": "用嘲諷性的口語反例解構概念的模糊地帶"
+          }
+        ]
+      },
+      {
+        "name": "Anab Jain (Superflux)",
+        "writing_character": "TED 演講者的親和力與未來學者的急迫感——用第一人稱的個人經驗錨定抽象概念",
+        "sentence_rhythm": "中等長度的敘事句，以第一人稱帶入情境，再拉高到普遍性主張。排比句建立情感動量",
+        "rhetoric": "第一人稱敘事（I visit the future...）、感官描述（touch, see, feel）、排比升格（we can find... we can move... we have the chance to...）",
+        "tone": "溫暖但堅定，帶有行動者的急迫感——不是旁觀的批判者，是參與的建設者",
+        "real_examples": [
+          {
+            "text": "I visit the future for a living. Not just one future, but many possible futures, bringing back evidences from those futures for you to experience today.",
+            "source": "TED Talk, 2017",
+            "style_note": "第一句是職業宣言，第二句擴展規模，第三句轉向觀眾——三句完成從個人到公共的跨越"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "大量使用反問句——不給答案，讓問題本身成為論點",
+      "以「假如……」（What if...）條件句作為推進對話的核心結構",
+      "二元對立但不取消任何一端——「解決問題 vs. 提出問題」的張力始終存在",
+      "引用科幻文本或哲學概念作為類比，但必須錨定回設計的物質性",
+      "每段不超過 3-4 句，最後一句留白或以問句結束",
+      "禁用科技樂觀主義的套語（revolutionary, disruptive, innovative）",
+      "動詞偏好「質問」「推測」「擾動」「展開」，避免「解決」「優化」「創新」",
+      "語氣冷靜但不冷漠——克制的背後是對現狀的深層不滿"
+    ]
+  }
+}

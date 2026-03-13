@@ -1,0 +1,536 @@
+{
+  "movement_id": "beat-generation",
+  "name": {
+    "zh": "垮世代",
+    "en": "Beat Generation"
+  },
+  "domain": [
+    "文學與敘事"
+  ],
+  "period": {
+    "start": 1944,
+    "end": 1964,
+    "peak": "1955-1962（《乞嚎》朗讀與《乞嚎》猥褻案引發全美關注，《乞嚎》與《乞嚎與其他詩》出版，《乞嚎》後 Kerouac《在路上》出版掀起公路文學熱潮，Beat 作家集體進入公眾視野，City Lights 成為反文化出版基地）"
+  },
+  "geography": [
+    "美國"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "二戰結束後，美國表面進入史無前例的繁榮：郊區住宅、消費主義、核心家庭成為國家敘事的三根支柱。但這個敘事遮蔽了深層的焦慮與壓抑。冷戰核武威脅讓整代人活在隨時毀滅的陰影下——1950 年代的美國中學定期進行「躲到桌下」的核爆演習。麥卡錫主義（1950-1954）將任何異議聲音定義為「反美」，知識分子的公共言論空間急劇收縮。文學界被 New Criticism 的形式主義壟斷，大學英文系教學以 T.S. Eliot 式的精巧隱喻與嚴格格律為唯一正統。與此同時，爵士樂——特別是 Charlie Parker 和 Dizzy Gillespie 的 bebop——正在地下俱樂部展示一種全然不同的創造力：即興、身體性、拒絕預設結構。1944 年，Jack Kerouac、Allen Ginsberg 與 William S. Burroughs 在紐約哥倫比亞大學附近相遇，三人共同的直覺是：美國文學正在窒息，需要一種能承載真實生活經驗的新語言。",
+    "social_energy": "垮世代的能量來自三個交匯點：(1) 戰後美國中產階級的精神空洞——物質豐裕但意義缺失，suburban 生活的標準化讓一整代年輕人感到窒息；(2) 爵士樂、藥物體驗、東方宗教（禪宗、佛教）提供了主流文化之外的感知路徑——Parker 的即興 solo 證明意識流可以成為藝術形式；(3) 公路與汽車文化——州際高速公路系統在 1956 年開始建設，物理空間的自由移動成為精神自由的隱喻。這三股力量匯成一個信念：文學的原料是活過的生命，書寫的動力是身體在空間中的移動。",
+    "purpose": "垮世代的核心目標是打破美國文學的精神禁錮：讓被壓抑的經驗——性、藥物、精神探索、社會邊緣人的生存——進入文學的合法領域。他們要證明：街頭的語言可以是詩歌的語言，即興的書寫可以是嚴肅的文學，瘋狂可以是一種洞見。Ginsberg 在《乞嚎》中直接點名：「我看見這個時代最優秀的頭腦被瘋狂摧毀」——文學的責任是為這些被主流社會判定為瘋狂的聲音作證。",
+    "key_timeline": [
+      "1944 — Kerouac、Ginsberg、Burroughs 在紐約哥倫比亞大學附近結識，形成最初的 Beat 核心圈",
+      "1947 — Kerouac 與 Neal Cassady 的第一次公路旅行，成為《在路上》的原型素材",
+      "1948 — Ginsberg 在紐約公寓中經歷「Blake 幻視」(Blake vision)，聲稱聽見 William Blake 的聲音朗讀詩歌，成為其詩歌寫作的精神轉折點",
+      "1950-1954 — 麥卡錫主義時期，美國政治氣氛極度保守，異議知識分子遭到系統性壓制",
+      "1951.04 — Kerouac 在三週內用一卷 120 英尺的打字紙連續打出《在路上》初稿（the scroll）",
+      "1953 — Burroughs 在墨西哥與丹吉爾完成《乞蟲午餐》早期草稿；Lawrence Ferlinghetti 在舊金山創辦 City Lights Bookstore",
+      "1955.10.07 — Six Gallery 朗讀之夜：Ginsberg 首次公開朗讀《乞嚎》(Howl)，Kerouac 在台下揮舞酒瓶叫好，Gary Snyder、Philip Whalen、Michael McClure 同台。被視為 Beat 運動的公開誕生時刻",
+      "1956 — City Lights 出版《Howl and Other Poems》（乞嚎與其他詩），Ferlinghetti 隨即因「猥褻」罪名被捕",
+      "1957.06 — Howl 猥褻案審判結束，法官 Clayton Horn 裁定《乞嚎》具有「救贖性社會重要性」(redeeming social importance)，無罪釋放。成為美國言論自由史上的里程碑",
+      "1957.09 — Viking Press 出版 Kerouac 的《在路上》(On the Road)，《紐約時報》書評稱其為「垮世代的聖經」，Kerouac 一夜成名",
+      "1958 — Burroughs 在巴黎完成《裸體午餐》(Naked Lunch)；Gary Snyder 前往日本京都修禪",
+      "1959 — 《裸體午餐》由 Olympia Press 在巴黎出版，美國海關查禁。Kerouac 發表小說《達摩流浪者》(The Dharma Bums)，將禪宗與垮世代文化連結",
+      "1961 — 《裸體午餐》在美國由 Grove Press 出版，隨即面臨猥褻訴訟（1966 年勝訴）",
+      "1964 — Ken Kesey 的 Merry Pranksters 巴士之旅橫跨美國，標誌垮世代精神向嬉皮世代的過渡；Neal Cassady擔任巴士司機"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "傑克·凱魯亞克",
+        "en": "Jack Kerouac"
+      },
+      "role": "垮世代的核心敘事者與命名者。提出「Beat」一詞（融合疲憊、節拍、至福三重含義），發展出「自發性散文」(spontaneous prose) 寫作方法論，以公路旅行與爵士樂節奏重新定義美國小說的聲音。",
+      "key_works": [
+        "《在路上》(On the Road, 1957)",
+        "《達摩流浪者》(The Dharma Bums, 1958)",
+        "《地下人》(The Subterraneans, 1958)",
+        "《荒涼天使》(Desolation Angels, 1965)",
+        "《自發性散文的要點》(Essentials of Spontaneous Prose, 1958)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The only people for me are the mad ones, the ones who are mad to live, mad to talk, mad to be saved, desirous of everything at the same time, the ones who never yawn or say a commonplace thing, but burn, burn, burn like fabulous yellow roman candles exploding like spiders across the stars.",
+          "source": "On the Road, 1957",
+          "meaning": "垮世代的人物肖像宣言：追求的是強度，拒絕的是平庸。三個 mad 的排比從生活到言語到救贖層層遞進，三個 burn 的重複模擬焰火的引燃節奏。'Roman candles' 暗示這種燃燒是壯麗的自我毀滅——美與代價不可分割。"
+        },
+        {
+          "text": "Nothing behind me, everything ahead of me, as is ever so on the road.",
+          "source": "On the Road, 1957",
+          "meaning": "公路哲學的極簡表述。過去被甩在身後，未來永遠在前方展開——移動本身就是意義。這句話壓縮了整部《在路上》的精神：拒絕定居，擁抱未知。"
+        },
+        {
+          "text": "One day I will find the right words, and they will be simple.",
+          "source": "The Dharma Bums, 1958",
+          "meaning": "Kerouac 的寫作理想是抵達語言的本真狀態——經過複雜之後回歸簡潔。這與他從爵士樂學到的教訓一致：Parker 最偉大的 solo 聽起來毫不費力。"
+        },
+        {
+          "text": "If you own a rug you own too much.",
+          "source": "The Dharma Bums, 1958",
+          "meaning": "物質極簡主義的極端表述，回應禪宗「無一物」的精神。擁有一條地毯就已經太多——所有物讓人固定，固定是自由的反面。"
+        },
+        {
+          "text": "Something that you feel will find its own form.",
+          "source": "Essentials of Spontaneous Prose, 1958",
+          "meaning": "自發性散文的核心信條：情感先於形式。寫作者不預設結構，讓情感的流動自己決定句子的形狀——就像爵士樂手不預設旋律走向，讓身體的即興反應決定音符。"
+        },
+        {
+          "text": "My fault, my failure, is not in the passions I have, but in my lack of control of them.",
+          "source": "On the Road, 1957 (早期草稿版本)",
+          "meaning": "Kerouac 最誠實的自我診斷。垮世代推崇的激情是雙面刃——問題從來不在於慾望本身，而在於無法駕馭它。這句話預示了 Kerouac 晚年被酒精摧毀的命運。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乞倫·乞斯堡",
+        "en": "Allen Ginsberg"
+      },
+      "role": "垮世代的公共代言人與政治行動者。以《乞嚎》(Howl) 打破美國詩歌的禁忌邊界，將同性戀、精神疾病、藥物體驗帶入正統文學。後成為反越戰運動與反文化運動的精神領袖。",
+      "key_works": [
+        "《乞嚎與其他詩》(Howl and Other Poems, 1956)",
+        "《卡迪許》(Kaddish and Other Poems, 1961)",
+        "《美國》(America, 1956)",
+        "《日葵經》(Sunflower Sutra, 1955)",
+        "《威奇塔漩渦經》(Wichita Vortex Sutra, 1966)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I saw the best minds of my generation destroyed by madness, starving hysterical naked.",
+          "source": "Howl, 1955（1956年出版）",
+          "meaning": "《乞嚎》的開場白，垮世代文學最著名的一行。三個形容詞（starving, hysterical, naked）剝除一切文明遮蔽，將「最優秀的頭腦」還原為最原始的肉身狀態。「被瘋狂摧毀」是對 1950 年代美國社會的根本診斷：壓抑創造瘋狂。"
+        },
+        {
+          "text": "America I've given you all and now I'm nothing.",
+          "source": "America, 1956",
+          "meaning": "對美國的情書與控訴在一句話中完成。「我已經給了你一切」是獻身，「現在我什麼都沒了」是耗盡。Ginsberg 對美國的態度始終是這種矛盾的纏繞：深愛與深恨不可分離。"
+        },
+        {
+          "text": "Follow your inner moonlight; don't hide the madness.",
+          "source": "引自訪談與演講，收錄於 Deliberate Prose: Selected Essays 1952-1995",
+          "meaning": "Ginsberg 對年輕作家的核心忠告。「內在月光」是被社會規訓壓抑的本真自我——微弱、夜間才現、容易被忽視。「不要隱藏瘋狂」直接挑戰 1950 年代將所有越界行為定義為精神疾病的醫療體制。"
+        },
+        {
+          "text": "Whoever controls the media, the images, controls the culture.",
+          "source": "引自演講與訪談，1960s-1970s",
+          "meaning": "從詩人轉向媒體批評者的轉折宣言。Ginsberg 在 1960 年代意識到，爭奪文化的戰場在媒體——誰控制了圖像的生產，誰就控制了社會的想像力邊界。這個洞察比 Debord 的《景觀社會》(1967) 更直白。"
+        },
+        {
+          "text": "Poetry is not an expression of the party line. It's that time of night, lying in bed, thinking what you really think, making the private world public, that's what the poet does.",
+          "source": "引自 Ginsberg 在 Naropa Institute 的教學講座, 1970s",
+          "meaning": "詩歌的原料是深夜獨處時最私密的思緒——那些白天不敢對任何人說的話。詩人的工作是將這個私密世界公開化，打破公共話語與內在真實之間的隔膜。"
+        },
+        {
+          "text": "To gain your own voice, you have to forget about having it heard.",
+          "source": "引自訪談，收錄於 Spontaneous Mind: Selected Interviews 1958-1996",
+          "meaning": "悖論式的寫作忠告：想要被聽見，先忘掉被聽見這件事。對讀者的意識是寫作的雜訊——只有當作家完全沉浸在自己的感知中，語言才能找到本真的聲音。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "威廉·乞洛斯",
+        "en": "William S. Burroughs"
+      },
+      "role": "垮世代中最激進的形式實驗者。以「剪裁法」(cut-up method) 解構線性敘事，將毒癮經驗、控制系統批判與科幻元素融合，創造出預言式的反烏托邦文學。比 Kerouac 和 Ginsberg 年長十多歲，被視為垮世代的黑暗導師。",
+      "key_works": [
+        "《裸體午餐》(Naked Lunch, 1959)",
+        "《癮君子》(Junkie, 1953)",
+        "《軟機器》(The Soft Machine, 1961)",
+        "《爆炸的車票》(The Ticket That Exploded, 1962)",
+        "《Nova Express》(1964)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Language is a virus from outer space.",
+          "source": "The Ticket That Exploded, 1962（概念貫穿多部作品，此為最常引用的表述）",
+          "meaning": "Burroughs 最著名的命題：語言是一種寄生體，它感染人類意識，用預製的句型和敘事模板控制思維。剪裁法的目的就是打破這個病毒的控制鏈——將語言切碎重組，讓意識從語法的牢籠中逃逸。"
+        },
+        {
+          "text": "Nothing is true, everything is permitted.",
+          "source": "引自 Hassan-i Sabbah（山中老人），Burroughs 在 Nova Express (1964) 及多部作品中反覆使用",
+          "meaning": "Burroughs 從中世紀阿薩辛教派首領 Hassan-i Sabbah 借來的格言，成為他的哲學核心。如果所有的「真理」都是控制系統的產物，那麼推翻真理的同時也解除了所有禁令。這是徹底的認識論虛無主義——也是絕對自由的起點。"
+        },
+        {
+          "text": "In my writing I am acting as a map maker, an explorer of psychic areas, a cosmonaut of inner space.",
+          "source": "引自訪談，收錄於 The Adding Machine: Selected Essays, 1985",
+          "meaning": "寫作是內在空間的探險——Burroughs 將作家定位為意識的太空人，探索藥物、夢境、性、恐懼打開的未知領域。文學的邊疆不在外部世界，而在意識的深層結構中。"
+        },
+        {
+          "text": "When you cut into the present the future leaks out.",
+          "source": "引自 Brion Gysin 與 Burroughs 的剪裁法實驗敘述，The Third Mind, 1978",
+          "meaning": "剪裁法的神秘學辯護：將現有文本切碎重組時，偶然產生的並置會揭示隱藏的模式——未來的訊息從被破壞的線性時間中滲透出來。Burroughs 認為偶然性比意圖更接近真實。"
+        },
+        {
+          "text": "A paranoid is someone who knows a little of what's going on. A psychotic is a guy who's just found out what's going on.",
+          "source": "引自訪談與講座, 1960s-1970s",
+          "meaning": "將精神疾病重新定義為認知的不同層次：偏執症患者只是比正常人多看穿了一點控制系統的運作方式，精神病患者則是一次看穿了全部。在 Burroughs 的世界觀中，「正常」是一種經過精心策劃的無知狀態。"
+        },
+        {
+          "text": "The aim of education is the knowledge, not of facts, but of values.",
+          "source": "The Adding Machine: Selected Essays, 1985",
+          "meaning": "Burroughs 罕見的教育觀表述：事實可以被控制系統篡改，唯有價值判斷的能力讓個體保持獨立思考。教育的目的是培養辨識控制機制的能力——看穿誰在說話、為什麼這樣說、這個敘事服務於誰的利益。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "勞倫斯·佛林乞蒂",
+        "en": "Lawrence Ferlinghetti"
+      },
+      "role": "垮世代的出版者與守護者。創辦 City Lights Bookstore（1953）與 City Lights Books 出版社，出版《乞嚎》並在猥褻案審判中捍衛言論自由。自身也是重要的詩人，以平民化的口語詩風將現代主義詩歌帶離象牙塔。",
+      "key_works": [
+        "《心靈的科尼島》(A Coney Island of the Mind, 1958)",
+        "City Lights Pocket Poets 系列（1955 年起，編輯出版）",
+        "《她的》(Her, 1960)",
+        "《無止盡的生命》(Endless Life: Selected Poems, 1981)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Poetry is the shadow cast by our streetlight imaginations.",
+          "source": "Pictures of the Gone World (City Lights Pocket Poets #1), 1955",
+          "meaning": "詩歌是日常想像力投射出的影子——光源是街燈，媒介是我們的心智。Ferlinghetti 刻意選擇「街燈」而非太陽或月亮：詩歌的光源是城市的、夜間的、公共的。"
+        },
+        {
+          "text": "I am waiting for the rebirth of wonder.",
+          "source": "I Am Waiting, 收錄於 A Coney Island of the Mind, 1958",
+          "meaning": "反覆出現的「I am waiting」排比構成一首等待清單詩——等待的對象從政治變革到精神覺醒，核心是「驚奇感的重生」。在一個被消費主義與冷戰恐懼麻痺的社會，恢復對世界的驚奇是詩歌的首要任務。"
+        },
+        {
+          "text": "If you would be a poet, create works capable of answering the challenge of apocalyptic times, even if this meaning sounds apocalyptic.",
+          "source": "Poetry as Insurgent Art, 2007",
+          "meaning": "對詩人的終極挑戰：你的作品是否配得上這個時代的危機規模？輕巧的形式實驗在末世面前是逃避——詩歌必須直面毀滅的可能性。"
+        },
+        {
+          "text": "Pity the nation whose people are sheep, and whose shepherds mislead them.",
+          "source": "Pity the Nation (After Khalil Gibran), 2007",
+          "meaning": "改寫紀伯倫，Ferlinghetti 將矛頭對準 21 世紀初的美國：一個人民溫馴如羊、領導者蓄意誤導的國家值得悲憫。從 1950 年代到 2000 年代，他的政治批判始終一貫。"
+        },
+        {
+          "text": "The poet's eye obscenely seeing sees the surface of the round world with its / rivers and mountains and cities.",
+          "source": "A Coney Island of the Mind, #15, 1958",
+          "meaning": "「猥褻地觀看」(obscenely seeing) 是雙關——既指社會認定的「淫穢」，也指詩人觀看世界的方式本身就超出社會許可的範圍。正是因為詩人的眼睛不遵守禮節，才能看見表面之下的真實。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乞瑞·史奈德",
+        "en": "Gary Snyder"
+      },
+      "role": "垮世代中最深入東方傳統的聲音。將禪宗修行、山林勞動、生態意識融入美國詩歌，在日本修禪十餘年，回美後成為深層生態學運動的文學代表。連結了垮世代的精神反叛與後來的環境運動。",
+      "key_works": [
+        "《砌石與寒山詩》(Riprap and Cold Mountain Poems, 1959)",
+        "《荒野實踐》(The Practice of the Wild, 1990)",
+        "《龜島》(Turtle Island, 1974，普立茲詩歌獎)",
+        "《山河無盡》(Mountains and Rivers Without End, 1996)",
+        "《大地家務》(Earth House Hold, 1969)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Nature is not a place to visit. It is home.",
+          "source": "The Practice of the Wild, 1990",
+          "meaning": "一句話推翻現代人與自然的基本關係預設。「拜訪」意味著你住在別處——城市、文明、人造環境。Snyder 說自然就是家，人類從未離開過生態系統，「回到自然」這個概念本身就是錯的。"
+        },
+        {
+          "text": "Three-fourths of philosophy and literature is the talk of people trying to convince themselves that they really like the cage they were tricked into entering.",
+          "source": "A Place in Space: Ethics, Aesthetics, and Watersheds, 1995",
+          "meaning": "對西方知識傳統的根本質疑：大部分哲學與文學都是被囚之人說服自己「其實監獄也不錯」的囈語。文明不只是棲息地，也是陷阱——而多數書寫都在替這個陷阱辯護。"
+        },
+        {
+          "text": "Find your place on the planet. Dig in, and take responsibility from there.",
+          "source": "引自訪談及 The Real Work: Interviews & Talks 1964-1979",
+          "meaning": "與 Kerouac 的永恆流浪形成對照。Snyder 的回答是扎根：選一個地方，深掘下去，從這個具體的生態位置出發承擔責任。流浪是覺醒的手段，定居才是實踐的開始。"
+        },
+        {
+          "text": "Lay down these words / Before your mind like rocks. / placed solid, by hands / In choice of place, set / Before the body of the mind / in space and time.",
+          "source": "Riprap, 收錄於 Riprap and Cold Mountain Poems, 1959",
+          "meaning": "詩歌的開頭同時是一份寫作宣言：文字如同山路上的碎石（riprap），必須被雙手一塊一塊安放在正確的位置。每個字的選擇都是物理行為——寫詩如同砌路，需要匠人的精確與勞動者的身體投入。"
+        },
+        {
+          "text": "The mercy of the West has been social revolution; the mercy of the East has been individual insight into the basic self/void. We need both.",
+          "source": "Buddhist Anarchism (後更名為 Buddhism and the Coming Revolution), 1961",
+          "meaning": "Snyder 最重要的思想綜合：西方的革命傳統解決社會結構的壓迫，東方的冥想傳統解決意識內部的幻覺。缺任何一邊都是不完整的解放——社會革命沒有內在覺醒會製造新的壓迫者，個人覺醒沒有社會行動只是逃避。"
+        },
+        {
+          "text": "As a poet I hold the most archaic values on earth. They go back to the late Paleolithic: the fertility of the soil, the magic of animals, the power-Loss vision in solitude.",
+          "source": "A Berry Feast, 引言部分，收錄於 The Back Country, 1968",
+          "meaning": "Snyder 將自己的詩歌根源追溯到舊石器時代晚期——比任何文學傳統都更古老。土壤的生育力、動物的神聖性、孤獨中的異象——這些「最古老的價值」是文明之前人類與世界的原初關係，也是詩歌的原初功能。"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "《乞嚎與其他詩》(Howl and Other Poems)",
+      "author": "Allen Ginsberg",
+      "year": 1956,
+      "significance": "垮世代最重要的單一出版物。長詩《乞嚎》以惠特曼式的長行排比、爵士樂的即興節奏、精神病院與同性戀酒吧的場景，炸開了 1950 年代美國詩歌的禁忌邊界。隨後的猥褻案審判（1957）成為美國言論自由的里程碑判決。"
+    },
+    {
+      "title": "《在路上》(On the Road)",
+      "author": "Jack Kerouac",
+      "year": 1957,
+      "significance": "垮世代的代表小說，將公路旅行、爵士樂、底層生活經驗提升為文學主題。Kerouac 的「自發性散文」技法——模擬爵士即興的快速書寫——為美國散文引入全新的節奏與聲音。出版即成為文化事件，影響了整代人的生活選擇。"
+    },
+    {
+      "title": "《裸體午餐》(Naked Lunch)",
+      "author": "William S. Burroughs",
+      "year": 1959,
+      "significance": "垮世代中最激進的形式實驗。以非線性的「例行公事」(routines) 結構呈現毒癮、控制、變形的幻覺世界，預言了後現代文學的碎片化敘事。1966 年的猥褻案勝訴進一步擴展了美國文學的表達自由。"
+    },
+    {
+      "title": "《自發性散文的要點》(Essentials of Spontaneous Prose)",
+      "author": "Jack Kerouac",
+      "year": 1958,
+      "significance": "垮世代最重要的寫作方法論文件。Kerouac 系統闡述即興書寫的原則：不修改、不刪除、追隨呼吸節奏、讓意識流直接流入打字機。這份宣言將爵士樂的即興美學轉化為文學創作的操作手冊。"
+    },
+    {
+      "title": "《心靈的科尼島》(A Coney Island of the Mind)",
+      "author": "Lawrence Ferlinghetti",
+      "year": 1958,
+      "significance": "20 世紀美國最暢銷的詩集之一，銷量超過百萬冊。Ferlinghetti 以口語化的節奏、街頭場景的取材、政治諷刺的鋒芒，證明現代詩可以直接與普通讀者對話，打破了學院派詩歌的受眾壁壘。"
+    },
+    {
+      "title": "《砌石與寒山詩》(Riprap and Cold Mountain Poems)",
+      "author": "Gary Snyder",
+      "year": 1959,
+      "significance": "將中國唐代詩僧寒山的詩歌翻譯與 Snyder 自己的山林勞動詩並置出版，開創了美國詩歌中東亞傳統與生態意識結合的先河。精確的感官描寫、簡潔的意象並置，展示了與 Kerouac 和 Ginsberg 截然不同的垮世代美學路徑。"
+    },
+    {
+      "title": "《卡迪許》(Kaddish and Other Poems)",
+      "author": "Allen Ginsberg",
+      "year": 1961,
+      "significance": "Ginsberg 以猶太喪禮禱詞的形式為精神失常的母親 Naomi 寫成的長篇哀歌。比《乞嚎》更個人、更痛苦、更具結構野心，被許多評論者視為 Ginsberg 最偉大的作品。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "自發性書寫 (Spontaneous Prose)：拒絕修改與自我審查，讓意識流直接從腦中流向紙面，追隨呼吸與情感節奏而非預設結構。（WHY：1950 年代 New Criticism 主導的文學教育將詩歌視為精密的語言機械——每個字都需要反覆推敲、每個隱喻都需要層層編碼。這種寫作方式生產的是為學者設計的文本，阻斷了寫作者與自身經驗之間的直接連結。Kerouac 從 bebop 樂手的即興演奏中看到另一種可能：如果 Charlie Parker 可以不打草稿直接吹奏，作家為什麼不能不打草稿直接書寫？）",
+      "身體經驗作為文學原料：公路旅行、性、藥物、體力勞動、飢餓、疲憊——所有肉身經歷的感覺都是合法的寫作素材，拒絕將文學限縮在書齋想像中。（WHY：學院派文學將「經驗」窄化為閱讀經驗——T.S. Eliot 式的互文、典故、文學傳統內部的對話。Beat 作家認為這種文學已經與活生生的人類經驗脫節。Kerouac 搭便車橫越美國、Ginsberg 在精神病院探視母親、Burroughs 在丹吉爾戒毒——這些經驗的強度遠超任何閱讀能提供的素材。）",
+      "朗讀作為詩歌的首要表現形式：詩歌是口語藝術，必須被大聲說出、在現場被聽見，聲音的物理震動比印刷文字更接近詩歌的本質。（WHY：印刷品將詩歌從聲音還原為視覺符號，讀者在書頁上安靜地「看」詩而非「聽」詩。Ginsberg 從惠特曼的傳統中重新找回詩歌的口語根源——《乞嚎》是為了被吼叫而寫的，它的長行排比需要肺活量，它的節奏依賴呼吸。Six Gallery 的朗讀之夜證明了：同一首詩在紙上和在現場，是截然不同的作品。）",
+      "擁抱社會邊緣經驗：同性戀、精神疾病、毒癮、流浪、犯罪——被主流社會放逐的經驗是文學的富礦，邊緣視角揭示中心的盲點。（WHY：1950 年代的美國文學主要由白人男性中產階級的視角主導，描寫的是郊區生活的微妙焦慮——John Updike、John Cheever 的領地。被排除在這個視角之外的經驗——Neal Cassady 的前科累累、Herbert Huncke 的流浪賣淫、Ginsberg 的同性情慾——不僅存在，而且蘊含着主流視角永遠無法觸及的真實。）",
+      "東方宗教與冥想作為認知工具：禪宗、藏傳佛教、印度教的修行方法被視為打開意識的另一扇門，與西方理性主義互補。（WHY：西方啓蒙傳統將理性分析視為認知的唯一合法路徑。Beat 作家在爵士樂、藥物與極端疲憊中經歷的意識狀態轉變，無法用理性語言解釋。禪宗的「空」、佛教的「正念」提供了另一套框架：意識可以被訓練到超越語言與邏輯的狀態。Snyder 在京都禪寺的十年修行、Ginsberg 與藏傳佛教導師 Chogyam Trungpa 的長期合作，都是這個探索的具體實踐。）",
+      "爵士樂作為文學的結構原型：bebop 的即興、節奏變化、call-and-response 結構被直接移植到散文與詩歌的形式中。（WHY：傳統詩歌的音樂性來自格律——抑揚格、五步格、十四行的固定框架。但格律是預設的結構，與即興相對立。Kerouac 在聽 Charlie Parker 和 Thelonious Monk 時領悟到：音樂可以在沒有預設結構的情況下產生驚人的形式美感。句子的長度可以追隨呼吸，段落的節奏可以追隨情感的起伏——如同薩克斯風手追隨即興的衝動。）"
+    ],
+    "what_they_refuse": [
+      "學院派的形式主義詩學：拒絕 New Criticism 將詩歌視為精密語言機械、需要反覆推敲修改的文學生產方式。（WHY：New Criticism 教導學生「好詩」是歧義的結晶體——每個字都承載多層意義，需要專業訓練才能解碼。這種詩學製造了一個封閉的文學圈子：只有受過研究所教育的讀者才有資格「讀懂」詩歌。Beat 作家認為這是對詩歌的階級背叛——詩歌應該像爵士樂一樣，在酒吧裡對所有人開放。）",
+      "郊區中產階級的價值觀：拒絕房貸、穩定工作、核心家庭、週日教堂、物質積累作為人生成功的定義。（WHY：二戰後的美國將消費能力等同於公民身份——買房、買車、買冰箱是「美國夢」的物質標配。Beat 作家看到的是這個交易的代價：精神自由被抵押給了 30 年的房貸。Kerouac 選擇公路而非房屋，Snyder 選擇山林而非辦公室，Ginsberg 選擇同性戀酒吧而非教堂——每一個選擇都是對中產階級生活腳本的拒絕。）",
+      "自我審查與體面的文學語言：拒絕將性、身體機能、街頭髒話排除在文學語言之外。（WHY：1950 年代的美國文學出版受到嚴格的猥褻法規約束——James Joyce 的《尤利西斯》被查禁的歷史仍然鮮明。Beat 作家認為「體面」是另一種控制機制：規定哪些字可以印刷、哪些經驗可以書寫，等於規定哪些人的生活值得被記錄。《乞嚎》與《裸體午餐》的猥褻案審判，本質上是在爭奪文學語言的邊界。）",
+      "線性敘事的壟斷地位：拒絕傳統小說的開頭-中段-結尾結構，擁抱碎片、跳接、意識流。（WHY：線性敘事預設生活是有邏輯、有因果、有解決方案的——這是 19 世紀寫實主義的遺產。Beat 作家的生活經驗是碎裂的、跳躍的、經常沒有結局的。Burroughs 的剪裁法把這個拒絕推到極端：如果意識本身就不是線性的，為什麼敘事必須是線性的？）",
+      "冷戰二元對立的意識形態：拒絕「美國 vs 蘇聯」、「自由 vs 共產」的強制選邊站。（WHY：麥卡錫主義將所有不符合美國中產階級價值觀的思想定義為「共產主義滲透」。Beat 作家對佛教、對社會主義、對無政府主義的興趣，在這個框架下全部被歸類為「反美」。他們拒絕的是這個框架本身——世界的複雜性不能被壓縮進兩個超級大國的對抗敘事中。）",
+      "文學與生活的分離：拒絕「作者已死」式的客觀批評，堅持作家的人格、經歷、肉身與作品不可分割。（WHY：New Criticism 的核心教條是「意圖謬誤」(intentional fallacy)——作品一旦完成就與作者無關，批評者只需分析文本本身。Beat 作家認為這是學術騙局：把活生生的人從文學中抽離，讓文學變成一種自足的語言遊戲。Kerouac 的小說就是他的生活，Ginsberg 的詩歌就是他的身體——分離它們是對文學的暴力。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "New Criticism / 新批評主義：垮世代的首要敵人。其「close reading」方法論將詩歌封閉在文本內部分析中，切斷文學與生活經驗的連結",
+      "1950 年代美國主流文學建制：以 Partisan Review、Kenyon Review 為代表的文學期刊體制，以及常春藤大學英文系的品味壟斷",
+      "McCarthyism / 麥卡錫主義：將異議思想等同於叛國，壓縮了所有公共言論的空間",
+      "Confessional Poetry（部分對立）：Robert Lowell、Sylvia Plath 等雖同樣書寫個人經驗，但仍在學院派的形式框架內操作，被 Beat 視為不夠徹底的突破",
+      "郊區消費主義文化：Levittown 式的標準化郊區住宅、電視廣告、企業組織人——美國夢的物質化表現"
+    ],
+    "against_values": [
+      "文學的精英化與專業化：反對只有受過研究所教育的讀者才有資格「讀懂」文學的潛規則",
+      "理性至上主義：反對啓蒙傳統將理性分析視為唯一合法認知方式，擁抱直覺、身體感知、冥想體驗",
+      "物質主義的成功定義：反對以收入、房產、社會地位衡量人生價值",
+      "性與身體的禁忌：反對將同性戀、性自由、身體書寫排除在公共話語之外",
+      "藝術的去政治化：反對 New Criticism「藝術自足論」背後對社會批判的迴避"
+    ],
+    "societal_context": "垮世代誕生於美國最矛盾的時刻：二戰勝利帶來的自信與冷戰核武恐懼並存；史無前例的物質繁榮與精神空洞並存；言論自由的憲法承諾與麥卡錫主義的思想控制並存。1944-1964 年間的美國，表面是進步、樂觀、富裕的，實質上壓抑了大量不符合官方敘事的經驗：同性戀被定義為精神疾病（直到 1973 年 DSM 才移除同性戀）、共產主義同情者被列入黑名單、非裔美國人在南方被制度性隔離。Beat 作家從這個壓抑的裂縫中湧出，用文學為被噤聲的經驗發聲。他們付出的代價也是真實的：Ginsberg 的母親在精神病院度過餘生，Burroughs 在墨西哥意外射殺妻子，Kerouac 47 歲死於酒精引起的內出血，Neal Cassady 在墨西哥鐵道旁服藥過量身亡。垮世代的文學自由是用肉身換來的。"
+  },
+
+  "problems_solved": [
+    "打破美國文學的語言禁忌：《乞嚎》與《裸體午餐》的猥褻案審判勝訴，永久擴展了美國文學可以使用的語言範圍與可以觸及的主題——性、藥物、同性戀、精神疾病從此進入合法的文學領地",
+    "恢復詩歌的口語傳統：將詩歌從印刷品拉回現場表演，Six Gallery 的朗讀之夜開創了美國詩歌朗讀 (poetry reading) 的傳統，直接催生了後來的 spoken word 和 slam poetry",
+    "為美國文學引入東亞思想資源：Snyder 的寒山翻譯、Kerouac 的《達摩流浪者》、Ginsberg 的佛教實踐，為美國文學打開了禪宗、佛教、道家的精神維度，影響了後世從 John Cage 到 Steve Jobs 的東方轉向",
+    "確立「路上」作為美國文學的核心敘事原型：《在路上》將公路旅行從旅遊書寫提升為存在主義的探索形式，開創了從 Hunter S. Thompson 到 Cormac McCarthy 的公路文學傳統",
+    "為 1960 年代反文化運動鋪設精神地基：垮世代的反體制姿態、藥物實驗、東方宗教探索、性解放主張，直接催生了嬉皮運動、反越戰運動、民權運動的文化土壤",
+    "將即興創作確立為嚴肅的文學方法：Kerouac 的「自發性散文」從理論到實踐證明了即興書寫可以產生具有持久價值的文學作品，影響了從 Bob Dylan 到 hip-hop 的即興創作傳統"
+  ],
+
+  "problems_created": [
+    "將自我毀滅浪漫化：Beat 文學將酗酒、毒癮、精神崩潰美化為藝術天賦的副產品，製造了「受苦的天才」神話。Kerouac 死於酒精中毒（47 歲）、Cassady 死於藥物過量——他們的毀滅被後世追隨者誤讀為藝術生命的必要代價",
+    "「自發性」的教條化：「first thought, best thought」的信條被庸俗化為反對一切修改的藉口。大量模仿者以為不修改就等於真實，產出了大量未經錘煉的自溺文字。Truman Capote 的批評雖刻薄但指向真實：「那不是寫作，那是打字」",
+    "性別盲點的制度化：Beat 運動幾乎完全以男性為中心。女性在 Beat 敘事中主要扮演繆斯、情人或被遺棄者的角色——Joyce Johnson、Carolyn Cassady、Diane di Prima 的文學貢獻長期被忽視。「在路上」的自由預設了一個男性身體的特權：女性不能安全地搭便車橫越美國",
+    "對非白人文化的挪用而非對話：Beat 作家大量借用爵士樂、佛教、美洲原住民文化，但這些借用經常停留在表面的異國情調層次，缺乏對這些傳統內部複雜性的理解。被借用的文化的主體聲音在 Beat 敘事中仍然缺席",
+    "反智主義的副產品：對學院的徹底拒絕在某些追隨者中演變為對一切系統性思考的敵意。「跟隨你的心」可以是解放，也可以是拒絕面對自己思想的局限性的藉口",
+    "個人神話取代集體行動：Beat 文學的英雄是孤獨的流浪者、獨自面對虛空的詩人——這種個人主義傾向使得垮世代在面對系統性壓迫（種族隔離、階級不平等）時，缺乏有效的集體行動策略。1960 年代的社會運動需要組織，而垮世代只提供了姿態"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "文學的原料是未經過濾的生命經驗本身——作家的肉身、移動、慾望、恐懼直接構成作品的質地，書寫是生活的延伸而非生活的反思。這個觀念將美國文學從學院的語言實驗室中解放出來，重新接通了文學與呼吸、行走、做愛、受苦之間的直接迴路。",
+    "what_was_truly_new": [
+      "「自發性散文」方法論的完整提出：Kerouac 將爵士樂即興的結構原理轉化為散文寫作的操作手冊，這種跨媒材的方法移植在 1950 年代的文學界是前所未有的",
+      "詩歌朗讀作為文學事件的發明：Six Gallery 之夜創造了一種新的文學表演形式——詩人面對觀眾即時朗讀，觀眾的反應成為表演的一部分。這比 spoken word 早了 30 年",
+      "剪裁法 (cut-up method) 的文學應用：Burroughs 與 Brion Gysin 將達達的拼貼技法系統性地應用於散文創作，打破語言的線性控制，預言了數位時代的超文本與混音文化",
+      "將東方冥想傳統引入美國文學的創作實踐（而非僅作為異國情調的裝飾）：Snyder 的十年禪修、Ginsberg 的長期佛教修行，讓東方思想成為寫作方法而非寫作題材"
+    ],
+    "what_was_borrowed": [
+      "Walt Whitman 的長行詩歌傳統：Ginsberg 公開承認惠特曼是《乞嚎》的直接先驅——長行排比、身體的頌歌、美國全景的野心",
+      "Bebop 爵士樂的即興結構：Charlie Parker、Thelonious Monk、Dizzy Gillespie 的即興演奏方法，被 Kerouac 轉化為「自發性散文」的核心原理",
+      "法國超現實主義的自動書寫 (automatic writing)：Breton 的「心靈聽寫」概念被 Beat 作家吸收，但去除了佛洛伊德的精神分析框架",
+      "Henry Miller 的自傳體小說傳統：Miller 在《北回歸線》(1934) 中已經展示了將個人生活經驗直接轉化為小說的方法，Beat 作家將這個方法推到更極端的位置",
+      "William Carlos Williams 的美國白話詩學：Williams 的「no ideas but in things」原則——用美國口語寫美國經驗——是 Beat 詩歌的語言基礎。Ginsberg 與 Williams 有直接的師生關係",
+      "東方哲學與宗教傳統：禪宗（D.T. Suzuki 的著作在 1950 年代大量被翻譯）、藏傳佛教、印度教——為 Beat 作家提供了西方理性主義之外的認知框架"
+    ],
+    "creative_leap": "垮世代的關鍵創造性飛躍在於「跨媒材轉譯」：他們將爵士樂的即興原理轉化為散文的寫作方法，將佛教的冥想修行轉化為觀察世界的認知工具，將公路旅行轉化為存在主義探索的敘事結構。這種在不同領域之間建立新連結的能力——音樂→文學、宗教→寫作方法、物理移動→精神旅程——是 Beat 文學原創性的核心機制。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "垮世代的核心命題——如何在制度化的創作環境中保持個人聲音的本真性——在 AI 時代具有新的急迫性。當 AI 可以生成「正確」的文學文本，人類寫作者的價值究竟在哪裡？Beat 作家的回答是：在身體、在經驗、在不可複製的個人生命軌跡中。他們證明了文學的不可替代性不在於語言技巧（技巧可以被學習與模仿），而在於書寫者與被書寫經驗之間不可轉讓的肉身連結。",
+      "transferable_to": [
+        "AI 時代的個人聲音：當 AI 能生成「正確」的文本，人類寫作者如何保持不可替代的本真性？Beat 的回答是：回到身體、回到經驗",
+        "即興創作方法論：自發性散文的原則可應用於 brainstorming、設計衝刺、快速原型——先產出再編輯的工作流程",
+        "跨媒材創作：Beat 從音樂學敘事、從宗教學觀察——這種跨領域的方法移植對任何創作領域都有啓發",
+        "邊緣視角的價值：被主流排除的經驗往往蘊含最原創的洞見——這個原則適用於產品設計、社會創新、藝術創作",
+        "口語傳統的復興：podcast、spoken word、TED Talk 都是 Beat 詩歌朗讀精神的延續",
+        "反制度化的創作路徑：獨立出版、自媒體、creator economy 與 City Lights 的獨立出版精神一脈相承"
+      ]
+    },
+    "originality_type": "cross-pollination"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Walt Whitman (1819-1892)：長行詩歌、身體頌歌、民主的美國之歌——Ginsberg 的直接精神祖先",
+      "William Carlos Williams (1883-1963)：美國白話詩學、「no ideas but in things」——Ginsberg 的實際導師",
+      "Henry Miller (1891-1980)：自傳體小說、性的直書、巴黎流亡者的自由——Kerouac 和 Burroughs 的先驅",
+      "Arthur Rimbaud (1854-1891)：感官錯亂的方法論、少年天才神話、放棄文學的傳奇——Beat 作家集體崇拜的法國詩人",
+      "Bebop Jazz (1940s-)：Charlie Parker、Thelonious Monk、Dizzy Gillespie 的即興美學——Kerouac 自發性散文的音樂根源",
+      "法國超現實主義 (1920s-)：André Breton 的自動書寫、夢的文學化、對理性的反叛",
+      "Dada (1916-)：偶然性、拼貼、反藝術——Burroughs 剪裁法的精神先驅",
+      "D.T. Suzuki 與禪宗佛學 (1950s 在美國的影響高峰)：Snyder 與 Ginsberg 的東方精神資源",
+      "Thomas Wolfe (1900-1938)：自傳體的雄辯長篇散文——Kerouac 的早期榜樣",
+      "William Blake (1757-1827)：幻視詩歌、反體制精神——Ginsberg 「Blake vision」的源頭"
+    ],
+    "influenced": [
+      "1960s 反文化運動與嬉皮運動：Beat 的反體制姿態、藥物實驗、東方宗教直接催生了舊金山的 Summer of Love (1967)",
+      "Bob Dylan 與民謠搖滾 (1960s-)：Dylan 公開承認 Ginsberg 與 Kerouac 的影響，將 Beat 的詩歌語言帶入流行音樂",
+      "Confessional Poetry (Robert Lowell, Sylvia Plath, Anne Sexton)：Beat 對個人經驗的去禁忌化為自白詩派開闢了空間",
+      "New Journalism (Tom Wolfe, Hunter S. Thompson, Joan Didion, 1960s-)：將主觀經驗與記者身份融合的寫作方法直接繼承 Beat 的「我」在文本中的中心地位",
+      "Punk Rock (1970s-)：反體制、DIY 倫理、即興美學——Patti Smith 等龐克先驅直接引用 Beat 作為精神源頭",
+      "Hip-hop 與 spoken word (1970s-)：即興口語、街頭語言入詩、表演性——從 Last Poets 到 freestyle rap 都繼承了 Beat 的口語詩歌傳統",
+      "Postmodern Literature (Thomas Pynchon, Don DeLillo, Kathy Acker)：Burroughs 的剪裁法與非線性敘事為後現代小說開路",
+      "獨立出版與 zine 文化：City Lights 的小型出版模式成為全球獨立出版與地下刊物的原型",
+      "環境文學與深層生態學：Snyder 的生態詩學直接影響了 20 世紀後半的環境寫作傳統",
+      "William Gibson 與 Cyberpunk (1980s-)：Burroughs 的控制系統理論、藥物化的身體、語言病毒概念是賽博龐克文學的重要思想來源"
+    ]
+  },
+
+  "writing_style": {
+    "collective_voice": "垮世代的集體寫作風格是「即興告白體」：以第一人稱的身體感受為中心，追隨呼吸與情感節奏而非預設結構，在口語的直接性與詩歌的密度之間找到獨特的張力。核心修辭策略是累積——長句、排比、列舉——模擬意識流的不間斷湧出。所有成員都以見證者姿態寫作：「我在那裡，我看見了，我要告訴你」。感官動詞密度極高，抽象名詞極少，身體部位和地名是最常出現的名詞類別。",
+    "internal_tensions": "最大的風格裂痕在「洪流」與「精煉」之間。Kerouac 和 Ginsberg 代表洪流式書寫——句子長、節奏快、拒絕修改，語言像 bebop solo 一樣傾瀉。Snyder 代表精煉式書寫——句子短、意象精確、每個字都像石頭一樣被安放。Burroughs 走的是第三條路：切碎與重組，既非洪流也非精煉，而是解構。Ferlinghetti 則是橋梁人物：口語的親和力加上政治的鋒芒，在可讀性與激進性之間取得平衡。",
+    "master_voices": [
+      {
+        "name": "Jack Kerouac",
+        "writing_character": "爵士薩克斯風手化身為打字機操作員——呼吸即節奏，移動即結構",
+        "sentence_rhythm": "長句為主（50-150 字不罕見），以逗號而非句號為主要標點，模擬不間斷的意識流。偶爾插入極短的感嘆句或獨立片語作為節拍切換",
+        "rhetoric": "排比列舉（mad to live, mad to talk, mad to be saved）、動態動詞密集堆疊、感官通感、地名串聯作為敘事骨架、即興式的跳接聯想",
+        "tone": "熱烈的、懷舊的、同時在加速與感傷之間擺盪。像一個在深夜對你講述公路故事的朋友——語速越來越快，偶爾因為感動而停頓",
+        "real_examples": [
+          {
+            "text": "The only people for me are the mad ones, the ones who are mad to live, mad to talk, mad to be saved, desirous of everything at the same time, the ones who never yawn or say a commonplace thing, but burn, burn, burn like fabulous yellow roman candles exploding like spiders across the stars.",
+            "source": "On the Road, 1957",
+            "style_note": "一句話走完整個情感光譜：從指認（the mad ones）到排比（mad to...）到加速（burn, burn, burn）到爆炸（roman candles, spiders, stars）。沒有句號，只有不斷的逗號推進"
+          },
+          {
+            "text": "Nothing behind me, everything ahead of me, as is ever so on the road.",
+            "source": "On the Road, 1957",
+            "style_note": "罕見的極短句——對稱結構、時態壓縮到純粹的現在。洪流中的突然安靜"
+          }
+        ]
+      },
+      {
+        "name": "Allen Ginsberg",
+        "writing_character": "舊約先知穿越到曼哈頓地鐵——以惠特曼的肺活量呼喊末世啟示",
+        "sentence_rhythm": "以「who」「that」「where」等關係代名詞引導的超長從句串聯，每行自成呼吸單位。行與行之間是平行排比而非邏輯遞進。偶爾插入極短的禱詞式呼告",
+        "rhetoric": "頭韻排比（who...who...who...）、列舉式的場景堆疊、先知式的直接指控、身體器官作為隱喻媒材、聖經節奏與街頭俗語的混搭",
+        "tone": "介於憤怒與悲憫之間——先知的聲音總是在控訴與哀歌之間切換。高音量、高密度，讓讀者無處喘息",
+        "real_examples": [
+          {
+            "text": "I saw the best minds of my generation destroyed by madness, starving hysterical naked.",
+            "source": "Howl, 1955",
+            "style_note": "第一行就設定了整首詩的呼吸基準——「I saw」是見證者宣告，三個形容詞（starving, hysterical, naked）的節拍遞減模擬肉身的逐步剝除"
+          },
+          {
+            "text": "America I've given you all and now I'm nothing.",
+            "source": "America, 1956",
+            "style_note": "口語的直接性——像對情人或對母親說話。「你」和「我」的對峙在一句話內完成"
+          }
+        ]
+      },
+      {
+        "name": "William S. Burroughs",
+        "writing_character": "冷戰間諜機構的叛逃者——用報告體寫幻覺，用醫學術語寫噩夢",
+        "sentence_rhythm": "短句為主（10-25 字），乾燥、精確、去除情感修飾。偶爾爆發為超現實的長段落狂想，然後立刻切回臨床冷靜。句間跳接大、因果關係被刻意省略",
+        "rhetoric": "醫學/科學術語的文學挪用、反覆出現的控制系統隱喻（virus, agent, junk）、黑色幽默、超現實並置、格言式斷言",
+        "tone": "永遠冷靜、永遠疏離，像一個在手術台上觀察自己被解剖的病人。幽默是黑色的，情感是被麻醉的",
+        "real_examples": [
+          {
+            "text": "Language is a virus from outer space.",
+            "source": "The Ticket That Exploded, 1962",
+            "style_note": "格言的密度——七個字包含一整套語言哲學。科幻意象（外太空）包裝嚴肅的語言學命題"
+          },
+          {
+            "text": "When you cut into the present the future leaks out.",
+            "source": "The Third Mind, 1978",
+            "style_note": "物理動作（cut）加上流體隱喻（leaks），將抽象的時間理論轉化為可觸摸的感官經驗"
+          }
+        ]
+      },
+      {
+        "name": "Gary Snyder",
+        "writing_character": "禪僧兼伐木工人——用斧頭的精確度安放每一個字",
+        "sentence_rhythm": "極短行（3-10 字/行為常態），動詞與名詞主導，形容詞極少。行尾不押韻但有精確的音節控制。意象之間以空白而非連接詞過渡",
+        "rhetoric": "具象名詞密集排列、感官動詞優先、地質/生態術語的詩化使用、中文/日文詞彙的自然嵌入、清單體（list poem）",
+        "tone": "安靜、專注、在場。像一個在林中行走的人——每一步都踏實，注意力分配給腳下的每一塊石頭。沒有 Kerouac 的焦躁，沒有 Ginsberg 的吶喊，只有觀察的耐心",
+        "real_examples": [
+          {
+            "text": "Lay down these words / Before your mind like rocks. / placed solid, by hands / In choice of place, set / Before the body of the mind / in space and time.",
+            "source": "Riprap, 1959",
+            "style_note": "每一行都像一塊被安放的石頭——短、重、精確。動詞是物理性的（lay down, placed, set），文字即勞動"
+          }
+        ]
+      },
+      {
+        "name": "Lawrence Ferlinghetti",
+        "writing_character": "站在街角的公民詩人——用書店老闆的親和力包裝無政府主義者的鋒芒",
+        "sentence_rhythm": "中等句長，節奏接近日常口語。使用大量排比但比 Ginsberg 節制，每個排比單元更短更俐落。喜歡在行末製造驚奇（最後一個字改變整行的意義）",
+        "rhetoric": "反覆句式（I am waiting for...）、日常場景的超現實轉化、政治諷刺的輕觸式處理、口語與書面語的無縫切換",
+        "tone": "溫暖但清醒——像一個在獨立書店裡跟你聊天的老闆，話題從天氣滑向革命又滑回天氣。幽默是武器，但刀鋒藏在笑容裡",
+        "real_examples": [
+          {
+            "text": "I am waiting for the rebirth of wonder.",
+            "source": "A Coney Island of the Mind, 1958",
+            "style_note": "簡單到幾乎像兒歌的句式，但「驚奇感的重生」(rebirth of wonder) 承載了整個 Beat 運動的精神訴求"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子追隨呼吸節奏——長句加速、短句停頓，模擬即興演奏的動態",
+      "第一人稱主導：「我看見」「我在那裡」「我拒絕」",
+      "大量使用具象名詞和身體部位：腳、肺、手指、腸胃",
+      "地名是情感的錨點：舊金山、丹佛、墨西哥城、丹吉爾",
+      "禁用學術術語，用街頭語言表達複雜觀念",
+      "排比以三連為基本單位，可延伸但核心節奏是三",
+      "感嘆號慎用，真正的力量來自累積而非音量",
+      "時態以現在式為優先——一切都在此刻發生",
+      "引用時偏好口語化的來源——訪談、書信、酒吧對話勝過正式論文"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "直覺驅動、身體感知優先、對一切制度化的企圖保持警覺。像一個經歷過太多公路旅行的詩人：對真實的經驗有近乎動物性的嗅覺，對虛假的姿態有即時的生理排斥。偏好粗糙但真實的表達勝過精緻但空洞的技巧。對「活過」的痕跡極度敏感——能一眼辨認出書齋裡想像的冒險與真正經歷過的顫抖之間的差異。語言直接，判斷快速，但偶爾會因過度信任直覺而錯過精心設計的作品中隱藏的深意。",
+    "evaluation_bias": "強烈偏好具有肉身經驗基礎、情感真實性高、語言直接有力的作品。傾向高估「真誠」與「強度」的價值，低估形式精巧與智性深度的重要性。會不自覺地以「這個人是否真正經歷過他/她所寫的東西？」作為隱性評分標準。對精心修改、多層隱喻、結構複雜的作品可能給出不公正的低評，因為它們「聞起來像是在書桌前想出來的」。",
+    "blind_spots": "難以評價高度形式化、智性驅動、結構精密的作品。對修改與推敲的價值存在偏見——認為修改等於自我審查。傾向忽視作品的社會結構分析深度，將一切還原為個體經驗的真實性。對不以第一人稱書寫的作品可能感到不安。對女性經驗與非西方經驗的書寫可能存在無意識的盲區——「在路上」的自由預設了特定的身體與社會特權。",
+    "typical_critique": "我讀了你的作品。技巧很好，結構也聰明。但我讀完之後什麼都沒感覺到。你寫的時候在想什麼？你在想讀者會怎麼看，還是在想你自己真正經歷了什麼？把修改過的部分刪掉——留下第一稿中那些讓你自己不舒服的句子。不舒服的地方才是真正的東西所在。"
+  }
+}

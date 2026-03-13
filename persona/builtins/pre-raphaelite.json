@@ -1,0 +1,538 @@
+{
+  "movement_id": "pre-raphaelite",
+  "name": {
+    "zh": "前拉斐爾派",
+    "en": "Pre-Raphaelite Brotherhood"
+  },
+  "domain": [
+    "visual_arts",
+    "literature_and_narrative",
+    "design",
+    "poetry",
+    "painting",
+    "illustration",
+    "stained_glass",
+    "textile_design",
+    "decorative_arts",
+    "book_design",
+    "mural_painting"
+  ],
+  "period": {
+    "start": 1848,
+    "end": 1900,
+    "peak": "1848-1870（兄弟會正式活動期 1848-1853，Rossetti 主導的第二波美學運動延伸至 1870 年代，Morris 與 Burne-Jones 將理念推進至裝飾藝術與設計領域）"
+  },
+  "geography": [
+    "London, England (Royal Academy 對立面，Gower Street 祕密集會)",
+    "Oxford, England (Oxford Union murals 1857, Morris 與 Burne-Jones 的知識起點)",
+    "Red House, Bexleyheath, Kent (Morris 的藝術生活實驗場)",
+    "Kelmscott Manor, Oxfordshire (Morris 的鄉間創作基地)",
+    "Birmingham, England (Burne-Jones 出生地，後來的 Birmingham School)",
+    "Cheyne Walk, Chelsea (Rossetti 晚期居所與工作室)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1848 年是歐洲革命之年——法國二月革命推翻七月王朝，革命浪潮席捲維也納、柏林、布達佩斯、米蘭。同年在倫敦，七名二十歲上下的年輕藝術家在皇家藝術學院（Royal Academy）的體制內感到窒息。學院教育以拉斐爾為至高典範，要求學生模仿文藝復興盛期的『宏大風格』（Grand Manner）：理想化的人體、戲劇化的構圖、棕褐色調的陰影處理。然而 1848 年的英國正經歷劇烈的社會轉型——工業革命將鄉村人口吸入城市，曼徹斯特的棉紡工廠雇用大量童工，憲章運動（Chartism）要求普選權，愛爾蘭大饑荒迫使百萬人流亡。學院的理想化美學與這個滿目瘡痍的現實之間存在無法調和的斷裂。七名年輕人——Dante Gabriel Rossetti、John Everett Millais、William Holman Hunt 為核心——決定繞過拉斐爾，直接回到拉斐爾之前的義大利早期文藝復興與中世紀藝術，尋找一種更誠實、更直接、更貼近自然的繪畫方式。",
+    "social_energy": "前拉斐爾派的能量來自三個交匯點：(1) 對學院體制的青年叛逆——Royal Academy 是英國藝術界的守門人，年度展覽決定藝術家的生死，學院教學將拉斐爾、米開朗基羅封為不可挑戰的神聖典範，任何偏離都被視為無能。七名二十出頭的學生以祕密結社的方式挑戰這個權威，帶有強烈的世代反抗性格；(2) Ruskin 的美學革命——John Ruskin 在《Modern Painters》（1843 起出版）中主張藝術家必須忠實觀察自然，拒絕學院的公式化構圖。他對哥德建築和早期義大利繪畫的推崇為前拉斐爾派提供了智識彈藥；(3) 工業化社會的精神飢渴——維多利亞時代的英國在物質上空前富裕，但城市工人階級的生活條件觸目驚心。前拉斐爾派對中世紀與文學題材的回歸，既是對工業化醜陋的逃離，也是對被機器生產摧毀的手工美學的精神修復。",
+    "purpose": "前拉斐爾派的核心目標是恢復繪畫的誠實——忠於自然、忠於情感、忠於故事的真實性。他們要推翻學院派將拉斐爾以降的宏大風格奉為唯一正統的權威，回到早期文藝復興畫家（如 Botticelli、Fra Angelico、Van Eyck）那種在白色底料上層層疊加透明色彩的技法，追求寶石般的色彩飽和度與照相式的細節精確。同時，他們要讓繪畫重新成為敘事與道德的載體——每一幅畫都必須講述一個值得被講述的故事，傳遞真實的人類情感，讓觀者在畫面中找到與自身經驗的共鳴。這個運動從繪畫出發，最終擴展到詩歌、設計、建築、書籍藝術，成為維多利亞時代最具影響力的美學革命。",
+    "key_timeline": [
+      "1843 — John Ruskin 出版《Modern Painters》第一卷，提出「忠於自然」(truth to nature) 的美學原則，為前拉斐爾派的理論基礎奠基",
+      "1848.09 — Dante Gabriel Rossetti、John Everett Millais、William Holman Hunt 在倫敦 Gower Street 成立前拉斐爾兄弟會（Pre-Raphaelite Brotherhood），另有四名成員：Thomas Woolner、James Collinson、Frederic George Stephens、William Michael Rossetti",
+      "1849.01 — 兄弟會短命的刊物《The Germ》創刊，僅出版四期，發表宣言性文章與詩作",
+      "1849-1850 — 兄弟會成員首次在 Royal Academy 展出標有「PRB」縮寫的作品，引發藝評界猛烈攻擊",
+      "1850 — Charles Dickens 在《Household Words》撰文攻擊 Millais 的《基督在父母家中》，稱畫中人物醜陋不堪",
+      "1851 — John Ruskin 在《The Times》發表兩封公開信力挺前拉斐爾派，扭轉輿論風向",
+      "1852 — Millais 完成《奧菲莉亞》(Ophelia)，成為前拉斐爾派最具代表性的作品之一",
+      "1853 — 兄弟會實質解散：Millais 當選 Royal Academy 院士，Woolner 移民澳洲，成員各奔東西",
+      "1855 — Rossetti 結識 Edward Burne-Jones 與 William Morris（兩人時為牛津大學學生），開啟前拉斐爾運動的第二波",
+      "1857 — Rossetti 帶領 Burne-Jones、Morris 等人為牛津大學辯論廳（Oxford Union）繪製亞瑟王傳說壁畫，技術失敗但精神延續",
+      "1861 — Morris 創辦 Morris, Marshall, Faulkner & Co.（後改名 Morris & Co.），將前拉斐爾美學擴展至室內設計、織品、壁紙、彩色玻璃",
+      "1862 — Elizabeth Siddal（Rossetti 之妻）因鴉片酊過量去世，深刻影響 Rossetti 此後的創作方向，畫風轉向對女性美的執迷描繪",
+      "1870 — Rossetti 出版詩集《Poems》，Robert Buchanan 隨即發表攻擊文章《The Fleshly School of Poetry》，指控前拉斐爾派詩歌為肉感的、病態的",
+      "1891 — Morris 創辦 Kelmscott Press，以中世紀手抄本為範本設計書籍，直接催生私人出版與書籍藝術運動",
+      "1896 — William Morris 去世，前拉斐爾運動的設計支線正式轉化為工藝美術運動（Arts and Crafts Movement）的核心動力"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "但丁·加百列·羅塞蒂",
+        "en": "Dante Gabriel Rossetti"
+      },
+      "role": "兄弟會的精神領袖與靈魂人物（1848-1882）。畫家兼詩人，以極端的個人魅力凝聚了前拉斐爾運動的兩波核心成員。早期主導中世紀與但丁題材的繪畫，後期轉向對女性美的執迷描繪，創造了一種融合肉感與靈性的獨特視覺語言。",
+      "key_works": [
+        "《少女瑪利亞的教育》(The Girlhood of Mary Virgin, 1849，首幅標有 PRB 的作品)",
+        "《受胎告知》(Ecce Ancilla Domini!, 1850)",
+        "《Beata Beatrix》(1864-1870，紀念亡妻 Elizabeth Siddal)",
+        "《Proserpine》(1874，以 Jane Morris 為模特兒)",
+        "《The Blessed Damozel》(1875-1878，源自同名詩作)",
+        "詩集《The House of Life》(1870/1881)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The first of all is that the artist should have something to say, the next that he should be able to say it.",
+          "source": "Letter to Hall Caine, 1880",
+          "meaning": "藝術家的首要條件是擁有值得表達的內容，技巧永遠是內容的僕人。這句話精確反映了前拉斐爾派對學院派的核心批判：學院教的是「怎麼說」，卻從不問「說什麼」。"
+        },
+        {
+          "text": "Conception, my boy, fundamental brainwork, is what makes all the difference in art.",
+          "source": "Conversation recorded by Hall Caine, in Recollections of Dante Gabriel Rossetti, 1882",
+          "meaning": "根本性的構思能力決定藝術的高下——技法嫻熟的平庸作品充斥每一屆 Royal Academy 年展，但缺乏思想深度的技巧只是空殼。"
+        },
+        {
+          "text": "I do not wrap myself up in my own imaginings; it is they that envelop me from the outer world whether I will or no.",
+          "source": "Letter to William Allingham, c. 1860",
+          "meaning": "想像力以不由自主的方式佔據了 Rossetti——外在世界被內在視象所覆蓋，他無法選擇關閉這個過程。這揭示了前拉斐爾派對「想像」的理解：它具有自主性，藝術家是被它佔有的人。"
+        },
+        {
+          "text": "The question of art for the people can never be important to those who are not of the people, and can never be settled by those who are not by the people.",
+          "source": "Lecture at the Working Men's College, c. 1855, reported by William Michael Rossetti in Some Reminiscences, 1906",
+          "meaning": "藝術民主化的議題必須由人民自己來定義——知識分子代替工人階級決定「什麼是好藝術」本身就是一種傲慢。Rossetti 在工人學院教書期間的這個認知，預見了後來文化民主的核心辯論。"
+        },
+        {
+          "text": "Poetry should seem to the hearer to have been always present in his mind, though never heard before, and never yet to be forgotten.",
+          "source": "Letter to Hall Caine, 1880",
+          "meaning": "最好的詩讓讀者感到「這正是我一直想說卻說不出的話」——藝術的最高境界是喚醒接收者已知卻未曾意識到的東西。這個觀點將藝術定義為共鳴而非教化。"
+        },
+        {
+          "text": "The picture that has no moral is a wretched daub; the picture that has a moral only is a wretched daub too.",
+          "source": "Letter to James Smetham, 1865",
+          "meaning": "繪畫缺乏道德內涵是失敗，但只有道德說教同樣是失敗——藝術必須在倫理意義與美學自足之間取得平衡。這句話精確定位了前拉斐爾派在維多利亞時代道德主義與唯美主義之間的張力。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "約翰·艾佛雷特·米萊",
+        "en": "John Everett Millais"
+      },
+      "role": "兄弟會中技巧最精湛的畫家，11 歲即進入 Royal Academy（史上最年輕學生）。早期創作了前拉斐爾派最經典的作品，後期轉向肖像畫與風景畫，最終成為 Royal Academy 院長——從革命者到體制掌門人的完整弧線。",
+      "key_works": [
+        "《基督在父母家中》(Christ in the House of His Parents, 1849-1850)",
+        "《奧菲莉亞》(Ophelia, 1851-1852)",
+        "《胡格諾教徒》(A Huguenot, 1852)",
+        "《盲女》(The Blind Girl, 1856)",
+        "《秋葉》(Autumn Leaves, 1856)",
+        "《泡泡》(Bubbles, 1886，後被 Pears Soap 買下作廣告）"
+      ],
+      "key_quotes": [
+        {
+          "text": "A hungry man cannot paint well. The Old Masters took care of that; they made their bread and butter regularly.",
+          "source": "Conversation reported by J. G. Millais, The Life and Letters of Sir John Everett Millais, 1899",
+          "meaning": "餓着肚子畫不出好畫——文藝復興大師們首先確保了生計。Millais 對浪漫化的藝術家苦難神話不屑一顧，這種務實態度解釋了他後來擁抱商業成功的選擇。"
+        },
+        {
+          "text": "There is no good or bad, correct or incorrect, in matters of technique; the only test of technique being whether it is capable of expressing what the artist wants to express.",
+          "source": "Reported in J. G. Millais, The Life and Letters of Sir John Everett Millais, 1899",
+          "meaning": "技法沒有對錯之分，唯一的標準是它能否傳達藝術家想要表達的東西。這直接挑戰了 Royal Academy 將拉斐爾的技法定為唯一正統的教條。"
+        },
+        {
+          "text": "I have seen the day when I would have gone without my dinner rather than miss a sunset.",
+          "source": "Reported in J. G. Millais, The Life and Letters of Sir John Everett Millais, 1899",
+          "meaning": "寧可挨餓也要捕捉一場落日——前拉斐爾派對自然觀察的執著到了苦行的程度。Millais 為畫《奧菲莉亞》的河景，在冬天的泰晤士河支流旁連續寫生數月。"
+        },
+        {
+          "text": "All great art is the expression of man's delight in God's work, not his own.",
+          "source": "Reported by M. H. Spielmann, Millais and His Works, 1898",
+          "meaning": "偉大藝術的根源是對自然造物的讚嘆，藝術家的工作是忠實傳達這份讚嘆，把自我退到自然之後。這個信念是前拉斐爾派「忠於自然」原則的神學版本。"
+        },
+        {
+          "text": "The painter must not be above painting portraits, or below painting the humblest thing in nature.",
+          "source": "Attributed, conversations recorded by J. G. Millais, The Life and Letters of Sir John Everett Millais, 1899",
+          "meaning": "畫家既不應自認高於肖像畫這類「商業」工作，也不應輕視自然中最卑微的事物——一朵野花與一位公爵在畫布上享有同等尊嚴。這打破了學院的題材等級制度。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "威廉·霍爾曼·杭特",
+        "en": "William Holman Hunt"
+      },
+      "role": "兄弟會最堅定的信念守護者，終生未曾偏離初創原則。以精確的自然觀察與嚴肅的道德象徵主義聞名，三次前往巴勒斯坦實地寫生聖經場景，追求「考古學式的真實」。",
+      "key_works": [
+        "《世界之光》(The Light of the World, 1851-1853)",
+        "《覺醒的良知》(The Awakening Conscience, 1853)",
+        "《替罪羊》(The Scapegoat, 1854-1856，在死海邊實地寫生)",
+        "《佛羅倫斯的克勞迪歐與伊莎貝拉》(Claudio and Isabella, 1850)",
+        "《世界暗影》(The Shadow of Death, 1870-1873)",
+        "《Pre-Raphaelitism and the Pre-Raphaelite Brotherhood》(1905，兩卷回憶錄)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The Pre-Raphaelites held that art is not for the purpose of pleasure and luxury, but it is a helper of all that is true and right in the world.",
+          "source": "Pre-Raphaelitism and the Pre-Raphaelite Brotherhood, 1905, Vol. I",
+          "meaning": "藝術的功能是服務真理與正義，享樂與奢華是次要的。Hunt 是兄弟會中道德立場最鮮明的成員，他堅持藝術必須承擔倫理責任，拒絕將美學與道德分離。"
+        },
+        {
+          "text": "The purpose of art is first, the representation of facts; and secondly, the representation of facts under conditions that appeal to the imagination and the feelings.",
+          "source": "Pre-Raphaelitism and the Pre-Raphaelite Brotherhood, 1905, Vol. I",
+          "meaning": "藝術的首要任務是呈現事實，其次是以觸動想像與情感的方式呈現事實——精確觀察是基礎，情感共鳴是目的。這兩者的結合定義了前拉斐爾派的核心美學。"
+        },
+        {
+          "text": "What we condemned was the practice of artists departing from the simplicity of nature, the doing of conventional instead of real work.",
+          "source": "Pre-Raphaelitism and the Pre-Raphaelite Brotherhood, 1905, Vol. I",
+          "meaning": "兄弟會反對的是藝術家背離自然的簡樸，用公式化的慣例取代真實的觀察。「慣例」(conventional) 是 Hunt 詞彙中最嚴厲的批評——它意味著藝術家不再用自己的眼睛看世界。"
+        },
+        {
+          "text": "We were never realists. I think art requires a poetic or romantic purpose. At the same time the painter must not be a visionary only; he must also be a worker, and, of all workers, the most humble, patient, and painstaking.",
+          "source": "Pre-Raphaelitism and the Pre-Raphaelite Brotherhood, 1905, Vol. I",
+          "meaning": "前拉斐爾派從來不是寫實主義者——藝術需要詩意或浪漫的目的。但畫家也不能只做幻想家，他必須是最謙遜、最有耐心、最精細的工作者。精神的崇高與手藝的卑微在同一個人身上合為一體。"
+        },
+        {
+          "text": "I painted the picture with what I thought, unworthy as it was, to be a formal purpose, and I can say that my determination was confirmed by the personal knowledge I had gained at the Dead Sea.",
+          "source": "Pre-Raphaelitism and the Pre-Raphaelite Brotherhood, 1905, Vol. II, on The Scapegoat",
+          "meaning": "Hunt 為了畫《替罪羊》親赴死海，在酷熱與疾病中堅持實地寫生。這種「考古學式忠實」將前拉斐爾派的「忠於自然」推到極端：聖經場景的背景不能靠想像，必須在原址觀察。"
+        },
+        {
+          "text": "No artist is worthy of the name who takes his ideas from any but the fountain-head — Nature herself.",
+          "source": "Pre-Raphaelitism and the Pre-Raphaelite Brotherhood, 1905, Vol. I",
+          "meaning": "真正的藝術家只從源頭——自然本身——汲取靈感。從其他藝術家的作品中借用是二手的、貶值的。這個信念解釋了 Hunt 為何拒絕所有學院慣例，堅持每一個細節都必須從實物寫生。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "愛德華·乃伯-瓊斯",
+        "en": "Edward Burne-Jones"
+      },
+      "role": "前拉斐爾運動第二波的核心人物，將中世紀的夢幻美學推到極致。原為牛津神學生，受 Rossetti 感召轉入繪畫。創作跨越繪畫、彩色玻璃、織品、馬賽克、書籍插畫，為 Morris & Co. 設計了大量裝飾藝術作品，是前拉斐爾美學與工藝美術運動之間的關鍵橋梁。",
+      "key_works": [
+        "《金色階梯》(The Golden Staircase, 1880)",
+        "《國王柯菲圖亞與乞丐女》(King Cophetua and the Beggar Maid, 1884)",
+        "《布萊爾玫瑰》系列 (The Briar Rose series, 1885-1890)",
+        "《珀修斯》系列 (The Perseus series, 1875-1885, 未完成)",
+        "Morris & Co. 大量彩色玻璃窗設計 (1860s-1890s)",
+        "Kelmscott Press《乔叟作品集》插畫 (1896)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I mean by a picture a beautiful, romantic dream of something that never was, never will be — in a light better than any light that ever shone — in a land no one can define or remember, only desire.",
+          "source": "Letter to T. Rooke, reported in Memorials of Edward Burne-Jones by Georgiana Burne-Jones, 1904, Vol. II",
+          "meaning": "繪畫是一場美麗的浪漫夢境——描繪從未存在、永遠不會存在的事物，在比任何真實光線更美的光中，在一片只能渴望卻無法定義的土地上。這是前拉斐爾第二波美學的綱領性宣言：藝術的功能是創造現實的替代品。"
+        },
+        {
+          "text": "The more materialistic science becomes, the more angels shall I paint: their wings are my protest in favour of the immortality of the soul.",
+          "source": "Reported in Memorials of Edward Burne-Jones by Georgiana Burne-Jones, 1904, Vol. II",
+          "meaning": "科學越物質主義，他就越要畫天使——天使的翅膀是靈魂不朽的抗議。這是 Burne-Jones 對維多利亞時代實證主義的直接回擊：藝術守護的是科學無法觸及的精神領域。"
+        },
+        {
+          "text": "I want to make things that are beautiful, that people will love, and that will last.",
+          "source": "Attributed, conversations recorded in Memorials of Edward Burne-Jones by Georgiana Burne-Jones, 1904",
+          "meaning": "三個標準：美、被愛、持久——Burne-Jones 用最樸素的語言定義了藝術的三重目的。「被愛」這個標準特別重要：它把觀者的情感反應放在美學判斷之前。"
+        },
+        {
+          "text": "I want big things to do and vast spaces, and for common people to see them and say, Oh! — only Oh!",
+          "source": "Letter to Charles Eliot Norton, 1882",
+          "meaning": "他渴望創造讓普通人目瞪口呆的宏大作品——藝術的終極效果是讓人只能發出一聲驚嘆。這個對「崇高感」的追求驅動了他一系列大型壁畫與系列繪畫計畫。"
+        },
+        {
+          "text": "The trouble with most art is that it merely tries to give information, to satisfy curiosity. I prefer it when it aims at nothing but a mood.",
+          "source": "Conversations reported by T. Rooke, collected in Memorials of Edward Burne-Jones by Georgiana Burne-Jones, 1904",
+          "meaning": "大部分藝術的問題在於試圖傳遞資訊或滿足好奇心，Burne-Jones 要的是純粹的情緒。這個立場將他推向唯美主義的邊界——藝術的價值在於它喚起的精神狀態，不在於它說了什麼。"
+        },
+        {
+          "text": "I have learned one thing, which is to work and work: the work itself is the great comfort, the only thing which never fails.",
+          "source": "Letter to George Howard, c. 1870s, collected in Memorials of Edward Burne-Jones by Georgiana Burne-Jones, 1904",
+          "meaning": "唯一可靠的慰藉是工作本身——一個在精神上屢遭打擊（Rossetti 的崩潰、友誼的破裂、公眾的冷漠）的藝術家，從工作坊的手藝勞動中找到了生存的錨點。這段話超越了維多利亞式的工作倫理說教，直指創作行為本身的療癒功能。"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "威廉·莫里斯",
+        "en": "William Morris"
+      },
+      "role": "將前拉斐爾美學從畫布推進到整個生活環境的革命者。詩人、設計師、工藝家、社會主義者、出版商。創辦 Morris & Co. 生產壁紙、織品、彩色玻璃、家具，創辦 Kelmscott Press 革新書籍設計，同時積極參與社會主義運動。他是前拉斐爾運動與工藝美術運動之間的關鍵轉化者。",
+      "key_works": [
+        "Red House 室內設計 (與 Philip Webb 合作, 1859-1860)",
+        "Morris & Co. 壁紙設計：Trellis (1862), Daisy (1864), Strawberry Thief (1883)",
+        "詩集《地上樂園》(The Earthly Paradise, 1868-1870)",
+        "Kelmscott Press 出版品 (1891-1898)，尤其是《喬叟作品集》(1896)",
+        "政治著作《烏有鄉消息》(News from Nowhere, 1890)",
+        "演講集《藝術的希望與恐懼》(Hopes and Fears for Art, 1882)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Have nothing in your houses that you do not know to be useful, or believe to be beautiful.",
+          "source": "Hopes and Fears for Art, lecture 'The Beauty of Life', delivered at Birmingham Society of Arts, 1880",
+          "meaning": "家中只保留你確知有用或確信美麗的東西——這可能是設計史上被引用最多的一句話。它將日常物品的篩選標準壓縮為兩個維度：功能與美。維多利亞時代的中產階級客廳塞滿了無用的裝飾品，Morris 要求徹底清除。"
+        },
+        {
+          "text": "I do not want art for a few, any more than education for a few, or freedom for a few.",
+          "source": "Hopes and Fears for Art, lecture 'The Lesser Arts', 1877",
+          "meaning": "藝術、教育、自由是同一回事——它們要嘛屬於所有人，要嘛毫無意義。Morris 在這句話中將美學問題直接焊接到政治問題上：藝術的不平等與社會的不平等共享同一個根源。"
+        },
+        {
+          "text": "If a chap can't compose an epic poem while he's weaving tapestry, he had better shut up, for he'll never do any good at all.",
+          "source": "Attributed, reported by multiple contemporaries including May Morris in William Morris: Artist, Writer, Socialist, 1936",
+          "meaning": "如果一個人不能在織地毯的時候構思史詩，他最好閉嘴——手工勞動與精神創造不是互相排斥的活動，它們是同一個生命力的兩種表現。這句話摧毀了體力勞動與腦力勞動的二元對立。"
+        },
+        {
+          "text": "Not only is it possible to get social order, freedom, and happiness without the help of the capitalist, but it is not possible to get them with his help.",
+          "source": "How I Became A Socialist, Justice magazine, 1894",
+          "meaning": "社會秩序、自由與幸福不只可以在沒有資本家的情況下實現——有了資本家反而不可能實現。Morris 的社會主義信念直接延伸自他的美學判斷：資本主義的利潤邏輯必然生產醜陋的物品和扭曲的勞動關係。"
+        },
+        {
+          "text": "Apart from the desire to produce beautiful things, the leading passion of my life has been and is hatred of modern civilization.",
+          "source": "How I Became A Socialist, Justice magazine, 1894",
+          "meaning": "除了創造美物的渴望，他一生最強烈的熱情是對現代文明的仇恨——這兩種驅力是同一枚硬幣的兩面。創造美是建設性的回應，仇恨現代文明是批判性的認知，兩者缺一不可。"
+        },
+        {
+          "text": "You may hang your walls with tapestry instead of whitewash or paper; or you may cover them with mosaic; or have them frescoed by a great painter: all this is not luxury, if it be done for beauty's sake, and not for show.",
+          "source": "Hopes and Fears for Art, lecture 'The Lesser Arts', 1877",
+          "meaning": "裝飾本身沒有罪——用織錦、馬賽克、濕壁畫覆蓋牆面都可以，只要動機是為了美而非炫耀。Morris 精確區分了「為美而裝飾」與「為虛榮而裝飾」，拒絕了 Adolf Loos 後來那種全面反裝飾的極端立場。"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "The Germ: Thoughts towards Nature in Poetry, Literature and Art",
+      "author": "Pre-Raphaelite Brotherhood (collective)",
+      "year": 1850,
+      "significance": "兄弟會的短命刊物，僅出版四期（1850年1-4月），但作為宣言性出版物確立了前拉斐爾派的美學立場：藝術必須回歸自然觀察、詩歌與繪畫應相互滋養、反對學院的公式化教條。"
+    },
+    {
+      "title": "Modern Painters (五卷, 1843-1860)",
+      "author": "John Ruskin",
+      "year": 1843,
+      "significance": "雖非前拉斐爾派成員所著，但 Ruskin 的「忠於自然」美學主張是兄弟會最重要的理論基礎。第一卷為 Turner 辯護時確立的自然觀察原則，直接影響了 Hunt 和 Millais 的創作方法。"
+    },
+    {
+      "title": "The Stones of Venice (三卷, 1851-1853)",
+      "author": "John Ruskin",
+      "year": 1851,
+      "significance": "其中〈哥德的本質〉(The Nature of Gothic) 一章被 Morris 視為「19 世紀最重要的篇章之一」，將哥德建築中工匠的創造自由與工業分工的非人性化對比，直接催生了工藝美術運動。"
+    },
+    {
+      "title": "Pre-Raphaelitism and the Pre-Raphaelite Brotherhood (兩卷)",
+      "author": "William Holman Hunt",
+      "year": 1905,
+      "significance": "Hunt 晚年撰寫的回憶錄，是前拉斐爾兄弟會的第一手歷史文獻。帶有強烈的個人立場（Hunt 試圖將自己定位為運動的真正核心），但提供了大量關於兄弟會成立經過、美學辯論與內部分歧的珍貴細節。"
+    },
+    {
+      "title": "Hopes and Fears for Art（藝術的希望與恐懼）",
+      "author": "William Morris",
+      "year": 1882,
+      "significance": "Morris 五篇公開演講的結集，系統闡述了藝術與勞動的關係、反對藝術的階級壟斷、批判工業生產對美的摧毀。其中〈The Lesser Arts〉與〈The Beauty of Life〉是前拉斐爾設計思想的綱領性文獻。"
+    },
+    {
+      "title": "Poems (1870) 與 The House of Life (1870/1881)",
+      "author": "Dante Gabriel Rossetti",
+      "year": 1870,
+      "significance": "Rossetti 的十四行詩連作是前拉斐爾文學美學的最高成就——將繪畫的視覺精確度帶入詩歌，每首詩都是一幅用語言描繪的畫。引發了 Robert Buchanan 的《The Fleshly School of Poetry》攻擊，成為維多利亞時代藝術道德辯論的焦點。"
+    },
+    {
+      "title": "News from Nowhere（烏有鄉消息）",
+      "author": "William Morris",
+      "year": 1890,
+      "significance": "Morris 的烏托邦小說，描繪一個沒有私有財產、沒有工廠、人人從事手工藝勞動的未來社會。它是前拉斐爾美學理想的社會主義政治延伸：如果好的設計需要好的勞動條件，那麼好的勞動條件需要徹底不同的社會結構。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "忠於自然 (Truth to Nature)：以極端精確的自然觀察為繪畫基礎，拒絕學院的公式化構圖，堅持每一個細節——葉脈、水紋、布料皺褶——都必須從實物寫生。（WHY：Royal Academy 的教學以臨摹石膏像和模仿拉斐爾為核心，學生被訓練出一套「正確」的畫法——棕褐色調、理想化人體、三角構圖。這套公式讓繪畫與真實世界脫節。前拉斐爾派要求藝術家走出畫室，直接面對自然界的無窮複雜性，用自己的眼睛重新學習觀看。）",
+      "回到拉斐爾之前 (Before Raphael)：以義大利早期文藝復興與中世紀藝術為範本，追求明亮色彩、平面化構圖、在白色底料上層疊透明顏料的技法。（WHY：拉斐爾之後的學院傳統（Mannerism → Baroque → Academic）越來越強調理想化、戲劇化、棕褐色的暗影處理，繪畫變成一套可以機械複製的公式。前拉斐爾派認為拉斐爾之前的畫家——Botticelli、Fra Angelico、Van Eyck——擁有一種未被學院馴化的視覺誠實，他們的色彩更純、線條更直接、情感更真摯。）",
+      "繪畫即敘事 (Painting as Narrative)：每一幅畫都必須講述一個故事——來自聖經、莎士比亞、但丁、亞瑟王傳說或當代社會現實。（WHY：維多利亞時代的觀畫文化建立在敘事之上：觀者期待在畫面中讀到一個故事，就像讀一本書。前拉斐爾派擁抱這個傳統，但拒絕學院的陳腔濫調式敘事，轉向更深刻的文學來源和更複雜的道德情境。Hunt 的《覺醒的良知》講述一個被包養的女子突然覺醒的瞬間——這種題材在學院體系中不可能出現。）",
+      "詩畫一體 (Ut Pictura Poesis)：繪畫與詩歌是同一種藝術衝動的雙重表達，前拉斐爾派成員同時從事兩者。（WHY：Rossetti 本人就是畫家兼詩人，他的十四行詩與繪畫經常描繪同一個主題。這種跨媒材的創作方式打破了學院將視覺藝術與文學隔離的學科壁壘。對 Rossetti 而言，一首詩就是一幅用文字畫的畫，一幅畫就是一首用色彩寫的詩。）",
+      "手工藝的尊嚴 (Dignity of Craft)：將裝飾藝術——壁紙、織品、彩色玻璃、家具、書籍設計——提升到與繪畫同等的地位。（WHY：維多利亞時代的藝術等級制度將「純藝術」（繪畫、雕塑）凌駕於「裝飾藝術」之上。Morris 拒絕這個區分：設計一面壁紙的美學挑戰與畫一幅油畫的挑戰同樣嚴肅。Burne-Jones 為 Morris & Co. 設計彩色玻璃窗時，投入的精力與他的大型油畫完全相同。這個態度直接催生了後來的工藝美術運動。）",
+      "色彩的寶石品質 (Jewel-like Colour)：使用在濕白底料（wet white ground）上層疊透明顏料的技法，追求中世紀彩色玻璃般飽和、發光的色彩效果。（WHY：學院派的棕褐色調（所謂的「畫廊色調」gallery tone）讓所有繪畫看起來暗沉、統一、「高貴」——實際上是數百年油煙與清漆氧化的結果被誤認為大師的有意選擇。前拉斐爾派認為早期大師的原始色彩遠比後世看到的更明亮，他們試圖恢復這種「原初的光」。）",
+      "象徵主義的精密編碼 (Symbolic Precision)：畫面中的每一個物件都承載特定的象徵意涵——花的品種、衣服的顏色、背景的季節都經過精確選擇。（WHY：前拉斐爾派受到中世紀宗教畫中「花語」(language of flowers) 與象徵傳統的啟發。他們的繪畫既是視覺敘事也是密碼文本——玫瑰代表愛情、柳樹代表哀悼、鴿子代表靈魂。這種雙重閱讀層次讓畫面對受過教育的觀者提供更豐富的解讀維度。）",
+      "藝術與社會改革的連結 (Art as Social Reform)：尤其在 Morris 的實踐中，美學改革與社會變革被視為不可分割的整體。（WHY：Morris 親眼見證了工業資本主義對勞動者的摧殘——工廠裡的工人被剝奪了任何創造的樂趣，生產出的商品也因此醜陋而缺乏靈魂。他的結論是：好的設計需要好的勞動條件，好的勞動條件需要一個根本不同的社會結構。美學問題最終是政治問題。）"
+    ],
+    "what_they_refuse": [
+      "學院派的「宏大風格」(Grand Manner)：拒絕以拉斐爾為至高典範的學院教條，拒絕理想化的人體、棕褐色調的暗影處理、三角構圖的公式。（WHY：Royal Academy 的教學體系將拉斐爾的技法神聖化為唯一正統。任何偏離——更明亮的色彩、更不完美的人體、更平面化的空間——都被視為無能或叛逆。前拉斐爾派認為這套教條扼殺了繪畫的生命力，學院出品的畫家是「製造暗褐色畫的機器」。）",
+      "機器生產的醜陋物品：拒絕工業化大量生產的劣質裝飾品，拒絕以成本效率為唯一考量的製造邏輯。（WHY：1851 年水晶宮博覽會集中展示了工業生產的審美災難——鑄鐵仿巴洛克燭台、機壓花紋的廉價地毯、石膏仿大理石的裝飾品。Ruskin 和 Morris 認為這些物品污染了日常生活的每一個角落，而消費者已經被訓練到接受醜陋為正常。）",
+      "藝術的等級制度：拒絕將繪畫、雕塑定為「高等藝術」，將裝飾藝術、工藝定為「低等藝術」的學院階級體系。（WHY：這個等級制度讓最有才華的藝術家將全部精力投入油畫，而日常生活中的物品——椅子、杯子、壁紙、書本——被交給缺乏訓練的工匠或機器。結果是博物館裡有傑作，客廳裡全是垃圾。Morris 要求最好的藝術家為最日常的物品服務。）",
+      "為了模仿而模仿：拒絕學院教學中對範本的盲目臨摹，拒絕「像拉斐爾」作為藝術的終極目標。（WHY：學院教育的核心是臨摹——先臨摹石膏像，再臨摹大師原作，最終目標是讓你的畫「像」某位大師。前拉斐爾派認為這個訓練流程生產出的是精密的複製機器，不是獨立的創作者。真正的藝術必須從第一手觀察中長出來。）",
+      "美與道德的分離：拒絕純粹為美而美的唯美主義立場（儘管第二波前拉斐爾派事實上接近這個立場），堅持藝術必須承擔道德與社會責任。（WHY：Hunt 終生堅持藝術的倫理功能，Morris 則將這個信念推進到社會主義政治。即使是 Rossetti 這樣最接近唯美主義的成員，他的繪畫也始終承載著關於愛情、死亡、靈魂的嚴肅追問，而非純粹的感官享受。）",
+      "材料的偽裝與不誠實：拒絕用廉價材料模仿昂貴材料的工業化做法。（WHY：維多利亞時代的工廠大量生產模仿手工的廉價商品——機壓「手雕」花紋、化學染料冒充天然染料。Morris 的回應是回到天然染料、手工印刷、真材實料的製作方式。他寧可花三倍時間用植物染料染一匹織物，也拒絕使用效果更均勻但化學性質不穩定的苯胺染料。）",
+      "當代生活的卑瑣題材：拒絕完全的寫實主義或自然主義——雖然追求自然觀察的精確，但題材選擇偏向文學、神話、宗教與歷史，拒絕將繪畫降格為日常場景的機械記錄。（WHY：前拉斐爾派要的是「詩意的真實」而非「報導的真實」。Holman Hunt 明確說過：「我們從來不是寫實主義者。」自然觀察的精確是手段，詩意與浪漫的目的是靈魂。純粹的寫實主義缺乏提升精神的力量。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Royal Academy 學院主義：拉斐爾以降的「宏大風格」傳統，理想化人體、棕褐色調、公式化構圖——前拉斐爾派的首要敵人",
+      "Mannerism 矯飾主義：拉斐爾之後的風格化變形被視為藝術墮落的起點",
+      "Academic Art 沙龍繪畫：法國學院派 (Bouguereau, Cabanel) 同樣被視為公式化的典型",
+      "工業化批量生產的設計產品：1851 年水晶宮博覽會所代表的美學災難",
+      "自然主義 / 寫實主義（部分）：雖共享自然觀察精神，但 Courbet 式的純寫實拒絕了前拉斐爾派堅持的詩意與象徵維度"
+    ],
+    "against_values": [
+      "形式的教條化：任何技法一旦被奉為不可挑戰的標準就是死的——包括拉斐爾的技法",
+      "藝術與生活的分離：繪畫不應只存在於博物館，美學判斷必須滲透到日常物品與生活環境",
+      "勞動的非人性化：工廠體系將工匠降格為機器零件，剝奪了勞動者的創造尊嚴",
+      "技巧凌駕內容：學院評價體系過度重視技法的「正確性」，忽略作品的思想深度與情感誠實",
+      "進步的無條件崇拜：工業革命帶來的物質進步以犧牲美學品質與人的尊嚴為代價"
+    ],
+    "societal_context": "前拉斐爾兄弟會誕生於 1848 年——歐洲革命之年，也是維多利亞時代英國工業霸權的鼎盛期。大英帝國控制全球四分之一的領土，倫敦是世界金融中心，但工業城市的工人階級生活在觸目驚心的貧困中。1848 年的憲章運動（Chartism）是英國最接近大陸式革命的時刻——數十萬人簽署請願書要求普選權。同年，Marx 與 Engels 發表《共產黨宣言》。這個充滿政治張力的時代背景解釋了前拉斐爾派為何從繪畫改革走向社會改革：Morris 在 1880 年代加入社會主義運動，將美學理想與政治行動焊接在一起。學院派的理想化美學在這個脈絡下不只是美學問題——它是一種粉飾太平的意識形態工具，用古典美掩蓋維多利亞社會的深層矛盾。"
+  },
+
+  "problems_solved": [
+    "打破學院的技法壟斷：證明了拉斐爾之後的學院傳統只是眾多繪畫傳統之一，繪畫的可能性遠大於 Royal Academy 教授的那一套。這為後來的印象派、象徵主義等運動打開了精神空間",
+    "恢復色彩的活力：以濕白底料技法重新發現了被學院派棕褐色調埋沒的色彩飽和度，直接影響了後來的象徵主義與新藝術運動的色彩語言",
+    "重建繪畫與文學的深度聯結：讓繪畫重新成為複雜敘事與精密象徵的載體，而非僅僅是學院式的「美麗構圖」，為後來的象徵主義奠定了基礎",
+    "消除純藝術與裝飾藝術的壁壘：Morris 與 Burne-Jones 的實踐證明了一流藝術家可以——也應該——為日常物品服務。這個觀念直接催生了工藝美術運動、新藝術運動，最終影響了包浩斯",
+    "建立設計倫理的基本框架：Morris 將材料誠實、手工尊嚴、社會責任納入設計思考的核心，開創了「設計師應該關心社會」的傳統",
+    "為書籍設計確立藝術標準：Kelmscott Press 證明了印刷書籍可以是藝術品——字型、版面、插畫、紙張、裝幀的整體設計思維影響了整個私人出版運動與現代書籍設計"
+  ],
+
+  "problems_created": [
+    "逃避主義的美學陷阱：對中世紀與文學題材的執迷成為逃避當代現實的精神避難所。維多利亞時代最尖銳的社會問題——童工、貧民窟、殖民暴力——幾乎從未出現在前拉斐爾派的畫布上（Hunt 和 Morris 的部分作品例外）。這種美學逃避後來被唯美主義推到極端",
+    "菁英消費的悖論：Morris 宣稱「我不要只給少數人的藝術」，但 Morris & Co. 的手工產品定價遠超工人階級的購買力。精緻的手工壁紙和手織地毯成為中產階級和上層階級的品味標誌。Morris 自己痛苦地承認：「我只是在為富人的奢侈服務」",
+    "女性作為客體的系統性問題：前拉斐爾繪畫中的女性形象——從 Millais 的奧菲莉亞到 Rossetti 的一系列「致命女性」(femme fatale)——將女性固定在被凝視、被理想化、被消費的位置。Elizabeth Siddal 的遭遇是最尖銳的例證：她從藝術家的模特兒、繆思、妻子，到被鴉片和疾病摧毀的悲劇人物，整個軌跡反映了前拉斐爾圈子中性別權力結構的殘酷",
+    "反工業立場的現實侷限：拒絕機器生產、堅持手工藝的路線在面對百萬人的日常需求時完全無法規模化。包浩斯後來以「為量產而設計」的路線直接修正了這個問題",
+    "歷史的浪漫化與簡化：對中世紀的理想化描繪忽略了那個時代的殘酷現實——農奴制、宗教迫害、瘟疫、極端的社會不平等。前拉斐爾派想像的中世紀從未存在過",
+    "敘事依賴性限制了形式突破：因為堅持「每幅畫必須講故事」，前拉斐爾派的形式語言始終被文學性框架約束，無法走向真正的抽象——這個突破要等到印象派和後印象派"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "藝術的革新在於回退，而非前進——繞過三百年的學院傳統，直接從「被污染之前」的源頭重新出發。這個「考古學式的革命」策略（越過中間環節回到原初狀態）後來被反覆使用：原始主義 (Primitivism)、新浪潮電影 (Nouvelle Vague) 回到 Lumiere Brothers、龐克搖滾回到三和弦。前拉斐爾派證明了「回到過去」可以是一種激進的前衛行為。",
+    "what_was_truly_new": [
+      "對學院「正統」的系統性挑戰：以祕密結社的組織形式對抗 Royal Academy 的制度性權威，這是英國美術史上第一次有組織的藝術叛逆運動",
+      "濕白底料技法的復活與改造：在純白石膏底料上層疊透明顏料，創造出前所未有的色彩飽和度與光感——這個技術選擇帶有意識形態意涵：拒絕棕褐色的學院傳統就是拒絕學院的價值觀",
+      "將裝飾藝術提升為嚴肅藝術：Morris 與 Burne-Jones 將一流的藝術才能投入壁紙、織品、彩色玻璃、書籍設計，在實踐層面打破了純藝術與應用藝術的壁壘。這個行為比任何宣言都更具革命性",
+      "美學改革與社會主義的焊接：Morris 將「創造美物」與「改造社會」視為同一件事的兩面，這個立場在 19 世紀是原創的——之前的浪漫主義者談美學烏托邦，社會主義者談經濟正義，Morris 要兩者同時"
+    ],
+    "what_was_borrowed": [
+      "義大利早期文藝復興繪畫 (Botticelli, Fra Angelico, Giotto)：平面化構圖、明亮色彩、象徵性細節——前拉斐爾派的技法範本",
+      "北方文藝復興 (Van Eyck, Memling)：極端的寫實細節與寶石般的色彩品質",
+      "中世紀手抄本與哥德藝術：裝飾性邊框、金箔運用、敘事連續性——影響了 Morris 的書籍設計與 Burne-Jones 的構圖",
+      "John Ruskin 的美學理論：「忠於自然」的原則、對哥德建築的推崇、對工業化的批判——Ruskin 是前拉斐爾派最重要的智識資源",
+      "Nazarene 運動 (德國, 1810s-)：一群德國畫家在羅馬組成類似修道院的藝術共同體，追求回到拉斐爾之前的宗教藝術純粹性。前拉斐爾派的名稱和部分理念直接受到 Nazarenes 的啟發",
+      "浪漫主義文學 (Keats, Tennyson, Dante)：提供了大量繪畫題材，Keats 的「美即真，真即美」與前拉斐爾派的美學立場高度共鳴"
+    ],
+    "creative_leap": "前拉斐爾派的關鍵創造性飛躍在於「跨界整合」：他們拒絕被歸類為純粹的繪畫運動，而是將繪畫、詩歌、設計、社會思想編織為一個整體的生活美學方案。從 Rossetti 的「詩畫一體」到 Morris 的「藝術即生活」到 Burne-Jones 的「從畫布到彩色玻璃」，前拉斐爾運動的真正原創性在於打破媒材與學科的界線，將美學判斷擴展到日常生活的每一個層面。這個從「運動」到「生活方式」的轉變，是他們留給後世最深遠的遺產。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "前拉斐爾派的核心策略——透過回退到傳統源頭來實現激進革新——在每一個面臨技術顛覆的時代都具有參考價值。當 AI 生成影像充斥視覺環境時，前拉斐爾派的「極端手工精確」和「每一個細節都有意義」的態度提供了一種有力的對位。他們對「藝術家必須有話要說」的堅持，在內容農場與演算法推薦的時代同樣具有批判力。Morris 將美學與社會正義焊接的實踐，對今天的設計倫理、永續設計、公平貿易運動都有直接的啟發。",
+      "transferable_to": [
+        "AI 時代的「手工」價值：當機器能生成任何影像，人類手工製作的不完美與個人性成為稀缺價值——前拉斐爾派對手工精確的執著可以被重新詮釋",
+        "設計倫理與永續生產：Morris 的材料誠實、反對計畫性淘汰、批判消費主義的立場與今天的永續設計運動高度共鳴",
+        "品牌敘事與視覺說故事：前拉斐爾派的「每幅畫必須講故事」轉化為現代品牌的「每個設計決策必須有敘事意義」",
+        "跨領域創作實踐：Rossetti 的詩畫一體、Morris 的設計-詩歌-政治三位一體，對應今天的跨媒材創作者身份",
+        "獨立出版與書籍藝術：Kelmscott Press 的精神延續在今天的獨立出版、Zine 文化、藝術書展中",
+        "反學院的教育創新：前拉斐爾派對 Royal Academy 教條的挑戰，可類比今天對標準化教育體系的質疑",
+        "文化遺產的當代轉譯：前拉斐爾派將中世紀美學轉化為維多利亞時代的設計語言，可啟發今天的傳統文化當代化實踐"
+      ]
+    },
+    "originality_type": "revival_and_synthesis"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "義大利早期文藝復興 (Botticelli, Fra Angelico, Giotto, 14-15世紀)：技法範本與精神原型",
+      "北方文藝復興 (Van Eyck, Memling, 15世紀)：極端的寫實細節與色彩飽和度",
+      "中世紀手抄本藝術與哥德建築：裝飾性、敘事連續性、整體設計思維",
+      "Nazarene 運動 (德國, 1810s-)：回到拉斐爾之前的宗教藝術純粹性，祕密兄弟會的組織形式",
+      "John Ruskin 的美學理論 (Modern Painters, 1843-; The Stones of Venice, 1851-)：忠於自然、哥德精神、對工業化的批判",
+      "英國浪漫主義文學 (Keats, Shelley, Tennyson)：詩意想像、中世紀浪漫化、自然崇拜",
+      "Dante Alighieri《神曲》與《新生》：Rossetti 的核心文學資源，提供了愛情、死亡、靈魂救贖的敘事框架"
+    ],
+    "influenced": [
+      "Aesthetic Movement / 唯美主義 (1860s-1890s)：前拉斐爾第二波的直接延伸，Pater 與 Wilde 將「為藝術而藝術」推到極端",
+      "Arts and Crafts Movement / 工藝美術運動 (1880s-1910s)：Morris 將前拉斐爾美學轉化為設計改革運動，是其最重要的制度性遺產",
+      "Art Nouveau / 新藝術運動 (1890s-1910s)：有機曲線、自然母題、裝飾與結構的統一——直接繼承前拉斐爾派的自然觀察精神與 Morris 的裝飾設計",
+      "Symbolism / 象徵主義 (1880s-1910s)：前拉斐爾派的文學象徵性、夢幻美學、對精神世界的探索直接影響了法國象徵主義",
+      "Private Press Movement / 私人出版運動 (1890s-)：Kelmscott Press 開創了藝術書籍設計的傳統",
+      "Vienna Secession / 維也納分離派 (1897-)：Klimt 的裝飾性、金箔運用、女性形象都可追溯到前拉斐爾派的影響",
+      "Bauhaus 包浩斯 (1919-)：Gropius 繼承了 Morris 「藝術與工藝統一」的核心命題，但將手工藝路線轉向工業化量產",
+      "20世紀的奇幻文學與視覺文化：Tolkien 受 Morris 的中世紀想像直接影響，前拉斐爾派的視覺語言至今影響奇幻遊戲與電影的美學"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "感性、敘事驅動、重視手工藝精神。像一位博學的詩人兼匠人：先看作品承載了什麼故事，再看它是如何被雙手製造的。對色彩的微妙變化有近乎痴迷的敏感度，對沒有靈魂的機械複製品有本能的排斥。欣賞深厚的文學素養、精密的象徵語言、對自然的忠實觀察。對空洞的形式主義和缺乏內容的「風格」感到厭倦。言語繁複而精確，判斷帶有道德維度，偶爾會因過度浪漫化而顯得脫離現實。",
+    "evaluation_bias": "強烈偏好手工精製、敘事豐富、象徵層次分明的作品。傾向高估文學性與歷史深度的價值，低估抽象形式與技術創新的意義。會不自覺地以「這個作品講了什麼故事？」和「製作者投入了多少手工勞動？」作為隱性評分標準。對純粹的功能主義設計可能給出不公正的低評，因為它「缺乏詩意」。",
+    "blind_spots": "難以評價高度抽象、無敘事、純形式探索的作品。對中世紀與早期文藝復興的浪漫化視角使其無法客觀評估這些時代的實際創作條件與社會脈絡。傾向忽視量產設計與大眾文化的正面價值。對女性作為創作主體（而非被描繪的客體）的認知可能不足。對非西方的美學傳統缺乏充分的理解框架。",
+    "typical_critique": "你的作品在技術上令人印象深刻，但我必須問：它講述了什麼故事？這些色彩是從自然觀察中來的，還是從螢幕上的色票來的？我在這裡看到了效率，但看不到靈魂。一件好的作品應該讓人停下來——停下來感受光線在表面上的變化，停下來思考畫面中每一個物件為什麼在那個位置。我建議你放慢速度，回到源頭，用自己的眼睛重新觀看世界。"
+  },
+
+  "writing_style": {
+    "collective_voice": "前拉斐爾派的集體寫作風格是「詩化論辯文體」：即使在寫藝術批評或公開演講，也帶有詩歌的節奏感和形象密度。核心修辭結構是對比（自然/學院、真誠/偽裝、中世紀/工業時代），以此建立道德張力。成員傾向以先知或牧師的姿態寫作——他們在宣告「藝術的真正意義」而非僅僅描述「藝術是什麼」。名詞密度高（大量具象意象），句法繁複而有節奏，文學典故（但丁、莎士比亞、Keats、亞瑟王）是共同的修辭工具。",
+    "internal_tensions": "最大的風格裂痕在「道德嚴肅性」與「感官愉悅」之間。Hunt 代表道德嚴肅的一極——句子沉重、判斷明確、帶有傳道者的使命感。Rossetti 代表感官愉悅的一極——語言華麗、意象纏綿、帶有唯美主義的氣息。Morris 是橋梁人物：他的演講風格直截了當、帶有工匠的務實感，但內容同時涵蓋美學與政治。Burne-Jones 最內省——日記與書信中流露出夢幻般的脆弱與憂鬱。",
+    "master_voices": [
+      {
+        "name": "Dante Gabriel Rossetti",
+        "writing_character": "但丁的靈魂附體在一位維多利亞時代的波西米亞畫家身上",
+        "sentence_rhythm": "中等偏長的句子，嵌套從句，節奏如同十四行詩的韻律——起、承、轉、合",
+        "rhetoric": "通感（視覺→觸覺→精神）、神話典故（但丁、Proserpine、Lilith）、悖論與反轉",
+        "tone": "華麗而憂鬱，帶有無法滿足的渴望。在親密與疏離之間震盪",
+        "real_examples": [
+          {
+            "text": "Conception, my boy, fundamental brainwork, is what makes all the difference in art.",
+            "source": "Conversation recorded by Hall Caine, 1882",
+            "style_note": "口語化的開頭（my boy）與斷然的判斷（all the difference）結合，典型的 Rossetti 式魅力——既親暱又權威"
+          },
+          {
+            "text": "The picture that has no moral is a wretched daub; the picture that has a moral only is a wretched daub too.",
+            "source": "Letter to James Smetham, 1865",
+            "style_note": "完美的對稱結構，兩次 wretched daub 的重複造成錘擊效果，否定了兩個極端後留下一個未說出的中間地帶"
+          }
+        ]
+      },
+      {
+        "name": "William Morris",
+        "writing_character": "站在講台上的工匠——雙手沾著染料，嘴裡說著革命",
+        "sentence_rhythm": "短促有力的主張句起手，中段以排比展開論證，結尾以道德命令句收束",
+        "rhetoric": "排比三連、反諷、直接呼告（you, we）、具體到令人窒息的物質描述（織物、染料、木紋）",
+        "tone": "憤怒而溫暖，帶有傳道者的熱情與工匠的務實",
+        "real_examples": [
+          {
+            "text": "Have nothing in your houses that you do not know to be useful, or believe to be beautiful.",
+            "source": "The Beauty of Life, 1880",
+            "style_note": "祈使句開頭，二元選項（useful/beautiful），語法簡潔到可以刻在門楣上"
+          },
+          {
+            "text": "I do not want art for a few, any more than education for a few, or freedom for a few.",
+            "source": "The Lesser Arts, 1877",
+            "style_note": "三連排比（art, education, freedom），each followed by 'for a few'，將美學問題直接嫁接到政治問題上"
+          }
+        ]
+      },
+      {
+        "name": "John Ruskin",
+        "writing_character": "帶有先知氣質的百科全書式散文家——一句話可以從一片苔蘚寫到上帝的存在",
+        "sentence_rhythm": "長句為主，嵌套多層從句，但每個從句內部節奏清晰。段落如交響樂章",
+        "rhetoric": "精密的自然描寫、道德寓言、排比堆疊、從微觀到宏觀的跳躍",
+        "tone": "權威、熱情、帶有維多利亞式的道德確信",
+        "real_examples": [
+          {
+            "text": "Go to nature in all singleness of heart... rejecting nothing, selecting nothing, and scorning nothing.",
+            "source": "Modern Painters, Vol. I, 1843",
+            "style_note": "三連否定排比（rejecting nothing, selecting nothing, scorning nothing），祈使句開頭，簡潔的道德命令"
+          }
+        ]
+      },
+      {
+        "name": "Edward Burne-Jones",
+        "writing_character": "在夢境中寫日記的修道士——脆弱、渴望、帶有孩童般的驚奇",
+        "sentence_rhythm": "不規則——短句與長句交替，反映內心的波動。破折號頻繁使用",
+        "rhetoric": "夢境意象、否定式定義（never was, never will be）、感官動詞（desire, love, dream）",
+        "tone": "內省、夢幻、帶有溫柔的憂鬱",
+        "real_examples": [
+          {
+            "text": "I mean by a picture a beautiful, romantic dream of something that never was, never will be — in a light better than any light that ever shone.",
+            "source": "Memorials of Edward Burne-Jones, 1904",
+            "style_note": "連續否定（never was, never will be）創造虛幻感，破折號後的比較級（better than any light）將夢境提升到超越現實的位置"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子以中等長度為主（20-35 字），關鍵判斷用具象意象而非抽象概念表達",
+      "大量使用自然觀察類比：用花的生長談創作、用光線的變化談色彩、用河流的流動談敘事",
+      "引用文學典故作為修辭錨點：但丁、莎士比亞、Keats 是基本詞彙",
+      "禁用機械式的術語堆砌，用感官語言取代學術語言",
+      "每段以一個具體的視覺意象開場，再展開判斷",
+      "排比結構以二元對比為基本單位，三連排比用於道德宣言",
+      "動詞偏向感官類（see, touch, feel, grow, shine）和手工類（weave, carve, stain, bind）",
+      "使用直接的道德判斷語氣：「這是誠實的」或「這是虛偽的」",
+      "允許繁複的句法，但每個從句必須增加新的意義層次"
+    ]
+  }
+}

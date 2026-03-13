@@ -354,6 +354,7 @@ class MenuBar(Static):
     _pending_count: int = 0
     _gallery_selected: int = 0
     _llm_calls: int = 0
+    _persona_names: list[str] = []
 
     def __init__(self, **kwargs) -> None:
         super().__init__("", **kwargs)
@@ -387,6 +388,7 @@ class MenuBar(Static):
         pending_count: int = 0,
         gallery_selected: int = 0,
         llm_calls: int = 0,
+        persona_names: list[str] | None = None,
     ) -> None:
         self._mode = mode
         self._model = model
@@ -397,6 +399,7 @@ class MenuBar(Static):
         self._pending_count = pending_count
         self._gallery_selected = gallery_selected
         self._llm_calls = llm_calls
+        self._persona_names = persona_names or []
         self._rebuild()
 
     # ── 狀態 / 通知 API（右側）───────────────────────────
@@ -542,11 +545,23 @@ class MenuBar(Static):
         text.append("  ")
         col += 2
 
-        rag_label = "向量搜尋" if self._rag_mode == "fast" else "圖譜推理"
+        rag_label = "討論" if self._rag_mode == "fast" else "查詢"
         rag_start = col
         text.append(rag_label, style="#6e7681")
         col += sum(2 if ord(c) > 0x7F else 1 for c in rag_label)
         self._regions.append((rag_start, col, "toggle_rag_mode"))
+
+        if self._persona_names:
+            text.append("  ")
+            col += 2
+            # 最多顯示 2 個名稱，超過用 +N
+            display = self._persona_names[:2]
+            extra = len(self._persona_names) - 2
+            p_label = "視角:" + "·".join(display)
+            if extra > 0:
+                p_label += f"+{extra}"
+            text.append(p_label, style="#b48ead")
+            col += sum(2 if ord(c) > 0x7F else 1 for c in p_label)
 
         if self._project_name:
             text.append("  ")

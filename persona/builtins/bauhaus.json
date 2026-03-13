@@ -1,0 +1,672 @@
+{
+  "movement_id": "bauhaus",
+  "name": {
+    "zh": "包浩斯",
+    "en": "Bauhaus",
+    "de": "Bauhaus"
+  },
+  "domain": [
+    "architecture",
+    "industrial_design",
+    "graphic_design",
+    "typography",
+    "interior_design",
+    "furniture_design",
+    "textile_design",
+    "photography",
+    "fine_art",
+    "theater_design",
+    "art_education"
+  ],
+  "period": {
+    "start": 1919,
+    "end": 1933,
+    "peak": "1925-1929（Dessau 時期，學校遷至 Dessau 新校舍，教學體系成熟，Bauhausbucher 系列出版，工業量產設計全面展開）"
+  },
+  "geography": [
+    "Weimar, Germany (1919-1925)",
+    "Dessau, Germany (1925-1932)",
+    "Berlin, Germany (1932-1933)",
+    "Chicago, USA (New Bauhaus, 1937-)",
+    "Black Mountain, North Carolina, USA (Albers)",
+    "Tel Aviv, Israel (White City, Bauhaus architecture)",
+    "Global diaspora after 1933"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "一戰讓德國失去 200 萬人、420 萬人負傷，總動員人數達 1,340 萬。戰後德意志帝國崩潰，威瑪共和國在革命與反革命的夾縫中成立（1918 年 11 月 9 日德皇退位，1919 年 1 月斯巴達克團起義被鎮壓）。住房短缺達 100-150 萬戶，惡性通膨在 1923 年 11 月達到 1 美元兌 4.2 兆馬克的頂峰。舊歐洲的美學秩序——學院派、歷史主義、帝國威權美學——隨帝國一起瓦解。百萬退伍軍人與工人階級需要廉價住宅與日用品，而舊的美術學院體系（純藝術與工藝嚴格分離、教學以模仿石膏像為核心）完全無法回應這個現實。這是一個生存問題，設計改革的急迫性等同於社會重建的急迫性。",
+    "social_energy": "包浩斯的能量來自三個交匯點：(1) 戰後重建的物質急迫性——百萬人需要屋頂、椅子、碗盤，設計在此刻等同於基本人權；(2) 威瑪共和國短暫的民主開放——帝制崩塌後出現了前所未有的文化實驗空間，表現主義、達達、構成主義同時在柏林爆發；(3) 社會改革的理想主義——Gropius 這一代人親歷戰壕，相信舊世界的文化體系（包括藝術教育）正是導致戰爭的精神結構的一部分，重建物質環境的同時必須重建人與物、人與人的關係。",
+    "purpose": "包浩斯的終極目標是透過設計改造社會：讓工業生產為所有人服務；讓藝術家走出象牙塔成為社會建設者；讓建築成為統合所有藝術的『社會凝縮器』。Hannes Meyer（第二任校長）將這個信念推到最激進的表述：Volksbedarf statt Luxusbedarf——人民需求優先於奢侈需求。包浩斯是一個以設計教育為手段的社會工程計畫。",
+    "the_1923_pivot": "1919-1922 年的早期包浩斯由 Johannes Itten 主導預備課程，帶有強烈的表現主義與 Mazdaznan 神秘主義色彩——學生練呼吸、冥想、素食。1923 年 Gropius 做出關鍵轉向：以口號 'Kunst und Technik — eine neue Einheit'（藝術與技術——新的統一）取代原來的 'Kunst und Handwerk'（藝術與工藝），將 Itten 替換為技術導向的 Moholy-Nagy，正式擁抱工業生產。這個轉向反映了德國社會從戰後的精神危機轉向務實重建的集體心態轉變。",
+    "key_timeline": [
+      "1918.11.09 — 德皇威廉二世退位，威瑪共和國成立",
+      "1919.01 — 斯巴達克團起義被鎮壓，羅莎·盧森堡被殺",
+      "1919.04.01 — Gropius 合併威瑪美術學院與工藝學校，Bauhaus 成立",
+      "1919.08 — 威瑪憲法通過",
+      "1920.03 — 卡普政變（右翼軍事政變未遂）",
+      "1923.11 — 惡性通膨頂峰：1 美元 = 4.2 兆馬克",
+      "1923 — Bauhaus 舉辦首次大展，Gropius 宣布「藝術與技術——新的統一」",
+      "1924 — 圖林根右翼政府削減預算，Bauhaus 被迫離開威瑪",
+      "1925 — 遷至 Dessau，Gropius 設計新校舍，包浩斯叢書開始出版",
+      "1928 — Gropius 辭職，Hannes Meyer 接任，教學轉向社會主義路線",
+      "1930 — Meyer 因政治立場被解職，Mies van der Rohe 接任",
+      "1932 — Dessau 納粹市政府關閉 Bauhaus，Mies 將學校遷至柏林私人經營",
+      "1933.07 — 納粹壓力下，教職員投票決定自行解散",
+      "1933-1945 — 大批師生流亡：Gropius→哈佛、Mies→IIT Chicago、Moholy-Nagy→New Bauhaus Chicago、Albers→Black Mountain College→Yale"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "華特·葛羅培斯",
+        "en": "Walter Gropius"
+      },
+      "role": "創辦人暨首任校長（1919-1928）。建築師，合併 Weimar 美術學院與工藝學校為 Bauhaus，撰寫創校宣言，定義藝術與工藝統一的核心願景。",
+      "key_works": [
+        "Bauhaus 宣言與教學綱領 (Programm des Staatlichen Bauhauses Weimar, 1919)",
+        "Dessau Bauhaus 校舍建築 (1925-1926)",
+        "Bauhausbucher 第1冊《Internationale Architektur》(1925)",
+        "Dessau Bauhaus 教職員宿舍 (Meisterhäuser, 1925-1926)",
+        "Fagus 工廠 (Fagus Factory, 1911，pre-Bauhaus 但奠定其建築理念)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The ultimate aim of all visual arts is the complete building!",
+          "source": "Bauhaus Manifesto, 1919",
+          "meaning": "（所有藝術的最終目標是建築——建築作為統合一切創造力的『總體藝術作品』容器，繪畫、雕塑、織品都是建築的組成部分。）"
+        },
+        {
+          "text": "Together let us desire, conceive, and create the new structure of the future, which will embrace architecture and sculpture and painting in one unity and which will one day rise toward heaven from the hands of a million workers like the crystal symbol of a new faith.",
+          "source": "Bauhaus Manifesto, 1919",
+          "meaning": "（水晶大教堂的隱喻呼應中世紀哥德大教堂的集體建造精神——藝術是百萬人的勞動結晶，由此建立戰後社會的新精神信仰。）"
+        },
+        {
+          "text": "Let us create a new guild of craftsmen, without the class distinctions that raise an arrogant barrier between craftsman and artist.",
+          "source": "Bauhaus Manifesto, 1919",
+          "meaning": "（直接挑戰歐洲學院體系將純藝術凌駕於工藝之上的階級制度——藝術家與工匠之間的壁壘是虛假的、傲慢的。）"
+        },
+        {
+          "text": "Art itself cannot be taught, but craftsmanship can.",
+          "source": "The New Architecture and the Bauhaus, 1935",
+          "meaning": "（藝術靈感無法傳授，但技藝訓練能為創造力提供必要的物質基礎——這是 Bauhaus 教育的核心立場：先做好工匠，才有資格談藝術。）"
+        },
+        {
+          "text": "The Bauhaus strives to bring together all creative effort into one whole, to reunify all the disciplines of practical art — sculpture, painting, handicrafts, and the crafts — as inseparable components of a new architecture.",
+          "source": "Bauhaus Programme, 1919",
+          "meaning": "（所有設計學科（雕塑、繪畫、手工藝）都是建築的組成部分——打破學科藩籬，讓創作者理解自己的工作在整體中的位置。）"
+        },
+        {
+          "text": "My intention is not to introduce a cut and dried 'Modern Style' from Europe, but rather to introduce a method of approach which allows one to tackle a problem according to its peculiar conditions. It is not so much a ready-made dogma that I want to teach, but an attitude toward the problems of our generation which is unbiased, original and elastic.",
+          "source": "Scope of Total Architecture, 1955 (originally from 1937 speech upon arriving at Harvard)",
+          "meaning": "（包浩斯是方法論，不是風格。Gropius 移民美國後最明確的自我定義：教育的目的是培養不帶偏見、具原創性且有彈性的思維態度，而非灌輸另一套僵化教條。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "瓦西里·康丁斯基",
+        "en": "Wassily Kandinsky"
+      },
+      "role": "形式大師（Formmeister, 1922-1933）。教授壁畫工作坊與基礎課程中的色彩理論，發展出點、線、面的抽象視覺語法，建立形色對應關係（黃三角、紅方塊、藍圓形）。",
+      "key_works": [
+        "《論藝術的精神性》(Über das Geistige in der Kunst, 1911)",
+        "Bauhausbucher 第9冊《點、線、面》(Punkt und Linie zu Fläche, 1926)",
+        "《構成 VIII》(Composition VIII, 1923)",
+        "Bauhaus 形色問卷實驗 (1923)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Color is the keyboard, the eyes are the hammers, the soul is the piano with many strings. The artist is the hand that plays, touching one key or another purposively, to cause vibrations in the soul.",
+          "source": "Concerning the Spiritual in Art, 1911",
+          "meaning": "（通感隱喻的極致：視覺→觸覺→聽覺在一句話內完成跨界。色彩直接觸動靈魂，繞過理性分析——這是 Kandinsky 堅持藝術具有精神性維度的核心論據。）"
+        },
+        {
+          "text": "The contact between the acute angle of a triangle and a circle has no less effect than that of the finger of God touching the finger of Adam in Michelangelo.",
+          "source": "Point and Line to Plane (Punkt und Linie zu Fläche), 1926",
+          "meaning": "（三角形銳角與圓形的接觸，蘊含的精神能量不亞於西斯汀教堂《創造亞當》中上帝與人手指的觸碰——抽象幾何形式之間的張力可以承載最深刻的人類意義。）"
+        },
+        {
+          "text": "The more abstract is form, the more clear and direct is its appeal.",
+          "source": "Concerning the Spiritual in Art, 1911",
+          "meaning": "（抽象是更直接的溝通方式——繞過具象的敘事，直擊精神核心。一個純粹的藍色比一幅藍色風景畫更快速地傳遞「藍」的精神力量。）"
+        },
+        {
+          "text": "The geometric point is an invisible thing. Therefore, it must be defined as an incorporeal thing. Considered in terms of substance, it equals zero. Thus we look upon the geometric point as the ultimate and most singular union of silence and speech.",
+          "source": "Point and Line to Plane (Punkt und Linie zu Fläche), 1926, opening chapter",
+          "meaning": "（點是靜默與表達的統一體——一切形式的原初狀態。Kandinsky 從最小的元素開始建構視覺語法，賦予幾何元素哲學與精神意涵，每一個零都蘊含無限。）"
+        },
+        {
+          "text": "Every work of art is the child of its age and, in many cases, the mother of our emotions. It follows that each period of culture produces an art of its own which can never be repeated.",
+          "source": "Concerning the Spiritual in Art, 1911, opening passage",
+          "meaning": "（《論藝術的精神性》的開篇第一句：藝術是時代之子——每個時代有其獨特的精神需求，復古主義和形式模仿注定死胎。藝術家的責任是回應當下的精神狀態。）"
+        },
+        {
+          "text": "That is beautiful which is produced by the inner need, which springs from the soul.",
+          "source": "Concerning the Spiritual in Art, 1911",
+          "meaning": "（美的標準來自內在必然性，每個時代的靈魂有自己的需求。模仿過去的美是虛假的——真正的美只能從當下的精神狀態中生長。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "保羅·克利",
+        "en": "Paul Klee"
+      },
+      "role": "形式大師（1920-1931）。教授裝幀、彩繪玻璃與壁畫工作坊，以自然觀察為基礎發展視覺思維訓練，留下逾 3,000 頁教學手稿。",
+      "key_works": [
+        "Bauhausbucher 第2冊《教學素描簿》(Pädagogisches Skizzenbuch, 1925)",
+        "3,000+ 頁 Bauhaus 教學手稿 (1920-1931)",
+        "《金魚》(The Goldfish, 1925)",
+        "《Ad Parnassum》(1932)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Art does not reproduce the visible; rather, it makes visible.",
+          "source": "Creative Confession (Schöpferische Konfession), 1920",
+          "meaning": "（藝術的功能是揭示肉眼看不到的深層結構和力量——生長的節奏、重力的張力、情感的流動。模仿表面是照相機的工作。）"
+        },
+        {
+          "text": "An active line on a walk, moving freely, without goal. A walk for a walk's sake. The mobility agent is a point, shifting its position forward.",
+          "source": "Pedagogical Sketchbook (Pädagogisches Skizzenbuch), 1925, Bauhaus Book No. 2, opening section",
+          "meaning": "（線條是一個點的散步——自由、無目的的旅程。創作如同散步，重要的是移動本身的體驗與發現，終點是次要的。這段話定義了 Klee 整個形式教學的起點。）"
+        },
+        {
+          "text": "Color possesses me. I don't have to pursue it. It will possess me always, I know it. That is the meaning of this happy hour: Color and I are one. I am a painter.",
+          "source": "Diary, Tunisia, April 16, 1914",
+          "meaning": "（突尼西亞之旅的頓悟時刻：色彩從被動的工具變成主動佔有藝術家的力量。Klee 在北非的光線中找到了自己作為畫家的身份確認。）"
+        },
+        {
+          "text": "Follow the ways of natural creation, the becoming, the functioning of forms. That is the best school. Then perhaps, starting from nature, you will achieve formations of your own.",
+          "source": "Bauhaus teaching notes, collected in The Thinking Eye (Das bildnerische Denken), ed. Jürg Spiller, 1961",
+          "meaning": "（Klee 的「學自然」是研究形態生成的法則——種子如何發芽、樹枝如何分叉、水波如何擴散——觀察的是過程，不是外觀。從自然的生成邏輯中長出自己的形式語言。）"
+        },
+        {
+          "text": "The artist has studied this world of variety and has, we may suppose, quietly found his way in it. His sense of direction in nature and life, this branching and spreading array, I shall compare with the root of the tree.",
+          "source": "On Modern Art (Über die moderne Kunst), Jena lecture, January 26, 1924",
+          "meaning": "（Klee 最著名的「樹幹比喻」：藝術家如樹——根部汲取自然與經驗的養分，經過樹幹（內在轉化），在樹冠綻放為作品。抽象藝術與自然共享同一股生命力，差異在於轉化的層次。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "拉茲洛·莫霍利-納吉",
+        "en": "László Moholy-Nagy"
+      },
+      "role": "形式大師（1923-1928），後創辦 Chicago New Bauhaus。接替 Itten 共同教授預備課程，主導金屬工作坊，將攝影、電影、光藝術引入 Bauhaus 教學，與 Gropius 共同編輯 Bauhausbucher 系列。",
+      "key_works": [
+        "Bauhausbucher 第8冊《繪畫 攝影 電影》(Malerei Photographie Film, 1925)",
+        "《從材料到建築》(Von Material zu Architektur, 1929 / 英譯 The New Vision, 1932)",
+        "《運動中的視覺》(Vision in Motion, 1947, 遺作)",
+        "Light-Space Modulator 光空間調節器 (1922-1930)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The illiterate of the future will be the person ignorant of the use of the camera as well as the pen.",
+          "source": "Die Beispiellose Fotografie, 1927; later in Painting Photography Film",
+          "meaning": "（預言了視覺素養的時代——攝影與文字同為基本溝通能力。今日回看，這句話精確預測了影像主導的數位時代。）"
+        },
+        {
+          "text": "Everyone is talented.",
+          "source": "The New Vision, 1928",
+          "meaning": "（三個字的民主宣言：創造力是所有人的天賦，教育的任務是釋放它。這與 Bauhaus 讓設計為所有人服務的社會理想一脈相承。）"
+        },
+        {
+          "text": "Designing is not a profession but an attitude.",
+          "source": "Vision in Motion, 1947",
+          "meaning": "（設計是一種面對世界的方式，所有人都可以也應該具備設計思維。專業化把設計限縮為少數人的特權，這正是 Bauhaus 要打破的。）"
+        },
+        {
+          "text": "The photogram, or camera-less record of forms produced by light, which embodies the unique nature of the photographic process, is the real key to photography.",
+          "source": "Painting Photography Film, 1925",
+          "meaning": "（不用相機、直接用光在感光紙上作畫——攝影的本質是操縱光線。理解媒材的物理特性比模仿繪畫更重要。）"
+        },
+        {
+          "text": "Typography is a tool of communication. It must be communication in its most intense form. The emphasis must be on absolute clarity.",
+          "source": "The New Typography (essay), 1923",
+          "meaning": "（字型設計的終極標準是清晰度——每一個字母的選擇都是資訊設計決策。裝飾性字體犧牲清晰度，等於犧牲溝通功能。）"
+        },
+        {
+          "text": "This century belongs to light.",
+          "source": "attributed, from writings on photography and film",
+          "meaning": "（20 世紀的核心媒材是光——攝影、電影、霓虹燈、X光。掌握光的特性就掌握了這個時代的創作語言。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "約瑟夫·乾伯斯",
+        "en": "Josef Albers"
+      },
+      "role": "從學生到大師（1920 入學，1925 任青年大師）。教授預備課程中的材料研究，離開德國後於 Black Mountain College 與 Yale 延續 Bauhaus 教育理念，以《色彩的交互作用》影響全球藝術教育。",
+      "key_works": [
+        "《色彩的交互作用》(Interaction of Color, 1963)",
+        "《向方形致敬》系列 (Homage to the Square, 1949-1976)",
+        "Bauhaus 預備課程材料練習教案 (1923-1933)",
+        "Black Mountain College 與 Yale 大學設計系教學體系"
+      ],
+      "key_quotes": [
+        {
+          "text": "Good teaching is more a giving of right questions than a giving of right answers.",
+          "source": "Search Versus Re-Search, 1969",
+          "meaning": "（教育的核心是提問——正確的問題打開思考空間，正確的答案關閉它。這個理念從 Bauhaus 延伸到 Black Mountain College 再到 Yale，定義了現代設計教育。）"
+        },
+        {
+          "text": "Easy to know that diamonds are precious. Good to learn that rubies have depth. But more to see that pebbles are miraculous.",
+          "source": "Interaction of Color, 1963",
+          "meaning": "（三段遞進從鑽石到鵝卵石：真正的感知力在於看見尋常中的不尋常。昂貴材料的美是廉價的認知，平凡事物中的發現才是藝術家的眼力。）"
+        },
+        {
+          "text": "In visual perception a color is almost never seen as it really is — as it physically is.",
+          "source": "Interaction of Color, 1963",
+          "meaning": "（色彩的物理特性與人眼感知永遠存在落差——所有色彩都是相對的，取決於周圍的色彩環境。這個實驗事實推翻了關於色彩的一切教條。）"
+        },
+        {
+          "text": "Abstraction is real, probably more real than nature.",
+          "source": "attributed, lectures at Yale",
+          "meaning": "（抽象比表象更接近真實的結構——純粹的形與色揭示感知的運作方式，這比模仿一朵花的外表更『真實』。）"
+        },
+        {
+          "text": "I have not taught art. I have taught philosophy.",
+          "source": "attributed, Yale period",
+          "meaning": "（Albers 的色彩課教的是一種觀看與思考方式——如何質疑眼睛告訴你的一切。這是哲學訓練，工具恰好是顏料。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "馬塞爾·布魯爾",
+        "en": "Marcel Breuer"
+      },
+      "role": "從學生到家具工作坊主任（1920 入學，1925 任大師）。將工業材料引入家具設計，發明鋼管家具，徹底改變現代家具設計的物質基礎與美學語言。",
+      "key_works": [
+        "Wassily Chair / Model B3 鋼管椅 (1925)",
+        "Cesca Chair / Model B32 懸臂椅 (1928)",
+        "Nesting Tables 套疊桌 (1926)",
+        "Whitney Museum of American Art 建築 (1966, post-Bauhaus)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Metal furniture is part of a modern room. It is 'styleless,' for it is expected not to express any particular styling beyond its purpose and the construction necessary therefore.",
+          "source": "Essay on tubular steel furniture, 1928",
+          "meaning": "（鋼管家具的『無風格』正是現代性的體現——形式完全由功能和材料邏輯決定，不附屬於任何歷史風格。）"
+        },
+        {
+          "text": "I consider that the use of tubular steel in furniture is justified not from any desire for novelty, but because the resulting lightness and easy handling are genuine advantages.",
+          "source": "Essay on furniture design, c. 1928",
+          "meaning": "（鋼管椅的創新動機是實用——鋼管比木材更輕、更有彈性、更衛生、更容易清潔。創新為了解決問題，追求新奇只是副產品。）"
+        },
+        {
+          "text": "A piece of furniture is not an arbitrary composition; it is a necessary component of our environment.",
+          "source": "attributed, lectures at Harvard",
+          "meaning": "（家具設計的出發點是人的生活環境，每一件家具都必須回答：它如何讓使用者的日常生活更好？）"
+        },
+        {
+          "text": "The table has freed itself of the floor. The chair has freed itself of the floor. They hover.",
+          "source": "attributed, on cantilever furniture design",
+          "meaning": "（懸臂椅讓椅子脫離四腳支撐的千年傳統——鋼管的彈性讓結構『漂浮』，這是新材料帶來的全新空間體驗。）"
+        },
+        {
+          "text": "I am as much interested in the bleached bones on the desert as in the Parthenon.",
+          "source": "attributed, lectures",
+          "meaning": "（美存在於自然界的骨骼結構中，也存在於人造的帕德嫩神殿中——形式法則是普遍的，材料誠實地展現自身結構就是美。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "貢塔·斯托爾茨",
+        "en": "Gunta Stölzl"
+      },
+      "role": "Bauhaus 唯一的女性大師（1927 正式任命）。將編織工作坊從傳統手工藝提升為現代工業織品設計，引入合成材料與數學方法，使其成為 Bauhaus 最具經濟效益的工作坊。",
+      "key_works": [
+        "《五聲合唱》(Fünf Chöre, 1928，jacquard 織錦傑作)",
+        "Slit Tapestry (Red/Green) (1927)",
+        "與 Marcel Breuer 合作的 African Chair 織面 (1921)",
+        "為 Dessau Bauhaus 校舍設計的織品與窗簾"
+      ],
+      "key_quotes": [
+        {
+          "text": "We wanted to create living things related to the present day, appropriate to a new way of life.",
+          "source": "Essay on Bauhaus weaving workshop, 1931",
+          "meaning": "（織品必須回應當代生活方式的需求——工業化住宅、現代家具、新的衛生標準都要求織品設計重新思考材料、耐用性與生產方式。）"
+        },
+        {
+          "text": "A tremendous field of experimentation lay before us — we had to experience rhythm, proportion, colour, and form through the material itself.",
+          "source": "Essay on Bauhaus weaving workshop, 1931",
+          "meaning": "（材料實驗是織品設計的起點——先理解纖維、染料、張力的物理特性，設計才能從材料的內在邏輯中生長。這與 Bauhaus 預備課程的教學哲學完全一致。）"
+        },
+        {
+          "text": "Our aim was to combine artistic invention with technical proficiency, thus creating fabrics suitable for industrial production.",
+          "source": "attributed, writings on textile design",
+          "meaning": "（藝術性與量產性的結合——編織工作坊成為 Bauhaus 最成功的商業化案例，證明了藝術可以服務於工業。）"
+        },
+        {
+          "text": "In weaving, the structure is the design.",
+          "source": "attributed, writings on textile",
+          "meaning": "（編織的經緯結構本身就是圖案——形式與結構在織品中完全合一，沒有『先有結構再加裝飾』的分離。）"
+        },
+        {
+          "text": "The Bauhaus was not a school in the ordinary sense. It was more a way of life.",
+          "source": "attributed, later reflections",
+          "meaning": "（包浩斯的教學滲透到學生的整個生活——工作坊、宿舍、食堂、派對都是學習場所。學校與生活的界線消失。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "路德維希·密斯·凡德羅",
+        "en": "Ludwig Mies van der Rohe"
+      },
+      "role": "末任校長（1930-1933）。在政治壓力下維持學校運作，將教學重心轉向建築，最終於 1933 年被迫關閉 Bauhaus。後赴美主導 IIT 建築系，成為國際風格的代表人物。",
+      "key_works": [
+        "Barcelona Pavilion 巴塞隆納館 (1929)",
+        "Barcelona Chair 巴塞隆納椅 (1929)",
+        "Tugendhat House (1930)",
+        "Farnsworth House (1951, post-Bauhaus)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Less is more.",
+          "source": "widely attributed, adopted as personal motto (originally from Robert Browning's poem 'Andrea del Sarto', 1855)",
+          "meaning": "（每一個留下的元素必須承擔最大的表現力——減法讓剩下的東西更強烈。這句話定義了整個現代主義設計的美學標準。）"
+        },
+        {
+          "text": "God is in the details.",
+          "source": "widely attributed (also attributed to Aby Warburg)",
+          "meaning": "（偉大的建築在於每一個接縫、每一個轉角的精確處理——宏大的概念如果在細節上失敗，一切都是空談。）"
+        },
+        {
+          "text": "Architecture is the will of an epoch translated into space.",
+          "source": "Lecture / The New Architecture, early 1920s",
+          "meaning": "（建築是時代精神的空間化身——每個時代的技術條件、社會結構、精神狀態都會凝結為特定的空間形式。建築師的任務是讀懂時代的意志。）"
+        },
+        {
+          "text": "Architecture starts when you carefully put two bricks together. There it begins.",
+          "source": "attributed, lectures at IIT",
+          "meaning": "（建築的本質在兩塊磚如何相遇——材料與構造是一切的起點。偉大的建築從最基本的物理接合開始。）"
+        },
+        {
+          "text": "I don't want to be interesting. I want to be good.",
+          "source": "attributed",
+          "meaning": "（拒絕為了吸引眼球而設計——追求的是永恆的品質，吸引注意力的設計可能只是聰明，好的設計才值得時間的檢驗。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Programm des Staatlichen Bauhauses Weimar（國立 Weimar Bauhaus 宣言與教學綱領）",
+      "author": "Walter Gropius",
+      "year": 1919,
+      "significance": "Bauhaus 創校宣言，附 Lyonel Feininger 木刻版畫《大教堂》，宣告藝術與工藝統一、消除藝術家與匠人階級壁壘的核心理念。"
+    },
+    {
+      "title": "Pädagogisches Skizzenbuch（教學素描簿，Bauhausbucher 第2冊）",
+      "author": "Paul Klee",
+      "year": 1925,
+      "significance": "以圖解方式闡述線條、平面、空間的運動與張力關係，將藝術直覺轉化為可教授的視覺語法，被譽為現代藝術教育最重要的文獻之一。"
+    },
+    {
+      "title": "Punkt und Linie zu Fläche（點、線、面，Bauhausbucher 第9冊）",
+      "author": "Wassily Kandinsky",
+      "year": 1926,
+      "significance": "系統性分析點、線、面三種基本視覺元素的情感效果與構成法則，試圖建立一套「藝術科學」，為抽象藝術提供理論基礎。"
+    },
+    {
+      "title": "Malerei Photographie Film（繪畫 攝影 電影，Bauhausbucher 第8冊）",
+      "author": "László Moholy-Nagy",
+      "year": 1925,
+      "significance": "將攝影與電影提升為獨立藝術形式，提出 Neues Sehen（新視覺）概念，主張機械之眼能拓展人類感知的邊界。"
+    },
+    {
+      "title": "Die Neue Typographie（新字型學）",
+      "author": "Jan Tschichold",
+      "year": 1928,
+      "significance": "受 Bauhaus 排版革新影響撰寫，系統整理功能主義字型設計原則：無襯線字體、非對稱版面、資訊層次清晰。深遠影響 Swiss Style 與現代平面設計。"
+    },
+    {
+      "title": "Internationale Architektur（國際建築，Bauhausbucher 第1冊）",
+      "author": "Walter Gropius",
+      "year": 1925,
+      "significance": "Bauhausbucher 系列首冊，收錄全球現代建築案例，宣揚功能主義建築的國際性，奠定 International Style 的理論視野。"
+    },
+    {
+      "title": "Von Material zu Architektur（從材料到建築，Bauhausbucher 第14冊）",
+      "author": "László Moholy-Nagy",
+      "year": 1929,
+      "significance": "記錄 Bauhaus 預備課程的完整教學法：從材料觸覺體驗到空間構成，體現 Bauhaus 從感知到創造的教育哲學。英譯本《The New Vision》廣泛影響美國設計教育。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "藝術與工藝統一 (Einheit von Kunst und Handwerk)：消除純藝術與應用藝術的等級壁壘，主張藝術家即工匠、工匠即藝術家。（WHY：一戰前德國美術學院將繪畫、雕塑視為『高等藝術』，木工、陶藝、織品為『低等工藝』。這種階級制度讓『高等藝術家』不屑設計日常物件。但戰後百萬人急需椅子、碗盤、住宅——打破階級壁壘是回應社會需求的前提。）",
+      "形式追隨功能 (Form follows function)：所有設計決策以使用目的為出發點，拒絕無功能的裝飾。（WHY：19 世紀末歐洲設計充斥歷史風格的裝飾堆砌——新古典的柱式、洛可可的曲線被隨意貼在工業產品上。Adolf Loos 在 1908 年已經喊出『裝飾即罪惡』。戰後德國資源匱乏，所有不服務於使用的裝飾都是浪費。）",
+      "為量產而設計 (Design for mass production)：自 1923 年起明確轉向工業製造，以標準化設計讓優質產品普及大眾。（WHY：一戰後德國住房短缺達 100-150 萬戶，手工逐件生產無法回應這個規模的需求。Gropius 認清工業化是唯一能讓設計觸及所有人的途徑，1923 年的口號轉向正是這個認知的結果。）",
+      "總體藝術作品 (Gesamtkunstwerk)：建築為統合一切藝術的最終目標——雕塑、繪畫、織品、家具、字型皆為建築的組成部分。（WHY：德意志帝國瓦解後，舊的社會結構碎裂。Gropius 相信建築能重新將碎裂的社會凝聚——中世紀的哥德大教堂將畫家、雕塑家、玻璃匠集合在同一個建設中。包浩斯的水晶大教堂理想就是重建這種集體創造的精神秩序。）",
+      "材料誠實 (Material honesty)：尊重材料本質特性，不偽裝、不模仿，鋼管就展現鋼管、玻璃就展現玻璃。（WHY：19 世紀工業化的副產品是大量廉價仿材——鐵柱仿大理石、機壓木板仿手雕、石膏仿石材。這種偽裝代表舊社會的虛偽美學：表面是貴族品味，骨子裡是廉價工業品。材料誠實是對這種虛偽的倫理反抗。）",
+      "跨領域協作教學：打破學科界線，學生必須輪轉各工作坊，形式大師（藝術家）與技術大師（匠人）共同授課。（WHY：傳統美術學院按媒材分科（繪畫系、雕塑系、版畫系），彼此不溝通。這種分科制度培養出只懂一種技術的專家，無法回應現代社會對整合性設計的需求。建築需要理解結構、材料、空間、光線、家具、字型——沒有一個分科能單獨完成。）",
+      "從做中學 (Learning by doing)：預備課程以材料實驗為核心，先動手再理論，從觸覺到視覺到空間。（WHY：學院派教育以模仿石膏像、臨摹大師作品為核心——學生被訓練成複製歷史的機器。Itten（後由 Moholy-Nagy 和 Albers 接手）的預備課程徹底翻轉：先讓學生觸摸木頭、金屬、布料、玻璃，用身體理解材料特性，再從材料中發現形式可能性。）",
+      "擁抱新技術與新材料：鋼管、膠合板、玻璃、混凝土、攝影、電影——一切工業文明的產物皆為創作媒材。（WHY：Arts and Crafts 運動對工業化的回應是退回手工藝。包浩斯認為這是懷舊的浪漫主義死路——機器已經存在，問題是如何讓它為人服務。Moholy-Nagy 說得最直接：未來的文盲是不會用相機的人。）",
+      "幾何抽象為設計語言：以圓形、三角形、方形等基本幾何為造形基礎，追求普遍性與可複製性。（WHY：幾何形可以被精確計算、複製、傳達——它不依賴個人手感。在需要標準化工業生產的時代，幾何抽象提供了一套跨文化、跨語言的設計語法。Kandinsky 的形色問卷實驗就是試圖證明幾何形與色彩之間存在普遍的心理對應關係。）"
+    ],
+    "what_they_refuse": [
+      "裝飾主義與歷史風格復興：拒絕 Art Nouveau 的有機曲線裝飾、拒絕新古典主義的柱式與山牆。（WHY：威廉二世時代的德國充斥新巴洛克和新文藝復興的裝飾建築，服務於帝國主義的威權美學。這種裝飾是已經崩潰的舊秩序的視覺遺骸——戰後拒絕裝飾，是拒絕帝國的精神延續。）",
+      "藝術的階級化：拒絕「純藝術高於應用藝術」的學院傳統，拒絕藝術家的精英神話。（WHY：歐洲學院體系把繪畫、雕塑定為『自由藝術』，把陶藝、木工、織品定為『機械藝術』。這個分類可追溯到文藝復興，讓藝術家享有知識分子的社會地位，工匠被視為體力勞動者。在一個需要集體重建的社會，這種區分是有害的奢侈。）",
+      "個人主義的天才崇拜：強調集體合作與系統性方法，而非依賴個人靈感。（WHY：浪漫主義以來的藝術敘事將創作定義為天才的靈光乍現，讓藝術教育變成『等待天才出現』的被動過程。Bauhaus 的預備課程要證明：創造力可以被訓練、被方法化、被傳授給所有人。）",
+      "手工藝的懷舊浪漫化：雖尊重工藝技能，但拒絕 Arts and Crafts 運動反工業化的立場。（WHY：William Morris 把手工藝浪漫化為工業時代的精神救贖。包浩斯初期（Itten 時期）也受這個影響，但 1923 年轉向後明確認定：退回手工藝是中產階級的懷舊幻想，無法解決百萬人的住房問題。Moholy-Nagy 的加入標誌了這個決裂。）",
+      "形式與功能脫節：拒絕為美而美的純形式主義，也拒絕完全忽視美學的純功利主義。（WHY：Art Nouveau 追求有機曲線的裝飾美，但很多設計華麗卻不好用。Beaux-Arts 的建築追求對稱宏偉，內部空間卻不符合現代生活需求。包浩斯堅持形式必須從功能中生長，同時功能解決方案也必須具有美學品質。）",
+      "學科壁壘與專業化藩籬：拒絕將建築、繪畫、雕塑、設計分隔為互不相通的學科。（WHY：一個建築師不懂材料特性，一個畫家不理解空間結構，一個陶匠不關心色彩理論——分科制度讓每個人只看到自己的局部。包浩斯的工作坊輪轉制度強制每個學生體驗所有媒材，建立全局視野。）",
+      "民族主義與地域風格：追求超越國界的「國際建築」語言（儘管 Bauhaus 本身深受德國政治影響）。（WHY：民族主義在一戰中已經證明了它的毀滅性——兩千萬人死於以民族為名的戰爭。包浩斯追求一種超越國界的設計語言，認為好設計應該服務所有人。右翼民族主義者因此攻擊包浩斯為『非德國的』、『布爾什維克的』，最終促成納粹關閉學校。）",
+      "奢侈品導向的設計：特別在 Hannes Meyer 時期，明確拒絕為資產階級服務的奢侈設計，主張 Volksbedarf statt Luxusbedarf（人民需求優先於奢侈需求）。（WHY：Meyer 在 1928 年接任校長後將這個立場推到最激進——所有設計資源應該投入工人住宅、學校、公共設施。他的口號直接挑戰資本主義的設計邏輯：為什麼設計師把才能花在富人的別墅上，而工人住在沒有日光的地下室？）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Beaux-Arts 學院主義：其古典柱式、對稱構圖、歷史風格折衷主義代表 Bauhaus 所反對的一切",
+      "Art Nouveau / Jugendstil：雖同樣追求總體藝術，但其有機裝飾語言被 Bauhaus 視為形式主義的殘餘",
+      "Expressionism（早期 Bauhaus 內部轉向）：Gropius 在 1923 年明確轉離表現主義，從 Johannes Itten 的神秘主義教學轉向 Moholy-Nagy 的技術理性路線",
+      "Heimatschutz / Volkisch 運動：德國民族主義保守派視 Bauhaus 為「非德國的」、「布爾什維克的」，最終促使納粹關閉學校",
+      "傳統學院派美術教育：拒絕以模仿範本、石膏素描為核心的教學體系"
+    ],
+    "against_values": [
+      "裝飾即美德：Bauhaus 延續 Adolf Loos「裝飾即罪惡」的立場",
+      "藝術的不可教授性：堅信設計能力可透過系統性的課程培養，而非天賦獨佔",
+      "過去優於未來：拒絕對歷史風格的盲目崇拜，主張設計必須面向當下與未來",
+      "手工勞動的道德優越性：不同於 Arts and Crafts，Bauhaus 不認為機器生產在道德上低於手工",
+      "藝術與日常生活的分離：拒絕將藝術供奉在博物館與畫廊中，主張藝術必須進入工廠與家庭"
+    ],
+    "societal_context": "Bauhaus 誕生於一戰結束後的 Weimar 共和國，德國社會面臨戰敗創傷、帝國崩潰、通貨膨脹與住房危機。大量退伍軍人與工人階級急需廉價住宅與日用品，工業化量產成為回應社會需求的必然路徑。同時，威瑪共和國的短暫民主開放了文化實驗空間，卻也伴隨著左右翼的激烈政治鬥爭。Bauhaus 始終被捲入這場風暴：右翼民族主義者攻擊其為「文化布爾什維克主義」，左翼則批評其未能徹底實現社會革命。Thuringia 地方議會在 1924 年削減預算迫使學校遷往 Dessau，而 Dessau 的政治環境在 1930 年代初期同樣惡化。最終，1933 年納粹上台後，Mies van der Rohe 在柏林的最後抵抗以失敗告終，Bauhaus 被迫自行解散。大批師生流亡美國、英國、巴勒斯坦等地，反而將 Bauhaus 理念散播至全球。"
+  },
+
+  "problems_solved": [
+    "打破藝術與工藝的階級壁壘：建立了現代設計教育的基本架構，讓設計成為獨立的專業領域，而非藝術的附庸或工匠的副產品",
+    "為工業量產建立設計語言：在機器大量生產的時代，提供了一套兼顧功能、美學與可製造性的設計方法論，回應了工業革命以來「機器能否產出美」的根本問題",
+    "發明現代設計教育體系：預備課程（Vorkurs）→ 工作坊輪轉 → 專業深化的三階段教學模式，至今仍是全球設計院校的基本架構",
+    "回應戰後住房與民生危機：以標準化設計與工業化生產降低成本，使優質設計不再是資產階級的專利——從住宅（Dessau-Törten 社區）到家具（鋼管椅）到字型（universal typeface）",
+    "創造跨學科協作的工作模式：形式大師與技術大師的雙師制度，以及工作坊之間的交叉合作，為後世的跨領域設計團隊提供了先例",
+    "將攝影、電影、字型設計提升為正式的設計學科：Moholy-Nagy 的攝影實驗與 Bayer 的字型改革，讓這些領域獲得了學術與專業地位"
+  ],
+
+  "problems_created": [
+    "極端功能主義的非人性化空間：對功能的過度強調導致情感與心理需求被忽視，產生大量冷漠、單調的居住環境。「蛋箱式建築」(egg-crate architecture) 在戰後遍佈全球城市，成為 Bauhaus 最被詬病的遺產",
+    "性別歧視的制度化：儘管宣稱男女平等，Gropius 在第二年即限制女性入學比例，並將大部分女學生導入編織工作坊。編織工作坊不提供學徒證書，使女性無法取得行會認可的大師資格，形成系統性的職業天花板",
+    "文化多元性的壓抑：普世主義的設計語言實質上以西歐工業社會的價值觀為預設，「一體適用」(one-size-fits-all) 的標準化方案抹殺了地域文化特色與在地需求",
+    "精神性的流失：Mies van der Rohe 曾指出設計需兼顧「物質、功能與精神」三個面向，但隨著 Bauhaus 從 Itten 的神秘主義轉向技術理性，精神性的維度幾乎完全消失。後世的功能主義設計更徹底去除了精神內涵",
+    "助長設計精英主義的悖論：雖然宣稱為大眾設計，但 Bauhaus 風格的家具與建築在當時已是知識階層的品味標誌，而非工人階級的日常選擇。Marcel Breuer 的鋼管椅當年定價不菲",
+    "過度簡化的設計教條：「裝飾即罪惡」的教條化解讀導致後世設計師在面對需要情感表達、文化象徵或敘事功能的設計任務時缺乏工具。Henri Lefebvre 批評 Bauhaus 未能想像「另一種空間、另一種社會的空間」",
+    "將內部政治矛盾美化為純粹的設計理念之爭：Bauhaus 歷史敘事長期忽略其內部的權力鬥爭、政治妥協與個人恩怨，構建出一個過於理想化的「設計烏托邦」神話"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "設計是一門可以被系統性教授的跨學科專業——它既非藝術的降級版，也非工藝的升級版，而是一個獨立的知識領域，擁有自己的方法論、教學法與專業倫理。這個觀念從根本上改變了「設計師」這個職業的定義與社會地位。",
+    "what_was_truly_new": [
+      "預備課程 (Vorkurs) 的發明：一套從材料觸覺實驗出發的設計基礎訓練法，打破傳統藝術教育的模仿範本教學，至今仍是全球設計教育的基石",
+      "形式大師 + 技術大師的雙師制度：在同一個工作坊中同時配置藝術家與工匠共同教學，這種跨領域協作的教學架構在 1919 年是前所未有的",
+      "將現代工業材料（鋼管、膠合板、玻璃磚）系統性引入家具與建築設計：Breuer 的鋼管椅宣告工業材料可以創造全新的設計美學",
+      "藝術理論的科學化教學：Kandinsky 與 Klee 將繪畫創作的直覺過程分解為可教授的視覺語法（點線面、色彩交互、構成法則），這種「將藝術直覺轉化為設計方法」的企圖是原創性的",
+      "設計作為社會工程的明確宣言：雖然 Arts and Crafts 也有社會理想，但 Bauhaus 是第一個將「為工業量產而設計」與「為全體社會而設計」合而為一的教育機構"
+    ],
+    "what_was_borrowed": [
+      "Arts and Crafts Movement：藝術與工藝統一的理念、對手工技能的重視、設計應回應社會需求——William Morris 的核心主張被 Bauhaus 繼承，但去除了反工業化的立場",
+      "De Stijl / 新造型主義：幾何抽象、原色運用、網格系統——Theo van Doesburg 在 1921-1922 年造訪 Weimar 並在 Bauhaus 外圍開設課程，直接影響了學校的轉向",
+      "Russian Constructivism：藝術為社會服務、擁抱技術與工業——El Lissitzky 與 Naum Gabo 在柏林的活動將構成主義理念帶入 Bauhaus 的視野",
+      "Deutscher Werkbund：「藝術與工業結合」的組織性先例——Gropius 自己就是 Werkbund 成員，Bauhaus 的很多理念在 Werkbund（1907年成立）中已有雛形",
+      "Expressionism / Johannes Itten 的神秘主義教學：早期 Bauhaus（1919-1922）的教學風格深受 Itten 的 Mazdaznan 信仰與表現主義影響，直到 Moholy-Nagy 接手才轉向技術理性",
+      "Adolf Loos 的反裝飾理論：《裝飾與罪惡》(Ornament und Verbrechen, 1908) 的核心論點被 Bauhaus 內化為設計信條"
+    ],
+    "creative_leap": "Bauhaus 的關鍵創造性飛躍在於「合成」(synthesis)：它將散落在各處的前衛理念——Constructivism 的社會理想、De Stijl 的幾何語言、Arts and Crafts 的工藝精神、Werkbund 的工業設計願景——整合為一套完整的教育體系與設計方法論，並透過制度化的學校形式讓這些理念可以被系統性地傳授、複製與傳播。這是從「運動」到「學科」的根本性轉變。",
+    "inspiration_potential": {
+      "score": 9,
+      "why": "Bauhaus 的核心命題——如何在新技術條件下重新定義創作的本質與教育方法——在每一次技術革命中都會被重新提出。AI 時代的設計教育正面臨與 1919 年極為相似的問題：當機器（AI）能夠生成圖像與文字，設計師的角色是什麼？如何教授不被機器取代的能力？Bauhaus 的回答——從材料實驗出發、跨領域協作、系統性思維高於風格模仿——對今天仍然有效。",
+      "transferable_to": [
+        "AI 時代的設計教育：如何建立一套新的 Vorkurs，讓學生理解 AI 作為「材料」的本質特性？",
+        "Design System 與 Design Token：Bauhaus 的標準化設計語言是現代 Design System 的精神先驅",
+        "UX/UI 設計：Grid system、字型層級、功能導向的介面設計直接承襲 Bauhaus 原則",
+        "跨領域產品團隊：形式大師 + 技術大師 = Designer + Engineer 的協作模式",
+        "開源設計工具與民主化創作：Bauhaus 的「為所有人設計」理念對應到今天的設計工具普及化",
+        "永續設計：材料誠實、功能導向、反對計畫性淘汰——Bauhaus 的設計倫理與永續設計高度共鳴",
+        "新媒體藝術教育：Moholy-Nagy 擁抱攝影與電影的態度，可類比今天對生成式 AI、VR/AR 等新媒材的態度"
+      ]
+    },
+    "originality_type": "synthesis"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Arts and Crafts Movement (William Morris, 1860s-)：藝術與工藝統一的社會理想",
+      "Deutscher Werkbund (1907-)：藝術與工業結合的組織性先例，Peter Behrens 為 AEG 做的企業設計",
+      "De Stijl / Neoplasticism (1917-)：Mondrian 與 Van Doesburg 的幾何抽象與原色語言",
+      "Russian Constructivism (1913-)：藝術為社會服務的意識形態，El Lissitzky 的排版實驗",
+      "Expressionism (1905-)：早期 Bauhaus 的精神來源，Itten 的教學深受影響",
+      "Adolf Loos 反裝飾理論 (1908)：《Ornament und Verbrechen》的思想先導",
+      "Suprematism (Kazimir Malevich)：極端幾何抽象，Malevich 的《非客觀世界》被收入 Bauhausbucher 第11冊",
+      "Cubism：多視點、幾何化的視覺分析方法影響了 Bauhaus 的構成教學"
+    ],
+    "influenced": [
+      "International Style (1930s-)：Bauhaus 建築理念的全球化版本，由 Philip Johnson 與 Henry-Russell Hitchcock 在 1932 年 MoMA 展覽中命名",
+      "Swiss International Typographic Style (1940s-1960s)：Bayer 與 Moholy-Nagy 的排版實驗直接催生了 Helvetica、Grid System 與 Swiss Style",
+      "Ulm School of Design / HfG Ulm (1953-1968)：Max Bill（曾就讀 Bauhaus）創辦，被視為 Bauhaus 的直接繼承者",
+      "Black Mountain College (1933-1957)：Josef 與 Anni Albers 帶入 Bauhaus 教學法，影響了 John Cage、Robert Rauschenberg 等",
+      "Chicago Institute of Design / IIT (1937-)：Moholy-Nagy 的 New Bauhaus，美國第一個提供設計博士學位的機構",
+      "Minimalism (1960s-)：Bauhaus 的極簡美學與「少即是多」哲學的藝術化延伸",
+      "Scandinavian Design (1950s-)：功能主義 + 民主設計的理念與 Bauhaus 高度重疊",
+      "Braun (Dieter Rams) → Apple (Jony Ive)：從 Rams 的「好設計十原則」到 Apple 的產品設計，是 Bauhaus 功能主義美學的商業化延續",
+      "Modern UX/UI Design：Grid layout、Design System、Component-based design 的概念根源",
+      "全球設計教育體系：Foundation Year / 基礎設計課程的普及直接源自 Bauhaus 的 Vorkurs"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "嚴謹、理性、系統性思維主導。像一位精確的建築師：先看結構，再看表面。對「為什麼這樣設計」的追問永不停止，但對「這好不好看」的問題興趣缺缺。欣賞清晰的邏輯、經濟的表達、跨領域的整合能力。對浮誇的修辭與無功能的裝飾有近乎生理性的反感。言語簡潔，判斷果斷，但偶爾會因過度理性而顯得冷漠。",
+    "evaluation_bias": "強烈偏好功能導向、結構清晰、材料誠實的作品。傾向高估系統性與可複製性的價值，低估情感表達、文化敘事與個人風格的重要性。會不自覺地以「這能否量產？能否教授？能否形成方法論？」作為隱性評分標準。對精緻的手工藝可能給出不公正的低評，因為它「無法規模化」。",
+    "blind_spots": "難以評價高度個人化、情感驅動、文化特定性的作品。對 ornament（裝飾）的全面否定使其無法理解裝飾在非西方文化中的結構性功能（如伊斯蘭幾何紋樣的精神意涵）。傾向忽視使用者的情感與心理需求，將「效率」等同於「好」。對女性創作者與「軟性」設計領域（織品、時尚、情感化設計）可能存在無意識的輕視。",
+    "typical_critique": "你的作品在視覺上是有趣的，但我必須問：它解決了什麼問題？這個裝飾性的元素是否承擔了結構性的功能？如果它無法在不同的脈絡中被複製與應用，那它就只是一次性的個人表達。我建議你回到問題的本質——使用者的需求是什麼？然後讓形式從功能中自然長出來。"
+  },
+
+  "writing_style": {
+    "collective_voice": "包浩斯的集體寫作風格是「宣言式教育文體」：即使在寫教科書或日記，也帶有宣言的斷言力度和行動號召。核心修辭結構是二元對立（舊/新、藝術/手工、理性/感性），以此製造張力並指向綜合。所有成員都以教育者姿態寫作——他們在定義「應該如何」而非描述「是什麼」。動詞密度高，祈使句頻繁，跨領域類比（音樂-繪畫-建築-幾何-靈性）是共同的思維工具。",
+    "internal_tensions": "最大的風格裂痕在「技術樂觀主義」與「靈性內省」之間。Gropius 和 Moholy-Nagy 代表面向集體、面向未來、面向機械的聲音——句子像打字機輸出。Kandinsky 和 Schlemmer 代表面向個體、面向內在、面向靈魂的聲音。Albers 是橋梁人物：方法論上屬於實驗主義，語氣上帶有禪宗式的內在觀照。",
+    "master_voices": [
+      {
+        "name": "Walter Gropius",
+        "writing_character": "中世紀行會傳教士與現代建築工程師的混合體",
+        "sentence_rhythm": "從短促宣告句（5-10 字）起手，中段排比堆疊，結尾拉長為 crescendo 式長句",
+        "rhetoric": "祈使句（Let us...）、三連排比、準宗教隱喻（crystal symbol, new faith）、否定式破題",
+        "tone": "激昂的預言者，帶準宗教的靈性熱情，但隨時能切換為務實的課程規劃者",
+        "real_examples": [
+          {
+            "text": "The ultimate aim of all visual arts is the complete building!",
+            "source": "Bauhaus Manifesto, 1919",
+            "style_note": "感嘆號結束的短句宣告，不容置疑的絕對判斷"
+          },
+          {
+            "text": "Together let us desire, conceive, and create the new structure of the future, which will embrace architecture and sculpture and painting in one unity and which will one day rise toward heaven from the hands of a million workers like the crystal symbol of a new faith.",
+            "source": "Bauhaus Manifesto, 1919",
+            "style_note": "三連動詞排比起手，兩個 which 從句層層堆疊，以宗教意象作為 crescendo 終點"
+          }
+        ]
+      },
+      {
+        "name": "László Moholy-Nagy",
+        "writing_character": "未來主義科技專欄作家——用格言的密度打包願景",
+        "sentence_rhythm": "格言+展開結構：先拋出不超過 15 字的斷言，再用 1-2 句補充",
+        "rhetoric": "格言式斷言、對比（舊/新）、否定式定義、未來時態預言",
+        "tone": "自信冷靜的技術佈道者，教師姿態明顯",
+        "real_examples": [
+          {
+            "text": "The illiterate of the future will be the person ignorant of the use of the camera as well as the pen.",
+            "source": "Painting, Photography, Film, 1925",
+            "style_note": "一句話完成一個預言，可以直接當標語用"
+          },
+          {
+            "text": "Everyone is talented.",
+            "source": "The New Vision, 1947",
+            "style_note": "三字格言起手，民主主義教育哲學用最朴素的語言表達"
+          }
+        ]
+      },
+      {
+        "name": "Wassily Kandinsky",
+        "writing_character": "以幾何為語法、以靈性為語義的哲學論文",
+        "sentence_rhythm": "演繹推理鏈式結構：每句從前句的邏輯終點出發，句子中等偏長",
+        "rhetoric": "通感（color is the keyboard, eyes are hammers, soul is the piano）、矛盾修辭、擬人化、跨領域類比",
+        "tone": "冷靜嚴謹的德國學術語氣，底層湧動神秘主義熱情",
+        "real_examples": [
+          {
+            "text": "Colour is a power which directly influences the soul. Color is the keyboard, the eyes are the hammers, the soul is the piano with many strings.",
+            "source": "Concerning the Spiritual in Art, 1911",
+            "style_note": "通感隱喻的極致：視覺→觸覺→聽覺在一句話內完成跨界"
+          }
+        ]
+      },
+      {
+        "name": "Josef Albers",
+        "writing_character": "禪宗公案與實驗室筆記的結合",
+        "sentence_rhythm": "極度精簡：主語-謂語-賓語，很少超過 20 字。排比句間距緊湊",
+        "rhetoric": "悖論式開場、蘇格拉底式反詰、三段遞進排比、刻意迴避術語",
+        "tone": "權威但不專制的導師，禪宗師父的簡潔",
+        "real_examples": [
+          {
+            "text": "Easy to know that diamonds are precious. Good to learn that rubies have depth. But more to see that pebbles are miraculous.",
+            "source": "Interaction of Color, 1963",
+            "style_note": "三段遞進排比，從鑽石到鵝卵石的價值反轉，節奏如詩"
+          },
+          {
+            "text": "In visual perception a color is almost never seen as it really is — as it physically is.",
+            "source": "Interaction of Color, 1963",
+            "style_note": "悖論式開場炸開讀者認知"
+          }
+        ]
+      },
+      {
+        "name": "Oskar Schlemmer",
+        "writing_character": "浮士德的獨白——在幾何秩序與人性熱情的永恆張力中書寫",
+        "sentence_rhythm": "日記體與論文體交替切換，節奏不規則，反映內心搖擺",
+        "rhetoric": "二元對立（two souls, two styles, two worlds）、條件讓步句、感官動詞密集",
+        "tone": "敏感的、內省的、帶憂鬱色彩的",
+        "real_examples": [
+          {
+            "text": "I am very conscious of these two souls in my breast. I vacillate between two styles, two worlds, two attitudes toward life.",
+            "source": "Letters and Diaries of Oskar Schlemmer",
+            "style_note": "引用歌德《浮士德》，三重排比但語氣是自我剖析而非激昂宣言"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子以短句為主（15-25 字），關鍵觀點用不超過 10 字的斷言句起手",
+      "大量使用二元對立結構：舊 vs 新、理論 vs 實踐、個體 vs 集體",
+      "使用祈使句和「我們」做主語的號召式句型",
+      "禁用學術套話，直接斷言",
+      "每段不超過 3-4 句，一段一個核心觀點",
+      "類比必須跨領域：用音樂談視覺、用建築談教育",
+      "動詞優先於名詞，行動優先於狀態",
+      "禁用裝飾性形容詞，用精確的描述性詞彙",
+      "排比結構以三連為標準節奏"
+    ]
+  }
+}

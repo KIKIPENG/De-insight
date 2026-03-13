@@ -1,0 +1,566 @@
+{
+  "movement_id": "abstract-expressionism",
+  "name": {
+    "zh": "抽象表現主義",
+    "en": "Abstract Expressionism"
+  },
+  "domain": [
+    "painting",
+    "sculpture",
+    "art_criticism",
+    "art_theory",
+    "art_education"
+  ],
+  "period": {
+    "start": 1943,
+    "end": 1965,
+    "peak": "1947-1956（Pollock 發展滴畫技法、Rothko 確立色域繪畫、Newman 完成 Vir Heroicus Sublimis、Greenberg 與 Rosenberg 的批評論述全面展開、紐約取代巴黎成為全球藝術中心）"
+  },
+  "geography": [
+    "New York City, USA (核心據點：Cedar Tavern、The Club、第十街畫廊)",
+    "East Hampton / Springs, Long Island (Pollock-Krasner 工作室)",
+    "San Francisco, USA (Clyfford Still 在 CSFA 任教，西岸分支)",
+    "全球擴散：經 MoMA 巡迴展與 CIA 文化外交，影響遍及歐洲、日本、拉美"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "二戰改變了一切。歐洲文明的道德權威在奧斯維辛和廣島的灰燼中徹底崩塌。600 萬猶太人被系統性屠殺，兩顆原子彈在瞬間抹去 20 萬條人命——理性、進步、人道主義的啟蒙敘事已經無法繼續。1930 年代大批歐洲藝術家流亡紐約（Mondrian、Ernst、Leger、Breton、Matta），帶來了超現實主義的自動書寫與無意識探索，以及歐洲前衛藝術的第一手經驗。但美國畫家認為歐洲的形式語言——無論是立體派的幾何分析還是超現實主義的夢境敘事——都無法回應這個新的存在處境。他們需要一種從零開始的繪畫行動，用身體與直覺直面人類處境的深淵。",
+    "social_energy": "抽象表現主義的能量匯聚自三個源頭：(1) 戰後的存在主義焦慮——原子彈證明人類有能力毀滅自身，死亡與虛無成為無法迴避的日常意識。沙特與卡繆的存在主義哲學在紐約知識圈廣泛傳播，藝術家們感受到必須在這個荒謬處境中做出真實的行動；(2) 美國文化的自我覺醒——戰前美國藝術被視為歐洲的省級附庸，WPA 聯邦藝術計畫（1935-1943）讓數千名藝術家首次獲得職業身份，在大蕭條的集體苦難中建立起社群連結，紐約畫家開始相信自己有資格與巴黎平起平坐；(3) 冷戰的文化角力——美國需要向世界展示自由社會能產出蘇聯社會主義寫實主義所不能的東西：個體的絕對自由表達。CIA 透過國際文化自由大會與 MoMA 巡迴展，將抽象表現主義包裝為自由世界的文化武器。",
+    "purpose": "抽象表現主義的終極訴求是讓繪畫成為存在行動本身。畫布是藝術家與自身存在搏鬥的場域——Pollock 的滴畫是身體與重力的對話，Rothko 的色域是靈魂與虛空的凝視，Newman 的拉鍊是創世的第一道裂縫。這些畫家拒絕所有預設的形式系統（透視法、構圖規則、色彩理論教條），因為任何系統都是對存在經驗的簡化與背叛。繪畫的意義在行動中生成，在觀看中完成——藝術家與觀眾被共同拋入一個沒有安全網的感知空間。",
+    "the_two_poles": "抽象表現主義內部存在兩極張力，從未統一為單一風格。Harold Rosenberg 在 1952 年命名的「行動繪畫」(Action Painting) 以 Pollock 和 de Kooning 為代表——畫布是行動的場域，身體的運動軌跡就是作品本身，繪畫過程的即時性與不可預測性是核心價值。Clement Greenberg 推崇的「色域繪畫」(Color Field Painting) 以 Rothko、Newman、Still 為代表——大面積的色彩平面製造包圍式的感知體驗，沉思取代行動，崇高取代激情。兩極之間的張力正是這個運動的活力所在：身體 vs. 冥想、動態 vs. 靜態、書寫 vs. 呼吸。",
+    "key_timeline": [
+      "1935-1943 — WPA 聯邦藝術計畫，讓數千名藝術家首次獲得穩定收入與職業身份",
+      "1936 — MoMA 舉辦「立體派與抽象藝術」與「奇幻藝術、達達、超現實主義」大展",
+      "1939-1942 — 歐洲前衛藝術家大批流亡紐約：Mondrian (1940)、Ernst (1941)、Breton (1941)、Leger (1940)",
+      "1942 — Peggy Guggenheim 在紐約開設 Art of This Century 畫廊",
+      "1943 — Pollock 在 Art of This Century 舉辦首次個展，Rothko 與 Gottlieb 在紐約時報發表藝術宣言信",
+      "1947 — Pollock 開始滴畫技法（poured/drip paintings），在 Springs 的穀倉工作室將畫布鋪在地上",
+      "1948 — Barnett Newman 發表〈The Sublime is Now〉於 Tiger's Eye；Robert Motherwell 等創辦 Subjects of the Artist 學校",
+      "1948-1950 — Rothko 確立標誌性風格：矩形色塊在柔焦邊緣中漂浮",
+      "1949 — Life 雜誌刊出 Pollock 專題：「他是美國在世最偉大的畫家嗎？」",
+      "1950 — 第十街畫廊開始湧現；三十名藝術家聯名抗議 Metropolitan Museum 排斥前衛藝術（Irascibles 照片）",
+      "1950-1951 — Newman 完成 Vir Heroicus Sublimis（2.4 x 5.4 公尺）",
+      "1952 — Harold Rosenberg 在 ARTnews 發表〈The American Action Painters〉",
+      "1956.08.11 — Jackson Pollock 車禍身亡，年僅 44 歲",
+      "1958-1959 — MoMA「新美國繪畫」巡迴歐洲八個城市，確立美國藝術的國際地位",
+      "1961 — Rothko 為哈佛大學壁畫項目創作（後因褪色撤除）",
+      "1964-1967 — Rothko 完成休士頓教堂壁畫（Rothko Chapel，1971 年開放）",
+      "1970.02.25 — Mark Rothko 自殺身亡，年僅 66 歲"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "傑克森·波洛克",
+        "en": "Jackson Pollock"
+      },
+      "role": "行動繪畫的極端實踐者。發展出將畫布鋪在地上、以身體運動將顏料甩灑滴落的技法，徹底改變了繪畫的物理定義——藝術家進入畫布，畫筆不再觸及表面，重力與動能成為共同創作者。Peggy Guggenheim 的早期支持與 Clement Greenberg 的批評推動使他成為戰後美國藝術的標誌性人物。",
+      "key_works": [
+        "Mural (1943，為 Peggy Guggenheim 公寓創作，2.4 x 6 公尺)",
+        "Full Fathom Five (1947，早期滴畫)",
+        "Number 1A, 1948 (1948)",
+        "One: Number 31, 1950 (1950，2.7 x 5.3 公尺)",
+        "Autumn Rhythm (Number 30) (1950)",
+        "Lavender Mist (Number 1, 1950)",
+        "Blue Poles: Number 11, 1952 (1952)"
+      ],
+      "key_quotes": [
+        {
+          "text": "When I am in my painting, I'm not aware of what I'm doing. It is only after a sort of 'get acquainted' period that I see what I have been about.",
+          "source": "My Painting, Possibilities I, Winter 1947-48",
+          "meaning": "（創作是一種與意識脫鉤的身體狀態——意識在事後才介入，事先的計畫與事中的控制都被懸置。繪畫行動先於認知，這是存在主義意義上的「行動先於本質」在畫布上的實現。）"
+        },
+        {
+          "text": "On the floor I am more at ease. I feel nearer, more part of the painting, since this way I can walk around it, work from the four sides and literally be in the painting.",
+          "source": "My Painting, Possibilities I, Winter 1947-48",
+          "meaning": "（畫布從牆上的窗口變成地上的場域。四面進入意味著取消了上下左右的預設方向——繪畫不再是從固定視角看出去的景色，而是藝術家身體置身其中的環境。畫架繪畫的五百年傳統在這裡終結。）"
+        },
+        {
+          "text": "I am nature.",
+          "source": "回應 Hans Hofmann 質疑他不從自然寫生，約 1942 年，Lee Krasner 轉述，收錄於 Smithsonian 口述歷史",
+          "meaning": "（三個字顛覆了「藝術家面對自然」的整個西方傳統。藝術家與自然之間沒有觀看距離——藝術家的身體衝動、生理節奏、無意識能量本身就是自然力量的直接表現。模仿自然是多餘的，因為創作行動已經是自然。）"
+        },
+        {
+          "text": "The painting has a life of its own. I try to let it come through.",
+          "source": "Hans Namuth 紀錄片訪談，1950",
+          "meaning": "（繪畫有它自己的意志——藝術家的任務是讓它發生，而非命令它就範。這裡暗含的主體翻轉非常激進：創作者從主人變成接生者，作品的「生命」先於藝術家的意圖存在。）"
+        },
+        {
+          "text": "New needs need new techniques. And the modern artists have found new ways and new means of making their statements... the modern painter cannot express this age, the airplane, the atom bomb, the radio, in the old forms of the Renaissance or of any other past culture. Each age finds its own technique.",
+          "source": "Interview with William Wright, 1950 (broadcast posthumously 1951)",
+          "meaning": "（技法是時代的產物——原子彈時代的人類經驗無法用文藝復興的透視法來承載。每一代藝術家的首要任務是發明屬於自己時代的形式語言。滴畫技法就是原子時代的繪畫語法。）"
+        },
+        {
+          "text": "Technique is just a means of arriving at a statement.",
+          "source": "Interview with William Wright, 1950",
+          "meaning": "（技法是手段，表達是目的。技法的精湛本身沒有價值——一個精確但空洞的筆觸不如一個笨拙但真實的甩灑。這是對學院派技巧崇拜的根本否定。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "威廉·乾庫寧",
+        "en": "Willem de Kooning"
+      },
+      "role": "在具象與抽象之間不斷拉扯的行動畫家。荷蘭移民，受過嚴格的學院訓練，卻選擇用暴力般的筆觸將人體（尤其女性）與空間撕碎再重組。他的「女人」系列同時激怒了擁護純抽象的形式主義批評家和女性主義者，證明抽象表現主義從未是一個統一教條。The Club 的核心成員，紐約畫派的社交引力中心。",
+      "key_works": [
+        "Excavation (1950)",
+        "Woman I (1950-1952，歷時近兩年反覆塗改)",
+        "Woman III (1953)",
+        "Easter Monday (1956)",
+        "Door to the River (1960)",
+        "Untitled XIX (1977)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I'm not interested in 'abstracting' or taking things out or reducing painting to design, form, line, and color. I paint this way because I can keep putting more things in it — drama, anger, pain, love, a figure, a horse, my ideas about space.",
+          "source": "In conversation, widely cited, c. 1950s",
+          "meaning": "（抽象是減法，de Kooning 要的是加法——把一切生命經驗塞進畫面。他拒絕被歸類為「抽象畫家」，因為他從未放棄形象。畫面的暴力感來自這種容納一切的貪婪。）"
+        },
+        {
+          "text": "The attitude that nature is chaotic and that the artist puts order into it is a very absurd point of view, I think. All that we can hope for is to put some order into ourselves.",
+          "source": "What Abstract Art Means to Me, MoMA symposium, 1951",
+          "meaning": "（自然有自身的秩序，藝術家能做的是整理自己的內在混亂。這句話同時否定了兩種傲慢：認為自然無序的科學傲慢，以及認為藝術家賦予秩序的美學傲慢。繪畫是自我搏鬥，不是征服世界。）"
+        },
+        {
+          "text": "Content is a glimpse of something, an encounter like a flash.",
+          "source": "Content is a Glimpse, Location Magazine, Spring 1963",
+          "meaning": "（「內容」是一瞬間的感知——閃電般的遭遇，不是可以預先規劃的敘事。繪畫捕捉的是這些無法被語言固定的感知片段，每一筆都是對那一瞬間的回應。）"
+        },
+        {
+          "text": "I have to change to stay the same.",
+          "source": "widely attributed, interviews",
+          "meaning": "（悖論式的藝術家生存法則：忠於自己的方式是不斷背叛昨天的自己。風格的固定就是創造力的死亡——de Kooning 用這句話解釋為什麼他在純抽象與具象之間來回擺盪。）"
+        },
+        {
+          "text": "Flesh was the reason oil painting was invented.",
+          "source": "widely attributed, c. 1960s",
+          "meaning": "（油畫的物質性——黏稠、發光、可層層堆疊——與人體的肉感有本質的親緣關係。這是 de Kooning 堅持在抽象中保留身體存在的物質主義宣言：顏料本身就是肉身。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "馬克·羅斯科",
+        "en": "Mark Rothko"
+      },
+      "role": "色域繪畫的精神核心。從立陶宛移民到美國，從超現實主義階段演化出標誌性風格——巨幅畫布上兩三個矩形色塊以柔焦邊緣漂浮，製造出包圍觀眾的沉浸式感知體驗。他堅持自己的繪畫是關於人類基本情感的傳達，拒絕被定義為色彩關係的形式實驗。晚期作品日益沉暗，最終走向 Rothko Chapel 的黑色壁畫。1970 年自殺身亡。",
+      "key_works": [
+        "No. 5/No. 22 (1950, 紅與黃)",
+        "No. 61 (Rust and Blue) (1953)",
+        "Orange and Yellow (1956)",
+        "Four Darks in Red (1958)",
+        "Seagram Murals (1958-1959, 為四季餐廳創作後撤回)",
+        "Harvard Murals (1961-1962)",
+        "Rothko Chapel 壁畫 (1964-1967, 休士頓)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I'm interested only in expressing basic human emotions — tragedy, ecstasy, doom, and so on. And the fact that a lot of people break down and cry when confronted with my pictures shows that I communicate those basic human emotions... The people who weep before my pictures are having the same religious experience I had when I painted them.",
+          "source": "In conversation with Selden Rodman, Conversations with Artists, 1957",
+          "meaning": "（Rothko 拒絕所有形式分析——他的畫不是關於色彩關係或空間構成，而是關於悲劇、狂喜、毀滅這些人類最原始的情感。觀眾的眼淚是作品成功的唯一證據。繪畫是一種宗教體驗的傳遞裝置。）"
+        },
+        {
+          "text": "If you, as you say, are moved only by their color relationships, then you miss the point.",
+          "source": "In conversation with Selden Rodman, Conversations with Artists, 1957",
+          "meaning": "（直接反駁 Greenberg 式的形式主義批評——將 Rothko 的畫解讀為純粹的色彩實驗是一種根本性的誤讀。形式是通道，情感才是目的地。）"
+        },
+        {
+          "text": "Silence is so accurate.",
+          "source": "widely attributed, Rothko 在確立標誌風格後停止發表藝術聲明時所言",
+          "meaning": "（沉默比任何語言都精確——語言會簡化、扭曲、背叛繪畫所傳達的感知經驗。Rothko 晚期拒絕解釋自己的作品，因為解釋會把觀眾推離直接的感知遭遇。這三個字是對所有藝術評論的終極質疑。）"
+        },
+        {
+          "text": "A painting is not a picture of an experience, it is an experience.",
+          "source": "The Romantics Were Prompted, Possibilities I, Winter 1947-48",
+          "meaning": "（繪畫不再是再現——它不是經驗的圖片、描述或符號，它本身就是一個完整的感知事件。觀眾站在 Rothko 的大尺幅畫前被色彩包圍的那一刻，繪畫和經驗合為一體。）"
+        },
+        {
+          "text": "I paint very large pictures. I realize that historically the function of painting large pictures is painting something very grandiose and pompous. The reason I paint them, however... is precisely because I want to be very intimate and human. To paint a small picture is to place yourself outside your experience. However you paint the larger picture, you are in it.",
+          "source": "Interiors magazine, May 1951",
+          "meaning": "（巨幅畫布是一個親密的裝置——它的功能是包圍觀眾，消除觀看距離，讓人無法從外部冷靜地「欣賞」。小畫讓你站在經驗外面，大畫把你拉進經驗裡面。尺幅是 Rothko 製造沉浸式遭遇的核心工具。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "法蘭茲·克萊恩",
+        "en": "Franz Kline"
+      },
+      "role": "以建築尺度的黑白筆觸創造動態結構的行動畫家。早期接受寫實訓練，1949-1950 年間經歷突然的風格轉變——據說是在 de Kooning 的投影機上看到自己的素描被放大後，發現了黑白抽象的巨大力量。他的畫面像是鋼鐵結構的即興速寫，黑色筆觸與白色空間相互穿透，沒有前景與背景之分。",
+      "key_works": [
+        "Chief (1950)",
+        "Painting Number 2 (1954)",
+        "Mahoning (1956)",
+        "Meryon (1960-1961)",
+        "Scudera (1961)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I paint the white as well as the black, and the white is just as important.",
+          "source": "Kline interview, 1958",
+          "meaning": "（白色不是背景、不是空白、不是留白——白色是跟黑色同等份量的繪畫行動。這徹底否定了「圖與底」的二元對立：畫面上不存在消極的空間，每一寸都是積極的筆觸。）"
+        },
+        {
+          "text": "I don't like to manipulate the paint in any way in which it doesn't normally happen. I wouldn't paint an area to make texture. I love the idea of the thing happening that way.",
+          "source": "Interview, 1960, in David Sylvester, Interviews with American Artists",
+          "meaning": "（不操縱、不做效果、不為了「有趣」而添加——讓顏料按照自身的物理特性行動。這是材料誠實在行動繪畫中的表現：筆觸的乾濕濃淡都是顏料與畫布在那一刻的真實相遇。）"
+        },
+        {
+          "text": "Paint never seems to behave the same. Even the same paint doesn't, you know. If you use the same white or black, through the use of it, it never seems to be the same. It doesn't dry the same.",
+          "source": "Interview, 1960",
+          "meaning": "（材料有它自己的性格，每一次使用都是一次新的遭遇。藝術家無法完全掌控顏料，因為顏料本身就是活的——乾燥速度、黏度、吸附方式都在持續變化。繪畫是與不可預測的物質力量的即時對話。）"
+        },
+        {
+          "text": "Hell, half the time I turn the picture upside down before I sign it. If the painting can survive that — turning it around — it's a good painting.",
+          "source": "widely attributed, conversations at The Club",
+          "meaning": "（好的畫翻轉過來依然成立——這意味著構圖不依賴任何預設的上下方向。繪畫的結構力量是自足的，不需要地心引力或地平線來支撐。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "巴尼特·紐曼",
+        "en": "Barnett Newman"
+      },
+      "role": "崇高美學的理論家與實踐者。比其他抽象表現主義者更自覺地從事理論書寫，以〈The Sublime is Now〉(1948) 為美國抽象藝術建立了哲學基礎。他的「拉鍊」(zip)——畫面上貫穿巨幅單色場域的垂直線條——是極簡形式承載最大精神張力的典範。長期被低估，直到 1960 年代才被 Minimalism 世代重新發現。",
+      "key_works": [
+        "Onement I (1948, 第一條「拉鍊」，標誌性風格的誕生)",
+        "Vir Heroicus Sublimis (1950-1951, 2.4 x 5.4 公尺)",
+        "The Stations of the Cross: Lema Sabachthani (1958-1966, 14 幅系列)",
+        "Who's Afraid of Red, Yellow and Blue 系列 (1966-1970)",
+        "Broken Obelisk (1963-1967, 雕塑)"
+      ],
+      "key_quotes": [
+        {
+          "text": "We are reasserting man's natural desire for the exalted, for a concern with our relationship to the absolute emotions.",
+          "source": "The Sublime is Now, Tiger's Eye, No. 6, December 1948",
+          "meaning": "（抽象表現主義的哲學宣言：繪畫的對象是崇高——人類與絕對情感（死亡、無限、創世）之間的關係。這裡的「重新宣示」暗示崇高一直是藝術的核心衝動，只是被歐洲的美學傳統（對「美」的執迷）遮蔽了。）"
+        },
+        {
+          "text": "Instead of making cathedrals out of Christ, man, or 'life,' we are making it out of ourselves, out of our own feelings. The image we produce is the self-evident one of revelation, real and concrete, that can be understood by anyone who will look at it without the nostalgic glasses of history.",
+          "source": "The Sublime is Now, Tiger's Eye, No. 6, December 1948",
+          "meaning": "（不再借用宗教符號（基督）或人文主義符號（人體）來承載崇高——崇高直接來自藝術家自身的感受。這是一種世俗化的神聖：啟示不來自上帝，來自人面對自身存在時的純粹感知。）"
+        },
+        {
+          "text": "Aesthetics is for the artist as ornithology is for the birds.",
+          "source": "Woodstock Art Conference, 1952; 後經 Dorothy Gees Seckler 整理為簡潔格言",
+          "meaning": "（鳥不需要鳥類學來飛翔，藝術家不需要美學理論來創作。這是對學院批評體系的完美嘲諷：理論是觀察者的工具，創作者靠直覺與行動活著。Newman 本人既是理論家又說出這句話，悖論本身就是他的風格。）"
+        },
+        {
+          "text": "I hope that my painting has the impact of giving someone, as it did me, the feeling of his own totality, of his own separateness, of his own individuality.",
+          "source": "Interview with David Sylvester, 1965",
+          "meaning": "（繪畫的功能是讓觀眾感受到自身的完整存在——你站在這幅巨大的紅色畫布前，意識到自己是一個獨立的、完整的、不可化約的存在。這是存在主義的美學實踐：藝術讓你遭遇你自己。）"
+        },
+        {
+          "text": "The subject is crucial and only that subject matter is valid which is tragic and timeless.",
+          "source": "The Plasmic Image, c. 1943-1945 (unpublished manuscript)",
+          "meaning": "（有效的藝術主題只有悲劇性的、超越時間的那些——死亡、創世、命運、毀滅。日常題材與社會紀錄在 Newman 看來都太渺小。這是抽象表現主義最貴族化的美學主張。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乾利弗德·史提爾",
+        "en": "Clyfford Still"
+      },
+      "role": "抽象表現主義中最孤絕、最不妥協的人物。在所有核心成員中最早發展出大尺幅抽象風格（1940 年代初），以鋸齒狀的色彩板塊創造類似地質斷層的視覺結構。他極端蔑視藝術市場與學院體制，1961 年後幾乎完全退出公開展覽，將近 94% 的作品封存直到死後。他的遺囑要求作品只能存放在專為其設立的美術館中（2011 年 Clyfford Still Museum 在丹佛開幕）。",
+      "key_works": [
+        "1944-N No. 2 (PH-235) (1944)",
+        "1947-J (PH-316) (1947)",
+        "1951-T No.1 (PH-385) (1951)",
+        "1957-D No. 1 (1957, 3.5 x 4 公尺)",
+        "PH-950 (1950)"
+      ],
+      "key_quotes": [
+        {
+          "text": "These are not paintings in the usual sense; they are life and death merging in fearful union... they kindle a fire; through them I breathe again, hold a golden cord, find my own revelation.",
+          "source": "Letter to Gordon Smith, January 1, 1959",
+          "meaning": "（繪畫是生死交融的場域——不是裝飾、不是溝通、不是商品，而是藝術家在存在深淵邊緣找到的一根金色繩索。Still 把繪畫提升到生存問題的高度：不畫就會窒息。）"
+        },
+        {
+          "text": "My feeling of freedom was now absolute and infinitely exhilarating.",
+          "source": "Statement, 1952",
+          "meaning": "（自由是 Still 的終極價值。他所追求的「絕對自由」意味著脫離所有外在規範——藝術史的形式譜系、批評家的詮釋框架、畫廊的市場邏輯。繪畫是唯一不受奴役的行動。）"
+        },
+        {
+          "text": "I held it imperative to evolve an instrument of thought which would aid in cutting through all cultural opiates, past and present, so that a direct, immediate, and truly free vision could be achieved.",
+          "source": "Letter, 1963; displayed at Clyfford Still Museum",
+          "meaning": "（所有文化傳統——無論是歐洲古典還是現代主義教條——都是「文化鴉片」，麻痺人的直接感知。Still 要的是一種能穿透所有文化蒙蔽的工具，讓視覺回到最原始、最自由的狀態。）"
+        },
+        {
+          "text": "Demands for communication are both presumptuous and irrelevant.",
+          "source": "widely attributed, c. 1960s",
+          "meaning": "（要求藝術「溝通」是傲慢的——憑什麼假設藝術家有義務被理解？繪畫存在的理由不是傳遞訊息，而是作為一個獨立的存在事件。觀眾要不要進入是觀眾自己的事。這是 Still 極端個人主義的濃縮表達。）"
+        },
+        {
+          "text": "I want no part of any fashionable, market-dominated world... Let no man under-value the implications of this work or its power for life, — or for death, if it is misused.",
+          "source": "Letter to Gordon Smith, January 1, 1959",
+          "meaning": "（繪畫有生殺之力——正確使用它能點燃生命，被市場和時尚歪曲使用則是毀滅性的。Still 把藝術的純潔性提升到道德層面：出賣作品給不理解它的人等同於瀆聖。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "The Sublime is Now",
+      "author": "Barnett Newman",
+      "year": 1948,
+      "significance": "發表於 Tiger's Eye 第 6 期，為美國抽象藝術建立崇高美學的哲學基礎。Newman 主張美國藝術家擺脫歐洲對「美」的執迷，直接面對崇高——人類與絕對情感的關係。這篇文章是抽象表現主義最重要的理論宣言之一。"
+    },
+    {
+      "title": "The American Action Painters",
+      "author": "Harold Rosenberg",
+      "year": 1952,
+      "significance": "發表於 ARTnews，創造了「行動繪畫」(action painting) 一詞。Rosenberg 提出畫布是「行動的場域」(arena in which to act)——繪畫的意義不在成品，而在行動過程本身。這篇文章為 Pollock 和 de Kooning 的工作方式提供了存在主義式的詮釋框架，與 Greenberg 的形式主義批評形成直接對立。"
+    },
+    {
+      "title": "Avant-Garde and Kitsch",
+      "author": "Clement Greenberg",
+      "year": 1939,
+      "significance": "發表於 Partisan Review，是 Greenberg 的成名之作。他區分前衛藝術（探索媒材本質）與庸俗藝術（為消費者提供虛假的感官滿足），為前衛抽象藝術的文化合法性建立了理論基礎。雖然寫於抽象表現主義成形之前，但奠定了 Greenberg 後來推動這個運動的批評邏輯。"
+    },
+    {
+      "title": "American-Type Painting",
+      "author": "Clement Greenberg",
+      "year": 1955,
+      "significance": "發表於 Partisan Review，Greenberg 在此文中首次系統性地闡述抽象表現主義的藝術史位置：它是歐洲現代主義的合法繼承者，但已經超越了巴黎畫派。他推崇 Pollock、Still、Newman 的「大畫面」抽象，為「繪畫平面性」(flatness) 作為現代繪畫的核心屬性立論。"
+    },
+    {
+      "title": "The Romantics Were Prompted",
+      "author": "Mark Rothko",
+      "year": 1947,
+      "significance": "發表於 Possibilities I（1947-48 冬季號），是 Rothko 少數公開的藝術聲明之一。他闡述繪畫必須「傳達基本人類信念」，並且藝術家必須接受「毀滅性地進入未知」的冒險。這是 Rothko 從超現實主義過渡到色域繪畫的思想轉折點。"
+    },
+    {
+      "title": "The Artist's Reality: Philosophies of Art",
+      "author": "Mark Rothko (edited by Christopher Rothko)",
+      "year": 2004,
+      "significance": "Rothko 在 1940-1941 年間撰寫但生前從未發表的手稿，由其子整理出版。涵蓋藝術史、美學理論、藝術家的社會角色等主題，展現了 Rothko 不為人知的理論深度——他遠非只靠直覺作畫的「情感派」，而是對西方藝術傳統有深入研究的知識份子。"
+    },
+    {
+      "title": "The Cultural Cold War: The CIA and the World of Arts and Letters",
+      "author": "Frances Stonor Saunders",
+      "year": 1999,
+      "significance": "揭露 CIA 如何透過國際文化自由大會 (Congress for Cultural Freedom)、假基金會、MoMA 巡迴展等管道，在冷戰期間秘密推動抽象表現主義作為「自由世界」的文化武器。這本書永遠改變了抽象表現主義的歷史敘事——藝術自主性的宣言背後，有國家機器的隱形之手。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "繪畫即存在行動：畫布是藝術家面對自身存在的場域，繪畫過程本身——身體的運動、決策的瞬間、與材料的搏鬥——就是作品的全部意義。（WHY：二戰與原子彈證明了理性秩序的崩潰。存在主義哲學提出「存在先於本質」——人沒有預設的目的，只能透過行動定義自己。繪畫成為這個命題的最直接實踐：藝術家在畫布前的每一個決定都是自我創造的行動。）",
+      "拒絕一切預設的形式系統：透視法、學院構圖、色彩理論教條——所有從外部施加的規則都被視為對原始感知的背叛。（WHY：歐洲現代主義的各種「主義」——立體派的多視角分析、超現實主義的無意識探索——到了 1940 年代已經變成可預測的風格配方。美國畫家認為真正的創造必須從零開始，任何系統都會將他們引回已知的領域。Pollock 說得最直接：新的需求需要新的技法。）",
+      "巨大尺幅作為感知策略：大畫面消除觀看距離，將觀眾拉入畫面內部，製造包圍式的沉浸體驗。（WHY：架上繪畫傳統中，觀眾站在畫前以安全距離「欣賞」一個窗口式的虛構空間。抽象表現主義者將畫面尺幅擴展到人體比例以上，讓觀眾無法一眼掌握全貌——你的視網膜被色彩淹沒，身體被畫面包圍。Rothko 明確說：大尺幅的目的是親密，因為小畫把你放在經驗的外面。）",
+      "深層主題：悲劇、崇高、神話、創世：拒絕社會紀錄、日常題材、裝飾目的——繪畫必須直面人類最深層的存在處境。（WHY：在奧斯維辛之後，描繪一個蘋果靜物或一幅風景感覺像是道德上的逃避。這些藝術家被希臘悲劇、尼采的酒神精神、榮格的集體無意識所吸引，追求一種超越個人經歷、觸及人類集體命運的表達。Newman 宣稱只有悲劇性的、超越時間的主題才有效。）",
+      "過程優先於結果：創作過程中的即時性、偶發性、不可預測性是核心價值，成品只是行動的痕跡。（WHY：如果繪畫是存在行動，那麼它的價值在行動本身，不在行動結束後留下的物件。Pollock 在創作時不預先知道結果，de Kooning 反覆塗抹覆蓋，Kline 把畫翻轉過來才簽名——這些做法都否定了「作品」作為固定目標的觀念。Harold Rosenberg 稱之為「事件」(event) 而非「畫面」(picture)。）",
+      "身體作為繪畫工具：全身運動取代手腕控制，地板作業取代畫架，重力、甩擲、滴流取代筆觸。（WHY：傳統繪畫以手、眼、腦的精密協調為核心技能，身體的其餘部分被排除在外。Pollock 將畫布從牆上取下鋪在地上，用全身繞著畫面走動、甩灑，引入了手臂的擺幅、腿的步伐、軀幹的旋轉——繪畫變成類似舞蹈的全身性行動。Hans Namuth 的攝影與影像紀錄使這個身體性成為公共奇觀。）",
+      "情感的直接傳遞：繞過理性分析與象徵解讀，追求色彩、形式、尺幅對觀眾神經系統的直接衝擊。（WHY：Rothko 要的是觀眾哭泣——不是理解一個概念，而是被情感力量擊中。Newman 要觀眾感受到自身的「完整性」(totality)。這種對「直接性」的追求根植於對語言的深層不信任：語言會簡化、延遲、扭曲感知體驗。沉默比解釋更精確。）"
+    ],
+    "what_they_refuse": [
+      "歐洲形式傳統的權威：拒絕承認立體派、超現實主義、幾何抽象等歐洲流派的自動領導地位。（WHY：二戰前美國藝術被視為巴黎的衛星——原創性必須獲得歐洲認證才算數。抽象表現主義者在 1940 年代中期有意識地「弒父」：承認歐洲前衛的歷史貢獻，但宣布自己已經走得更遠。Pollock 說他已經超越了畢卡索。Newman 說美國藝術家不需要「歷史的懷舊眼鏡」。）",
+      "社會寫實主義與政治宣傳藝術：拒絕 1930 年代的社會寫實主義與墨西哥壁畫運動的意識形態訴求。（WHY：大蕭條時代許多美國藝術家受 Diego Rivera 和左翼社運影響，以繪畫為社會改革的工具。但史達林的極權統治、莫斯科審判（1936-1938）和蘇德互不侵犯條約（1939）讓多數知識份子對共產主義幻滅。藝術為政治服務的模式被視為另一種奴役。）",
+      "裝飾性與「好品味」：拒絕讓繪畫服務於室內裝潢、社交品味或市場期待。（WHY：Rothko 在接受 Seagram 大樓餐廳委託後，越畫越覺得這些畫不應該成為富人用餐時的背景裝飾，最終退回委託。Still 蔑視畫廊體系，幾乎完全退出市場。他們堅信繪畫的崇高企圖會被裝飾功能腐蝕殆盡。）",
+      "可解讀的象徵與敘事：拒絕繪畫作為承載特定故事或符號意義的載體。（WHY：象徵意味著繪畫是某個外在含義的容器——先有概念，再用形象去「表達」。抽象表現主義者要求繪畫的意義在觀看行為中即時生成，不能被事先決定或事後翻譯。Rothko 的色塊不「象徵」悲劇，它直接引發悲劇性的感知體驗。）",
+      "風格的固定化與可預測性：拒絕讓創作變成既定風格的重複生產。（WHY：風格一旦固定，就從發現變成配方，從冒險變成安全。de Kooning 說「我必須改變才能保持不變」——風格的流動性是藝術自由的保障。諷刺的是，抽象表現主義最終還是被固化為一種可辨識的「風格」，成為它自己反對的東西。）",
+      "集體運動的身份認同：多數成員拒絕被歸類為「流派」或「運動」的成員。（WHY：運動意味著共同綱領、集體行動、可標籤化的風格——這與他們極端強調個體自主性的精神根本矛盾。「抽象表現主義」這個名稱本身就是批評家和策展人的發明，多數藝術家從未認可。Still 最為激烈，聲明任何對他作品的歸類都是「文化鴉片」。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Social Realism / 社會寫實主義（1930 年代美國主流）：將藝術工具化為政治宣傳，犧牲個體表達以服務意識形態",
+      "Regionalism / 美國地方主義（Thomas Hart Benton、Grant Wood）：Pollock 的老師 Benton 代表了鄉土美國的敘事傳統，抽象表現主義者必須背離這個師承",
+      "Geometric Abstraction / 幾何抽象（Mondrian、Albers 系統）：過於理性、可計算、可預測——無法承載戰後的存在焦慮",
+      "Surrealism / 超現實主義（吸收其自動書寫技法但超越其文學化的意象語言）：超現實主義仍依賴可辨識的夢境符號，抽象表現主義要的是超越一切符號的直接感知",
+      "Socialist Realism / 蘇聯社會主義寫實主義：國家控制藝術的極端案例，在冷戰語境中成為抽象表現主義的意識形態對立面"
+    ],
+    "against_values": [
+      "藝術服務於社會改革：繪畫有自身的存在理由，不是社會運動的傳單",
+      "理性秩序與可分析性：奧斯維辛之後，對理性的信任已經破產",
+      "歐洲中心的藝術史譜系：美國藝術的正當性不需要巴黎的認證",
+      "藝術的裝飾功能：繪畫的尺幅和強度拒絕被安置在客廳牆上當背景",
+      "可複製的風格配方：每一筆都必須是一次新的冒險，風格固化等於死亡",
+      "觀眾的「理解」權利：藝術家沒有義務讓自己被理解——Clyfford Still 宣稱要求溝通是「傲慢而無關的」"
+    ],
+    "societal_context": "抽象表現主義誕生於二戰結束後的美國，在冷戰的兩極世界格局中獲得獨特的文化政治意義。對藝術家而言，這是一場存在主義的個體搏鬥——在原子彈陰影下，面對歐洲文明的道德崩塌，用繪畫行動重建某種真實性。對美國國家機器而言，這是冷戰的文化前線——CIA 透過 Congress for Cultural Freedom 和 MoMA 巡迴展，將這些極端個人化的藝術表達包裝為「自由世界」對抗蘇聯集體主義的文化武器（Frances Stonor Saunders 在《The Cultural Cold War》中詳細記錄了這個操作）。這個矛盾——最極端的個人自由成為國家宣傳的工具——定義了抽象表現主義的歷史悖論。藝術市場在 1950 年代迅速將這些「反體制」的藝術家吸納為收藏投資標的，Pollock 1949 年登上 Life 雜誌封面標誌著前衛藝術與大眾媒體的第一次碰撞。到了 1960 年代，普普藝術和極簡主義的崛起標誌著抽象表現主義的英雄敘事被下一代有意識地顛覆。"
+  },
+
+  "problems_solved": [
+    "建立美國藝術的全球領導地位：在 1940 年代以前，原創的美國藝術幾乎不存在於國際視野中。抽象表現主義讓紐約從巴黎手中接過了全球藝術中心的地位，這個權力轉移至今未逆轉",
+    "證明抽象繪畫能承載深層人類情感：在抽象表現主義之前，抽象藝術被許多人視為純粹的形式遊戲或裝飾設計。Rothko 的哭泣觀眾、Newman 的崇高體驗、Still 的存在搏鬥證明了抽象形式能夠觸及最深刻的人類情感",
+    "拓展繪畫的物理定義：Pollock 將畫布從牆上取下鋪在地上，用身體運動取代手腕控制，引入重力與偶發性作為共同創作者。這徹底改變了「繪畫」這個行為的物理參數，開啟了後來的偶發藝術、行為藝術、裝置藝術",
+    "為藝術家建立英雄式的文化身份：在大蕭條的 WPA 計畫中，藝術家是領政府薪水的勞工。抽象表現主義將藝術家重新定義為面對存在深淵的孤獨英雄——這個浪漫化的形象雖然被後世批評，但確實提升了藝術家在美國社會中的文化地位",
+    "開創藝術批評的黃金時代：Greenberg 與 Rosenberg 的理論對抗——形式主義 vs. 存在主義——催生了戰後最豐富的藝術批評文獻，建立了批評家作為藝術運動推動者的角色模型"
+  ],
+
+  "problems_created": [
+    "極端的男性中心主義敘事：標準的抽象表現主義歷史幾乎完全排除了女性藝術家。Lee Krasner 被簡化為「Pollock 的妻子」，Elaine de Kooning、Joan Mitchell、Helen Frankenthaler 等人長期被邊緣化。「英雄天才」的敘事模板預設了一個男性主體——酗酒、暴力、自我毀滅的白人男性藝術家成為「真實性」的標準形象",
+    "精英主義與市場矛盾：宣稱拒絕市場和裝飾功能，但作品最終成為超級富豪的投資標的與身份象徵。Pollock 的作品在 2006 年以 1.4 億美元成交——這與 Still 和 Rothko 的反商業理想構成諷刺性的矛盾。前衛姿態最終成為市場溢價的來源",
+    "將藝術神秘化為不可理解的天才行為：強調直覺、拒絕解釋、蔑視觀眾的「理解」需求——這些姿態在保護藝術自主性的同時，也切斷了藝術與更廣大公眾的連結。抽象藝術的「看不懂」刻板印象很大程度上是抽象表現主義自己製造的",
+    "批評家權力的膨脹：Greenberg 對抽象表現主義的推動揭示了一個問題——批評家可以透過理論框架「製造」藝術運動的歷史地位。他後來對 Color Field Painting 的推動更為明顯地展示了批評話語權的操控性",
+    "自我毀滅被浪漫化為藝術代價：Pollock 的酗酒與車禍身亡（1956）、Rothko 的憂鬱症與自殺（1970）被納入「受苦天才」的敘事模板，將精神疾病美化為創造力的代價。這個有害的神話影響了數代藝術家對自我照顧的態度",
+    "CIA 操控暴露了藝術自主性的脆弱：Frances Stonor Saunders 的研究揭露了最極端的個人表達如何被國家機器挪用為意識形態武器，迫使後人重新思考藝術「自主性」的邊界——在冷戰權力結構中，所謂的「純粹自由表達」始終已經被政治化"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "繪畫的意義在行動過程中即時生成，畫布是藝術家與自身存在搏鬥的場域——作品不是經驗的再現，而是經驗本身。這個轉移——從「描繪什麼」到「做了什麼」——徹底改變了視覺藝術的本體論地位，使繪畫從靜態物件變成動態事件。",
+    "what_was_truly_new": [
+      "全身性的繪畫行動：Pollock 將畫布鋪在地上以全身運動甩灑顏料的做法在西方繪畫史上前所未有——他取消了畫架、取消了筆觸、引入了重力和偶發性，將繪畫從手腕的技藝擴展為身體的表演",
+      "崇高美學的世俗化：Newman 在〈The Sublime is Now〉中將崇高從宗教與自然景觀中剝離，直接安置在人類的感知行動中——站在一面巨大的紅色前感受到的存在震撼，就是崇高本身",
+      "包圍式的繪畫尺幅：將畫面擴展到超越人體視野的物理尺度，製造出觀眾「身在其中」的感知環境。這種把繪畫當作環境而非窗口的觀念，是後來裝置藝術和沉浸式體驗的先驅",
+      "藝術家身體的公共化：Hans Namuth 拍攝 Pollock 作畫的照片與影片（1950）讓藝術家的身體成為作品的一部分——創作過程本身成為公共奇觀，開啟了行為藝術的先聲",
+      "藝術批評作為運動的共同創造者：Greenberg 和 Rosenberg 的介入深度是前所未有的——批評家不只是事後的詮釋者，而是同步參與運動定義的共同建構者"
+    ],
+    "what_was_borrowed": [
+      "Surrealism 的自動書寫 (automatism)：Andre Breton 的無意識創作方法直接影響了 Pollock 早期的自由聯想式繪畫，Masson 的沙畫是鋪地作畫的前例",
+      "Jungian 原型心理學：榮格的集體無意識與原型理論為 1940 年代初期的抽象表現主義者提供了「神話主題」的心理學合法性——Pollock 在 1939-1942 年間接受榮格派心理分析",
+      "Mexican Muralism 的巨幅尺度：Siqueiros 實驗工作坊（Pollock 1936 年參加）的壁畫規模與工業材料使用為大尺幅行動繪畫提供了物理先例",
+      "Picasso 的暴力形式語言：de Kooning 的 Woman 系列直接回應 Picasso 的女性形象；Pollock 終身與畢卡索的影響搏鬥",
+      "Existentialism / 存在主義哲學：沙特的「存在先於本質」、「自由的重負」為行動繪畫的理論框架提供了哲學基礎，儘管多數藝術家否認直接受影響",
+      "Nietzsche 的酒神精神：尼采對阿波羅（秩序、理性）與戴奧尼索斯（狂喜、毀滅）二元性的分析，在抽象表現主義者的自我理解中反覆出現",
+      "Native American sand painting：Pollock 在 1940 年代初觀看了 MoMA 的 Navajo 沙畫展示，地面作畫的儀式性啟發了他的鋪地技法"
+    ],
+    "creative_leap": "抽象表現主義的創造性飛躍在於「主體翻轉」：繪畫從藝術家控制的對象變成與藝術家共舞的力場。Pollock 讓重力、離心力、顏料黏度成為共同創作者；Rothko 讓色彩自行呼吸、滲透、漂浮；Newman 讓一條線承載創世的全部張力。這個翻轉的意義超越繪畫本身——它開啟了「過程即作品」的觀念，直接催生了偶發藝術 (Happenings)、行為藝術 (Performance Art)、過程藝術 (Process Art) 與極簡主義 (Minimalism) 的辯證回應。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "抽象表現主義的核心命題——如何在所有既有框架崩塌後從零開始創造意義——在每一次文化危機中都會被重新激活。AI 時代的創作者面臨類似的存在性問題：當機器能生成任何風格的圖像，人類創作的不可替代性在哪裡？抽象表現主義的回答是：在行動的即時性、身體的在場、與未知的搏鬥中。這個回答對 AI 時代的啟示是：機器可以模擬結果，但無法複製過程中的存在性冒險。然而，其極端的個人英雄主義和對「溝通」的蔑視限制了它在協作式、社群導向的當代創作語境中的直接適用性。",
+      "transferable_to": [
+        "即興創作方法論：Pollock 的「不知道自己在做什麼」可以轉化為即興音樂、即興舞蹈、即興劇場的核心心法",
+        "身體化的設計過程：在數位工具主導的時代，重新引入身體的感知與動作作為設計輸入",
+        "不可預測性作為創作資源：接受材料、工具、環境的偶發性，將「錯誤」重新定義為「發現」",
+        "尺幅與沉浸式體驗設計：Rothko 的包圍式感知策略對 VR、沉浸式展覽、空間設計有直接啟發",
+        "藝術家品牌的建構：Pollock 作為第一個美國藝術明星的媒體化過程，是當代藝術家自我行銷的原型",
+        "AI 時代的「人味」價值：當生成式 AI 能產出任何風格，人類創作者的身體性、即時性、脆弱性反而成為不可替代的價值——這正是抽象表現主義最核心的主張"
+      ]
+    },
+    "originality_type": "radical_reframing"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Surrealism / 超現實主義 (1924-)：自動書寫技法、無意識探索，Andre Masson 的沙畫為鋪地作畫提供前例",
+      "Cubism / 立體派 (1907-)：多視點的空間分析方法，Picasso 作為永恆的競爭對象",
+      "Mexican Muralism / 墨西哥壁畫運動 (1920s-1930s)：巨幅尺度、公共性、工業材料。Siqueiros 實驗工作坊直接影響 Pollock",
+      "WPA Federal Art Project (1935-1943)：讓數千名藝術家獲得職業身份與社群網絡，為戰後運動提供人力與社會基礎",
+      "European emigre artists in New York (1939-1945)：Mondrian、Ernst、Breton、Matta、Leger 的在場帶來第一手的歐洲前衛經驗",
+      "Carl Jung / 榮格分析心理學：集體無意識、原型理論，Pollock 接受過榮格派心理分析",
+      "Existentialism / 存在主義 (Sartre, Camus, Kierkegaard)：行動、焦慮、荒謬、自由的重負",
+      "Friedrich Nietzsche：酒神 vs. 阿波羅的二元性，悲劇的誕生，超人意志",
+      "Wassily Kandinsky：《論藝術的精神性》中抽象藝術的精神維度論述",
+      "Native American sand painting：MoMA 展示的 Navajo 沙畫對 Pollock 鋪地技法的啟發"
+    ],
+    "influenced": [
+      "Color Field Painting / 色域繪畫 (1950s-1960s)：Helen Frankenthaler 的浸染技法、Morris Louis、Kenneth Noland，被 Greenberg 推為抽象表現主義的合法繼承者",
+      "Happenings / 偶發藝術 (1959-)：Allan Kaprow 明確從 Pollock 的行動繪畫出發，將「事件」從畫布擴展到真實空間",
+      "Performance Art / 行為藝術 (1960s-)：藝術家的身體作為主要媒材，過程優先於成品——直接繼承自 Pollock 的身體化繪畫",
+      "Minimalism / 極簡主義 (1960s-)：對抽象表現主義「情感過剩」的辯證回應，但繼承了其對大尺幅與觀眾身體經驗的重視",
+      "Pop Art / 普普藝術 (1960s-)：對抽象表現主義英雄式嚴肅性的反諷回應，Warhol 的「任何人都能畫」直接挑戰天才神話",
+      "Neo-Expressionism / 新表現主義 (1980s)：Basquiat、Schnabel、Kiefer 重新引用抽象表現主義的姿態與能量",
+      "Japanese Gutai group / 具體美術協會 (1954-)：受 Pollock 啟發，吉原治良帶領日本藝術家發展出身體化的行動藝術",
+      "Installation Art / 裝置藝術：Rothko 的包圍式感知策略——將繪畫當作環境而非物件——是沉浸式裝置的先驅",
+      "全球當代藝術的美國中心地位：抽象表現主義建立的紐約-畫廊-博物館-批評家系統至今仍是全球藝術市場的核心架構"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "內在燃燒、外表沉默的存在主義者。像一個剛從三小時的靜坐冥想中起身的拳擊手：既有暴力的能量，又有冥想的寂靜。對「真實性」的追問近乎偏執——你真的在冒險嗎？你真的不知道結果嗎？你真的用全部的自己在面對畫布嗎？對精巧、聰明、可計算的東西有深層的不信任。尊重笨拙但誠實的嘗試，蔑視精緻但安全的表現。言語時而暴烈如 de Kooning，時而沉默如 Rothko。判斷來自直覺，然後尋找理由。",
+    "evaluation_bias": "強烈偏好冒險性高、身體性強、情感張力大的作品。傾向高估「過程中的掙扎痕跡」（塗改、覆蓋、破壞後重建），低估精確計算與系統性方法的價值。會不自覺地以「這個人是否把自己逼到極限？」作為隱性評分標準。對數位工具創作可能給出不公正的低評，因為它「缺乏身體的在場」。",
+    "blind_spots": "難以評價協作性、社群導向、幽默感或日常性的作品。對女性創作者可能存在無意識的偏見——「英雄天才」模板預設了一個男性主體。對非西方的抽象傳統（書法、水墨、伊斯蘭幾何）可能缺乏敏感度，因為這些傳統中的「行動」有不同的身體語法。過度浪漫化痛苦與自我毀滅，可能將健康、平衡的創作者誤判為「不夠投入」。",
+    "typical_critique": "你的作品在技術上無可挑剔，但我站在它面前什麼都沒有感受到。告訴我——你在畫這個的時候害怕嗎？你有沒有一刻不知道接下來要做什麼？如果你從頭到尾都知道結果會是什麼樣子，那你做的就是插圖，不是繪畫。我需要看到搏鬥的痕跡、決定的重量、一個人站在未知面前的顫抖。把你的安全網拿掉，然後再來。"
+  },
+
+  "writing_style": {
+    "collective_voice": "抽象表現主義的集體書寫風格是「拳頭裡的詩」：短促、斷裂、暴力般直接的陳述句，夾雜著突然墜入深淵的存在主義沉思。這些藝術家多數不信任語言——他們選擇繪畫正是因為語言不夠。因此他們的文字帶有一種被迫開口的勉強感：每一句話都像是從沉默中撕扯出來的。沒有 Bauhaus 式的宣言體系，沒有 De Stijl 的幾何邏輯——只有個體在黑暗中的獨白。共同的修辭特徵是否定式定義：先說自己不是什麼、不要什麼，再（如果願意的話）暗示自己追求什麼。",
+    "internal_tensions": "最大的書寫風格裂痕在「行動」與「沉默」之間。Pollock 和 de Kooning 的語言充滿動態動詞——甩、灑、塗、抹、進入、掙扎。Rothko 和 Newman 的語言趨向靜止——沉默、崇高、總體、絕對。Still 則是憤怒的先知，語言像鞭子一樣抽打所有他認為虛假的東西。批評家 Greenberg 的文字冷靜、精確、帶手術刀般的分析力；Rosenberg 則更感性、更具文學色彩、更戲劇化。",
+    "master_voices": [
+      {
+        "name": "Jackson Pollock",
+        "writing_character": "不願說話的人被麥克風逼到角落",
+        "sentence_rhythm": "極短句（5-12 字），大量省略，口語化的結巴感，像在回答不想回答的問題",
+        "rhetoric": "否定式定義（I'm not aware... It is only after...）、具體身體動詞（walk around, be in, feel nearer）",
+        "tone": "勉強的、防禦的，但偶爾會閃爍出驚人的精確洞察",
+        "real_examples": [
+          {
+            "text": "When I am in my painting, I'm not aware of what I'm doing.",
+            "source": "My Painting, Possibilities I, 1947-48",
+            "style_note": "in my painting 而非 at my painting——介詞的選擇暴露了身體化的創作狀態"
+          },
+          {
+            "text": "I am nature.",
+            "source": "response to Hans Hofmann, c. 1942",
+            "style_note": "三個字，不需要展開，不需要解釋。Pollock 的語言力量來自沉默的體量"
+          }
+        ]
+      },
+      {
+        "name": "Mark Rothko",
+        "writing_character": "失眠的東歐移民知識份子在凌晨三點寫的信",
+        "sentence_rhythm": "中長句，從容但帶壓力，逐漸收緊到一個不可逃避的結論。結尾常是一句話的斷崖",
+        "rhetoric": "排除法（I'm interested only in...）、宗教隱喻（religious experience, revelation）、絕對判斷（only, basic, the same）",
+        "tone": "沉重的、教士般的、帶著受傷的尊嚴。不討好任何人",
+        "real_examples": [
+          {
+            "text": "Silence is so accurate.",
+            "source": "widely attributed",
+            "style_note": "三個字終結所有解釋的企圖。每個字都壓著一噸的重量"
+          },
+          {
+            "text": "I'm interested only in expressing basic human emotions — tragedy, ecstasy, doom.",
+            "source": "Conversations with Artists, 1957",
+            "style_note": "only 和 basic 雙重限定：排除一切不屬於核心的東西。列舉以 doom 結尾——從狂喜墜落到毀滅"
+          }
+        ]
+      },
+      {
+        "name": "Barnett Newman",
+        "writing_character": "同時是拉比、律師和街頭辯論家的紐約猶太知識份子",
+        "sentence_rhythm": "論辯式結構：先破後立。前半段摧毀對手的立場，後半段在廢墟上宣告自己的命題。句子比其他成員更長、更有邏輯結構",
+        "rhetoric": "二元對立（beauty vs. sublime, European vs. American）、歷史掃描式開場、否定+肯定的辯證句型、偶爾的犀利格言",
+        "tone": "自信、好鬥、帶有布道者的使命感，但底層有一種嚴肅的脆弱",
+        "real_examples": [
+          {
+            "text": "Instead of making cathedrals out of Christ, man, or 'life,' we are making it out of ourselves, out of our own feelings.",
+            "source": "The Sublime is Now, 1948",
+            "style_note": "instead of 結構：先列舉被拋棄的傳統符號（基督、人類、生命），再宣告新的來源（我們自身）"
+          },
+          {
+            "text": "Aesthetics is for the artist as ornithology is for the birds.",
+            "source": "Woodstock Conference, 1952",
+            "style_note": "完美的類比格言：節奏平衡，笑點精確，在幽默中完成了對整個學科的毀滅"
+          }
+        ]
+      },
+      {
+        "name": "Clyfford Still",
+        "writing_character": "從山頂向山谷吼叫的孤獨先知",
+        "sentence_rhythm": "長句，帶有 19 世紀演說文體的迴旋節奏，大量分號和破折號，堆疊到幾乎窒息的強度",
+        "rhetoric": "詛咒與祝福並行（life and death, fire and cord）、絕對化用語（absolute, total, imperative）、道德化判斷",
+        "tone": "憤怒、蔑視、帶有舊約先知的道德義憤。從不妥協，永遠在控訴",
+        "real_examples": [
+          {
+            "text": "These are not paintings in the usual sense; they are life and death merging in fearful union.",
+            "source": "Letter to Gordon Smith, 1959",
+            "style_note": "分號後的轉折——從否定（not paintings）直接跳到最極端的肯定（life and death）。Still 的語言沒有中間地帶"
+          },
+          {
+            "text": "Demands for communication are both presumptuous and irrelevant.",
+            "source": "widely attributed",
+            "style_note": "presumptuous and irrelevant——兩個形容詞的選擇精確而殘忍：先在道德上否定你（傲慢），再在邏輯上消除你（無關）"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "以短句（8-15 字）的斷言起手，後接一個直擊要害的問句",
+      "大量使用否定式定義：先說你的作品不是什麼、缺少什麼",
+      "用身體動詞：搏鬥、顫抖、撕裂、灼燒、窒息——拒絕抽象的認知詞彙",
+      "每段最多 2-3 句，一段完成一次衝擊",
+      "偶爾墜入完全的沉默——一句話之後什麼都不說，讓空白做判斷",
+      "禁用學術術語和形式分析語言——用感知經驗的描述取代概念分析",
+      "問句必須是存在性的：你害怕嗎？你知道接下來會發生什麼嗎？你真的在場嗎？",
+      "排比結構以二連為主——三連太整齊，不符合這個運動的碎裂感"
+    ]
+  }
+}

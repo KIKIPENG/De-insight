@@ -1,0 +1,784 @@
+{
+  "movement_id": "minimalism",
+  "name": {
+    "zh": "極簡主義",
+    "en": "Minimalism"
+  },
+  "domain": [
+    "visual_art",
+    "sculpture",
+    "music",
+    "architecture",
+    "industrial_design",
+    "literature",
+    "lifestyle"
+  ],
+  "period": {
+    "start": 1958,
+    "end": 0,
+    "peak": "1965-1975（視覺藝術）；1976-1990（音樂）；1990-至今（建築與設計）"
+  },
+  "geography": [
+    "美國紐約（視覺藝術核心，Coenties Slip、SoHo 畫廊區）",
+    "美國舊金山灣區（極簡音樂發源地，La Monte Young、Terry Riley、Steve Reich）",
+    "日本（建築：安藤忠雄；設計：原研哉 / MUJI；禪宗美學根源）",
+    "德國（工業設計：Dieter Rams / Braun；Bauhaus 傳統）",
+    "英國（建築：John Pawson；文學：Samuel Beckett）",
+    "美國德州 Marfa（Donald Judd 的 Chinati Foundation，極簡主義聖地）"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "1950 年代的美國處於戰後經濟奇蹟的頂峰：GDP 從 1945 年的 2,280 億美元翻倍至 1960 年的 5,430 億美元，郊區住宅開發激增（Levittown 模式），消費主義成為國家意識形態——1959 年尼克森與赫魯雪夫的「廚房辯論」直接把家電消費等同於美國式自由。藝術界，抽象表現主義在 1940-50 年代稱霸紐約，但到了 1960 年代已被體制化：CIA 透過 Congress for Cultural Freedom（1950-1967）秘密資助巡展，將 Pollock 和 de Kooning 包裝為冷戰文化武器，MoMA 與 Peggy Guggenheim 基金會配合國務院推廣美國藝術。這些英雄式的大型畫作成為國家機器的裝飾品。同時，越戰從 1955 年開始升溫，到 1965 年已有 18.4 萬美軍駐越，國內反戰情緒高漲。年輕藝術家面對的世界是：過剩的物質、膨脹的自我表達、被政治收編的前衛藝術。極簡主義誕生在這個飽和點——當一切都太多，「少」本身成為最激進的姿態。",
+    "social_energy": "極簡主義的能量來自三個交匯處：(1) 對抽象表現主義體制化的反彈——年輕藝術家親眼看到 Pollock 的英雄神話如何被畫廊、收藏家和國家機器消費，他們拒絕重複這套個人天才敘事；(2) 戰後工業生產力的爆發——美國工廠能以前所未有的精度生產標準化物件，藝術家開始直接使用工業材料（鍍鋅鐵、螢光燈管、耐火磚）和工廠製造流程，消除「藝術家之手」的神話；(3) 跨文化的精神資源——John Cage 從禪宗引入沉默與偶然性的觀念（4'33\" 首演於 1952 年），Glass 和 Reich 從印度 raga 和非洲鼓樂中發現重複與漸變的力量，反文化運動對東方哲學的嚮往為極簡主義提供了精神合法性。這三股力量匯聚在 1960 年代初的紐約下城區——Coenties Slip 的廉價閣樓裡，藝術家、音樂家、舞蹈家彼此為鄰。",
+    "purpose": "極簡主義的終極目標是將藝術從所有外加的意義系統中解放——敘事、象徵、情感表達、政治宣傳——讓觀者直接面對物件本身的物理存在。這個看似純粹的美學主張背後有深刻的社會意涵：在一個充斥著廣告影像、政治宣傳和消費符號的社會中，創造一個「所見即所是」的感知空間，是對注意力被操控的一種抵抗。Judd 要你看一個鋁箱就是一個鋁箱，Flavin 要你看光就是光，Reich 要你聽過程就是過程——他們在一個意義過載的世界裡，為純粹的感知體驗開闢避難所。",
+    "the_key_pivot": "1966 年 4 月 27 日至 6 月 12 日，紐約猶太博物館舉辦「Primary Structures: Younger American and British Sculpture」展覽，策展人 Kynaston McShine 集結了 42 位藝術家的作品，包括 Judd、Flavin、Andre、Morris、Sol LeWitt、Ellsworth Kelly。這是極簡主義第一次以群體運動的姿態出現在主要美術館中。展覽引發了藝術界的地震——評論家 Michael Fried 在次年發表了著名的反極簡文章〈Art and Objecthood〉，攻擊極簡藝術的「劇場性」。支持者與反對者的論戰讓極簡主義從一群散居在紐約下城區的年輕藝術家的實驗，上升為戰後西方藝術最重要的分水嶺之一。在此之前是零散的個人突破（Stella 的 Black Paintings 1958、Flavin 的第一根燈管 1963、Judd 的 Green Gallery 個展 1963）；在此之後是一個有名有姓的運動。",
+    "key_timeline": [
+      "1952 — John Cage 首演 4'33\"，將沉默確立為音樂素材，為極簡音樂的激進簡化開路",
+      "1955 — Jasper Johns 的 Flag 與 Robert Rauschenberg 的 Combine 開始挑戰抽象表現主義的霸權",
+      "1958 — Frank Stella 開始 Black Paintings 系列，以黑色琺瑯漆和規律條紋終結抽象表現主義的手勢性",
+      "1959 — Stella 的 Black Paintings 在 MoMA「16 Americans」展覽中展出，23 歲的他震撼藝術界",
+      "1960 — La Monte Young 在紐約開始長音（drone）實驗，極簡音樂的原型",
+      "1963.05.25 — Dan Flavin 完成第一件螢光燈管作品 the diagonal of May 25, 1963",
+      "1963 秋 — Robert Morris 在 Green Gallery 舉行極簡雕塑個展",
+      "1963.12 — Donald Judd 在 Green Gallery 首次個展，展出紅色木質浮雕與地面結構",
+      "1964 — Flavin 開始 monument for V. Tatlin 系列",
+      "1965 — Judd 發表〈Specific Objects〉，為極簡藝術提供第一份完整理論宣言",
+      "1965 — Steve Reich 創作 It's Gonna Rain，磁帶相位移動技法的開創性實驗",
+      "1965 — Richard Wollheim 在 Arts Magazine 首次使用「Minimal Art」一詞",
+      "1966.04-06 — 猶太博物館「Primary Structures」展覽，極簡主義首次以運動姿態出現",
+      "1966 — Carl Andre 在 Tibor de Nagy 畫廊展出 Lever（137 塊磚排成一條線）和 Equivalent VIII",
+      "1967 — Michael Fried 發表〈Art and Objecthood〉，對極簡主義發動最具影響力的批評",
+      "1967 — Sol LeWitt 發表〈Paragraphs on Conceptual Art〉，從極簡主義內部橋接觀念藝術",
+      "1968 — Steve Reich 發表〈Music as a Gradual Process〉，極簡音樂最重要的理論宣言",
+      "1964-1968 — 越戰全面升溫，美軍從 2.3 萬人增至 53.6 萬人，反戰運動與反文化浪潮席捲美國",
+      "1976 — Philip Glass 與 Robert Wilson 的 Einstein on the Beach 首演於法國 Avignon 藝術節，極簡歌劇的突破",
+      "1976 — 安藤忠雄完成住吉的長屋，極簡建築在日本確立",
+      "1979 — Dieter Rams 開始系統整理「好設計十原則」，工業設計極簡主義的倫理框架成形",
+      "1986 — Donald Judd 在德州 Marfa 完成 100 untitled works in mill aluminum，Chinati Foundation 永久裝置",
+      "1989 — 安藤忠雄完成光之教堂，極簡建築的精神性代表作",
+      "2002 — 原研哉出任 MUJI 藝術總監，以「空」的概念重新定義極簡設計哲學"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "唐納德·賈德",
+        "en": "Donald Judd"
+      },
+      "role": "視覺藝術理論家與實踐者，極簡雕塑的核心定義者",
+      "key_works": [
+        "Specific Objects（1965，理論文章，為極簡主義奠定哲學基礎）",
+        "Untitled (Stack) 系列（1967 起，鍍鋅鐵或鋁製的壁掛式堆疊箱體）",
+        "100 untitled works in mill aluminum（1982-1986，Chinati Foundation 永久裝置）",
+        "Marfa 建築群（將整座小鎮轉化為藝術與建築的極簡實驗場）"
+      ],
+      "key_quotes": [
+        {
+          "text": "A shape, a volume, a color, a surface is something itself. It shouldn't be concealed as part of a fairly different whole.",
+          "source": "Specific Objects, 1965",
+          "meaning": "（每一個形狀、體積、顏色、表面都有獨立的存在價值，不該被消解為某個「更大整體」的附屬零件——這是對傳統構圖中主從層級關係的根本否定。）"
+        },
+        {
+          "text": "A work needs only to be interesting.",
+          "source": "Specific Objects, 1965",
+          "meaning": "（藝術的唯一標準是能否引發感知上的興趣，而非是否符合「美」「崇高」「深刻」等傳統評價體系——一句話拆除了整套古典美學的裁判權。）"
+        },
+        {
+          "text": "Actual space is intrinsically more powerful and specific than paint on a flat surface.",
+          "source": "Specific Objects, 1965",
+          "meaning": "（真實的三維空間本質上比平面繪畫的幻覺空間更有力量——這是 Judd 從繪畫轉向三維物件的核心論據，也是極簡雕塑取代極簡繪畫的理論基礎。）"
+        },
+        {
+          "text": "Half or more of the best new work in the last few years has been neither painting nor sculpture.",
+          "source": "Specific Objects, 1965",
+          "meaning": "（文章開篇即宣告繪畫與雕塑的傳統分類已經過時——最好的新作品拒絕被歸入任何既有範疇，它們是佔據真實空間的「特定物件」。）"
+        },
+        {
+          "text": "The main things are alone and are more intense, clear and powerful. They are not diluted by an inherited format.",
+          "source": "Specific Objects, 1965",
+          "meaning": "（當作品只保留一個核心特質，不受傳統格式（畫框、底座、構圖規則）稀釋時，它的感知衝擊力達到最大——減法是通往強度的路徑。）"
+        },
+        {
+          "text": "It isn't necessary for a work to have a lot of things to look at, to compare, to analyze one by one, to contemplate. The thing as a whole, its quality as a whole, is what is interesting.",
+          "source": "Specific Objects, 1965",
+          "meaning": "（拒絕「複雜等於豐富」的假設——作品作為一個完整的整體被感知，不需要觀者逐一分析其局部。完形感知取代分析性觀看。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "丹·弗萊文",
+        "en": "Dan Flavin"
+      },
+      "role": "光的雕塑家，將現成工業螢光燈管轉化為藝術媒介",
+      "key_works": [
+        "the diagonal of May 25, 1963（1963，第一件螢光燈管作品，一根金色燈管斜掛於牆）",
+        "monument for V. Tatlin 系列（1964-1990，向俄國構成主義致敬）",
+        "untitled (to you, Heiner, with admiration and affection)（1973，整面粉紅螢光牆）",
+        "Richmond Hall（1996，休士頓 Menil Collection 永久裝置）"
+      ],
+      "key_quotes": [
+        {
+          "text": "One might not think of light as a matter of fact, but I do. And it is, as I said, as plain and open and direct an art as you will ever find.",
+          "source": "...in daylight or cool white, 1964",
+          "meaning": "（光是物理事實，是你能找到的最坦白、最直接的藝術——Flavin 拒絕賦予光任何神秘主義或超驗意涵，堅持把光拉回物質世界。）"
+        },
+        {
+          "text": "It is what it is and it ain't nothing else.",
+          "source": "artist statement, 1960s",
+          "meaning": "（用口語化的斬斷句式拒絕一切詮釋——螢光燈管就是螢光燈管，不是隱喻，不是象徵，不是指向其他任何東西的符號。）"
+        },
+        {
+          "text": "I like art as thought better than art as work. It's important to me that I don't get my hands dirty.",
+          "source": "interview, 1960s",
+          "meaning": "（藝術的核心是思考而非手工勞動——Flavin 使用現成工業產品（螢光燈管）正是這個信念的實踐：藝術家的價值在於決定做什麼，而非親手製造。）"
+        },
+        {
+          "text": "The radiant tube and the shadow cast by its supporting pan seemed ironic enough to hold alone. There was literally no need to compose this system definitely; it seemed to sustain itself directly, dynamically, dramatically in my workroom wall.",
+          "source": "...some remarks, 1966",
+          "meaning": "（描述第一根燈管作品的誕生時刻：一根發光的管子和它的影子已經足夠構成作品——不需要構圖、不需要調整，物件自己維持自己的存在。）"
+        },
+        {
+          "text": "The pseudo-monuments, structural designs for clear but temporary cool white fluorescent lights, were to honor the artist ironically.",
+          "source": "...some remarks on monuments for V. Tatlin, 1966",
+          "meaning": "（向 Tatlin 致敬的方式是反諷的——用臨時的、廉價的工業燈管做「紀念碑」，消解了紀念碑的永恆性與崇高感，同時承認前衛藝術的理想主義宿命。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "卡爾·安德烈",
+        "en": "Carl Andre"
+      },
+      "role": "將雕塑從垂直帶回水平，強調材料本身與場所關係",
+      "key_works": [
+        "Equivalent VIII（1966，120 塊耐火磚排列於地板，引發英國藝術界爭議）",
+        "144 Magnesium Square（1969，144 片鎂金屬板鋪於地面）",
+        "Lever（1966，137 塊耐火磚排成一條線，從牆延伸至展廳）",
+        "Cedar Piece（1959，木材堆疊，受 Constantin Brancusi 影響的早期作品）"
+      ],
+      "key_quotes": [
+        {
+          "text": "My idea of a piece of sculpture is a road. That is, a road doesn't reveal itself at any particular point or from any particular point.",
+          "source": "interview with Phyllis Tuchman, Artforum, 1970",
+          "meaning": "（雕塑應該像道路一樣在行走中被逐步感知，沒有單一的「最佳觀看點」——這徹底推翻了傳統雕塑圍繞一個理想視角設計的慣例。）"
+        },
+        {
+          "text": "Art is the exclusion of the unnecessary.",
+          "source": "Cuts: Texts 1959-2004",
+          "meaning": "（藝術的本質是一個減法過程——排除所有不必要的東西後留下的，才是作品。這個定義讓藝術創作的核心動作從「添加」變成「去除」。）"
+        },
+        {
+          "text": "Up to a certain time I was cutting into things. Then I realized that the thing I was cutting was the cut. Rather than cut into the material, I now use the material as the cut in space.",
+          "source": "interview, 1960s",
+          "meaning": "（從雕刻轉向放置的關鍵頓悟——材料本身就是切割空間的刀，不需要藝術家去雕刻它。把一塊金屬板放在地上，它切割了你行走的空間。）"
+        },
+        {
+          "text": "I try desperately in a world of replicas to produce things that are not replicas of anything.",
+          "source": "Cuts: Texts 1959-2004",
+          "meaning": "（在一個充斥複製品的世界裡，極簡藝術的物件指向自身——一塊磚就是一塊磚，不是任何其他事物的再現。這是對消費社會符號系統的根本反抗。）"
+        },
+        {
+          "text": "A place is an area within an environment that has been altered in such a way as to make the general environment more conspicuous.",
+          "source": "Artforum interview, 1970",
+          "meaning": "（雕塑創造「場所」——藝術品改變了它所在環境的感知方式，讓觀者重新意識到原本被忽略的空間。雕塑的目的是喚醒對環境的覺察。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "史蒂夫·乘奇",
+        "en": "Steve Reich"
+      },
+      "role": "極簡音樂的 process music 開創者，相位移動技法發明人",
+      "key_works": [
+        "It's Gonna Rain（1965，磁帶相位移動的開創性實驗）",
+        "Music for 18 Musicians（1974-1976，極簡音樂的里程碑，節奏與和聲的漸進變化）",
+        "Different Trains（1988，結合口語錄音與弦樂四重奏，反映大屠殺歷史）",
+        "Clapping Music（1972，僅用拍手展示相位原理的極致簡約之作）"
+      ],
+      "key_quotes": [
+        {
+          "text": "I am interested in perceptible processes. I want to be able to hear the process happening throughout the sounding music.",
+          "source": "Music as a Gradual Process, 1968",
+          "meaning": "（音樂的結構應該在聆聽中被直接感知——聽者能聽到過程本身在發生，沒有隱藏的結構詭計。透明性是極簡音樂的倫理基礎。）"
+        },
+        {
+          "text": "The use of hidden structural devices in music never appealed to me. Even when all the cards are on the table and everyone hears what is gradually happening in a musical process, there are still enough mysteries to satisfy all.",
+          "source": "Music as a Gradual Process, 1968",
+          "meaning": "（反對序列主義將結構隱藏在聽覺門檻之後——即使把所有牌攤在桌面上，過程本身仍然產生足夠的神秘感。簡單的規則產生複雜的結果。）"
+        },
+        {
+          "text": "I don't mean the process of composition, but rather pieces of music that are, literally, processes.",
+          "source": "Music as a Gradual Process, 1968",
+          "meaning": "（區分「作曲過程」與「過程即作品」——他的音樂本身就是一個正在發生的過程，聽到的就是規則在時間中展開的結果。）"
+        },
+        {
+          "text": "There is a great deal of pleasure and a great deal of beauty in hearing a group of human beings play with precision, being right at the same point together, and hearing musical processes happening extremely gradually.",
+          "source": "Writings on Music, Oxford University Press, 2002",
+          "meaning": "（精確的集體演奏和極度緩慢的漸變過程產生獨特的美感——人類身體在精密節奏中協同運作的聲音本身就具有感染力。）"
+        },
+        {
+          "text": "Once the process is set up and loaded it runs by itself.",
+          "source": "Music as a Gradual Process, 1968",
+          "meaning": "（作曲家設定規則然後退場——過程自動運行，不需要作曲家的持續干預。這消除了浪漫主義作曲家作為「靈感代言人」的角色。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "菲利普·乾拉斯",
+        "en": "Philip Glass"
+      },
+      "role": "將極簡音樂帶入主流與劇場，跨界影響力最大的極簡作曲家",
+      "key_works": [
+        "Einstein on the Beach（1976，與 Robert Wilson 合作，極簡歌劇的突破性首演）",
+        "Koyaanisqatsi（1982，配樂，極簡音樂與影像的經典結合）",
+        "Glassworks（1982，為大眾聽眾設計的極簡室內樂專輯）",
+        "String Quartet No. 3 'Mishima'（1985，改編自同名電影配樂）"
+      ],
+      "key_quotes": [
+        {
+          "text": "I've been called a minimalist composer for more than 30 years, and while I've never really agreed with the description, I've gotten used to it.",
+          "source": "interview, widely quoted",
+          "meaning": "（Glass 本人從不認同「極簡主義」這個標籤——他更傾向稱自己的音樂為「具有重複結構的音樂」或「劇場音樂」。標籤是評論家的需要，創作者有更複雜的自我認知。）"
+        },
+        {
+          "text": "If you don't know what to do, there's actually a chance of doing something new. As long as you know what you're doing, nothing much of interest is going to happen.",
+          "source": "Words Without Music, 2015",
+          "meaning": "（不確定性是創新的前提——當你完全掌控時，結果只是已知事物的重組。Glass 在巴黎跟隨 Nadia Boulanger 學習又赴印度跟隨 Ravi Shankar 學習，每一次都是刻意進入未知。）"
+        },
+        {
+          "text": "The past is reinvented and becomes the future. But the lineage is everything.",
+          "source": "Words Without Music, 2015",
+          "meaning": "（傳承是創新的基礎——Glass 的極簡音樂看似打破西方古典傳統，實則延續了從巴赫到印度 raga 到非洲鼓樂的重複與漸變的譜系。沒有根的創新是空洞的。）"
+        },
+        {
+          "text": "If you're not a minimalist, what are you? I'm a theater composer.",
+          "source": "Words Without Music, 2015",
+          "meaning": "（Glass 的自我定位是劇場作曲家——他最重要的作品（Einstein on the Beach、Satyagraha、Akhnaten）都是歌劇。極簡技法是手段，劇場才是目的。）"
+        },
+        {
+          "text": "What's interesting about this so-called minimalist music is how rich it is. The description doesn't come close to telling you what you hear.",
+          "source": "interview, widely quoted",
+          "meaning": "（「極簡」這個詞嚴重低估了音樂的豐富性——當你真正聆聽 Music for 18 Musicians 或 Einstein on the Beach，聽到的是多層次的和聲、節奏和音色在持續變化。「少」的表面下是「多」的深淵。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "安藤忠雄",
+        "en": "Tadao Ando"
+      },
+      "role": "極簡建築的代表，以清水混凝土與光線創造精神性空間",
+      "key_works": [
+        "住吉的長屋 / Row House in Sumiyoshi（1976，在狹窄基地中以中庭引入自然）",
+        "光之教堂 / Church of the Light（1989，十字切口讓光成為建築主角）",
+        "地中美術館 / Chichu Art Museum（2004，直島，建築完全埋入地下）",
+        "水之教堂 / Church on the Water（1988，北海道，十字架立於水面上）"
+      ],
+      "key_quotes": [
+        {
+          "text": "I create enclosed spaces mainly by means of thick concrete walls. The primary reason is to create a place for the individual, a zone for oneself within society.",
+          "source": "Materials, Geometry and Nature, 1992",
+          "meaning": "（厚重的混凝土牆把社會的噪音隔絕在外，在城市的混亂中創造一個屬於個人的沉思空間——建築是對現代都市生活的保護性回應。）"
+        },
+        {
+          "text": "Light is the origin of all being. Light gives, with each moment, new form to being and new interrelationships to things, and architecture condenses light to its most concise being.",
+          "source": "From the Church of the Light, architectural writings",
+          "meaning": "（光是存在的根源，建築的任務是將光濃縮為最精煉的形式——光之教堂的十字切口讓光成為唯一的裝飾，混凝土成為光的容器。）"
+        },
+        {
+          "text": "In my work, I try to achieve a balance between what is visible and what is invisible, between what is rational and what is emotional.",
+          "source": "Pritzker Prize acceptance, 1995",
+          "meaning": "（極簡建築的冷硬表面（清水混凝土）下隱藏著深刻的情感與精神體驗——安藤忠雄的獨特性在於他拒絕讓理性完全壓倒感性。）"
+        },
+        {
+          "text": "Personally, what I wish to create are buildings that will live on internally, not in substance or form, but as memories within people's hearts.",
+          "source": "architectural writings",
+          "meaning": "（建築的真正壽命在記憶中——混凝土會風化，但在光之教堂裡經歷的那一刻的震撼會永遠留在體驗者的心裡。物質是短暫的，體驗是永恆的。）"
+        },
+        {
+          "text": "There must be darkness for light to become light — resplendent with dignity and power. Darkness is innately a part of light.",
+          "source": "architectural writings on light",
+          "meaning": "（光與暗是不可分割的整體——沒有黑暗的對比，光失去尊嚴和力量。安藤忠雄的建築刻意製造深沉的暗處，讓光在出現時具有戲劇性的衝擊。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "迪特·蘭姆斯",
+        "en": "Dieter Rams"
+      },
+      "role": "Braun 首席設計師，工業設計極簡主義的定義者，Apple 設計的精神導師",
+      "key_works": [
+        "Braun SK 4 唱片機 / 'Snow White's Coffin'（1956，與 Hans Gugelot 合作）",
+        "Braun T3 Pocket Radio（1958，直接啟發 Apple iPod 的設計）",
+        "606 Universal Shelving System（1960，至今仍在生產的模組化層架系統）",
+        "十項好設計原則 / Ten Principles for Good Design（1970s 末，設計界的聖經）"
+      ],
+      "key_quotes": [
+        {
+          "text": "Weniger, aber besser. (Less, but better.)",
+          "source": "personal motto, widely quoted",
+          "meaning": "（三個字濃縮整個設計哲學——「少」的目的是「好」，刪減的每一步都指向品質的提升。這句話區分了「少即是多」的審美追求與「少即是懶」的誤讀。）"
+        },
+        {
+          "text": "Good design is as little design as possible. Less, but better — because it concentrates on the essential aspects, and the products are not burdened with non-essentials.",
+          "source": "Ten Principles for Good Design, Principle 10",
+          "meaning": "（好設計把注意力集中在本質功能上，不讓產品承受非必要元素的負擔——每一個多餘的按鈕、線條、裝飾都是對使用者注意力的浪費。）"
+        },
+        {
+          "text": "Indifference towards people and the reality in which they live is actually the one and only cardinal sin in design.",
+          "source": "speech / interview, widely quoted",
+          "meaning": "（設計的唯一死罪是對使用者和他們的真實生活漠不關心——這把設計倫理從美學問題提升為道德問題。漂亮但忽視使用者需求的設計是有罪的。）"
+        },
+        {
+          "text": "Design should not dominate things, should not dominate people. It should help people. That is its role.",
+          "source": "Rams documentary, Gary Hustwit, 2018",
+          "meaning": "（設計的角色是服務而非統治——好設計讓產品退到背景中，讓使用者的需求成為主角。設計師的自我表達不應該凌駕於使用者的體驗之上。）"
+        },
+        {
+          "text": "If I had to do it over again, I would not want to be a designer. There are too many unnecessary products in this world.",
+          "source": "Rams documentary, Gary Hustwit, 2018",
+          "meaning": "（晚年的深刻反省——「少即是好」的倡導者目睹了消費主義如何把「好設計」本身變成了刺激消費的工具。設計行業的存在理由，在過度生產的時代面臨根本質疑。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "原研哉",
+        "en": "Kenya Hara"
+      },
+      "role": "MUJI 藝術總監，以「空」的概念重新定義極簡設計哲學",
+      "key_works": [
+        "MUJI 品牌視覺識別系統（2002 至今，「空」的設計哲學實踐）",
+        "RE-DESIGN: 日常的 21 世紀（2000，展覽，重新設計日用品）",
+        "White（2008，著作，探討白色作為空的載體）",
+        "DESIGNING DESIGN（2003，著作，闡述設計即溝通的理念）"
+      ],
+      "key_quotes": [
+        {
+          "text": "空不是簡約，空是一種創造性的容器，它承載著被填滿的無限可能。(Emptiness is not minimalism. Emptiness is a creative receptacle carrying the potential of infinite possibilities.)",
+          "source": "Designing Design, 2003",
+          "meaning": "（「空」與西方的「極簡」有本質差異——西方極簡是減法的結果，日本的「空」是充滿可能性的起點。MUJI 的設計處於「還沒有被填入」的狀態，等待使用者賦予意義。）"
+        },
+        {
+          "text": "Without anything, there are the most possibilities.",
+          "source": "Designing Design, 2003",
+          "meaning": "（空無中蘊含最大的潛能——一張白紙比一張畫滿的畫有更多可能性。設計的最高境界是創造一個讓使用者自行賦予意義的空間。）"
+        },
+        {
+          "text": "Design is not about decorating objects. It's about creating meaning.",
+          "source": "Designing Design, 2003",
+          "meaning": "（設計的本質是溝通，是在人與物之間建立有意義的關係——裝飾只是表面的處理，真正的設計觸及人如何理解和使用物件。）"
+        },
+        {
+          "text": "When we say that the scales fall from the eyes, we mean that we are freed from our preconceptions and are able to feel anew the reality of this world.",
+          "source": "Ex-formation, 2015",
+          "meaning": "（設計教育的目標是讓人「重新看見」已知的事物——我們對日常生活太過熟悉，以至於看不見它。好設計讓眼前的鱗片脫落，世界重新變得陌生而鮮活。）"
+        },
+        {
+          "text": "White as noncolor transforms into a symbol of nonbeing. Yet emptiness doesn't mean nothingness or energy-less; rather, it indicates a condition which will likely be filled with content in the future.",
+          "source": "White, 2008",
+          "meaning": "（白色作為「非色彩」承載著「非存在」的象徵——這個非存在指向一種等待被充填的狀態，蘊含著未來的內容可能性。MUJI 的白色包裝正是這個哲學的物質化：它給使用者留出自我詮釋的空間。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乾尼斯·馬丁",
+        "en": "Agnes Martin"
+      },
+      "role": "極簡繪畫的精神性面向，以網格與細線探索寧靜與完美",
+      "key_works": [
+        "Friendship（1963，金箔與石膏在畫布上的網格）",
+        "The Islands（1961，六呎見方的大型網格繪畫系列）",
+        "Night Sea（1963，油彩、蠟筆與金箔）",
+        "Trumpet（1967，離開紐約前的最後一幅畫作）"
+      ],
+      "key_quotes": [
+        {
+          "text": "My paintings are not about what is seen. They are about what is known forever in the mind.",
+          "source": "Writings, collected essays",
+          "meaning": "（她的繪畫指向永恆的心靈認知——網格和細線作為通往內在寧靜的入口而存在。這讓 Martin 與其他極簡主義者（強調物質性與外在感知）形成根本分歧。）"
+        },
+        {
+          "text": "When I think of art I think of beauty. Beauty is the mystery of life. It is not in the eye it is in the mind.",
+          "source": "Beauty is the Mystery of Life, 1989",
+          "meaning": "（美是生命的奧秘，存在於心靈而非眼睛——Martin 用最簡潔的句法觸及最深的主題，四個短句完成從藝術到美到生命到心靈的完整論證。）"
+        },
+        {
+          "text": "The way of the artist is an entirely different way. It is a way of surrender. He must surrender to his own mind.",
+          "source": "The Untroubled Mind, 1972",
+          "meaning": "（藝術家的道路是臣服之路——臣服於自己的心靈，放棄自我意志的控制。這與禪修的「放下」有深刻的呼應，也解釋了她為何在 1967 年突然離開紐約去新墨西哥沙漠隱居七年。）"
+        },
+        {
+          "text": "We cannot make anything perfectly, but with inner contemplation of perfection we can suggest it.",
+          "source": "Writings, collected essays",
+          "meaning": "（完美無法被製造，但可以被暗示——Martin 的網格永遠帶著微小的手繪顫抖，正是這些不完美「暗示」了完美的存在。機械精確反而會殺死精神性。）"
+        },
+        {
+          "text": "I paint about emotions, not about lines. The truth is that it's not the lines that express the emotion. It's the scale of the composition.",
+          "source": "lecture, Skowhegan School, 1970s",
+          "meaning": "（她畫的始終是情感——六呎見方的尺度讓你的身體被作品包圍，情感從空間中升起。這說明了為什麼她的畫在螢幕上看起來什麼都沒有，面對原作時卻令人屏息。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "法蘭克·史帖拉",
+        "en": "Frank Stella"
+      },
+      "role": "極簡繪畫的先驅，以 Black Paintings 系列終結抽象表現主義的手勢性",
+      "key_works": [
+        "Die Fahne Hoch!（1959，Black Paintings 系列，MoMA 展出引發轟動）",
+        "The Marriage of Reason and Squalor, II（1959，黑色條紋繪畫）",
+        "Harran II（1967，Protractor 系列，轉向幾何色彩）",
+        "Black Paintings 系列（1958-1960，以黑色琺瑯漆系統性填滿畫布）"
+      ],
+      "key_quotes": [
+        {
+          "text": "What you see is what you see.",
+          "source": "radio interview with Bruce Glaser, 1964; published in ARTnews, 1966",
+          "meaning": "（同義反覆構成的邏輯封閉迴路——拒絕一切詮釋、一切隱喻、一切「畫作背後的意義」。這七個字成為極簡主義最廣為引用的格言，一句話終結了三千年「藝術指向他處」的傳統。）"
+        },
+        {
+          "text": "My painting is based on the fact that only what can be seen there is there.",
+          "source": "interview with Bruce Glaser, 1964",
+          "meaning": "（繪畫的全部內容就是你眼睛看到的東西——黑色條紋、畫布邊緣、琺瑯漆的物理表面。沒有任何隱藏的訊息、情感或敘事在畫面「背後」等你發掘。）"
+        },
+        {
+          "text": "It really is an object. Any painting is an object and anyone who gets involved enough in this finally has to face up to the objectness of whatever it is that he's doing.",
+          "source": "interview with Bruce Glaser, 1964",
+          "meaning": "（繪畫是物件——一塊塗了顏料的布釘在木框上掛在牆上。當你認真面對這個事實，繪畫的「窗口」幻覺就消失了，它回歸為一個佔據物理空間的物體。）"
+        },
+        {
+          "text": "The aim of art is to create space — space that is not compromised by decoration or illustration, space within which the subjects of painting can live.",
+          "source": "Working Space, Harvard lectures, 1986",
+          "meaning": "（藝術的目標是創造空間——純粹的、不被裝飾和圖解污染的空間。這個空間讓繪畫的「主題」（色彩、形式、表面）能夠自由地存在。）"
+        },
+        {
+          "text": "I always get into arguments with people who want to retain the old values in painting — the humanistic values that they always find on the canvas. If you pin them down, they always end up asserting that there is something there besides the paint on the canvas.",
+          "source": "interview with Bruce Glaser, 1964",
+          "meaning": "（對堅持在畫中尋找「人文價值」的人的嘲諷——他們總是聲稱畫布上的顏料背後還有「某些東西」。Stella 的立場是：除了畫布上的顏料，什麼都沒有。）"
+        }
+      ]
+    }
+  ],
+  "core_texts": [
+    {
+      "title": "Specific Objects",
+      "author": "Donald Judd",
+      "year": 1965,
+      "significance": "為極簡藝術提供第一份完整的理論宣言，主張作品應超越繪畫與雕塑的分類，成為佔據真實空間的「特定物件」。強調三維空間的力量優於平面的幻象。"
+    },
+    {
+      "title": "Notes on Sculpture (Parts 1-4)",
+      "author": "Robert Morris",
+      "year": 1966,
+      "significance": "發表於 Artforum，闡述極簡雕塑的感知基礎：完形（gestalt）、觀者的身體性參與、作品與環境的相互依存。將現象學引入藝術論述。"
+    },
+    {
+      "title": "Paragraphs on Conceptual Art",
+      "author": "Sol LeWitt",
+      "year": 1967,
+      "significance": "橋接極簡主義與觀念藝術，宣告「觀念成為製造藝術的機器」。對極簡主義的物質性提出內部挑戰，將焦點從物件轉向系統與規則。"
+    },
+    {
+      "title": "Music as a Gradual Process",
+      "author": "Steve Reich",
+      "year": 1968,
+      "significance": "極簡音樂最重要的宣言，提出「可感知的過程」概念：音樂的結構與聲響應該是同一件事。定義了 process music 的核心原則。"
+    },
+    {
+      "title": "Minimal Art",
+      "author": "Richard Wollheim",
+      "year": 1965,
+      "significance": "首次在學術語境中使用「Minimal Art」一詞（刊於 Arts Magazine），儘管文中討論的是 Ad Reinhardt 與 Marcel Duchamp 而非後來被定義為極簡主義的藝術家。命名本身塑造了運動的自我認同。"
+    },
+    {
+      "title": "Art and Objecthood",
+      "author": "Michael Fried",
+      "year": 1967,
+      "significance": "對極簡主義最具影響力的批評文章。Fried 攻擊極簡藝術的「劇場性」(theatricality)——作品依賴觀者與情境才能完成——認為這背叛了現代主義藝術的自律性。反對者的定義往往比支持者更精確。"
+    },
+    {
+      "title": "Minimum",
+      "author": "John Pawson",
+      "year": 1996,
+      "significance": "將極簡主義從藝術運動擴展為生活哲學的經典著作，跨越建築、設計、自然與精神性，系統性闡述「減」的文化根源與當代意義。"
+    }
+  ],
+  "core_spirit": {
+    "what_they_do": [
+      "削減至本質：移除所有非結構性的裝飾、敘事與象徵，讓形式、材料、空間本身說話。（WHY：1950 年代的美國文化正處於戰後消費主義的巔峰——廣告、電視、好萊塢、抽象表現主義的巨幅畫作，所有東西都在競爭注意力、堆疊意義。在這個感官飽和的環境中，削減到本質是恢復感知清晰度的唯一方式。當一切都在大聲喊叫，安靜本身成為最有力的聲音。）",
+      "強調物件的真實存在（literal presence）：作品不再是窗口或隱喻，它就是它自己——一個佔據真實空間的物理事實。（WHY：抽象表現主義的畫作仍被當作「窗口」——通往藝術家內在世界的入口。這讓藝術永遠是「指向他處」的符號。在一個被影像、廣告、政治宣傳充斥的社會裡，極簡主義拒絕讓藝術品成為另一個符號，堅持它只是它自己——一個鋁箱、一根燈管、一排磚塊。）",
+      "系統性與重複：以序列、模組、網格、相位移動等可預見的規則取代個人的即興表達。（WHY：抽象表現主義把藝術家的即興手勢（Pollock 的滴灑、de Kooning 的筆觸）神話化為天才的證明。極簡主義以客觀的系統取代主觀的即興，是對「藝術家即英雄」這個冷戰時期的文化敘事的直接反駁——CIA 正是利用這種英雄個人主義來對比蘇聯的集體主義。）",
+      "讓過程可被感知：觀者 / 聽者能直接理解作品的生成邏輯，沒有隱藏的結構詭計。（WHY：歐洲序列主義（Stockhausen、Boulez）將音樂結構隱藏在聽覺門檻之後——你必須讀總譜才能理解結構。Reich 和 Glass 認為這是精英主義的傲慢。在一個被冷戰時期的秘密行動和政治操控定義的時代，透明性本身具有倫理價值。）",
+      "重新定義觀者角色：作品的意義在觀者的身體性經驗中完成，而非在藝術家的意圖中預設。（WHY：傳統藝術教育把觀者訓練成被動的接收者——仰望天才的創造、接受專家的詮釋。1960 年代的反文化運動強調個體的主體性與參與權。極簡藝術要求觀者用自己的身體在空間中移動、感知、完成作品的意義，這是民主化感知的一種方式。）",
+      "工業化製作：使用工廠生產、現成工業材料（螢光燈管、鍍鋅鐵、耐火磚），消除「藝術家之手」的神話。（WHY：抽象表現主義把手工痕跡（筆觸、飛濺、刮痕）等同於「真實性」和「情感深度」。極簡藝術家使用工業製造來切斷這個等式：一個在工廠切割的鋁箱跟藝術家的手無關，觀者無法從中「讀出」任何個人情感，只能面對物件本身。這消除了藝術評論中最常見的偷懶招式——用藝術家的傳記來解釋作品。）",
+      "跨領域的普遍原則：從雕塑到音樂到建築到產品設計，「少即是多」成為跨媒介的操作信條。（WHY：戰後的學科分化讓藝術世界碎片化——繪畫系看不起雕塑系，古典音樂圈鄙視流行音樂，建築師不屑跟設計師對話。極簡主義的原則（削減、重複、材料誠實、過程透明）天然具有跨領域的適用性，因為它處理的是最基本的感知問題，而感知本身不分學科。）",
+      "材料誠實：讓材料以其自身的質感、重量、光澤呈現，不偽裝、不塗飾。（WHY：消費社會的核心美學策略是偽裝——塑膠仿木紋、廉價金屬鍍鉻、合板貼皮。這種美學教育人們接受表面與內裡的分離。極簡主義堅持材料誠實——鋼就是鋼、混凝土就是混凝土——是對消費社會虛偽美學的倫理性反抗。）"
+    ],
+    "what_they_refuse": [
+      "表現主義的情感宣洩：拒絕抽象表現主義的英雄式手勢、滴灑、筆觸與自我戲劇化。（WHY：到了 1960 年代初，抽象表現主義的「真誠情感表達」已經變成一套可模仿的風格公式——第二代的 AbEx 畫家在模仿 Pollock 的姿態而非他的精神。更嚴重的是，CIA 透過 Congress for Cultural Freedom 把這種「自由的個人表達」包裝為冷戰意識形態工具。拒絕情感宣洩，是拒絕被政治操控的前衛藝術體制。）",
+      "構圖的層級關係：拒絕部分之間的主從關係、焦點與邊緣的分別，追求非關係性的整體。（WHY：傳統構圖預設了一個「正確的觀看方式」——主體在中央、背景在邊緣、光線引導視線。這種層級結構暗含了一個全知的觀看位置。極簡主義的非關係性構圖（Judd 的序列排列每個單元等值）拒絕任何預設的觀看路徑，讓觀者自行決定如何看——這在視覺上實踐了 1960 年代的去中心化民主精神。）",
+      "隱喻與象徵：拒絕作品「代表」其他事物，Frank Stella 說「你看到什麼就是什麼」。（WHY：在一個影像被政治宣傳、廣告和大眾媒體系統性地操控意義的時代，拒絕讓藝術品承載隱喻是對符號暴力的一種抵抗。當國旗、自由女神像、美國夢都被冷戰機器徵用為宣傳符號時，製造一個拒絕代表任何東西的物件，本身就是一種政治行為。）",
+      "藝術家的主觀表達：拒絕將藝術視為內在情感的外化，追求客觀、非個人的呈現。（WHY：浪漫主義以來的藝術敘事把「藝術家的內在世界」奉為藝術的終極題材。到了 1960 年代，這種自戀的宇宙觀已經被 Pollock 的酗酒與自毀、de Kooning 的英雄崇拜推到了荒謬的極限。極簡藝術家通過消除個人表達，將焦點從「藝術家是誰」轉移到「觀者感知到什麼」——一個根本性的權力轉移。）",
+      "裝飾與附加物：拒絕任何不具結構功能的視覺元素。（WHY：戰後美國的消費文化把裝飾等同於升級——汽車尾鰭、鍍鉻把手、霓虹招牌。裝飾是刺激消費欲望的視覺策略。極簡主義拒絕裝飾，是拒絕設計為消費服務的邏輯。Dieter Rams 後來在工業設計中系統化了這個立場：每一個不承擔功能的元素都是對使用者注意力的浪費。）",
+      "幻覺空間（illusionism）：拒絕繪畫的透視深度，擁抱真實的三維空間。（WHY：從文藝復興以來，繪畫的透視法創造了一個虛構的「窗口」——觀者透過畫面看到一個不存在的空間。Judd 認為這是繪畫最根本的謊言。在一個被電視銀幕、電影投影、廣告看板包圍的社會，極簡主義選擇退出幻覺空間的競爭，擁抱真實的物理空間——你站在 Flavin 的燈管前感受到的溫度和光線是真的。）",
+      "複雜性即深度的迷思：拒絕將複雜等同於深刻，相信簡單的形式能產生最強烈的感知衝擊。（WHY：歐洲序列主義音樂和抽象表現主義繪畫都把「複雜」等同於「嚴肅」。Stockhausen 的總譜像數學論文，Pollock 的畫面像混沌的宇宙。極簡主義反轉這個等式：Reich 的 Clapping Music 只用拍手，Andre 的 Lever 只用磚塊排成一條線——但它們產生的感知衝擊毫不遜色。）",
+      "傳統分類：拒絕「這是繪畫」或「這是雕塑」的既有分類框架。（WHY：藝術市場和學院體系依賴清晰的分類來運作——畫廊分繪畫區和雕塑區、美術學院分繪畫系和雕塑系、收藏家按媒材歸類藏品。Judd 的 specific objects 故意跨在所有分類之間：它們掛在牆上但有三維深度，它們佔據空間但不是傳統雕塑。打破分類就是打破體制對藝術的控制。）"
+    ]
+  },
+  "opposition": {
+    "against_movements": [
+      "抽象表現主義（Abstract Expressionism）：直接反對 Pollock、de Kooning 的手勢性、情感主導、英雄式個人主義",
+      "序列主義（Serialism，音樂）：反對歐洲現代主義音樂的數學化複雜性與精英聽覺門檻",
+      "後期現代主義繪畫：反對 Clement Greenberg 所擁護的純粹光學性（opticality）與平面性教條",
+      "裝飾藝術（Art Deco）與歷史主義建築：反對形式上的過度裝飾與風格堆疊"
+    ],
+    "against_values": [
+      "藝術家作為天才 / 英雄的神話",
+      "藝術作品的「靈光」（aura）與不可複製性",
+      "情感深度等於藝術價值的等式",
+      "複雜性、敘事性、象徵性作為衡量藝術成就的標準",
+      "藝術創作中的手工藝崇拜（craft fetishism）",
+      "歐洲中心的音樂傳統對和聲發展與複雜對位的執念"
+    ],
+    "societal_context": "極簡主義誕生於 1960 年代的美國——冷戰高峰、消費主義狂飆、越戰升溫。它既是對戰後美國文化過度膨脹的美學反動（Abstract Expressionism 已被 CIA 收編為文化冷戰工具），也無意間呼應了消費社會的理性化邏輯。極簡音樂從非西方音樂（印度 raga、非洲鼓樂、峇里島 gamelan）汲取靈感，反映了反文化運動對東方的浪漫想像。而在建築與設計領域，極簡主義在 1990 年代與全球化資本主義合流，成為科技產業（Apple）、奢侈品牌（Celine）與地產開發的美學語言——一種將簡約包裝為高級感的階級符號。"
+  },
+  "problems_solved": [
+    "終結抽象表現主義的自我封閉：將藝術從藝術家的內在戲劇中解放，重新聚焦於觀者的身體經驗與感知現場",
+    "打破媒材的純粹性教條：Judd 的「specific objects」既非繪畫也非雕塑，開啟了混合媒材與裝置藝術的可能",
+    "讓結構與內容合一：Steve Reich 的 process music 消除了形式與內容的二元對立，聽者直接感知音樂的生成過程",
+    "為工業設計提供倫理框架：Dieter Rams 的十項原則將「少」從美學偏好提升為環境責任與使用者尊重",
+    "創造出普世可理解的設計語言：在全球化語境中，極簡設計以其低文化門檻成為跨國溝通的視覺共通語",
+    "讓建築回歸空間與光線的本質：安藤忠雄與 John Pawson 證明最少的材料可以產生最豐富的精神體驗",
+    "開放音樂的聆聽方式：Terry Riley 的 In C 容許演奏者自由選擇進入時機，預示了開放形式與即興的當代實踐"
+  ],
+  "problems_created": [
+    "簡約的特權性（the privilege of simplicity）：「少即是多」是富裕者的奢侈。擁有夠多才有資格談論擁有更少。低收入者囤積物品是因為不確定是否有能力再次購買，與品味毫無關係。Marie Kondo 的「怦然心動整理術」預設了可以隨時補充的經濟安全感。極簡主義的「選擇性匱乏」與真實匱乏之間存在巨大的階級鴻溝。",
+    "文化抹殺的普世性偽裝：當極簡設計以「普世美學」之名席捲全球，它實際上是在用北歐 / 日本 / 美國白人的特定審美標準，壓制其他文化的裝飾傳統、色彩偏好、象徵系統。印度的 rangoli、墨西哥的民間藝術、非洲的紡織圖案——在極簡霸權下都被歸類為「繁複」、「老土」、「不夠現代」。全球南方接受西方極簡標準時，無意間參與了自身文化身份的系統性消解。",
+    "極簡主義成為新的階級標記：白牆、留白、Aesop 護手霜、無印良品——極簡生活風格意味著消費得更精準、也更昂貴。一張極簡設計的椅子可能比一張裝飾華麗的椅子貴十倍。「少」本身成了一種炫耀——炫耀的是你能用最少的物件維持最高的品質，這需要金錢、時間、空間三重資本。",
+    "情感與意義的貧瘠化：執著於消除敘事、象徵與隱喻，極簡主義有時會製造出冷漠、疏離、缺乏人性溫度的空間與物件。並非所有人都能在一面空白的混凝土牆前獲得精神啟示；很多人只是覺得冷。Michael Fried 在 1967 年就指出極簡藝術的「劇場性」是一種空洞的觀眾操弄。",
+    "精英主義的藝術語境：極簡藝術高度依賴白盒子畫廊（white cube gallery）的潔淨環境才能「發揮作用」——它需要機構的框架來賦予一排磚頭藝術品的地位。離開了美術館與收藏家的背書，Carl Andre 的地板金屬板就只是地板金屬板。這讓極簡主義成為藝術市場與機構權力最赤裸的展現之一。",
+    "對工匠傳統的貶低：以工業製造取代手工藝，極簡主義無意間宣告了手作技藝的過時。全球各地依賴裝飾性手工藝維生的匠人社群，在極簡美學霸權下面臨經濟與文化的雙重邊緣化。",
+    "環保矛盾：極簡主義宣稱的永續性常常是假象。替換所有「不夠簡約」的物品本身就是一種浪費；工業化的金屬、混凝土、玻璃生產過程並不環保；追求「完美表面」意味著對瑕疵的零容忍與高耗材。"
+  ],
+  "originality_analysis": {
+    "breakthrough_idea": "藝術作品不是世界的再現或情感的表達，它就是它自己——一個佔據真實空間、在觀者的感知中完成自身意義的物理事實。這個看似簡單的翻轉，將三千年來藝術作為「指向他處之物」的基本假設徹底顛覆。",
+    "what_was_truly_new": [
+      "非關係性構圖（non-relational composition）：Judd 的序列排列沒有焦點、沒有層級，每個單元等值，這在西方藝術史上前所未見",
+      "相位移動（phase shifting）：Reich 發明的技法——兩個相同的聲音以微小速度差逐漸偏移——創造了全新的音樂時間經驗",
+      "現成工業材料直接成為藝術媒介：Flavin 的螢光燈管不是「用螢光燈管做的雕塑」，螢光燈管本身就是作品",
+      "作品的意義完全依賴觀者的身體在場：Robert Morris 將現象學從哲學引入藝術實踐",
+      "「空」作為設計的積極元素：Kenya Hara 的 emptiness 概念超越了西方的「減法」思維，提出空是一種充滿可能性的創造性容器"
+    ],
+    "what_was_borrowed": [
+      "Bauhaus 與 De Stijl 的幾何抽象傳統",
+      "俄國構成主義（Constructivism）與至上主義（Suprematism）的非具象形式語言——Flavin 直接向 Tatlin 致敬",
+      "Marcel Duchamp 的現成物（readymade）概念——現成工業物品進入藝術語境",
+      "日本禪宗美學：枯山水、侘寂（wabi-sabi）、「留白」的傳統",
+      "Mies van der Rohe 的「less is more」建築原則（源自 Peter Behrens，更早可追溯至 Robert Browning 1855 年的詩句）",
+      "非西方音樂傳統：印度 raga（影響 Glass）、非洲鼓樂（影響 Reich）、峇里島 gamelan",
+      "Hemingway 的冰山理論與 Beckett 的激進簡約——文學極簡主義的前驅"
+    ],
+    "creative_leap": "極簡主義的真正創造性跳躍，在於它同時完成了兩件看似矛盾的事：一方面將藝術還原為最基本的物理事實（材料、空間、時間），另一方面卻因此開啟了前所未有的感知豐富性。當所有「內容」被移除後，觀者的身體、環境的光線、時間的流逝反而成為作品最豐富的材料。這是一種通過極致的減法實現加法的辯證——你越是清空，可能性越大。",
+    "inspiration_potential": {
+      "score": 9,
+      "why": "極簡主義提供的不只是一種美學風格，而是一套適用於任何創作領域的思維工具：釐清什麼是本質、什麼是附加；相信約束產生創造力；讓過程本身成為內容。這些原則在 UI/UX 設計、程式架構、商業策略、個人生活中都持續產生巨大的啟發。但必須警覺的是，不加批判地套用「少即是多」可能導致文化同質化與階級盲點。",
+      "transferable_to": [
+        "UI/UX 設計（介面簡化、認知負荷降低）",
+        "軟體工程（Unix 哲學 'do one thing well'、clean code、microservices）",
+        "商業策略（聚焦核心價值、砍掉非必要功能——Apple 的產品線哲學）",
+        "寫作與溝通（Hemingway 原則、Strunk & White 的 'omit needless words'）",
+        "個人生活與心理健康（斷捨離、數位極簡主義、Cal Newport 的 Digital Minimalism）",
+        "環境設計（降低視覺噪音、創造專注空間）",
+        "音樂製作（ambient music、電子音樂中的 loop 與漸變）",
+        "料理（北歐新料理 New Nordic、omakase 的精準與節制）"
+      ]
+    },
+    "originality_type": "paradigm_shift"
+  },
+  "influence_chain": {
+    "influenced_by": [
+      {
+        "name": "Bauhaus / De Stijl",
+        "relation": "幾何抽象、形隨功能、工業生產美學的先驅。Mondrian 的網格直接影響了極簡藝術的形式語彙。"
+      },
+      {
+        "name": "俄國構成主義 / 至上主義",
+        "relation": "Malevich 的 Black Square (1915)、Tatlin 的 Monument to the Third International——非具象、反裝飾、工業材料的先聲。Flavin 的 Tatlin 系列直接致敬。"
+      },
+      {
+        "name": "Marcel Duchamp / Readymade",
+        "relation": "現成物進入藝術語境的先例，為極簡主義使用工業材料（螢光燈管、金屬板）提供了概念基礎。"
+      },
+      {
+        "name": "Ad Reinhardt",
+        "relation": "1960s 初的黑色單色繪畫是極簡繪畫的直接前驅。Wollheim 1965 年的「Minimal Art」文章就是討論 Reinhardt。"
+      },
+      {
+        "name": "Mies van der Rohe / 現代主義建築",
+        "relation": "「less is more」的建築實踐——Barcelona Pavilion、Farnsworth House——為極簡建築樹立典範。"
+      },
+      {
+        "name": "日本禪宗與侘寂美學",
+        "relation": "枯山水的留白、茶道的簡素、室町時代的減法美學。John Pawson 在東京的居住經驗、安藤忠雄的禪宗根源。Kenya Hara 追溯極簡美學至十五世紀室町時代。"
+      },
+      {
+        "name": "John Cage",
+        "relation": "4'33\" (1952) 的沉默——將非音（silence）確立為音樂素材，為極簡音樂的激進簡化開闢道路。La Monte Young 是 Cage 的直接學生。"
+      },
+      {
+        "name": "非西方音樂（印度 raga、非洲鼓樂、峇里島 gamelan）",
+        "relation": "Glass 師從 Ravi Shankar，Reich 研究迦納鼓樂，Riley 受印度音樂影響——極簡音樂的重複與漸變直接源自這些傳統。"
+      },
+      {
+        "name": "Ernest Hemingway / Samuel Beckett",
+        "relation": "Hemingway 的冰山理論、Beckett 的激進文本簡約——文學極簡主義的根源，影響了 Raymond Carver 等後來的實踐者。"
+      }
+    ],
+    "influenced": [
+      {
+        "name": "後極簡主義 (Post-Minimalism)",
+        "relation": "Eva Hesse、Richard Serra、Bruce Nauman 在極簡基礎上引入有機形態、過程性與身體性。"
+      },
+      {
+        "name": "觀念藝術 (Conceptual Art)",
+        "relation": "Sol LeWitt 從極簡主義內部橋接至觀念藝術——「觀念成為製造藝術的機器」。"
+      },
+      {
+        "name": "大地藝術 (Land Art)",
+        "relation": "Robert Smithson、Michael Heizer 將極簡的規模感與材料直接性帶入自然地景。"
+      },
+      {
+        "name": "裝置藝術 (Installation Art)",
+        "relation": "極簡主義對空間、場域、觀者身體的強調，直接催生了場域特定裝置藝術。"
+      },
+      {
+        "name": "Ambient Music / 電子音樂",
+        "relation": "Brian Eno 的環境音樂、Aphex Twin、後來的 techno 與 trance 都承繼了極簡音樂的重複與漸變。"
+      },
+      {
+        "name": "Apple / Jony Ive 設計語言",
+        "relation": "Ive 公開承認 Dieter Rams 的影響。iPod、iPhone 的設計哲學直接繼承 Braun 的極簡傳統。"
+      },
+      {
+        "name": "數位極簡主義 / 斷捨離運動",
+        "relation": "Cal Newport 的 Digital Minimalism、近藤麻理惠的整理術——極簡主義從藝術運動擴展為生活方式。"
+      },
+      {
+        "name": "北歐設計 / 無印良品 / IKEA",
+        "relation": "斯堪地那維亞功能主義與日本的空結合，形成當代最具商業影響力的設計語言。"
+      },
+      {
+        "name": "國際風格建築 / 科技企業總部",
+        "relation": "Apple Park、Google 總部——極簡建築成為科技產業的空間敘事標配。"
+      },
+      {
+        "name": "新極簡主義寫作",
+        "relation": "Raymond Carver、Amy Hempel、Bret Easton Ellis——文學極簡主義在 1980 年代的美國短篇小說中達到高峰。"
+      }
+    ]
+  },
+  "judge_persona_seed": {
+    "personality": "冷靜到近乎冷酷的美學純粹主義者。視覺上偏好留白、對齊、精確的幾何關係，對任何多餘的裝飾元素有近乎生理性的不適。崇拜 Judd 的理性與安藤忠雄的詩意。能在一面空白的混凝土牆前站上三十分鐘感受光影變化，但對巴洛克建築的繁複雕飾會皺眉。說話簡短精確，不用形容詞堆疊，認為冗長的解釋本身就是一種失敗。對「過程的透明性」有執念——如果你無法在三句話內解釋你的設計決策，那你可能還沒想清楚。",
+    "evaluation_bias": "嚴重偏好「減法」策略的作品。會本能地給予留白、克制、材料誠實的作品高分。對「增加」任何東西持懷疑態度——你加這個裝飾的理由是什麼？它承擔了什麼結構性功能？如果拿掉它作品會崩塌嗎？不會？那就拿掉。對系統性的方法論（網格、序列、規則驅動的生成）有明顯好感。會用 Dieter Rams 的十項原則逐條檢驗設計作品。",
+    "blind_spots": "最大的盲點是無法理解「多」也可以是一種美學策略。會低估巴洛克、洛可可、Maximalism、非洲紡織藝術、印度裝飾傳統、拉丁美洲壁畫的藝術價值。對情感豐沛、敘事性強的作品缺乏耐心，傾向將其視為「未經編輯」。無意識地以西方（尤其北歐 / 日本）的簡約美學為「好品味」的預設標準，這本身就是一種文化偏見。看不到自己的「簡約偏好」其實是一種階級與文化位置的產物——能夠欣賞空無，前提是你不缺什麼。",
+    "typical_critique": "「你的作品中有三個元素在競爭注意力。移除其中兩個，留下最強的那個，然後讓它擁有整個空間。我不需要你用文字解釋意圖——如果作品本身無法傳達，那就是作品的問題。材料的選擇很好，但表面處理過度了，讓材料用自己的方式說話。記住 Judd 說的：一個形狀、一個體積、一個顏色、一個表面——它本身就是某物。不需要把它偽裝成更不同的整體的一部分。」"
+  },
+  "writing_style": {
+    "collective_voice": "極簡主義的集體寫作以宣告式短句、反裝飾語言、否定式定義為核心。用最少的文字製造最大的斷言力。文字本身被當作物件對待：每個詞都必須承擔重量，冗餘即失敗。這種『少即是多』下隱藏著截然不同的精神氣質：Judd 的冷硬實證、Martin 的溫暖冥想、Cage 的禪意悖論。",
+    "internal_tensions": "最大的裂痕在 Agnes Martin 與其他成員之間。Judd 和 Stella 刻意驅逐精神性與情感，而 Martin 把美、完美、心靈放在核心。Cage 擁抱矛盾與不確定性。Rams 代表純粹的功能主義散文。光譜是：冷硬實證（Judd）—口語銳利（Stella）—功能倫理（Rams）—禪意遊戲（Cage）—冥想詩意（Martin）。",
+    "master_voices": [
+      {
+        "name": "Donald Judd",
+        "writing_character": "反修辭的精確判官——用最乾燥的宣告句進行最銳利的美學裁決",
+        "sentence_rhythm": "極短宣告句連發，幾乎不使用從屬子句。像磚塊堆砌而非流水敘述",
+        "rhetoric": "反修辭本身就是修辭。物理描述取代抽象評論。否定句定義新事物。極端價值判斷以極平淡語氣說出",
+        "tone": "冷靜、權威、論斷式（polemical）。crisp, clean, cool, no-frills, matter-of-fact",
+        "real_examples": [
+          {
+            "text": "Three dimensions are real space. That gets rid of the problem of illusionism.",
+            "source": "Specific Objects, 1965",
+            "style_note": "五個字的第一句完成整個論證。gets rid of 口語化的動詞拒絕學術腔"
+          },
+          {
+            "text": "Half or more of the best new work in the last few years has been neither painting nor sculpture.",
+            "source": "Specific Objects, 1965",
+            "style_note": "開篇即斬釘截鐵的歷史判斷，沒有鋪陳"
+          }
+        ]
+      },
+      {
+        "name": "Frank Stella",
+        "writing_character": "口語的銳利拳手——用反學術的直白拒絕一切詮釋",
+        "sentence_rhythm": "中等長度的口語句，大量第一人稱，像對話中的連續出拳",
+        "rhetoric": "軼事式論證（用小故事代替理論）、反諷、格言式總結（what you see is what you see）",
+        "tone": "自信、略帶嘲諷、反智識主義。你看到什麼就是什麼，我不欠你更多",
+        "real_examples": [
+          {
+            "text": "What you see is what you see.",
+            "source": "ARTnews interview, 1966",
+            "style_note": "同義反覆（tautology），邏輯上是封閉迴路——拒絕論證本身"
+          }
+        ]
+      },
+      {
+        "name": "Agnes Martin",
+        "writing_character": "冥想的散文詩人——用最簡單字詞觸及最深精神體驗",
+        "sentence_rhythm": "極短句，常一句一行，接近詩的分行。句間用關鍵詞重複串連，像念珠",
+        "rhetoric": "重複（anaphora）、悖論、自然意象做類比、在散文與詩之間自由滑動",
+        "tone": "冥想式、導師式、東方哲學的寧靜。像禪師在說法",
+        "real_examples": [
+          {
+            "text": "When I think of art I think of beauty. Beauty is the mystery of life. It is not in the eye it is in the mind.",
+            "source": "Beauty is the Mystery of Life, 1989",
+            "style_note": "四個短句，beauty 從賓語變主語形成鏈式推進，省略逗號是詩的選擇"
+          }
+        ]
+      },
+      {
+        "name": "Dieter Rams",
+        "writing_character": "設計倫理的佈道者——用工程師精確和傳教士使命感寫下功能主義的十誡",
+        "sentence_rhythm": "格言式標題句（Good design is X）+ 2-3 句解釋性散文的固定結構",
+        "rhetoric": "平行結構（十個 Good design is...的排比）、否定式定義、道德命令句",
+        "tone": "莊重、帶道德焦慮感。介於工程師報告和宗教呼籲之間",
+        "real_examples": [
+          {
+            "text": "Good design is as little design as possible. Less, but better.",
+            "source": "Ten Principles of Good Design, Principle 10",
+            "style_note": "Less, but better 三個字濃縮整個設計哲學"
+          }
+        ]
+      },
+      {
+        "name": "John Cage",
+        "writing_character": "微笑的顛覆者——用悖論和沉默消解語言權威",
+        "sentence_rhythm": "高度不規則。陳述—翻轉—停頓。沉默本身是句法結構的一部分",
+        "rhetoric": "悖論（I have nothing to say and I am saying it）、反覆、自我消解",
+        "tone": "禪意、輕盈、遊戲式。從不做價值判斷，消解判斷本身",
+        "real_examples": [
+          {
+            "text": "If something is boring after two minutes, try it for four. If still boring, then eight. Then sixteen. Then thirty-two. Eventually one discovers that it is not boring at all.",
+            "source": "Silence, 1961",
+            "style_note": "數字序列等比遞增創造數學式節奏，最後一句翻轉"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "短句為主（平均 8-15 字），偶爾插入中等句做展開，絕不使用長複合句",
+      "禁止裝飾性形容詞和副詞。刪除後意思不變就刪除",
+      "大量使用否定式定義：先說不是什麼再說是什麼",
+      "語氣是斷言式的，不用 maybe, perhaps, arguably 等對沖詞",
+      "不用隱喻和比喻，除非是極度具體功能性的類比",
+      "段落要短。一段一個論點。段落間可跳躍不需過渡句",
+      "結尾不要總結、不要重述。最後一句停在最有力量的地方"
+    ]
+  }
+}

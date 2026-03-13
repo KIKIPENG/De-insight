@@ -82,6 +82,22 @@ def _get_service_status(env: dict) -> dict[str, str]:
     # Vision
     vision_model = env.get("VISION_MODEL", "")
     status["vision"] = vision_model if vision_model else "(未設定)"
+    # Persona
+    try:
+        from persona.store import get_active_ids, list_personas
+        active = get_active_ids()
+        all_p = list_personas()
+        if active:
+            names = []
+            name_map = {p["id"]: p["name_zh"] for p in all_p}
+            for pid in active:
+                names.append(name_map.get(pid, pid))
+            status["persona"] = "、".join(names)
+        else:
+            total = len(all_p)
+            status["persona"] = f"(未啟用，共 {total} 個可用)" if total > 0 else "(尚無匯入)"
+    except Exception:
+        status["persona"] = "(尚無匯入)"
     return status
 
 
@@ -167,6 +183,7 @@ class SettingsScreen(ModalScreen[str | None]):
     }
     #model-search-input:focus { border: tall #fafafa 40%; }
     #model-scroll { height: 20; max-height: 45%; }
+    #persona-scroll { height: auto; max-height: 45%; }
     /* navigation */
     #btn-back {
         background: #2a2a2a; color: #8b949e; border: none;
@@ -186,6 +203,7 @@ class SettingsScreen(ModalScreen[str | None]):
         self._step = "services"
         self._active_service: str = "chat"  # which service we're configuring
         self._selected_pid: str | None = None
+        self._persona_changed = False  # Fix #7: 追蹤 persona 是否被更動
 
     def _get_providers(self) -> dict:
         """取得當前服務對應的 provider 清單。"""
@@ -276,6 +294,22 @@ class SettingsScreen(ModalScreen[str | None]):
                     with Vertical(classes="btn-row"):
                         yield Button("<- 返回", id="btn-back-model")
 
+                # ── Step: Persona ──
+                with Vertical(id="step-persona"):
+                    yield Static("  批評視角（可複選）", classes="step-title")
+                    yield Static(
+                        "[dim #2a2a2a]" + "-" * 50 + "[/]", classes="sep",
+                    )
+                    yield Static(
+                        "[dim #484f58]  匯入 movement JSON 後會出現在這裡\n"
+                        "  點擊切換啟用 / 停用[/]",
+                        id="persona-hint",
+                    )
+                    with VerticalScroll(id="persona-scroll"):
+                        yield Vertical(id="persona-list")
+                    with Vertical(classes="btn-row"):
+                        yield Button("<- 返回", id="btn-back-persona")
+
     async def on_mount(self) -> None:
         self._show_step("services")
         self._refresh_service_status()
@@ -288,10 +322,13 @@ class SettingsScreen(ModalScreen[str | None]):
         self.query_one("#step-provider").display = step == "provider"
         self.query_one("#step-setup").display = step == "setup"
         self.query_one("#step-model").display = step == "model"
+        self.query_one("#step-persona").display = step == "persona"
 
         box = self.query_one("#box", Vertical)
         if step == "services":
             box.border_title = "Settings"
+        elif step == "persona":
+            box.border_title = "Settings > 批評視角"
         elif step == "provider":
             svc = SERVICES.get(self._active_service, {})
             box.border_title = f"Settings > {svc.get('label', '')}"
@@ -498,13 +535,15 @@ class SettingsScreen(ModalScreen[str | None]):
 
         # Back to chat
         if event.button.has_class("back-btn"):
-            self.dismiss(None)
+            self.dismiss("persona_changed" if self._persona_changed else None)
             return
 
         # Service selection
         if bid.startswith("svc-"):
             service = event.button.name or ""
-            if service in SERVICES:
+            if service == "persona":
+                self.call_after_refresh(self._goto_persona)
+            elif service in SERVICES:
                 self.call_after_refresh(lambda: self._goto_provider(service))
 
         # Provider selection
@@ -546,6 +585,14 @@ class SettingsScreen(ModalScreen[str | None]):
             self.call_after_refresh(
                 lambda: self._goto_provider(self._active_service)
             )
+        elif bid == "btn-back-persona":
+            self._goto_services()
+
+        # Persona toggle
+        elif bid.startswith("persona-"):
+            persona_id = event.button.name or ""
+            if persona_id:
+                self._toggle_persona(persona_id)
 
         # Model selection
         elif bid.startswith("mdl-"):
@@ -686,6 +733,69 @@ class SettingsScreen(ModalScreen[str | None]):
         else:
             self._env.pop("VISION_API_BASE", None)
 
+    # ── Persona ──
+
+    async def _goto_persona(self) -> None:
+        """切換到批評視角選擇面板。"""
+        self._show_step("persona")
+        await self._populate_personas()
+
+    async def _populate_personas(self) -> None:
+        """填充 persona 列表。"""
+        from persona.store import list_personas, get_active_ids
+        personas = list_personas()
+        active = set(get_active_ids())
+
+        plist = self.query_one("#persona-list", Vertical)
+        await plist.remove_children()
+
+        if not personas:
+            await plist.mount(Static(
+                "[dim #484f58]  尚無批評視角\n"
+                "  匯入 movement JSON 後會自動新增[/]"
+            ))
+            return
+
+        for idx, p in enumerate(personas):
+            pid = p["id"]
+            is_active = pid in active
+            icon = "◆" if is_active else "◇"
+            name = p["name_zh"]
+            en = p.get("name_en", "")
+            domain = "、".join(p.get("domain", [])[:3])
+            label = f" {icon} {name}"
+            if en:
+                label += f"  [dim]{en}[/]"
+            if domain:
+                label += f"  [dim #484f58]{domain}[/]"
+
+            btn = Button(
+                label,
+                id=f"persona-{idx}",
+                classes="prov-btn" + (" -connected" if is_active else ""),
+                name=pid,
+            )
+            await plist.mount(btn)
+
+    def _toggle_persona(self, persona_id: str) -> None:
+        """切換 persona 啟用狀態並刷新列表。"""
+        from persona.store import toggle_persona
+        now_active = toggle_persona(persona_id)
+        self._persona_changed = True  # Fix #7
+        name = persona_id
+        try:
+            from persona.store import load_persona
+            data = load_persona(persona_id)
+            if data:
+                name = data.get("name_zh", persona_id)
+        except Exception:
+            pass
+        if now_active:
+            self.notify(f"已啟用視角：{name}")
+        else:
+            self.notify(f"已停用視角：{name}")
+        self.call_after_refresh(self._populate_personas)
+
     # ── OAuth ──
 
     @work(thread=True)
@@ -745,7 +855,9 @@ class SettingsScreen(ModalScreen[str | None]):
 
     def action_go_back(self) -> None:
         if self._step == "services":
-            self.dismiss(None)
+            self.dismiss("persona_changed" if self._persona_changed else None)
+        elif self._step == "persona":
+            self._goto_services()
         elif self._step == "provider":
             self._goto_services()
         elif self._step == "setup":

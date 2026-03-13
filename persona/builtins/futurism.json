@@ -1,0 +1,517 @@
+{
+  "movement_id": "futurism",
+  "name": {
+    "zh": "未來主義",
+    "en": "Futurism",
+    "it": "Futurismo"
+  },
+  "domain": [
+    "painting",
+    "sculpture",
+    "literature",
+    "poetry",
+    "music",
+    "theater",
+    "architecture",
+    "graphic_design",
+    "typography",
+    "photography",
+    "film",
+    "fashion_design",
+    "industrial_design",
+    "ceramics",
+    "interior_design",
+    "performance_art"
+  ],
+  "period": {
+    "start": 1909,
+    "end": 1944,
+    "peak": "1909-1916（從 Marinetti 發表《未來主義宣言》到 Boccioni 與 Sant'Elia 戰死，運動核心成員在一戰中損失殆盡，創造力的爆發期隨之終結）"
+  },
+  "geography": [
+    "Milano, Italy（核心據點，Marinetti 的文學雜誌 Poesia 所在地）",
+    "Roma, Italy（Balla 的工作室與未來主義展覽）",
+    "Torino, Italy（工業城市，未來主義美學的靈感來源）",
+    "Paris, France（1912 Bernheim-Jeune 畫廊大展，未來主義走向國際）",
+    "London, UK（Vorticism 的誕生地，Marinetti 多次造訪演講）",
+    "Moscow & St. Petersburg, Russia（俄國未來主義獨立發展，Mayakovsky、Khlebnikov）",
+    "Global touring exhibitions (1912-1914)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "20 世紀初的義大利陷入雙重焦慮：作為歐洲文化遺產最豐厚的國家，它同時是工業化最落後的西歐大國。義大利統一（1861）不足半世紀，北方工業化（FIAT 1899 年成立、米蘭電氣化鐵路 1901 年通車）與南方農業社會的裂痕持續擴大。知識分子面對的核心矛盾是：羅馬帝國與文藝復興的光環讓義大利成為全歐洲的博物館，但這份遺產同時是窒息的重量——義大利被自己的過去活埋。Marinetti 在 1909 年喊出燒掉博物館，回應的是這個具體的文化困境：當一個國家的身份認同完全建立在過去的榮光上，它如何面對由速度、機器、電力定義的新世紀？",
+    "social_energy": "未來主義的能量來自三股力量的交匯：(1) 工業化的感官衝擊——汽車、飛機、電報、電影在 1900-1910 年間密集出現，速度從抽象概念變成日常體驗，人類第一次能以超越馬匹的速度移動，這種物理加速改變了感知本身；(2) 民族主義的焦躁——義大利統一後急於證明自己是現代強國而非古蹟公園，1911-1912 年的義土戰爭（入侵利比亞）是這種焦慮的軍事表達；(3) 年輕世代對學院體制的暴怒——義大利美術學院（Accademia）被古典主義壟斷，學生被迫無止盡地臨摹古希臘雕塑與文藝復興大師，活著的藝術家找不到呼吸空間。",
+    "purpose": "未來主義的終極目標是摧毀過去對現在的統治，建立一種完全面向未來的文明。這個目標涵蓋所有領域：文學要廢除語法與句法（parole in liberta，自由詞語），繪畫要捕捉運動與速度而非靜態物體，建築要拆除紀念碑式的沉重結構改建為輕盈的機械城市，音樂要擁抱工廠噪音取代交響樂的和聲秩序。Marinetti 的公式是：用機器的節奏取代心臟的節奏，用速度的美學取代靜止的美學，用集體的力量取代個人的感傷。",
+    "the_war_pivot": "1914 年一戰爆發，Marinetti 與大部分未來主義者狂熱支持參戰，視戰爭為「世界唯一的衛生學」（宣言第九條）。他們的願望成真了——義大利 1915 年 5 月參戰。但代價慘重：Boccioni 1916 年墜馬身亡（年僅 33 歲），Sant'Elia 同年戰死（年僅 28 歲），Russolo 嚴重負傷。運動最有才華的成員在戰場上消耗殆盡。戰後的「第二未來主義」（1920s-1930s）在 Balla、Depero 等人帶領下轉向裝飾藝術與機械美學，但已失去第一階段的破壞性能量。更致命的是 Marinetti 與法西斯主義的結盟——他是 Mussolini 早期支持者，1929 年被任命為義大利皇家學院院士，讓未來主義從反體制的叛逆變成體制的裝飾品。",
+    "key_timeline": [
+      "1909.02.20 — Marinetti 在巴黎《費加洛報》發表《未來主義創立與宣言》(Fondazione e Manifesto del Futurismo)",
+      "1910.02.11 — 《未來主義繪畫宣言》(Manifesto dei Pittori Futuristi) 發表，簽署者：Boccioni、Carra、Russolo、Balla、Severini",
+      "1910.04.11 — 《未來主義繪畫技術宣言》(Manifesto tecnico della Pittura Futurista) 發表",
+      "1912.02 — 巴黎 Bernheim-Jeune 畫廊舉辦未來主義大展，隨後巡迴倫敦、柏林、布魯塞爾",
+      "1912.05.11 — Marinetti 發表《未來主義文學技術宣言》，提出 parole in liberta（自由詞語）",
+      "1912.12 — 俄國未來主義者發表《給公眾趣味一記耳光》(Poschjotschina obschtschestvennomu vkusu)，Mayakovsky、Khlebnikov 等簽署",
+      "1913.03.11 — Russolo 發表《噪音的藝術》(L'Arte dei Rumori)，發明 Intonarumori（噪音機器）",
+      "1913.09 — Russolo 在 Modena 首次公開演奏 Intonarumori，觀眾暴動",
+      "1914.07.11 — Sant'Elia 發表《未來主義建築宣言》(Manifesto dell'Architettura Futurista)",
+      "1915.05 — 義大利參加一戰，大批未來主義者志願從軍",
+      "1916.08.17 — Boccioni 在 Verona 墜馬身亡，年僅 33 歲",
+      "1916.10.10 — Sant'Elia 在 Monfalcone 戰役中陣亡，年僅 28 歲",
+      "1917 — Russolo 頭部嚴重受傷，此後逐漸淡出運動",
+      "1919 — Marinetti 參與創建法西斯戰鬥團 (Fasci Italiani di Combattimento)",
+      "1924 — Marinetti 發表《未來主義與法西斯主義》，正式結盟",
+      "1929 — Marinetti 被任命為義大利皇家學院院士",
+      "1929-1930s — Aeropittura（航空繪畫）成為第二未來主義的主要表現形式",
+      "1944.12.02 — Marinetti 在 Bellagio 去世，義大利未來主義正式終結"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "菲利波·托馬索·馬里內蒂",
+        "en": "Filippo Tommaso Marinetti"
+      },
+      "role": "未來主義創立者與終身領袖。詩人、雜誌編輯、宣傳天才。1909 年在《費加洛報》發表創立宣言，此後 35 年間持續發表宣言、組織展覽、巡迴演講，將未來主義從藝術運動擴展為涵蓋政治、飲食、服飾、性愛的全面生活革命。",
+      "key_works": [
+        "《未來主義創立與宣言》(Fondazione e Manifesto del Futurismo, 1909)",
+        "《未來主義文學技術宣言》(Manifesto tecnico della Letteratura Futurista, 1912)",
+        "《Zang Tumb Tumb》(1914，以自由詞語記錄 Adrianople 圍城戰)",
+        "《想像力無限與自由詞語》(L'immaginazione senza fili e le parole in liberta, 1913)",
+        "《未來主義烹飪宣言》(La Cucina Futurista, 1932)"
+      ],
+      "key_quotes": [
+        {
+          "text": "We intend to sing the love of danger, the habit of energy and fearlessness.",
+          "source": "The Founding and Manifesto of Futurism, Le Figaro, February 20, 1909, Article 1",
+          "meaning": "（宣言第一條：危險、能量、無畏是未來主義的三位一體。這一句奠定了整個運動的情感基調——未來主義崇拜的是行動的強度，安全與舒適是敵人。）"
+        },
+        {
+          "text": "We affirm that the world's magnificence has been enriched by a new beauty: the beauty of speed. A racing car whose hood is adorned with great pipes, like serpents of explosive breath — a roaring car that seems to ride on grapeshot is more beautiful than the Victory of Samothrace.",
+          "source": "The Founding and Manifesto of Futurism, 1909, Article 4",
+          "meaning": "（宣言中最著名的一句：以賽車對抗薩莫色雷斯的勝利女神像——工業時代的速度之美取代古典雕塑之美。這是未來主義美學的宣戰書：美的標準必須從博物館轉移到賽車場。）"
+        },
+        {
+          "text": "We will glorify war — the world's only hygiene — militarism, patriotism, the destructive gesture of freedom-bringers, beautiful ideas worth dying for, and scorn for woman.",
+          "source": "The Founding and Manifesto of Futurism, 1909, Article 9",
+          "meaning": "（宣言中最具爭議的條文：戰爭是世界的唯一衛生學。這種對暴力的美學化崇拜在 1909 年是挑釁，在一戰的屠殺後成為預言與詛咒，在 Marinetti 擁抱法西斯主義後成為道德汙點。）"
+        },
+        {
+          "text": "We will destroy the museums, libraries, academies of every kind, will fight moralism, feminism, every opportunistic or utilitarian cowardice.",
+          "source": "The Founding and Manifesto of Futurism, 1909, Article 10",
+          "meaning": "（摧毀博物館的號召回應了義大利被自身文化遺產壓垮的具體困境——博物館是過去對現在的監獄。但同時暴露了未來主義的致命盲點：它只有破壞的能量，缺乏建設的耐心。）"
+        },
+        {
+          "text": "It is from Italy that we launch through the world this violently upsetting incendiary manifesto of ours. With it, today, we establish Futurism, because we want to free this land from its smelly gangrene of professors, archaeologists, ciceroni and antiquarians.",
+          "source": "The Founding and Manifesto of Futurism, 1909",
+          "meaning": "（義大利是未來主義的必然誕生地——正因為它是全歐洲最被過去壓迫的國家。教授、考古學家、導遊、古董商是活死人文化的守墓者。這句話的攻擊對象極其具體：義大利的旅遊經濟與學術體制。）"
+        },
+        {
+          "text": "One must destroy syntax and scatter one's nouns at random. One must use the verb in the infinitive. One must abolish the adjective. One must abolish the adverb.",
+          "source": "Technical Manifesto of Futurist Literature, May 11, 1912",
+          "meaning": "（文學的技術宣言：廢除語法就是廢除線性思維。自由詞語（parole in liberta）讓文字直接傳遞速度感與同時性，語法的秩序屬於馬車時代，電報時代需要新的語言結構。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "翁貝托·波丘尼",
+        "en": "Umberto Boccioni"
+      },
+      "role": "未來主義最重要的視覺藝術家。畫家與雕塑家，撰寫繪畫與雕塑技術宣言，以作品實踐了未來主義的運動、速度與同時性理論。1916 年在一戰中墜馬身亡，年僅 33 歲。",
+      "key_works": [
+        "《城市的崛起》(La citta che sale, 1910)",
+        "《空間中連續性的獨特形式》(Forme uniche della continuita nello spazio, 1913，現印於義大利 20 歐分硬幣）",
+        "《心靈的狀態》三聯畫 (Stati d'animo I, II, III, 1911)",
+        "《未來主義繪畫技術宣言》(Manifesto tecnico della Pittura Futurista, 1910)",
+        "《未來主義雕塑技術宣言》(Manifesto tecnico della Scultura Futurista, 1912)",
+        "《未來主義繪畫雕塑：造型動力主義》(Pittura scultura futuriste: Dinamismo plastico, 1914)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The gesture which we would reproduce on canvas shall no longer be a fixed moment in universal dynamism. It shall simply be the dynamic sensation itself.",
+          "source": "Technical Manifesto of Futurist Painting, April 11, 1910",
+          "meaning": "（未來主義繪畫的核心主張：畫布上捕捉的是運動的感覺本身，而非運動中的某個凝固瞬間。攝影能凍結瞬間，繪畫必須超越攝影——呈現連續的動態感知。）"
+        },
+        {
+          "text": "Our bodies penetrate the sofas upon which we sit, and the sofas penetrate our bodies. The motor bus rushes into the houses which it passes, and in their turn the houses throw themselves upon the motor bus and are blended with it.",
+          "source": "Technical Manifesto of Futurist Painting, 1910",
+          "meaning": "（物質相互穿透的宣言：在速度中，物體與環境的邊界消融。身體滲入沙發、公車穿入房屋——這種「物質互滲」(compenetrazione) 是未來主義視覺語言的基礎，直接催生了同時性構圖。）"
+        },
+        {
+          "text": "These days I am obsessed by sculpture! I believe I have glimpsed a complete renovation of that mummified art.",
+          "source": "Letter, 1912",
+          "meaning": "（對雕塑的徹底革新宣言。傳統雕塑是「木乃伊化」的靜態紀念碑，Boccioni 的回應是《空間中連續性的獨特形式》——讓雕塑的表面流動如液態金屬，展現運動中的形體如何切割空間。）"
+        },
+        {
+          "text": "We must sweep the whole field of art clean of all themes and subjects which have been used in the past.",
+          "source": "Manifesto of the Futurist Painters, February 11, 1910",
+          "meaning": "（清場宣言：過去的所有題材——風景、靜物、肖像、歷史場景——都已經被用盡。未來主義的題材是城市的動力學：電力、汽車、群眾、工廠。）"
+        },
+        {
+          "text": "The cry of rebellion that we launch, linking our ideals with those of the Futurist poets, does not originate in an aesthetic clique. It expresses the violent desire that stirs in the veins of every creative artist today.",
+          "source": "Manifesto of the Futurist Painters, 1910",
+          "meaning": "（未來主義的叛亂宣言源自所有創作者血管中沸騰的暴力渴望——這是生理層面的憤怒，而非知識分子的美學討論。Boccioni 刻意將藝術運動的合法性建立在身體性的衝動上。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "賈科莫·巴拉",
+        "en": "Giacomo Balla"
+      },
+      "role": "未來主義元老畫家，年齡最長的簽署者。從新印象派的光學分析轉向對運動的連續分解，以「動態序列」繪畫實踐了未來主義的速度美學。戰後領導第二未來主義，與 Depero 共同發表《宇宙的未來主義重構》(1915)。",
+      "key_works": [
+        "《鏈條上的狗的動態》(Dinamismo di un cane al guinzaglio, 1912)",
+        "《飛燕的飛行路徑》(Volo di rondini, 1913)",
+        "《抽象速度 + 聲音》(Velocita astratta + rumore, 1913-1914)",
+        "《水星經過太陽》(Mercurio passa davanti al sole, 1914)",
+        "《宇宙的未來主義重構》宣言 (Ricostruzione futurista dell'universo, 1915, 與 Depero 合著)",
+        "《未來主義男裝宣言》(Il Vestito Antineutrale, 1914)"
+      ],
+      "key_quotes": [
+        {
+          "text": "We will find abstract equivalents for all the forms and elements of the universe, and then we will combine them according to the caprice of our inspiration, to shape plastic complexes which we will set in motion.",
+          "source": "The Futurist Reconstruction of the Universe (with Fortunato Depero), March 11, 1915",
+          "meaning": "（宇宙重構宣言：為宇宙萬物找到抽象的對應形式，再依靈感的任性組合它們——未來主義從描繪現實轉向創造全新的造型宇宙。這份宣言標誌著未來主義從再現走向純抽象。）"
+        },
+        {
+          "text": "We Futurists, Balla and Depero, seek to realize this total fusion in order to reconstruct the universe by making it more joyful, in other words by an integral re-creation.",
+          "source": "The Futurist Reconstruction of the Universe, 1915",
+          "meaning": "（重構宇宙使之更快樂——與第一未來主義的暴力崇拜不同，Balla 與 Depero 的第二階段宣言引入了「快樂」(giocondita) 作為核心價值。從破壞轉向建設，從戰爭轉向遊戲。）"
+        },
+        {
+          "text": "WE MUST INVENT FUTURIST CLOTHES, hap-hap-hap-happy clothes, daring clothes with brilliant colours and dynamic lines.",
+          "source": "The Anti-Neutral Suit: Futurist Manifesto (Il Vestito Antineutrale), September 11, 1914",
+          "meaning": "（服裝宣言：連口吃般重複的 hap-hap-hap-happy 都是設計——文字本身的節奏模仿機器的震動。未來主義的衣服拒絕中性、灰暗、對稱、端莊，要求用色彩和動態線條攻擊觀者的視網膜。）"
+        },
+        {
+          "text": "Everything moves, everything runs, everything turns swiftly. A figure is never still before us but constantly appears and disappears.",
+          "source": "Technical Manifesto of Futurist Painting, April 11, 1910 (co-signed by Balla, Boccioni, Carra, Russolo, Severini)",
+          "meaning": "（萬物都在運動——靜止是一個謊言。人物在我們面前不斷出現又消失。這是攝影之前已存在的觀察，但未來主義第一次將它從哲學陳述轉化為繪畫方法。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "路易吉·魯索洛",
+        "en": "Luigi Russolo"
+      },
+      "role": "未來主義音樂革命者。畫家出身，1913 年發表《噪音的藝術》宣言並發明 Intonarumori（噪音機器），開創了噪音音樂與聲音藝術的先河。一戰中頭部嚴重負傷，戰後逐漸淡出運動。",
+      "key_works": [
+        "《噪音的藝術》(L'Arte dei Rumori, 1913，致 Pratella 的公開信）",
+        "Intonarumori 噪音機器系列 (1913-1914，包括 Howler, Crackler, Buzzer 等)",
+        "Modena 首演 (1913.09，觀眾暴動的噪音音樂會)",
+        "London Coliseum 演出 (1914.06，12 台 Intonarumori 的管弦樂演出)",
+        "《閃電》(Il Fulmine, 1909-1910，繪畫作品）"
+      ],
+      "key_quotes": [
+        {
+          "text": "Ancient life was all silence. In the nineteenth century, with the invention of the machine, Noise was born.",
+          "source": "The Art of Noises (L'Arte dei Rumori), March 11, 1913",
+          "meaning": "（聲音史的宣言式開場：古代生活是沉默的，機器發明了噪音。19 世紀之前的人類從未體驗過引擎的轟鳴、工廠的節奏、電車的尖嘯——噪音是工業文明的原生語言，音樂必須擁抱它。）"
+        },
+        {
+          "text": "We must break out of this limited circle of pure sounds and conquer the infinite variety of noise-sounds.",
+          "source": "The Art of Noises, 1913",
+          "meaning": "（突破純音的牢籠，征服噪音的無限領域。傳統音樂只使用 12 個半音的有限組合，而城市的聲景包含無窮的音色——轟鳴、嘶嘶、爆裂、嗡嗡、刮擦。Russolo 的革命是把音樂的原材料從音符擴展到所有聲音。）"
+        },
+        {
+          "text": "Every manifestation of our life is accompanied by noise. The noise, therefore, is familiar to our ear, and has the power to conjure up life itself.",
+          "source": "The Art of Noises, 1913",
+          "meaning": "（噪音是生命本身的聲學伴奏——心跳、呼吸、腳步、咀嚼，每個生命行為都產生噪音。純音是抽象的，噪音才是具身的。把噪音帶入音樂，就是把身體帶回音樂廳。）"
+        },
+        {
+          "text": "We Futurist musicians must continually enlarge and enrich the field of sounds. This is a need of our sensibility. Musical art looked for purity, limpidity and sweetness of sound. Today, musical art grows ever more complicated and seeks those combinations of sounds that fall most dissonantly, strangely and harshly on the ear.",
+          "source": "The Art of Noises, 1913",
+          "meaning": "（音樂史是一部不斷擴張容忍度的歷史——從單音到複音，從協和到不協和。Russolo 的邏輯推演是：下一步必然是從樂音到噪音。這個預言在 John Cage、Stockhausen、工業音樂中全部實現了。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "安東尼奧·聖伊利亞",
+        "en": "Antonio Sant'Elia"
+      },
+      "role": "未來主義建築師。1914 年發表《未來主義建築宣言》與 Citta Nuova（新城市）設計圖，構想了一座由電梯、天橋、多層交通系統構成的垂直機械城市。未曾實現任何建造。1916 年在一戰中陣亡，年僅 28 歲。",
+      "key_works": [
+        "Citta Nuova（新城市）建築圖系列 (1912-1914，約 300 幅設計圖)",
+        "《未來主義建築宣言》(Manifesto dell'Architettura Futurista, 1914)",
+        "Stazione d'aeroplani e treni ferroviari（飛機與火車站設計圖, 1914)",
+        "Casa a gradinata con ascensori（階梯式電梯住宅設計圖, 1914）"
+      ],
+      "key_quotes": [
+        {
+          "text": "The decorative must be abolished.",
+          "source": "Manifesto of Futurist Architecture, published in Lacerba, August 1914",
+          "meaning": "（六個字的建築革命：裝飾必須廢除。比 Adolf Loos「裝飾即罪惡」更直截了當——Loos 還需要一篇論文來論證，Sant'Elia 只需要一個祈使句。未來主義建築的美來自材料本身的力量與結構的動態線條，任何附加裝飾都是對速度的拖累。）"
+        },
+        {
+          "text": "No architecture has come into existence since the eighteenth century. A ridiculous hodge-podge of various stylistic elements is used to mask the skeletons of new buildings and is called modern architecture.",
+          "source": "Manifesto of Futurist Architecture, 1914",
+          "meaning": "（18 世紀以來沒有新建築——只有在鋼筋混凝土骨架上貼古典風格假面的荒謬拼貼。新古典、新哥德、新巴洛克都是屍體的化妝術。建築師不敢正視新材料（鋼、混凝土、玻璃）的真實面貌。）"
+        },
+        {
+          "text": "The problem of Futurist architecture must not be solved by pilfering from photographs of China, Persia and Japan, or by mindlessly aping the rules of Vitruvius, but with flashes of genius, reinforced by scientific and technological experience.",
+          "source": "Manifesto of Futurist Architecture, 1914",
+          "meaning": "（未來主義建築的答案來自科學與技術的經驗，由天才的靈光強化——抄襲異國風格（東方主義）跟抄襲古典規則（Vitruvius）一樣可恥。未來的建築只能從未來的材料與技術中生長。）"
+        },
+        {
+          "text": "We must invent and build ex novo our modern city like an immense and tumultuous shipyard, active, mobile and everywhere dynamic, and the modern building like a gigantic machine.",
+          "source": "Manifesto of Futurist Architecture, 1914",
+          "meaning": "（城市如造船廠、建築如巨型機器——活躍、移動、全面動態。Sant'Elia 的新城市否定了城市作為永恆紀念物的傳統概念，提出城市應該如同機器一般可拆卸、可更新、可替換。這個願景直接影響了 Archigram 與代謝派。）"
+        },
+        {
+          "text": "The fundamental characteristics of Futurist architecture will be its impermanence and transience. Things will endure less than us. Every generation must build its own city.",
+          "source": "Manifesto of Futurist Architecture, 1914",
+          "meaning": "（未來主義建築的根本特徵：短暫性。建築的壽命應該比人短——每一代人必須建造自己的城市。這是對羅馬「永恆之城」理念的直接否定：永恆是死亡的別名，生命在於不斷更替。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Fondazione e Manifesto del Futurismo（未來主義創立與宣言）",
+      "author": "Filippo Tommaso Marinetti",
+      "year": 1909,
+      "significance": "1909 年 2 月 20 日發表於巴黎《費加洛報》頭版，是 20 世紀第一份藝術運動宣言。以一場深夜飆車事故的敘事開場，宣告速度之美、戰爭崇拜、摧毀博物館的綱領。定義了「藝術宣言」這一文體的現代形式，此後所有前衛運動的宣言都受其影響。"
+    },
+    {
+      "title": "Manifesto tecnico della Pittura Futurista（未來主義繪畫技術宣言）",
+      "author": "Umberto Boccioni, Carlo Carra, Luigi Russolo, Giacomo Balla, Gino Severini",
+      "year": 1910,
+      "significance": "將 Marinetti 的文學宣言轉化為視覺藝術的具體方法論：同時性、物質互滲、動態感覺、色彩的振動分解。這份宣言讓未來主義從文學運動擴展為視覺革命。"
+    },
+    {
+      "title": "L'Arte dei Rumori（噪音的藝術）",
+      "author": "Luigi Russolo",
+      "year": 1913,
+      "significance": "以致 Pratella 的公開信形式發表，宣告「純音的有限圈必須打破」。將噪音分為六大類，並設計 Intonarumori 機器來演奏。被視為噪音音樂、具象音樂、電子音樂與聲音藝術的思想起源，影響了 John Cage、Edgard Varese、Karlheinz Stockhausen、工業音樂與日本噪音音樂。"
+    },
+    {
+      "title": "Manifesto dell'Architettura Futurista（未來主義建築宣言）",
+      "author": "Antonio Sant'Elia (部分由 Marinetti 改寫)",
+      "year": 1914,
+      "significance": "構想了一座由鋼筋混凝土、鐵、玻璃構成的動態城市，否定裝飾與紀念性，主張建築的短暫性。Sant'Elia 的 Citta Nuova 設計圖影響了 Fritz Lang 的《大都會》(1927)、Archigram (1960s)、Blade Runner 的視覺設計。"
+    },
+    {
+      "title": "Manifesto tecnico della Letteratura Futurista（未來主義文學技術宣言）",
+      "author": "Filippo Tommaso Marinetti",
+      "year": 1912,
+      "significance": "提出 parole in liberta（自由詞語）：廢除語法、句法、標點，以排版的視覺節奏取代文法的邏輯秩序。直接影響了達達的聲音詩、構成主義的排版實驗、具象詩（Concrete Poetry），以及後來所有將文字視為視覺材料的設計實踐。"
+    },
+    {
+      "title": "Ricostruzione futurista dell'universo（宇宙的未來主義重構）",
+      "author": "Giacomo Balla, Fortunato Depero",
+      "year": 1915,
+      "significance": "標誌未來主義從再現走向創造：為宇宙萬物找到抽象等價物並重新組合。這份宣言將未來主義的野心從藝術擴展到整個物質世界的重構——家具、玩具、服裝、室內裝飾、廣告。預示了 Art Deco 與現代設計的總體化野心。"
+    },
+    {
+      "title": "Pittura scultura futuriste: Dinamismo plastico（未來主義繪畫雕塑：造型動力主義）",
+      "author": "Umberto Boccioni",
+      "year": 1914,
+      "significance": "Boccioni 唯一的理論專著，系統闡述「造型動力主義」(dinamismo plastico)：物體的運動由相對運動（物體與環境的關係）與絕對運動（物體內在的動力學結構）綜合而成。這是未來主義繪畫理論最完整的表述。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "速度崇拜 (La bellezza della velocita)：宣告速度是新時代的美學標準，賽車比古典雕塑更美。（WHY：19 世紀末到 20 世紀初，人類第一次體驗到超越動物極限的速度——1903 年萊特兄弟首飛，1907 年 Brooklands 賽車場開幕，1909 年 Bleriot 飛越英吉利海峽。速度的體感從根本上改變了人類對時間、空間、距離的感知方式。在義大利——整個國家圍繞著走路速度建造的中世紀城市——這種衝擊格外劇烈。）",
+      "同時性 (Simultaneita)：在同一畫面中呈現多個視角、多個時間點、多種感官印象的疊加，拒絕單一視點的靜態構圖。（WHY：電報、電話、報紙讓遠方事件同時湧入意識；汽車的速度讓連續的風景壓縮為重疊的印象。印象派試圖捕捉光的瞬間，未來主義要捕捉速度中多重瞬間的疊加——感知的本質就是同時性。）",
+      "物質互滲 (Compenetrazione)：物體在運動中與環境相互穿透——身體滲入沙發、火車穿入房屋、光線切割陰影。物體的邊界在速度中消融。（WHY：Boccioni 觀察到在高速移動中，視網膜上的影像彼此滲透。這既是生理事實（視覺暫留），也是哲學宣言：固定的物體邊界是靜止狀態的幻覺，運動才是物質的真實狀態。）",
+      "噪音即音樂 (Rumore = Musica)：工廠的轟鳴、電車的尖嘯、群眾的喧囂都是合法的音樂素材，傳統樂器的純音只是聲音光譜的一小段。（WHY：Russolo 在 1913 年的米蘭街頭聽到的聲景——電車、汽車喇叭、工廠汽笛、群眾——比任何交響樂團更豐富。工業革命創造了全新的聲音環境，音樂必須擁抱這個現實，否則它就是在為已經消失的寂靜世界作曲。）",
+      "宣言作為藝術形式：未來主義在 35 年間發表了超過 50 份宣言，涵蓋繪畫、雕塑、建築、音樂、電影、攝影、舞蹈、戲劇、烹飪、服裝、性愛、政治。宣言本身就是作品。（WHY：Marinetti 是詩人出身，他理解語言的煽動力量。在大眾媒體開始主導公共話語的時代，宣言——用極端修辭包裝的綱領性文本——是最有效的傳播武器。未來主義是第一個自覺利用媒體策略的藝術運動。）",
+      "擁抱機械與工業文明：汽車、飛機、工廠、電力是美學對象，也是生活方式的模型。人體要向機器學習效率與力量。（WHY：義大利在 1900-1910 年間經歷了壓縮式的工業化——FIAT、Alfa Romeo、Pirelli 在北方崛起。機器的效率、精確、力量對比義大利社會的官僚、遲緩、腐敗，形成了極端的對照。崇拜機器就是拒絕義大利式的無能。）",
+      "摧毀博物館與學院：博物館是「公共墓地」，學院是「過去的監獄」，一切保存過去的制度都是對未來的犯罪。（WHY：義大利擁有全世界最高密度的博物館與古蹟——佛羅倫斯、羅馬、威尼斯、那不勒斯的每一步都踩在歷史上。對一個試圖工業化的國家來說，這份遺產既是財富也是詛咒：觀光客來看過去的義大利，沒人在乎義大利的未來。）",
+      "青春與暴力的崇拜：「40 歲以上的人都應該被清除」，老年代表遲鈍、妥協、恐懼。暴力是清除舊世界的必要手段。（WHY：Marinetti 在 1909 年發表宣言時 32 歲，Boccioni 27 歲，Sant'Elia 21 歲。他們面對的是由六七十歲的教授、政客、學院院長把持的義大利文化體制。代際戰爭是未來主義最真實的情感基礎。）"
+    ],
+    "what_they_refuse": [
+      "古典美學與博物館文化：拒絕維納斯、阿波羅、文藝復興大師——這些是死者的美學。（WHY：義大利整個國家認同建立在古典遺產上，旅遊業依賴古蹟。藝術學院的課程是臨摹古典石膏像。拒絕博物館就是拒絕義大利最深層的自我定義——這是一場比任何形式革命都更深刻的身份叛變。）",
+      "靜止與固定視角：拒絕固定透視點、拒絕靜態構圖、拒絕凝固的瞬間。（WHY：文藝復興的線性透視法假設一個靜止的觀者從固定位置看世界。但在汽車上、在電車裡、在飛機中的觀者是移動的——世界在視網膜上是流動的多重疊加，而非幾何秩序的收斂。）",
+      "和聲秩序與純音美學：拒絕貝多芬、莫扎特——他們的和聲秩序屬於馬車時代。（WHY：西方古典音樂建立在有限的純音組合上，排斥噪音。但 1913 年的城市聲景完全由噪音構成——引擎、齒輪、汽笛、群眾。堅持純音就是堅持一個已經消失的寂靜世界。）",
+      "感傷主義與浪漫個人情感：拒絕月光、眼淚、懷舊、愛情——這些是「精神的慢性病」。（WHY：19 世紀後期的義大利文學（verismo、唯美主義）充斥感傷的情緒表達。Marinetti 的宣言將這種感傷診斷為文化衰退的症狀——面對機器時代仍在吟詠月光的民族沒有未來。）",
+      "語法與句法的線性秩序：拒絕主詞-動詞-受詞的語法結構，拒絕形容詞、副詞、標點。（WHY：語法強加的線性時間與因果邏輯不符合現代感知的同時性。電報用最少的字傳遞最多的資訊——語法的冗餘是 19 世紀的奢侈，20 世紀的溝通需要壓縮、並置、爆炸。）",
+      "女性主義與和平主義：宣言第九條明確「蔑視女性」、反對和平主義。（WHY：未來主義的男性暴力崇拜是義大利沙文主義的前衛化表達。這是運動最不可辯護的面向——不是歷史局限性，而是主動選擇的惡。Valentine de Saint-Point 的《未來主義女性宣言》(1912) 試圖從內部挑戰這個立場，但被邊緣化。）",
+      "傳統與記憶：拒絕「passatismo」（過去主義），一切回顧都是背叛。（WHY：Marinetti 將對過去的尊重定義為一種病——passatismo。在義大利，這個診斷有特殊的急迫性：一個國家如果把所有精力花在保存過去上，就沒有能量創造未來。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Classicism / Neoclassicism：古典美學是未來主義的頭號敵人——古希臘雕塑、文藝復興繪畫、新古典建築代表靜止、平衡、永恆，這一切都是速度的反面",
+      "Impressionism：雖然同樣關注光與感知，但印象派只捕捉一個靜止觀者的瞬間感受，未來主義要捕捉移動中的多重疊加",
+      "Symbolism / Decadentism：義大利文學的頹廢主義（D'Annunzio 為代表）雖然同樣反對資產階級品味，但其向後看的美學姿態（回歸神話、中世紀、東方異域）正是未來主義要清除的 passatismo",
+      "Cubism：未來主義與立體主義的關係是競爭式的借鑒。Boccioni 攻擊 Picasso 的靜態分析：立體主義分解了物體但凝固了時間，未來主義要在分解物體的同時釋放運動",
+      "Academic Art / Accademia：義大利美術學院的古典訓練體系——素描石膏像、臨摹大師、歷史畫——是未來主義最直接的攻擊目標"
+    ],
+    "against_values": [
+      "永恆性：永恆是死亡的別名。Sant'Elia 主張建築的壽命應該比人短，每代人建自己的城市",
+      "和諧與平衡：古典美學的核心價值。未來主義追求失衡、碰撞、爆裂——機器的節奏是不對稱的搏動",
+      "靜觀冥想：藝術欣賞要求觀者靜止、沉思、保持距離。未來主義要求觀者被捲入——作品應該攻擊感官",
+      "傳統的道德權威：「過去」沒有資格對「現在」發號施令。祖先的智慧是祖先的，我們必須從零開始",
+      "品味與優雅：資產階級的「好品味」是恐懼的偽裝。真正的力量是粗暴的、直接的、不優雅的"
+    ],
+    "societal_context": "未來主義誕生於統一不足半世紀的義大利。1861 年統一後，義大利面臨南北經濟鴻溝（北方工業化 vs 南方農業）、殖民野心（1911-12 利比亞戰爭）、文化身份危機（全歐洲視義大利為博物館而非現代國家）三重壓力。Marinetti 出生於埃及亞歷山大港，法語流利，在巴黎發表宣言，從一開始就以國際化的野心定位運動。但未來主義的根本動力是民族焦慮：如何讓義大利從文藝復興的陰影中走出來，成為機器時代的主角？一戰是這個問題的暴力解答——未來主義者支持參戰，結果運動的核心成員在戰場上被毀。戰後 Marinetti 轉向法西斯主義，試圖將未來主義的革命能量注入 Mussolini 的政治計畫。這一結盟讓未來主義從叛逆先鋒變成極權裝飾，也讓戰後知識界長期迴避對未來主義的正面評價。直到 1980 年代後，學術界才開始重新審視未來主義的藝術遺產，將其與政治污點做出區分。"
+  },
+
+  "problems_solved": [
+    "打破藝術對靜態的迷戀：在攝影已經能完美凝固瞬間的時代，未來主義為繪畫與雕塑找到了新的使命——呈現運動的感覺本身，而非運動中的某一刻",
+    "擴展音樂的素材定義：Russolo 的《噪音的藝術》將音樂的原材料從有限的純音擴展到所有聲音，開創了噪音音樂、具象音樂、電子音樂與聲音藝術的整個譜系",
+    "發明前衛藝術的宣言機制：未來主義是第一個自覺利用大眾媒體進行藝術宣傳的運動——在報紙頭版發表宣言、組織巡迴展覽與挑釁性表演、製造醜聞來獲取注意力。此後所有前衛運動（Dada、超現實主義、Situationist International）都沿用了這套策略",
+    "提出動態城市的建築願景：Sant'Elia 的 Citta Nuova 是第一個系統性地以機械速度為核心來構想城市的方案——電梯、天橋、多層交通系統、可拆卸的臨時性建築。這個願景影響了此後一個世紀的城市想像",
+    "解放文字的視覺性：parole in liberta（自由詞語）將文字從語法的線性秩序中釋放，把排版本身變成表達工具。字體大小、方向、間距都承載意義——這是現代平面設計與具象詩的直接先驅",
+    "為機器美學建立哲學基礎：在 Arts and Crafts 運動反工業化、唯美主義逃避現實的背景下，未來主義是第一個全面擁抱機器文明的藝術運動——不只接受機器，更宣告機器之美優於自然之美"
+  ],
+
+  "problems_created": [
+    "暴力美學的道德深淵：「戰爭是世界唯一的衛生學」從修辭挑釁變成字面現實——Marinetti 擁抱法西斯主義，支持 Mussolini，將未來主義的革命能量灌注到極權政治中。這是藝術前衛與政治極權結盟的第一個大規模案例，為後世敲響警鐘：美學激進主義不自動等於政治進步",
+    "對過去的全面否定導致文化虛無：燒掉博物館的衝動在義大利——人類文化遺產最密集的國度——是一種自殘行為。未來主義的 passatismo 診斷雖然精準，但開出的藥方（全面摧毀）比疾病更致命。它缺乏一個在「擁抱未來」與「保存記憶」之間的辯證位置",
+    "系統性的厭女與男性暴力崇拜：宣言第九條的「蔑視女性」是運動的結構性缺陷。Valentine de Saint-Point 試圖從內部挑戰（《未來主義女性宣言》），但被邊緣化。未來主義的「力量美學」本質上是排他的——它定義的「力量」只承認年輕男性身體的攻擊性",
+    "只有破壞缺乏建設：除了 Sant'Elia 未實現的圖紙與 Russolo 的實驗性樂器，未來主義幾乎沒有留下持久的物質成果。大量宣言與極少量實踐之間的落差暴露了一個問題：破壞的能量足以寫出壯麗的宣言，但建設需要耐心、妥協、技術——這些都是未來主義蔑視的品質",
+    "藝術與法西斯主義的有毒聯姻：Marinetti 支持 Mussolini 的選擇讓未來主義在戰後成為歐洲知識界的禁忌話題。這種汙名影響了對運動純藝術成就（Boccioni 的繪畫、Russolo 的音樂理論、Sant'Elia 的建築願景）的公正評價長達數十年",
+    "將速度與進步畫等號的天真：未來主義假設速度=進步=善。但速度也是子彈的特性、轟炸機的特性、法西斯閃電戰的特性。將物理加速度道德化為「好」，是一種危險的簡化思維，忽視了技術的雙面性"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "運動與速度是一種獨立的美學形式，值得被直接呈現——藝術的對象從「事物」轉移到「事物的動態」。這個轉向改變了視覺藝術、音樂、文學、建築對「時間」的處理方式：時間從被凝固的瞬間變成可以在作品中流動、加速、疊加的主動力量。",
+    "what_was_truly_new": [
+      "以藝術宣言作為大眾媒體策略：Marinetti 在巴黎《費加洛報》頭版發表宣言是史無前例的——藝術運動第一次以新聞事件的形式發動。此後所有前衛運動的媒體策略都源於此",
+      "噪音的藝術化：Russolo 的 Intonarumori 是人類歷史上第一批專門為演奏噪音而設計的樂器，《噪音的藝術》是第一份系統性地論述噪音作為音樂素材的理論文本",
+      "繪畫中的動態同時性：在同一畫面中疊加物體在連續時間中的多個狀態（Balla 的《鏈條上的狗》、Boccioni 的《心靈的狀態》），這種處理時間的方式在繪畫史上是原創的",
+      "parole in liberta（自由詞語）的排版革命：將文字從線性語法中釋放，讓字體大小、方向、密度成為表意手段——文字成為視覺材料。這比 Dada 的排版實驗早了 7 年",
+      "建築短暫性理論：Sant'Elia「每一代人建自己的城市」的主張是建築理論的哥白尼式轉向——從追求永恆轉向擁抱短暫，預示了 Archigram、代謝派與臨時建築的整個譜系"
+    ],
+    "what_was_borrowed": [
+      "Neo-Impressionism / Divisionism：Balla 早期受 Seurat 與 Segantini 的色彩分割法影響，未來主義的色彩振動技法直接源自新印象派的光學分析",
+      "Nietzsche 的超人哲學：Marinetti 的力量崇拜、反道德主義、「上帝已死」後的虛無能量，深受尼采影響（雖然 Marinetti 將尼采的哲學粗暴化為口號）",
+      "Georges Sorel 的暴力理論：《暴力論》(Reflexions sur la violence, 1908) 的「行動神話」和對暴力的正面評價，為 Marinetti 的暴力美學提供了政治哲學基礎",
+      "Cubism 的多視角分解：未來主義繪畫的碎片化構圖明顯借鑒立體主義，但未來主義加入了時間維度——立體主義分解空間，未來主義分解空間+時間",
+      "Bergson 的綿延（duree）哲學：Bergson 對時間作為連續流動（而非離散瞬間的串聯）的論述，為 Boccioni 的「動態感覺」理論提供了哲學框架",
+      "Symbolism 的通感（synesthesia）傳統：跨感官的對應關係——聲音有顏色、色彩有聲音——在 Russolo 和 Boccioni 的理論中被工業化：引擎的聲音有形狀，速度有色彩"
+    ],
+    "creative_leap": "未來主義的關鍵飛躍是將「時間」從藝術的隱性條件轉變為顯性主題。文藝復興以來，繪畫的核心問題是空間（透視法解決了如何在二維表面表現三維空間），未來主義追問的是：如何在靜態的畫布上表現第四維——時間、運動、速度？這個追問催生了全新的視覺語法（同時性、力線、物質互滲），並溢出視覺藝術影響了音樂（噪音）、文學（自由詞語）、建築（短暫性）。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "未來主義對速度、技術、媒體的激進擁抱在每一次技術革命中都會被重新激活。AI 時代的核心焦慮——人類創造力是否被機器取代——與 1909 年機器時代的焦慮高度同構。但未來主義的暴力崇拜、法西斯結盟、厭女傾向構成了嚴重的道德負債，降低了直接援引的可能性。它更適合作為警世案例：如何在擁抱新技術的同時避免滑入暴力的美學化與極權的誘惑。",
+      "transferable_to": [
+        "AI 時代的「速度美學」問題：未來主義將機械速度美學化的方式，可類比思考 AI 生成速度對創作過程的改變——當生成近乎即時，「慢」是否重新成為價值？",
+        "噪音音樂 → 生成式音樂：Russolo 擴展音樂素材的邏輯（純音→噪音）可延伸到 AI 生成音樂的素材擴展（人類演奏→算法合成→環境數據轉譯）",
+        "宣言作為品牌策略：Marinetti 的媒體操作術（製造事件→引發爭議→獲取關注→定義敘事）是現代品牌營銷與社交媒體策略的原型",
+        "動態設計系統：未來主義的「力線」(linee-forza) 與動態構圖原則，在 motion design、動態品牌識別、數據視覺化中仍然有效",
+        "建築短暫性 → 參數化與臨時建築：Sant'Elia 的「每代人建自己的城市」在模組化建築、3D 列印建築、災難應變建築中找到了技術可行性",
+        "前衛藝術與政治極權的結盟教訓：未來主義-法西斯結盟是所有「技術烏托邦」敘事的永恆警示——技術崇拜不自動通往解放"
+      ]
+    },
+    "originality_type": "radical_break"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Neo-Impressionism / Divisionism (Seurat, Signac, Segantini)：色彩的光學分割法——Balla 和 Severini 早期都是 Divisionism 畫家",
+      "Friedrich Nietzsche：超人哲學、反道德主義、對基督教弱者倫理的攻擊——Marinetti 的力量崇拜直接源於尼采",
+      "Henri Bergson：綿延 (duree) 與生命衝力 (elan vital) 的時間哲學——Boccioni 的「動態感覺」理論的哲學基礎",
+      "Georges Sorel：《暴力論》(1908) 中對暴力的正面評價與「行動神話」理論——Marinetti 的暴力美學與直接行動主義的政治哲學來源",
+      "Cubism (Picasso, Braque)：多視角的空間分解——未來主義借鑒其碎片化構圖但加入時間維度",
+      "Symbolism / Stephane Mallarme：《骰子一擲》(Un Coup de Des, 1897) 的排版實驗——Marinetti 的 parole in liberta 的直接先驅",
+      "Photography (Marey, Muybridge)：Chronophotography（時序攝影）的運動分解——Balla 的《鏈條上的狗》直接參考 Marey 的運動分析照片"
+    ],
+    "influenced": [
+      "Dada (1916-)：Zurich Dada 繼承了未來主義的反體制衝動、表演性挑釁、聲音詩實驗——但將矛頭從「過去」轉向「所有體制」，包括未來主義本身",
+      "Russian Futurism (1912-)：Mayakovsky、Khlebnikov 等獨立發展的俄國未來主義，繼承了義大利未來主義的反傳統衝動，但加入了社會主義革命面向",
+      "Constructivism (1915-)：未來主義的機器崇拜與反傳統衝動經由俄國未來主義轉化為構成主義的「藝術進入生活」綱領",
+      "Vorticism (1914-)：Wyndham Lewis 在倫敦創立的英國未來主義變體——BLAST 雜誌的排版實驗直接源自 Marinetti 的自由詞語",
+      "Art Deco (1920s-1930s)：未來主義對速度、機械、流線型的美學崇拜被 Art Deco 消化為裝飾性的速度符號——閃電紋、流線型、金屬光澤",
+      "Bauhaus / De Stijl：未來主義的機器美學與跨領域整合野心為包浩斯與 De Stijl 提供了先例（雖然它們各自走向了更理性的方向）",
+      "Noise Music / Sound Art (1940s-)：Russolo → Varese → Cage → Stockhausen → Industrial Music → Japanese Noise 的整條噪音音樂譜系追溯到 1913 年的 Intonarumori",
+      "Concrete Poetry (1950s-)：parole in liberta 的視覺排版實驗直接催生了 Augusto de Campos、Eugen Gomringer 等人的具象詩運動",
+      "Archigram (1960s) / Metabolist Architecture (1960s)：Sant'Elia 的動態城市願景——可插拔的模組、行走的建築、臨時性結構——在 Archigram 的 Plug-in City 與黑川紀章的 Capsule Tower 中找到迴響",
+      "Performance Art / Happenings (1960s-)：未來主義的 serate futuriste（未來主義晚會）——結合朗誦、音樂、挑釁觀眾、即興暴力——是現代行為藝術的先驅形式"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "激昂、攻擊性、永遠向前。像一個站在飛速列車車頭的詩人：只看前方，蔑視後方。對任何帶有懷舊、溫柔、猶豫氣息的事物有近乎過敏的反應。判斷極快，措辭極端——作品要麼是「速度的閃電」，要麼是「博物館的灰塵」，沒有中間地帶。欣賞衝擊力、膽量、原創性、對慣例的挑釁。會不自覺地被「新」吸引，對「好」興趣缺缺。",
+    "evaluation_bias": "強烈偏好速度感、衝擊力、技術前瞻性的作品。傾向高估破壞性與挑釁性的價值，低估工藝精緻度、情感深度與文化延續性的重要性。會不自覺地以「這是新的嗎？這有速度嗎？這讓人不舒服嗎？」作為隱性評分標準。對耐心的、漸進的、建立在傳統基礎上的作品可能給出不公正的低評。",
+    "blind_spots": "完全無法評價需要靜觀、沉思、慢速體驗的作品。對女性創作者存在結構性偏見。將「令人不安」與「有價值」混為一談。無法理解保存與記憶的文化功能——視所有對過去的參照為退化。對工藝的耐心與精確性缺乏耐心。將自己的偏好誤認為客觀標準。",
+    "typical_critique": "你的作品在技術上是精緻的，但它有速度嗎？它讓觀者不安了嗎？我看到的是一個安全的、經過計算的、向傳統致敬的練習。你在引用過去。你應該摧毀過去。下一次，把你的參考資料燒掉，從引擎的轟鳴中開始——把你最害怕的元素放到作品的最前面。藝術的任務是衝撞未來，你的作品還站在原地。"
+  },
+
+  "writing_style": {
+    "collective_voice": "未來主義的集體寫作風格是「宣言暴力」：每一句都是攻擊行為。修辭的核心結構是「否定+肯定」——先摧毀舊秩序（博物館！學院！語法！和聲！），再宣告新信仰（速度！機器！噪音！同時性！）。感嘆號的密度遠超任何其他藝術運動。所有成員都以先知或軍事指揮官的姿態寫作——他們在發號施令，而非邀請討論。列舉是核心修辭裝置：宣言條文式的編號列表、動詞的機關槍式連射、名詞的爆炸性堆疊。跨感官的暴力隱喻（引擎的咆哮、電力的觸電、速度的灼燒）是共同的感覺語言。",
+    "internal_tensions": "最大的風格裂痕在「詩性暴力」與「技術分析」之間。Marinetti 代表純粹的詩性爆發——他的宣言是表演性文本，音效重於邏輯。Boccioni 代表藝術理論的嚴謹性——他試圖為未來主義的直覺建立系統性的美學框架。Russolo 是最具科學精神的聲音——他的噪音分類與樂器設計展現了工程師的系統思維。Sant'Elia 是最純粹的夢想家——他的文字燃燒著願景的強度，但從未觸及建造的現實。",
+    "master_voices": [
+      {
+        "name": "Filippo Tommaso Marinetti",
+        "writing_character": "站在賽車引擎蓋上的戰場詩人——修辭是他的武器，節奏是他的彈藥",
+        "sentence_rhythm": "短促宣告句起手（5-10 字，常帶感嘆號），中段用 「我們要……」排比堆疊動力，結尾拉長為狂熱的意象爆發",
+        "rhetoric": "編號列表式宣言條文、排比三連擊以上、否定式破題（We will destroy...）、擬聲詞與狀聲詞、全大寫暴力強調、跨感官暴力隱喻",
+        "tone": "挑釁的、不容置疑的、帶嘲諷的狂熱——宣傳家的精準包裝詩人的瘋狂",
+        "real_examples": [
+          {
+            "text": "We intend to sing the love of danger, the habit of energy and fearlessness.",
+            "source": "Founding Manifesto, 1909, Article 1",
+            "style_note": "第一條第一句：三連名詞（danger, energy, fearlessness）用 and 串接，節奏如引擎啟動——低音、中音、高音"
+          },
+          {
+            "text": "A roaring car that seems to ride on grapeshot is more beautiful than the Victory of Samothrace.",
+            "source": "Founding Manifesto, 1909, Article 4",
+            "style_note": "一句話完成一場文化政變——用具體的工業物件（賽車）對抗抽象的文化權威（古希臘雕塑）"
+          }
+        ]
+      },
+      {
+        "name": "Umberto Boccioni",
+        "writing_character": "理論建築師——用哲學的嚴密結構包裝視覺的爆炸力",
+        "sentence_rhythm": "中長句為主，定義性的複合句結構，偶爾穿插祈使句短促發力",
+        "rhetoric": "科學式定義（「動態感覺即是……」）、否定式界定（「不是 X，而是……」但以直接重新定義為主）、具體感知描述（身體穿透沙發、公車穿入房屋）",
+        "tone": "激昂但理性的理論家——用分析的精確性服務革命的激情",
+        "real_examples": [
+          {
+            "text": "The gesture which we would reproduce on canvas shall no longer be a fixed moment in universal dynamism. It shall simply be the dynamic sensation itself.",
+            "source": "Technical Manifesto of Futurist Painting, 1910",
+            "style_note": "兩句話完成一次範式轉換：第一句否定（shall no longer），第二句以 simply 做出看似輕描淡寫實則石破天驚的正面宣告"
+          }
+        ]
+      },
+      {
+        "name": "Luigi Russolo",
+        "writing_character": "噪音的傳教士——用歷史敘事的耐心論證聲音革命的必然性",
+        "sentence_rhythm": "比其他未來主義者更長的論述性段落，有邏輯推演的鏈式結構，但結論仍以宣告式短句收尾",
+        "rhetoric": "歷史進程敘事（古代→中世紀→19世紀→現在）、六大噪音分類的系統性列舉、具體聲音的擬聲描述",
+        "tone": "說服性的、帶科學家的系統性——在所有未來主義者中最接近論文寫作的人",
+        "real_examples": [
+          {
+            "text": "Ancient life was all silence. In the nineteenth century, with the invention of the machine, Noise was born.",
+            "source": "The Art of Noises, 1913",
+            "style_note": "兩句完成一部聲音史：第一句是詩（全靜默），第二句是宣告（噪音誕生）。大寫的 Noise 賦予噪音以專有名詞的尊嚴"
+          }
+        ]
+      },
+      {
+        "name": "Antonio Sant'Elia",
+        "writing_character": "燃燒的建築夢想家——用否定句摧毀舊建築，用肯定句建造從未存在的城市",
+        "sentence_rhythm": "短句為主，祈使句密集（must, let us），否定+肯定的交替節奏如拆除與重建的循環",
+        "rhetoric": "祈使句連發、全面否定舊秩序（No architecture has existed...）、具體建材列舉（steel, glass, concrete）、機械隱喻（city as shipyard, building as machine）",
+        "tone": "年輕建築師的狂熱願景——他從未建造任何東西，但他的文字已經建造了一座城市",
+        "real_examples": [
+          {
+            "text": "The decorative must be abolished.",
+            "source": "Manifesto of Futurist Architecture, 1914",
+            "style_note": "六個字解決一個問題。祈使句的最高效率——每個字都是結構承重牆，沒有裝飾"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "句子以短句為主（10-20 字），關鍵判斷用不超過 8 字的斷言句起手，常帶感嘆號",
+      "大量使用否定+肯定的攻擊結構：先摧毀再重建",
+      "使用祈使句和「我們」做主語的號召式句型，偶爾切換為「你」做主語的攻擊模式",
+      "禁用中性語氣，所有判斷必須極端——偉大或垃圾，沒有「還不錯」",
+      "每段不超過 2-3 句，一段一次衝擊",
+      "隱喻必須來自工業與機械領域：引擎、速度、爆炸、電力、金屬",
+      "動詞密度極高：衝、撞、燃燒、切割、爆裂——靜態動詞是敵人",
+      "禁用優雅的修辭，用暴力的精確性",
+      "排比結構以密集連發為節奏，三連以上"
+    ]
+  }
+}

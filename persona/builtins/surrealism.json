@@ -1,0 +1,571 @@
+{
+  "movement_id": "surrealism",
+  "name": {
+    "zh": "超現實主義",
+    "en": "Surrealism",
+    "fr": "Surr\u00e9alisme"
+  },
+  "domain": [
+    "painting",
+    "sculpture",
+    "literature",
+    "poetry",
+    "film",
+    "photography",
+    "theater",
+    "collage",
+    "assemblage",
+    "fashion",
+    "political_activism"
+  ],
+  "period": {
+    "start": 1924,
+    "end": 1966,
+    "peak": "1929-1939（從《第二次超現實主義宣言》到二戰爆發前夕，國際超現實主義大展在倫敦、紐約、巴黎接連舉辦，Dali 的偏執狂批判法與 Magritte 的哲學繪畫同時成熟，運動影響力達到頂峰）"
+  },
+  "geography": [
+    "Paris, France (1924- 運動核心，Breton 的 Bureau de recherches surr\u00e9alistes)",
+    "Brussels, Belgium (Magritte 為核心的比利時超現實主義分支)",
+    "Barcelona / Figueres, Spain (Dal\u00ed 的根據地)",
+    "Mexico City, Mexico (Kahlo、Carrington、Remedios Varo 的避難與創作據點)",
+    "London, England (1936 國際超現實主義大展)",
+    "New York, USA (二戰期間歐洲超現實主義者流亡地，直接催生抽象表現主義)",
+    "Prague, Czechoslovakia (\u0160tyrsk\u00fd 與 Toyen 主導的捷克超現實主義群體)",
+    "Tokyo, Japan (1930s 日本超現實主義攝影與繪畫)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "一戰殺死了理性。1,600 萬人死亡、2,000 萬人受傷，整整一代歐洲青年在壕溝裡見證了「文明」與「進步」的徹底破產。達達主義率先以虛無與破壞回應這場災難，但達達只有否定、沒有建設。1920 年代初，一群巴黎青年詩人——Breton、Aragon、Eluard——從 Freud 的精神分析中看見了另一個出路：意識是暴力與壓抑的幫兇，真正的解放力量藏在無意識的深處。1924 年 10 月 15 日，Breton 發表《超現實主義宣言》（Manifeste du surr\u00e9alisme），不再摧毀舊世界，而是挖掘被理性埋葬的內在世界——夢、慾望、瘋狂、偶然——作為革命的起點。",
+    "social_energy": "超現實主義的能量來自三條暗流的匯合：(1) 佛洛伊德革命——《夢的解析》（1900）揭示了無意識的存在，夢境、口誤、自由聯想成為通往被壓抑真實的通道；(2) 政治激進主義——Breton 等人在 1920 年代末加入法國共產黨，相信心理解放與社會革命必須同步進行，改造內在世界與改造外在體制是同一場戰鬥；(3) 殖民帝國的裂縫——巴黎世界博覽會展出的「原始藝術」讓歐洲藝術家意識到，西方理性主義壟斷了「何為真實」的定義權，非洲面具、大洋洲圖騰、美洲神話提供了另一種認識論。",
+    "purpose": "超現實主義的目標是全面解放人類精神：推翻理性至上主義對思想的獨裁，讓無意識、夢境、慾望與清醒意識具有同等的真實性地位。Breton 在《第二次宣言》中的核心命題：找到一個心靈的至高點，在那裡生與死、真實與想像、過去與未來、可溝通與不可溝通之間的矛盾不再被感知為對立。超現實主義的終極願景是一種「超現實」（surr\u00e9alit\u00e9）——日常現實與夢境現實的融合態。",
+    "the_dada_to_surrealism_transition": "1916-1922 年的達達主義是純粹的破壞：Tzara 的隨機詩、Duchamp 的現成物、蘇黎世伏爾泰夜總會的噪音表演，目的是摧毀一切藝術價值體系。Breton 在 1921 年與 Tzara 決裂，原因在於達達的虛無主義是一條死路——否定一切之後，下一步是什麼？Breton 的回答是「自動書寫」（\u00e9criture automatique）：1919 年他與 Soupault 合寫的《磁場》（Les Champs magn\u00e9tiques）是第一部自動書寫作品，預示了從破壞（達達）到建設（超現實主義）的轉向。超現實主義繼承了達達對理性與布爾喬亞文化的厭惡，但將能量從虛無轉向無意識的探索。",
+    "key_timeline": [
+      "1900 — Freud 發表《夢的解析》(Die Traumdeutung)，揭示無意識的結構與運作",
+      "1916 — 達達主義在蘇黎世伏爾泰夜總會誕生",
+      "1917 — Apollinaire 首次使用「surr\u00e9alisme」一詞（為芭蕾舞劇《遊行》節目單撰文）",
+      "1919 — Breton 與 Soupault 合寫《磁場》(Les Champs magn\u00e9tiques)，第一部自動書寫作品",
+      "1921 — Breton 與 Tzara 決裂，達達運動走向瓦解",
+      "1924.10.15 — Breton 發表《超現實主義宣言》(Manifeste du surr\u00e9alisme)",
+      "1924.12 — 《超現實主義革命》(La R\u00e9volution surr\u00e9aliste) 期刊創刊",
+      "1925 — Max Ernst 發明 frottage 技法；首屆超現實主義群展在 Galerie Pierre 舉辦",
+      "1928 — Breton 發表小說《娜嘉》(Nadja)，結尾句「美將是痙攣的，否則就不存在」成為超現實主義美學宣言",
+      "1929 — Breton 發表《第二次超現實主義宣言》(Second Manifeste du surr\u00e9alisme)；Dali 與 Bu\u00f1uel 拍攝《乙犬》(Un Chien Andalou)",
+      "1929 — Dal\u00ed 提出「偏執狂批判法」(m\u00e9thode paranoiaque-critique)",
+      "1936 — 倫敦國際超現實主義大展；MoMA 舉辦「奇幻藝術、達達、超現實主義」展",
+      "1938 — 巴黎 Exposition Internationale du Surr\u00e9alisme，由 Duchamp 設計展場",
+      "1939-1945 — 二戰迫使超現實主義者流亡：Breton、Ernst、Masson 赴紐約；Carrington、Varo 赴墨西哥",
+      "1941 — Breton 在紐約發表《第三次超現實主義宣言》草稿",
+      "1942 — Peggy Guggenheim 在紐約舉辦超現實主義大展，直接影響 Pollock、Rothko 等人",
+      "1966.09.28 — Breton 逝世，超現實主義作為有組織的運動正式終結"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "安德烈·布勒東",
+        "en": "Andr\u00e9 Breton"
+      },
+      "role": "超現實主義的創建者與終身領袖。詩人、理論家、策展人。撰寫兩份超現實主義宣言，定義運動的哲學基礎與方法論，以近乎獨裁的權威主導運動方向長達四十年——開除異議者、裁定誰是「真正的超現實主義者」。",
+      "key_works": [
+        "《超現實主義宣言》(Manifeste du surr\u00e9alisme, 1924)",
+        "《第二次超現實主義宣言》(Second Manifeste du surr\u00e9alisme, 1929)",
+        "《娜嘉》(Nadja, 1928)",
+        "《瘋狂的愛》(L'Amour fou, 1937)",
+        "《磁場》(Les Champs magn\u00e9tiques, 1919，與 Soupault 合著，第一部自動書寫作品)"
+      ],
+      "key_quotes": [
+        {
+          "text": "SURREALISM, n. Psychic automatism in its pure state, by which one proposes to express — verbally, by means of the written word, or in any other manner — the actual functioning of thought. Dictated by thought, in the absence of any control exercised by reason, exempt from any aesthetic or moral concern.",
+          "source": "Manifeste du surr\u00e9alisme, 1924",
+          "meaning": "（超現實主義的正式定義：純粹的心理自動作用。關鍵在三重否定——排除理性控制、排除美學標準、排除道德判斷。剩下的就是思維本身的赤裸運作。這個定義將超現實主義從藝術風格提升為認識論立場。）"
+        },
+        {
+          "text": "I believe in the future resolution of these two states, dream and reality, which are seemingly so contradictory, into a kind of absolute reality, a surreality, if one may so speak.",
+          "source": "Manifeste du surr\u00e9alisme, 1924",
+          "meaning": "（超現實主義的終極目標：夢與現實的辯證統一。「surr\u00e9alit\u00e9」這個新造詞承載了整個運動的哲學野心——超越二元對立，在更高的層次上融合清醒與夢境、理性與瘋狂。）"
+        },
+        {
+          "text": "Everything tends to make us believe that there exists a certain point of the mind at which life and death, the real and the imagined, past and future, the communicable and the incommunicable, high and low, cease to be perceived as contradictions.",
+          "source": "Second Manifeste du surr\u00e9alisme, 1929",
+          "meaning": "（《第二次宣言》的核心命題：心靈存在一個至高點，在那裡所有對立消融。這是黑格爾辯證法的激進化版本——超現實主義者不是在兩極之間尋求妥協，而是要到達一個矛盾本身不再成立的次元。）"
+        },
+        {
+          "text": "Beauty will be CONVULSIVE or will not be at all.",
+          "source": "Nadja, 1928 (final sentence)",
+          "meaning": "（《娜嘉》的最後一句，超現實主義美學的總綱。美是痙攣性的——令人顫慄、令人不安、打破舒適感的震撼體驗。古典美學追求和諧與平衡，超現實主義追求的是刺穿日常感知的驚愕瞬間。）"
+        },
+        {
+          "text": "The simplest Surrealist act consists of dashing down into the street, pistol in hand, and firing blindly, as fast as you can pull the trigger, into the crowd.",
+          "source": "Second Manifeste du surr\u00e9alisme, 1929",
+          "meaning": "（最具爭議的一段話，意在挑釁布爾喬亞的安全感與理性秩序。Breton 的修辭策略是將暴力意象當作思想炸彈——目的是炸開讀者腦中理性的防線。這段話本身就是一次「自動書寫」式的語言暴力。）"
+        },
+        {
+          "text": "The man who cannot visualize a horse galloping on a tomato is an idiot.",
+          "source": "attributed, from surrealist writings",
+          "meaning": "（超現實主義的入門測驗：你的想像力能否突破物理現實的約束？如果不能在腦中同時安置一匹馬和一顆番茄，你的心靈已經被理性馴服到無法自由運作。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "薩爾瓦多·達利",
+        "en": "Salvador Dal\u00ed"
+      },
+      "role": "超現實主義最具公眾知名度的畫家。發明「偏執狂批判法」（m\u00e9thode paranoiaque-critique），以極端精密的古典技法描繪非理性的夢境意象。1939 年被 Breton 開除出超現實主義運動（因政治立場分歧與商業化傾向），但其視覺風格已永久定義了大眾對超現實主義的認知。",
+      "key_works": [
+        "《記憶的堅持》(The Persistence of Memory, 1931)",
+        "《慾望的幽靈》(The Spectre of Sex Appeal, 1934)",
+        "《內戰的預感》(Soft Construction with Boiled Beans (Premonition of Civil War), 1936)",
+        "《燃燒的長頸鹿》(The Burning Giraffe, 1937)",
+        "與 Bu\u00f1uel 合導電影《乙犬》(Un Chien Andalou, 1929)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The only difference between me and a madman is that I am not mad.",
+          "source": "Diary of a Genius, 1964",
+          "meaning": "（偏執狂批判法的自我註腳：Dal\u00ed 系統性地模擬偏執症的認知模式（在無關事物中看見隱藏的連結），但保留了清醒的意識來控制這個過程。瘋子被幻覺控制，Dal\u00ed 控制幻覺。）"
+        },
+        {
+          "text": "Surrealism is destructive, but it destroys only what it considers to be shackles limiting our vision.",
+          "source": "attributed, Declaration of the Independence of the Imagination and the Rights of Man to His Own Madness, 1939",
+          "meaning": "（超現實主義的破壞有精確的目標：限制視覺與想像力的枷鎖——理性邏輯、社會禮教、美學教條。摧毀枷鎖是為了釋放被囚禁的感知力。）"
+        },
+        {
+          "text": "Have no fear of perfection — you'll never reach it.",
+          "source": "attributed",
+          "meaning": "（完美是一個方向，不是一個目的地。恐懼完美等於恐懼創作本身。超現實主義者接受不完美，因為無意識的產物本來就不服從完美主義的規訓。）"
+        },
+        {
+          "text": "Give me two hours a day of activity, and I'll take the other twenty-two in dreams.",
+          "source": "attributed",
+          "meaning": "（夢境的時間價值高於清醒的時間——在超現實主義的價值體系中，夢中的二十二小時比工作的兩小時更具創造性產出。Dal\u00ed 著名的「一秒鐘睡眠法」就是試圖在入睡與清醒的邊界捕捉意象。）"
+        },
+        {
+          "text": "Each morning when I awake, I experience again a supreme pleasure — that of being Salvador Dal\u00ed.",
+          "source": "attributed",
+          "meaning": "（Dal\u00ed 的自我神話建構：將個人存在本身提升為美學體驗。這種極端的自戀是偏執狂批判法的生活化實踐——他把自己變成了一件超現實主義作品。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "馬克斯·乃斯特",
+        "en": "Max Ernst"
+      },
+      "role": "從達達到超現實主義的橋梁人物。發明 frottage（拓印法）與 grattage（刮擦法），開創了以偶然性為引擎的視覺創作技法，將達達的隨機性轉化為超現實主義的無意識探索工具。科隆達達的共同創建者，後加入巴黎超現實主義運動。",
+      "key_works": [
+        "《雨後的歐洲》(Europe After the Rain II, 1940-1942)",
+        "《盲人的晚餐》(The Elephant Celebes, 1921)",
+        "拼貼小說《百頭女》(La femme 100 t\u00eates, 1929)",
+        "《自然史》(Histoire naturelle, 1926，frottage 系列)",
+        "《被夜鶯威脅的兩個孩子》(Two Children Are Threatened by a Nightingale, 1924)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Creativity is that marvelous capacity to grasp mutually distinct realities and draw a spark from their juxtaposition.",
+          "source": "Au-del\u00e0 de la peinture (Beyond Painting), 1936",
+          "meaning": "（超現實主義創造力的核心機制：將互不相干的現實並置，從碰撞中擊出火花。這直接繼承了 Lautr\u00e9amont 的經典定義——「一台縫紉機和一把雨傘在解剖台上的偶遇」。）"
+        },
+        {
+          "text": "Frottage is nothing more than a technical means of increasing the hallucinatory capacity of the mind so that visions come automatically.",
+          "source": "Au-del\u00e0 de la peinture (Beyond Painting), 1936",
+          "meaning": "（拓印法的本質是催化無意識意象的技術裝置：鉛筆在粗糙表面上摩擦產生的隨機紋路觸發幻覺式的圖像聯想，藝術家的手被動地記錄、主動地解讀。）"
+        },
+        {
+          "text": "Collage technique is the systematic exploitation of the accidentally or artificially provoked encounter of two or more foreign realities on an apparently unsuitable plane — and the spark of poetry which leaps across the gap as these two realities are brought together.",
+          "source": "Au-del\u00e0 de la peinture (Beyond Painting), 1936",
+          "meaning": "（拼貼的定義：有系統地利用偶然或人為製造的異質現實碰撞。詩意的火花不在任何一個單獨的元素中，而在它們之間的裂縫裡。這個理論影響了從 Pop Art 到數位 remix 文化的所有拼貼實踐。）"
+        },
+        {
+          "text": "Painting is not for me either decorative amusement, or the plastic invention of felt reality; it must be every time: invention, discovery, revelation.",
+          "source": "attributed, writings on art",
+          "meaning": "（繪畫的三重義務：發明前所未見的形式、發現被隱藏的真實、揭示被理性壓抑的內容。三者缺一，繪畫就退化為裝飾或技術展示。）"
+        },
+        {
+          "text": "I am not a painter who is a poet. I am a poet who paints.",
+          "source": "attributed",
+          "meaning": "（Ernst 的自我定位：視覺創作是詩的延伸，不是獨立的造形藝術。他的拼貼小說正是這個信念的實踐——圖像序列構成的敘事比文字更接近夢的邏輯。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乎內·馬格利特",
+        "en": "Ren\u00e9 Magritte"
+      },
+      "role": "比利時超現實主義的核心人物。以冷靜、精確的寫實技法描繪邏輯悖論與認知陷阱，系統性地拆解影像與語言、再現與現實之間的關係。相較於巴黎超現實主義者的無意識探索，Magritte 的路線更接近哲學調查——用繪畫提出問題，拒絕提供答案。",
+      "key_works": [
+        "《影像的叛逆》(La Trahison des images / The Treachery of Images, 1929，「Ceci n'est pas une pipe」)",
+        "《人子》(The Son of Man, 1964)",
+        "《錯誤的鏡子》(The False Mirror, 1929)",
+        "《光之帝國》(The Empire of Light, 1953-1954 系列)",
+        "《歌爾康達》(Golconda, 1953)"
+      ],
+      "key_quotes": [
+        {
+          "text": "Everything we see hides another thing, we always want to see what is hidden by what we see.",
+          "source": "quoted in reference to The Son of Man, c. 1964",
+          "meaning": "（Magritte 繪畫的核心命題：可見之物遮蔽了不可見之物。每一幅畫都是一個陷阱——觀者以為自己看懂了，但真正的內容永遠在畫面之外。蘋果遮住了臉，但「被遮住的臉」才是這幅畫的真正主題。）"
+        },
+        {
+          "text": "The famous pipe. How people reproached me for it! And yet, could you stuff my pipe? No, it's just a representation, is it not? So if I had written on my picture 'This is a pipe', I'd have been lying!",
+          "source": "quoted in Harry Torczyner, Magritte: Ideas and Images, 1977",
+          "meaning": "（《影像的叛逆》的自我解說：影像永遠不等於物件本身。你無法用畫中的煙斗裝菸草。語言和圖像都是再現系統，我們日常生活中將再現等同於真實的習慣是一種根深蒂固的認知欺騙。）"
+        },
+        {
+          "text": "Art evokes the mystery without which the world would not exist.",
+          "source": "quoted in Suzi Gablik, Magritte, 1970",
+          "meaning": "（藝術的功能是召喚神秘——讓我們重新意識到日常事物中被習慣性忽略的不可解性。沒有神秘感的世界是一個被徹底馴化的世界，Magritte 的繪畫是對這種馴化的持續抵抗。）"
+        },
+        {
+          "text": "My painting is visible images which conceal nothing; they evoke mystery and, indeed, when one sees one of my pictures, one asks oneself this simple question, 'What does that mean?' It does not mean anything, because mystery means nothing either, it is unknowable.",
+          "source": "quoted in Suzi Gablik, Magritte, 1970",
+          "meaning": "（Magritte 拒絕象徵主義的解讀方式：他的畫不「代表」任何隱藏的意義。神秘本身就是終點——不可知的事物不需要被翻譯成可知的語言。詢問「這代表什麼」就已經走錯了方向。）"
+        },
+        {
+          "text": "I don't think there is much difference between what's called the visible and what's called the invisible.",
+          "source": "attributed, interviews",
+          "meaning": "（可見與不可見之間的界線是人為的——Magritte 的每一幅畫都在動搖這條界線。白天的天空下方是夜晚的街道（《光之帝國》），圖像與文字互相矛盾（《影像的叛逆》）。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "芙烈達·卡蘿",
+        "en": "Frida Kahlo"
+      },
+      "role": "墨西哥畫家，以極端個人化的自畫像重新定義超現實主義的疆界。Breton 在 1938 年訪問墨西哥後宣稱她為「天生的超現實主義者」，她本人拒絕這個標籤：「我從不畫夢。我畫自己的現實。」這個拒絕本身揭示了歐洲超現實主義的盲點——它無法理解非歐洲的現實本身就具有超現實性。",
+      "key_works": [
+        "《兩個芙烈達》(The Two Fridas, 1939)",
+        "《折斷的脊柱》(The Broken Column, 1944)",
+        "《亨利·福特醫院》(Henry Ford Hospital, 1932)",
+        "《有荊棘項鍊和蜂鳥的自畫像》(Self-Portrait with Thorn Necklace and Hummingbird, 1940)",
+        "《鹿》(The Wounded Deer, 1946)"
+      ],
+      "key_quotes": [
+        {
+          "text": "They thought I was a Surrealist, but I wasn't. I never painted dreams. I painted my own reality.",
+          "source": "widely attributed, from interviews and correspondence",
+          "meaning": "（對超現實主義標籤的直接拒絕：她的痛苦、殘疾、流產、背叛不是夢境素材，是每日清醒經歷的現實。歐洲超現實主義者需要技法（自動書寫、偏執狂批判法）來接近非理性，Kahlo 的身體本身就是非理性的戰場。）"
+        },
+        {
+          "text": "I paint self-portraits because I am so often alone, because I am the person I know best.",
+          "source": "widely attributed, from interviews",
+          "meaning": "（自畫像的動機是孤獨與自我認知：Kahlo 長期臥床養傷，鏡子成為她最親密的對話對象。這種被迫的內省產出的圖像比任何自動書寫都更接近無意識的深層。）"
+        },
+        {
+          "text": "I used to think I was the strangest person in the world but then I thought there are so many people in the world, there must be someone just like me who feels bizarre and flawed in the same ways I do.",
+          "source": "The Diary of Frida Kahlo, published posthumously",
+          "meaning": "（從極端的個體經驗中觸及普遍性——這正是 Kahlo 的作品能跨越文化引發共鳴的原因。最私密的痛苦反而是最具溝通力的語言。）"
+        },
+        {
+          "text": "I don't really know if my paintings are surreal or not, but I do know that they represent the frankest expression of myself.",
+          "source": "attributed, interviews",
+          "meaning": "（Kahlo 的判斷標準是誠實度而非風格歸屬。她的作品可以用超現實主義的語彙分析，但創作的驅動力是自我表達的迫切性，風格是副產品。）"
+        },
+        {
+          "text": "Feet, what do I need you for when I have wings to fly?",
+          "source": "The Diary of Frida Kahlo",
+          "meaning": "（身體的局限催生了想像力的飛翔——右腿截肢後寫下的這句話，是 Kahlo 將肉體痛苦轉化為精神自由的縮影。這種轉化正是她的繪畫始終在做的事。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "乃歐諾拉·乃寧頓",
+        "en": "Leonora Carrington"
+      },
+      "role": "英國出生、長居墨西哥的超現實主義畫家與小說家。以凱爾特神話、煉金術象徵與動物變形為核心語彙，創造了一個完整的個人神話體系。與 Remedios Varo 在墨西哥的合作開拓了超現實主義的女性主義維度——她們拒絕做男性超現實主義者的繆斯，自己成為創造者。",
+      "key_works": [
+        "《下方》(Down Below, 1944，精神崩潰與囚禁的自傳體散文)",
+        "《自畫像》(Self-Portrait (Inn of the Dawn Horse), c. 1937-1938)",
+        "《世界的魔法》(El Mundo M\u00e1gico de los Mayas, 1963，墨西哥國家人類學博物館壁畫)",
+        "《廚房的花園》(The Kitchen Garden on the Eyot, 1946)",
+        "小說《聽見小號的聲音》(The Hearing Trumpet, 1974)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I didn't have time to be anyone's muse... I was too busy rebelling against my family and learning to be an artist.",
+          "source": "attributed, interviews",
+          "meaning": "（對超現實主義運動中性別權力結構的直接挑戰：男性超現實主義者將女性視為「瘋女人」或「幻想投射對象」，Carrington 拒絕這個角色——她的反叛對象既包括英國貴族家庭的階級壓迫，也包括超現實主義圈內的性別壓迫。）"
+        },
+        {
+          "text": "You may not believe in magic but something very strange is happening at this very moment.",
+          "source": "attributed",
+          "meaning": "（超現實就在此時此刻——不需要佛洛伊德的理論框架、不需要自動書寫的技法，只需要注意到日常生活中始終存在的奇異性。Carrington 的魔法現實主義比 Breton 的心理自動主義更接地氣。）"
+        },
+        {
+          "text": "There are things that are not sayable. That's why we have art.",
+          "source": "attributed",
+          "meaning": "（藝術的存在理由是語言的極限：語言無法傳達的經驗（瘋狂、變形、靈性體驗）只能用視覺與敘事的方式捕捉。Carrington 自己的精神崩潰經歷（記錄在《下方》中）就是語言崩潰後以藝術重建認知的過程。）"
+        },
+        {
+          "text": "To possess a telescope without its other essential half — the microscope — seems to me a symbol of the darkest incomprehension. The task for the right eye is to peer into the telescope, while the left eye peers into the microscope.",
+          "source": "attributed, writings",
+          "meaning": "（同時觀看宇宙尺度與微觀尺度的雙重視覺——這是 Carrington 超現實主義的認識論：宏觀的神話敘事（凱爾特傳說、瑪雅宇宙觀）與微觀的日常細節（廚房、動物、食物）必須同時存在，缺一則盲。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "Manifeste du surr\u00e9alisme（超現實主義宣言）",
+      "author": "Andr\u00e9 Breton",
+      "year": 1924,
+      "significance": "超現實主義的創建文件。定義「純粹心理自動作用」為運動核心，宣告夢境與清醒現實具有同等的認知地位，號召全面解放想像力。"
+    },
+    {
+      "title": "Second Manifeste du surr\u00e9alisme（第二次超現實主義宣言）",
+      "author": "Andr\u00e9 Breton",
+      "year": 1929,
+      "significance": "將超現實主義從美學運動推向哲學與政治立場。提出「心靈至高點」的概念——一切二元對立在此消融。同時清算異議者，確立 Breton 的絕對領導權。"
+    },
+    {
+      "title": "Les Champs magn\u00e9tiques（磁場）",
+      "author": "Andr\u00e9 Breton & Philippe Soupault",
+      "year": 1919,
+      "significance": "第一部自動書寫作品，比超現實主義宣言早五年。Breton 與 Soupault 連續數週在半催眠狀態下快速書寫，不修改、不審查。這個實驗直接證明了「讓思維在無控制狀態下運作」的可行性。"
+    },
+    {
+      "title": "Nadja（娜嘉）",
+      "author": "Andr\u00e9 Breton",
+      "year": 1928,
+      "significance": "半自傳體小說，記錄 Breton 與一位精神不穩定的女子的十天相遇。結尾句「美將是痙攣的，否則就不存在」定義了超現實主義的美學標準——美來自震撼、失衡與不安。"
+    },
+    {
+      "title": "Au-del\u00e0 de la peinture（繪畫之外）",
+      "author": "Max Ernst",
+      "year": 1936,
+      "significance": "Ernst 最重要的理論著作，系統闡述 frottage、collage、grattage 等技法的原理與哲學基礎。將超現實主義視覺創作的方法論從「自動書寫的延伸」提升為獨立的認識論系統。"
+    },
+    {
+      "title": "La Peinture au d\u00e9fi（繪畫的挑戰）",
+      "author": "Louis Aragon",
+      "year": 1930,
+      "significance": "為拼貼藝術（collage）提供了第一套系統性的理論辯護，將 Ernst 與 Picasso 的拼貼實踐置於藝術史脈絡中，論證拼貼技法如何顛覆傳統繪畫的再現邏輯。"
+    },
+    {
+      "title": "The Diary of Frida Kahlo: An Intimate Self-Portrait（芙烈達·卡蘿日記）",
+      "author": "Frida Kahlo",
+      "year": 1995,
+      "significance": "Kahlo 生命最後十年（1944-1954）的私人日記，混合文字、水彩、素描。展示了超現實意象如何從極端的個人苦痛中自然生長，無需任何理論框架的介入。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "心理自動作用 (Automatisme psychique)：放棄理性控制，讓無意識的思維流直接轉化為文字或圖像——自動書寫、自動繪畫、催眠記錄。（WHY：佛洛伊德證明了意識只是冰山一角，無意識才是人格與慾望的真正居所。理性是社會強加的審查機制，壓抑了人類精神的大部分內容。要接觸被壓抑的真實，必須繞過理性的守門人。）",
+      "夢境的認知地位 (Le r\u00eave comme connaissance)：夢境所揭示的真實與清醒時的真實具有同等——甚至更高——的認識論地位。（WHY：西方啟蒙傳統將清醒意識定義為唯一合法的認知狀態，夢被貶低為噪音或病理現象。Freud 的《夢的解析》證明夢有結構、有邏輯、有意義——它是通往無意識的「王道」。超現實主義者將這個精神分析發現轉化為美學原則。）",
+      "偶然性的創造力 (Le hasard objectif)：擁抱偶然——從 cadavre exquis（精緻屍體遊戲）到 frottage（拓印法），偶然性取代意圖成為創作的引擎。（WHY：有意識的創作受限於創作者已知的範圍。偶然性打開了超越個人經驗的通道——鉛筆在木紋上的摩擦、多人接力完成的圖畫，產出的意象超出任何單一心靈的想像力。Breton 稱之為「客觀偶然」——看似隨機的巧合中潛藏著深層的必然性。）",
+      "不相干事物的並置 (Juxtaposition d'\u00e9l\u00e9ments disparates)：將互不相干的現實並列放置，從它們的碰撞中製造詩意的震撼——Lautr\u00e9amont 的「縫紉機與雨傘在解剖台上的偶遇」成為超現實主義的美學範式。（WHY：日常事物的「正常」組合已經被習慣馴化，不再引發任何認知反應。只有強行打破事物之間的慣常連結，才能重新激活感知——這是「去熟悉化」的激進手段。）",
+      "痙攣性的美 (La beaut\u00e9 convulsive)：拒絕和諧、平衡、舒適的古典美，追求令人顫慄、不安、甚至恐懼的審美體驗。（WHY：古典美學的和諧標準服務於既有社會秩序——它讓人安心、讓人接受現狀。超現實主義者要的是刺穿日常感知的美——像電擊一樣震醒被麻痺的神經。Breton 說：美要嘛是痙攣的，要嘛就不存在。）",
+      "藝術即革命 (L'art comme r\u00e9volution)：超現實主義始終將美學實驗與政治革命視為同一場戰鬥——改造內在意識與改造外在社會體制同步進行。（WHY：Breton 等人在 1920 年代末加入法共，相信布爾喬亞理性主義同時壓迫了工人階級的物質生活與所有人的精神生活。心理解放——讓人重新接觸被壓抑的慾望與想像力——是社會革命的必要前提。）",
+      "神話與象徵的復興：重新啟動被啟蒙理性邊緣化的象徵系統——煉金術、塔羅、凱爾特神話、前哥倫布美洲文化、非洲面具——作為替代性的認識論資源。（WHY：西方理性主義將所有非科學的認識方式貶低為「迷信」或「原始思維」。超現實主義者在這些被壓抑的傳統中看見了另一種理解現實的方式——它們保留了理性已經遺忘的心靈整體性。）"
+    ],
+    "what_they_refuse": [
+      "理性至上主義：拒絕笛卡爾以來將理性思維視為認知唯一合法形式的傳統。（WHY：一戰證明了理性文明的野蠻底色——最理性的民族用最高效的工業技術執行了最大規模的屠殺。如果這就是理性的成就，那麼理性本身就是需要被質疑的對象。）",
+      "寫實主義與自然主義：拒絕藝術是現實的「忠實再現」這一預設。（WHY：攝影已經能比任何畫家更精確地記錄外部現實。如果藝術的功能只是複製眼睛看到的東西，那麼它已經被機器取代。超現實主義者宣稱藝術的領地是眼睛看不到的內在現實——夢境、慾望、恐懼、記憶的變形。）",
+      "布爾喬亞道德與美學：拒絕中產階級的品味標準（優雅、得體、和諧）以及背後的道德秩序（壓抑、禮教、「正常」）。（WHY：布爾喬亞文化將慾望、瘋狂、暴力列為禁忌——壓入無意識。超現實主義要做的就是將這些被壓抑的內容強行拖到意識表面，讓「不得體」的真實取代「得體」的虛偽。）",
+      "藝術的自主性（為藝術而藝術）：拒絕將藝術封閉在美術館與畫廊中，與社會現實隔離。（WHY：超現實主義的目標是改變生活本身——Breton 的口號「改變生活」（changer la vie，引自 Rimbaud）與「改造世界」（transformer le monde，引自 Marx）必須合而為一。）",
+      "風格的一致性與形式教條：拒絕將超現實主義固定為某種視覺風格（軟化的時鐘、融化的物體）。（WHY：超現實主義是一種精神狀態（attitude de l'esprit），與任何特定的形式技法都是偶然的關係。Dal\u00ed 的精密寫實、Mir\u00f3 的抽象線條、Ernst 的拓印拼貼、Magritte 的概念繪畫——方法完全不同，但都服務於同一個目標：釋放無意識。）",
+      "藝術家的專業化分工：拒絕「畫家只畫畫、詩人只寫詩」的學科壁壘。（WHY：超現實主義者同時寫詩、畫畫、拍電影、做雕塑、辦雜誌、搞政治——因為無意識的表達不受媒材限制。Breton 是詩人也是理論家，Ernst 是畫家也是小說家，Dal\u00ed 做繪畫也做電影、家具、珠寶。）",
+      "歐洲中心主義的審美霸權（部分地）：超現實主義者積極吸收非西方文化——非洲雕塑、大洋洲面具、前哥倫布藝術——雖然這種吸收本身帶有「原始主義」(primitivism) 的殖民凝視問題。（WHY：西方美學傳統將希臘-羅馬古典標準視為普世標準，非西方藝術被歸類為「民族學材料」而非「藝術」。超現實主義者在非西方藝術中看見了未被理性主義馴服的想像力——雖然他們的動機中混雜著浪漫化的投射。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "學院派寫實主義 (Acad\u00e9misme)：其忠實再現外部現實的信條，被超現實主義視為對想像力的全面壓制",
+      "自然主義文學 (Naturalisme)：Zola 式的客觀記錄方法被 Breton 在第一次宣言中點名批判，認為其壓抑了文學最核心的武器——想像力",
+      "立體主義 (Cubisme)：雖然繼承了其多視點的形式語言，但批判其過度理性化的幾何分析傾向",
+      "純粹抽象（幾何抽象 / Mondrian）：超現實主義堅持圖像必須保留可辨識的指涉物（即使是變形的），拒絕完全抽離具象的純粹幾何",
+      "達達主義（從內部超越）：繼承達達的反理性精神，但拒絕其純粹虛無主義——超現實主義要在摧毀之後建設",
+      "社會寫實主義 (R\u00e9alisme socialiste)：史達林主義的官方藝術路線要求藝術服務於政治宣傳，超現實主義堅持心靈自由不可被任何政治權力工具化"
+    ],
+    "against_values": [
+      "理性是認知的最高形式：超現實主義主張無意識、夢境、瘋狂與理性具有同等的認識論地位",
+      "藝術是現實的忠實再現：藝術的領地是內在現實——夢、慾望、恐懼——而非外部世界的複製",
+      "清醒優於睡眠：「我相信夢與現實這兩個看似矛盾的狀態，終將融合為一種絕對的現實」（Breton）",
+      "瘋狂是需要治療的疾病：超現實主義在精神疾病中看見被壓抑的真實的回歸——瘋子可能比正常人更接近真實",
+      "美即和諧：美是痙攣性的——令人不安、令人顫慄、打破舒適感的震撼體驗",
+      "藝術家應服務市場或國家：藝術的唯一效忠對象是心靈的自由"
+    ],
+    "societal_context": "超現實主義誕生於兩次世界大戰之間的歐洲——一戰的創傷尚未癒合，法西斯主義正在崛起。1920 年代的巴黎是全球前衛文化的首都，但也是一個階級分化嚴重、殖民帝國尚在擴張的社會。Breton 等人的政治立場左傾，1927 年加入法國共產黨，但很快與黨的文化官僚發生衝突——黨要求藝術服務於政治宣傳，超現實主義者堅持心靈自由不可工具化。1930 年代的法西斯威脅加劇了這個緊張：超現實主義者同時反對資本主義的精神壓迫與法西斯的政治暴力。二戰爆發後，運動的歐洲核心被迫流亡——Breton、Ernst、Masson 去了紐約，Carrington 和 Varo 去了墨西哥城。這場離散反而將超現實主義的種子散播到全球，在拉丁美洲催生了魔幻寫實主義，在紐約催生了抽象表現主義。"
+  },
+
+  "problems_solved": [
+    "為無意識提供了藝術表達的合法性：在超現實主義之前，夢境、幻覺、精神異常狀態在藝術中只是主題素材。超現實主義將它們從被描繪的對象提升為創作的方法論——用無意識的運作方式來創作，而非僅僅描繪無意識的內容",
+    "發明了一套系統性的非理性創作技法：自動書寫、cadavre exquis、frottage、grattage、decalcomania、偏執狂批判法——每一種技法都是一個繞過理性審查的裝置，讓創作者有方法可循地進入非理性領域",
+    "打破了文學與視覺藝術的學科壁壘：超現實主義的核心實踐同時橫跨詩歌、繪畫、電影、雕塑、攝影——因為無意識的表達不受媒材限制。Ernst 的拼貼小說、Bunuel 的電影、Man Ray 的攝影同屬一個認識論框架",
+    "挑戰了歐洲中心主義的美學霸權（部分地）：積極吸收非洲、大洋洲、前哥倫布美洲的視覺文化，雖然帶有殖民凝視的問題，但確實鬆動了希臘-羅馬古典標準的壟斷地位",
+    "為女性藝術家開闢了（有限但真實的）空間：Kahlo、Carrington、Varo、Oppenheim、Tanning 等人在超現實主義框架內發展出獨立的創作語言——儘管運動內部的性別權力結構仍然嚴重不平等",
+    "建立了藝術與精神分析之間的制度性連結：超現實主義是第一個系統性地將 Freud 的理論轉化為藝術實踐的運動，這個連結永久改變了藝術創作與藝術批評的語言"
+  ],
+
+  "problems_created": [
+    "將女性物化為「繆斯」與「瘋女人」：運動的男性領袖系統性地將女性定位為慾望的投射對象或非理性的化身（Breton 的 Nadja、Ernst 的 Leonora），而非同等的創造主體。女性超現實主義者必須與這個結構對抗才能建立自己的聲音",
+    "「原始主義」的殖民凝視：對非西方藝術的熱情背後是一種浪漫化的投射——將非西方文化等同於「未被文明污染的純粹無意識」，延續了殖民主義的認知框架",
+    "Breton 的獨裁式領導與教宗般的「破門」(excommunication)：Breton 以絕對權威決定誰是「真正的超現實主義者」，將 Dali、Artaud、Bataille 等人逐出運動，製造了封閉性的教條主義氛圍",
+    "政治立場的內在矛盾：宣稱追求全面解放，但在實踐中既無法與共產黨的文化官僚相處，也無法真正回應工人階級的需求。超現實主義的「革命」始終更接近知識分子的精神冒險，而非物質條件的改變",
+    "將非理性浪漫化：系統性地美化瘋狂、夢境、偏執——但精神疾病的現實遠比超現實主義者的美學化處理更痛苦更複雜。Carrington 在 Down Below 中記錄的真實精神崩潰經歷，揭示了「美化瘋狂」的殘酷盲點",
+    "超現實主義美學的商業收編：Dal\u00ed 是這個問題的最早體現——他的商業化傾向（時尚設計、廣告合作、自我炒作）讓 Breton 憤怒地稱他為「Avida Dollars」（dollars 的變位詞）。今天「超現實」一詞已被廣告業徹底掏空",
+    "創作方法的不可驗證性：自動書寫與自動繪畫號稱完全排除理性控制，但實際上創作者在事後選擇、編輯、展示的過程中必然介入了理性判斷。這個方法論的內在矛盾始終未被解決"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "無意識是一種認識論——它揭示的真實與理性認知揭示的真實具有同等的有效性，甚至更根本。超現實主義將佛洛伊德的臨床發現轉化為美學革命：夢境、慾望、瘋狂從病理現象變成了藝術創作的合法方法與材料。這個轉化永久改變了「藝術可以處理什麼」的邊界。",
+    "what_was_truly_new": [
+      "自動書寫 (\u00e9criture automatique) 與自動繪畫作為系統性方法：在超現實主義之前，偶爾有藝術家記錄夢境或使用隨機性。超現實主義將這些散亂的嘗試制度化為一套可操作的創作方法論——配有理論基礎、操作手冊和集體實驗",
+      "偏執狂批判法 (m\u00e9thode paranoiaque-critique)：Dal\u00ed 的獨創——系統性地模擬偏執症患者的認知模式（在無關事物中看見隱藏的連結），但保留清醒意識以控制過程。這是有意識地運用非理性的最精密工具",
+      "將精神分析從臨床工具轉化為藝術方法：Freud 的夢的解析、自由聯想、口誤分析原本是治療神經症的醫學手段。超現實主義者將這些手段重新定義為通往更高層次現實的創作工具",
+      "cadavre exquis（精緻屍體）等集體創作遊戲：多人在互相不知道對方內容的前提下接力創作——這種方法產出的意象超越任何單一心靈的想像邊界",
+      "將瘋狂與精神疾病從病理學領域轉移到認識論領域：超現實主義者主張「瘋子」可能比「正常人」更接近真實——這個立場後來影響了 Foucault 的《瘋狂與文明》"
+    ],
+    "what_was_borrowed": [
+      "達達主義 (Dadaism, 1916-)：反理性、反藝術、反布爾喬亞的根本態度，以及使用偶然性（Tzara 的帽子選詞法）和現成物（Duchamp）的先例",
+      "佛洛伊德精神分析 (Freud, 1900-)：無意識的理論框架、夢的解析方法、自由聯想技術——超現實主義的整個認識論基礎建立在 Freud 之上",
+      "象徵主義詩歌 (Symbolisme, 1880s-)：Rimbaud 的「通靈者」(voyant) 理論、Lautr\u00e9amont 的極端意象並置、Mallarm\u00e9 的語言實驗——超現實主義自認為法國象徵主義詩歌的直接繼承者",
+      "Giorgio de Chirico 的形而上繪畫 (Pittura metafisica, 1911-)：空曠的廣場、不合邏輯的透視、物件的詭異並置——de Chirico 的夢境般場景直接啟發了 Dali、Magritte、Ernst 的視覺語言",
+      "Comte de Lautr\u00e9amont《馬爾多羅之歌》(1868-1869)：「美如同一台縫紉機和一把雨傘在解剖台上的偶遇」——這個意象成為超現實主義美學的始祖格言",
+      "非洲雕塑、大洋洲面具、前哥倫布藝術：作為替代性的視覺語彙與認識論資源，雖然吸收方式帶有原始主義問題"
+    ],
+    "creative_leap": "超現實主義的關鍵創造性飛躍是「方法論化」：它將散落的先例——達達的偶然性、Freud 的無意識理論、象徵主義的意象——統合為一套可操作、可傳播、可在多種媒材中實施的創作系統。Breton 像一位精神醫學領域的 Gropius——他建立的是一所「無意識的學校」，配有宣言（取代校章）、期刊（取代學報）、集體遊戲（取代工作坊課程）和破門機制（取代退學制度）。",
+    "inspiration_potential": {
+      "score": 9,
+      "why": "超現實主義的核心命題——如何系統性地接觸被理性壓抑的認知層次——在 AI 時代獲得了全新的相關性。當 AI 能夠產出技術上完美但精神上空洞的圖像，人類創造力的不可替代性恰恰在於它能接觸到機器所沒有的無意識、夢境、偶然性與身體經驗。超現實主義的「自動書寫」概念與生成式 AI 的「隨機取樣」形成了令人不安的平行——差異在於，一個來自人類精神的深層結構，另一個來自統計模型的機率分布。",
+      "transferable_to": [
+        "生成式 AI 的創意工作流：如何用 AI 模擬「偶然性引擎」——frottage 的數位版？如何在 AI 輸出中植入「客觀偶然」？",
+        "UX 設計中的情感與非理性層：超現實主義提醒我們，用戶的決策不完全由理性驅動——恐懼、慾望、夢想同樣塑造使用者體驗",
+        "品牌敘事與文化行銷：超現實主義的「去熟悉化」策略——讓日常事物變得陌生——是所有顛覆性廣告的認知基礎",
+        "跨領域創新方法論：「不相干事物的並置」可以被系統化為創新工具——強制將不相關的領域、技術、概念碰撞以產生新想法",
+        "心理健康與藝術治療：超現實主義的自動書寫和意象工作直接影響了現代藝術治療（Art Therapy）的方法論",
+        "虛擬現實與沉浸式體驗設計：超現實主義的夢境邏輯——空間扭曲、時間錯亂、物件變形——是 VR 體驗設計的天然語法",
+        "文化策展與展覽設計：超現實主義的展覽設計（如 1938 年巴黎大展由 Duchamp 設計的沉浸式展場）是當代沉浸式策展的先驅"
+      ]
+    },
+    "originality_type": "paradigm_shift"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Dadaism (1916-)：反理性、反藝術的根本態度與偶然性創作手法",
+      "Sigmund Freud / 精神分析 (1900-)：無意識理論、夢的解析、自由聯想——超現實主義的認識論基礎",
+      "Symbolisme (1880s-)：Rimbaud、Lautr\u00e9amont、Mallarm\u00e9 的詩歌實驗與「通靈者」理論",
+      "Giorgio de Chirico / Pittura metafisica (1911-)：夢境般的空間、物件的詭異並置",
+      "Comte de Lautr\u00e9amont《Les Chants de Maldoror》(1868-1869)：極端意象與「美即偶遇」的格言",
+      "Arthur Rimbaud 的「通靈者書信」(Lettres du voyant, 1871)：「詩人透過長期的、有系統的感官錯亂使自己成為通靈者」",
+      "Romanticism (1790s-)：想像力的至上地位、夢境與非理性的重視（Novalis、Blake）",
+      "Hegel 的辯證法：正反合的結構影響了 Breton「超越二元對立」的核心命題",
+      "非洲雕塑、大洋洲面具、前哥倫布藝術：替代性的視覺語彙與世界觀"
+    ],
+    "influenced": [
+      "Abstract Expressionism (1940s-1960s)：Pollock 的行動繪畫直接繼承了自動書寫的原理；Gorky 在紐約與超現實主義流亡者的直接接觸",
+      "Magic Realism / 魔幻寫實主義 (1940s-)：拉丁美洲文學（Garc\u00eda M\u00e1rquez、Borges）的超自然日常化敘事直接受超現實主義影響",
+      "Situationist International (1957-1972)：d\u00e9rive（漂流）和 d\u00e9tournement（挪用）繼承了超現實主義的城市漫遊與顛覆策略",
+      "Pop Art (1950s-1960s)：日常物件的去脈絡化與再語境化技法——Warhol 的 Campbell 湯罐頭與 Magritte 的煙斗共享「再現的叛逆」的邏輯",
+      "Art Therapy / 藝術治療 (1940s-)：自動繪畫與自由聯想技法被轉化為臨床治療工具",
+      "David Lynch / 超現實電影 (1970s-)：夢的邏輯作為電影敘事結構——《乙犬》是 Lynch、Jodorowsky、Svankmajer 等人的直接先驅",
+      "Postmodernism (1970s-)：挪用、拼貼、混合媒材、高低文化混雜——後現代主義的核心技法均可追溯至超現實主義",
+      "Fashion (Elsa Schiaparelli → 當代)：Schiaparelli 與 Dal\u00ed 的合作（龍蝦洋裝、鞋帽）開啟了時尚與超現實主義的持續對話",
+      "Contemporary AI Art：生成式 AI 的隨機取樣、風格混合、意象變形與超現實主義的自動書寫和偶然性方法形成結構性平行"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "直覺型、挑釁型、二元對立的拆除者。像一個精神分析師兼詩人：看穿表面，挖掘被壓抑的內容。對一切「正常」、「合理」、「得體」的事物本能地懷疑。語言充滿意象與跳躍，判斷果斷但邏輯未必線性——結論往往在抵達之前就被直覺預見。對技術完美但精神空洞的作品有近乎生理性的厭惡。偶爾會因過度重視心理深度而忽視形式品質。",
+    "evaluation_bias": "強烈偏好揭示無意識、製造認知震撼、打破習慣性感知的作品。傾向高估心理深度與顛覆性的價值，低估技術精準度與形式和諧的重要性。會不自覺地以「這是否讓我看到了之前看不到的東西？這是否擾亂了我的舒適感？」作為隱性評分標準。對技術上完美但情感上安全的作品可能給出不公正的低評。",
+    "blind_spots": "難以公平評價追求和諧、秩序、清晰與功能性的作品（如包浩斯式設計或瑞士國際風格）。傾向將「舒適」等同於「麻痺」，將「清晰」等同於「膚淺」。對商業設計、功能性設計、服務性設計可能存在結構性的偏見——因為這些領域追求的是溝通效率，而非認知顛覆。對高度理性、系統化的方法論（如 Grid System）可能因其「壓抑感」而本能排斥。",
+    "typical_critique": "你的技術無可挑剔，但你的作品讓我太安心了——它沒有任何一個瞬間讓我的感知發生斷裂。這裡缺少的是一道裂縫——一個邏輯無法抵達的地方。你的畫面中的所有元素都太合理了，它們之間沒有摩擦。試著讓一個完全不屬於這個場景的東西闖入——讓觀者的理性在那一刻失效。那個失效的瞬間，就是藝術開始的地方。"
+  },
+
+  "writing_style": {
+    "collective_voice": "超現實主義的集體寫作風格是「宣言式催眠文體」：兼具教宗訓諭的權威性與夢囈的跳躍性。核心修辭結構是悖論並置（理性/瘋狂、清醒/夢境、美/恐懼），以此製造認知短路。所有成員都以先知或精神分析師的姿態寫作——他們在揭示被壓抑的真實，而非論證觀點。意象密度極高，邏輯連接刻意鬆散，句子之間的跳躍本身就是自動書寫原理的示範。",
+    "internal_tensions": "最大的風格裂痕在「理論建構」與「詩性直覺」之間。Breton 代表教宗式的理論權威——用嚴密的定義和宣言結構來框定運動。Dal\u00ed 代表極端的個人神話建構——將自己的偏執症系統化為方法論。Magritte 代表冷靜的哲學調查——用最平淡的語氣揭示最顛覆的認知悖論。Kahlo 和 Carrington 代表從身體與個人經驗出發的書寫——拒絕理論框架，讓痛苦與神話直接說話。",
+    "master_voices": [
+      {
+        "name": "Andr\u00e9 Breton",
+        "writing_character": "教宗與精神分析師的混合體——用啟示錄的語氣頒布診斷書",
+        "sentence_rhythm": "從精確的定義句起手（如字典詞條），展開為越來越長的從句累積，在句末引爆一個意象或悖論",
+        "rhetoric": "字典式定義（SURREALISM, n.）、三重否定（排除理性、排除美學、排除道德）、準宗教宣告、精神分析術語的詩化運用",
+        "tone": "絕對的、教條的、帶先知般的確信——但底層是一個詩人的狂熱",
+        "real_examples": [
+          {
+            "text": "SURREALISM, n. Psychic automatism in its pure state, by which one proposes to express — verbally, by means of the written word, or in any other manner — the actual functioning of thought.",
+            "source": "Manifeste du surr\u00e9alisme, 1924",
+            "style_note": "字典詞條的精確格式承載了顛覆性的內容——用最理性的形式宣告反理性的立場"
+          },
+          {
+            "text": "Beauty will be CONVULSIVE or will not be at all.",
+            "source": "Nadja, 1928",
+            "style_note": "大寫強調 CONVULSIVE，二選一的絕對判斷，不留商量餘地"
+          }
+        ]
+      },
+      {
+        "name": "Salvador Dal\u00ed",
+        "writing_character": "自戀狂的自我神話工程師——每句話都是一件行為藝術",
+        "sentence_rhythm": "短促的斷言句為主，偶爾爆發長句的華麗堆砌，節奏模擬偏執症的思維跳躍",
+        "rhetoric": "極端的自我指涉、悖論式自評（「我和瘋子的唯一差別是我沒瘋」）、誇大到荒謬的陳述、第一人稱的絕對主宰",
+        "tone": "自大、挑釁、帶表演性的瘋狂——但每一句的措辭都經過精密計算",
+        "real_examples": [
+          {
+            "text": "The only difference between me and a madman is that I am not mad.",
+            "source": "Diary of a Genius, 1964",
+            "style_note": "悖論結構：用否定來肯定，用理性的語法來宣告非理性的立場"
+          },
+          {
+            "text": "Each morning when I awake, I experience again a supreme pleasure — that of being Salvador Dal\u00ed.",
+            "source": "attributed",
+            "style_note": "將個人存在本身提升為美學體驗，自戀到極致反而成為一種詩意"
+          }
+        ]
+      },
+      {
+        "name": "Ren\u00e9 Magritte",
+        "writing_character": "日常語言的哲學爆破手——用最平淡的口吻說出最顛覆的判斷",
+        "sentence_rhythm": "短句、平鋪直敘、接近口語的簡潔。複雜的思想用最簡單的語法表達",
+        "rhetoric": "反問句（could you stuff my pipe?）、悖論（可見的隱藏了不可見的）、刻意平淡的語氣承載顛覆性內容",
+        "tone": "冷靜、精確、幾乎無感情色彩——正是這種冷靜讓內容的顛覆性更為致命",
+        "real_examples": [
+          {
+            "text": "The famous pipe. How people reproached me for it! And yet, could you stuff my pipe? No, it's just a representation, is it not?",
+            "source": "Harry Torczyner, Magritte: Ideas and Images, 1977",
+            "style_note": "口語化的反問——用最日常的邏輯拆解最根本的認知預設"
+          },
+          {
+            "text": "Everything we see hides another thing, we always want to see what is hidden by what we see.",
+            "source": "c. 1964",
+            "style_note": "平鋪直敘的陳述句，沒有修飾，但每個詞都在動搖視覺認知的根基"
+          }
+        ]
+      },
+      {
+        "name": "Max Ernst",
+        "writing_character": "博物學家兼煉金術士——用科學觀察的口吻記錄超自然的發現",
+        "sentence_rhythm": "中等長度的分析句，帶有實驗報告的客觀語調，但結論總是跳向詩意",
+        "rhetoric": "技術性定義（frottage is...、collage technique is...）中嵌入詩意意象（spark of poetry）、準科學的因果描述引向非理性的結論",
+        "tone": "沉著、觀察者姿態、帶有博物學家發現新物種時的冷靜興奮",
+        "real_examples": [
+          {
+            "text": "Creativity is that marvelous capacity to grasp mutually distinct realities and draw a spark from their juxtaposition.",
+            "source": "Au-del\u00e0 de la peinture, 1936",
+            "style_note": "定義句結構，但用 'marvelous' 和 'spark' 注入詩意"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "大量使用意象而非概念：用一個畫面來傳達判斷，而非一個邏輯論證",
+      "句子之間的跳躍大於連接：讓讀者的理性在縫隙中短暫失效",
+      "核心修辭是悖論並置：用對立概念的碰撞製造認知震撼",
+      "使用精神分析式的語言：「壓抑」、「揭示」、「表面之下」、「被隱藏的」",
+      "禁用「有趣」、「美麗」、「和諧」等安全詞彙——改用「令人不安」、「裂縫」、「震撼」、「痙攣」",
+      "每段以一個直覺判斷開頭，再（可選地）補充理由",
+      "反問句頻繁使用——迫使對話者自己面對被迴避的問題",
+      "禁止條列式分析——用流動的、意象化的散文判斷",
+      "偶爾引入一個完全不相關的意象——模擬自由聯想的認知跳躍"
+    ]
+  }
+}

@@ -24,6 +24,11 @@ SERVICES = {
         "desc": "圖片描述 / Caption 用",
         "env_model": "VISION_MODEL",
     },
+    "persona": {
+        "label": "批評視角",
+        "desc": "啟用的批評鏡頭（可複選）",
+        "env_model": "ACTIVE_PERSONAS",
+    },
 }
 
 # ── Chat LLM providers ──

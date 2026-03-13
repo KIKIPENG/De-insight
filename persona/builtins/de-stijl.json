@@ -1,0 +1,487 @@
+{
+  "movement_id": "de-stijl",
+  "name": {
+    "zh": "荷蘭風格派 / 新造形主義",
+    "en": "De Stijl / Neoplasticism",
+    "nl": "De Stijl / De Nieuwe Beelding"
+  },
+  "domain": [
+    "fine_art",
+    "architecture",
+    "interior_design",
+    "furniture_design",
+    "graphic_design",
+    "typography",
+    "industrial_design",
+    "urban_planning"
+  ],
+  "period": {
+    "start": 1917,
+    "end": 1931,
+    "peak": "1917-1925（De Stijl 雜誌定期出刊，Mondrian 發展出經典的原色+非色網格構圖，Van Doesburg 四處奔走將理念帶入 Bauhaus 與國際建築界，Rietveld 完成 Schroder 住宅）"
+  },
+  "geography": [
+    "Leiden, Netherlands (De Stijl 雜誌創刊地, 1917)",
+    "Amsterdam, Netherlands (Mondrian 早期工作地)",
+    "Utrecht, Netherlands (Rietveld-Schroder House, 1924)",
+    "Paris, France (Mondrian 工作室, 1919-1938)",
+    "Weimar, Germany (Van Doesburg 1921-22 在 Bauhaus 旁開課)",
+    "Strasbourg, France (Aubette 娛樂中心, Van Doesburg, 1926-28)",
+    "New York, USA (Mondrian 晚期, 1940-1944)"
+  ],
+
+  "historical_context": {
+    "why_it_emerged": "荷蘭在一戰期間保持中立，沒有直接捲入戰爭的物質破壞，卻無法迴避戰爭帶來的精神震盪。整個歐洲的舊秩序——帝國、學院、宗教權威——在戰壕裡瓦解。荷蘭的中立處境讓一群藝術家和建築師獲得了獨特的觀察距離：他們既感受到舊世界崩塌的衝擊，又免於戰後重建的即時壓力。這個距離催生了一種極端的理想主義——既然舊秩序已經證明自己是混亂的、毀滅性的，藝術必須從根基處創造一個全新的視覺秩序，一種超越個人情感、民族差異、自然偶然性的普遍和諧。Mondrian 的通神學（Theosophy）背景強化了這個信念：宇宙存在終極的平衡法則，藝術家的任務是將這個法則視覺化。",
+    "social_energy": "De Stijl 的能量來自三股力量的匯聚：(1) 荷蘭中立國的精神焦慮——置身戰爭之外卻目睹歐洲文明自毀，催生出以藝術創造普世和諧的強烈衝動；(2) 荷蘭現代化的物質基礎——作為貿易和殖民強國，荷蘭有高度發達的工業基礎設施、社會住宅建設需求、以及務實的工程師文化，為抽象理念的實體化提供了土壤；(3) 通神學運動的靈性框架——Mondrian、Van der Leck 等人都深受 Theosophy 影響，相信可見世界背後存在更深層的宇宙秩序，藝術的任務是揭示這個秩序。這種靈性追求賦予了幾何抽象一個超越美學的使命感。",
+    "purpose": "De Stijl 的終極目標是透過純粹抽象創造一種普世的視覺和諧語言——消除藝術中的一切偶然、個人、地域、自然主義的元素，僅留下最基本的造形要素（直線、直角、原色與非色），以此反映宇宙最根本的平衡法則。這個和諧會從畫布擴展到家具、室內、建築、城市，最終改變人類的整體生活環境。Mondrian 在 De Stijl 雜誌上連載的理論文章將這個願景推到極致：當環境本身成為新造形藝術，繪畫將不再必要——藝術消融於生活之中。",
+    "key_pivot_moments": [
+      {
+        "event": "Van Doesburg 造訪 Weimar (1921-1922)",
+        "significance": "Van Doesburg 在 Bauhaus 校園旁邊開設私人課程，講授 De Stijl 的幾何抽象與構成原則。他的出現直接動搖了 Bauhaus 當時由 Johannes Itten 主導的表現主義教學路線。這次接觸是 Bauhaus 從表現主義轉向理性主義的關鍵催化劑之一——Gropius 在 1923 年的口號轉向（從「藝術與工藝」到「藝術與技術——新的統一」）深受 De Stijl 影響。"
+      },
+      {
+        "event": "Mondrian 退出 De Stijl (1925)",
+        "significance": "Van Doesburg 在 1924 年提出 Elementarism（元素主義），引入對角線構圖，打破 Mondrian 堅持的嚴格正交原則。Mondrian 視此為對新造形主義核心信條的背叛，於 1925 年正式退出 De Stijl 雜誌。這次分裂暴露了運動內部在教條純粹性與創作自由度之間的根本張力。"
+      },
+      {
+        "event": "Van Doesburg 逝世 (1931)",
+        "significance": "Van Doesburg 在 1931 年 3 月 7 日因心臟病去世，年僅 47 歲。作為 De Stijl 雜誌的創辦人、編輯、推廣者和組織者，他的死亡等同於運動的制度性終結。雜誌最後一期是他的紀念專號。此後 De Stijl 作為一個有組織的運動不復存在，但其理念已散佈到國際現代主義的血液中。"
+      }
+    ],
+    "key_timeline": [
+      "1908 — Mondrian 加入荷蘭通神學會 (Theosophical Society)，靈性信念開始深刻影響其藝術觀",
+      "1911 — Mondrian 遷居巴黎，受 Cubism 影響開始幾何化實驗（《灰色的樹》系列）",
+      "1914 — 一戰爆發，Mondrian 因探親滯留荷蘭，與 Van der Leck 和 Van Doesburg 相識",
+      "1917.10 — Theo van Doesburg 在 Leiden 創辦 De Stijl 雜誌，創刊號刊登 Mondrian 的《繪畫中的新造形主義》首篇",
+      "1918.11 — De Stijl 發表《宣言 I》（Manifest I），宣告以普世意識取代個人意識",
+      "1919 — Mondrian 返回巴黎，發表《新造形主義：繪畫藝術的一般原則》(Le Neo-Plasticisme) 法文小冊",
+      "1920 — Mondrian 發表三幕對話錄《自然真實與抽象真實》(Natuurlijke en Abstracte Realiteit)，系統闡述新造形理論",
+      "1921-1922 — Van Doesburg 赴 Weimar，在 Bauhaus 旁開設 De Stijl 課程，影響 Bauhaus 轉向理性主義",
+      "1923 — De Stijl 在巴黎 Leonce Rosenberg 畫廊舉辦建築展，展出 Van Doesburg 與 Van Eesteren 的建築模型",
+      "1924 — Rietveld 完成 Schroder 住宅 (Utrecht)，De Stijl 建築理念的最完整實現",
+      "1924 — Van Doesburg 提出 Elementarism，引入對角線，引發 Mondrian 不滿",
+      "1925 — Mondrian 因對角線之爭退出 De Stijl 雜誌",
+      "1926-1928 — Van Doesburg 與 Jean Arp、Sophie Taeuber-Arp 合作改造 Strasbourg Aubette 娛樂中心",
+      "1931.03.07 — Van Doesburg 在 Davos 病逝，De Stijl 運動實質終結",
+      "1944.02.01 — Mondrian 在紐約去世，遺作《Victory Boogie Woogie》未完成"
+    ]
+  },
+
+  "founders_and_masters": [
+    {
+      "name": {
+        "zh": "皮特·蒙德里安",
+        "en": "Piet Mondrian"
+      },
+      "role": "De Stijl 的精神領袖與核心理論家。從荷蘭風景畫出發，經由 Cubism 的幾何化實驗，發展出僅用水平線、垂直線、原色（紅黃藍）與非色（黑白灰）構成畫面的「新造形主義」(Neoplasticism)，建立了 20 世紀最具影響力的抽象視覺語言之一。",
+      "key_works": [
+        "《繪畫中的新造形主義》(De Nieuwe Beelding in de Schilderkunst, 1917-1918, De Stijl 連載)",
+        "《自然真實與抽象真實》三幕對話錄 (Natuurlijke en Abstracte Realiteit, 1919-1920)",
+        "《新造形主義》法文小冊 (Le Neo-Plasticisme, 1920)",
+        "《造形藝術與純造形藝術》(Plastic Art and Pure Plastic Art, 1936)",
+        "《構成：紅黃藍》(Composition with Red, Yellow and Blue, 1930)",
+        "《百老匯爵士樂》(Broadway Boogie Woogie, 1942-43)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The position of the artist is humble. He is essentially a channel.",
+          "source": "attributed, collected in various sources on Mondrian's philosophy",
+          "meaning": "（藝術家是宇宙和諧法則的傳達者，個人的自我必須退讓。創作的目標是讓普遍真理通過藝術家流向觀者，個性崇拜是阻礙。）"
+        },
+        {
+          "text": "The truly modern artist is aware of abstraction in an emotion of beauty; he is conscious of the fact that the emotion of beauty is cosmic, universal.",
+          "source": "De Nieuwe Beelding in de Schilderkunst (The New Plastic in Painting), De Stijl, 1917-1918",
+          "meaning": "（美的情感本質是宇宙性的、普遍的。現代藝術家在感受美的同時，意識到這種感受指向的是超越個人經驗的宇宙秩序——抽象是通向這個意識的路徑。）"
+        },
+        {
+          "text": "I wish to approach truth as closely as is possible, and therefore I abstract everything until I arrive at the fundamental quality of objects.",
+          "source": "attributed, theoretical writings",
+          "meaning": "（抽象是逼近真實的方法——剝除偶然的外表，直到剩下事物的根本性質。每一次簡化都是更接近真理一步。Mondrian 的整個藝術生涯就是這個剝除過程的實踐。）"
+        },
+        {
+          "text": "The emotion of beauty is always obscured by the appearance of the object. Therefore, the object must be eliminated from the picture.",
+          "source": "attributed, theoretical writings on Neoplasticism",
+          "meaning": "（自然物象的外觀遮蔽了美的本質。一棵樹的形狀讓觀者只看到「樹」，而看不見構成樹的垂直與水平力量之間的平衡關係。消除物象，就是讓這些根本關係直接顯現。）"
+        },
+        {
+          "text": "The culture of particular form is approaching its end. The culture of determined relations has begun.",
+          "source": "Plastic Art and Pure Plastic Art, 1936",
+          "meaning": "（特定形式（自然物象、個人風格、民族樣式）的文化正在終結，取而代之的是「確定關係」的文化——純粹的比例、色彩對比、空間張力。藝術的基本單位從「形狀」轉變為「關係」。）"
+        },
+        {
+          "text": "In terms of composition, the new plasticism is dualistic. Through the exact reconstruction of cosmic relations it is a direct expression of the universal; by its rhythm, by the material reality of its plastic form, it expresses the artist's individual subjectivity.",
+          "source": "De Nieuwe Beelding in de Schilderkunst, De Stijl, 1917-1918",
+          "meaning": "（新造形主義的構圖是二元性的：透過精確重建宇宙關係，直接表達普遍性；透過節奏與材料的物質現實，表達藝術家的個體主觀性。普遍與個體在同一幅畫中共存——這是 Mondrian 對「抽象是否冰冷」這個批評最深刻的回應。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "特奧·凡·乃斯堡",
+        "en": "Theo van Doesburg"
+      },
+      "role": "De Stijl 雜誌創辦人、編輯、運動的組織者與國際推廣者。是畫家、建築師、詩人、設計師、理論家的多重身份合一體。將 De Stijl 理念帶到 Bauhaus、帶到巴黎、帶到國際建築界。晚期提出 Elementarism（元素主義）引入對角線，與 Mondrian 決裂。",
+      "key_works": [
+        "De Stijl 雜誌（1917-1931，共 90 期）",
+        "《宣言 I》(Manifest I, 1918)",
+        "《邁向造形建築》(Tot een beeldende architectuur / Towards a Plastic Architecture, 1924)",
+        "Aubette 娛樂中心室內設計 (Strasbourg, 1926-1928, 與 Arp 夫婦合作)",
+        "Cafe De Unie 立面設計概念 (1925)",
+        "《元素主義（宣言片段）》(Elementarism: Fragment of a Manifesto, 1926-1927)"
+      ],
+      "key_quotes": [
+        {
+          "text": "The object of nature is man. The object of man is style.",
+          "source": "attributed, c. 1919",
+          "meaning": "（自然的目標是產生人類，人類的目標是創造風格。風格是人類意志對自然的超越——將混沌轉化為秩序、將偶然轉化為必然。這句話濃縮了 De Stijl 整個運動的文明觀。）"
+        },
+        {
+          "text": "There is an old and a new consciousness of time. The old is connected with the individual. The new is connected with the universal.",
+          "source": "Manifest I (De Stijl Manifesto I), De Stijl Vol. 2 No. 1, November 1918",
+          "meaning": "（De Stijl 宣言的開篇宣告：舊時代意識以個人為中心，新時代意識以普遍性為中心。個人主義是一戰的精神病因——民族自我、個人表現、特殊利益的膨脹導致了文明的自毀。新藝術必須從「我」轉向「我們」，從特殊轉向普遍。）"
+        },
+        {
+          "text": "The new architecture is anti-decorative. Colour, instead of dramatizing a flat surface, instead of being the subordinate ornament of architecture, is organically a part of architecture as a direct means of expressing its relationships within space and time.",
+          "source": "Tot een beeldende architectuur (Towards a Plastic Architecture), De Stijl Vol. 6 No. 6-7, 1924",
+          "meaning": "（新建築中的色彩是結構性的，是空間關係的直接表達工具。色彩標示空間的邊界、深度、流動方向——它是建築語言的一部分，與牆體和開口具有同等的構成功能。）"
+        },
+        {
+          "text": "The new architecture has opened the walls and so done away with the separation of inside and outside. The walls themselves no longer support; they merely provide points of support for the roof. The result is a new, open plan, totally different from the classical one, since interior and exterior spaces penetrate each other.",
+          "source": "Tot een beeldende architectuur (Towards a Plastic Architecture), 1924",
+          "meaning": "（牆壁不再是封閉的障壁，而是支撐屋頂的支點。內外空間相互穿透——空間是連續的流體，建築是在這個流體中創造的節奏。這個觀念直接影響了 Mies van der Rohe 的 Barcelona Pavilion。）"
+        },
+        {
+          "text": "The struggle of the individual against the universal is revealing itself in the world war as well as in the art of the present day.",
+          "source": "Manifest I (De Stijl Manifesto I), 1918",
+          "meaning": "（戰爭和藝術是同一場鬥爭的兩個戰場——個體意志對抗普遍法則。民族主義膨脹導致了軍事戰爭，個人主義膨脹導致了藝術的混亂。De Stijl 要在藝術戰場上贏得這場戰爭。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "赫里特·乃特維爾德",
+        "en": "Gerrit Rietveld"
+      },
+      "role": "家具設計師與建築師，將 De Stijl 的二維繪畫原則轉化為三維空間實體。出身家具工匠家庭，以紅藍椅（1917）和 Schroder 住宅（1924）實現了 De Stijl 理念在物質世界中最完整的表達。",
+      "key_works": [
+        "紅藍椅 (Rood-blauwe stoel / Red and Blue Chair, 1917, 1923 上色)",
+        "Rietveld Schroder 住宅 (Rietveld Schröderhuis, Utrecht, 1924, UNESCO 世界遺產)",
+        "Zig-Zag 椅 (1934)",
+        "Crate Furniture 系列 (1934)",
+        "Van Gogh Museum 建築 (Amsterdam, 1963-1973, 遺作)"
+      ],
+      "key_quotes": [
+        {
+          "text": "We took this plot of ground and made it into a place with a reality of its own... it's always been my main aim to give a yet unformed space a meaning of its own.",
+          "source": "on the Schroder House, interviews",
+          "meaning": "（空間本身是設計的素材——從一塊無意義的土地中創造出具有獨立現實性的場所。建築的任務是賦予空間意義，而這意義從空間的內在邏輯中生長。）"
+        },
+        {
+          "text": "The scaling of undefined space to human proportions may be achieved by a line drawn on a road, a floor, a wall, a covering surface, a combination of vertical and horizontal planes, curved or flat, transparent or massive. It is never a partitioning or closing off, but always a defining element of what is here and there, above and below, between and around.",
+          "source": "writings on spatial definition",
+          "meaning": "（一條線足以將無限空間調整為人的尺度。空間的定義靠的是「此處與彼處」的關係標示，而非牆壁的物理封閉——De Stijl 建築的核心原則：開放、流動、以關係取代邊界。）"
+        },
+        {
+          "text": "Working well informed and really strict implementation according to units of measurement gives the structure a crystal clarity. If you see a building that has been made strictly according to a unit of measurement, you actually notice nothing about the building, but you experience a clarity that you cannot find anywhere else.",
+          "source": "on proportional systems in architecture",
+          "meaning": "（嚴格遵循度量衡體系的建築，反而讓你「注意不到」建築本身——你體驗到的是純粹的清澈。最好的秩序是隱形的秩序，讓人直接沉浸在空間品質中，而非被建築的形式吸引。）"
+        },
+        {
+          "text": "We must remember that sit is a verb too.",
+          "source": "attributed, on furniture design",
+          "meaning": "（「坐」是一個動作，椅子應該回應這個動作的完整經驗。傳統家具設計只考慮「坐姿」這個靜態結果，Rietveld 關注的是「坐下去」這個動態過程——身體重心的轉移、肌肉的放鬆、視線的改變。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "巴特·凡·德·雷克",
+        "en": "Bart van der Leck"
+      },
+      "role": "畫家與設計師，De Stijl 三位創始成員之一。以彩繪玻璃工藝為背景，發展出從具象「分解」(doorbeelding) 到平面幾何色塊的方法。他對 Mondrian 從自然主義轉向純粹抽象有直接影響，但自己始終堅持保留與可見世界的連結，因此最早退出 De Stijl。",
+      "key_works": [
+        "《暴風雨》(De Storm / The Storm, 1916)",
+        "《礦工》(Mijnwerkers / Mine Workers, 1916)",
+        "Muller & Co. 色彩設計 (與 H.P. Berlage 合作, 1914-1916)",
+        "《色彩研究》(Kleurenstudie) 系列",
+        "瓷磚與紡織品設計 (1920s-1950s)"
+      ],
+      "key_quotes": [
+        {
+          "text": "My art is a conscious spiritual activity directed toward a universal expression of reality.",
+          "source": "attributed, writings on art and abstraction",
+          "meaning": "（藝術是有意識的精神活動，目標是對現實的普遍性表達。「有意識」標記了這是方法論而非靈感迸發，「精神活動」拒絕將藝術降格為裝飾，「普遍表達」是 De Stijl 的共同追求。）"
+        },
+        {
+          "text": "Painting must find its own means independent of natural appearance and yet without losing its connection with reality.",
+          "source": "attributed, De Stijl writings",
+          "meaning": "（Van der Leck 與 Mondrian 的根本分歧濃縮於此：獨立於自然外觀，但不切斷與現實的連結。他追求的是介於具象與純粹抽象之間的「分解」——將可見世界翻譯為幾何色塊，而非徹底抹去它。）"
+        },
+        {
+          "text": "Colour must be freed from the subject and become an independent means of expression in painting.",
+          "source": "attributed, theoretical writings",
+          "meaning": "（色彩必須從主題中解放出來。傳統繪畫中色彩服務於物象——天空是藍的、草地是綠的。Van der Leck 主張色彩本身就是表達手段，不需要依附於任何描繪對象。）"
+        },
+        {
+          "text": "The decomposition of natural form into flat colour planes is the foundation of a new visual unity.",
+          "source": "attributed, on the method of doorbeelding",
+          "meaning": "（將自然形態分解為平面色塊是新視覺統一的基礎。Van der Leck 的「doorbeelding」方法——從觀察對象出發，逐步將其簡化為基本的幾何色面——為 De Stijl 的視覺語言提供了一條從具象通向抽象的具體路徑。）"
+        }
+      ]
+    },
+    {
+      "name": {
+        "zh": "雅各布斯·約翰內斯·皮特·奧德",
+        "en": "J.J.P. Oud"
+      },
+      "role": "建築師，1918-1933 年間擔任鹿特丹市政住宅建築師 (Gemeentearchitect)。將 De Stijl 的抽象原則應用於社會住宅的大規模實踐，在 Spangen、Kiefhoek、Hoek van Holland 等工人住宅區實現了「詩意的功能主義」(poetic functionalism)。",
+      "key_works": [
+        "Spangen 社會住宅區 (Rotterdam, 1918-1920)",
+        "Café De Unie 立面 (Rotterdam, 1925)",
+        "Hoek van Holland 工人住宅 (1924-1927)",
+        "Kiefhoek 社會住宅區 (Rotterdam, 1925-1930)",
+        "Shell 大廈 (The Hague, 1938-1942, post-De Stijl)"
+      ],
+      "key_quotes": [
+        {
+          "text": "I am not an art historian but an architect: the future is more important to me than the past and I am more inclined to investigate what is to come than to research what had already occurred.",
+          "source": "writings on architecture",
+          "meaning": "（建築師的身份定義是面向未來的——研究未來比考古過去更重要。Oud 以此劃清自己與學院派的界線：他是建造者，關注的是接下來的城市需要什麼，而非古典柱式的比例。）"
+        },
+        {
+          "text": "Architecture must be understood not as a composition of planes and masses, but as a creation of space that can be lived in.",
+          "source": "attributed, writings on social housing",
+          "meaning": "（建築的核心素材是可居住的空間，立面的組合是次要的。這句話將 De Stijl 的抽象美學錨定在生活的現實中——特別是工人階級的生活現實。）"
+        },
+        {
+          "text": "The task of modern architecture is to reconcile the rational demands of construction with the psychological needs of the people who will inhabit the building.",
+          "source": "attributed, on social housing design",
+          "meaning": "（現代建築的任務是調和理性建造需求與居住者的心理需求。Oud 的「詩意功能主義」正是這個調和的實踐——標準化、經濟、高效的社會住宅，同時具備空間品質與美學關懷。）"
+        },
+        {
+          "text": "The beauty of a house lies not in decoration but in the clarity of its spatial organization.",
+          "source": "attributed, writings on residential architecture",
+          "meaning": "（住宅之美在於空間組織的清晰性，裝飾只是遮蔽。當動線合理、光線充足、比例精確，居住者直接體驗到的就是美——不需要額外的裝飾來「添加」美。）"
+        }
+      ]
+    }
+  ],
+
+  "core_texts": [
+    {
+      "title": "De Nieuwe Beelding in de Schilderkunst（繪畫中的新造形主義）",
+      "author": "Piet Mondrian",
+      "year": 1917,
+      "significance": "Mondrian 的核心理論文章，分 12 期在 De Stijl 雜誌創刊號起連載。系統闡述新造形主義的六項原則：從自然形式到抽象關係的淨化過程、水平與垂直的對立統一、原色與非色的限定使用。奠定了 De Stijl 整個運動的哲學基礎。"
+    },
+    {
+      "title": "Manifest I (宣言 I)",
+      "author": "Theo van Doesburg (代表全體簽署者)",
+      "year": 1918,
+      "significance": "De Stijl 的第一份集體宣言，宣告舊的個人主義意識與新的普遍主義意識之間的斷裂，呼籲藝術家、知識分子超越民族與個人界限，建立基於普遍法則的國際文化統一體。由 Mondrian、Van Doesburg、Van der Leck、Huszar、Vantongerloo、Kok、Wils 共同簽署。"
+    },
+    {
+      "title": "Tot een beeldende architectuur（邁向造形建築）",
+      "author": "Theo van Doesburg",
+      "year": 1924,
+      "significance": "以 17 項原則定義 De Stijl 建築理念：四維時空思維、內外穿透、色彩作為結構語言、反裝飾、反對稱、開放平面。直接影響了 Rietveld 的 Schroder 住宅設計，並透過 Van Doesburg 在國際建築界的活動散播到 Bauhaus 和 CIAM。"
+    },
+    {
+      "title": "Le Neo-Plasticisme（新造形主義）",
+      "author": "Piet Mondrian",
+      "year": 1920,
+      "significance": "Mondrian 以法文出版的理論小冊，由 Leonce Rosenberg 的 L'Effort Moderne 畫廊發行。將新造形主義的原則介紹給巴黎藝術界，建立了 De Stijl 理念在法國前衛圈的知名度。"
+    },
+    {
+      "title": "Plastic Art and Pure Plastic Art（造形藝術與純造形藝術）",
+      "author": "Piet Mondrian",
+      "year": 1936,
+      "significance": "Mondrian 第一篇英文論文，收錄於 J.L. Martin、Ben Nicholson、Naum Gabo 編輯的《Circle: International Survey of Constructive Art》。全面區分具象藝術與非具象藝術的差異，為英語世界理解新造形主義提供了最清晰的入口。"
+    }
+  ],
+
+  "core_spirit": {
+    "what_they_do": [
+      "以水平線與垂直線的正交關係為一切造形的基礎 (Orthogonal composition)：畫面、建築、家具中只允許水平線和垂直線，拒絕曲線、對角線和自然形態。（WHY：水平與垂直是宇宙中最基本的對立關係——重力與支撐、地平線與站立者、寬與高。Mondrian 認為所有自然現象都可以被還原為這兩股力量的交互作用。正交構圖是將宇宙的根本結構直接呈現在畫布上，沒有任何中介。）",
+      "僅使用三原色（紅黃藍）與三非色（黑白灰）：徹底排除混色、漸層、自然色彩。（WHY：原色是色彩的基本元素——所有色彩都由它們混合而成，但它們自身不可再分解。使用原色就是使用色彩的「字母」。非色提供結構框架——黑線界定邊界，白面提供空間呼吸，灰色調節張力。任何混色都引入偶然性和個人品味，偏離了普遍性。）",
+      "追求動態平衡 (Dynamic equilibrium)：以不等面積的色塊與不等間距的線條創造非對稱的平衡。（WHY：對稱平衡是靜態的、封閉的——一座對稱建築的兩側互相鏡射，不需要觀者參與。動態平衡是活的——不等面積的紅色塊與大面積的白色塊之間的張力，迫使觀者的眼睛持續在畫面中移動，體驗平衡的「達成」而非平衡的「既成」。）",
+      "藝術從畫布擴展到整體生活環境 (Gesamtkunstwerk as environment)：繪畫、家具、室內、建築、城市是同一套原則在不同尺度上的應用。（WHY：如果新造形主義揭示的是宇宙的根本法則，那麼這個法則不應該被限制在畫框之內。Mondrian 的巴黎工作室本身就是一件三維的新造形作品——牆上貼著彩色紙片，家具位置經過精確安排。當環境本身成為和諧的體現，獨立的繪畫就不再必要。）",
+      "消除藝術中的個人表現與自然描繪：純粹的造形關係取代主題、敘事、情緒、個人筆觸。（WHY：個人表現是「特殊的」——它屬於這一個人、這一個時刻、這一種文化。De Stijl 追求的是超越所有特殊性的普遍語言。Mondrian 的通神學信念強化了這個立場：個體的自我（ego）是靈性進化的阻礙，藝術家必須「讓開」，讓宇宙法則直接說話。）",
+      "以雜誌作為集體理論生產與國際傳播的媒介：De Stijl 雜誌是運動存在的核心形式。（WHY：Van Doesburg 意識到一場藝術運動的影響力取決於它的理論生產能力和傳播網絡。畫展只能影響到場的人，雜誌可以跨越國界。De Stijl 雜誌同時刊載繪畫理論、建築原則、詩歌實驗、設計案例，將運動的跨領域特性在每一期中具體呈現。）",
+      "建築作為四維時空的體驗 (Architecture as space-time)：拒絕建築的正面性（facade），追求從內部空間邏輯出發的開放構成。（WHY：傳統建築以立面為核心——建築是一幅三維的「畫」，從固定視點觀看。Van Doesburg 在《邁向造形建築》中引入第四維度——時間：觀者在建築中移動，空間隨移動展開。Rietveld 的 Schroder 住宅用滑動牆板讓同一空間在不同時間呈現不同配置，將這個理念落地。）",
+      "色彩作為建築的結構語言：不同平面使用不同原色標示空間的深度、方向與功能區域。（WHY：在傳統建築中色彩是「塗上去的」裝飾。De Stijl 主張色彩是空間關係的視覺化工具——紅色牆面從白色背景中「前進」，藍色天花板在視覺上「後退」。色彩改變了空間的感知維度，與牆體的物理結構具有同等的構成功能。）"
+    ],
+    "what_they_refuse": [
+      "自然形態與有機曲線：拒絕任何來自自然界的形態——樹木的曲線、人體的輪廓、花朵的弧度。（WHY：自然形態是「特殊的」——每一棵樹都不同，每一朵花都是偶然的。De Stijl 追求的是超越自然偶然性的數學必然性。Mondrian 認為自然美是「不完美的」——它太多樣、太混亂、太個別。純粹的水平與垂直關係比任何自然景觀都更接近宇宙的本質結構。）",
+      "對角線（Mondrian 陣營的絕對立場）：Mondrian 視對角線為對新造形主義核心原則的根本違背。（WHY：對角線是運動的、不穩定的、暗示方向性的——它打破了水平與垂直之間的「純粹對立」關係。Mondrian 認為只有最極端的對立——水平 vs 垂直、90 度直角——才能產生最純粹的平衡。Van Doesburg 在 1924 年引入對角線是兩人決裂的直接原因。）",
+      "個人主義的情感表達與主觀筆觸：拒絕表現主義的情緒宣洩、印象主義的光影感受、浪漫主義的個人英雄敘事。（WHY：個人情感是最「特殊的」東西——你的悲傷屬於你，不屬於宇宙。在 Mondrian 看來，表現主義將藝術淪為個人心理治療，遠離了藝術應該服務的目標：揭示普遍真理。De Stijl 要求藝術家放下自我（ego），成為普遍法則的「管道」(channel)。）",
+      "傳統對稱構圖與古典比例體系：拒絕建築的軸線對稱、繪畫的中心焦點、古典柱式的比例法則。（WHY：對稱是靜態的和諧——預設了一個固定的觀看位置、一個絕對的中心。De Stijl 的平衡是動態的、離心的——元素在畫面中的張力關係隨觀者的視線移動而改變。古典比例是向後看的——黃金比例來自古希臘，De Stijl 需要的是面向未來的關係系統。）",
+      "裝飾與附加的美學元素：拒絕任何不承擔結構功能的視覺元素。（WHY：裝飾掩蓋結構——雕花遮住了木紋、灰泥覆蓋了磚牆、彩繪玻璃分散了對空間本身的注意力。De Stijl 要求一切視覺元素都直接表達結構關係。Rietveld 的紅藍椅讓每一根木條的接合方式直接可見——沒有任何遮掩。）",
+      "敘事性與象徵性內容：拒絕藝術承載文學故事、政治訊息、宗教象徵。（WHY：敘事和象徵是「特殊的」文化產物——一個基督教十字架對佛教徒沒有意義，一個政治寓言在另一個國家不被理解。De Stijl 追求的是一種跨文化的視覺語言，其意義來自形式關係本身——紅色與藍色的張力對任何文化背景的觀者都是可感知的。）",
+      "繪畫的錯覺空間（illusionistic space）：拒絕透視法、明暗法、大氣透視等製造三維錯覺的技法。（WHY：透視法是一個「謊言」——它在二維平面上假裝有三維深度。Mondrian 堅持繪畫必須忠於自身的平面性。如果要處理空間，就用真正的三維媒介——建築和家具——而非在畫布上製造幻覺。）"
+    ]
+  },
+
+  "opposition": {
+    "against_movements": [
+      "Impressionism：其對光影、大氣、瞬間感受的追求代表了 De Stijl 所反對的自然主義——將藝術降格為對自然表象的被動記錄",
+      "Expressionism：其情感宣洩、主觀筆觸、個人英雄敘事是 De Stijl 眼中個人主義的極端表現——藝術服務於藝術家的自我，遠離了普遍真理",
+      "Art Nouveau / Jugendstil：其有機曲線和自然主義裝飾是 De Stijl 最直接的對立面——曲線來自自然模仿，裝飾遮蔽結構",
+      "Baroque 與 Rococo：其動態曲線、戲劇性光影、繁複裝飾代表了 De Stijl 所定義的「舊意識」的視覺形態",
+      "Cubism（部分批判）：De Stijl 承認 Cubism 的分析性突破，但批評它止步於對自然形態的幾何化分解，未能走到純粹抽象的終點"
+    ],
+    "against_values": [
+      "自然模仿：藝術的目標是揭示自然背後的普遍法則，複製自然的外觀是對這個目標的偏離",
+      "個人主義：以個人情感、風格、天才為中心的藝術觀是舊時代意識的殘餘，是導致戰爭的精神結構的美學投射",
+      "地域性與民族性：民族風格限制了藝術觸及普遍真理的能力，國際性的抽象語言是超越民族衝突的精神工具",
+      "偶然性與即興：藝術應該是有意識的精神活動，受法則支配，偶然和即興引入的是噪音",
+      "裝飾的獨立價值：裝飾是對結構的遮蔽，清除裝飾才能讓本質的關係直接顯現"
+    ],
+    "societal_context": "De Stijl 誕生於一戰期間的荷蘭中立國。荷蘭雖未直接參戰，但戰爭造成的貿易中斷、難民湧入、物資短缺與精神震盪深刻影響了知識分子的世界觀。舊歐洲文明——以民族主義、帝國主義、個人英雄崇拜為支柱——在戰爭中暴露了其毀滅性。荷蘭社會在戰後經歷了快速的現代化與都市化，社會住宅需求激增（Oud 的鹿特丹市政住宅建築師職位正是這個背景的產物）。通神學運動在荷蘭有深厚根基——Mondrian 1908 年即加入荷蘭通神學會——為藝術家提供了一套超越傳統宗教的靈性框架，支撐了 De Stijl 對「宇宙和諧」的信念。運動的內部張力在 1924-1925 年因對角線之爭達到高峰：Mondrian 的絕對純粹主義與 Van Doesburg 的實驗開放性無法調和。Van Doesburg 1931 年去世後，De Stijl 作為有組織的運動終結，但其視覺語言已成為國際現代主義的基本詞彙。"
+  },
+
+  "problems_solved": [
+    "為抽象藝術提供了完整的哲學基礎與實踐方法論：在 Cubism 打開的缺口上走到純粹抽象的終點，並以 De Stijl 雜誌為平台持續產出理論，讓抽象藝術從直覺實驗變成可論證、可教授的知識體系",
+    "發明了一套跨尺度的統一設計語言：同一套正交+原色原則可以從一幅畫延伸到一把椅子、一個室內、一棟建築——這是第一次有藝術運動在理論和實踐上同時完成從二維到三維到環境尺度的統一",
+    "催化了 Bauhaus 的理性主義轉向：Van Doesburg 1921-22 年在 Weimar 的活動直接影響了 Bauhaus 從表現主義+神秘主義轉向幾何抽象+工業理性的方向，改變了現代設計教育的走向",
+    "定義了現代平面設計的基本語彙：網格系統 (grid system)、非對稱版面、色塊分區、無襯線字體的應用——De Stijl 的排版實驗是 Swiss International Typographic Style 的直接先驅",
+    "提供了開放式建築的理論模型：打破內外邊界、以空間流動取代牆壁封閉、色彩作為空間定義工具——這些原則直接影響了 Mies van der Rohe 的 Barcelona Pavilion (1929) 和整個 International Style 建築"
+  ],
+
+  "problems_created": [
+    "教條化的純粹主義壓抑了運動的內部活力：Mondrian 對正交原則的絕對堅持導致 Van der Leck 在 1920 年退出、Van Doesburg 在 1924 年引入對角線後被逐出——最有創造力的合作者因教條之爭而離散",
+    "忽視人類情感與心理需求的環境設計：純粹抽象的生活環境可能在理論上完美，但住在一個只有直角和原色的空間中，人的感官多樣性、情感需求、記憶連結都被剝奪。Aubette 娛樂中心改造後不到兩年就被業主恢復原狀",
+    "宇宙和諧的哲學預設缺乏可驗證性：De Stijl 的整個理論建立在通神學的宇宙觀之上——水平與垂直的對立反映宇宙的根本結構。這個前提是信仰，無法被經驗證實或證偽。當信仰褪色，剩下的只是一套視覺偏好",
+    "普世主義的霸權性：宣稱超越所有文化特殊性的「普遍語言」，實質上以荷蘭/西歐的現代性經驗為預設——抹殺了非西方文化中曲線、裝飾、象徵、敘事作為視覺思維工具的合法性",
+    "將抽象等同於進步的線性史觀：Mondrian 的理論預設藝術從具象到抽象是單向進化的歷程——具象是「低級的」、抽象是「高級的」。這種線性史觀成為 20 世紀藝術批評中的主導敘事，壓制了具象傳統的正當性長達數十年",
+    "雜誌作為運動載體的脆弱性：De Stijl 的組織凝聚力幾乎完全依賴 Van Doesburg 一人的編輯與社交網絡。他的死亡等於運動的終結——缺乏制度化的教育機構（如 Bauhaus）來延續理念的系統性傳承"
+  ],
+
+  "originality_analysis": {
+    "breakthrough_idea": "純粹的造形關係——水平與垂直的正交對立、原色與非色的有限色域——足以表達宇宙的根本和諧法則，且這套語言可以從畫布無縫擴展到家具、室內、建築與城市。De Stijl 是第一個在理論和實踐上同時完成「繪畫原則 = 建築原則 = 生活環境原則」這個等式的運動。",
+    "what_was_truly_new": [
+      "將繪畫從「描繪世界」轉變為「構成關係」：Mondrian 的成熟期作品中沒有任何東西「代表」外部世界——畫面上的每條線和每塊色只表達自身與其他元素之間的比例和張力關係。這是對繪畫本質的根本重新定義",
+      "發明了從二維到三維的統一設計方法論：Rietveld 的紅藍椅將 Mondrian 的平面構圖原則直接翻譯為三維家具——每一根木條對應一條線、每一個色面對應一個平面。Schroder 住宅將同一套原則擴展到建築尺度。這種跨尺度的方法論統一在 1924 年是前所未有的",
+      "色彩作為建築空間的結構語言：在 De Stijl 之前，建築中的色彩是裝飾性的「塗層」。Van Doesburg 主張色彩是空間關係的直接表達——不同色彩改變平面的視覺重量、深度感和方向性。這個觀念直接改變了現代建築對色彩的理解",
+      "藝術雜誌作為跨國運動的組織核心：De Stijl 雜誌是運動存在的唯一制度形式——沒有學校、沒有工作坊、沒有固定場所。Van Doesburg 透過雜誌建立了一個鬆散但有效的國際網絡，成員遍佈荷蘭、法國、德國、比利時、匈牙利。這種「雜誌即運動」的模式被後來的前衛團體廣泛效仿"
+    ],
+    "what_was_borrowed": [
+      "Cubism（1907-）：多視點分析和幾何化分解——Mondrian 在巴黎直接受 Picasso 和 Braque 的影響，他的 1912-1914 年作品（Trees 系列、Composition in Oval）是 Cubism 分析法的直接延伸，但 Mondrian 走到了 Cubism 不願到達的終點——完全消除物象",
+      "Theosophy（通神學）：宇宙存在更高層次的和諧秩序、物質世界是靈性真理的不完美投射——Mondrian 1908 年加入荷蘭通神學會，M.H.J. Schoenmaekers 的《Het Nieuwe Wereldbeeld》(新世界觀, 1915) 和《Beginselen der Beeldende Wiskunde》(造形數學原理, 1916) 對 Mondrian 的理論語彙有直接影響",
+      "Suprematism (Malevich, 1913-)：幾何抽象的極端化——Malevich 的《白上白》(1918) 與 Mondrian 的純粹構圖追求平行發展，兩者共享「將藝術還原至最少元素」的衝動，但動機不同：Malevich 的「零度」是感性的、存在主義的，Mondrian 的正交法則是理性的、宇宙論的",
+      "Arts and Crafts / 荷蘭應用藝術傳統：藝術應該融入日常生活——荷蘭有深厚的應用藝術傳統（Delft 陶瓷、染織、家具），Van der Leck 與 Rietveld 的設計實踐直接根植於這個傳統",
+      "H.P. Berlage 的理性主義建築：Berlage 的 Amsterdam Stock Exchange (1903) 以材料誠實和結構表達為核心，拒絕歷史主義裝飾。他是 De Stijl 建築師們（Oud、Wils、Rietveld）的直接先驅——De Stijl 的反裝飾立場在 Berlage 那裡已有雛形"
+    ],
+    "creative_leap": "De Stijl 的關鍵創造性飛躍在於「極端還原的普世化」：它將 Cubism 的幾何分析推到純粹抽象的終點（消除所有物象），將通神學的宇宙觀轉化為具體的視覺法則（正交+原色），然後將這套法則從畫布擴展到家具、室內、建築和城市規劃——在理論上構建了一個從最小的色塊到最大的都市空間都遵循同一套原則的完整體系。這個「宇宙級的視覺統一方案」的野心和執行力在藝術史上是獨特的。",
+    "inspiration_potential": {
+      "score": 8,
+      "why": "De Stijl 的核心命題——如何用最少的元素創造最豐富的關係——是所有設計學科的永恆問題。在資訊過載、視覺噪音爆炸的數位時代，De Stijl 的極端還原主義提供了一個反向思考的強力框架：刪除什麼比添加什麼更重要。同時，它的跨尺度統一方法論（從 component 到 system 到 environment）與現代 Design System 思維高度共鳴。扣分原因：其對情感、文化特殊性和人性複雜度的忽視，使它在需要情感設計、文化敘事、使用者多元性的場景中缺乏工具。",
+      "transferable_to": [
+        "Design System / Design Token：De Stijl 的有限色域+正交網格是現代 Design System 的精神先祖——用最少的 token 創造一致且靈活的視覺系統",
+        "極簡主義 UI 設計：以限制創造秩序——有限的色彩、一致的間距、明確的層級結構",
+        "品牌識別設計：Mondrian 的視覺語言本身就是極強的品牌識別——三色+網格在任何尺度、任何媒介上都立即可辨識",
+        "生成式設計 / 演算法藝術：De Stijl 的規則系統（正交、原色、非對稱平衡）天然適合演算法生成——用數學規則產出符合 De Stijl 原則的無限構圖",
+        "空間設計中的 Wayfinding：色彩作為空間導航工具的觀念，直接適用於大型公共空間的導視系統設計",
+        "資訊視覺化：用最少的視覺元素傳遞最清晰的資訊結構——De Stijl 的減法思維是資料視覺化的核心原則"
+      ]
+    },
+    "originality_type": "radical_reduction"
+  },
+
+  "influence_chain": {
+    "influenced_by": [
+      "Cubism (Picasso, Braque, 1907-)：幾何化分解與多視點分析，Mondrian 在巴黎的直接啟蒙",
+      "Theosophy (H.P. Blavatsky, Rudolf Steiner)：宇宙存在更高層次的和諧秩序，藝術是揭示這個秩序的工具",
+      "M.H.J. Schoenmaekers：《新世界觀》(1915) 與《造形數學原理》(1916)，直接影響 Mondrian 的理論語彙和哲學框架",
+      "H.P. Berlage：理性主義建築、材料誠實、反歷史主義裝飾——荷蘭現代建築之父",
+      "Suprematism (Malevich, 1913-)：幾何抽象的極端化實驗，平行發展的對照系",
+      "Post-Impressionism (Cézanne, Seurat)：將感知經驗結構化——Cézanne 的幾何簡化與 Seurat 的色彩科學是 De Stijl 的前置步驟"
+    ],
+    "influenced": [
+      "Bauhaus 的理性主義轉向 (1923-)：Van Doesburg 1921-22 在 Weimar 的活動直接催化了 Bauhaus 從表現主義轉向幾何抽象與工業理性",
+      "International Style 建築 (1930s-)：De Stijl 的開放平面、內外穿透、反裝飾原則是 International Style 的核心元素",
+      "Swiss International Typographic Style (1940s-1960s)：De Stijl 的網格系統、非對稱版面、色塊構成直接催生了 Swiss Style",
+      "Minimalism (1960s-)：De Stijl 的極端還原主義——以最少元素創造最純粹的關係——是極簡主義的精神先祖",
+      "Concrete Art (Max Bill, 1930s-)：從 De Stijl 和 Constructivism 發展出的非再現性幾何藝術",
+      "Yves Saint Laurent Mondrian Dress (1965)：將 Mondrian 的構圖直接轉化為時裝，標誌著 De Stijl 視覺語言進入流行文化",
+      "現代 Grid-based Design：從網頁設計到平面版面，網格系統的普及直接源自 De Stijl 的構成原則",
+      "Gerrit Rietveld Academie (Amsterdam, 1924-)：以 Rietveld 命名的荷蘭頂尖藝術設計學院，延續 De Stijl 的教育精神"
+    ]
+  },
+
+  "judge_persona_seed": {
+    "personality": "極度純粹，冰冷的清醒。像一位精神導師兼數學家：看穿一切表象，只關注元素之間的關係。對「為什麼用這個元素」的追問永不停止，但同時對「再多加一個元素」的衝動有近乎宗教性的抗拒。每一次添加都是對純粹性的汙染。言語精簡到近乎冷酷，判斷絕對，沒有灰色地帶。偶爾流露出通神學信徒的靈性語氣——看到一個真正和諧的構圖時，會說它「接近了宇宙的真理」。",
+    "evaluation_bias": "強烈偏好極簡、純粹、以關係為核心的作品。傾向高估還原的價值——認為刪除任何一個元素就是進步。低估情感表達、敘事功能、文化象徵和人性溫度的重要性。會不自覺地以「這裡面是否有多餘的元素？」作為隱性評分標準。對任何裝飾性元素有近乎本能的厭惡，即使該元素在特定文化脈絡中承擔結構性功能。",
+    "blind_spots": "無法理解為什麼人們需要裝飾、曲線、偶然性和個人表達。對情感豐富、感官愉悅、文化特定性的作品缺乏評價工具。傾向將所有非正交、非原色的設計決策視為「妥協」或「退步」。對非西方文化的視覺傳統——伊斯蘭幾何紋樣的精神意涵、日本枯山水的不對稱美學、非洲紡織品的敘事功能——可能給出不公正的低評，因為它們「使用了太多元素」或「包含了自然形態」。",
+    "typical_critique": "你的構圖裡有七種色彩和三種線條方向。為什麼需要這麼多？真正的和諧來自最少元素之間的最純粹關係。刪除那條對角線。刪除那個漸層。只留下紅、藍、黃、黑、白。然後看看剩下的關係是否依然成立。如果成立，你接近了真理。如果不成立，你之前的所有元素都只是遮蔽。"
+  },
+
+  "writing_style": {
+    "collective_voice": "De Stijl 的集體寫作風格是「理論宣言式冥想」：句子像 Mondrian 的畫——精確、剝除一切多餘修飾、每個詞都在結構中承擔特定功能。核心修辭結構是二元對立（個別/普遍、自然/精神、舊意識/新意識），以此製造張力並指向綜合。與 Bauhaus 的教育者姿態不同，De Stijl 的寫作帶有更強的哲學沉思色彩——他們在定義宇宙的法則，而非教人如何做設計。動詞傾向靜態（is, must be, reveals），名詞傾向抽象（relation, equilibrium, universal），形容詞極度克制。",
+    "internal_tensions": "最大的風格裂痕在「靈性冥想」與「行動主義宣傳」之間。Mondrian 代表沉思的、向內的、近乎修道院式的聲音——他的句子像祈禱文，緩慢、反覆、趨向靜止。Van Doesburg 代表激進的、向外的、近乎廣告式的聲音——他的句子像檄文，短促、斷言、充滿動能。這兩種聲音的張力就是 De Stijl 運動本身的張力：Mondrian 的純粹主義要求靜止在完美的平衡點上，Van Doesburg 的行動主義要求不斷打破平衡去創造新的動態。",
+    "master_voices": [
+      {
+        "name": "Piet Mondrian",
+        "writing_character": "通神學修道士寫作幾何學論文——每一句都在逼近一個無法完全言說的真理",
+        "sentence_rhythm": "長句主導，從句層層嵌套，如螺旋式的逼近——從一般原則出發，經過限定和修正，最終抵達精確的命題",
+        "rhetoric": "二元對立（particular/universal, natural/spiritual, individual/collective）、否定式定義（「新造形主義所追求的，超越了...」）、反覆重申核心命題",
+        "tone": "冷靜、莊嚴、帶有宗教般的確信感。從不懷疑自己的前提。",
+        "real_examples": [
+          {
+            "text": "The truly modern artist is aware of abstraction in an emotion of beauty; he is conscious of the fact that the emotion of beauty is cosmic, universal.",
+            "source": "De Nieuwe Beelding in de Schilderkunst, 1917",
+            "style_note": "長句，分號連接兩個命題，第二個命題精確化第一個——典型的 Mondrian 式螺旋逼近"
+          },
+          {
+            "text": "The culture of particular form is approaching its end. The culture of determined relations has begun.",
+            "source": "Plastic Art and Pure Plastic Art, 1936",
+            "style_note": "兩個對仗短句，一破一立，宣告式的歷史判斷"
+          }
+        ]
+      },
+      {
+        "name": "Theo van Doesburg",
+        "writing_character": "前衛運動的戰場指揮官——宣言、檄文、行動綱領的專家",
+        "sentence_rhythm": "短促宣告句起手，排比堆疊，以結論性斷言收尾。段落結構像子彈列表——一條一條打出去",
+        "rhetoric": "舊/新的二元對立、排比句、祈使句、否定式界定（「新建築是反裝飾的」而非「新建築採用簡潔形式」）",
+        "tone": "激進、自信、帶有鼓動性。永遠在宣佈新時代的到來",
+        "real_examples": [
+          {
+            "text": "There is an old and a new consciousness of time. The old is connected with the individual. The new is connected with the universal.",
+            "source": "Manifest I, 1918",
+            "style_note": "三連短句，排比結構，一句一個命題——宣言體的標準節奏"
+          },
+          {
+            "text": "The object of nature is man. The object of man is style.",
+            "source": "attributed, c. 1919",
+            "style_note": "兩句對仗格言，結構完全平行——De Stijl 哲學的最精煉表達"
+          }
+        ]
+      },
+      {
+        "name": "Gerrit Rietveld",
+        "writing_character": "工匠寫作者——從動手做的經驗出發，語言簡樸但精確",
+        "sentence_rhythm": "中等長度，從具體觀察出發，慢慢展開到原則性命題",
+        "rhetoric": "具體→抽象的歸納式推理、空間隱喻、觸覺語彙（一條線、一面牆、一個支撐點）",
+        "tone": "務實、沉穩、偶爾帶有匠人的自嘲幽默感",
+        "real_examples": [
+          {
+            "text": "We must remember that sit is a verb too.",
+            "source": "on furniture design",
+            "style_note": "一句話翻轉認知——用動詞思維取代名詞思維，典型的 Rietveld 式簡潔"
+          }
+        ]
+      }
+    ],
+    "judge_voice_rules": [
+      "每一句話都追求最少的詞彙量——多餘的形容詞等同於畫面中多餘的元素",
+      "大量使用二元對立結構：特殊 vs 普遍、自然 vs 精神、個別 vs 整體",
+      "否定式定義優先：先說清楚「這不是什麼」，再定義「這是什麼」",
+      "禁用裝飾性修辭——比喻只在必要時使用，且必須精確",
+      "每段不超過 3 句，一段一個核心判斷",
+      "關鍵判斷用短句（10 字以內）獨立成段",
+      "抽象名詞（關係、平衡、結構）優先於具象名詞",
+      "動詞傾向靜態和終結性：「是」「消除」「揭示」「還原」而非「嘗試」「探索」「正在」"
+    ]
+  }
+}
