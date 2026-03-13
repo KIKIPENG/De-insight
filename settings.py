@@ -779,8 +779,11 @@ class SettingsScreen(ModalScreen[str | None]):
 
     def _toggle_persona(self, persona_id: str) -> None:
         """切換 persona 啟用狀態並刷新列表。"""
-        from persona.store import toggle_persona
+        from persona.store import toggle_persona, get_active_ids
         now_active = toggle_persona(persona_id)
+        # 同步更新 self._env，避免後續 save_env(self._env) 覆蓋掉 ACTIVE_PERSONAS
+        active_ids = get_active_ids()
+        self._env["ACTIVE_PERSONAS"] = ",".join(active_ids) if active_ids else ""
         self._persona_changed = True  # Fix #7
         name = persona_id
         try:
